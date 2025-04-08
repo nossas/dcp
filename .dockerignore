@@ -1,8 +1,8 @@
 .git/
 mariadb_data/
 mariadb_data/*
-themes/hacklab-theme/node_modules/
+themes/nossas-dcp/node_modules/
 *.sql*
-themes/hacklab-theme/dist/app.js
-themes/hacklab-theme/dist/app.css
+themes/nossas-dcp/dist/app.js
+themes/nossas-dcp/dist/app.css
 
