@@ -9,7 +9,7 @@ stages:
 
 variables:
   KUBECONFIG: /etc/k8s-config
-  THEME_NAME: nossas-dcp
+  THEME_NAME: dcp
   NAMESPACE_DEV: base-theme-site-dev
   NAMESPACE_PROD: base-theme-site-prod
   AUTH: JOB-TOKEN:$CI_JOB_TOKEN

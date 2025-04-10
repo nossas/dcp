@@ -61,7 +61,7 @@ git pull temaBase develop
 
 ### Compilando os assets do tema
 
-Abra um terminal, vá até a a pasta `themes/nossas-dcp/` e execute os comandos abaixo:
+Abra um terminal, vá até a a pasta `themes/dcp/` e execute os comandos abaixo:
 
 ```bash
 npm install
@@ -177,7 +177,7 @@ Além disso precisamos ter um link simbolico na raiz do repo apontando para o ar
 
 Para que a estrutura dos arquivos do repositório siga esse padrão você deve executar, logo após clonar, o script dev-scripts/cria-tema.sh que faz as seguintes alterações:
 - altera a pasta do tema
-- substitui em massa a string nossas-dcp pelo novo nome
+- substitui em massa a string dcp pelo novo nome
 - cria o link simbolico entre /themes/novo-nome/style.css e /style.css
 - altera a versão do tema para 0.1
 

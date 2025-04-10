@@ -2,5 +2,5 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 CDIR=$( pwd )
 cd $DIR/../themes
-rm -f ../zips/nossas-dcp.zip
-zip -r ../zips/nossas-dcp.zip nossas-dcp -x "nossas-dcp/node_modules/*"
+rm -f ../zips/dcp.zip
+zip -r ../zips/dcp.zip dcp -x "dcp/node_modules/*"

@@ -18,7 +18,7 @@ services:
       WORDPRESS_DEBUG: 1
     volumes:
       - ./wp-root:/var/www/html/
-      - ./themes/nossas-dcp:/var/www/html/wp-content/themes/nossas-dcp
+      - ./themes/dcp:/var/www/html/wp-content/themes/dcp
       - ./plugins/dcp-plugin/:/var/www/html/wp-content/plugins/dcp-plugin/
       - ./plugins/hacklab-dev-utils:/var/www/html/wp-content/plugins/hacklab-dev-utils
       - ./compose/local/wordpress/htaccess:/var/www/html/.htaccess
@@ -32,7 +32,7 @@ services:
       context: .
       dockerfile: ./compose/local/watcher/Dockerfile
     volumes:
-      - ./themes/nossas-dcp:/app
+      - ./themes/dcp:/app
 
   mariadb:
     image: mariadb:10.4
