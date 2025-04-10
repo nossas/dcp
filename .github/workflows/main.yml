@@ -8,8 +8,8 @@ on:
       - '*'
 env:
   THEME_NAME: dcp
-  CURL_URL: https://helmtestec1.hacklab.com.br/
-  DEPLOY: 0
+  CURL_URL: https://nossasdcp.hacklab.com.br/
+  DEPLOY: 1
 
 jobs:
   build_assets:
