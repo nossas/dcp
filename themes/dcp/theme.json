@@ -174,19 +174,19 @@
             ],
             "fontFamilies": [
                 {
-                    "name": "Bonoco",
-                    "slug": "bonoco",
-                    "fontFamily": "'Bonoco', sans-serif"
+                    "name": "Primary",
+                    "slug": "primary",
+                    "fontFamily": "'Gabarito'"
                 },
                 {
-                    "name": "System",
+                    "name": "Secondary",
                     "slug": "secondary",
-                    "fontFamily": "sBonoco, sans-serif"
+                    "fontFamily": "'Gabarito'"
                 },
                 {
                     "name": "Title",
                     "slug": "heading",
-                    "fontFamily": "'Montserrat', sans-serif"
+                    "fontFamily": "'Bonoco', sans-serif"
                 }
             ]
         },
