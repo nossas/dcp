@@ -11,32 +11,32 @@
                 {
                     "name": "Primary pure",
                     "slug": "primary-pure",
-                    "color": "#1DACE4"
+                    "color": "#235540"
                 },
                 {
                     "name": "Primary light",
                     "slug": "primary-light",
-                    "color": "#C2ECFB"
+                    "color": "#50B15C"
                 },
                 {
                     "name": "Primary dark",
                     "slug": "primary-dark",
-                    "color": "#007CB8"
+                    "color": "#51B2AF"
                 },
                 {
                     "name": "Secondary pure",
                     "slug": "secondary-pure",
-                    "color": "#333333"
+                    "color": "#FC7753"
                 },
                 {
                     "name": "Secondary light",
                     "slug": "secondary-light",
-                    "color": "#C9C9C9"
+                    "color": "#F9F3EA"
                 },
                 {
                     "name": "Secondary dark",
                     "slug": "secondary-dark",
-                    "color": "#111111"
+                    "color": "#281414"
                 },
                 {
                     "name": "Highlight pure",
@@ -86,7 +86,7 @@
                 {
                     "name": "Warning pure",
                     "slug": "warning-pure",
-                    "color": "#FF358B"
+                    "color": "#FFB300"
                 },
                 {
                     "name": "Warning light",
@@ -96,7 +96,7 @@
                 {
                     "name": "Warning dark",
                     "slug": "warning-dark",
-                    "color": "#C6005E"
+                    "color": "#B83D13"
                 },
                 {
                     "name": "Helper pure",
@@ -132,46 +132,56 @@
                     "size": "4rem"
                 },
                 {
-                    "name": "Extra big",
+                    "name": "Extra large",
                     "slug": "xx-large",
-                    "size": "2rem"
+                    "size": "3rem"
                 },
                 {
                     "name": "Very large",
                     "slug": "x-large",
-                    "size": "1.5rem"
+                    "size": "2.5rem"
                 },
                 {
                     "name": "Big",
                     "slug": "large",
-                    "size": "1.25rem"
+                    "size": "2rem"
                 },
                 {
                     "name": "Average",
                     "slug": "medium",
-                    "size": "1rem"
+                    "size": "1.5rem"
                 },
                 {
                     "name": "Small",
                     "slug": "small",
-                    "size": "0.875rem"
+                    "size": "1.25rem"
                 },
                 {
                     "name": "Too small",
                     "slug": "x-small",
+                    "size": "1rem"
+                },
+                {
+                    "name": "very Small",
+                    "slug": "xx-small",
+                    "size": "0.875rem"
+                },
+                {
+                    "name": "extra Small",
+                    "slug": "xxx-small",
                     "size": "0.75rem"
                 }
             ],
             "fontFamilies": [
                 {
-                    "name": "Primary",
-                    "slug": "primary",
-                    "fontFamily": "'Open Sans', sans-serif"
+                    "name": "Bonoco",
+                    "slug": "bonoco",
+                    "fontFamily": "'Bonoco', sans-serif"
                 },
                 {
                     "name": "System",
                     "slug": "secondary",
-                    "fontFamily": "system-ui, sans-serif"
+                    "fontFamily": "sBonoco, sans-serif"
                 },
                 {
                     "name": "Title",
