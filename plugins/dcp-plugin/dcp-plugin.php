@@ -6,15 +6,30 @@
  * Author: WordPress Wizard
  */
 
-add_action('rest_api_init', function () {
-    register_rest_route('riscos/v1', '/list', [
-        'methods'  => 'GET',
+ add_action('rest_api_init', function () {
+    register_rest_route('dcp/v1', '/riscos', [
+        'methods' => 'GET',
         'callback' => 'dcp_get_riscos',
-        'permission_callback' => '__return_true', // Endpoint público
+        'permission_callback' => '__return_true',
+        'args' => [
+            'per_page' => [
+                'required' => false,
+                'validate_callback' => function($value) {
+                    return is_numeric($value);
+                },
+            ],
+            'page' => [
+                'required' => false,
+                'validate_callback' => function($value) {
+                    return is_numeric($value);
+                },
+            ],
+        ],
     ]);
 });
 
-function dcp_get_riscos() {
+
+function dcp_get_riscos($request) {
     $riscos = [
         [
             'id' => 1,
@@ -25,7 +40,8 @@ function dcp_get_riscos() {
             'endereco' => 'Av. Paulista, São Paulo, SP',
             'classificacao' => 'Alto',
             'descricao' => 'Deslizamento de terra reportado.',
-            'id_midias' => [1, 2],
+            'url_imagens' => ['https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg'],
+            'url_videos' => ['https://willow.art.br/VID_20250421_170928.mp4','https://willow.art.br/VID_20250421_170913.mp4'],
             'identificar' => true,
         ],
         [
@@ -37,7 +53,8 @@ function dcp_get_riscos() {
             'endereco' => 'Centro, Rio de Janeiro, RJ',
             'classificacao' => 'Médio',
             'descricao' => 'Enchente em rua principal.',
-            'id_midias' => [3],
+            'url_imagens' => ['https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg'],
+            'url_videos' => ['https://willow.art.br/VID_20250421_170928.mp4'],
             'identificar' => false,
         ],
         [
@@ -49,7 +66,8 @@ function dcp_get_riscos() {
             'endereco' => 'Asa Norte, Brasília, DF',
             'classificacao' => 'Baixo',
             'descricao' => 'Árvore caída próxima a escola.',
-            'id_midias' => [],
+            'url_imagens' => ['https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg'],
+            'url_videos' => ['https://willow.art.br/VID_20250421_170928.mp4','https://willow.art.br/VID_20250421_170913.mp4'],
             'identificar' => true,
         ],
         [
@@ -61,7 +79,8 @@ function dcp_get_riscos() {
             'endereco' => 'Centro Histórico, Porto Alegre, RS',
             'classificacao' => 'Alto',
             'descricao' => 'Incêndio em edifício abandonado.',
-            'id_midias' => [4, 5, 6],
+            'url_imagens' => ['https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg'],
+            'url_videos' => ['https://willow.art.br/VID_20250421_170928.mp4'],
             'identificar' => false,
         ],
         [
@@ -73,10 +92,89 @@ function dcp_get_riscos() {
             'endereco' => 'Aldeota, Fortaleza, CE',
             'classificacao' => 'Médio',
             'descricao' => 'Obstrução de via pública por alagamento.',
-            'id_midias' => [7],
+            'url_imagens' => ['https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg'],
+            'url_videos' => ['https://willow.art.br/VID_20250421_170928.mp4'],
             'identificar' => true,
         ],
+        [
+            'id' => 6,
+            'timestamp' => '2025-04-05T09:00:00',
+            'id_usuario' => 106,
+            'latitude' => -9.66599,
+            'longitude' => -35.735,
+            'endereco' => 'Jaraguá, Maceió, AL',
+            'classificacao' => 'Baixo',
+            'descricao' => 'Risco de curto-circuito após chuva intensa.',
+            'url_imagens' => ['https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg'],
+            'url_videos' => ['https://willow.art.br/VID_20250421_170928.mp4','https://willow.art.br/VID_20250421_170913.mp4'],
+            'identificar' => false,
+        ],
+        [
+            'id' => 7,
+            'timestamp' => '2025-04-04T18:15:00',
+            'id_usuario' => 107,
+            'latitude' => -12.9714,
+            'longitude' => -38.5014,
+            'endereco' => 'Pelourinho, Salvador, BA',
+            'classificacao' => 'Alto',
+            'descricao' => 'Desabamento parcial de imóvel antigo.',
+            'url_imagens' => ['https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg'],
+            'url_videos' => ['https://willow.art.br/VID_20250421_170928.mp4'],
+            'identificar' => true,
+        ],
+        [
+            'id' => 8,
+            'timestamp' => '2025-04-03T07:45:00',
+            'id_usuario' => 108,
+            'latitude' => -25.4284,
+            'longitude' => -49.2733,
+            'endereco' => 'Batel, Curitiba, PR',
+            'classificacao' => 'Médio',
+            'descricao' => 'Fumaça densa vinda de mata próxima.',
+            'url_imagens' => ['https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg'],
+            'url_videos' => ['https://willow.art.br/VID_20250421_170928.mp4'],
+            'identificar' => false,
+        ],
+        [
+            'id' => 9,
+            'timestamp' => '2025-04-02T13:00:00',
+            'id_usuario' => 109,
+            'latitude' => -10.9472,
+            'longitude' => -37.0731,
+            'endereco' => 'Centro, Aracaju, SE',
+            'classificacao' => 'Baixo',
+            'descricao' => 'Vazamento de água em avenida principal.',
+            'url_imagens' => ['https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg'],
+            'url_videos' => ['https://willow.art.br/VID_20250421_170928.mp4'],
+            'identificar' => true,
+        ],
+        [
+            'id' => 10,
+            'timestamp' => '2025-04-01T21:30:00',
+            'id_usuario' => 110,
+            'latitude' => -22.1183,
+            'longitude' => -51.3974,
+            'endereco' => 'Centro, Presidente Prudente, SP',
+            'classificacao' => 'Médio',
+            'descricao' => 'Rompimento de galeria pluvial.',
+            'url_imagens' => ['https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg','https://imgs.mongabay.com/wp-content/uploads/sites/29/2024/12/16154440/1280px-05.05.2024_-_Sobrevoo_das_areas_afetadas_pelas_chuvas_na_Regiao_metropolitana_de_Porto_Alegre.jpg'],
+            'url_videos' => ['https://willow.art.br/VID_20250421_170928.mp4','https://willow.art.br/VID_20250421_170913.mp4'],
+            'identificar' => false,
+        ],
     ];
+    
+    
+
+    $per_page = $request->get_param('per_page');
+    $page = $request->get_param('page');
+
+    // Se ambos os parâmetros estiverem definidos, aplica a paginação
+    if ($per_page && $page) {
+        $per_page = intval($per_page);
+        $page = intval($page);
+        $offset = ($page - 1) * $per_page;
+        $riscos = array_slice($riscos, $offset, $per_page);
+    }
 
     return rest_ensure_response($riscos);
 }
@@ -190,14 +288,6 @@ add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/risco-regiao', [
         'methods' => 'GET',
         'callback' => 'dcp_api_risco_regiao',
-        'args' => [
-            'regiao' => [
-                'required' => true,
-                'validate_callback' => function($param) {
-                    return is_string($param) && strlen($param) > 1;
-                },
-            ],
-        ],
         'permission_callback' => '__return_true',
     ]);
 });
