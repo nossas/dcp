@@ -5,8 +5,6 @@ services:
     tty: true
     depends_on:
       - mariadb
-    ports:
-      - 8080:80
     environment:
       WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST:-mariadb}
       WORDPRESS_DB_USER: ${MYSQL_USER:-wordpress}
@@ -28,3 +26,10 @@ services:
 volumes:
   mariadb_data:
   wp-root:
+
+# Todos os serviços devem pertencer a mesma rede para serem descobertos pelo Traefik
+networks:
+  default:
+    # Padronizar o nome da rede com o nome do domínio
+    name: web
+    external: true
