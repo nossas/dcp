@@ -1,0 +1,30 @@
+services:
+  wordpress:
+    image: ${WORDPRESS_DOCKER_IMAGE:-nossas/dcp-wp:feature-ci-portainer}
+    stdin_open: true
+    tty: true
+    depends_on:
+      - mariadb
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST:-mariadb}
+      WORDPRESS_DB_USER: ${MYSQL_USER:-wordpress}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD:-wordpress}
+      WORDPRESS_DEBUG: 1
+    volumes:
+      - wp-root:/var/www/html/
+
+  mariadb:
+    image: mariadb:10.4
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-therootpassword}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-wordpress}
+      MYSQL_USER: ${MYSQL_USER:-wordpress}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-wordpress}
+
+volumes:
+  mariadb_data:
+  wp-root:
