@@ -1,6 +1,6 @@
 services:
   wordpress:
-    image: ${WORDPRESS_DOCKER_IMAGE:-nossas/dcp-wp:feature-ci-portainer}
+    image: ${WORDPRESS_DOCKER_IMAGE:-nossas/dcp-wp:v0.0.1}
     stdin_open: true
     tty: true
     depends_on:
