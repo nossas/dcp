@@ -53,20 +53,23 @@
         }
     }
 
-    &__login-access{
-        background-color: $color--warning-dark !important;
-        color: $color--secondary-light !important;
-    }
-
     &__login-register,
     &__login-access{
         background-color: transparent;
         border: size(1) solid $color--warning-dark;
         border-radius: size(100);
         color: $color--warning-dark;
+        cursor: pointer;
         font-size: 16px;
         font-weight: $font-weight--medium;
         padding: size(10) size(24);
+
+        &:hover,
+        &:focus,
+        &:active{
+            background-color: $color--warning-dark !important;
+            color: $color--secondary-light !important;
+        }
     }
 
     &__menu-desktop {

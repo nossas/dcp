@@ -1,5 +1,5 @@
 .main-footer {
-    background-color: $color--primary-dark;
+    background-color: $color--secondary-dark;
     padding-bottom: $padding--large;
     padding-top: $padding--xx-large;
 
@@ -16,6 +16,45 @@
 
         .wp-block-heading {
             margin-block: $margin--small;
+        }
+    }
+
+    &__widget{
+
+        .footer-column1{
+
+            .wp-block-column{
+                & > p{
+                    color: $color--secondary-light;
+                    font-size: 14px;
+                }
+            }
+
+            .wp-block-column:last-child{
+                border-right: size(3) solid $color--secondary-light;
+                display: flex;
+                height: size(46);
+                justify-content: flex-end;
+                padding-right: size(5);
+            }
+        }
+
+        .footer-column2{
+            p{
+                color: $color--secondary-light;
+                font-size: 14px;
+                font-weight: $font-weight--bold;
+                margin-block-start: 0;
+            }
+
+            a{
+                text-decoration: none;
+            }
+        }
+
+        .copyright{
+            color: $color--secondary-light;
+            font-size: 14px;
         }
     }
 }
