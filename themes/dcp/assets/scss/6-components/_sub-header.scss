@@ -20,10 +20,14 @@
 
     &__container{
         display: flex;
-        gap: size(536);
+        gap: size(408);
         max-width: 100%;
         margin-left: auto;
         margin-right: auto;
+
+        @media (min-width: size(1500)) and (max-width: size(1900)){
+            gap: size(536);
+        }
     }
 
     &__icon{

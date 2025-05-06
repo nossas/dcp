@@ -22,7 +22,6 @@
     &__widget{
 
         .footer-column1{
-
             .wp-block-column{
                 & > p{
                     color: $color--secondary-light;
@@ -49,6 +48,20 @@
 
             a{
                 text-decoration: none;
+            }
+
+            .wp-block-column:last-child{
+                display: flex;
+                justify-content: flex-end;
+
+                & > h6{
+                    position: relative;
+                    right: size(-60);
+                }
+
+                .wp-block-group{
+                    display: flex;
+                }
             }
         }
 
