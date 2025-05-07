@@ -19,7 +19,7 @@
                 <div class="acessibilidade">
                     <a href="#"><iconify-icon icon="material-symbols-light:contrast"></iconify-icon></a>
                     <a href="#"><iconify-icon icon="mdi:format-font-size-increase"></iconify-icon></a>
-                    <a href="#"><iconify-icon icon="mdi:format-font-size-decrease"></iconify-icon></a> 
+                    <a href="#"><iconify-icon icon="mdi:format-font-size-decrease"></iconify-icon></a>
                     <a href="#"><iconify-icon icon="bi:volume-down-fill"></iconify-icon></a>
                     <a href="#"><iconify-icon icon="fa:print"></iconify-icon></a>
                 </div>
@@ -49,8 +49,15 @@
                     <?php endif; ?>
 				</div>
 
-                <div class="main-header-lateral__desktop-content">
-                    <?= wp_nav_menu(['theme_location' => 'main-menu', 'container' => 'nav', 'menu_class' => 'menu', 'container_class' => 'main-header-lateral__menu-desktop']) ?>
+
+                <div class="main-header-lateral__grid">
+                    <div class="main-header-lateral__desktop-content">
+                        <?= wp_nav_menu(['theme_location' => 'main-menu', 'container' => 'nav', 'menu_class' => 'menu', 'container_class' => 'main-header-lateral__menu-desktop']) ?>
+                    </div>
+
+                    <div class="main-header-lateral__login">
+                        <a href="#"><button class="main-header-lateral__login-access"><?= __('Login') ?></button></a>
+                    </div>
                 </div>
 
                 <div class="main-header-lateral__search">
@@ -69,5 +76,28 @@
             <?= wp_nav_menu(['theme_location' => 'main-menu', 'container' => 'nav', 'menu_class' => 'menu', 'container_class' => 'main-header-lateral__menu-mobile']) ?>
         </div>
 	</header>
+
+    <div class="sub-header">
+        <div class="sub-header__container">
+            <div class="sub-header__content-left">
+                <div class="sub-header__icon">
+                    <div class="warning"> <?= __('Atenção') ?> </div>
+                </div>
+                <div class="sub-header__content">
+                    <div class="advertment"> <?= __('Alagamento em algumas áreas do Jacarezinho. Evite locais de risco.') ?> </div>
+                </div>
+            </div>
+
+            <div class="sub-header__content-right">
+                <div class="sub-header__read-more">
+                    <a href="#"> <?= __('Saiba mais') ?> </a>
+                </div>
+
+                <div class="sub-header__close">
+                    <a href="#"> <?= __('X') ?> </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 	<div id="app">

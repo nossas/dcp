@@ -12,7 +12,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: $font-size--hero;
+    font-size: $font-size--xx-large;
 
     @include mobile {
         font-size: $font-size-mobile--hero;
@@ -20,7 +20,7 @@ h1 {
 }
 
 h2 {
-    font-size: $font-size--xx-large;
+    font-size: $font-size--x-large;
 
     @include mobile {
         font-size: $font-size-mobile--xx-large;
@@ -28,7 +28,7 @@ h2 {
 }
 
 h3 {
-    font-size: $font-size--x-large;
+    font-size: $font-size--large;
 
     @include mobile {
         font-size: $font-size-mobile--x-large;
@@ -36,7 +36,7 @@ h3 {
 }
 
 h4 {
-    font-size: $font-size--large;
+    font-size: $font-size--medium;
 
     @include mobile {
         font-size: $font-size-mobile--large;
@@ -44,7 +44,7 @@ h4 {
 }
 
 h5 {
-    font-size: $font-size--medium;
+    font-size: $font-size--small;
 
     @include mobile {
         font-size: $font-size-mobile--medium;
@@ -52,7 +52,7 @@ h5 {
 }
 
 h6 {
-    font-size: $font-size--small;
+    font-size: $font-size--x-small;
 
     @include mobile {
         font-size: $font-size-mobile--small;
@@ -60,7 +60,7 @@ h6 {
 }
 
 p {
-    font-size: $font-size--medium;
+    font-size: $font-size--x-small;
     line-height: $line-height--normal;
     text-wrap: pretty;
 }

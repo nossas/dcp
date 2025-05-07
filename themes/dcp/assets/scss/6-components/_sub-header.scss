@@ -1,0 +1,61 @@
+.sub-header{
+    background-color: $color--warning-pure;
+    display: flex;
+    min-height: size(40);
+
+    &__icon,
+    &__content-left,
+    &__content-right{
+        align-items: center;
+        display: flex;
+        gap: size(24);
+    }
+
+    &__content{
+        .advertment{
+            color: $color--secondary-dark;
+            font-size: 16px;
+        }
+    }
+
+    &__container{
+        display: flex;
+        gap: size(408);
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+
+        @media (min-width: size(1500)) and (max-width: size(1900)){
+            gap: size(536);
+        }
+    }
+
+    &__icon{
+        &::before{
+            content:  url('#{$path--theme}/assets/images/umbrella.png') !important;
+            display: block;
+            height: size(20);
+            width: size(20);
+        }
+
+        .warning{
+            text-transform: uppercase;
+            font-size: 16px;
+            font-weight: $font-weight--bold;
+            line-height: 1.2;
+        }
+    }
+
+    &__read-more{
+        color: $color--secondary-dark;
+        font-size: 16px;
+        font-weight: $font-weight--medium;
+    }
+
+    &__close {
+        a{
+            text-decoration: none;
+        }
+    }
+
+}

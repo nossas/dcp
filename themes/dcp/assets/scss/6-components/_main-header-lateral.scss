@@ -1,5 +1,5 @@
 .main-header-lateral {
-    box-shadow: $box-shadow--default;
+    background-color: $color--secondary-light;
 
     &__content {
         align-items: center;
@@ -20,13 +20,20 @@
     &__logo {
 
         img {
-            height: $font-size--hero;
-            width: auto;
+            height: auto;
+            max-width: size(78);
+            width: 100%;
         }
     }
 
-    &__search {
+    &__grid{
+        align-items: center;
         display: flex;
+        gap: $gap--large;
+    }
+
+    &__search {
+        display: none; //se houver necessidade da lupa de busca novamente, mudar pra flex
         gap: $gap--medium;
         position: relative;
 
@@ -46,6 +53,17 @@
         }
     }
 
+    &__login-access{
+        background-color: $color--primary-pure;
+        border: size(1) solid $color--primary-pure;
+        border-radius: size(100);
+        color: $color--secondary-light;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: $font-weight--medium;
+        padding: size(8) size(16);
+    }
+
     &__menu-desktop {
 
         ul,
@@ -54,16 +72,25 @@
             padding: 0;
         }
 
-        &>ul {
+        & > ul {
             align-items: center;
             display: flex;
-            gap: $gap--medium;
+            gap: $gap--large;
         }
 
         li {
+            color: $color--secondary-dark;
+            font-size: 16px;
+            font-weight: $font-weight--regular;
+            line-height: 1.6;
             list-style: none;
-            font-size: $font-size--small;
-            font-weight: $font-weight--bold;
+
+            &:hover,
+            &:focus,
+            &:active{
+                border-bottom: size(2) solid $color--secondary-dark;
+                font-weight: $font-weight--bold;
+            }
         }
 
         .sub-menu {
