@@ -3,10 +3,10 @@ name: CI - Docker WordPress
 on:
   push:
     branches:
-      - main  # ou 'main', conforme o nome da sua branch principal
+      - main
   pull_request:
     branches:
-      - main  # ou 'main', conforme o nome da sua branch principal
+      - main
 
 jobs:
   build:
@@ -30,8 +30,18 @@ jobs:
       - name: Subir containers (teste de build)
         run: docker-compose up -d --build
 
-      - name: Verificar containers em execução
-        run: docker ps
+      - name: Verificar containers em execução e salvar log
+        run: |
+          docker ps > docker-ps.log
+          docker-compose logs > docker-compose.log
 
       - name: Derrubar containers após o teste
-        run: docker-compose down 
+        run: docker-compose down
+
+      - name: Upload de logs como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs-docker
+          path: |
+            docker-ps.log
+            docker-compose.log
