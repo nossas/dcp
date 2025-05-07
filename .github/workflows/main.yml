@@ -46,7 +46,7 @@ jobs:
         run: rm -rf themes/${{ env.THEME_NAME }}/node_modules
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.THEME_NAME }}
           path: themes/${{ env.THEME_NAME }}
@@ -63,7 +63,7 @@ jobs:
         run: echo "tag=${GITHUB_REF##*/}" >> $GITHUB_ENV
 
       - name: Download artifact
-        uses: actions/download-artifact@v3.0.2
+        uses: actions/download-artifact@v3
         with:
           name: ${{ env.THEME_NAME }}
           path: ./${{ env.THEME_NAME }}/
