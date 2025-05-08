@@ -1,0 +1,15 @@
+.recomendacoes{
+    background-color: $color--high-light;
+    border-radius: 20px;
+    max-height: size(200);
+    padding: size(16);
+
+    & > p {
+        display: flex;
+        gap: size(12);
+
+        & > img{
+            object-fit: contain;
+        }
+    }
+}
