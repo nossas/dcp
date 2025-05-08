@@ -1,26 +1,31 @@
 .accordeon {
 
     &__item {
-        border: $border-width--small solid $color--primary-pure;
-        border-bottom: none;
-        pointer-events: visible;
 
         &:last-child {
-            border: $border-width--small solid $color--primary-pure;
+            border: $border-width--small solid $color--high-light;
         }
 
         details[open] .accordeon__title::before {
             transform: rotate(-135deg);
         }
+
+        details{
+            summary{
+                background-color: $color--primary-pure !important;
+                color: $color--high-light !important;
+            }
+        }
     }
 
     &__title {
+        border-radius: 20px !important;
         color: $color--low-pure;
-        font-family: $font-family--primary;
-        font-size: $font-size--large;
-        padding: $padding--medium;
-        position: relative;
         cursor: pointer;
+        font-family: $font-family--primary;
+        font-size: $font-size--x-small;
+        padding: 20px 24px !important;
+        position: relative;
 
         &::marker {
             content: "";
@@ -32,12 +37,32 @@
             right: $padding--medium;
             top: calc(1em + #{2 * $border-width--medium});
             transition: $transition--default;
-            @include arrow('down', $border-width--medium, $color--primary-pure);
+            @include arrow('down', $border-width--medium, $color--high-light);
         }
     }
 
     &__content {
         background-color: $color--high-light;
         padding: $padding--medium;
+    }
+}
+
+.faq{
+    margin-top: size(100);
+
+    .wp-block-heading{
+        display: flex;
+        gap: size(10);
+
+        img{
+            object-fit: contain;
+        }
+    }
+
+    .wp-block-coblocks-accordion{
+        &-item{
+            max-width: size(1300);
+            width: 100%;
+        }
     }
 }
