@@ -1,0 +1,15 @@
+.kit-sobrevivencia{
+    .wp-block-cover{
+        &__inner-container{
+            margin-right: auto;
+            margin-left: auto;
+            max-width: size(1430);
+            width: 100%;
+
+            .wp-block-columns{
+                max-width: size(1160);
+                gap: size(140);
+            }
+        }
+    }
+}
