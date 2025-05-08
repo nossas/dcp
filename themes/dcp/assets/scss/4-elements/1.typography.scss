@@ -12,6 +12,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
+    color: $color--secondary-dark;
     font-size: $font-size--xx-large;
 
     @include mobile {
@@ -20,6 +21,7 @@ h1 {
 }
 
 h2 {
+    color: $color--secondary-dark;
     font-size: $font-size--x-large;
 
     @include mobile {
@@ -60,6 +62,7 @@ h6 {
 }
 
 p {
+    color: $color--secondary-dark;
     font-size: $font-size--x-small;
     line-height: $line-height--normal;
     text-wrap: pretty;
