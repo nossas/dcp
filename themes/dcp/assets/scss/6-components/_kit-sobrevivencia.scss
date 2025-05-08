@@ -1,4 +1,7 @@
 .kit-sobrevivencia{
+    margin-top: size(70);
+    margin-bottom: size(70);
+
     .wp-block-cover{
         &__inner-container{
             margin-right: auto;
@@ -11,6 +14,19 @@
                 gap: size(140);
 
                 .wp-block-column:first-child{
+                    p,
+                    h2{
+                        color: $color--secondary-dark;
+                    }
+
+                    h2{
+                        font-size: 48px;
+                    }
+
+                    p{
+                        font-size: 18px;
+                    }
+
                     .wp-block-buttons > .wp-block-button{
                         a{
                             padding: size(8) size(20);
