@@ -9,6 +9,15 @@
             .wp-block-columns{
                 max-width: size(1160);
                 gap: size(140);
+
+                .wp-block-column:first-child{
+                    .wp-block-buttons > .wp-block-button{
+                        a{
+                            padding: size(8) size(20);
+                            font-size: 16px;
+                        }
+                    }
+                }
             }
         }
     }
