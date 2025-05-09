@@ -32,3 +32,59 @@
         }
     }
 }
+
+.acontece-na-comunidade{
+    margin-bottom: size(100);
+    
+    .wp-block-column{
+        background-color: $color--high-light;
+        border-radius: 20px;
+        padding: 20px;
+
+        p:first-child{
+            width: 111px;
+            font-size: 14px !important;
+        }
+
+        p:nth-child(3){
+            margin-top: 8px;
+        }
+        
+        & > p {
+            border-radius: 16px;
+            color: $color--secondary-dark;
+            display: flex;
+            gap: 4px;
+  
+            img{
+                object-fit: contain;
+            }
+        }
+    }
+
+    .wp-block-column:first-child{
+        
+        p:first-child{
+            background-color: $color--primary-light;
+            padding: 4px 14px;
+        }
+    }
+
+    .wp-block-column:last-child{
+        
+        p:first-child{
+            background-color: $color--warning-dark;
+            color: $color--high-light;
+            padding: 4px 14px;
+        }
+    }
+
+    .wp-block-column:nth-child(2){
+        
+        p:first-child{
+            background-color: $color--primary-dark;
+            padding: 4px 14px;
+            font-size: 14px !important;
+        }
+    }
+}

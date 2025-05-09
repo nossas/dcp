@@ -21,6 +21,11 @@
             a{
                 padding: size(8) size(20);
                 font-size: 16px;
+
+                &:hover{
+                    background-color: $color--secondary-dark;
+                    color: $color--high-light !important;
+                }
             }
         }
     }
