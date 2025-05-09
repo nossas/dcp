@@ -1,7 +1,7 @@
 //bloco kit de sobreviência da home
 .kit-sobrevivencia{
-    margin-top: size(70);
     margin-bottom: size(70);
+    margin-top: size(70);
 
     .wp-block-cover{
         &__inner-container{
@@ -11,8 +11,8 @@
             width: 100%;
 
             .wp-block-columns{
-                max-width: size(1160);
                 gap: size(140);
+                max-width: size(1160);
 
                 .wp-block-column:first-child{
                     p,
@@ -30,8 +30,8 @@
 
                     .wp-block-buttons > .wp-block-button{
                         a{
-                            padding: size(8) size(20);
                             font-size: 16px;
+                            padding: size(8) size(20);
                         }
                     }
                 }

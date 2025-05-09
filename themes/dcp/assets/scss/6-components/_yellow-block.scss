@@ -2,6 +2,11 @@
 .yellow-block{
     padding: size(80) !important;
 
+    .wp-block-columns{
+        gap: size(140);
+        max-width: size(1160);
+    }
+
     .wp-block-columns > .wp-block-column:first-child{
         display: flex;
         flex-direction: column;

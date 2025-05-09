@@ -3,7 +3,8 @@
 <?php if ( is_active_sidebar( 'footer_widgets' ) ):?>
     <footer class="main-footer">
         <div class="main-footer__widgets container">
-            <?php dynamic_sidebar('footer_widgets') ?>
+        <?php dynamic_sidebar('footer_widgets_subscribe') ?>
+        <?php dynamic_sidebar('footer_widgets') ?>
         </div>
     </footer>
 <?php endif; ?>
