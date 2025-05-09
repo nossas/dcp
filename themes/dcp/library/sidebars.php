@@ -41,9 +41,9 @@ function widgets_areas() {
     register_sidebar(array(
 		'name'          => 'Footer Widgets subscribe',
 		'id'            => 'footer_widgets_subscribe',
-		'before_widget' => '<div class="main-footer__widget-subscribe">',
+		'before_widget' => '<div class="main-footer-subscribe__widget">',
 		'after_widget'  => '</div>',
-		'before_title'  => '<h2 class="main-footer__widget-subscribe-title">',
+		'before_title'  => '<h2 class="main-footer-subscribe__widget-title">',
 		'after_title'   => '</h2>',
 	));
 
