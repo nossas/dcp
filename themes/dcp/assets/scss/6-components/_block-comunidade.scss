@@ -34,11 +34,16 @@
 }
 
 .acontece-na-comunidade{
-    margin-bottom: size(100);
+    margin-bottom: 0;
     
     .wp-block-column{
         background-color: $color--high-light;
-        border-radius: 20px;
+        -webkit-border-top-left-radius: 20px;
+        -webkit-border-top-right-radius: 20px;
+        -moz-border-radius-topleft: 20px;
+        -moz-border-radius-topright: 20px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
         padding: 20px;
 
         p:first-child{
@@ -86,5 +91,34 @@
             padding: 4px 14px;
             font-size: 14px !important;
         }
+    }
+}
+
+.btn-comunidade{
+
+    .wp-block-column{
+        -webkit-border-bottom-right-radius: 20px;
+        -webkit-border-bottom-left-radius: 20px;
+        -moz-border-radius-bottomright: 20px;
+        -moz-border-radius-bottomleft: 20px;
+        border-bottom-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+
+        .wp-block-buttons > .wp-block-button{
+            font-size: 16px;
+            padding: 10px 16px;
+        }
+    }
+
+    .wp-block-column:first-child{
+        background-color: $color--primary-light;
+    }
+
+    .wp-block-column:nth-child(2){
+        background-color: $color--warning-dark;
+    }
+
+    .wp-block-column:last-child{
+        background-color: $color--primary-dark;
     }
 }
