@@ -115,10 +115,10 @@
     }
 
     .wp-block-column:nth-child(2){
-        background-color: $color--warning-dark;
+        background-color: $color--primary-dark;
     }
 
     .wp-block-column:last-child{
-        background-color: $color--primary-dark;
+        background-color: $color--warning-dark;
     }
 }
