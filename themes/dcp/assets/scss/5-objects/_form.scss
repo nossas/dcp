@@ -53,3 +53,55 @@
         accent-color: $color--warning-pure;
     }
 }
+
+.wpcf7{
+    form{
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        .btn-submit{
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .custom-submit-button {
+            align-items: flex-end;
+            background-color: $color--primary-pure;
+            color: $color--high-light;
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            display: flex;
+            font-size: 16px;
+            gap: 10px;
+            height: 40px;
+            padding: 10px 16px 10px 10px;
+            transition: background-color 0.3s ease;
+        }
+          
+        .custom-submit-button .icon {
+            width: 16px;
+            height: 16px;
+            position: relative;
+            bottom: 3px;
+            stroke: $color--high-light;
+        }
+
+        label{
+            color: $color--low-light;
+            font-size: 14px;
+            font-weight: $font-weight--regular;
+
+
+            .wpcf7-form-control-wrap > .wpcf7-form-control{
+                border: 1px solid $color--low-light;
+                border-radius: 12px;
+                height: 48px;
+                max-width: 676px;
+                padding: 16px;
+                width: 100%;
+            }
+        }
+    }
+}

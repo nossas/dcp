@@ -1,0 +1,124 @@
+//bloco acontece na comunidade da home
+.comunidade-header{
+    margin-top: size(100);
+
+    .wp-block-column{
+        & > h2{
+            font-size: 40px;
+        }
+
+        & > p{
+            color: $color--secondary-dark;
+            font-size: 16px;
+        }
+    }
+
+    .wp-block-column:last-child{
+        align-items: flex-end;
+        display: flex;
+        gap: size(16);
+        justify-content: flex-end;
+
+        .wp-block-buttons > .wp-block-button{
+            a{
+                padding: size(8) size(20);
+                font-size: 16px;
+
+                &:hover{
+                    background-color: $color--primary-pure;
+                    color: $color--high-light !important;
+                }
+            }
+        }
+    }
+}
+
+.acontece-na-comunidade{
+    margin-bottom: 0;
+    
+    .wp-block-column{
+        background-color: $color--high-light;
+        -webkit-border-top-left-radius: 20px;
+        -webkit-border-top-right-radius: 20px;
+        -moz-border-radius-topleft: 20px;
+        -moz-border-radius-topright: 20px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        padding: 20px;
+
+        p:first-child{
+            width: 111px;
+            font-size: 14px !important;
+        }
+
+        p:nth-child(3){
+            margin-top: 8px;
+        }
+        
+        & > p {
+            border-radius: 16px;
+            color: $color--secondary-dark;
+            display: flex;
+            gap: 4px;
+  
+            img{
+                object-fit: contain;
+            }
+        }
+    }
+
+    .wp-block-column:first-child{
+        
+        p:first-child{
+            background-color: $color--primary-light;
+            padding: 4px 14px;
+        }
+    }
+
+    .wp-block-column:last-child{
+        
+        p:first-child{
+            background-color: $color--warning-dark;
+            color: $color--high-light;
+            padding: 4px 14px;
+        }
+    }
+
+    .wp-block-column:nth-child(2){
+        
+        p:first-child{
+            background-color: $color--primary-dark;
+            padding: 4px 14px;
+            font-size: 14px !important;
+        }
+    }
+}
+
+.btn-comunidade{
+
+    .wp-block-column{
+        -webkit-border-bottom-right-radius: 20px;
+        -webkit-border-bottom-left-radius: 20px;
+        -moz-border-radius-bottomright: 20px;
+        -moz-border-radius-bottomleft: 20px;
+        border-bottom-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+
+        .wp-block-buttons > .wp-block-button{
+            font-size: 16px;
+            padding: 10px 16px;
+        }
+    }
+
+    .wp-block-column:first-child{
+        background-color: $color--primary-light;
+    }
+
+    .wp-block-column:nth-child(2){
+        background-color: $color--primary-dark;
+    }
+
+    .wp-block-column:last-child{
+        background-color: $color--warning-dark;
+    }
+}

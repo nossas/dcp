@@ -1,0 +1,46 @@
+//bloco amarelo da home
+.yellow-block{
+    padding: size(80) !important;
+
+    .wp-block-columns{
+        gap: size(140);
+        max-width: size(1160);
+    }
+
+    .wp-block-columns > .wp-block-column:first-child{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        p,
+        h2{
+            color: $color--secondary-dark;
+        }
+
+        h2{
+            font-size: 40px;
+        }
+
+        p{
+            font-size: 16px;
+        }
+
+        .wp-block-buttons{
+            position: relative;
+            top: size(70);
+        }
+
+        .wp-block-buttons > .wp-block-button{
+            a{
+                padding: size(8) size(20);
+                font-size: 16px;
+
+                &:hover{
+                    border: none;
+                    background-color: $color--secondary-dark;
+                    color: $color--high-light !important;
+                }
+            }
+        }
+    }
+}

@@ -61,7 +61,7 @@
                 {
                     "name": "Low light",
                     "slug": "low-light",
-                    "color": "#666666"
+                    "color": "#484646"
                 },
                 {
                     "name": "Low dark",
@@ -76,7 +76,7 @@
                 {
                     "name": "High light",
                     "slug": "high-light",
-                    "color": "#F5F5F5"
+                    "color": "#FEFBF9"
                 },
                 {
                     "name": "High dark",

@@ -1,0 +1,32 @@
+//bloco o jacarezinho na home
+.jacarezinho{
+    margin-top: size(100);
+    margin-bottom: size(100);
+
+    .wp-block-column{
+        p,
+        h2{
+            color: $color--secondary-dark;
+        }
+
+        .wp-block-heading{
+            font-size: 40px;
+        }
+
+        & > p {
+            font-size: 16px;
+        }
+
+        .wp-block-buttons > .wp-block-button{
+            a{
+                padding: size(8) size(20);
+                font-size: 16px;
+
+                &:hover{
+                    background-color: $color--secondary-dark;
+                    color: $color--high-light !important;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,41 @@
+//bloco kit de sobreviência da home
+.kit-sobrevivencia{
+    margin-bottom: size(70);
+    margin-top: size(70);
+
+    .wp-block-cover{
+        &__inner-container{
+            margin-right: auto;
+            margin-left: auto;
+            max-width: size(1430);
+            width: 100%;
+
+            .wp-block-columns{
+                gap: size(140);
+                max-width: size(1160);
+
+                .wp-block-column:first-child{
+                    p,
+                    h2{
+                        color: $color--secondary-dark;
+                    }
+
+                    h2{
+                        font-size: 48px;
+                    }
+
+                    p{
+                        font-size: 18px;
+                    }
+
+                    .wp-block-buttons > .wp-block-button{
+                        a{
+                            font-size: 16px;
+                            padding: size(8) size(20);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

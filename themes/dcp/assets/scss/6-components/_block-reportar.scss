@@ -1,0 +1,22 @@
+//bloco o que reportar da home
+.reportar{
+    margin-bottom: size(100);
+    margin-top: size(100);
+
+    & > h2{
+        font-size: 40px;
+    }
+
+    .wp-block-columns{
+        margin-top: size(46);
+    }
+
+    .wp-block-columns > .wp-block-column{
+        p{
+            max-width: 314px;
+            width: 100%;
+            margin-right: auto;
+            margin-left: auto;
+        }
+    }
+}
