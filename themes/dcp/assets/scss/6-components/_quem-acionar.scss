@@ -22,7 +22,6 @@
 
               .wp-block-column {
                 border-radius: 20px !important;
-                max-height: 315px;
 
                 .wp-block-columns:first-child {
                   .wp-block-column {
@@ -32,7 +31,7 @@
                       margin: 0;
 
                       p {
-                        color: #605E5D !important;
+                        color: $color--secondary-dark !important;
                       }
                     }
                     .wp-block-columns:nth-child(4) {
@@ -56,5 +55,51 @@
           }
         }
       }
+    }
+    .wp-block-group{
+        margin-top: 7rem;
+        .wp-block-coblocks-accordion{
+            .wp-block-coblocks-accordion-item{
+                &__title{
+                    background-color: $color--high-light !important;
+                    color:#281414 !important;
+                    font-weight: $font-weight--regular !important;
+                }
+                &__title::first-line {
+                    font-size: 20px;
+                    color: $color--warning-dark;
+                    font-weight: $font-weight--medium;
+                }
+                &__content{
+                    a{
+                        color:#235540;
+                        font-weight: $font-weight--regular !important;
+                    }
+                }
+            }
+            .wp-block-coblocks-accordion-item__title {
+                position: relative;
+                padding-right: 1.5em;
+                cursor: pointer;
+              }
+
+              details .wp-block-coblocks-accordion-item__title::after {
+                content: ""; /* seta para cima quando fechado */
+                position: absolute;
+                left: 90%;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 0.9em;
+                color: #333;
+              }
+
+              /* Quando o details estiver aberto */
+              details.open .wp-block-coblocks-accordion-item__title::after,
+              details[open] .wp-block-coblocks-accordion-item__title::after {
+                content: "▼"; /* seta para baixo */
+              }
+
+
+        }
     }
   }
