@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-//filtro dos tipos de apoios com os termos
+// Filtro dos tipos de apoios com os termos
 document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.getElementById('apoio-search');
     const searchButton = document.getElementById('apoio-search-button');
@@ -62,19 +62,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Função que filtra os cards com base na busca e na tag
     function filterCards() {
-        const searchTerm = searchInput.value.toLowerCase().trim(); // .trim() para eliminar espaços extras
+        const searchTerm = searchInput.value.toLowerCase().trim();
 
         cards.forEach(card => {
-            // Pega os termos da taxonomia (tags) associadas ao card
-            const tags = card.dataset.tags.toLowerCase();  // tags associadas ao card (em minúsculas para facilitar a busca)
+            const tags = card.dataset.tags.toLowerCase();
+            const content = card.textContent.toLowerCase(); // Pega todo o conteúdo do card
 
             // Verifica se a tag ativa corresponde às tags do card
             const matchesTag = (activeTag === 'all') || tags.includes(activeTag);
 
-            // Verifica se a busca contém o termo de pesquisa nas tags
-            const matchesSearch = (searchTerm === '' || tags.includes(searchTerm));
+            // Verifica se a busca está no conteúdo do card
+            const matchesSearch = (searchTerm === '') || content.includes(searchTerm);
 
-            // O card será exibido se corresponder a ambos os filtros
             if (matchesSearch && matchesTag) {
                 card.style.display = '';
             } else {
@@ -88,19 +87,19 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', function () {
             tagButtons.forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
-            activeTag = this.dataset.tag;  // Define a tag ativa
-            filterCards();  // Aplica o filtro com base na tag selecionada
+            activeTag = this.dataset.tag;
+            filterCards();
         });
     });
 
-    // Filtro por busca (ao digitar no input)
-    searchInput.addEventListener('input', function() {
+    // Filtro por busca ao digitar
+    searchInput.addEventListener('input', function () {
         if (searchInput.value.length >= 2 || searchInput.value.length === 0) {
             filterCards();
         }
     });
 
-    // Ativa o filtro ao clicar no botão de busca
+    // Filtro ao clicar no botão de busca
     searchButton.addEventListener('click', function () {
         filterCards();
     });
