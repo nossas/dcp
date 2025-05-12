@@ -18,5 +18,10 @@ get_header(); ?>
     endwhile;
     ?>
 </main><!-- #primary -->
-
+<div id="call-modal" class="call-modal">
+  <div class="call-modal__content">
+    <p id="modal-text"></p>
+    <button class="call-modal__close">Fechar</button>
+  </div>
+</div>
 <?php get_footer(); ?>
