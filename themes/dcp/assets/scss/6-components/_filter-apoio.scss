@@ -3,56 +3,77 @@
         margin-bottom: 2rem;
 
         .apoio-search-wrap {
-          display: flex;
-          width: 100%;
-          max-width: 600px;
-          margin: 0 auto;
-          position: relative;
+            display: flex;
+            width: 100%;
+            max-width: 676px;
+            max-height: 45px;
+            margin: unset;
+            position: relative;
 
-          input {
-            flex: 1;
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px 0 0 5px;
-            outline: none;
-          }
-
-          button {
-            padding: 0 1rem;
-            background: #0073aa;
-            color: #fff;
-            border: 1px solid #0073aa;
-            border-left: none;
-            border-radius: 0 5px 5px 0;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background 0.2s;
-
-            &:hover {
-              background: #005f8d;
+            input {
+              flex: 1;
+              padding: 12px 16px 12px 40px; // espaço para o ícone
+              font-size: 1rem;
+              border: 1px solid #ccc;
+              border-right: none;
+              border-radius: 50px 0 0 50px; // mais arredondado
+              outline: none;
+              background-color: #fff;
             }
-          }
-        }
 
-        .apoio-tags {
-          margin-top: 1rem;
-
-          .tag-button {
-            margin: 0.2rem;
-            padding: 0.5rem 1rem;
-            border: 1px solid #ccc;
-            background: #f0f0f0;
-            cursor: pointer;
-            border-radius: 5px;
-
-            &.active {
-              background: #0073aa;
+            button {
+              padding: 0 1.5rem;
+              background: $color--secondary-dark;
               color: #fff;
-              border-color: #0073aa;
+              border: 1px solid #0073aa;
+              border-left: none;
+              border-radius: 0 50px 50px 0;
+              cursor: pointer;
+              font-size: 1rem;
+              transition: background 0.2s;
+
+              &:hover {
+                background: #005f8d;
+              }
+            }
+
+            // Ícone de lupa
+            &::before {
+              content: '🔍';
+              position: absolute;
+              left: 12px;
+              top: 50%;
+              transform: translateY(-50%);
+              font-size: 1rem;
+              color: #888;
             }
           }
-        }
+
+
+          .apoio-tags {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+
+            .tag-button {
+              padding: 0.4rem 1rem;
+              border: 1px solid #3c2a1e; // tom escuro como o texto da imagem
+              background: transparent;
+              color: #3c2a1e;
+              border-radius: 999px;
+              font-weight: 500;
+              font-size: 0.95rem;
+              cursor: pointer;
+              transition: all 0.2s ease-in-out;
+
+              &.active {
+                background: #3c2a1e;
+                color: #fff;
+                border-color: #3c2a1e;
+              }
+            }
+          }
 
         .apoio-item {
           border: 1px solid #eee;
@@ -60,5 +81,9 @@
           margin-bottom: 1rem;
           border-radius: 5px;
         }
+    }
+    .apoio-lista{
+        display: flex;
+        gap: 24px;
     }
 }
