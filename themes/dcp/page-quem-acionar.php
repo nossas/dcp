@@ -8,7 +8,10 @@ get_header();
 ?>
 
 <main id="primary" class="site-main">
-
+    <div class="title container container--wide">
+        <h2> Quem Acionar </h2>
+        <p>Selecione um tipo de ocorrência ou descreva o que está acontecendo para saber qual serviço ou órgão pode te ajudar.</p>
+    </div>
     <?php get_template_part( 'template-parts/filter-apoio-search' ); ?>
 
     <!-- Lista de Apoios -->

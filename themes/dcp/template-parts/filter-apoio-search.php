@@ -1,9 +1,9 @@
 <!-- Filtro: busca e tags -->
-<section class="apoio-filtro">
+<section class="apoio-filtro container container--wide">
     <div class="apoio-search-wrap">
-        <input type="text" id="apoio-search" placeholder="Buscar por nome ou palavra-chave..." />
+        <input type="text" id="apoio-search" placeholder="Descreva o problema e veja quem acionar..." />
         <button id="apoio-search-button" aria-label="Buscar">
-            🔍
+            Buscar
         </button>
     </div>
 
