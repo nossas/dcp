@@ -1,60 +1,124 @@
 .page-quem-acionar {
     main {
-      .wp-block-cover {
-        .wp-block-columns {
-          .wp-block-column {
-            // Primeiro bloco de colunas
-            .wp-block-columns:first-child {
-              .wp-block-column > p {
-                max-width: 725px;
-                font-size: 16px !important;
-                margin: 0;
-              }
-            }
 
-            // Último bloco de colunas
-            .wp-block-columns:last-child {
-              .wp-block-separator {
-                width: 100%;
-                max-width: 24px !important;
-                margin: 16px 0;
-              }
-
-              .wp-block-column {
-                border-radius: 20px !important;
-
+        .wp-block-cover {
+            .wp-block-columns {
+                .wp-block-column {
+                // Primeiro bloco de colunas
                 .wp-block-columns:first-child {
-                  .wp-block-column {
-                    .wp-block-columns:nth-child(3),
-                    .wp-block-columns:nth-child(4) {
-                      gap: 6px;
-                      margin: 0;
-
-                      p {
-                        color: $color--secondary-dark !important;
-                      }
+                    .wp-block-column > p {
+                    max-width: 725px;
+                    font-size: 16px !important;
+                    margin: 0;
                     }
-                    .wp-block-columns:nth-child(4) {
-                        margin: 8px 0px;
-
-                    }
-                  }
                 }
-              }
+
+                // Último bloco de colunas
+                .wp-block-columns:last-child {
+                    .wp-block-separator {
+                    width: 100%;
+                    max-width: 24px !important;
+                    margin: 16px 0;
+                    }
+
+                    .wp-block-column {
+                    border-radius: 20px !important;
+
+                    .wp-block-columns:first-child {
+                        .wp-block-column {
+                        .wp-block-columns:nth-child(3),
+                        .wp-block-columns:nth-child(4) {
+                            gap: 6px;
+                            margin: 0;
+
+                            p {
+                            color: $color--secondary-dark !important;
+                            }
+                        }
+                        .wp-block-columns:nth-child(4) {
+                            margin: 8px 0px;
+
+                        }
+                        }
+                    }
+                    }
+                }
+                }
+                strong{
+                font-size: 20px !important;
+                }
+                .wp-block-buttons{
+                margin: 0;
+                    a{
+                        padding: 8px 16px;
+                        font-size: 16px;
+                    }
+                }
             }
-          }
-          strong{
-            font-size: 20px !important;
-          }
-          .wp-block-buttons{
-            margin: 0;
-            a{
-                padding: 8px 16px;
-                font-size: 16px;
-            }
-          }
         }
-      }
+        .title > h2{
+            color: var(--Color-Theme-Danger, #B83D13) !important;
+            margin: 16px 0;
+
+        }
+        p{
+            max-width: 676px;
+            color:#281414;
+            font-weight: 500;
+        }
+        .apoio-lista{
+            margin-bottom: 112px;
+            .apoio-item{
+                width: 100%;
+                max-width: 443px;
+                background-color: white;
+                border-radius: var(--Spacing-space-250, 20px);
+                border-color: #FEFBF9;
+                box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+                padding: 20px;
+                h2{
+                    font-family: var(--Typeface-Font-Gabarito, Gabarito);
+                    font-size: 20px;
+                    margin-bottom: 8px;
+
+                }
+                p{
+                    color: var(--Color-Gray-700, #605E5D);
+                    /* Body/large */
+                    font-family: var(--Typeface-Font-Gabarito, Gabarito);
+                    font-size: var(--Spacing-space-200, 16px);
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 130%; /* 20.8px */
+                }
+                hr{
+                    height: 3px;
+                    background:#E6E2E0;
+                    width: 24px;
+                    margin-top: 20px;
+                    margin-bottom: 16px;
+                }
+                .separator{
+                    height: 2px;
+                    width: 100%;
+                    background:#E6E2E0;
+                    margin-top: 20px;
+                    margin-bottom: 16px;
+                }
+                .apoio-conteudo > p{
+                    color: #281414;
+                }
+                span{
+                    color: var(--Color-Theme-Dark, #281414);
+                    /* Body/medium */
+                    font-family: var(--Typeface-Font-Gabarito, Gabarito);
+                    font-size: var(--Spacing-space-175, 14px);
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 130%; /* 18.2px */
+                }
+            }
+        }
     }
     .wp-block-group{
         margin-top: 7rem;
