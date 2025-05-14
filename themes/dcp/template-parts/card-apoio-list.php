@@ -30,10 +30,20 @@
             <hr>
         </div>
             <?php if ( $endereco ) : ?>
-                <p><strong>Endereço:</strong> <?php echo esc_html( $endereco ); ?></p>
+                <div class="adress">
+                <div class="icon-adress">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/wrapper.svg" alt="Ícone de endereço" />
+                    </div>
+                    <p><strong>Endereço:</strong> <?php echo esc_html( $endereco ); ?></p>
+                </div>
             <?php endif; ?>
             <?php if ( $horario ) : ?>
+                <div class="hour">
+                <div class="icon-pin">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pin.svg" alt="Ícone de horário" />
+                </div>
                 <p><strong>Horário de Atendimento:</strong> <?php echo esc_html( $horario ); ?></p>
+            </div>
             <?php endif; ?>
             <hr class="separator">
             <?php if ( $observacoes ) : ?>
