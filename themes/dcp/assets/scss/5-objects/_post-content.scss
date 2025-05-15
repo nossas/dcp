@@ -1,6 +1,13 @@
 .post-content {
     padding-top: $padding--large;
 
+    @media (max-width: size(1400)) {
+        max-width: 1310px;
+        margin-right: auto;
+        margin-left: auto;
+        width: 100%;
+    }
+
     & > h2 {
         margin-bottom: $margin--medium;
         font-size: $font-size--xx-large;

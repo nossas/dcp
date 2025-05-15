@@ -50,6 +50,13 @@
 .faq{
     margin-top: size(100);
 
+    @media (max-width: size(1400)){
+        max-width: 1200px;
+        margin-right: auto;
+        margin-left: auto;
+        width: 100%;
+    }
+
     .wp-block-heading{
         display: flex;
         gap: size(10);
