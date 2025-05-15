@@ -1,0 +1,26 @@
+.page-header-cover{
+    .wp-block-columns{
+        max-width: size(1400);
+    }
+
+    .wp-block-columns > .wp-block-column:first-child{
+
+        .wp-block-buttons>.wp-block-button {
+            a {
+                display: flex;
+                font-size: 16px;
+                gap: size(8);
+                padding: size(8) size(20);
+
+                & > img{
+                    object-fit: contain;
+                }
+
+                &:hover {
+                    background-color: $color--secondary-dark;
+                    color: $color--high-light !important;
+                }
+            }
+        }
+    }
+}

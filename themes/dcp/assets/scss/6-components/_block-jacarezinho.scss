@@ -3,6 +3,10 @@
     margin-top: size(100);
     margin-bottom: size(100);
 
+    .wp-block-columns{
+        max-width: size(1200);
+    }
+
     .wp-block-column{
         p,
         h2{
