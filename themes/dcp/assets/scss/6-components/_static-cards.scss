@@ -50,4 +50,19 @@
             }
         }
     }
+
+    &__no-color{
+        .wp-block-columns{
+            margin-bottom: size(24);
+            margin-block-start: size(24);
+        }
+
+        .wp-block-columns > .wp-block-column{
+            padding: size(20);
+        }
+
+        .wp-block-columns:last-child >  .wp-block-column{
+            padding: size(20);
+        }
+    }
 }
