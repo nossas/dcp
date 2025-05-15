@@ -4,6 +4,10 @@
 
     .wp-block-columns{
         max-width: size(1160);
+
+        @media (max-width: size(1400)) {
+            max-width: size(1016);
+        }
     }
 
     .wp-block-columns > .wp-block-column:first-child{

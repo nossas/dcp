@@ -18,6 +18,10 @@
         padding-left: size(20);
         padding-right: size(20);
 
+        @media (max-width: size(1400)) {
+            flex-basis: 410px !important;
+        }
+
         & > p {
             margin-top: size(8);
         }
