@@ -20,21 +20,31 @@
               border-radius: 50px 0 0 50px; // mais arredondado
               outline: none;
               background-color: #fff;
+              width: 100%;
+              @include mobile{
+                padding:8px 0px 8px 16px;
+                border: 1px solid var(--Color-Theme-Dark, #281414);
+
+              }
             }
 
             button {
               padding: 0 1.5rem;
               background: $color--secondary-dark;
               color: #fff;
-              border: 1px solid #0073aa;
+              border: 1px solid #281414;
               border-left: none;
               border-radius: 0 50px 50px 0;
+              @include mobile{
+                font-size: 14px;
+                padding: revert;
+              }
               cursor: pointer;
               font-size: 1rem;
               transition: background 0.2s;
 
               &:hover {
-                background: #005f8d;
+                background: #3c2a1e;
               }
             }
 
@@ -51,6 +61,9 @@
                 background-size: contain;
                 background-repeat: no-repeat;
                 background-position: center;
+                @include mobile{
+                    display: none;
+                }
               }
           }
 
@@ -78,6 +91,10 @@
                 background: #3c2a1e;
                 color: #fff;
                 border-color: #3c2a1e;
+                @include mobile{
+                    background-color: #235540;
+
+                }
               }
             }
 
@@ -93,5 +110,10 @@
     .apoio-lista{
         display: flex;
         gap: 24px;
+        @include mobile{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 32px;
+        }
     }
 }
