@@ -6,10 +6,22 @@
                 .wp-block-column {
                 // Primeiro bloco de colunas
                 .wp-block-columns:first-child {
+                    .tittle-hidden-mobile{
+                        @include mobile{
+                        font-size: 24px;
+
+                        }
+                    }
+                    .text-hidden-mobile{
+                        @include mobile{
+                            display: none;
+                        }
+                    }
                     .wp-block-column > p {
                     max-width: 725px;
                     font-size: 16px !important;
                     margin: 0;
+
                     }
                 }
 
@@ -59,12 +71,20 @@
         .title > h2{
             color: var(--Color-Theme-Danger, #B83D13) !important;
             margin: 16px 0;
+            @include mobile{
+                font-size: 24px !important;
+                margin-bottom: 0px;
+            }
 
         }
         .title > p{
             max-width: 676px;
             color:#281414;
             font-weight: 500;
+            @include mobile{
+                font-size: 16px;
+                font-weight: 400;
+            }
         }
         .apoio-lista{
             margin-bottom: 112px;
@@ -144,6 +164,22 @@
     }
     .wp-block-group{
         margin-top: 7rem;
+        @include mobile{
+            margin-top: 32px;
+        }
+         .wp-block-columns .wp-block-column {
+            .tittle-hidden-mobile{
+                @include mobile{
+                    font-size: 24px;
+                    padding-left: 24px;
+                }
+            }
+        }
+        .text-hidden-mobile{
+            @include mobile{
+                display: none;
+            }
+        }
         .wp-block-coblocks-accordion{
             .wp-block-coblocks-accordion-item{
                 &__title{
