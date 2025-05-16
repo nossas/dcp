@@ -1,0 +1,116 @@
+.cards-apoio{
+    margin-bottom: size(80);
+    margin-top: size(80);
+
+    .wp-block-cover__inner-container{
+        max-width: 1400px;
+        width: 100%;
+    }
+
+        .hacklabr-posts-grid-block {
+            .post-card {
+                max-width: 443px;
+                width: 100%;
+
+                &__term{
+                    display: none;
+                }
+
+                &__image {
+                    img{
+                        border-radius: 0;
+                        -webkit-border-top-left-radius: 16px;
+                        -webkit-border-top-right-radius: 16px;
+                        -moz-border-radius-topleft: 16px;
+                        -moz-border-radius-topright: 16px;
+                        border-top-left-radius: 16px;
+                        border-top-right-radius: 16px;
+                    }
+                }
+
+                &__content{
+                    background-color: $color--high-light;
+                    padding: size(20);
+                }
+
+                &__title {
+                    font-family: $font-family--primary !important;
+                    font-size: 20px;
+                    font-weight: $font-weight--medium;
+                    margin-top: size(5);
+                }
+
+                &__excerpt {
+                    font-size: 16px;
+                    font-weight: $font-weight--regular;
+                }
+
+                &__divisor {
+                    &-line {
+                        border-bottom: size(2) solid $color--high-dark;
+                        margin-bottom: size(15);
+                        margin-top: size(15);
+                        width: size(24);
+                    }
+                }
+
+                &__meta,
+                &__address {
+                    color: $color--high-dark;
+                    display: flex;
+                    flex-direction: column;
+                    font-size: 14px;
+                    gap: size(4);
+                }
+
+                &__schedule {
+                    align-items: center;
+                    display: flex;
+                    flex-direction: row;
+                    gap: size(4);
+
+                    &::before {
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        content: url('/wp-content/themes/dcp/assets/images/wrapper5.png');
+                        display: inline-block;
+                        height: 1em;
+                        width: 1em;
+                    }
+                }
+
+                &__address {
+                    flex-direction: row !important;
+
+                    &::before {
+                        content: url('/wp-content/themes/dcp/assets/images/wrapper6.png') !important;
+                    }
+                }
+
+                &__see-in-map{
+                    display: flex;
+                    justify-content: flex-end;
+
+                    &::after {
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        content: url('/wp-content/themes/dcp/assets/images/wrapper34.png');
+                        cursor: pointer;
+                        display: inline-block;
+                        height: 1em;
+                        margin-bottom: 9px;
+                        width: 1em;
+                    }
+                }
+
+                &__map-button{
+                    background-color: transparent;
+                    color: $color--secondary-dark;
+                    cursor: pointer;
+                    font-size: 14px;
+                    font-weight: $font-weight--medium;
+                    text-decoration: underline;
+                }
+            }
+        }
+}
