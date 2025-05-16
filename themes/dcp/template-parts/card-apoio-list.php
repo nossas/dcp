@@ -10,7 +10,7 @@
 
     foreach ( $apoios as $apoio ) {
         $endereco = get_post_meta( $apoio->ID, 'endereco', true );
-        $horario = get_post_meta( $apoio->ID, 'horario_de_atend', true );
+        $horario = get_post_meta( $apoio->ID, 'horario_de_atendimento', true );
         $observacoes = get_post_meta ( $apoio->ID, 'observacoes', true );
         $terms = get_the_terms( $apoio->ID, 'tipo_apoio' );
         $term_slugs = [];
