@@ -151,6 +151,10 @@
                     display: flex;
                     gap: 8px;
                     margin-bottom: 8px;
+                    .icon-adress{
+                    height: 24px;
+                    width: 24px;
+                    }
                 }
                 .hour{
                     display: flex;
@@ -177,6 +181,7 @@
         }
          .wp-block-columns .wp-block-column {
             .tittle-hidden-mobile{
+                margin:0px;
                 @include mobile{
                     font-size: 24px;
                     padding-left: 24px;
