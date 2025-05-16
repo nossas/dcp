@@ -1,6 +1,10 @@
 .page-quem-acionar {
     main {
-
+        .background > img{
+            z-index: 0;
+            position: absolute;
+            left: 69%;
+        }
         .wp-block-cover {
             .wp-block-columns {
                 .wp-block-column {
@@ -44,7 +48,7 @@
                             margin: 0;
 
                             p {
-                            color: $color--secondary-dark !important;
+                            color: #605E5D !important;
                             }
                         }
                         .wp-block-columns:nth-child(4) {
@@ -62,8 +66,12 @@
                 .wp-block-buttons{
                 margin: 0;
                     a{
-                        padding: 8px 16px;
-                        font-size: 16px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 4px;
+                    padding: 8px 16px;
+                    font-size: 16px;
                     }
                 }
             }
@@ -143,6 +151,10 @@
                     display: flex;
                     gap: 8px;
                     margin-bottom: 8px;
+                    .icon-adress{
+                    height: 24px;
+                    width: 24px;
+                    }
                 }
                 .hour{
                     display: flex;
@@ -169,6 +181,7 @@
         }
          .wp-block-columns .wp-block-column {
             .tittle-hidden-mobile{
+                margin:0px;
                 @include mobile{
                     font-size: 24px;
                     padding-left: 24px;
