@@ -72,6 +72,59 @@
                 object-fit: contain;
             }
         }
+
+        .hacklabr-posts-grid-block{
+            .post-card{
+                &__image{
+                    display: none;
+                }
+
+                &__title{
+                    font-family: $font-family--primary !important;
+                    font-size: 20px;
+                    font-weight: $font-weight--medium;
+                    margin-top: size(5);
+                }
+
+                &__excerpt{
+                    font-size: 16px;
+                    font-weight: $font-weight--regular;
+                }
+
+                &__divisor{
+                    &-line{
+                        border-bottom: size(2) solid $color--high-dark;
+                        margin-bottom: size(15);
+                        margin-top: size(15);
+                        width: size(24);
+                    }
+                }
+
+                &__meta,
+                &__address{
+                    align-items: center;
+                    color: $color--high-dark;
+                    display: flex;
+                    font-size: 14px;
+                    gap: size(4);
+
+                    &::before {
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        content: url('/wp-content/themes/dcp/assets/images/wrapper5.png');
+                        display: inline-block;
+                        height: 1em;
+                        width: 1em;
+                    }
+                }
+
+                &__address{
+                        &::before {
+                        content: url('/wp-content/themes/dcp/assets/images/wrapper6.png') !important;
+                    }
+                }
+            }
+        }
     }
 
     .wp-block-column:first-child{
