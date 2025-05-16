@@ -1,0 +1,56 @@
+.post-card{
+    &__content{
+        margin-top: 0 !important;
+    }
+
+    &__taxonomia{
+        align-items: center;
+        border-radius: size(16);
+        display: flex;
+        font-size: 14px;
+        gap: size(4);
+        max-width: size(85);
+        padding: size(2) size(10);
+
+        &::before {
+            background-size: contain;
+            background-repeat: no-repeat;
+            content: '';
+            display: inline-block;
+            height: 1em;
+            width: 1em;
+        }
+    }
+
+    .term{
+        &-cultural{
+            background-color: $color--warning-dark;
+            color: $color--high-light;
+
+            &::before{
+                background-image: url('/wp-content/themes/dcp/assets/images/wrapper8.png');
+            }
+        }
+
+        &-limpeza,
+        &-reparos{
+            color: $color--secondary-dark;
+        }
+
+        &-limpeza{
+            background-color: $color--primary-light;
+
+            &::before {
+                background-image: url('/wp-content/themes/dcp/assets/images/wrapper4.png');
+            }
+        }
+
+        &-reparos{
+           background-color: $color--primary-dark;
+
+            &::before{
+                background-image: url('/wp-content/themes/dcp/assets/images/wrapper7.png');
+            }
+        }
+    }
+}

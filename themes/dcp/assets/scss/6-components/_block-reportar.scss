@@ -9,6 +9,10 @@
 
     .wp-block-columns{
         margin-top: size(46);
+
+        @media (max-width: size(1400)){
+            max-width: 1316px;
+        }
     }
 
     .wp-block-columns > .wp-block-column{

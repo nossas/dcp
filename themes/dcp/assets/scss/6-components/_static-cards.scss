@@ -1,0 +1,72 @@
+.static-cards{
+    margin-bottom: size(80);
+    margin-top: size(80);
+
+    & > p{
+        font-size: 16px;
+        margin-bottom: size(56);
+        max-width: size(677);
+    }
+
+    .wp-block-columns{
+        justify-content: center;
+        margin-bottom: 0;
+        margin-block-start: 0;
+    }
+
+    .wp-block-columns > .wp-block-column{
+        padding-left: size(20);
+        padding-right: size(20);
+
+        @media (max-width: size(1400)) {
+            flex-basis: 410px !important;
+        }
+
+        & > p {
+            margin-top: size(8);
+        }
+
+        & > p:last-child{
+            font-size: 16px !important;
+            margin-bottom: size(20);
+        }
+    }
+
+    .wp-block-columns:last-child{
+
+        .wp-block-column{
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .wp-block-column > .wp-block-buttons > .wp-block-button{
+
+            & > a{
+                display: flex;
+                font-size: 14px;
+                gap: size(8);
+                padding: size(16) size(20);
+                text-decoration: underline;
+
+                & > img{
+                    object-fit: contain;
+                }
+            }
+        }
+    }
+
+    &__no-color{
+        .wp-block-columns{
+            margin-bottom: size(24);
+            margin-block-start: size(24);
+        }
+
+        .wp-block-columns > .wp-block-column{
+            padding: size(20);
+        }
+
+        .wp-block-columns:last-child >  .wp-block-column{
+            padding: size(20);
+        }
+    }
+}
