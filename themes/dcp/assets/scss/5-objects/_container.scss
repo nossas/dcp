@@ -3,8 +3,12 @@
 .container {
     margin-inline: auto;
     max-width: $grid--wide;
-    padding-inline: $padding--medium;
+    padding-inline: $padding--medium * 4 ;
     width: 100%;
+
+    @media (max-width: 768px) {
+        padding-inline: $padding--medium;
+    }
 
     &--wide {
         max-width: $grid--wide;

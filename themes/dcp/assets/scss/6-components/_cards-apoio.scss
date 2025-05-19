@@ -7,6 +7,23 @@
         width: 100%;
     }
 
+    .wp-block-columns{
+        max-width: 1330px;
+    }
+
+    .wp-block-columns > .wp-block-column{
+        color: $color--secondary-dark;
+
+        & > p{
+            font-size: 16px;
+            font-weight: $font-weight--regular;
+        }
+
+        & > p > a{
+            color: $color--primary-pure;
+        }
+    }
+
     .wp-block-buttons > .wp-block-button > a{
         align-items: center;
         display: flex;
@@ -25,6 +42,9 @@
     }
 
     .hacklabr-posts-grid-block {
+        margin-block-start: 56px;
+        max-width: 1330px;
+
         .post-card {
             max-width: 443px;
             width: 100%;

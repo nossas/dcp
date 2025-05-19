@@ -1,6 +1,7 @@
 .post-header {
     &__separator {
         border-bottom: $border-width--small solid $color--high-dark;
+        display: none;
         margin-bottom: $margin--large;
     }
 
