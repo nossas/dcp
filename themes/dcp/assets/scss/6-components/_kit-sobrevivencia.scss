@@ -3,6 +3,8 @@
     margin-bottom: size(70);
     margin-top: size(70);
 
+
+
     .wp-block-cover{
         &__inner-container{
             margin-right: auto;
@@ -15,7 +17,7 @@
             }
 
             .wp-block-columns{
-                gap: size(140);
+                gap: 40px;
                 max-width: size(1160);
 
                 @media (max-width: size(1400)){
@@ -34,6 +36,13 @@
 
                     p{
                         font-size: 18px;
+                    }
+
+                    .wp-block-heading {
+                        @media (max-width: 768px) {
+                            margin-top: 32px;
+                            font-size: 32px;
+                        }
                     }
 
                     .wp-block-buttons > .wp-block-button{

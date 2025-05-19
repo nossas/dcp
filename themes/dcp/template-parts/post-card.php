@@ -85,7 +85,6 @@ $categories = get_the_category();
                     return;
                 }
 
-                // Bloco exclusivo para apoio com 'locais-seguros'
                 if ($post_type === 'apoio' && has_term('locais-seguros', 'tipo_apoio', $post_id)) {
                     $hora_atendimento = $pod->field('horario_de_atendimento');
                     $telefone = $pod->field('telefone');
@@ -120,7 +119,6 @@ $categories = get_the_category();
                     <?php endif; ?>
 
                     <?php
-                    // Exibe data e hora apenas se não for do tipo apoio com locais-seguros
                 } elseif (!$hide_date) {
                     $data_raw = $pod->field('data');
                     $hora_raw = $pod->field('horario');
@@ -168,11 +166,19 @@ $categories = get_the_category();
         <?php if ($post_type == 'apoio'): ?>
             <div class="post-card__see-in-map">
                 <button class="post-card__map-button">
-                    <?= __("Veja no mapa", "dcp"); ?>
+                    <a href="#"><?= __("Veja no mapa", "dcp"); ?></a>
                 </button>
             </div>
         <?php endif; ?>
+
     </main>
+    <?php if ($post_type == 'acao'): ?>
+        <div class="post-card__acao-buttons">
+            <button class="post-card__acao-button">
+                <a href="#"><?= __("Saiba mais e participe", "dcp"); ?></a>
+            </button>
+        </div>
+    <?php endif; ?>
 </article>
 
 <?php

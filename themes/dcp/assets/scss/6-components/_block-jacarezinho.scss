@@ -3,6 +3,11 @@
     margin-top: size(100);
     margin-bottom: size(100);
 
+    @media (max-width: 768px) {
+        margin-bottom: size(40);
+        margin-top: size(60);
+    }
+
     .wp-block-columns{
         max-width: 1330px;
 

@@ -9,6 +9,10 @@
         width: 100%;
     }
 
+    @media (max-width: 768px) {
+        margin-top: size(40);
+    }
+
     .wp-block-column{
         & > h2{
             font-size: 40px;
@@ -31,6 +35,10 @@
                 padding: size(8) size(20);
                 font-size: 16px;
 
+                @media (max-width: 768px) {
+                    font-size: 14px;
+                }
+
                 &:hover{
                     background-color: $color--primary-pure;
                     color: $color--high-light !important;
@@ -43,6 +51,34 @@
 .acontece-na-comunidade{
     margin-bottom: 0;
 
+    @media (max-width: 768px){
+        gap: 80px !important;
+    }
+
+    .wp-block-column:first-child{
+        .post-card {
+            &__acao-buttons{
+                background-color: $color--primary-light;
+            }
+        }
+    }
+
+        .wp-block-column:nth-child(2) {
+            .post-card {
+                &__acao-buttons {
+                    background-color: $color--primary-dark;
+                }
+            }
+        }
+
+    .wp-block-column:last-child {
+        .post-card {
+            &__acao-buttons {
+                background-color: $color--warning-dark;
+            }
+        }
+    }
+
     .wp-block-column{
         background-color: $color--high-light;
         -webkit-border-top-left-radius: 20px;
@@ -52,6 +88,10 @@
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
         padding: 20px;
+
+        @media (max-width: 768px) {
+            position: relative;
+        }
 
         p:first-child{
             width: 111px;
@@ -118,6 +158,34 @@
                     }
                 }
 
+                &__acao-buttons {
+                    display: none;
+
+                    @media (max-width: 768px) {
+                        display: block;
+                        bottom: -70px;
+                        border-bottom-left-radius: 20px;
+                        border-bottom-right-radius: 20px;
+                        left: 0;
+                        margin-top: 16px;
+                        padding: 1rem;
+                        position: absolute;
+                        right: 0;
+                    }
+                }
+
+                &__acao-button {
+                    @media (max-width: 768px) {
+                        border-radius: 16px;
+                    }
+
+                    & > a {
+                        font-size: 16px;
+                        padding: 10px 24px;
+                        text-decoration: none;
+                    }
+                }
+
                 &__address{
                         &::before {
                         content: url('/wp-content/themes/dcp/assets/images/wrapper6.png') !important;
@@ -155,6 +223,9 @@
 }
 
 .btn-comunidade{
+    @media (max-width: 768px) {
+        display: none !important;
+    }
 
     .wp-block-column{
         -webkit-border-bottom-right-radius: 20px;

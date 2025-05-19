@@ -2,6 +2,10 @@
 .yellow-block{
     padding: size(80) !important;
 
+    @media (max-width: 768px){
+        padding: size(16) !important;
+    }
+
     .wp-block-columns{
         gap: size(140);
         max-width: 1330px;
