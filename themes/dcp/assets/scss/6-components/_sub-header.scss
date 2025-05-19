@@ -3,6 +3,10 @@
     display: flex;
     min-height: size(40);
 
+    @media (max-width: 768px) {
+        display: none;
+    }
+
     &__icon,
     &__content-left,
     &__content-right{

@@ -2,6 +2,11 @@
     margin-bottom: size(80);
     margin-top: size(80);
 
+    @media (max-width: 768px) {
+        margin-bottom: size(40);
+        margin-top: size(40);
+    }
+
     .wp-block-cover__inner-container{
         max-width: 1400px;
         width: 100%;
@@ -14,9 +19,20 @@
     .wp-block-columns > .wp-block-column{
         color: $color--secondary-dark;
 
+        .wp-block-heading{
+            @media (max-width: 768px) {
+                font-size: 32px;
+                margin-top: 32px;
+            }
+        }
+
         & > p{
             font-size: 16px;
             font-weight: $font-weight--regular;
+
+            @media (max-width: 768px) {
+                font-size: 14px !important;
+            }
         }
 
         & > p > a{

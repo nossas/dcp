@@ -12,12 +12,20 @@
 
     .wp-block-columns > .wp-block-column:first-child{
 
+        & > p{
+            font-size: 16px !important;
+        }
+
         .wp-block-buttons>.wp-block-button {
             a {
                 display: flex;
                 font-size: 16px;
                 gap: size(8);
                 padding: size(8) size(20);
+
+                @media (max-width: 768px) {
+                    font-size: 10px;
+                }
 
                 & > img{
                     object-fit: contain;
