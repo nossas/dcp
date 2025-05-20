@@ -175,7 +175,7 @@ $categories = get_the_category();
     <?php if ($post_type == 'acao'): ?>
         <div class="post-card__acao-buttons">
             <button class="post-card__acao-button">
-                <a href="#"><?= __("Saiba mais e participe", "dcp"); ?></a>
+                <a href="#"><?= __("Participe", "dcp"); ?></a>
             </button>
         </div>
     <?php endif; ?>

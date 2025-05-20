@@ -9,6 +9,10 @@
     .wp-block-column{
         & > h2{
             font-size: $font-size--x-large;
+
+            @include mobile{
+                font-size: size(24);
+            }
         }
 
         & > p{
@@ -164,11 +168,12 @@
                     display: none;
 
                     @include mobile {
-                        display: block;
-                        bottom: size(-70);
+                        display: flex;
+                        bottom: size(-56);
                         border-bottom-left-radius: $border-radius--large;
                         border-bottom-right-radius: $border-radius--large;
                         left: 0;
+                        justify-content: flex-end;
                         margin-top: $margin--medium;
                         padding: $padding--medium;
                         position: absolute;

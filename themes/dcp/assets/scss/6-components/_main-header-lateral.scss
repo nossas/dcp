@@ -6,7 +6,6 @@
         display: flex;
         justify-content: space-between;
         min-height: size(80);
-        //padding: $padding--medium;
     }
 
     &__toggle-menu {
@@ -61,7 +60,7 @@
         cursor: pointer;
         font-size: 14px;
         font-weight: $font-weight--medium;
-        padding: size(8) size(16);
+        padding: $padding--small $padding--medium;
     }
 
     &__menu-desktop {
@@ -80,7 +79,7 @@
 
         li {
             color: $color--secondary-dark;
-            font-size: 16px;
+            font-size: $font-size--x-small;
             font-weight: $font-weight--regular;
             line-height: 1.6;
             list-style: none;
@@ -119,11 +118,11 @@
         .associar {
             background: $color--primary-light;
             padding: $padding--small $padding--medium;
-            border-radius: 16px;
+            border-radius: size(16);
         }
 
         .area-associado {
-            margin-left: 90px;
+            margin-left: size(90);
         }
 
         .login::before {

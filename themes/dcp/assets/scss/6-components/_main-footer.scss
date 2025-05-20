@@ -20,12 +20,15 @@
     }
 
     &__widget{
+        @include mobile{
+            display: none;
+        }
 
         .footer-column1{
             .wp-block-column{
                 & > p{
                     color: $color--secondary-light;
-                    font-size: 14px;
+                    font-size: $font-size--xx-small;
                 }
             }
 
@@ -41,7 +44,7 @@
         .footer-column2{
             p{
                 color: $color--secondary-light;
-                font-size: 14px;
+                font-size: $font-size--xx-small;
                 font-weight: $font-weight--bold;
                 margin-block-start: 0;
             }
@@ -67,7 +70,19 @@
 
         .copyright{
             color: $color--secondary-light;
-            font-size: 14px;
+            font-size: $font-size--xx-small;
+
+            @include mobile{
+                font-size: $font-size--xxx-small !important;
+            }
+        }
+    }
+
+    &__mobile-widget{
+        display: none;
+
+        @include mobile{
+            display: block;
         }
     }
 }

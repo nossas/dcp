@@ -6,6 +6,10 @@
     @include mobile {
         margin-bottom: $margin--large;
         margin-top: $margin--large;
+
+        @include mobile{
+            margin-top: $margin--large*3;
+        }
     }
 
     .wp-block-column{
@@ -22,6 +26,27 @@
             font-size: $font-size--x-small;
         }
 
+        .btn-riscos{
+            @include mobile {
+                max-width: size(350);
+                width: 100%;
+            }
+        }
+
+        .btn-riscos > .wp-block-button{
+            @include mobile{
+                width: 100%;
+            }
+        }
+
+        .btn-riscos > .wp-block-button > a{
+            &:hover {
+                border: none;
+                background-color: $color--high-dark !important;
+                color: $color--high-light !important;
+            }
+        }
+
         .wp-block-buttons > .wp-block-button{
             a{
                 padding: $padding--small size(20);
@@ -29,7 +54,7 @@
 
                 &:hover{
                     border-color: $color--high-dark !important;
-                    color: $color--high-dark !important;
+                    color: $color--high-dark;
                 }
             }
         }
