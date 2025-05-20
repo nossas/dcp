@@ -22,7 +22,7 @@
 
         .alignwide {
 
-            @include desktop {
+            @media (min-width: $grid--wide) {
                 margin-inline-start: calc(#{math.div($grid--wide, -2)} + 50%);
                 width: $grid--wide;
             }
