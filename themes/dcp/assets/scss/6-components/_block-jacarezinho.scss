@@ -15,21 +15,21 @@
         }
 
         .wp-block-heading{
-            font-size: 40px;
+            font-size: $font-size--x-large;
         }
 
         & > p {
-            font-size: 16px;
+            font-size: $font-size--x-small;
         }
 
         .wp-block-buttons > .wp-block-button{
             a{
-                padding: size(8) size(20);
-                font-size: 16px;
+                padding: $padding--small size(20);
+                font-size: $font-size--x-small;
 
                 &:hover{
-                    background-color: $color--secondary-dark;
-                    color: $color--high-light !important;
+                    border-color: $color--high-dark !important;
+                    color: $color--high-dark !important;
                 }
             }
         }
