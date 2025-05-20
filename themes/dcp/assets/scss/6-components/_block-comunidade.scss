@@ -33,9 +33,18 @@
                 }
 
                 &:hover{
-                    background-color: $color--primary-pure;
-                    color: $color--high-light !important;
+                    border-color: #0d1d0f;
+                    color: #0d1d0f !important;
                 }
+            }
+        }
+
+        .wp-block-buttons:last-child > .wp-block-button > a{
+            background-color: $color--primary-pure !important;
+            color: $color--high-light !important;
+
+            &:hover {
+                background-color: #1a3b1e !important;
             }
         }
     }
@@ -216,6 +225,8 @@
 }
 
 .btn-comunidade{
+    margin-bottom: size(145);
+
     @include mobile {
         display: none !important;
     }
