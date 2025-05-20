@@ -5,6 +5,10 @@
     max-height: size(200);
     padding: size(16);
 
+    @media (max-width: 768px) {
+        max-height: inherit;
+    }
+
     & > p {
         display: flex;
         gap: size(12);
@@ -13,5 +17,10 @@
         & > img{
             object-fit: contain;
         }
+    }
+
+    .wp-block-buttons{
+        position: relative;
+        top: -56px;
     }
 }

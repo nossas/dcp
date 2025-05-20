@@ -5,18 +5,22 @@
 
     .wp-block-cover{
         &__inner-container{
-            margin-right: auto;
-            margin-left: auto;
-            max-width: size(1430);
+            margin-inline: auto;
+            max-width: $grid--wide;
+            padding-inline: $padding--medium;
             width: 100%;
 
-            .wp-block-columns{
-                gap: size(140);
-                max-width: size(1160);
+            // @media (max-width: size(1400)){
+            //     max-width: size(1080);
+            // }
 
-                @media (max-width: size(1400)){
-                    max-width: size(1016);
-                }
+            .wp-block-columns{
+                gap: 40px;
+                //max-width: size(1160);
+
+                // @media (max-width: size(1400)){
+                //     max-width: 1180px;
+                // }
 
                 .wp-block-column:first-child{
                     p,
@@ -30,6 +34,13 @@
 
                     p{
                         font-size: 18px;
+                    }
+
+                    .wp-block-heading {
+                        @media (max-width: 768px) {
+                            margin-top: 32px;
+                            font-size: 32px;
+                        }
                     }
 
                     .wp-block-buttons > .wp-block-button{

@@ -28,6 +28,10 @@
         padding: 20px 24px !important;
         position: relative;
 
+        @media (max-width: 768px) {
+            font-size: 16px;
+        }
+
         &::marker {
             content: "";
         }
@@ -45,6 +49,10 @@
     &__content {
         background-color: $color--high-light;
         padding: $padding--medium;
+
+        & > p {
+            font-size: 16px !important;
+        }
     }
 }
 
@@ -64,6 +72,10 @@
 
         img{
             object-fit: contain;
+        }
+
+        @media (max-width: 768px){
+            font-size: 32px !important;
         }
     }
 

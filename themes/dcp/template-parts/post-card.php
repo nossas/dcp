@@ -77,83 +77,66 @@ $categories = get_the_category();
                 <?php endif; ?>
 
                 <?php
-                    $pod = pods('acao', get_the_ID());
+                $post_type = get_post_type();
+                $post_id = get_the_ID();
+                $pod = pods($post_type, $post_id);
 
-                    if (!$hide_date && $pod) :
-                        $data_raw = $pod->field('data');
-                        $data = is_array($data_raw) ? reset($data_raw) : $data_raw;
+                if (!$pod) {
+                    return;
+                }
 
-                        $hora_raw = $pod->field('horario');
-                        $hora = is_array($hora_raw) ? reset($hora_raw) : $hora_raw;
-
-                        if (!empty($data) && !empty($hora)) {
-                            $data_obj = DateTime::createFromFormat('Y-m-d', $data);
-                            $hora_obj = DateTime::createFromFormat('H:i:s', $hora) ?: DateTime::createFromFormat('H:i', $hora);
-
-                            if ($data_obj && $hora_obj) {
-                                echo '<time class="post-card__datetime">Dia: ' . esc_html($data_obj->format('d/m/Y')) . ', ' . esc_html($hora_obj->format('H:i')) . '</time>';
-                            }
-                        }
-                    endif;
+                if ($post_type === 'apoio' && has_term('locais-seguros', 'tipo_apoio', $post_id)) {
+                    $hora_atendimento = $pod->field('horario_de_atendimento');
+                    $telefone = $pod->field('telefone');
+                    $site = $pod->field('site');
+                    $observacoes = $pod->field('observacoes');
                 ?>
-
-                <?php
-                    $post_type = get_post_type();
-                    $tem_locais_seguro = has_term('locais-seguros', 'tipo_apoio', get_the_ID());
-                    $pod = pods($post_type, get_the_ID());
-
-                    if ($post_type === 'apoio' && $tem_locais_seguro && $pod) :
-                        $hora_atendimento = $pod->field('horario_de_atendimento');
-                        $telefone = $pod->field('telefone');
-                        $site = $pod->field('site');
-                        $observacoes = $pod->field('observacoes');
-                    ?>
 
                     <?php if (!empty($hora_atendimento)): ?>
                         <div class="post-card__field post-card__schedule">
                             <strong>Horário de atendimento:</strong>
-                            <?php
-                            $hora_str = is_array($hora_atendimento) ? implode(', ', $hora_atendimento) : $hora_atendimento;
-                            echo esc_html($hora_str);
-                            ?>
+                            <?= esc_html(is_array($hora_atendimento) ? implode(', ', $hora_atendimento) : $hora_atendimento); ?>
                         </div>
                     <?php endif; ?>
 
                     <?php if (!empty($telefone)): ?>
                         <div class="post-card__field post-card__phone">
-                            <strong>Telefone:</strong> <?php echo esc_html($telefone); ?>
+                            <strong>Telefone:</strong> <?= esc_html($telefone); ?>
                         </div>
                     <?php endif; ?>
 
                     <?php if (!empty($site)): ?>
                         <div class="post-card__field post-card__site">
-                            <strong>Site:</strong> <a href="<?php echo esc_url($site); ?>" target="_blank"><?php echo esc_html($site); ?></a>
+                            <strong>Site:</strong>
+                            <a href="<?= esc_url($site); ?>" target="_blank"><?= esc_html($site); ?></a>
                         </div>
                     <?php endif; ?>
 
                     <?php if (!empty($observacoes)): ?>
                         <div class="post-card__field post-card__notes">
-                            <strong>Observações:</strong> <?php echo esc_html($observacoes); ?>
+                            <strong>Observações:</strong> <?= esc_html($observacoes); ?>
                         </div>
                     <?php endif; ?>
 
-                <?php
-                elseif (!$hide_date && $pod) :
+                    <?php
+                } elseif (!$hide_date) {
                     $data_raw = $pod->field('data');
-                    $data = is_array($data_raw) ? reset($data_raw) : $data_raw;
-
                     $hora_raw = $pod->field('horario');
+
+                    $data = is_array($data_raw) ? reset($data_raw) : $data_raw;
                     $hora = is_array($hora_raw) ? reset($hora_raw) : $hora_raw;
 
-                    if (!empty($data) && !empty($hora)) {
-                        $data_obj = DateTime::createFromFormat('Y-m-d', $data);
-                        $hora_obj = DateTime::createFromFormat('H:i:s', $hora) ?: DateTime::createFromFormat('H:i', $hora);
+                    $data_obj = !empty($data) ? DateTime::createFromFormat('Y-m-d', $data) : null;
+                    $hora_obj = !empty($hora) ? (
+                        DateTime::createFromFormat('H:i:s', $hora) ?: DateTime::createFromFormat('H:i', $hora)
+                    ) : null;
 
-                        if ($data_obj && $hora_obj) {
-                            echo '<time class="post-card__datetime">Dia: ' . esc_html($data_obj->format('d/m/Y')) . ', ' . esc_html($hora_obj->format('H:i')) . '</time>';
-                        }
-                    }
-                endif;
+                    if ($data_obj && $hora_obj): ?>
+                        <time class="post-card__datetime">
+                            Dia: <?= esc_html($data_obj->format('d/m/Y')); ?>, <?= esc_html($hora_obj->format('H:i')); ?>
+                        </time>
+                <?php endif;
+                }
                 ?>
             </div>
         <?php endif; ?>
@@ -183,11 +166,19 @@ $categories = get_the_category();
         <?php if ($post_type == 'apoio'): ?>
             <div class="post-card__see-in-map">
                 <button class="post-card__map-button">
-                    <?= __("Veja no mapa", "dcp"); ?>
+                    <a href="#"><?= __("Veja no mapa", "dcp"); ?></a>
                 </button>
             </div>
         <?php endif; ?>
+
     </main>
+    <?php if ($post_type == 'acao'): ?>
+        <div class="post-card__acao-buttons">
+            <button class="post-card__acao-button">
+                <a href="#"><?= __("Saiba mais e participe", "dcp"); ?></a>
+            </button>
+        </div>
+    <?php endif; ?>
 </article>
 
 <?php

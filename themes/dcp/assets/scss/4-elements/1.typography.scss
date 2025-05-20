@@ -1,8 +1,8 @@
 html, body {
-    font-size: $font-size--medium;
-	@include mobile {
-        font-size: $font-size-mobile--medium;
-    }
+    font-size: 16px;
+	// @include mobile {
+    //     font-size: $font-size-mobile--medium;
+    // }
 }
 
 h1, h2, h3, h4, h5, h6 {

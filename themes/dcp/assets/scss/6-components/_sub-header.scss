@@ -3,6 +3,10 @@
     display: flex;
     min-height: size(40);
 
+    @media (max-width: 768px) {
+        display: none;
+    }
+
     &__icon,
     &__content-left,
     &__content-right{
@@ -20,7 +24,7 @@
 
     &__container{
         display: flex;
-        gap: size(408);
+        gap: 436px;
         max-width: 100%;
         margin-left: auto;
         margin-right: auto;
