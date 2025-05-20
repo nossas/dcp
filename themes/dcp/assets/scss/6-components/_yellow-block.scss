@@ -2,6 +2,16 @@
 .yellow-block{
     padding: size(80) !important;
 
+    @include mobile{
+        padding: $padding--medium !important;
+    }
+
+    .wp-block-columns{
+        @include mobile{
+            flex-direction: column-reverse;
+        }
+    }
+
     .wp-block-columns > .wp-block-column:first-child{
         display: flex;
         flex-direction: column;
@@ -14,6 +24,10 @@
 
         h2{
             font-size: $font-size--x-large;
+
+            @include mobile{
+                font-size: size(24) !important;
+            }
         }
 
         p{
@@ -23,9 +37,19 @@
         .wp-block-buttons{
             position: relative;
             top: size(70);
+
+            @include mobile{
+                top: 0;
+                max-width: size(350);
+                width: 100%;
+            }
         }
 
         .wp-block-buttons > .wp-block-button{
+            @include mobile {
+                width: 100%;
+            }
+
             a{
                 padding: $padding--small size(20);
                 font-size: $font-size--x-small;

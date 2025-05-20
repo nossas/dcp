@@ -1,5 +1,10 @@
 .main-footer-mobile{
     &__widget{
+        display: none;
+
+        @include mobile{
+            display: block;
+        }
 
         .wp-block-spacer{
             display: none;
