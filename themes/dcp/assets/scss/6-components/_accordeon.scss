@@ -8,7 +8,7 @@
         }
 
         details[open] .accordeon__title::before {
-            transform: rotate(-135deg);
+            transform: rotate(-180deg);
         }
 
         details{
@@ -25,8 +25,12 @@
         cursor: pointer;
         font-family: $font-family--primary;
         font-size: $font-size--x-small;
-        padding: 20px 24px !important;
+        padding: size(20) size(24) !important;
         position: relative;
+
+        @include mobile {
+            font-size: $font-size--x-small;
+        }
 
         &::marker {
             content: "";
@@ -37,26 +41,28 @@
             position: absolute;
             right: $padding--medium;
             top: calc(1em + #{2 * $border-width--medium});
+            width: size(24);
+            height: size(24);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M2.47229 6.9762C2.54196 6.90635 2.62473 6.85094 2.71584 6.81313C2.80696 6.77532 2.90464 6.75586 3.00329 6.75586C3.10194 6.75586 3.19963 6.77532 3.29074 6.81313C3.38186 6.85094 3.46463 6.90635 3.53429 6.9762L12.0033 15.4467L20.4723 6.9762C20.542 6.90647 20.6248 6.85115 20.7159 6.81341C20.807 6.77568 20.9047 6.75625 21.0033 6.75625C21.1019 6.75625 21.1996 6.77568 21.2907 6.81341C21.3818 6.85115 21.4646 6.90647 21.5343 6.9762C21.604 7.04593 21.6593 7.12872 21.6971 7.21982C21.7348 7.31093 21.7542 7.40858 21.7542 7.5072C21.7542 7.60582 21.7348 7.70347 21.6971 7.79458C21.6593 7.88568 21.604 7.96847 21.5343 8.0382L12.5343 17.0382C12.4646 17.108 12.3819 17.1635 12.2907 17.2013C12.1996 17.2391 12.1019 17.2585 12.0033 17.2585C11.9046 17.2585 11.807 17.2391 11.7158 17.2013C11.6247 17.1635 11.542 17.108 11.4723 17.0382L2.47229 8.0382C2.40245 7.96853 2.34703 7.88577 2.30923 7.79465C2.27142 7.70353 2.25195 7.60585 2.25195 7.5072C2.25195 7.40855 2.27142 7.31087 2.30923 7.21975C2.34703 7.12863 2.40245 7.04587 2.47229 6.9762Z' fill='%23F9F3EA'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: contain;
             transition: $transition--default;
-            @include arrow('down', $border-width--medium, $color--high-light);
         }
+
     }
 
     &__content {
         background-color: $color--high-light;
         padding: $padding--medium;
+
+        & > p {
+            font-size: $font-size--x-small !important;
+        }
     }
 }
 
 .faq{
     margin-top: size(100);
-
-    @media (max-width: size(1400)){
-        max-width: 1200px;
-        margin-right: auto;
-        margin-left: auto;
-        width: 100%;
-    }
 
     .wp-block-heading{
         display: flex;
@@ -65,12 +71,9 @@
         img{
             object-fit: contain;
         }
-    }
 
-    .wp-block-coblocks-accordion{
-        &-item{
-            max-width: size(1300);
-            width: 100%;
+        @include mobile{
+            font-size: size(24) !important;
         }
     }
 }

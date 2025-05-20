@@ -55,6 +55,10 @@
 }
 
 .wpcf7{
+    &-list-item{
+        margin-left: 0 !important;
+    }
+
     form{
         display: flex;
         flex-direction: column;
@@ -74,12 +78,12 @@
             cursor: pointer;
             display: flex;
             font-size: 16px;
-            gap: 10px;
+            gap: 4px;
             height: 40px;
             padding: 10px 16px 10px 10px;
             transition: background-color 0.3s ease;
         }
-          
+
         .custom-submit-button .icon {
             width: 16px;
             height: 16px;

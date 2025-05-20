@@ -25,6 +25,13 @@
                     padding: 0 !important;
                 }
             }
+
+                .wp-block-buttons{
+                    @media (max-width: 768px) {
+                        position: relative;
+                        top: -56px;
+                    }
+                }
         }
     }
 }

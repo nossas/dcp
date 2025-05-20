@@ -3,21 +3,38 @@
     margin-top: size(50);
 
     .wp-block-columns{
-        max-width: size(1160);
-
-        @media (max-width: size(1400)) {
-            max-width: size(1016);
+        @include mobile{
+            flex-direction: column-reverse !important;
         }
     }
 
     .wp-block-columns > .wp-block-column:first-child{
 
+        p{
+            font-weight: $font-weight--regular;
+        }
+
+        p:nth-child(2){
+            font-size: size(18) !important;
+            font-weight: $font-weight--regular !important;
+        }
+
+        .wp-block-heading{
+            @include mobile{
+                font-size: $font-size--large !important;
+            }
+        }
+
         .wp-block-buttons>.wp-block-button {
             a {
                 display: flex;
-                font-size: 16px;
-                gap: size(8);
-                padding: size(8) size(20);
+                font-size: $font-size--x-small !important;
+                gap: $gap--small;
+                padding: $padding--small size(20);
+
+                @include mobile {
+                    font-size: size(10);
+                }
 
                 & > img{
                     object-fit: contain;

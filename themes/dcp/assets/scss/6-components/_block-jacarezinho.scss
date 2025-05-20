@@ -1,10 +1,15 @@
 //bloco o jacarezinho na home
 .jacarezinho{
-    margin-top: size(100);
-    margin-bottom: size(100);
+    margin-top: size(80);
+    margin-bottom: size(80);
 
-    .wp-block-columns{
-        max-width: size(1200);
+    @include mobile {
+        margin-bottom: $margin--large;
+        margin-top: $margin--large;
+
+        @include mobile{
+            margin-top: $margin--large*3;
+        }
     }
 
     .wp-block-column{
@@ -14,21 +19,42 @@
         }
 
         .wp-block-heading{
-            font-size: 40px;
+            font-size: $font-size--x-large;
         }
 
         & > p {
-            font-size: 16px;
+            font-size: $font-size--x-small;
+        }
+
+        .btn-riscos{
+            @include mobile {
+                max-width: size(350);
+                width: 100%;
+            }
+        }
+
+        .btn-riscos > .wp-block-button{
+            @include mobile{
+                width: 100%;
+            }
+        }
+
+        .btn-riscos > .wp-block-button > a{
+            &:hover {
+                border: none;
+                background-color: $color--high-dark !important;
+                color: $color--high-light !important;
+            }
         }
 
         .wp-block-buttons > .wp-block-button{
             a{
-                padding: size(8) size(20);
-                font-size: 16px;
+                padding: $padding--small size(20);
+                font-size: $font-size--x-small;
 
                 &:hover{
-                    background-color: $color--secondary-dark;
-                    color: $color--high-light !important;
+                    border-color: $color--high-dark !important;
+                    color: $color--high-dark;
                 }
             }
         }

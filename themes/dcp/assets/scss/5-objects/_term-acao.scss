@@ -7,9 +7,9 @@
         align-items: center;
         border-radius: size(16);
         display: flex;
-        font-size: 14px;
-        gap: size(4);
-        max-width: size(85);
+        font-size: $font-size--xx-small;
+        gap: $gap--x-small;
+        max-width: size(100);
         padding: size(2) size(10);
 
         &::before {

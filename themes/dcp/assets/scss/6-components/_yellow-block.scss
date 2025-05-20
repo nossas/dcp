@@ -2,9 +2,14 @@
 .yellow-block{
     padding: size(80) !important;
 
+    @include mobile{
+        padding: $padding--medium !important;
+    }
+
     .wp-block-columns{
-        gap: size(140);
-        max-width: size(1160);
+        @include mobile{
+            flex-direction: column-reverse;
+        }
     }
 
     .wp-block-columns > .wp-block-column:first-child{
@@ -18,27 +23,40 @@
         }
 
         h2{
-            font-size: 40px;
+            font-size: $font-size--x-large;
+
+            @include mobile{
+                font-size: size(24) !important;
+            }
         }
 
         p{
-            font-size: 16px;
+            font-size: $font-size--x-small;
         }
 
         .wp-block-buttons{
             position: relative;
             top: size(70);
+
+            @include mobile{
+                top: 0;
+                max-width: size(350);
+                width: 100%;
+            }
         }
 
         .wp-block-buttons > .wp-block-button{
+            @include mobile {
+                width: 100%;
+            }
+
             a{
-                padding: size(8) size(20);
-                font-size: 16px;
+                padding: $padding--small size(20);
+                font-size: $font-size--x-small;
 
                 &:hover{
                     border: none;
-                    background-color: $color--secondary-dark;
-                    color: $color--high-light !important;
+                    background-color: $color--high-dark !important;
                 }
             }
         }

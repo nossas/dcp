@@ -3,8 +3,12 @@
 .container {
     margin-inline: auto;
     max-width: $grid--normal;
-    padding-inline: $padding--medium;
+    padding-inline: $padding--large;
     width: 100%;
+
+    @include mobile {
+        padding-inline: $padding--medium;
+    }
 
     &--wide {
         max-width: $grid--wide;
@@ -18,7 +22,7 @@
 
         .alignwide {
 
-            @include desktop {
+            @media (min-width: $grid--wide) {
                 margin-inline-start: calc(#{math.div($grid--wide, -2)} + 50%);
                 width: $grid--wide;
             }

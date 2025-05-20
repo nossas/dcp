@@ -1,14 +1,18 @@
 //card recomendações da home
 .recomendacoes{
     background-color: $color--high-light;
-    border-radius: 20px;
+    border-radius: $border-radius--large;
     max-height: size(200);
-    padding: size(16);
+    padding: $padding--medium;
+
+    @include mobile {
+        max-height: inherit;
+    }
 
     & > p {
         display: flex;
-        gap: size(12);
-        font-size: 16px;
+        gap: $gap--small;
+        font-size: $font-size--x-small !important;
 
         & > img{
             object-fit: contain;

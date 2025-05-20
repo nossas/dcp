@@ -2,115 +2,161 @@
     margin-bottom: size(80);
     margin-top: size(80);
 
-    .wp-block-cover__inner-container{
-        max-width: 1400px;
-        width: 100%;
+    @include mobile {
+        margin-bottom: size(40);
+        margin-top: size(40);
     }
 
-        .hacklabr-posts-grid-block {
-            .post-card {
-                max-width: 443px;
-                width: 100%;
+    .wp-block-columns > .wp-block-column{
+        color: $color--secondary-dark;
 
-                &__term{
-                    display: none;
-                }
-
-                &__image {
-                    img{
-                        border-radius: 0;
-                        -webkit-border-top-left-radius: 16px;
-                        -webkit-border-top-right-radius: 16px;
-                        -moz-border-radius-topleft: 16px;
-                        -moz-border-radius-topright: 16px;
-                        border-top-left-radius: 16px;
-                        border-top-right-radius: 16px;
-                    }
-                }
-
-                &__content{
-                    background-color: $color--high-light;
-                    padding: size(20);
-                }
-
-                &__title {
-                    font-family: $font-family--primary !important;
-                    font-size: 20px;
-                    font-weight: $font-weight--medium;
-                    margin-top: size(5);
-                }
-
-                &__excerpt {
-                    font-size: 16px;
-                    font-weight: $font-weight--regular;
-                }
-
-                &__divisor {
-                    &-line {
-                        border-bottom: size(2) solid $color--high-dark;
-                        margin-bottom: size(15);
-                        margin-top: size(15);
-                        width: size(24);
-                    }
-                }
-
-                &__meta,
-                &__address {
-                    color: $color--high-dark;
-                    display: flex;
-                    flex-direction: column;
-                    font-size: 14px;
-                    gap: size(4);
-                }
-
-                &__schedule {
-                    align-items: center;
-                    display: flex;
-                    flex-direction: row;
-                    gap: size(4);
-
-                    &::before {
-                        background-size: contain;
-                        background-repeat: no-repeat;
-                        content: url('/wp-content/themes/dcp/assets/images/wrapper5.png');
-                        display: inline-block;
-                        height: 1em;
-                        width: 1em;
-                    }
-                }
-
-                &__address {
-                    flex-direction: row !important;
-
-                    &::before {
-                        content: url('/wp-content/themes/dcp/assets/images/wrapper6.png') !important;
-                    }
-                }
-
-                &__see-in-map{
-                    display: flex;
-                    justify-content: flex-end;
-
-                    &::after {
-                        background-size: contain;
-                        background-repeat: no-repeat;
-                        content: url('/wp-content/themes/dcp/assets/images/wrapper34.png');
-                        cursor: pointer;
-                        display: inline-block;
-                        height: 1em;
-                        margin-bottom: 9px;
-                        width: 1em;
-                    }
-                }
-
-                &__map-button{
-                    background-color: transparent;
-                    color: $color--secondary-dark;
-                    cursor: pointer;
-                    font-size: 14px;
-                    font-weight: $font-weight--medium;
-                    text-decoration: underline;
-                }
+        .wp-block-heading{
+            @include mobile {
+                font-size: $font-size--large;
+                margin-top: $margin--large;
             }
         }
+
+        & > p{
+            font-size: $font-size--x-small;
+            font-weight: $font-weight--regular;
+        }
+
+        & > p > a{
+            color: $color--primary-pure;
+        }
+    }
+
+    .wp-block-buttons > .wp-block-button > a{
+        align-items: center;
+        display: flex;
+        font-size: $font-size--xx-small;
+
+        &::after {
+            background-size: contain;
+            background-repeat: no-repeat;
+            content: url('/wp-content/themes/dcp/assets/images/wrapper36.png');
+            cursor: pointer;
+            display: inline-block;
+            height: 1em;
+            margin-bottom: $margin--small;
+            width: 1em;
+        }
+    }
+
+    .hacklabr-posts-grid-block {
+        margin-block-start: size(56);
+
+        .post-card {
+            max-width: size(443);
+            width: 100%;
+
+            &__term{
+                display: none;
+            }
+
+            &__image {
+                img{
+                    border-radius: 0;
+                    -webkit-border-top-left-radius: size(16);
+                    -webkit-border-top-right-radius: size(16);
+                    -moz-border-radius-topleft: size(16);
+                    -moz-border-radius-topright: size(16);
+                    border-top-left-radius: size(16);
+                    border-top-right-radius: size(16);
+                }
+            }
+
+            &__content{
+                border-radius: 0;
+                background-color: $color--high-light;
+                -webkit-border-bottom-right-radius: size(16);
+                -webkit-border-bottom-left-radius: size(16);
+                -moz-border-radius-bottomright: size(16);
+                -moz-border-radius-bottomleft: size(16);
+                border-bottom-right-radius: size(16);
+                border-bottom-left-radius: size(16);
+                padding: size(20);
+            }
+
+            &__title {
+                font-family: $font-family--primary !important;
+                font-size: $font-size--small;
+                font-weight: $font-weight--medium;
+                margin-top: size(5);
+            }
+
+            &__excerpt {
+                font-size: $font-size--x-small;
+                font-weight: $font-weight--regular;
+            }
+
+            &__divisor {
+                &-line {
+                    border-bottom: size(2) solid $color--high-dark;
+                    margin-bottom: $margin--medium;
+                    margin-top: $margin--medium;
+                    width: size(24);
+                }
+            }
+
+            &__meta,
+            &__address {
+                color: $color--high-dark;
+                display: flex;
+                flex-direction: column;
+                font-size: $font-size--xx-small;
+                gap: $gap--x-small;
+            }
+
+            &__schedule {
+                align-items: center;
+                display: flex;
+                flex-direction: row;
+                gap: $gap--x-small;
+
+                &::before {
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    content: url('/wp-content/themes/dcp/assets/images/wrapper5.png');
+                    display: inline-block;
+                    height: 1em;
+                    width: 1em;
+                }
+            }
+
+            &__address {
+                flex-direction: row !important;
+
+                &::before {
+                    content: url('/wp-content/themes/dcp/assets/images/wrapper6.png') !important;
+                }
+            }
+
+            &__see-in-map{
+                display: flex;
+                justify-content: flex-end;
+
+                &::after {
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    content: url('/wp-content/themes/dcp/assets/images/wrapper34.png');
+                    cursor: pointer;
+                    display: inline-block;
+                    height: 1em;
+                    margin-bottom: $margin--small*2;
+                    width: 1em;
+                }
+            }
+
+            &__map-button{
+                background-color: transparent;
+                color: $color--secondary-dark;
+                cursor: pointer;
+                font-size: $font-size--xx-small;
+                font-weight: $font-weight--medium;
+                text-decoration: underline;
+            }
+        }
+    }
 }
