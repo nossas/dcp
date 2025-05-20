@@ -6,6 +6,10 @@
     @include mobile {
         margin-bottom: $margin--large;
         margin-top: $margin--large;
+
+        @include mobile{
+            margin-top: $margin--large*3;
+        }
     }
 
     .wp-block-column{

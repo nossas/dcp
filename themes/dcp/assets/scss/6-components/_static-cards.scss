@@ -2,14 +2,14 @@
     margin-bottom: size(80);
     margin-top: size(80);
 
-    @media (max-width: 768px) {
-        margin-bottom: size(40);
-        margin-top: size(40);
-        padding-inline: 16px;
+    @include mobile {
+        margin-bottom: $margin--large;
+        margin-top: $margin--large;
+        padding-inline: $padding--medium;
     }
 
     .wp-block-heading {
-        @media (max-width: 768px) {
+        @include mobile {
             font-size: 32px;
         }
     }
@@ -26,7 +26,7 @@
         margin-block-start: 0;
         max-width: 1330px;
 
-        @media (max-width: 768px) {
+        @include mobile {
             gap: 100px !important;
         }
     }
@@ -50,7 +50,7 @@
     }
 
     .wp-block-columns:last-child {
-        @media (max-width: 768px) {
+        @include mobile {
             gap: 0 !important;
         }
 
@@ -61,19 +61,19 @@
         }
 
         .wp-block-column:first-child {
-            @media (max-width: 768px) {
+            @include mobile {
                 top: -708px;
             }
         }
 
         .wp-block-column:nth-child(2) {
-            @media (max-width: 768px) {
+            @include mobile {
                 top: -430px;
             }
         }
 
         .wp-block-column:last-child {
-            @media (max-width: 768px) {
+            @include mobile {
                 top: -125px;
             }
         }
@@ -104,13 +104,13 @@
         .wp-block-columns>.wp-block-column {
             padding: size(20);
 
-            @media (max-width: 768px) {
+            @include mobile {
                 top: 0 !important;
             }
         }
 
         .wp-block-columns:last-child{
-            @media (max-width: 768px) {
+            @include mobile {
                 gap: 24px !important;
             }
         }
