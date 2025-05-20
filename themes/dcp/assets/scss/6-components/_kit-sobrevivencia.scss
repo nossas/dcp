@@ -31,8 +31,14 @@
 
                     .wp-block-buttons > .wp-block-button{
                         a{
+                            border: size(1) solid $color--secondary-dark;
                             font-size: $font-size--x-small;
                             padding: size(8) size(20);
+
+                            &:hover{
+                                border-color: $color--high-dark;
+                                color: $color--high-dark !important;
+                            }
                         }
                     }
                 }
