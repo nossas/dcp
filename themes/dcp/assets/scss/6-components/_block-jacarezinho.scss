@@ -1,19 +1,11 @@
 //bloco o jacarezinho na home
 .jacarezinho{
-    margin-top: size(100);
-    margin-bottom: size(100);
+    margin-top: size(80);
+    margin-bottom: size(80);
 
-    @media (max-width: 768px) {
-        margin-bottom: size(40);
-        margin-top: size(60);
-    }
-
-    .wp-block-columns{
-        max-width: 1330px;
-
-        @media (max-width: size(1400)) {
-            max-width: 1180px;
-        }
+    @include mobile {
+        margin-bottom: $margin--large;
+        margin-top: $margin--large;
     }
 
     .wp-block-column{

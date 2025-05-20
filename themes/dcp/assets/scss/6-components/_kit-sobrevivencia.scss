@@ -5,11 +5,6 @@
 
     .wp-block-cover{
         &__inner-container{
-            margin-inline: auto;
-            max-width: $grid--wide;
-            padding-inline: $padding--medium;
-            width: 100%;
-
             .wp-block-columns{
                 gap: $gap--large;
 

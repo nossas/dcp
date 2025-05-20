@@ -164,14 +164,16 @@
 
 .header-home{
     .wp-block-heading{
-        @media (max-width: 768px) {
-            font-size: 32px;
+        font-size: $font-size--xx-large;
+
+        @include mobile {
+            font-size: $font-size--large;
         }
     }
 
     & > p {
-        @media (max-width: 768px) {
-            font-size: 16px !important;
+        @include mobile {
+            font-size: $font-size--x-small !important;
         }
     }
 }
