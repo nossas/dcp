@@ -2,41 +2,34 @@
 .comunidade-header{
     margin-top: size(100);
 
-    @media (max-width: size(1400)){
-        max-width: size(1052);
-        margin-left: auto;
-        margin-right: auto;
-        width: 100%;
-    }
-
-    @media (max-width: 768px) {
-        margin-top: size(40);
+    @include mobile {
+        margin-top: $margin--large;
     }
 
     .wp-block-column{
         & > h2{
-            font-size: 40px;
+            font-size: $font-size--x-large;
         }
 
         & > p{
             color: $color--secondary-dark;
-            font-size: 16px;
+            font-size: $font-size--x-small;
         }
     }
 
     .wp-block-column:last-child{
         align-items: flex-end;
         display: flex;
-        gap: size(16);
+        gap: $gap--medium;
         justify-content: flex-end;
 
         .wp-block-buttons > .wp-block-button{
             a{
-                padding: size(8) size(20);
-                font-size: 16px;
+                padding: $padding--small size(20);
+                font-size: $font-size--x-small;
 
-                @media (max-width: 768px) {
-                    font-size: 14px;
+                @include mobile {
+                    font-size: $font-size--xx-small;
                 }
 
                 &:hover{
@@ -51,8 +44,8 @@
 .acontece-na-comunidade{
     margin-bottom: 0;
 
-    @media (max-width: 768px){
-        gap: 80px !important;
+    @include mobile{
+        gap: size(80) !important;
     }
 
     .wp-block-column:first-child{
@@ -81,20 +74,20 @@
 
     .wp-block-column{
         background-color: $color--high-light;
-        -webkit-border-top-left-radius: 20px;
-        -webkit-border-top-right-radius: 20px;
-        -moz-border-radius-topleft: 20px;
-        -moz-border-radius-topright: 20px;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        padding: 20px;
+        -webkit-border-top-left-radius: $border-radius--large;
+        -webkit-border-top-right-radius: $border-radius--large;
+        -moz-border-radius-topleft: $border-radius--large;
+        -moz-border-radius-topright: $border-radius--large;
+        border-top-left-radius: $border-radius--large;
+        border-top-right-radius: $border-radius--large;
+        padding: $border-radius--large;
 
-        @media (max-width: 768px) {
+        @include mobile {
             position: relative;
         }
 
         p:first-child{
-            width: 111px;
+            width: size(111);
             font-size: 14px !important;
         }
 
@@ -103,10 +96,10 @@
         }
 
         & > p {
-            border-radius: 16px;
+            border-radius: size(16);
             color: $color--secondary-dark;
             display: flex;
-            gap: 4px;
+            gap: $gap--x-small;
 
             img{
                 object-fit: contain;
@@ -121,21 +114,21 @@
 
                 &__title{
                     font-family: $font-family--primary !important;
-                    font-size: 20px;
+                    font-size: $font-size--medium;
                     font-weight: $font-weight--medium;
                     margin-top: size(5);
                 }
 
                 &__excerpt{
-                    font-size: 16px;
+                    font-size: $font-size--x-small;
                     font-weight: $font-weight--regular;
                 }
 
                 &__divisor{
                     &-line{
                         border-bottom: size(2) solid $color--high-dark;
-                        margin-bottom: size(15);
-                        margin-top: size(15);
+                        margin-bottom: $margin--medium;
+                        margin-top: $margin--medium;
                         width: size(24);
                     }
                 }
@@ -145,8 +138,8 @@
                     align-items: center;
                     color: $color--high-dark;
                     display: flex;
-                    font-size: 14px;
-                    gap: size(4);
+                    font-size: $font-size--xx-small;
+                    gap: $gap--x-small;
 
                     &::before {
                         background-size: contain;
@@ -161,27 +154,27 @@
                 &__acao-buttons {
                     display: none;
 
-                    @media (max-width: 768px) {
+                    @include mobile {
                         display: block;
-                        bottom: -70px;
-                        border-bottom-left-radius: 20px;
-                        border-bottom-right-radius: 20px;
+                        bottom: size(-70);
+                        border-bottom-left-radius: $border-radius--large;
+                        border-bottom-right-radius: $border-radius--large;
                         left: 0;
-                        margin-top: 16px;
-                        padding: 1rem;
+                        margin-top: $margin--medium;
+                        padding: $padding--medium;
                         position: absolute;
                         right: 0;
                     }
                 }
 
                 &__acao-button {
-                    @media (max-width: 768px) {
-                        border-radius: 16px;
+                    @include mobile {
+                        border-radius: size(16);
                     }
 
                     & > a {
-                        font-size: 16px;
-                        padding: 10px 24px;
+                        font-size: $font-size--x-small;
+                        padding: size(10) size(24);
                         text-decoration: none;
                     }
                 }
@@ -199,7 +192,7 @@
 
         p:first-child{
             background-color: $color--primary-light;
-            padding: 4px 14px;
+            padding: $padding--x-small size(14);
         }
     }
 
@@ -208,7 +201,7 @@
         p:first-child{
             background-color: $color--warning-dark;
             color: $color--high-light;
-            padding: 4px 14px;
+            padding: $padding--x-small size(14);
         }
     }
 
@@ -216,28 +209,28 @@
 
         p:first-child{
             background-color: $color--primary-dark;
-            padding: 4px 14px;
-            font-size: 14px !important;
+            font-size: $font-size--xx-small !important;
+            padding: $padding--x-small size(14);
         }
     }
 }
 
 .btn-comunidade{
-    @media (max-width: 768px) {
+    @include mobile {
         display: none !important;
     }
 
     .wp-block-column{
-        -webkit-border-bottom-right-radius: 20px;
-        -webkit-border-bottom-left-radius: 20px;
-        -moz-border-radius-bottomright: 20px;
-        -moz-border-radius-bottomleft: 20px;
-        border-bottom-right-radius: 20px;
-        border-bottom-left-radius: 20px;
+        -webkit-border-bottom-right-radius: $border-radius--large;
+        -webkit-border-bottom-left-radius: $border-radius--large;
+        -moz-border-radius-bottomright: $border-radius--large;
+        -moz-border-radius-bottomleft: $border-radius--large;
+        border-bottom-right-radius: $border-radius--large;
+        border-bottom-left-radius: $border-radius--large;
 
         .wp-block-buttons > .wp-block-button{
-            font-size: 16px;
-            padding: 10px 16px;
+            font-size: $font-size--x-small;
+            padding: size(10) $padding--medium;
         }
     }
 
