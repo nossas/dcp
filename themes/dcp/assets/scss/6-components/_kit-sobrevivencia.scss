@@ -3,26 +3,24 @@
     margin-bottom: size(70);
     margin-top: size(70);
 
-
-
     .wp-block-cover{
         &__inner-container{
-            margin-right: auto;
-            margin-left: auto;
-            max-width: 1330px;
+            margin-inline: auto;
+            max-width: $grid--wide;
+            padding-inline: $padding--medium;
             width: 100%;
 
-            @media (max-width: size(1400)){
-                max-width: size(1080);
-            }
+            // @media (max-width: size(1400)){
+            //     max-width: size(1080);
+            // }
 
             .wp-block-columns{
                 gap: 40px;
-                max-width: size(1160);
+                //max-width: size(1160);
 
-                @media (max-width: size(1400)){
-                    max-width: 1180px;
-                }
+                // @media (max-width: size(1400)){
+                //     max-width: 1180px;
+                // }
 
                 .wp-block-column:first-child{
                     p,

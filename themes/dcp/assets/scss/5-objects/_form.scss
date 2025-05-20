@@ -55,6 +55,10 @@
 }
 
 .wpcf7{
+    &-list-item{
+        margin-left: 0 !important;
+    }
+
     form{
         display: flex;
         flex-direction: column;
