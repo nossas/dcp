@@ -24,6 +24,10 @@
         max-width: $grid--wide;
         padding-inline: $padding--large;
         width: 100%;
+
+        @include mobile{
+            padding-inline: $padding--small;
+        }
     }
 }
 

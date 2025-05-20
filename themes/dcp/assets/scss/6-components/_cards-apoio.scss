@@ -2,37 +2,24 @@
     margin-bottom: size(80);
     margin-top: size(80);
 
-    @media (max-width: 768px) {
+    @include mobile {
         margin-bottom: size(40);
         margin-top: size(40);
-    }
-
-    .wp-block-cover__inner-container{
-        max-width: 1400px;
-        width: 100%;
-    }
-
-    .wp-block-columns{
-        max-width: 1330px;
     }
 
     .wp-block-columns > .wp-block-column{
         color: $color--secondary-dark;
 
         .wp-block-heading{
-            @media (max-width: 768px) {
-                font-size: 32px;
-                margin-top: 32px;
+            @include mobile {
+                font-size: $font-size--large;
+                margin-top: $margin--large;
             }
         }
 
         & > p{
-            font-size: 16px;
+            font-size: $font-size--x-small;
             font-weight: $font-weight--regular;
-
-            @media (max-width: 768px) {
-                font-size: 14px !important;
-            }
         }
 
         & > p > a{
@@ -43,7 +30,7 @@
     .wp-block-buttons > .wp-block-button > a{
         align-items: center;
         display: flex;
-        font-size: 14px;
+        font-size: $font-size--xx-small;
 
         &::after {
             background-size: contain;
@@ -52,17 +39,16 @@
             cursor: pointer;
             display: inline-block;
             height: 1em;
-            margin-bottom: 5px;
+            margin-bottom: $margin--small;
             width: 1em;
         }
     }
 
     .hacklabr-posts-grid-block {
-        margin-block-start: 56px;
-        max-width: 1330px;
+        margin-block-start: size(56);
 
         .post-card {
-            max-width: 443px;
+            max-width: size(443);
             width: 100%;
 
             &__term{
@@ -72,44 +58,44 @@
             &__image {
                 img{
                     border-radius: 0;
-                    -webkit-border-top-left-radius: 16px;
-                    -webkit-border-top-right-radius: 16px;
-                    -moz-border-radius-topleft: 16px;
-                    -moz-border-radius-topright: 16px;
-                    border-top-left-radius: 16px;
-                    border-top-right-radius: 16px;
+                    -webkit-border-top-left-radius: size(16);
+                    -webkit-border-top-right-radius: size(16);
+                    -moz-border-radius-topleft: size(16);
+                    -moz-border-radius-topright: size(16);
+                    border-top-left-radius: size(16);
+                    border-top-right-radius: size(16);
                 }
             }
 
             &__content{
                 border-radius: 0;
                 background-color: $color--high-light;
-                -webkit-border-bottom-right-radius: 16px;
-                -webkit-border-bottom-left-radius: 16px;
-                -moz-border-radius-bottomright: 16px;
-                -moz-border-radius-bottomleft: 16px;
-                border-bottom-right-radius: 16px;
-                border-bottom-left-radius: 16px;
+                -webkit-border-bottom-right-radius: size(16);
+                -webkit-border-bottom-left-radius: size(16);
+                -moz-border-radius-bottomright: size(16);
+                -moz-border-radius-bottomleft: size(16);
+                border-bottom-right-radius: size(16);
+                border-bottom-left-radius: size(16);
                 padding: size(20);
             }
 
             &__title {
                 font-family: $font-family--primary !important;
-                font-size: 20px;
+                font-size: $font-size--small;
                 font-weight: $font-weight--medium;
                 margin-top: size(5);
             }
 
             &__excerpt {
-                font-size: 16px;
+                font-size: $font-size--x-small;
                 font-weight: $font-weight--regular;
             }
 
             &__divisor {
                 &-line {
                     border-bottom: size(2) solid $color--high-dark;
-                    margin-bottom: size(15);
-                    margin-top: size(15);
+                    margin-bottom: $margin--medium;
+                    margin-top: $margin--medium;
                     width: size(24);
                 }
             }
@@ -119,15 +105,15 @@
                 color: $color--high-dark;
                 display: flex;
                 flex-direction: column;
-                font-size: 14px;
-                gap: size(4);
+                font-size: $font-size--xx-small;
+                gap: $gap--x-small;
             }
 
             &__schedule {
                 align-items: center;
                 display: flex;
                 flex-direction: row;
-                gap: size(4);
+                gap: $gap--x-small;
 
                 &::before {
                     background-size: contain;
@@ -158,7 +144,7 @@
                     cursor: pointer;
                     display: inline-block;
                     height: 1em;
-                    margin-bottom: 9px;
+                    margin-bottom: $margin--small*2;
                     width: 1em;
                 }
             }
@@ -167,7 +153,7 @@
                 background-color: transparent;
                 color: $color--secondary-dark;
                 cursor: pointer;
-                font-size: 14px;
+                font-size: $font-size--xx-small;
                 font-weight: $font-weight--medium;
                 text-decoration: underline;
             }
