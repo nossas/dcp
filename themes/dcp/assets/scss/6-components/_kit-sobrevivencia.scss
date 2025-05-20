@@ -10,17 +10,8 @@
             padding-inline: $padding--medium;
             width: 100%;
 
-            // @media (max-width: size(1400)){
-            //     max-width: size(1080);
-            // }
-
             .wp-block-columns{
-                gap: 40px;
-                //max-width: size(1160);
-
-                // @media (max-width: size(1400)){
-                //     max-width: 1180px;
-                // }
+                gap: $gap--large;
 
                 .wp-block-column:first-child{
                     p,
@@ -29,23 +20,23 @@
                     }
 
                     h2{
-                        font-size: 48px;
+                        font-size: $font-size--xx-large;
                     }
 
                     p{
-                        font-size: 18px;
+                        font-size: size(18);
                     }
 
                     .wp-block-heading {
-                        @media (max-width: 768px) {
-                            margin-top: 32px;
-                            font-size: 32px;
+                        @include mobile {
+                            margin-top: $margin--large;
+                            font-size: $font-size--large;
                         }
                     }
 
                     .wp-block-buttons > .wp-block-button{
                         a{
-                            font-size: 16px;
+                            font-size: $font-size--x-small;
                             padding: size(8) size(20);
                         }
                     }
