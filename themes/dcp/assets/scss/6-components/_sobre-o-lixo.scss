@@ -26,4 +26,9 @@
             height: 32px;
         }
     }
+    h2{
+        @include mobile{
+            font-size:24px !important;
+        }
+    }
 }
