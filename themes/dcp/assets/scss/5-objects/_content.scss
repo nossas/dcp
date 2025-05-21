@@ -4,22 +4,22 @@
     display: grid;
     grid-column-gap: $gap--medium;
     grid-template-columns:
-        [full-start] 1fr
-        [wide-start left-start] #{math.div($grid--wide - $grid--normal, 2)}
+        [start] 1fr
+        [left-start] #{math.div($grid--wide - $grid--normal, 2)}
         [center-start left-end] #{$grid--normal}
         [right-start center-end] #{math.div($grid--wide - $grid--normal, 2)}
-        [right-end wide-end] 1fr
-        [full-end];
+        [right-end] 1fr
+        [end];
     max-width: unset;
     padding-inline: 0;
     width: 100vw;
 
     @media (max-width: $grid--wide) {
         grid-template-columns:
-            [full-start wide-start left-start] 1fr
+            [start left-start] 1fr
             [center-start left-end] #{$grid--normal}
             [right-start center-end] 1fr
-            [right-end wide-end full-end];
+            [right-end end];
 
         & > :not(.alignfull) {
             padding-inline: $padding--large;
@@ -28,8 +28,8 @@
 
     @media (max-width: $grid--normal) {
         grid-template-columns:
-            [full-start wide-start left-start center-start right-start] 1fr
-            [right-end center-end left-end wide-end full-end];
+            [start left-start center-start right-start] 1fr
+            [right-end center-end left-end end];
     }
 
     &--normal {
@@ -42,7 +42,7 @@
     &--wide {
 
         & > * {
-            grid-column: wide-start / wide-end;
+            grid-column: left-start / right-end;
         }
     }
 
@@ -59,12 +59,12 @@
     }
 
     .alignwide {
-        grid-column: wide-start / wide-end;
+        grid-column: left-start / right-end;
         grid-template-columns: subgrid;
     }
 
     .alignfull {
-        grid-column: full-start / full-end;
+        grid-column: start / end;
         grid-template-columns: subgrid;
     }
 }
