@@ -1,22 +1,26 @@
 //bloco veja quem chamar da home
 .veja-quem-chamar{
     background-color: $color--high-light;
-    border-radius: 20px;
-    padding: size(16);
+    border-radius: $border-radius--large;
+    padding: $padding--medium;
 
     .wp-block-columns{
         .wp-block-column:nth-child(2){
             p:first-child{
-                font-size: 16px;
+                font-size: $font-size--x-small;
             }
 
             p{
-                font-size: 14px;
+                font-size: $font-size--xx-small;
                 margin-top: 0;
             }
         }
 
         .wp-block-column:last-child{
+            @include mobile{
+                border-bottom: 1px solid $color--secondary-light;
+            }
+
             .wp-block-buttons > .wp-block-button{
                 width: size(50);
                 height: size(32);
@@ -27,9 +31,9 @@
             }
 
                 .wp-block-buttons{
-                    @media (max-width: 768px) {
+                    @include mobile {
                         position: relative;
-                        top: -56px;
+                        top: size(-56);
                     }
                 }
         }

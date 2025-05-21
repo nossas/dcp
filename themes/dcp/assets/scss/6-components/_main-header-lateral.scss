@@ -162,11 +162,13 @@
 }
 
 .header-home{
+    padding-inline: $padding--large;
+
     .wp-block-heading{
         font-size: $font-size--xx-large;
 
         @include mobile {
-            font-size: $font-size--large;
+            font-size: $font-size--medium !important;
         }
     }
 

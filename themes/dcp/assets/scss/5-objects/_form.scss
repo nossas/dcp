@@ -62,11 +62,22 @@
     form{
         display: flex;
         flex-direction: column;
-        gap: 24px;
+        gap: size(24);
 
         .btn-submit{
             display: flex;
             justify-content: flex-end;
+
+            @include mobile{
+                max-width: size(350);
+                width: 100%;
+            }
+
+            & > p{
+                @include mobile{
+                    width: 100%;
+                }
+            }
         }
 
         .custom-submit-button {
@@ -74,36 +85,41 @@
             background-color: $color--primary-pure;
             color: $color--high-light;
             border: none;
-            border-radius: 100px;
+            border-radius: size(100);
             cursor: pointer;
             display: flex;
-            font-size: 16px;
-            gap: 4px;
-            height: 40px;
+            font-size: $font-size--x-small;
+            gap: $gap--x-small;
+            height: size(40);
             padding: 10px 16px 10px 10px;
             transition: background-color 0.3s ease;
+
+            @include mobile{
+                padding-inline: size(104);
+                width: 100%;
+            }
         }
 
         .custom-submit-button .icon {
-            width: 16px;
-            height: 16px;
+            width: size(16);
+            height: size(16);
             position: relative;
-            bottom: 3px;
+            bottom: size(3);
             stroke: $color--high-light;
         }
 
         label{
             color: $color--low-light;
-            font-size: 14px;
+            font-size: $font-size--xx-small;
             font-weight: $font-weight--regular;
 
 
             .wpcf7-form-control-wrap > .wpcf7-form-control{
                 border: 1px solid $color--low-light;
-                border-radius: 12px;
-                height: 48px;
-                max-width: 676px;
-                padding: 16px;
+                border-radius: size(12);
+                height: size(48);
+                max-width: size(676);
+                padding: $padding--medium;
                 width: 100%;
             }
         }

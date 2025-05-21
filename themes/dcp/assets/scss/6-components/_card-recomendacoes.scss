@@ -19,3 +19,7 @@
         }
     }
 }
+
+.wp-block-columns:has(.recomendacoes){
+    padding-inline: $padding--large;
+}
