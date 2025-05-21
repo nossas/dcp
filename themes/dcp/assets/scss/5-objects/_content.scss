@@ -14,14 +14,6 @@
     padding-inline: 0;
     width: 100vw;
 
-    & > * + * {
-        margin-top: max(1em, 1rem);
-    }
-
-    & > .wp-block-cover + .wp-block-cover {
-        margin-top: 0;
-    }
-
     @media (max-width: $grid--wide) {
         grid-template-columns:
             [start left-start] 1fr
