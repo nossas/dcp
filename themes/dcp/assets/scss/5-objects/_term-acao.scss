@@ -23,7 +23,8 @@
     }
 
     .term{
-        &-cultural{
+        &-cultural,
+        &-cultura{
             background-color: $color--warning-dark;
             color: $color--high-light;
 
