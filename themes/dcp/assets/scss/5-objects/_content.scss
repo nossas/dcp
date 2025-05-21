@@ -2,7 +2,6 @@
 
 .content {
     display: grid;
-    grid-column-gap: $gap--medium;
     grid-template-columns:
         [start] 1fr
         [left-start] #{math.div($grid--wide - $grid--normal, 2)}
@@ -14,22 +13,26 @@
     padding-inline: 0;
     width: 100vw;
 
-    @media (max-width: $grid--wide) {
-        grid-template-columns:
-            [start left-start] 1fr
-            [center-start left-end] #{$grid--normal}
-            [right-start center-end] 1fr
-            [right-end end];
-
-        & > :not(.alignfull) {
-            padding-inline: $padding--large;
-        }
+    & > :not(.alignfull) {
+        padding-inline: $padding--large;
     }
 
-    @media (max-width: $grid--normal) {
+    @media (max-width: #{$grid--wide + 2 * $padding--large}) {
+        grid-template-columns:
+            [start] 1fr
+            [left-start center-start right-start] #{$grid--normal}
+            [right-end center-end left-end] 1fr
+            [end];
+    }
+
+    @media (max-width: #{$grid--normal + 2 * $padding--medium}) {
         grid-template-columns:
             [start left-start center-start right-start] 1fr
             [right-end center-end left-end end];
+
+        & > :not(.alignfull) {
+            padding-inline: $padding--medium;
+        }
     }
 
     &--normal {
@@ -48,6 +51,7 @@
 
     .alignleft {
         grid-column: left-start / left-end;
+        padding-inline-end: 0;
     }
 
     .aligncenter {
@@ -56,6 +60,7 @@
 
     .alignright {
         grid-column: right-start / right-end;
+        padding-inline-start: 0;
     }
 
     .alignwide {
