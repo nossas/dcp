@@ -1,0 +1,70 @@
+@use 'sass:math';
+
+.content {
+    display: grid;
+    grid-column-gap: $gap--medium;
+    grid-template-columns:
+        [full-start] 1fr
+        [wide-start left-start] #{math.div($grid--wide - $grid--normal, 2)}
+        [center-start left-end] #{$grid--normal}
+        [right-start center-end] #{math.div($grid--wide - $grid--normal, 2)}
+        [right-end wide-end] 1fr
+        [full-end];
+    max-width: unset;
+    padding-inline: 0;
+    width: 100vw;
+
+    @media (max-width: $grid--wide) {
+        grid-template-columns:
+            [full-start wide-start left-start] 1fr
+            [center-start left-end] #{$grid--normal}
+            [right-start center-end] 1fr
+            [right-end wide-end full-end];
+
+        & > :not(.alignfull) {
+            padding-inline: $padding--large;
+        }
+    }
+
+    @media (max-width: $grid--normal) {
+        grid-template-columns:
+            [full-start wide-start left-start center-start right-start] 1fr
+            [right-end center-end left-end wide-end full-end];
+    }
+
+    &--normal {
+
+        & > * {
+            grid-column: center-start / center-end;
+        }
+    }
+
+    &--wide {
+
+        & > * {
+            grid-column: wide-start / wide-end;
+        }
+    }
+
+    .alignleft {
+        grid-column: left-start / left-end;
+    }
+
+    .aligncenter {
+        grid-column: center-start / center-end;
+    }
+
+    .alignright {
+        grid-column: right-start / right-end;
+    }
+
+    .alignwide {
+        grid-column: wide-start / wide-end;
+        grid-template-columns: subgrid;
+    }
+
+    .alignfull {
+        grid-column: full-start / full-end;
+        grid-template-columns: subgrid;
+    }
+}

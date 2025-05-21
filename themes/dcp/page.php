@@ -8,8 +8,8 @@ get_header();
                 <?php the_excerpt() ?>
             </div> -->
         </div>
-        <div class="post-content content content--normal">
-            <?php the_content() ?>
-        </div>
+    </div>
+    <div class="post-content content content--wide">
+        <?php the_content() ?>
     </div>
 <?php get_footer();

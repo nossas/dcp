@@ -36,7 +36,7 @@ $excerpt = !empty( $post->post_excerpt ) ? wp_kses_post( $post->post_excerpt ) :
     </div>
 </header>
 
-<main class="post-content container">
+<main class="post-content content content--normal">
     <?php the_content() ?>
 </main>
 

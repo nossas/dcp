@@ -17,20 +17,4 @@
     &--narrow {
         max-width: $grid--narrow;
     }
-
-    &:not(.container--wide) {
-
-        .alignwide {
-
-            @media (min-width: $grid--wide) {
-                margin-inline-start: calc(#{math.div($grid--wide, -2)} + 50%) !important;
-                width: $grid--wide;
-            }
-        }
-    }
-
-    .alignfull {
-        margin-inline-start: calc(-50vw + 50%);
-        width: 100vw;
-    }
 }
