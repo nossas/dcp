@@ -2,6 +2,7 @@
 .reportar{
     margin-bottom: size(100);
     margin-top: size(100);
+    padding-inline: $padding--large;
 
     & > h2{
         font-size: $font-size--x-large;
