@@ -162,12 +162,12 @@
                     "size": "1rem"
                 },
                 {
-                    "name": "very Small",
+                    "name": "Very small",
                     "slug": "xx-small",
                     "size": "0.875rem"
                 },
                 {
-                    "name": "extra Small",
+                    "name": "Extra small",
                     "slug": "xxx-small",
                     "size": "0.75rem"
                 }

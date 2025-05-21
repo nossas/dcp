@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/dcp\n"
-"POT-Creation-Date: 2024-06-10T12:35:29+00:00\n"
-"PO-Revision-Date: 2024-06-10 09:36-0300\n"
+"POT-Creation-Date: 2025-05-21T17:54:13+00:00\n"
+"PO-Revision-Date: 2025-05-21 14:54-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -12,24 +12,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Domain: hacklabr\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Domain: hacklabr\n"
 "X-Poedit-Basepath: .\n"
 
 #. Theme Name of the theme
+#: style.css
 msgid "hacklabr"
 msgstr "hacklabr"
 
 #. Theme URI of the theme
 #. Author URI of the theme
+#: style.css
 msgid "https://hacklab.com.br/"
 msgstr "https://hacklab.com.br/"
 
 #. Description of the theme
+#: style.css
 msgid "Base theme for developing new websites."
 msgstr "Tema base para desenvolvimento de novos sites."
 
 #. Author of the theme
+#: style.css
 msgid "Hacklab"
 msgstr "Hacklab"
 
@@ -79,7 +83,7 @@ msgstr "Os comentários estão desativados"
 msgid "Toggle menu visibility"
 msgstr "Alternar visibilidade do menu"
 
-#: header-lateral.php:58
+#: header-lateral.php:65
 msgid "Toggle search form visibility"
 msgstr "Alternar a visibilidade do formulário de pesquisa"
 
@@ -103,6 +107,10 @@ msgstr "Card horizontal"
 msgid "Vertical card"
 msgstr "Card vertical"
 
+#: library/settings.php:39
+msgid "YouTube Key"
+msgstr "Chave do YouTube"
+
 #. Template Name of the theme
 msgid "Page with anchors"
 msgstr "Página com âncoras"
@@ -110,6 +118,10 @@ msgstr "Página com âncoras"
 #: page-anchor.php:12
 msgid "Sections"
 msgstr "Seções"
+
+#. Template Name of the theme
+msgid "Quem Acionar"
+msgstr "Quem Acionar"
 
 #: single.php:30
 msgid "Published in "
@@ -155,6 +167,11 @@ msgstr " Resultados Encontrados"
 msgid "Author: %s"
 msgstr "Autor:%s"
 
+#: assets/javascript/functionalities/gutenberg/icon.js:64
+#: dist/js/functionalities/gutenberg.js:29
+msgid "Iconify ID"
+msgstr "Iconify ID"
+
 #: dist/blocks/banner-with-image/editor.js:29
 #: dist/blocks/card-header/editor.js:19
 #: library/blocks/banner-with-image/editor.js:11
@@ -168,7 +185,7 @@ msgstr "Conteúdo do cabeçalho"
 #: library/blocks/card-header/editor.js:38
 #: library/blocks/posts-grid/editor.js:22
 msgid "Layout"
-msgstr ""
+msgstr "Layout"
 
 #: dist/blocks/banner-with-image/editor.js:29
 #: dist/blocks/banner-with-image/editor.js:39
@@ -176,25 +193,22 @@ msgstr ""
 #: library/blocks/banner-with-image/editor.js:28
 #: library/blocks/shared/SelectImage.js:32
 msgid "Image"
-msgstr ""
+msgstr "Imagem"
 
 #: dist/blocks/banner-with-image/editor.js:39
 #: dist/blocks/card-header/editor.js:29 library/blocks/shared/SelectImage.js:15
-#, fuzzy
-#| msgctxt "block title"
-#| msgid "Banner with image"
 msgid "Change image"
-msgstr "Banner com imagem"
+msgstr "Alterar imagem"
 
 #: dist/blocks/banner-with-image/editor.js:39
 #: dist/blocks/card-header/editor.js:29 library/blocks/shared/SelectImage.js:18
 msgid "Remove image"
-msgstr ""
+msgstr "Remover imagem"
 
 #: dist/blocks/banner-with-image/editor.js:39
 #: dist/blocks/card-header/editor.js:29 library/blocks/shared/SelectImage.js:24
 msgid "Select image"
-msgstr ""
+msgstr "Selecionar imagem"
 
 #: dist/blocks/card-body/editor.js:19 library/blocks/card-body/editor.js:8
 msgid "Body content"
@@ -202,7 +216,7 @@ msgstr "Conteúdo do corpo"
 
 #: dist/blocks/card-header/editor.js:19 library/blocks/card-header/editor.js:41
 msgid "Background image"
-msgstr ""
+msgstr "Imagem de fundo"
 
 #: dist/blocks/posts-grid/editor.js:19 library/blocks/posts-grid/editor.js:39
 msgid "Grid columns"
@@ -274,10 +288,8 @@ msgstr "Comparar termos"
 
 #: dist/blocks/posts-grid/editor.js:74
 #: library/blocks/shared/SelectPostType.js:21
-#, fuzzy
-#| msgid "No post type"
 msgid "Post type"
-msgstr "Nenhum tipo de postagem"
+msgstr "Tipo de postagem"
 
 #: dist/blocks/posts-grid/editor.js:74
 #: library/blocks/shared/SelectPostType.js:26
@@ -315,10 +327,8 @@ msgstr "Tamanho"
 
 #: dist/blocks/posts-grid/editor.js:96
 #: library/blocks/shared/SelectTaxonomy.js:21
-#, fuzzy
-#| msgid "No taxonomy"
 msgid "Taxonomy"
-msgstr "Sem taxonomia"
+msgstr "Taxonomia"
 
 #: dist/blocks/posts-grid/editor.js:96
 #: library/blocks/shared/SelectTaxonomy.js:26
@@ -327,7 +337,7 @@ msgstr "Sem taxonomia"
 
 #: dist/blocks/posts-grid/editor.js:107 library/blocks/shared/SelectTerms.js:9
 msgid "Terms"
-msgstr ""
+msgstr "Termos"
 
 #: dist/blocks/read-more/editor.js:19 library/blocks/read-more/editor.js:14
 msgid "Full text"
@@ -347,10 +357,6 @@ msgstr "Leia menos"
 #: library/blocks/read-more/index.js:12
 msgid "Read more"
 msgstr "Leia mais"
-
-#: dist/js/functionalities/gutenberg.js:29
-msgid "Iconify ID"
-msgstr "Iconify ID"
 
 #: library/blocks/banner-with-image/block.json
 msgctxt "block title"
@@ -411,6 +417,16 @@ msgstr "Leia mais"
 msgctxt "block description"
 msgid "A collapsible text paragraph with 'Read more' button"
 msgstr "Um parágrafo de texto recolhível com o botão \"Leia mais\""
+
+#: library/blocks/video-playlist/block.json
+msgctxt "block title"
+msgid "Video Playlist"
+msgstr "Playlist de Vídeos"
+
+#: library/blocks/video-playlist/block.json
+msgctxt "block description"
+msgid "Displays videos from a YouTube channel or playlist."
+msgstr "Exibe vídeos de um canal ou playlist do YouTube."
 
 #: theme.json
 msgctxt "Color name"
@@ -524,8 +540,8 @@ msgstr "Enorme"
 
 #: theme.json
 msgctxt "Font size name"
-msgid "Extra big"
-msgstr "Muito grande"
+msgid "Extra large"
+msgstr "Extra grande"
 
 #: theme.json
 msgctxt "Font size name"
@@ -553,16 +569,38 @@ msgid "Too small"
 msgstr "Muito pequeno"
 
 #: theme.json
+msgctxt "Font size name"
+msgid "Very small"
+msgstr "Muito pequena"
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Extra small"
+msgstr "Extra pequena"
+
+#: theme.json
 msgctxt "Font family name"
 msgid "Primary"
 msgstr "Primária"
 
 #: theme.json
 msgctxt "Font family name"
-msgid "System"
-msgstr "Sistema"
+msgid "Secondary"
+msgstr "Secundária"
 
 #: theme.json
 msgctxt "Font family name"
 msgid "Title"
 msgstr "Título"
+
+#~ msgctxt "Font size name"
+#~ msgid "extra Small"
+#~ msgstr "Muito pequena"
+
+#~ msgctxt "Font size name"
+#~ msgid "Extra big"
+#~ msgstr "Muito grande"
+
+#~ msgctxt "Font family name"
+#~ msgid "System"
+#~ msgstr "Sistema"
