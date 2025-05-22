@@ -1,6 +1,9 @@
 @use 'sass:math';
 
 .content {
+    $breakpoint--wide: $grid--wide + 2 * $padding--large;
+    $breakpoint--normal: $grid--normal + 2 * $padding--medium;
+
     display: grid;
     grid-template-columns:
         [start] 1fr
@@ -17,7 +20,7 @@
         padding-inline: $padding--large;
     }
 
-    @media (max-width: #{$grid--wide + 2 * $padding--large}) {
+    @media (max-width: $breakpoint--wide) {
         grid-template-columns:
             [start wide-start] 1fr
             [left-start center-start right-start] #{$grid--normal}
@@ -25,7 +28,7 @@
             [wide-end end];
     }
 
-    @media (max-width: #{$grid--normal + 2 * $padding--medium}) {
+    @media (max-width: $breakpoint--medium) {
         grid-template-columns:
             [start wide-start left-start center-start right-start] 1fr
             [right-end center-end left-end wide-end end];
@@ -51,7 +54,10 @@
 
     .alignleft {
         grid-column: left-start / left-end;
-        padding-inline-end: 0;
+
+        @media (min-width: $breakpoint--wide) {
+            padding-inline-end: 0;
+        }
     }
 
     .aligncenter {
@@ -60,7 +66,10 @@
 
     .alignright {
         grid-column: right-start / right-end;
-        padding-inline-start: 0;
+
+        @media (min-width: $breakpoint--wide) {
+            padding-inline-start: 0;
+        }
     }
 
     .alignwide {
