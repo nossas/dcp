@@ -20,6 +20,10 @@
 
         .wp-block-heading{
             font-size: $font-size--x-large;
+
+            @include mobile{
+                font-size: $font-size--medium !important;
+            }
         }
 
         & > p {
@@ -47,7 +51,18 @@
             }
         }
 
+        .wp-block-buttons {
+            @include mobile {
+                max-width: size(350);
+                width: 100%;
+            }
+        }
+
         .wp-block-buttons > .wp-block-button{
+            @include mobile{
+                width: 100%;
+            }
+
             a{
                 padding: $padding--small size(20);
                 font-size: $font-size--x-small;
