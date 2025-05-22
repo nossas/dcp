@@ -28,7 +28,7 @@
             [wide-end end];
     }
 
-    @media (max-width: $breakpoint--medium) {
+    @media (max-width: $breakpoint--normal) {
         grid-template-columns:
             [start wide-start left-start center-start right-start] 1fr
             [right-end center-end left-end wide-end end];
