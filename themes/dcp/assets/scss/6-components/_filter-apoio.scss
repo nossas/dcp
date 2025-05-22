@@ -1,71 +1,96 @@
 .page-quem-acionar{
     .apoio-filtro {
         margin-bottom: 2rem;
-
         .apoio-search-wrap {
-            display: flex;
+        display: flex;
+        width: 100%;
+        max-width: 676px;
+        max-height: 45px;
+        margin: 56px 0;
+        position: relative;
+
+        input {
+            flex: 1;
+            padding: 12px 16px 12px 40px; // espaço para o ícone no desktop
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-right: none;
+            border-radius: 50px 0 0 50px;
+            outline: none;
+            background-color: #fff;
             width: 100%;
-            max-width: 676px;
-            max-height: 45px;
-            margin: unset;
+
+            @include mobile {
+            padding: 8px 12px;
+            border: 1px solid var(--Color-Theme-Dark, #281414);
+            border-radius: 50px 0 0 50px;
+            }
+        }
+
+        button {
             position: relative;
-            margin: 56px 0;
+            background: $color--secondary-dark;
+            color: #fff;
+            border: 1px solid #281414;
+            border-left: none;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s;
+            padding: 0 1.5rem;
 
-            input {
-              flex: 1;
-              padding: 12px 16px 12px 40px; // espaço para o ícone
-              font-size: 1rem;
-              border: 1px solid #ccc;
-              border-right: none;
-              border-radius: 50px 0 0 50px; // mais arredondado
-              outline: none;
-              background-color: #fff;
-              width: 100%;
-              @include mobile{
-                padding:8px 0px 8px 16px;
-                border: 1px solid var(--Color-Theme-Dark, #281414);
-
-              }
+            @include mobile {
+            font-size: 0; // oculta o texto
+            width: 45px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             }
 
-            button {
-              padding: 0 1.5rem;
-              background: $color--secondary-dark;
-              color: #fff;
-              border: 1px solid #281414;
-              border-left: none;
-              border-radius: 0 50px 50px 0;
-              @include mobile{
-                font-size: 14px;
-                padding: revert;
-              }
-              cursor: pointer;
-              font-size: 1rem;
-              transition: background 0.2s;
-
-              &:hover {
-                background: #3c2a1e;
-              }
-            }
-
-            // Ícone de lupa
             &::before {
-                content: '';
-                position: absolute;
-                left: 12px;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 16px;
-                height: 16px;
-                background-image: url('/wp-content/themes/dcp/assets/images/lupa.svg');
-                background-size: contain;
-                background-repeat: no-repeat;
-                background-position: center;
-                @include mobile{
-                    display: none;
-                }
-              }
-          }
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-image: url('/wp-content/themes/dcp/assets/images/lupa-mob.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            @include desktop {
+                display: none;
+            }
+            }
+
+            &:hover {
+            background: #3c2a1e;
+            }
+        }
+
+        // Ícone no input (desktop apenas)
+        &::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            background-image: url('/wp-content/themes/dcp/assets/images/lupa.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+
+            @include mobile {
+            display: none;
+            }
+        }
+        }
 
 
           .apoio-tags {
