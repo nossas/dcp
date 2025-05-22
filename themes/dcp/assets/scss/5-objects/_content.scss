@@ -12,7 +12,7 @@
         [right-start center-end] #{math.div($grid--wide - $grid--normal, 2)}
         [right-end wide-end] 1fr
         [end];
-    max-width: unset;
+    max-width: 100%;
     padding-inline: 0;
     width: 100vw;
 
