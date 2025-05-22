@@ -16,10 +16,21 @@
 
                     h2{
                         font-size: $font-size--xx-large;
+                        max-width: size(450);
+                        white-space: normal;
+                        word-break: break-word;
+
+                        @include mobile{
+                            font-size: $font-size--medium !important;
+                        }
                     }
 
                     p{
                         font-size: size(18);
+
+                        @include mobile {
+                            font-size: $font-size--x-small;
+                        }
                     }
 
                     .wp-block-heading {
@@ -29,11 +40,22 @@
                         }
                     }
 
+                    .wp-block-buttons{
+                        @include mobile{
+                            max-width: size(350);
+                            width: 100%;
+                        }
+                    }
+
                     .wp-block-buttons > .wp-block-button{
+                        @include mobile{
+                            width: 100%;
+                        }
+
                         a{
                             border: size(1) solid $color--secondary-dark;
                             font-size: $font-size--x-small;
-                            padding: size(8) size(20);
+                            padding: $padding--small size(20);
 
                             &:hover{
                                 border-color: $color--high-dark;

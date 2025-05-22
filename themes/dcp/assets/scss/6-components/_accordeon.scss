@@ -1,8 +1,6 @@
 
 .accordeon {
-
     &__item {
-
         &:last-child {
             border: $border-width--small solid $color--high-light;
         }
@@ -63,10 +61,12 @@
 
 .faq{
     margin-top: size(100);
+    padding-inline: $padding--large;
 
     .wp-block-heading{
         display: flex;
         gap: size(10);
+        padding-inline: $padding--medium;
 
         img{
             object-fit: contain;
@@ -75,5 +75,13 @@
         @include mobile{
             font-size: size(24) !important;
         }
+    }
+}
+
+.wp-block-coblocks-accordion{
+    padding-inline: size(20);
+
+    @include mobile{
+        padding-inline: 0;
     }
 }

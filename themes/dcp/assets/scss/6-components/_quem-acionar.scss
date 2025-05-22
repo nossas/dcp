@@ -4,6 +4,9 @@
             z-index: 0;
             position: absolute;
             left: 69%;
+            @include mobile{
+                display: none;
+            }
         }
         .wp-block-cover {
             .wp-block-columns {
@@ -226,7 +229,7 @@
                 transform: translateY(-50%);
                 width: 25px;
                 height: 25px;
-                background-image: url('/wp-content/themes/dcp/assets/images/arrow-top-acordeon.svg');
+                background-image: url('/wp-content/themes/dcp/assets/images/arrow-bottom-acordeon.svg');
                 background-repeat: no-repeat;
                 background-size: contain;
                 background-position: center;
@@ -242,7 +245,7 @@
                 transform: translateY(-50%);
                 width: 25px;
                 height: 25px;
-                background-image: url('/wp-content/themes/dcp/assets/images/arrow-bottom-acordeon.svg');
+                background-image: url('/wp-content/themes/dcp/assets/images/arrow-top-acordeon.svg');
                 background-repeat: no-repeat;
                 background-size: contain;
                 background-position: center;

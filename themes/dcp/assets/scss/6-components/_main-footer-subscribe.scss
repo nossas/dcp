@@ -6,8 +6,27 @@
         .wp-block-cover{
 
             .wp-block-columns > .wp-block-column:first-child{
+
+                .wp-block-image > img{
+                    @include mobile{
+                        height: auto !important;
+                    }
+                }
+
                 img{
                     object-fit: cover;
+                }
+
+                .wp-block-spacer{
+                    @include mobile{
+                        display: none;
+                    }
+                }
+
+                .p1{
+                    @include mobile{
+                        display: none;
+                    }
                 }
             }
 
@@ -24,6 +43,22 @@
 
                 & > h2{
                     font-size: $font-size--large;
+                }
+
+                .p2 {
+                    display: none;
+
+                    @include mobile {
+                        display: block;
+
+                        &::before {
+                            content: '';
+                            display: block;
+                            width: size(40);
+                            height: size(2);
+                            background-color: #e6e3df;
+                        }
+                    }
                 }
             }
         }

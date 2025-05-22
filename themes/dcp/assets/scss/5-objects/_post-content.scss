@@ -1,13 +1,6 @@
 .post-content {
     padding-top: $padding--large;
 
-    @media (max-width: size(1400)) {
-        max-width: 1310px;
-        margin-right: auto;
-        margin-left: auto;
-        width: 100%;
-    }
-
     & > h2 {
         margin-bottom: $margin--medium;
         font-size: $font-size--xx-large;
@@ -28,5 +21,16 @@
         color: $color--primary-dark;
         font-family: $font-family--heading;
         font-size: $font-size--x-large;
+    }
+
+    .single & {
+
+        & > * + * {
+            margin-top: max(1em, 1rem);
+        }
+
+        & > .wp-block-cover + .wp-block-cover {
+            margin-top: 0;
+        }
     }
 }

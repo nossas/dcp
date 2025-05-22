@@ -1,6 +1,7 @@
 //bloco acontece na comunidade da home
 .comunidade-header{
     margin-top: size(100);
+    padding-inline: $padding--large;
 
     @include mobile {
         margin-top: $margin--large;
@@ -27,7 +28,24 @@
         gap: $gap--medium;
         justify-content: flex-end;
 
+        @include mobile{
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .wp-block-buttons{
+            @include mobile{
+                max-width: size(350);
+                width: 100%;
+            }
+        }
+
         .wp-block-buttons > .wp-block-button{
+            @include mobile{
+                width: 100%;
+            }
+
             a{
                 padding: $padding--small size(20);
                 font-size: $font-size--x-small;
@@ -56,9 +74,11 @@
 
 .acontece-na-comunidade{
     margin-bottom: 0;
+    padding-inline: $padding--large;
 
     @include mobile{
         gap: size(80) !important;
+        padding-inline: $padding--small;
     }
 
     .wp-block-column:first-child{
@@ -139,7 +159,7 @@
 
                 &__divisor{
                     &-line{
-                        border-bottom: size(2) solid $color--high-dark;
+                        border-bottom: size(2) solid #C9C6C5;
                         margin-bottom: $margin--medium;
                         margin-top: $margin--medium;
                         width: size(24);
@@ -194,7 +214,7 @@
                 }
 
                 &__address{
-                        &::before {
+                    &::before {
                         content: url('/wp-content/themes/dcp/assets/images/wrapper6.png') !important;
                     }
                 }
@@ -231,6 +251,7 @@
 
 .btn-comunidade{
     margin-bottom: size(145);
+    padding-inline: $padding--large;
 
     @include mobile {
         display: none !important;

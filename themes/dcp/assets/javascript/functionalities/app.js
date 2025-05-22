@@ -104,3 +104,17 @@ document.addEventListener('DOMContentLoaded', function () {
         filterCards();
     });
 });
+
+//função para troca de placeholder mobile e deskt
+  function atualizarPlaceholder() {
+    const input = document.getElementById('apoio-search');
+    if (window.innerWidth <= 768) {
+      input.placeholder = 'Descreva o problema...';
+    } else {
+      input.placeholder = 'Descreva o problema e veja quem acionar...';
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', atualizarPlaceholder);
+
+  window.addEventListener('resize', atualizarPlaceholder);

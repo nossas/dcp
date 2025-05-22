@@ -1,9 +1,7 @@
 <?php get_header(); ?>
 
-<div class="container container--wide">
-    <div class="post-content content content--normal">
-        <?php the_content(); ?>
-    </div>
+<div class="post-content content content--wide">
+    <?php the_content(); ?>
 </div>
 
 <?php get_footer(); ?>

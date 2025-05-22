@@ -3,8 +3,8 @@
     display: flex;
     min-height: size(40);
 
-    @media (max-width: 768px) {
-        display: none;
+    @include mobile {
+        //display: none;
     }
 
     &__icon,
@@ -15,22 +15,31 @@
         gap: size(24);
     }
 
+    &__content-left{
+        @include mobile{
+            align-items: flex-start;
+            flex-direction: column;
+            gap: $gap--medium;
+        }
+    }
+
     &__content{
         .advertment{
             color: $color--secondary-dark;
-            font-size: 16px;
+            font-size: $font-size--x-small;
         }
     }
 
     &__container{
         display: flex;
-        gap: 436px;
+        gap: size(436);
         max-width: 100%;
-        margin-left: auto;
-        margin-right: auto;
+        margin-inline: auto;
 
-        @media (min-width: size(1500)) and (max-width: size(1900)){
-            gap: size(536);
+        @include mobile{
+            gap: 0;
+            padding: $padding--medium;
+            padding-inline: size(24);
         }
     }
 
@@ -44,7 +53,7 @@
 
         .warning{
             text-transform: uppercase;
-            font-size: 16px;
+            font-size: $font-size--x-small;
             font-weight: $font-weight--bold;
             line-height: 1.2;
         }
@@ -52,8 +61,12 @@
 
     &__read-more{
         color: $color--secondary-dark;
-        font-size: 16px;
+        font-size: $font-size--x-small;
         font-weight: $font-weight--medium;
+
+        @include mobile{
+            display: none;
+        }
     }
 
     &__close {
