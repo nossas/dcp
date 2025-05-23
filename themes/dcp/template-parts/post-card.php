@@ -170,6 +170,37 @@ $categories = get_the_category();
                 </button>
             </div>
         <?php endif; ?>
+        <?php
+// Exibir campos personalizados apenas para posts da categoria "manuais-de-referencia"
+    if (has_category('manuais-de-referencia', $post)) {
+        $pod = pods('post', get_the_ID());
+
+        $dia_raw = $pod->field('dia');
+        $endereco = $pod->field('endereco');
+
+        $dia_formatado = '';
+        if (!empty($dia_raw)) {
+            $dia_obj = DateTime::createFromFormat('Y-m-d', $dia_raw);
+            if ($dia_obj) {
+                $dia_formatado = $dia_obj->format('d/m/Y');
+            }
+        }
+        ?>
+
+        <div class="post-card__meta post-card__meta--manuais">
+            <?php if (!empty($dia_formatado)): ?>
+                <div class="post-card__field post-card__dia">
+                    <strong>Dia:</strong> <?= esc_html($dia_formatado); ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($endereco)): ?>
+                <div class="post-card__field post-card__endereco">
+                    <strong>Endereço:</strong> <?= esc_html($endereco); ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        <?php } ?>
 
     </main>
     <?php if ($post_type == 'acao'): ?>
