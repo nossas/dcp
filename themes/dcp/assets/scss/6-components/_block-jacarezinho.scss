@@ -74,4 +74,8 @@
             }
         }
     }
+
+    .wp-block-column:last-child{
+        margin-top: $margin--large*2;
+    }
 }
