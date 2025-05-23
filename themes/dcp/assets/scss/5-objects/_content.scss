@@ -4,34 +4,17 @@
     $breakpoint--wide: $grid--wide + 2 * $padding--large;
     $breakpoint--normal: $grid--normal + 2 * $padding--medium;
 
-    display: grid;
-    grid-template-columns:
-        [start] 1fr
-        [wide-start left-start] #{math.div($grid--wide - $grid--normal, 2)}
-        [center-start left-end] #{$grid--normal}
-        [right-start center-end] #{math.div($grid--wide - $grid--normal, 2)}
-        [right-end wide-end] 1fr
-        [end];
+    display: block;
     max-width: 100%;
-    padding-inline: 0;
     width: 100vw;
 
     & > :not(.alignfull) {
+        margin-inline: auto;
+        max-width: 100%;
         padding-inline: $padding--large;
     }
 
-    @media (max-width: $breakpoint--wide) {
-        grid-template-columns:
-            [start wide-start] 1fr
-            [left-start center-start right-start] #{$grid--normal}
-            [right-end center-end left-end] 1fr
-            [wide-end end];
-    }
-
     @media (max-width: $breakpoint--normal) {
-        grid-template-columns:
-            [start wide-start left-start center-start right-start] 1fr
-            [right-end center-end left-end wide-end end];
 
         & > :not(.alignfull) {
             padding-inline: $padding--medium;
@@ -41,44 +24,53 @@
     &--normal {
 
         & > * {
-            grid-column: center-start / center-end;
+            width: $grid--normal;
         }
     }
 
     &--wide {
 
         & > * {
-            grid-column: wide-start / wide-end;
+            width: $grid--wide;
         }
     }
 
+    .aligncenter, .alignwide, .alignfull {
+        clear: both;
+    }
+
+    .aligncenter {
+        clear: both;
+        width: $grid--normal;
+    }
+
+    .alignwide {
+        width: $grid--wide;
+    }
+
+    .alignfull {
+        width: 100%;
+    }
+
+    .alignleft, .alignright {
+        width: math.div($grid--wide - $grid--normal, 2);
+    }
+
     .alignleft {
-        grid-column: left-start / left-end;
+        float: left;
 
         @media (min-width: $breakpoint--wide) {
+            margin-inline-start: calc(50vw - #{math.div($grid--wide, 2)});
             padding-inline-end: 0;
         }
     }
 
-    .aligncenter {
-        grid-column: center-start / center-end;
-    }
-
     .alignright {
-        grid-column: right-start / right-end;
+        float: right;
 
         @media (min-width: $breakpoint--wide) {
+            margin-inline-end: calc(50vw - #{math.div($grid--wide, 2)});
             padding-inline-start: 0;
         }
-    }
-
-    .alignwide {
-        grid-column: wide-start / wide-end;
-        grid-template-columns: subgrid;
-    }
-
-    .alignfull {
-        grid-column: start / end;
-        grid-template-columns: subgrid;
     }
 }

@@ -22,15 +22,4 @@
         font-family: $font-family--heading;
         font-size: $font-size--x-large;
     }
-
-    .single & {
-
-        & > * + * {
-            margin-top: max(1em, 1rem);
-        }
-
-        & > .wp-block-cover + .wp-block-cover {
-            margin-top: 0;
-        }
-    }
 }
