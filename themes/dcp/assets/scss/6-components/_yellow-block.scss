@@ -36,7 +36,6 @@
 
         .wp-block-buttons{
             position: relative;
-            top: size(70);
 
             @include mobile{
                 top: 0;

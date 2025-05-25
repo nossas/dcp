@@ -170,6 +170,47 @@ $categories = get_the_category();
                 </button>
             </div>
         <?php endif; ?>
+        <?php
+// Exibir campos personalizados apenas para posts da categoria "manuais-de-referencia"
+    if (has_category('manuais-de-referencia', $post)) {
+        $pod = pods('post', get_the_ID());
+
+        $dia_raw = $pod->field('dia');
+        $endereco = $pod->field('endereco');
+        $arquivo = $pod->field('enviar_arquivo');
+        $dia_formatado = '';
+        if (!empty($dia_raw)) {
+            $dia_obj = DateTime::createFromFormat('Y-m-d', $dia_raw);
+            if ($dia_obj) {
+                $dia_formatado = $dia_obj->format('d/m/Y');
+            }
+        }
+        ?>
+
+        <div class="post-card__meta post-card__meta--manuais">
+            <?php if (!empty($dia_formatado)): ?>
+                <hr>
+                <div class="post-card__field post-card__dia">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/wrapper.svg" alt="Ícone de endereço" />
+                    <strong>Dia:</strong> <?= esc_html($dia_formatado); ?>
+                </div>
+            <?php endif; ?>
+            <?php if (!empty($endereco)): ?>
+                <div class="post-card__field post-card__endereco">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pin.svg" alt="Ícone de horário" />
+                    <strong>Endereço:</strong> <?= esc_html($endereco); ?>
+                </div>
+            <?php endif; ?>
+            <?php if (!empty($arquivo)): ?>
+            <div class="post-card__field post-card__manual">
+                <a href="<?= esc_url($arquivo['guid']); ?>" target="_blank" rel="noopener noreferrer">
+                    Acesse o manual
+                </a>
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icon-left-link.png" alt="Ícone de seta" />
+            </div>
+        <?php endif; ?>
+        </div>
+        <?php } ?>
 
     </main>
     <?php if ($post_type == 'acao'): ?>

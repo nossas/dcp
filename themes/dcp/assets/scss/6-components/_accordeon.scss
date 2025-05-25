@@ -18,7 +18,7 @@
     }
 
     &__title {
-        border-radius: 20px !important;
+        border-radius: $border-radius--large $border-radius--large 0 0 !important;
         color: $color--low-pure;
         cursor: pointer;
         font-family: $font-family--primary;
@@ -50,10 +50,12 @@
     }
 
     &__content {
-        background-color: $color--high-light;
+        background-color: $color--primary-pure;
+        border-radius: 0 0 $border-radius--large $border-radius--large !important;
         padding: $padding--medium;
 
         & > p {
+            color: $color--high-light;
             font-size: $font-size--x-small !important;
         }
     }

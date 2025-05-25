@@ -1,6 +1,5 @@
 .page-header-cover{
     margin-bottom: size(100);
-    margin-top: size(50);
 
     .wp-block-columns{
         @include mobile{
@@ -41,8 +40,8 @@
                 }
 
                 &:hover {
-                    background-color: $color--secondary-dark;
-                    color: $color--high-light !important;
+                    border-color: $color--high-dark !important;
+                    color: $color--high-dark !important;
                 }
             }
         }

@@ -13,10 +13,15 @@
     }
 
     .wp-block-columns > .wp-block-column{
+        .wp-block-image{
+            margin-bottom: $margin--medium;
+        }
+
         p{
             max-width: size(314);
             width: 100%;
             margin-inline: auto;
+            margin-top: $margin--small;
         }
     }
 }
