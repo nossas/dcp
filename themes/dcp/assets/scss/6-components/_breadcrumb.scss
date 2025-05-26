@@ -1,0 +1,12 @@
+.breadcrumb{
+    align-items: center;
+    display: flex;
+
+    span > a{
+        text-decoration: none;
+    }
+
+    span > .current-item{
+        text-decoration: underline;
+    }
+}
