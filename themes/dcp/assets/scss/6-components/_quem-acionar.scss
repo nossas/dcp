@@ -182,8 +182,13 @@
             margin-top: 32px;
         }
          .wp-block-columns .wp-block-column {
-            .tittle-hidden-mobile{
-                margin:0px;
+            .tittle-hidden-mobile,
+            .subtitle-acordeon{
+                margin:0px !important;
+                margin-left: 6rem !important;
+                @media (max-width:1920px){
+                margin-left: 1.5rem !important;
+                }
                 @include mobile{
                     font-size: 24px;
                     padding-left: 24px;
@@ -195,12 +200,30 @@
                 display: none;
             }
         }
-        .wp-block-coblocks-accordion{
+       .wp-block-coblocks-accordion{
+            max-width: 85%;
+            display: flex;
+            flex-direction: column;
+            margin-left: auto;
+            margin-right: 113px;
+            padding: 0px !important;
+            @media (max-width:1920px){
+                max-width: 93%;
+                display: flex;
+                flex-direction: column;
+                margin-left: auto;
+                margin-right: 45px;
+                padding: 0px !important;
+
+            }
+
+
             .wp-block-coblocks-accordion-item{
                 &__title{
                     background-color: $color--high-light !important;
                     color:#281414 !important;
                     font-weight: $font-weight--regular !important;
+                    outline: none !important;
                 }
                 &__title::first-line {
                     font-size: 20px;
@@ -208,6 +231,7 @@
                     font-weight: $font-weight--medium;
                 }
                 &__content{
+                    background-color: #F9F3EA !important;
                     a{
                         color:#235540;
                         font-weight: $font-weight--regular !important;
@@ -218,39 +242,44 @@
                 position: relative;
                 padding-right: 1.5em;
                 cursor: pointer;
-              }
-
-              details .wp-block-coblocks-accordion-item__title::after {
-                content: "";
-                position: absolute;
-                left: 90%;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 25px;
-                height: 25px;
-                background-image: url('/wp-content/themes/dcp/assets/images/arrow-bottom-acordeon.svg');
-                background-repeat: no-repeat;
-                background-size: contain;
-                background-position: center;
-              }
-
-              /* Quando o details estiver aberto */
-              details.open .wp-block-coblocks-accordion-item__title::after,
-                details[open] .wp-block-coblocks-accordion-item__title::after {
-                content: "";
-                position: absolute;
-                left: 90%;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 25px;
-                height: 25px;
-                background-image: url('/wp-content/themes/dcp/assets/images/arrow-top-acordeon.svg');
-                background-repeat: no-repeat;
-                background-size: contain;
-                background-position: center;
+                &:hover:after {
+                    background-image: url('/wp-content/themes/dcp/assets/images/arrow-bottom-acordeon.svg');
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    background-position: center;
                 }
 
+            }
 
+            details .wp-block-coblocks-accordion-item__title::after {
+            content: "";
+            position: absolute;
+            left: 95%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 25px;
+            height: 25px;
+            background-image: url('/wp-content/themes/dcp/assets/images/arrow-bottom-acordeon.svg');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            }
+
+            /* Quando o details estiver aberto */
+            details.open .wp-block-coblocks-accordion-item__title::after,
+            details[open] .wp-block-coblocks-accordion-item__title::after {
+            content: "";
+            position: absolute;
+            left: 95%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 25px;
+            height: 25px;
+            background-image: url('/wp-content/themes/dcp/assets/images/arrow-top-acordeon.svg');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            }
         }
     }
     .call-modal {
