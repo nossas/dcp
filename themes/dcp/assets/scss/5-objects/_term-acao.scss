@@ -23,6 +23,27 @@
     }
 
     .term{
+        &-alagamento{
+            max-width: size(140);
+
+            &::before {
+                background-image: url('/wp-content/themes/dcp/assets/images/wrapper43.png');
+            }
+        }
+
+        &-esgoto{
+            &::before {
+                background-image: url('/wp-content/themes/dcp/assets/images/wrapper44.png');
+            }
+        }
+
+        &-alagamento,
+        &-outros,
+        &-esgoto{
+            background-color: $color--warning-dark;
+            color: $color--high-light;
+        }
+
         &-cultural,
         &-cultura{
             background-color: $color--warning-dark;
