@@ -234,6 +234,9 @@
                 }
                 &__content{
                     background-color: #F9F3EA !important;
+                    p{
+                        color:#281414;
+                    }
                     a{
                         color:#235540;
                         font-weight: $font-weight--regular !important;
