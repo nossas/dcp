@@ -4,20 +4,22 @@
             border: $border-width--small solid $color--high-light;
         }
 
-        details[open] .accordeon__title::before {
-            transform: rotate(-180deg);
+        details > summary {
+            border-radius: $border-radius--large;
+            background-color: $color--primary-pure !important;
+            color: $color--high-light !important;
         }
 
-        details{
-            summary{
-                background-color: $color--primary-pure !important;
-                color: $color--high-light !important;
-            }
+        details[open] > summary{
+            border-radius: $border-radius--large $border-radius--large 0 0 !important;
+        }
+
+        details[open] .accordeon__title::before {
+            transform: rotate(-180deg);
         }
     }
 
     &__title {
-        border-radius: $border-radius--large $border-radius--large 0 0 !important;
         color: $color--low-pure;
         cursor: pointer;
         font-family: $font-family--primary;
