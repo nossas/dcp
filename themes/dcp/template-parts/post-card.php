@@ -78,11 +78,12 @@ $categories = get_the_category();
             </a>
         </h3>
 
-
-
         <?php if (!$hide_excerpt): ?>
-            <div class="post-card__excerpt">
-                <?= get_the_excerpt(); ?>
+            <div class="post-card__excerpt-wrapped">
+                <div class="post-card__excerpt">
+                    <?= get_the_excerpt(); ?>
+                </div>
+                <span class="post-card__excerpt-more">Ver mais</span>
             </div>
         <?php endif; ?>
 

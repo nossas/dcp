@@ -83,6 +83,7 @@
 
                 @include mobile{
                     min-height: inherit;
+                    gap: 0;
                 }
             }
 
@@ -96,6 +97,35 @@
             &__excerpt {
                 font-size: $font-size--x-small;
                 font-weight: $font-weight--regular;
+
+                @include mobile{
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    -webkit-line-clamp: 2;
+                }
+            }
+
+            &__excerpt-wrapped{
+                @include mobile{
+                    align-items: flex-end;
+                    display: flex;
+                }
+            }
+
+            &__excerpt-more {
+                display: none;
+
+                @include mobile {
+                    bottom: size(3);
+                    cursor: pointer;
+                    display: inline;
+                    font-size: $font-size--xx-small;
+                    position: relative;
+                    text-decoration: underline;
+                    white-space: nowrap;
+                }
             }
 
             &__divisor {
@@ -154,6 +184,10 @@
                     bottom: size(-2);
                     position: relative;
                     width: 1em;
+                }
+
+                @include mobile{
+                    margin-top: $margin--medium;
                 }
             }
 
