@@ -1,0 +1,54 @@
+.risco{
+    .hacklabr-posts-grid-block{
+        display: flex;
+        flex-direction: column;
+        height: size(402);
+        overflow: hidden;
+        overflow-y: scroll;
+        padding-right: $padding--small;
+
+        .post-card{
+            background-color: $color--high-light;
+            border-radius: $border-radius--large;
+            max-width: size(517);
+            padding: $padding--medium;
+
+            &__content{
+                gap: $gap--medium;
+            }
+
+            &__image{
+                display: none;
+            }
+
+            &__title{
+                font-family: $font-family--primary;
+                font-size: $font-size--xx-small;
+                font-weight: $font-weight--bold;
+
+                & > a{
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
+
+            &__risco-meta {
+                color: #797676;
+                font-size: $font-size--xx-small;
+                font-weight: $font-weight--medium;
+            }
+
+            &__excerpt{
+                font-weight: $font-weight--light;
+            }
+
+            &__see-more {
+                display: flex;
+                justify-content: flex-end;
+                font-size: $font-size--xx-small;
+                text-decoration: underline;
+            }
+        }
+    }
+
+}

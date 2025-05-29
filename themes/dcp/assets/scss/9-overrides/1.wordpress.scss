@@ -35,3 +35,24 @@
 .wp-block-separator{
     color: #E6E2E0 !important;
 }
+
+.wp-block-buttons{
+    @include mobile{
+        max-width: size(350);
+        width: 100%;
+    }
+}
+
+.wp-block-buttons > .wp-block-button{
+    @include mobile {
+        max-width: size(350);
+        width: 100%;
+    }
+
+    & > a{
+        @include mobile{
+            justify-content: center;
+            width: 100;
+        }
+    }
+}
