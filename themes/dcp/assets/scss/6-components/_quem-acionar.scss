@@ -186,6 +186,7 @@
             .subtitle-acordeon{
                 margin:0px !important;
                 margin-left: 5.5rem !important;
+
                 @media (max-width:1366px){
                 margin:1.5rem !important;
                 }
@@ -233,7 +234,7 @@
                     font-weight: $font-weight--medium;
                 }
                 &__content{
-                    background-color: #F9F3EA !important;
+                    background-color: var(--wp--preset--color--high-light) !important;
                     p{
                         color:#281414;
                     }
