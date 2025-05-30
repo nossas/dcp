@@ -67,3 +67,22 @@
         --hl-button-hover-color: #{$color--warning-dark};
     }
 }
+
+.risco-btn{
+    .wp-block-buttons:first-child > .wp-block-button > a{
+
+        &:hover {
+            background-color: #7a280c !important;
+            color: $color--high-light !important;
+        }
+    }
+
+    .wp-block-buttons:last-child > .wp-block-button > a {
+
+        &:hover {
+            border-color: $color--secondary-dark !important;
+            background-color: #93908F !important;
+            color: $color--secondary-dark !important;
+        }
+    }
+}
