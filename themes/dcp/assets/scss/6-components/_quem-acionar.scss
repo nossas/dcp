@@ -248,12 +248,7 @@
                 position: relative;
                 padding-right: 1.5em;
                 cursor: pointer;
-                &:hover:after {
-                    background-image: url('/wp-content/themes/dcp/assets/images/arrow-bottom-acordeon.svg');
-                    background-repeat: no-repeat;
-                    background-size: contain;
-                    background-position: center;
-                }
+
 
             }
 
