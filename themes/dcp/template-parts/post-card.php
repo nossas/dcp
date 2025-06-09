@@ -55,6 +55,21 @@ $categories = get_the_category();
                 echo '<span class="post-card__taxonomia term-' . $term_slug . '">' . $term_name . '</span>';
             }
             ?>
+
+            <div class="post-card__risco-meta">
+                <?php
+                if (get_post_type() === 'risco') {
+                    $data_bruta = get_post_meta(get_the_ID(), 'data_e_horario', true);
+
+                    if (!empty($data_bruta)) {
+                        $timestamp = strtotime($data_bruta);
+                        $data_formatada = date('H:i | d/m/Y', $timestamp);
+                        echo ' ' . esc_html($data_formatada);
+                    }
+                }
+                ?>
+            </div>
+
         </div>
 
         <h3 class="post-card__title">
@@ -62,19 +77,6 @@ $categories = get_the_category();
                 <?php
                 the_title();
                 ?>
-                <div class="post-card__risco-meta">
-                    <?php
-                    if (get_post_type() === 'risco') {
-                        $data_bruta = get_post_meta(get_the_ID(), 'data_e_horario', true);
-
-                        if (!empty($data_bruta)) {
-                            $timestamp = strtotime($data_bruta);
-                            $data_formatada = date('d/m/Y | H:i', $timestamp);
-                            echo '  ' . esc_html($data_formatada);
-                        }
-                    }
-                    ?>
-                </div>
             </a>
         </h3>
 
@@ -83,7 +85,7 @@ $categories = get_the_category();
                 <div class="post-card__excerpt">
                     <?= get_the_excerpt(); ?>
                 </div>
-                <span class="post-card__excerpt-more">Ver mais</span>
+                <span class="post-card__excerpt-more">Ver completo</span>
             </div>
         <?php endif; ?>
 

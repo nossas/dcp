@@ -37,8 +37,21 @@
             }
         }
 
+        &-lixo{
+            background-color: $color--secondary-pure;
+            &::before {
+                background-image: url('/wp-content/themes/dcp/assets/images/wrapper47.png');
+            }
+        }
+
+        &-outros{
+            background-color: $color--warning-pure;
+            &::before {
+                background-image: url('/wp-content/themes/dcp/assets/images/wrapper46.png');
+            }
+        }
+
         &-alagamento,
-        &-outros,
         &-esgoto{
             background-color: $color--warning-dark;
             color: $color--high-light;

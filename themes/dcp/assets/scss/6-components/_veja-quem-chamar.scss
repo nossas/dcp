@@ -21,21 +21,10 @@
                 border-bottom: 1px solid $color--secondary-light;
             }
 
-            .wp-block-buttons > .wp-block-button{
-                width: size(50);
-                height: size(32);
-
-                & > a{
-                    padding: 0 !important;
-                }
+            .wp-block-image{
+                cursor: pointer;
             }
 
-                .wp-block-buttons{
-                    @include mobile {
-                        position: relative;
-                        top: size(-56);
-                    }
-                }
         }
     }
 }
