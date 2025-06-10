@@ -1,5 +1,13 @@
 .page-quem-acionar {
     main {
+        .background > .breadcrumb{
+            max-width: size(1330);
+            width: 100%;
+            margin-inline: auto;
+            margin-top: $margin--large;
+            margin-bottom: $margin--large;
+        }
+
         .background > img{
             z-index: 0;
             position: absolute;
@@ -177,7 +185,6 @@
         }
     }
     .wp-block-group{
-        margin-top: 7rem;
         @include mobile{
             margin-top: 32px;
         }
