@@ -228,7 +228,7 @@
                     font-weight: $font-weight--regular !important;
                     outline: none !important;
                 }
-                &__title::first-line {
+                strong {
                     font-size: 20px;
                     color: $color--warning-dark;
                     font-weight: $font-weight--medium;
