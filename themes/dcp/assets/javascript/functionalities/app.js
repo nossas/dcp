@@ -134,36 +134,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  // Só executa em mobile
-  if (window.innerWidth > 768) return;
 
-  const excerptWrappers = document.querySelectorAll(".post-card__excerpt-wrapped");
-
-  excerptWrappers.forEach(wrapper => {
-    const excerpt = wrapper.querySelector(".post-card__excerpt");
-    const moreBtn = wrapper.querySelector(".post-card__excerpt-more");
-
-    if (!excerpt || !moreBtn) return;
-
-    // Pega o line-height real computado
-    let lineHeight = parseFloat(getComputedStyle(excerpt).lineHeight);
-    if (isNaN(lineHeight)) lineHeight = 20;
-
-    const maxHeight = lineHeight * 2;
-
-    // Verifica se o texto está maior que 2 linhas
-    if (excerpt.scrollHeight > maxHeight) {
-      moreBtn.style.display = "inline"; // mostra o botão
-    } else {
-      moreBtn.style.display = "none"; // garante que fique oculto
-    }
-
-    // Expande o texto ao clicar
-    moreBtn.addEventListener("click", () => {
-      excerpt.style.display = "block"; // remove o -webkit-box
-      excerpt.style.webkitLineClamp = "unset";
-      moreBtn.style.display = "none";
-    });
-  });
-});

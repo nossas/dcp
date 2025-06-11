@@ -42,7 +42,7 @@
                 <div class="icon-pin">
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pin.svg" alt="Ícone de horário" />
                 </div>
-                <p><strong>Horário de Atendimento:</strong> <?php echo esc_html( $horario ); ?></p>
+                <p><strong>Horário:</strong> <?php echo esc_html( $horario ); ?></p>
             </div>
             <?php endif; ?>
             <hr class="separator">
