@@ -134,32 +134,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  if (window.innerWidth > 768) return;
 
-  const excerptWrappers = document.querySelectorAll(".post-card__excerpt-wrapped");
-
-  excerptWrappers.forEach(wrapper => {
-    const excerpt = wrapper.querySelector(".post-card__excerpt");
-    const moreBtn = wrapper.querySelector(".post-card__excerpt-more");
-
-    if (!excerpt || !moreBtn) return;
-
-    let lineHeight = parseFloat(getComputedStyle(excerpt).lineHeight);
-    if (isNaN(lineHeight)) lineHeight = 20;
-
-    const maxHeight = lineHeight * 2;
-
-    if (excerpt.scrollHeight > maxHeight) {
-      moreBtn.style.display = "inline";
-    } else {
-      moreBtn.style.display = "none";
-    }
-
-    moreBtn.addEventListener("click", () => {
-      excerpt.style.display = "block";
-      excerpt.style.webkitLineClamp = "unset";
-      moreBtn.style.display = "none";
-    });
-  });
-});

@@ -85,7 +85,6 @@ $categories = get_the_category();
                 <div class="post-card__excerpt">
                     <?= get_the_excerpt(); ?>
                 </div>
-                <span class="post-card__excerpt-more">Ver completo</span>
             </div>
         <?php endif; ?>
 
