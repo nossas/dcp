@@ -13,6 +13,11 @@
             max-width: size(517);
             padding: $padding--medium;
 
+            &__address,
+            &__divisor{
+                display: none;
+            }
+
             &__content{
                 gap: $gap--medium;
             }
