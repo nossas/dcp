@@ -198,7 +198,7 @@ $categories = get_the_category();
         <?php if ($post_type == 'risco'): ?>
             <div class="post-card__see-more">
                 <a href="<?= get_permalink(); ?>" class="post-card__risco-btn">
-                    <?= __("Ver completo", "dcp"); ?>
+                    <?= __("Ver detalhes", "dcp"); ?>
                 </a>
             </div>
         <?php endif; ?>
