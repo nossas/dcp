@@ -4,6 +4,15 @@
     border-radius: $border-radius--large;
     padding: $padding--medium;
 
+    .wp-block-columns:last-child{
+        border-bottom: none;
+    }
+
+    .wp-block-columns{
+        border-bottom: size(1) solid #E6E2E0;
+        padding-bottom: $padding--small;
+    }
+
     .wp-block-columns{
         .wp-block-column:nth-child(2){
             p:first-child{
