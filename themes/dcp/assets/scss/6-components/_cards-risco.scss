@@ -13,12 +13,22 @@
             max-width: size(517);
             padding: $padding--medium;
 
+            &__address,
+            &__divisor{
+                display: none;
+            }
+
             &__content{
                 gap: $gap--medium;
             }
 
             &__image{
                 display: none;
+            }
+
+            &__term{
+                display: flex;
+                justify-content: space-between;
             }
 
             &__title{
@@ -38,15 +48,33 @@
                 font-weight: $font-weight--medium;
             }
 
-            &__excerpt{
+            &__excerpt {
                 font-weight: $font-weight--light;
+                display: -webkit-box;
+                line-clamp: 2;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
             }
 
             &__see-more {
+                align-items: center;
                 display: flex;
                 justify-content: flex-end;
                 font-size: $font-size--xx-small;
+                gap: $gap--x-small;
                 text-decoration: underline;
+
+                &::before{
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    content: url('/wp-content/themes/dcp/assets/images/wrapper45.png');
+                    cursor: pointer;
+                    display: inline-block;
+                    height: size(12);
+                    width: size(12);
+                }
             }
         }
     }
