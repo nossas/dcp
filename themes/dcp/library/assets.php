@@ -343,6 +343,13 @@ class Assets {
 				'global' => true,
 			],
 
+            'acoes-load-more'     => [
+                'file' => 'acoes-load-more.js',
+				'preload_callback' => function () {
+					return is_archive( 'acao' );
+				}
+			],
+
 			'search' => [
 				'file'   => 'search.js',
 				'global' => true,
