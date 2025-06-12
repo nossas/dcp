@@ -34,14 +34,18 @@
         }
     }
 
+        .wp-block-details[open] {
+            summary {
+                &::after {
+                    transform: translateY(-50%) rotate(0deg);
+                }
+            }
+        }
+
     .wp-block-details{
         background-color: $color--high-light;
         border-radius: $border-radius--large;
         padding: $padding--medium;
-
-        & [open] summary::after {
-            transform: translateY(-50%) rotate(180deg);
-        }
 
         > summary {
             cursor: pointer;
@@ -63,7 +67,7 @@
                 position: absolute;
                 right: 0;
                 top: 50%;
-                transform: translateY(-50%) rotate(0deg);
+                transform: translateY(-50%) rotate(180deg);
                 transition: transform 0.3s ease;
                 width: size(20);
             }
