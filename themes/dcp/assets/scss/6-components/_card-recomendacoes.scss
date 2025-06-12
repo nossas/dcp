@@ -37,6 +37,11 @@
             padding-bottom: $padding--small;
             margin-bottom: $margin--small;
 
+            @include mobile{
+                align-items: flex-start;
+                margin-bottom: $margin--medium;
+            }
+
             & > img {
                 object-fit: contain;
             }

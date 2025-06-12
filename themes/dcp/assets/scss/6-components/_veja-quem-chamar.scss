@@ -1,6 +1,10 @@
 //bloco veja quem chamar da home
 .veja-quem-chamar{
 
+    @include mobile{
+        margin-bottom: $margin--large;
+    }
+
     .wp-block-columns:last-child{
         border-bottom: none;
     }
@@ -8,6 +12,17 @@
     .wp-block-columns{
         border-bottom: size(1) solid #E6E2E0;
         padding-bottom: $padding--small;
+
+        @include mobile{
+            display: grid;
+            grid-template-columns: 1fr 4fr 2fr;
+        }
+
+        .wp-block-column:last-child > .wp-block-image{
+            @include mobile{
+                margin-inline-start: 0 !important;
+            }
+        }
     }
 
     .wp-block-columns{

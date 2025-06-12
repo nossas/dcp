@@ -91,6 +91,7 @@
     margin-bottom: size(128);
 
     @include mobile{
+        margin-top: $margin--large;
         margin-bottom: $margin--large;
         max-width: size(350);
         top: 0;
