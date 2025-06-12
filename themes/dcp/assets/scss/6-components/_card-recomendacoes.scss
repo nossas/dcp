@@ -1,28 +1,71 @@
 //card recomendações da home
 .recomendacoes{
-    background-color: $color--high-light;
-    border-radius: $border-radius--large;
-    padding: $padding--medium;
 
     @include mobile {
         max-height: inherit;
     }
 
-    p:first-child,
-    p:last-child{
-        border-bottom: none;
+    .wp-block-details[open]{
+        height: size(215);
+
+        @include mobile{
+            height: auto;
+        }
     }
 
-    & > p {
-        border-bottom: size(1) solid #E6E2E0;
-        display: flex;
-        gap: $gap--small;
-        font-size: $font-size--x-small !important;
-        padding-bottom: $padding--small;
+    .wp-block-details{
+        background-color: $color--high-light;
+        border-radius: $border-radius--large;
+        padding: $padding--medium;
 
-        & > img{
-            object-fit: contain;
+        p:first-child,
+        p:last-child {
+            border-bottom: none;
         }
+
+        & > p {
+            border-bottom: size(1) solid #E6E2E0;
+            display: flex;
+            gap: $gap--small;
+            font-size: $font-size--x-small !important;
+            padding-bottom: $padding--small;
+            margin-bottom: $margin--small;
+
+            & > img {
+                object-fit: contain;
+            }
+        }
+
+        & [open] summary::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        > summary {
+            cursor: pointer;
+            list-style: none;
+            margin-bottom: $margin--medium;
+            padding-right: size(24);
+            position: relative;
+
+            &::-webkit-details-marker {
+                display: none;
+            }
+
+            &::after {
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.55829 5.80862C9.61635 5.75041 9.68532 5.70423 9.76125 5.67273C9.83718 5.64122 9.91858 5.625 10.0008 5.625C10.083 5.625 10.1644 5.64122 10.2403 5.67273C10.3163 5.70423 10.3852 5.75041 10.4433 5.80862L17.9433 13.3086C18.0606 13.426 18.1266 13.5851 18.1266 13.7511C18.1266 13.9171 18.0606 14.0763 17.9433 14.1936C17.8259 14.311 17.6668 14.3769 17.5008 14.3769C17.3348 14.3769 17.1756 14.311 17.0583 14.1936L10.0008 7.13487L2.94329 14.1936C2.82593 14.311 2.66676 14.3769 2.50079 14.3769C2.33482 14.3769 2.17565 14.311 2.05829 14.1936C1.94093 14.0763 1.875 13.9171 1.875 13.7511C1.875 13.5851 1.94093 13.426 2.05829 13.3086L9.55829 5.80862Z" fill="%23281414"/></svg>');
+                background-size: contain;
+                background-repeat: no-repeat;
+                content: '';
+                height: size(20);
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%) rotate(0deg);
+                transition: transform 0.3s ease;
+                width: size(20);
+            }
+        }
+
     }
 }
 
