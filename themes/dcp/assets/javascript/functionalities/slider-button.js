@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const wrapper = document.createElement('div');
   wrapper.className = 'slider-wrapper-dynamic';
 
-  // Cria botões
   const createArrow = (direction) => {
     const btn = document.createElement('button');
     btn.className = `slider-arrow ${direction}`;
@@ -21,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const leftArrow = createArrow('left');
   const rightArrow = createArrow('right');
 
-  // Adiciona eventos
   const scrollAmount = slider.offsetWidth * 0.8;
 
   leftArrow.addEventListener('click', () => {
@@ -32,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
     slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   });
 
-  // Insere no DOM
   slider.parentNode.insertBefore(wrapper, slider);
   wrapper.appendChild(leftArrow);
   wrapper.appendChild(slider);
