@@ -13,6 +13,10 @@
     }
 
     .wp-block-columns > .wp-block-column{
+        @include mobile{
+            flex-basis: size(330) !important;
+        }
+
         .wp-block-image{
             margin-bottom: $margin--medium;
         }
