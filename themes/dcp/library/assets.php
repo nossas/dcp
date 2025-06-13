@@ -379,6 +379,18 @@ class Assets
                 'global' => true,
             ],
 
+            'acoes-anchor'     => [
+                'file' => 'acoes-anchor.js',
+				'preload_callback' => function () {
+					return is_archive( 'acao' );
+				}
+			],
+
+			'search' => [
+				'file'   => 'search.js',
+				'global' => true,
+			],
+
             'copy-url' => [
                 'file' => 'copy-url.js',
                 'global' => true,

@@ -51,31 +51,35 @@
                     .wp-block-column {
                     border-radius: 20px !important;
 
-                    .wp-block-columns:first-child {
-                        .wp-block-column {
-                        .wp-block-columns:nth-child(3),
-                        .wp-block-columns:nth-child(4) {
-                            gap: 6px;
-                            margin: 0;
+                        .wp-block-columns:first-child {
+                            .wp-block-column {
+                                .wp-block-columns:nth-child(3),
+                                .wp-block-columns:nth-child(4) {
+                                    gap: 6px;
+                                    margin: 0;
 
-                            p {
-                            color: #605E5D !important;
+                                    p {
+                                    color: #605E5D !important;
+                                    }
+                                }
+                                .wp-block-columns:nth-child(4) {
+                                    margin: 8px 0px;
+
+                                }
                             }
                         }
-                        .wp-block-columns:nth-child(4) {
-                            margin: 8px 0px;
-
-                        }
-                        }
-                    }
                     }
                 }
                 }
                 strong{
                 font-size: 20px !important;
                 }
-                .wp-block-buttons{
-                margin: 0;
+                .wp-block-buttons {
+                    margin: 0;
+                    @include mobile{
+                        width: 40%;
+                        float: inline-end;
+                    }
                     a{
                     display: flex;
                     justify-content: center;
@@ -188,6 +192,11 @@
         @include mobile{
             margin-top: 32px;
         }
+        .wp-block-spacer{
+            @include mobile{
+                height: 0px !important;
+            }
+        }
          .wp-block-columns .wp-block-column {
             .tittle-hidden-mobile,
             .subtitle-acordeon{
@@ -201,6 +210,24 @@
                     margin-left: 0px !important;
                 }
             }
+            .tittle-hidden-mobile{
+                @include mobile{
+                    padding-left: 32px;
+                    font-size: 1.5rem !important;
+                }
+
+            }
+            .subtitle-acordeon{
+                @include mobile {
+                    margin-top: 0 !important;
+                }
+            }
+            .wp-block-columns {
+                @include mobile {
+                    margin-top: 0 !important;
+                }
+            }
+
         }
         .text-hidden-mobile{
             @include mobile{
