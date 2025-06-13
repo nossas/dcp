@@ -31,7 +31,7 @@ get_header(); ?>
         endif;
         ?>
         </div>
-        <button class="load-more-agendar" data-status="Agendar" data-page="1">Ver mais</button>
+        <button class="load-more-agendar ver-mais-acoes" data-status="Agendar" data-page="1">Ver mais</button>
     </main>
 
     <div class="posts-grid__content">
@@ -60,7 +60,7 @@ get_header(); ?>
         endif;
         ?>
         </div>
-        <button class="load-more-concluir" data-status="Concluir" data-page="1">Ver mais</button>
+        <button class="load-more-concluir ver-mais-acoes" data-status="Concluir" data-page="1">Ver mais</button>
     </div>
 
 </div><!-- /.container -->
