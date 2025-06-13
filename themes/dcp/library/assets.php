@@ -350,6 +350,13 @@ class Assets {
 				}
 			],
 
+            'acoes-anchor'     => [
+                'file' => 'acoes-anchor.js',
+				'preload_callback' => function () {
+					return is_archive( 'acao' );
+				}
+			],
+
 			'search' => [
 				'file'   => 'search.js',
 				'global' => true,
