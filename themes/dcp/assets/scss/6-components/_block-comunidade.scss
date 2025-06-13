@@ -149,6 +149,7 @@
 //card ação
 .hacklabr-posts-grid-block{
     .post-card{
+        &__title,
         &__excerpt-wrapped{
             height: size(50);
         }
