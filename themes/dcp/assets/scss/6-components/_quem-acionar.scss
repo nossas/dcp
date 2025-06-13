@@ -194,7 +194,7 @@
         }
         .wp-block-spacer{
             @include mobile{
-                height: 0px;
+                height: 0px !important;
             }
         }
          .wp-block-columns .wp-block-column {
