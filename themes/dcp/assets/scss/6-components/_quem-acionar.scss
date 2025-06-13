@@ -192,6 +192,11 @@
         @include mobile{
             margin-top: 32px;
         }
+        .wp-block-spacer{
+            @include mobile{
+                height: 0px;
+            }
+        }
          .wp-block-columns .wp-block-column {
             .tittle-hidden-mobile,
             .subtitle-acordeon{
