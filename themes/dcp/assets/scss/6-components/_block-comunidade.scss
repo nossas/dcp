@@ -88,7 +88,7 @@
     .hacklabr-posts-grid-block {
         .post-card {
             background-color: $color--high-light;
-            border-radius: $border-radius--large $border-radius--large 0 0;
+            border-radius: $border-radius--large;
             padding: size(20);
             padding-bottom: 0;
             max-width: size(443);
@@ -137,79 +137,63 @@
                 }
             }
 
-            &__cta {
-                border-radius: 0 0 $border-radius--large $border-radius--large;
-                display: flex;
-                justify-content: flex-end;
-                margin-left: calc(-20px);
-                margin-right: calc(-20px);
-                margin-top: $margin--medium;
-                width: calc(100% + 37px);
-                padding: size(20);
-
-                &--limpeza {
-                    background-color: $color--primary-light;
-                }
-
-                &--reparos {
-                    background-color: $color--primary-dark;
-                }
-
-                &--cultural {
-                    background-color: $color--warning-dark;
-                }
-
-                &--outros {
-                    background-color: #f0f0f0;
-                }
-            }
-
-            &__cta-button {
-                background-color: $color--high-light;
-                border-radius: $border-radius--large;
-                color: $color--secondary-dark;
-                display: block;
-                max-width: size(201);
-                padding: $padding--small;
-                text-decoration: none;
-                text-align: center;
-                width: 100%;
-            }
-
-            &__acao-buttons {
-                display: none;
-
-                @include mobile {
-                    display: flex;
-                    bottom: size(-56);
-                    border-bottom-left-radius: $border-radius--large;
-                    border-bottom-right-radius: $border-radius--large;
-                    left: 0;
-                    justify-content: flex-end;
-                    margin-top: $margin--medium;
-                    padding: $padding--medium;
-                    position: absolute;
-                    right: 0;
-                }
-            }
-
-            &__acao-button {
-                @include mobile {
-                    border-radius: size(16);
-                }
-
-                & > a {
-                    font-size: $font-size--x-small;
-                    padding: size(10) size(24);
-                    text-decoration: none;
-                }
-            }
-
             &__address {
                 &::before {
                     content: url('/wp-content/themes/dcp/assets/images/wrapper6.png') !important;
                 }
             }
+        }
+    }
+}
+
+//card ação
+.hacklabr-posts-grid-block{
+    .post-card{
+        &__excerpt-wrapped{
+            height: size(50);
+        }
+
+        &__cta {
+            border-radius: 0 0 $border-radius--large $border-radius--large;
+            display: flex;
+            justify-content: flex-end;
+            margin-left: calc(-20px);
+            margin-right: calc(-20px);
+            margin-top: $margin--medium;
+            width: calc(100% + 37px);
+            padding: size(20);
+
+            &--limpeza {
+                background-color: $color--primary-light;
+            }
+
+            &--reparos {
+                background-color: $color--primary-dark;
+            }
+
+            &--cultural {
+                background-color: $color--warning-dark;
+            }
+
+            &--outros {
+                background-color: $color--warning-pure;
+            }
+        }
+
+        &__cta-button {
+            background-color: $color--high-light;
+            border-radius: $border-radius--large;
+            color: $color--secondary-dark;
+            display: block;
+            max-width: size(201);
+            padding: $padding--small;
+            text-decoration: none;
+            text-align: center;
+            width: 100%;
+        }
+
+        &__acao-buttons {
+            display: none;
         }
     }
 }
