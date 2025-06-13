@@ -50,12 +50,18 @@
             }
 
             a{
-                padding: $padding--small size(20);
+                display: flex;
                 font-size: $font-size--x-small;
+                gap: $gap--small;
+                padding: $padding--small size(20);
 
                 &:hover{
                     border: none;
                     background-color: $color--high-dark !important;
+                }
+
+                & > img{
+                    object-fit: contain;
                 }
             }
         }

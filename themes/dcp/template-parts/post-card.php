@@ -253,7 +253,18 @@ $categories = get_the_category();
             </button>
         </div>
     <?php endif; ?>
-</article>
 
+    <?php if ($post_type === 'acao') : ?>
+    <?php
+        $tipo_acao_term = get_the_terms(get_the_ID(), 'tipo_acao');
+        $tipo_acao_slug = (!empty($tipo_acao_term) && !is_wp_error($tipo_acao_term)) ? $tipo_acao_term[0]->slug : 'padrao';
+    ?>
+    <div class="post-card__cta post-card__cta--<?= esc_attr($tipo_acao_slug); ?>">
+        <a href="<?= get_permalink(); ?>" class="post-card__cta-button">
+            <?= __("Saiba mais e participe", "dcp"); ?>
+        </a>
+    </div>
+<?php endif; ?>
+</article>
 <?php
 $post = $original_post;

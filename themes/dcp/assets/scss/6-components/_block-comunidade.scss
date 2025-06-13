@@ -81,205 +81,120 @@
         padding-inline: $padding--small;
     }
 
-    .wp-block-column:first-child{
+    .wp-block-cover__inner-container{
+        padding-inline: 0;
+    }
+
+    .hacklabr-posts-grid-block {
         .post-card {
-            &__acao-buttons{
-                background-color: $color--primary-light;
+            background-color: $color--high-light;
+            border-radius: $border-radius--large;
+            padding: size(20);
+            padding-bottom: 0;
+            max-width: size(443);
+            width: 100%;
+
+            &__image {
+                display: none;
             }
-        }
-    }
 
-        .wp-block-column:nth-child(2) {
-            .post-card {
-                &__acao-buttons {
-                    background-color: $color--primary-dark;
-                }
+            &__title {
+                font-family: $font-family--primary !important;
+                font-size: $font-size--medium;
+                font-weight: $font-weight--medium;
+                margin-top: size(5);
             }
-        }
 
-    .wp-block-column:last-child {
-        .post-card {
-            &__acao-buttons {
-                background-color: $color--warning-dark;
+            &__excerpt {
+                font-size: $font-size--x-small;
+                font-weight: $font-weight--regular;
             }
-        }
-    }
 
-    .wp-block-column{
-        background-color: $color--high-light;
-        -webkit-border-top-left-radius: $border-radius--large;
-        -webkit-border-top-right-radius: $border-radius--large;
-        -moz-border-radius-topleft: $border-radius--large;
-        -moz-border-radius-topright: $border-radius--large;
-        border-top-left-radius: $border-radius--large;
-        border-top-right-radius: $border-radius--large;
-        padding: $border-radius--large;
-
-        @include mobile {
-            position: relative;
-        }
-
-        p:first-child{
-            width: size(111);
-            font-size: 14px !important;
-        }
-
-        p:nth-child(3){
-            margin-top: 8px;
-        }
-
-        & > p {
-            border-radius: size(16);
-            color: $color--secondary-dark;
-            display: flex;
-            gap: $gap--x-small;
-
-            img{
-                object-fit: contain;
-            }
-        }
-
-        .hacklabr-posts-grid-block{
-            .post-card{
-                &__image{
-                    display: none;
-                }
-
-                &__title{
-                    font-family: $font-family--primary !important;
-                    font-size: $font-size--medium;
-                    font-weight: $font-weight--medium;
-                    margin-top: size(5);
-                }
-
-                &__excerpt{
-                    font-size: $font-size--x-small;
-                    font-weight: $font-weight--regular;
-                }
-
-                &__divisor{
-                    &-line{
-                        border-bottom: size(2) solid #C9C6C5;
-                        margin-bottom: $margin--medium;
-                        margin-top: $margin--medium;
-                        width: size(24);
-                    }
-                }
-
-                &__meta,
-                &__address{
-                    align-items: center;
-                    color: $color--high-dark;
-                    display: flex;
-                    font-size: $font-size--xx-small;
-                    gap: $gap--x-small;
-
-                    &::before {
-                        background-size: contain;
-                        background-repeat: no-repeat;
-                        content: url('/wp-content/themes/dcp/assets/images/wrapper5.png');
-                        display: inline-block;
-                        height: 1em;
-                        width: 1em;
-                    }
-                }
-
-                &__acao-buttons {
-                    display: none;
-
-                    @include mobile {
-                        display: flex;
-                        bottom: size(-56);
-                        border-bottom-left-radius: $border-radius--large;
-                        border-bottom-right-radius: $border-radius--large;
-                        left: 0;
-                        justify-content: flex-end;
-                        margin-top: $margin--medium;
-                        padding: $padding--medium;
-                        position: absolute;
-                        right: 0;
-                    }
-                }
-
-                &__acao-button {
-                    @include mobile {
-                        border-radius: size(16);
-                    }
-
-                    & > a {
-                        font-size: $font-size--x-small;
-                        padding: size(10) size(24);
-                        text-decoration: none;
-                    }
-                }
-
-                &__address{
-                    &::before {
-                        content: url('/wp-content/themes/dcp/assets/images/wrapper6.png') !important;
-                    }
+            &__divisor {
+                &-line {
+                    border-bottom: size(2) solid #C9C6C5;
+                    margin-bottom: $margin--medium;
+                    margin-top: $margin--medium;
+                    width: size(24);
                 }
             }
-        }
-    }
 
-    .wp-block-column:first-child{
+            &__meta,
+            &__address {
+                align-items: center;
+                color: $color--high-dark;
+                display: flex;
+                font-size: $font-size--xx-small;
+                gap: $gap--x-small;
 
-        p:first-child{
-            background-color: $color--primary-light;
-            padding: $padding--x-small size(14);
-        }
-    }
+                &::before {
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    content: url('/wp-content/themes/dcp/assets/images/wrapper5.png');
+                    display: inline-block;
+                    height: 1em;
+                    width: 1em;
+                }
+            }
 
-    .wp-block-column:last-child{
-
-        p:first-child{
-            background-color: $color--warning-dark;
-            color: $color--high-light;
-            padding: $padding--x-small size(14);
-        }
-    }
-
-    .wp-block-column:nth-child(2){
-
-        p:first-child{
-            background-color: $color--primary-dark;
-            font-size: $font-size--xx-small !important;
-            padding: $padding--x-small size(14);
+            &__address {
+                &::before {
+                    content: url('/wp-content/themes/dcp/assets/images/wrapper6.png') !important;
+                }
+            }
         }
     }
 }
 
-.btn-comunidade{
-    margin-bottom: size(145);
-    padding-inline: $padding--large;
-
-    @include mobile {
-        display: none !important;
-    }
-
-    .wp-block-column{
-        -webkit-border-bottom-right-radius: $border-radius--large;
-        -webkit-border-bottom-left-radius: $border-radius--large;
-        -moz-border-radius-bottomright: $border-radius--large;
-        -moz-border-radius-bottomleft: $border-radius--large;
-        border-bottom-right-radius: $border-radius--large;
-        border-bottom-left-radius: $border-radius--large;
-
-        .wp-block-buttons > .wp-block-button{
-            font-size: $font-size--x-small;
-            padding: size(10) $padding--medium;
+//card ação
+.hacklabr-posts-grid-block{
+    .post-card{
+        &__title,
+        &__excerpt-wrapped{
+            height: size(50);
         }
-    }
 
-    .wp-block-column:first-child{
-        background-color: $color--primary-light;
-    }
+        &__cta {
+            border-radius: 0 0 $border-radius--large $border-radius--large;
+            display: flex;
+            justify-content: flex-end;
+            margin-left: calc(-20px);
+            margin-right: calc(-20px);
+            margin-top: $margin--medium;
+            width: calc(100% + 37px);
+            padding: size(20);
 
-    .wp-block-column:nth-child(2){
-        background-color: $color--primary-dark;
-    }
+            &--limpeza {
+                background-color: $color--primary-light;
+            }
 
-    .wp-block-column:last-child{
-        background-color: $color--warning-dark;
+            &--reparos {
+                background-color: $color--primary-dark;
+            }
+
+            &--cultural {
+                background-color: $color--warning-dark;
+            }
+
+            &--outros {
+                background-color: $color--warning-pure;
+            }
+        }
+
+        &__cta-button {
+            background-color: $color--high-light;
+            border-radius: $border-radius--large;
+            color: $color--secondary-dark;
+            display: block;
+            max-width: size(201);
+            padding: $padding--small;
+            text-decoration: none;
+            text-align: center;
+            width: 100%;
+        }
+
+        &__acao-buttons {
+            display: none;
+        }
     }
 }

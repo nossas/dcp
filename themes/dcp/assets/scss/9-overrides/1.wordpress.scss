@@ -34,6 +34,11 @@
 
 .wp-block-separator{
     color: #E6E2E0 !important;
+
+    @include mobile{
+        margin-bottom: $margin--large;
+        margin-top: $margin--large;
+    }
 }
 
 .wp-block-buttons{

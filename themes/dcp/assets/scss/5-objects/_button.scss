@@ -86,3 +86,33 @@
         }
     }
 }
+
+.mostrar-mais{
+    margin-bottom: size(128);
+
+    @include mobile{
+        margin-top: $margin--large;
+        margin-bottom: $margin--large;
+        max-width: size(350);
+        top: 0;
+        width: 100%;
+    }
+
+    .wp-block-button{
+        @include mobile{
+            width: 100%;
+        }
+    }
+
+    .wp-block-button > a{
+        display: flex;
+        font-size: $font-size--x-small !important;
+        gap: $gap--small;
+        padding-bottom: size(10);
+        padding-top: size(10);
+
+        & > img{
+            object-fit: contain;
+        }
+    }
+}

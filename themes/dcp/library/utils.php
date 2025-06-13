@@ -247,3 +247,56 @@ add_filter('bcn_display', function($output) {
     return str_replace(' &gt; ', $svg, $output);
 });
 
+// Botão "Ver mais",  archive de ações
+
+function acao_enqueue_scripts() {
+    wp_enqueue_script('jquery');
+
+    wp_enqueue_script(
+        'acoes-load-more',
+        get_template_directory_uri() . '/js/acoes-load-more.js',
+        ['jquery'],
+        null,
+        true
+    );
+
+    wp_localize_script('acoes-load-more', 'acoesLoadMore', [
+        'ajaxurl' => admin_url('admin-ajax.php')
+    ]);
+}
+add_action('wp_enqueue_scripts', 'acao_enqueue_scripts');
+
+add_action( 'wp_ajax_load_more_acoes', 'load_more_acoes_callback' );
+add_action( 'wp_ajax_nopriv_load_more_acoes', 'load_more_acoes_callback' );
+
+function load_more_acoes_callback() {
+    $status = sanitize_text_field($_POST['status']);
+    $paged = intval($_POST['page']);
+
+    $query = new WP_Query([
+        'post_type' => 'acao',
+        'posts_per_page' => 3,
+        'paged' => $paged,
+        'meta_query' => [
+            [
+                'key' => 'status_da_acao',
+                'value' => $status,
+                'compare' => '='
+            ]
+        ]
+    ]);
+
+    if ( $query->have_posts() ) {
+        while ( $query->have_posts() ) {
+            $query->the_post();
+            get_template_part( 'template-parts/post-card', 'vertical' );
+        }
+        echo '<!-- Nenhum post retornado para status: ' . $status . ' | página: ' . $paged . ' -->';
+
+        wp_reset_postdata();
+    }
+
+    wp_die();
+}
+
+
