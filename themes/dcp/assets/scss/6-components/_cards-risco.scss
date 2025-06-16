@@ -122,3 +122,45 @@
         }
     }
 }
+
+.empty-state{
+    background-color: #E6E2E0;
+    border-radius: $border-radius--large;
+    padding: $padding--medium;
+    border: size(1) dashed $color--high-dark;
+
+    &__content{
+        display: flex;
+        flex-direction: column;
+        margin-inline: auto;
+        max-width: size(280);
+        text-align: center;
+
+        & > p{
+            font-size: size(20);
+        }
+
+        & > a{
+            align-items: center;
+            display: flex;
+            gap: $gap--small;
+            justify-content: center;
+            background-color: $color--warning-dark;
+            color: $color--high-light;
+            padding-bottom: size(10);
+            padding-top: size(10);
+            padding-inline: size(12);
+            text-decoration: none;
+        }
+    }
+
+    &__image{
+        margin-inline: auto;
+        max-width: size(139);
+        width: 100%;
+
+        & > img{
+            object-fit: contain;
+        }
+    }
+}
