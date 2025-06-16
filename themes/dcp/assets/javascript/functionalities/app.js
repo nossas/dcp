@@ -117,6 +117,8 @@ function atualizarPlaceholder() {
     } else {
         input.placeholder = 'Descreva o problema e veja quem acionar';
     }
+
+    input.classList.add('peso-400-placeholder');
 }
 
 window.addEventListener('DOMContentLoaded', atualizarPlaceholder);

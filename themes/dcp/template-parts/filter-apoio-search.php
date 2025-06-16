@@ -8,8 +8,8 @@
     </div>
 
     <div class="apoio-tags">
-        <button class="tag-button active" data-tag="all">Todos</button>
-
+<!--         <button class="tag-button active" data-tag="all">Todos</button>
+ -->
         <?php
         // Pega o termo pai "QUEM ACIONAR"
         $parent_term = get_term_by('name', 'QUEM ACIONAR', 'tipo_apoio');
