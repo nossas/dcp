@@ -266,12 +266,9 @@ function acao_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'acao_enqueue_scripts');
 
-add_action( 'wp_ajax_load_more_acoes', 'load_more_acoes_callback' );
-add_action( 'wp_ajax_nopriv_load_more_acoes', 'load_more_acoes_callback' );
-
 function load_more_acoes_callback() {
+    $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
     $status = sanitize_text_field($_POST['status']);
-    $paged = intval($_POST['page']);
 
     $query = new WP_Query([
         'post_type' => 'acao',
@@ -286,17 +283,24 @@ function load_more_acoes_callback() {
         ]
     ]);
 
+    ob_start();
+
     if ( $query->have_posts() ) {
         while ( $query->have_posts() ) {
             $query->the_post();
-            get_template_part( 'template-parts/post-card', 'vertical' );
+            get_template_part('template-parts/post-card', 'vertical');
         }
-        echo '<!-- Nenhum post retornado para status: ' . $status . ' | página: ' . $paged . ' -->';
-
-        wp_reset_postdata();
     }
 
-    wp_die();
+    $html = ob_get_clean();
+
+    // Retorna HTML + total de páginas
+    wp_send_json([
+        'html' => $html,
+        'max'  => $query->max_num_pages
+    ]);
 }
+add_action('wp_ajax_load_more_acoes', 'load_more_acoes_callback');
+add_action('wp_ajax_nopriv_load_more_acoes', 'load_more_acoes_callback');
 
 
