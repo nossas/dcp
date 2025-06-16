@@ -300,6 +300,9 @@
                         padding-top: 20px;
 
                     }
+                    p last:child(){
+                     border-bottom: none;
+                    }
                     a{
                         color:#235540;
                         font-weight: $font-weight--regular !important;
