@@ -93,37 +93,49 @@
         }
 
 
-          .apoio-tags {
-            margin-top: 1rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            border-bottom: 2px solid #E6E2E0 ;
-            padding-bottom: 32px;
+         .apoio-tags {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        border-bottom: 2px solid #E6E2E0;
+        padding-bottom: 32px;
 
-            .tag-button {
-              padding: 0.4rem 1rem;
-              border: 1px solid #3c2a1e; // tom escuro como o texto da imagem
-              background: transparent;
-              color: #3c2a1e;
-              border-radius: 999px;
-              font-weight: 500;
-              font-size: 0.95rem;
-              cursor: pointer;
-              transition: all 0.2s ease-in-out;
+        .tag-button {
+            padding: 0.4rem 1rem;
+            border: 1px solid #3c2a1e;
+            background: transparent;
+            color: #3c2a1e;
+            border-radius: 999px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            position: relative;
 
-              &.active {
-                background: #3c2a1e;
-                color: #fff;
-                border-color: #3c2a1e;
-                @include mobile{
+            &.active {
+            background: #3c2a1e;
+            color: #fff;
+            border-color: #3c2a1e;
+
+                @include mobile {
                     background-color: #235540;
 
+                    &::before {
+                    content: '';
+                    display: inline-block;
+                    width: 12px;
+                    height: 12px;
+                    margin-right: 0.5rem;
+                    background-image: url($p_theme_assets+"/images/seta-mobile.svg");
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    }
                 }
-              }
             }
-
-          }
+        }
+        }
 
         .apoio-item {
           border: 1px solid #eee;
