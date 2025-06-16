@@ -31,7 +31,7 @@
         <div class="container container--wide">
 			<div class="main-header-lateral__content">
                 <button type="button" class="main-header__toggle-menu main-header-lateral__toggle-menu" aria-label="<?= __('Toggle menu visibility', 'hacklabr') ?>" @click="menuOpen = !menuOpen">
-                    <svg class="hamburger" :class="{ 'hamburger--open': menuOpen }" role="image" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="hamburger" :class="{ 'hamburger--open': menuOpen }" role="img" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg">
                         <title>Exibir menu</title>
                         <rect width="16" height="2" x="0" y="2"/>
                         <rect width="16" height="2" x="0" y="7"/>
