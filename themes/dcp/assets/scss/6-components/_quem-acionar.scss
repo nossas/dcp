@@ -6,6 +6,9 @@
             margin-inline: auto;
             margin-top: $margin--large;
             margin-bottom: $margin--large;
+            @include mobile{
+                padding-left: 1rem;
+            }
         }
 
         .background > img{
@@ -119,6 +122,7 @@
                 border-color: #FEFBF9;
                 box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
                 padding: 20px;
+                font-weight: 300;
                 h2{
                     font-family: var(--Typeface-Font-Gabarito, Gabarito);
                     font-size: 20px;
@@ -131,7 +135,6 @@
                     font-family: var(--Typeface-Font-Gabarito, Gabarito);
                     font-size: var(--Spacing-space-200, 16px);
                     font-style: normal;
-                    font-weight: 400;
                     line-height: 130%; /* 20.8px */
                 }
                 hr{
@@ -140,6 +143,7 @@
                     width: 24px;
                     margin-top: 20px;
                     margin-bottom: 16px;
+
                 }
                 .separator{
                     height: 2px;
@@ -147,6 +151,9 @@
                     background:#E6E2E0;
                     margin-top: 20px;
                     margin-bottom: 16px;
+                    @include mobile{
+                        display: none !important;
+                    }
                 }
                 .apoio-conteudo > p{
                     color: #281414;
