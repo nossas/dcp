@@ -136,3 +136,19 @@
         position: relative;
     }
 }
+
+.ver-mais-acoes.disabled {
+    background-color: #c9c6c5;
+    color: #93908F;
+    cursor: not-allowed;
+    pointer-events: none;
+    &::after {
+        background-size: contain;
+        background-repeat: no-repeat;
+        content: url('/wp-content/themes/dcp/assets/images/icon-disable.png');
+        display: inline-block;
+        height: 1em;
+        width: 1em;
+        position: relative;
+    }
+}

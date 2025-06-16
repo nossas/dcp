@@ -29,6 +29,15 @@
             <?php echo apply_filters( 'the_content', $apoio->post_content ); ?>
             <hr>
         </div>
+            <?php if ( $horario ) : ?>
+                <div class="hour">
+                <div class="icon-pin">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pin.svg" alt="Ícone de horário" />
+                </div>
+                <p><strong>Dia:</strong> <?php echo esc_html( $horario ); ?></p>
+            </div>
+            <?php endif; ?>
+
             <?php if ( $endereco ) : ?>
                 <div class="adress">
                 <div class="icon-adress">
@@ -36,14 +45,6 @@
                     </div>
                     <p><strong>Endereço:</strong> <?php echo esc_html( $endereco ); ?></p>
                 </div>
-            <?php endif; ?>
-            <?php if ( $horario ) : ?>
-                <div class="hour">
-                <div class="icon-pin">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pin.svg" alt="Ícone de horário" />
-                </div>
-                <p><strong>Horário:</strong> <?php echo esc_html( $horario ); ?></p>
-            </div>
             <?php endif; ?>
             <hr class="separator">
             <?php if ( $observacoes ) : ?>

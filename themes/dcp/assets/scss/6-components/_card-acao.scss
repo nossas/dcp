@@ -1,6 +1,37 @@
 .post-type-archive-acao{
     .layout-part--header-archive-acao{
         padding-top: $padding--xx-large;
+        @include mobile{
+            padding-top: $padding--x-large;
+        }
+        .wp-block-columns{
+            @include mobile{
+                display: flex;
+                flex-direction: column;
+                .wp-block-column:nth-of-type(1){
+                    order: 2;
+                    .wp-block-buttons{
+                        display: flex;
+                        .wp-block-button{
+                            width: fit-content;
+                        }
+                    }
+                }
+                .wp-block-column:nth-of-type(2){
+                    order: 1;
+                    margin-bottom: 1%;
+                    img{
+                        margin-left: 1rem;
+                    }
+                }
+            }
+        }
+        .wp-block-heading{
+            @include mobile{
+                font-size: size(24);
+                letter-spacing: -1px;
+            }
+        }
         .wp-block-separator{
             max-width: size(1280);
             width: 100%;
