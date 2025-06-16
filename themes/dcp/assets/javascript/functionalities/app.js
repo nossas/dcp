@@ -113,9 +113,9 @@ function atualizarPlaceholder() {
     if (!input) return;
 
     if (window.innerWidth <= 768) {
-        input.placeholder = 'Descreva o problema...';
+        input.placeholder = 'Descreva o problema';
     } else {
-        input.placeholder = 'Descreva o problema e veja quem acionar...';
+        input.placeholder = 'Descreva o problema e veja quem acionar';
     }
 }
 

@@ -6,17 +6,30 @@
             margin-inline: auto;
             margin-top: $margin--large;
             margin-bottom: $margin--large;
+            @include mobile{
+                padding-left: 1rem;
+            }
         }
 
         .background > img{
             z-index: 0;
             position: absolute;
-            left: 69%;
+            left: 66%;
             @include mobile{
                 display: none;
             }
         }
+
+        .container{
+            padding-inline: 2rem;
+        }
         .wp-block-cover {
+            .wp-block-cover__inner-container{
+                padding-inline: 2rem;
+                @media( max-width:1366px ){
+                    padding-inline: 1rem;
+                }
+            }
             .wp-block-columns {
                 .wp-block-column {
                 // Primeiro bloco de colunas
@@ -119,6 +132,7 @@
                 border-color: #FEFBF9;
                 box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
                 padding: 20px;
+                font-weight: 300;
                 h2{
                     font-family: var(--Typeface-Font-Gabarito, Gabarito);
                     font-size: 20px;
@@ -131,7 +145,6 @@
                     font-family: var(--Typeface-Font-Gabarito, Gabarito);
                     font-size: var(--Spacing-space-200, 16px);
                     font-style: normal;
-                    font-weight: 400;
                     line-height: 130%; /* 20.8px */
                 }
                 hr{
@@ -140,6 +153,7 @@
                     width: 24px;
                     margin-top: 20px;
                     margin-bottom: 16px;
+
                 }
                 .separator{
                     height: 2px;
@@ -147,6 +161,9 @@
                     background:#E6E2E0;
                     margin-top: 20px;
                     margin-bottom: 16px;
+                    @include mobile{
+                        display: none !important;
+                    }
                 }
                 .apoio-conteudo > p{
                     color: #281414;
@@ -198,15 +215,24 @@
             }
         }
          .wp-block-columns .wp-block-column {
-            .tittle-hidden-mobile,
-            .subtitle-acordeon{
+            .tittle-hidden-mobile{
                 margin:0px !important;
-                margin-left: 5.5rem !important;
+                margin-left: 5vw !important;
 
                 @media (max-width:1366px){
                 margin:1.5rem !important;
+                padding-left: 0.5rem;
                 }
                 @include mobile{
+                    margin-left: 0px !important;
+                }
+            }
+            .subtitle-acordeon{
+                margin-left: 5vw !important;
+                @include mobile {
+                    margin-top: 0 !important;
+                }
+                @media (max-width:1366px){
                     margin-left: 0px !important;
                 }
             }
@@ -217,11 +243,7 @@
                 }
 
             }
-            .subtitle-acordeon{
-                @include mobile {
-                    margin-top: 0 !important;
-                }
-            }
+
             .wp-block-columns {
                 @include mobile {
                     margin-top: 0 !important;
@@ -238,14 +260,15 @@
             display: flex;
             flex-direction: column;
             margin-left: auto;
-            margin-right: 109px;
-            max-width: 86%;
+            margin-right: 130px;
+            max-width: 85%;
             padding: 0 !important;
+
             @media (max-width:1366px){
             display: flex;
             flex-direction: column;
             margin-left: auto;
-            margin-right: 45px;
+            margin-right: 4.5rem;
             max-width: 93%;
             padding: 0 !important;
             }
