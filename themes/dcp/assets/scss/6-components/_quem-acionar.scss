@@ -21,11 +21,14 @@
         }
 
         .container{
-            padding-inline: 1.2rem;
+            padding-inline: 2rem;
         }
         .wp-block-cover {
             .wp-block-cover__inner-container{
-                padding-inline: 0.5rem;
+                padding-inline: 2rem;
+                @media( max-width:1366px ){
+                    padding-inline: 1rem;
+                }
             }
             .wp-block-columns {
                 .wp-block-column {
@@ -224,7 +227,7 @@
                 }
             }
             .subtitle-acordeon{
-                margin-left: 4vw !important;
+                margin-left: 5vw !important;
                 @include mobile {
                     margin-top: 0 !important;
                 }
