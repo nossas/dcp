@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
   const slider = document.querySelector('.slider-mobile');
-  console.log('oi');
 
   if (!slider) return;
 

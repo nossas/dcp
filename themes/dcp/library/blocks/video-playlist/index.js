@@ -26,7 +26,6 @@ window.addEventListener("DOMContentLoaded", function () {
 })
 
 function render_gallery() {
-    console.log('oi');
     document.querySelectorAll('.video-gallery-wrapper').forEach( videoGallery => {
         let videoItens = videoGallery.querySelectorAll('.video-gallery-block__embed');
 
