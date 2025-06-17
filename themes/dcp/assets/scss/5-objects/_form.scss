@@ -127,17 +127,99 @@
 }
 
 .form-layout{
-    border: 1px solid red;
     display: flex;
+    gap: $gap--large;
+    justify-content: space-evenly;
     margin-inline: auto;
     max-width: $grid--wide;
 }
 
-.multistep{
+.formulario-risco{
+    margin-top: $margin--large*2;
+}
 
-    &__1{
+.multistepform{
+    border-top: size(2) solid #E6E2E0;
+    padding-top: size(40);
+    margin-top: size(40);
+    width: size(772);
+
+    @include mobile{
+        width: 100%;
+    }
+
+    &__button{
+        text-decoration: none;
+        padding-inline: $padding--medium;
+        padding-bottom: size(10);
+        padding-top: size(10);
+
+        &-map{
+            background-color: transparent;
+            border-radius: $border-radius--large*5;
+            border: size(2) solid $color--secondary-dark;
+            display: flex;
+            justify-content: center;
+        }
+
+        &-next{
+            align-items: center;
+            border-radius: size(100);
+            background-color: $color--secondary-dark;
+            color: $color--high-light;
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 10px;
+        }
+    }
+
+    &__buttons{
+        display: flex;
+        justify-content: space-between;
+
+        .back-to-map{
+            cursor: pointer;
+            font-size: $font-size--x-small;
+            font-weight: $font-weight--medium;
+            text-decoration: underline;
+        }
+    }
+
+    &__excerpt{
+        font-size: $font-size--x-small;
+        font-weight: $font-weight--regular;
+    }
+
+    &__fields{
         display: flex;
         flex-direction: column;
-        gap: $gap--large;
+        gap: $gap--medium;
+        justify-content: center;
+
+        input{
+            background-color: $color--high-light;
+            border: size(1) solid $color--secondary-dark;
+            border-radius: $border-radius--medium;
+            max-width: size(752);
+            padding-inline: $padding--medium;
+            padding-bottom: $padding--medium/2;
+            padding-top: $padding--medium/2;
+            width: 100%;
+        }
+
+        .or{
+            text-align: center;
+        }
+    }
+
+    &__label{
+        color: $color--low-light;
+        font-size: $font-size--xx-small;
+    }
+
+    &__title{
+        font-family: $font-family--secondary;
+        font-size: size(24);
+        font-weight: $font-weight--medium;
     }
 }
