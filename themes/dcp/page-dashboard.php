@@ -12,7 +12,7 @@ namespace hacklabr\dashboard;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= get_dashboard_title() ?></title>
+    <title><?= get_dashboard_title() ?> | <?= get_bloginfo('name') ?></title>
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
@@ -23,7 +23,7 @@ namespace hacklabr\dashboard;
                 <?php if ( has_custom_logo() ): ?>
                     <?php the_custom_logo(); ?>
                 <?php else: ?>
-                    <a href="<?= get_dashboard_home_url() ?>">
+                    <a href="<?= get_dashboard_url() ?>">
                         <img src="<?= get_template_directory_uri() ?>/assets/images/logo.png" width="200" alt="<?= get_bloginfo( 'name' ) ?>">
                     </a>
                 <?php endif; ?>
