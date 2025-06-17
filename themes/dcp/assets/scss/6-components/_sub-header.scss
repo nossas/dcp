@@ -3,10 +3,6 @@
     display: flex;
     min-height: size(40);
 
-    @include mobile {
-        //display: none;
-    }
-
     &__icon,
     &__content-left,
     &__content-right{
@@ -32,9 +28,11 @@
 
     &__container{
         display: flex;
-        gap: size(436);
-        max-width: 100%;
+        gap: size(40);
+        justify-content: space-between;
+        max-width: size(1336);
         margin-inline: auto;
+        width: 100%;
 
         @include mobile{
             gap: 0;
@@ -63,6 +61,7 @@
         color: $color--secondary-dark;
         font-size: $font-size--x-small;
         font-weight: $font-weight--medium;
+        white-space: nowrap;
 
         @include mobile{
             display: none;
