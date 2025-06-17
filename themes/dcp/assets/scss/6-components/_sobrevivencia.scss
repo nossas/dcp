@@ -35,8 +35,17 @@
         }
         .wp-block-cover{
             margin-top: 40px;
-            padding-top: 80px;
-
+            h2{
+                padding-top: 80px;
+            }
+            p {
+                width: 100%;
+                max-width: 45rem;
+                margin-bottom: 56px;
+            }
+            .materiais-de-referencia{
+                padding-bottom: 96px;
+            }
         }
 
     }
