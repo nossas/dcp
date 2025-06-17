@@ -16,5 +16,41 @@
 @import '4-elements/1.typography';
 @import '4-elements/icons';
 
+// OBJECTS
+@import '5-objects/arrow';
+@import '5-objects/button';
+@import '5-objects/container';
+@import '5-objects/content';
+@import '5-objects/form';
+@import '5-objects/hamburger';
+@import '5-objects/site-by-hacklab';
+@import '5-objects/stack';
+@import '5-objects/tab';
+@import '5-objects/tag';
+@import '5-objects/term-acao';
+@import '5-objects/thumbnail';
+
 // COMPONENTS
+@import '6-components/breadcrumb';
+@import '6-components/card';
+@import '6-components/card-acao';
+@import '6-components/card-recomendacoes';
+@import '6-components/cards-apoio';
+@import '6-components/cards-explore';
+@import '6-components/cards-risco';
 @import '6-components/dashboard';
+@import '6-components/pagination';
+@import '6-components/post-card';
+@import '6-components/post-header';
+@import '6-components/posts-grid';
+@import '6-components/tabs';
+
+// TRUMPS
+@import '7-trumps/accessibility';
+@import '7-trumps/dev-utils';
+@import '7-trumps/spacing';
+@import '7-trumps/typography';
+@import '7-trumps/visibility';
+
+// OVERRIDES
+@import '9-overrides/1.wordpress';

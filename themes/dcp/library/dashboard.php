@@ -4,11 +4,19 @@ namespace hacklabr\dashboard;
 
 define('DASHBOARD_ROUTING_VAR', 'ver');
 
-function filter_query_vars(array $query_vars) {
+function filter_query_vars(array $query_vars): array {
     $query_vars[] = DASHBOARD_ROUTING_VAR;
     return $query_vars;
 }
 add_filter('query_vars', 'hacklabr\\dashboard\\filter_query_vars');
+
+function filter_show_admin_bar(bool $show_bar): bool {
+    if (is_dashboard()) {
+        return false;
+    }
+    return $show_bar;
+}
+add_filter('show_admin_bar', 'hacklabr\\dashboard\\filter_show_admin_bar');
 
 function get_dashboard_content(): void {
     $route = get_query_var(DASHBOARD_ROUTING_VAR);

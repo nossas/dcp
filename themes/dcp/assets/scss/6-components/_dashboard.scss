@@ -1,26 +1,45 @@
 .dashboard {
 
-    &__sidebar {
-        background-color: brown;
-        color: white;
+    &__header {
+        padding: size(12) size(40);
+    }
 
-        ul, li {
-            margin: 0;
-            padding: 0;
-        }
+    &__body {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        min-height: calc(100vh - size(56));
+    }
+
+    &__sidebar {
+        background-color: $color--secondary-dark;
+        color: white;
 
         ul {
             list-style: none;
+            margin: 0;
+            padding: size(40) 0;
+        }
+
+        li {
+            padding: 0;
         }
 
         a {
             color: inherit;
+            display: block;
+            font-size: $font-size--medium;
+            padding: size(12) size(40);
             text-decoration: none;
+            text-underline-offset: size(6);
+
+            iconify-icon {
+                margin-inline-end: size(10);
+            }
         }
 
-        .dashboard-current {
+        .dashboard-current a, a:hover {
 
-            a > span {
+            & > span {
                 text-decoration: underline;
             }
         }
