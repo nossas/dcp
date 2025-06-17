@@ -215,43 +215,20 @@
                 height: 0px !important;
             }
         }
-         .wp-block-columns .wp-block-column {
-            .tittle-hidden-mobile{
-                margin:0px !important;
-                margin-left: 5vw !important;
+         .wp-block-columns {
+            width: 100%;
+            max-width: 85.7rem;
+            .wp-block-column {
 
-                @media (max-width:1366px){
-                margin:1.5rem !important;
-                padding-left: 0.5rem;
-                }
-                @include mobile{
-                    margin-left: 0px !important;
+                .wp-block-columns {
+                    @include mobile {
+                        margin-top: 0 !important;
+                    }
                 }
             }
-            .subtitle-acordeon{
-                margin-left: 5vw !important;
-                @include mobile {
-                    margin-top: 0 !important;
-                }
-                @media (max-width:1366px){
-                    margin-left: 0px !important;
-                }
-            }
-            .tittle-hidden-mobile{
-                @include mobile{
-                    padding-left: 32px;
-                    font-size: 1.5rem !important;
-                }
-
-            }
-
-            .wp-block-columns {
-                @include mobile {
-                    margin-top: 0 !important;
-                }
-            }
-
         }
+
+
         .text-hidden-mobile{
             @include mobile{
                 display: none;
