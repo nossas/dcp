@@ -258,26 +258,10 @@
             }
         }
        .wp-block-coblocks-accordion{
-            display: flex;
-            flex-direction: column;
-            margin-left: auto;
-            margin-right: 130px;
-            max-width: 85%;
-            padding: 0 !important;
-
-            @media (max-width:1366px){
-            display: flex;
-            flex-direction: column;
-            margin-left: auto;
-            margin-right: 4.5rem;
-            max-width: 93%;
-            padding: 0 !important;
-            }
-            @include mobile{
-                margin-left: auto;
-                margin-right: auto;
-            }
-
+           width: 100%;
+           max-width: 85.8rem;
+           margin-left: auto;
+           margin-right: auto;
 
             .wp-block-coblocks-accordion-item{
                 &__title{
@@ -291,7 +275,6 @@
                         font-weight: $font-weight--medium;
                     }
                 }
-
                 &__content{
                     background-color: var(--wp--preset--color--high-light) !important;
                     p{
