@@ -1,0 +1,9 @@
+.step {
+  display: none;
+}
+
+.step.active {
+  display: flex;
+  flex-direction: column;
+  gap: $gap--large;
+}

@@ -294,7 +294,7 @@ class Assets
 
             'dcp-dashboard' => [
                 'file' => 'dashboard.css',
-                'preload_callback' => function() {
+                'preload_callback' => function () {
                     return dashboard\is_dashboard();
                 },
             ],
@@ -352,13 +352,18 @@ class Assets
 
             'dcp-dashboard' => [
                 'file' => 'dashboard.js',
-                'preload_callback' => function() {
+                'preload_callback' => function () {
                     return dashboard\is_dashboard();
                 },
             ],
 
             'slider-button' => [
                 'file' => 'slider-button.js',
+                'global' => true,
+            ],
+
+            'form-actions' => [
+                'file' => 'form-actions.js',
                 'global' => true,
             ],
 
@@ -387,15 +392,15 @@ class Assets
 
             'acoes-anchor'     => [
                 'file' => 'acoes-anchor.js',
-				'preload_callback' => function () {
-					return is_archive( 'acao' );
-				}
-			],
+                'preload_callback' => function () {
+                    return is_archive('acao');
+                }
+            ],
 
-			'search' => [
-				'file'   => 'search.js',
-				'global' => true,
-			],
+            'search' => [
+                'file'   => 'search.js',
+                'global' => true,
+            ],
 
             'copy-url' => [
                 'file' => 'copy-url.js',
