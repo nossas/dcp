@@ -239,6 +239,9 @@
            max-width: 85.8rem;
            margin-left: auto;
            margin-right: auto;
+           @include mobile{
+                padding-inline: 2rem;
+            }
 
             .wp-block-coblocks-accordion-item{
                 &__title{
