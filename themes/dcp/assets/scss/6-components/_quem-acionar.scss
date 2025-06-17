@@ -217,9 +217,11 @@
         }
          .wp-block-columns {
             width: 100%;
-            max-width: 85.7rem;
+            max-width: 87.3rem;
             .wp-block-column {
-
+                h2{
+                    margin: 0;
+                }
                 .wp-block-columns {
                     @include mobile {
                         margin-top: 0 !important;

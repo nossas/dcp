@@ -1,18 +1,43 @@
-.page-kit-de-sobrevivencia{
-    .column-kit-1{
-        gap: 144px;
-    }
-    .reportar{
-        .wp-block-group{
+.page-kit-de-sobrevivencia {
+    .post-content{
+
+        .wp-block-columns:first-child {
+            margin-top: 6rem;
+            margin-bottom: 6rem;
+        }
+
+        .column-kit-1 {
+            margin-bottom: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .reportar {
+            margin-top: 6rem;
+            margin-bottom: 6rem;
+
+            p {
+            width: 100%;
+            max-width: 45rem;
+            }
+
+            .wp-block-columns {
+            margin-top: 3.5rem;
+            }
+
+            .wp-block-group {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-             height: 219px !important;
-            p{
-                padding: 0px 20px;
-                max-width: unset;
+            height: 13.688rem !important;
             }
         }
+        .wp-block-cover{
+            margin-top: 40px;
+            padding-top: 80px;
+
+        }
+
     }
 }
