@@ -221,6 +221,10 @@
             .wp-block-column {
                 h2{
                     margin: 0;
+                    margin-top: 112px;
+                    @include mobile{
+                        margin-top: 48px;
+                    }
                 }
                 .wp-block-columns {
                     @include mobile {
