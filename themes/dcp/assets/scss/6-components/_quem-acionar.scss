@@ -3,9 +3,12 @@
         .background > .breadcrumb{
             max-width: size(1330);
             width: 100%;
-            margin-inline: 2rem;
+            margin-inline: auto;
             margin-top: $margin--large;
             margin-bottom: $margin--large;
+            @media ( max-width:1366px ){
+                margin-inline: 2rem;
+            }
 
         }
 
