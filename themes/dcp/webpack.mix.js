@@ -10,6 +10,7 @@ const blocks_dir = root_dir + '/library/blocks';
 const dist_dir = root_dir + '/dist';
 
 mix.sass(assets_dir + '/scss/app.scss','./css/app.css');
+mix.sass(assets_dir + '/scss/dashboard.scss', './css/dashboard.css');
 mix.sass(assets_dir + '/scss/editor.scss','./css/editor.css');
 
 // Compile all JS functionalities into separate files

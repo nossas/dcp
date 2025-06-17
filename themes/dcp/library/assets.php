@@ -90,7 +90,7 @@ class Assets
             $content = file_get_contents($src);
 
             if ($data['inline'] && self::should_preload_asset($data)) {
-                echo "<style id='$handle-css'>" . $content . "</style>";
+                printf('<style id="%s-css">%s</style>', $handle, $content);
             }
         }
     }
@@ -292,14 +292,12 @@ class Assets
                 'inline' => false,
             ],
 
-            /*
-            'page' => [
-                'file' => 'p-page.css',
+            'dcp-dashboard' => [
+                'file' => 'dashboard.css',
                 'preload_callback' => function() {
-					return !is_front_page() && is_page();
-				},
+                    return dashboard\is_dashboard();
+                },
             ],
-			*/
         ];
 
         /**
