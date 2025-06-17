@@ -34,15 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Evita que envie o form antes de chegar ao final
     const form = document.getElementById('multiStepForm');
     form.addEventListener('submit', e => {
         e.preventDefault();
         currentStep++;
         showStep(currentStep);
-        // Aqui você pode fazer um fetch/ajax ou deixar que envie normalmente
-        // form.submit();
     });
 
-    showStep(currentStep); // Inicializa
+    showStep(currentStep);
 });

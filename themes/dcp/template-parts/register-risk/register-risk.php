@@ -78,7 +78,6 @@
                 <div class="step" data-step="5">
                     <h2>Etapa 5 – Confirmação</h2>
                     <p>Revise suas informações e clique em enviar para finalizar.</p>
-                    <!-- Você pode gerar um resumo aqui via JS se quiser -->
                     <div class="buttons">
                         <button type="button" class="prev">Editar</button>
                         <button type="submit">Enviar</button>
