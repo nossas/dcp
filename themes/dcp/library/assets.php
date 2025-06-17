@@ -75,7 +75,7 @@ class Assets
     public function should_preload_asset($asset)
     {
         if ($asset['global']) {
-            return true;
+            return !dashboard\is_dashboard();
         }
         return is_callable($asset['preload_callback']) && call_user_func($asset['preload_callback']);
     }
@@ -321,6 +321,7 @@ class Assets
             $this->css_files[$handle] = array_merge(
                 [
                     'global'           => false,
+                    'inline'           => false,
                     'preload_callback' => null,
                     'media'            => 'all',
                 ],
@@ -347,6 +348,13 @@ class Assets
             'app' => [
                 'file' => 'app.js',
                 'global' => true,
+            ],
+
+            'dcp-dashboard' => [
+                'file' => 'dashboard.js',
+                'preload_callback' => function() {
+                    return dashboard\is_dashboard();
+                },
             ],
 
             'slider-button' => [

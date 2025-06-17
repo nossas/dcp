@@ -2,5 +2,27 @@
 
     &__sidebar {
         background-color: brown;
+        color: white;
+
+        ul, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .dashboard-current {
+
+            a > span {
+                text-decoration: underline;
+            }
+        }
     }
 }
