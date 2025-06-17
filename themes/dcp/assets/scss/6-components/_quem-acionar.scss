@@ -9,7 +9,6 @@
             @media ( max-width:1366px ){
                 margin-inline: 2rem;
             }
-
         }
 
         .background > img{
@@ -71,6 +70,7 @@
                                 .wp-block-columns:nth-child(4) {
                                     gap: 6px;
                                     margin: 0;
+                                    margin-bottom: 1rem;
 
                                     p {
                                     color: #605E5D !important;
