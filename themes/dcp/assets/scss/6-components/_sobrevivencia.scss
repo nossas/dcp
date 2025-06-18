@@ -6,6 +6,11 @@
                 margin-bottom: 16px;
             }
         }
+        .wp-block-spacer{
+            @include mobile{
+                height: 0px !important;
+            }
+        }
         .wp-block-columns:first-child {
             margin-top: 6rem;
             margin-bottom: 6rem;
@@ -25,11 +30,7 @@
                     font-size: 24px;
                 }
             }
-            .wp-block-spacer{
-                @include mobile{
-                    height: 0px !important;
-                }
-            }
+
         }
 
         .reportar {
