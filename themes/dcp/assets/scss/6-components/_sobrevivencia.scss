@@ -46,6 +46,33 @@
             }
             .materiais-de-referencia{
                 padding-bottom: 96px;
+                .post-card{
+                    &__dia{
+                        margin-bottom: 8px;
+                    }
+                    &__dia,
+                    &__endereco{
+                        font-weight: 300;
+                    }
+                    &__manual{
+                        font-weight: 500 !important;
+                        gap: 10px !important;
+                        align-items: center;
+                        img {
+                            height: auto;
+                            width: auto;
+                        }
+                    }
+                    &__image{
+                        a{
+                            width: auto !important;
+
+
+                        }
+                    }
+
+                }
+
             }
         }
 
