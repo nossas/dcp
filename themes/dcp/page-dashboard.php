@@ -19,7 +19,7 @@ namespace hacklabr\dashboard;
     <?php wp_body_open(); ?>
     <div class="dashboard">
         <header class="dashboard__header">
-            <div class="dashboard__logo">
+            <div class="dashboard__header__logo">
                 <?php if ( has_custom_logo() ): ?>
                     <?php the_custom_logo(); ?>
                 <?php else: ?>
@@ -28,6 +28,22 @@ namespace hacklabr\dashboard;
                     </a>
                 <?php endif; ?>
             </div>
+
+            <nav class="dashboard__header__navigation">
+                <ul>
+                    <li>
+                        <a href="#/conta/">Conta</a>
+                    </li>
+                    <li>
+                        <a href="#/conta/">Ajuda</a>
+                    </li>
+                    <li>
+                        <button class="button">
+                            <span>Sair</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
         </header>
         <div class="dashboard__body">
             <aside class="dashboard__sidebar">

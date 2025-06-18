@@ -6,7 +6,7 @@ window.Alpine = Alpine;
 
 
 
-// TODO : COMPORTAMENTO MOCK
+// TODO: COMPORTAMENTO MOCK jQUERY
 jQuery(function($) {
 
     function _mock_ajax_dashboard() {
@@ -18,7 +18,7 @@ jQuery(function($) {
                 filter: 'lasted'
             },
             beforeSend: function() {
-                $( '.tabs__panels .post-card, .tabs__panels .message-response' ).hide();
+                $( '.tabs__panels .post-card, .tabs__panels .message-response, .tabs__panels .tabs__panel__pagination' ).hide();
                 $( '.tabs__panels .dashboard-content-skeleton' ).show();
             },
             success: function() {
@@ -29,18 +29,23 @@ jQuery(function($) {
             },
             complete: function() {
                 $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
-                $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response' ).show();
+                $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
             }
         });
     }
 
     $( document ).ready( function() {
 
-        window.location.hash = 'aguardando-aprovacao';
 
-        _mock_ajax_dashboard();
+        // TODO: COMPORTAMENTO MOCK RISCOS
+        if( $( '#dashboardRiscos' ).length ) {
+
+            window.location.hash = 'aguardando-aprovacao';
+            _mock_ajax_dashboard();
+        }
 
 
+        // TODO: COMPORTAMENTO MOCK TAB PANELS ( componentizar / usar Alpine já existente )
         $( '.tabs__header a' ).on('click', function() {
 
             const $this = $( this );
@@ -80,7 +85,6 @@ jQuery(function($) {
             }
 
             _mock_ajax_dashboard();
-
 
         });
 

@@ -12,7 +12,6 @@
             <a href="#publicados">PUBLICADOS</a>
             <a href="#arquivados">ARQUIVADOS</a>
         </div>
-
         <div id="riscosAprovacao" class="tabs__panels container--wide is-active">
             <div class="dashboard-content-skeleton">
                 <svg width="100%" height="100%" viewBox="0 0 300 70" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
@@ -33,36 +32,70 @@
                     <path mask="url(#mask-element)" id="qube" d="M92,20.87c0,-1.86 -1.51,-3.37 -3.37,-3.37l-28.26,0c-1.86,0 -3.37,1.51 -3.37,3.37l0,28.26c0,1.86 1.51,3.37 3.37,3.37l28.26,0c1.86,0 3.37,-1.51 3.37,-3.37l0,-28.26Z" fill="#dadada"/>
                 </svg>
             </div>
-            <?php for( $i = 0; $i < 4; $i++) : ?>
-            <article class="post-card" style="display: none;">
-                <main class="post-card__content">
 
-                    <div class="post-card__term">
-                        <span class="post-card__taxonomia term-alagamento">ALAGAMENTO</span>
-                        <div class="post-card__risco-meta"> 14:34 | 01/08/2025 </div>
-                    </div>
+            <div class="tabs__panel__content">
+                <?php for( $i = 0; $i < 3; $i++) : ?>
+                    <article class="post-card" style="display: none;">
+                        <main class="post-card__content">
 
-                    <h3 class="post-card__title">
-                        <a href="http://localhost/risco/risco-3/">Rua Conselheiro Corrêa</a>
-                    </h3>
+                            <div class="post-card__term">
+                                <span class="post-card__taxonomia term-alagamento">Alagamento</span>
+                                <div class="post-card__risco-meta"> 14:34 | 01/08/2025 </div>
+                            </div>
 
-                    <div class="post-card__excerpt-wrapped">
-                        <div class="post-card__excerpt">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo. Vestibulum anterpae... Ver mais
-                        </div>
-                    </div>
+                            <h3 class="post-card__title">
+                                <span>Rua Conselheiro Corrêa</span>
+                            </h3>
 
-                    <div class="post-card__see-more">
-                        <a href="#" class="button">
-                            <span>Avaliar</span>
+                            <div class="post-card__excerpt-wrapped">
+                                <div class="post-card__excerpt">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo. Vestibulum anterpae...
+                                    <a href="#/">Ver mais</a>
+                                </div>
+                            </div>
+
+                            <div class="post-card__see-more">
+                                <a href="#" class="button">
+                                    <span>Avaliar</span>
+                                    <iconify-icon icon="bi:chevron-right"></iconify-icon>
+                                </a>
+                            </div>
+
+                        </main>
+                    </article>
+                <?php endfor; ?>
+            </div>
+
+            <div class="tabs__panel__pagination">
+                <ol class="">
+                    <li>
+                        <a href="" class="button is-previous is-disabled">
+                            <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="button is-active">
+                            <span>1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="button">
+                            <span>3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="button">
+                            <span>4</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="button is-next">
                             <iconify-icon icon="bi:chevron-right"></iconify-icon>
                         </a>
-                    </div>
-                </main>
-            </article>
-            <?php endfor; ?>
+                    </li>
+                </ol>
+            </div>
         </div>
-
         <div id="riscosPublicados" class="tabs__panels" style="display: none;">
             <div class="dashboard-content-skeleton">
                 <svg width="100%" height="100%" viewBox="0 0 300 70" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
@@ -87,7 +120,6 @@
                 <span class="tabs__panel-message">Nenhum risco foi publicado ainda.</span>
             </div>
         </div>
-
         <div id="riscosArquivados" class="tabs__panels" style="display: none;">
             <div class="dashboard-content-skeleton">
                 <svg width="100%" height="100%" viewBox="0 0 300 70" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
@@ -108,34 +140,38 @@
                     <path mask="url(#mask-element)" id="qube" d="M92,20.87c0,-1.86 -1.51,-3.37 -3.37,-3.37l-28.26,0c-1.86,0 -3.37,1.51 -3.37,3.37l0,28.26c0,1.86 1.51,3.37 3.37,3.37l28.26,0c1.86,0 3.37,-1.51 3.37,-3.37l0,-28.26Z" fill="#dadada"/>
                 </svg>
             </div>
-            <?php for( $i = 0; $i < 3; $i++) : ?>
-                <article class="post-card" style="display: none;">
-                    <main class="post-card__content">
+            <div class="tabs__panel__content">
+                <?php for( $i = 0; $i < 4; $i++) : ?>
+                    <article class="post-card" style="display: none;">
+                        <main class="post-card__content">
 
-                        <div class="post-card__term">
-                            <span class="post-card__taxonomia term-alagamento">ALAGAMENTO</span>
-                            <div class="post-card__risco-meta"> 14:34 | 01/08/2025 </div>
-                        </div>
-
-                        <h3 class="post-card__title">
-                            <a href="http://localhost/risco/risco-3/">Rua Conselheiro Corrêa</a>
-                        </h3>
-
-                        <div class="post-card__excerpt-wrapped">
-                            <div class="post-card__excerpt">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo. Vestibulum anterpae... Ver mais
+                            <div class="post-card__term">
+                                <span class="post-card__taxonomia term-alagamento">Alagamento</span>
+                                <div class="post-card__risco-meta"> 14:34 | 01/08/2025 </div>
                             </div>
-                        </div>
 
-                        <div class="post-card__see-more">
-                            <a href="#" class="button">
-                                <span>Avaliar</span>
-                                <iconify-icon icon="bi:chevron-right"></iconify-icon>
-                            </a>
-                        </div>
-                    </main>
-                </article>
-            <?php endfor; ?>
+                            <h3 class="post-card__title">
+                                <span>Rua Conselheiro Corrêa</span>
+                            </h3>
+
+                            <div class="post-card__excerpt-wrapped">
+                                <div class="post-card__excerpt">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo. Vestibulum anterpae...
+                                    <a href="#/">Ver mais</a>
+                                </div>
+                            </div>
+
+                            <div class="post-card__see-more">
+                                <a href="#" class="button">
+                                    <span>Avaliar</span>
+                                    <iconify-icon icon="bi:chevron-right"></iconify-icon>
+                                </a>
+                            </div>
+
+                        </main>
+                    </article>
+                <?php endfor; ?>
+            </div>
         </div>
     </div>
 </div>
