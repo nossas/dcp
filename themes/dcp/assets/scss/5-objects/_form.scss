@@ -113,7 +113,6 @@
             font-size: $font-size--xx-small;
             font-weight: $font-weight--regular;
 
-
             .wpcf7-form-control-wrap > .wpcf7-form-control{
                 border: 1px solid $color--low-light;
                 border-radius: size(12);
@@ -141,6 +140,85 @@
     @include mobile{
         margin-bottom: $margin--large;
         margin-top: $margin--large;
+    }
+}
+
+.form-steps {
+    &__container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__container-header {
+        align-items: center;
+        display: flex;
+        gap: $gap--small;
+    }
+
+    &__container-title {
+        color: $color--warning-dark;
+        font-family: $font-family--secondary;
+        font-size: $font-size--x-small;
+        font-weight: $font-weight--medium;
+    }
+
+    &__stage {
+        color: $color--warning-dark;
+        font-size: size(20);
+        font-weight: $font-weight--bold;
+    }
+
+    &__progress-bar {
+        display: flex;
+        align-items: center;
+    }
+
+    .step-circle {
+        align-items: center;
+        background-color: #C9C6C5;
+        border-radius: 50%;
+        color: $color--high-light;
+        display: flex;
+        flex-shrink: 0;
+        font-size: $font-size--xxx-small;
+        font-weight: bold;
+        height: size(24);
+        justify-content: center;
+        position: relative;
+        width: size(24);
+        z-index: 2;
+
+        &__check-icon {
+            margin-right: $margin--small/2;
+        }
+
+        span {
+            display: inline-block;
+            transition: opacity 0.2s ease;
+        }
+
+        &.active {
+            background-color: $color--warning-dark;
+        }
+
+        &.completed {
+            background-color: $color--warning-dark;
+
+            span {
+                color: transparent;
+            }
+        }
+    }
+
+    .line {
+        background-color: #C9C6C5;
+        flex-shrink: 0;
+        height: size(2);
+        width: size(32);
+
+        &.active {
+            background-color: $color--warning-dark;
+        }
     }
 }
 
@@ -315,6 +393,10 @@
         color: $color--low-light;
         font-size: $font-size--xx-small;
         padding-left: $padding--small;
+
+        &-phone{
+            margin-top: $margin--small;
+        }
     }
 
     &__input{
