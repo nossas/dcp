@@ -135,7 +135,13 @@
 }
 
 .formulario-risco{
+    margin-bottom: $margin--large*4;
     margin-top: $margin--large*2;
+
+    @include mobile{
+        margin-bottom: $margin--large;
+        margin-top: $margin--large;
+    }
 }
 
 .multistepform{
@@ -148,18 +154,53 @@
         width: 100%;
     }
 
+    &__accept{
+        align-items: center;
+        display: flex;
+        font-size: $font-size--xx-small;
+        gap: $gap--x-small;
+        padding-left: $padding--small;
+    }
+
     &__button{
         text-decoration: none;
         padding-inline: $padding--medium;
         padding-bottom: size(10);
         padding-top: size(10);
 
+        &-backmapa{
+            border: size(1) solid $color--secondary-dark;
+            border-radius: size(100);
+            color: $color--secondary-dark;
+        }
+
+        &-edit{
+            border: size(1) solid $color--warning-dark;
+            border-radius: size(100);
+            color: $color--warning-dark;
+            display: flex;
+            gap: $gap--small;
+            padding-bottom: $padding--small;
+            padding-top: $padding--small;
+        }
+
         &-map{
+            align-items: center;
             background-color: transparent;
             border-radius: $border-radius--large*5;
             border: size(2) solid $color--secondary-dark;
             display: flex;
+            gap: $gap--small;
             justify-content: center;
+        }
+
+        &-more-risk{
+            align-items: center;
+            background-color: $color--warning-dark;
+            border-radius: size(100);
+            color: $color--high-light;
+            display: flex;
+            gap: $gap--small;
         }
 
         &-next{
@@ -169,13 +210,20 @@
             color: $color--high-light;
             display: flex;
             flex-direction: row-reverse;
-            gap: 10px;
+            gap: size(10);
+        }
+
+        &-submit{
+            flex-direction: row !important;
+            gap: $gap--small;
+            height: size(40);
         }
     }
 
     &__buttons{
         display: flex;
         justify-content: space-between;
+        margin-bottom: $margin--large;
 
         .back-to-map{
             cursor: pointer;
@@ -183,6 +231,48 @@
             font-weight: $font-weight--medium;
             text-decoration: underline;
         }
+
+        &-success{
+            gap: $gap--medium;
+            justify-content: flex-start !important;
+        }
+    }
+
+    &__checkbox-group {
+        display: flex;
+        gap: $gap--x-small;
+        flex-wrap: wrap;
+    }
+
+    &__checkbox-label {
+        background-color: transparent;
+        border: size(2) solid $color--secondary-dark;
+        border-radius: size(999);
+        display: inline-block;
+        font-weight: $font-weight--medium;
+        padding: 0.5rem 1.2rem;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+            background-color: $color--high-light;
+        }
+    }
+
+    &__checkbox-option {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+    }
+
+    &__checkbox-option input[type="checkbox"] {
+        display: none;
+    }
+
+    &__description{
+        display: flex;
+        gap: $gap--small;
+        margin-bottom: $margin--medium;
+        margin-top: $margin--medium;
     }
 
     &__excerpt{
@@ -196,10 +286,11 @@
         gap: $gap--medium;
         justify-content: center;
 
-        input{
+        textarea
+        ,input{
             background-color: $color--high-light;
             border: size(1) solid $color--secondary-dark;
-            border-radius: $border-radius--medium;
+            border-radius: $border-radius--small*2;
             max-width: size(752);
             padding-inline: $padding--medium;
             padding-bottom: $padding--medium/2;
@@ -212,14 +303,113 @@
         }
     }
 
+    &__header{
+        &-success{
+            p{
+                margin-bottom: $margin--small;
+            }
+        }
+    }
+
     &__label{
         color: $color--low-light;
         font-size: $font-size--xx-small;
+        padding-left: $padding--small;
+    }
+
+    &__input{
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__pipe{
+        color: #E6E2E0;
+    }
+
+    &__location,
+    &__risk,
+    &__review-item{
+        align-items: center;
+        display: flex;
+        gap: $gap--small;
+    }
+
+    &__review-item{
+        max-width: size(550);
+        width: 100%;
+    }
+
+    &__review-tag {
+        align-items: center;
+        background-color: $color--warning-dark;
+        border-radius: size(999);
+        color: $color--high-light;
+        display: inline-flex;
+        font-size: $font-size--xxx-small;
+        gap: $gap--x-small;
+        padding: $padding--x-small $padding--small;
     }
 
     &__title{
         font-family: $font-family--secondary;
         font-size: size(24);
         font-weight: $font-weight--medium;
+
+        &-success{
+            color: $color--warning-dark;
+            font-size: size(40);
+            margin-bottom: $margin--small;
+        }
     }
+
+    &__upload-area {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: $gap--medium;
+        margin-bottom: $margin--large;
+    }
+
+    &__upload-button,
+    &__no-media-button {
+        align-items: center;
+        border: size(2) solid transparent;
+        border-radius: size(999);
+        cursor: pointer;
+        display: flex;
+        gap: $gap--x-small;
+        justify-content: center;
+        padding: size(10) $padding--medium;
+        text-align: center;
+        transition: background-color 0.2s ease-in-out;
+        width: 100%;
+    }
+
+    &__upload-button {
+        background-color: $color--warning-dark;
+        color: $color--high-light;
+    }
+
+    &__upload-button:hover {
+        background-color: #a2371a;
+    }
+
+    &__no-media-button {
+        background-color: transparent;
+        border: size(1) solid $color--secondary-dark;
+        color: $color--secondary-dark;
+    }
+
+    &__no-media-button:hover {
+        background-color: $color--high-light;
+    }
+
+    &__upload-or {
+        font-weight: $font-weight--medium;
+        color: $color--secondary-dark;
+    }
+}
+
+.multistepform__checkbox-option input[type="checkbox"]:checked + .multistepform__checkbox-label {
+    background-color: $color--high-light ;
 }

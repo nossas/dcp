@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const steps = document.querySelectorAll('.step');
+console.log('oi');
     const updateProgress = (index) => {
         const circles = document.querySelectorAll('.step-circle');
         circles.forEach((circle, i) => {
@@ -13,10 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
         updateProgress(index);
     };
 
-    const steps = document.querySelectorAll('.step');
     let currentStep = 0;
 
-    document.querySelectorAll('.next').forEach(btn => {
+    document.querySelectorAll('.multistepform__button-next').forEach(btn => {
         btn.addEventListener('click', () => {
             if (currentStep < steps.length - 1) {
                 currentStep++;

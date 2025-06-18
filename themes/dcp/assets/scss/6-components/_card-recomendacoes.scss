@@ -82,5 +82,6 @@
 
     @include mobile{
         margin-bottom: 0;
+        padding-inline: $padding--medium;
     }
 }
