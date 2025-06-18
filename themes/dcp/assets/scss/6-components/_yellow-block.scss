@@ -39,6 +39,7 @@
 
             @include mobile{
                 top: 0;
+                margin-bottom: size(56);
                 max-width: size(350);
                 width: 100%;
             }

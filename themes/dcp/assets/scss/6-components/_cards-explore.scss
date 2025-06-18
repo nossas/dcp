@@ -13,6 +13,7 @@
 
         @include mobile{
             font-size: $font-size--medium !important;
+            text-align: left;
         }
     }
 
@@ -63,6 +64,11 @@
             display: flex;
             margin-top: 0;
 
+            @include mobile{
+                justify-content: flex-end;
+                margin-top: $margin--medium;
+            }
+
             & > a{
                 text-decoration: none;
             }
@@ -76,5 +82,9 @@
     .wp-block-columns > .wp-block-column:last-child > .wp-block-image{
         margin-bottom: size(12);
         margin-top: size(12);
+
+        @include mobile{
+            display: none;
+        }
     }
 }

@@ -13,6 +13,7 @@
 
             @include mobile{
                 font-size: size(24);
+                white-space: nowrap;
             }
         }
 
@@ -152,6 +153,10 @@
         &__title,
         &__excerpt-wrapped{
             height: size(50);
+
+            @include mobile{
+                height: inherit;
+            }
         }
 
         &__cta {
