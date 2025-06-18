@@ -48,6 +48,7 @@
 
             @include mobile{
                 font-size: size(22) !important;
+                white-space: nowrap;
             }
         }
 

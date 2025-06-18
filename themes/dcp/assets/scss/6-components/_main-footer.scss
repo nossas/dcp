@@ -29,6 +29,7 @@
                 & > p{
                     color: $color--secondary-light;
                     font-size: $font-size--xx-small;
+                    white-space: nowrap;
                 }
             }
 
@@ -37,7 +38,12 @@
                 display: flex;
                 height: size(46);
                 justify-content: flex-end;
+                margin-right: size(70);
                 padding-right: size(5);
+
+                @include mobile{
+                    margin-right: 0;
+                }
             }
         }
 
