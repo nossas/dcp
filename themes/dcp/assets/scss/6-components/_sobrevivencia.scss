@@ -1,20 +1,44 @@
 .page-kit-de-sobrevivencia {
     .post-content{
-
+        hr{
+            @include mobile{
+                margin-top: 16px;
+                margin-bottom: 16px;
+            }
+        }
         .wp-block-columns:first-child {
             margin-top: 6rem;
             margin-bottom: 6rem;
+            @include mobile{
+                margin-top: 32px;
+                margin-bottom: 32px;
+            }
+
         }
 
         .column-kit-1 {
             margin-bottom: 0;
             display: flex;
             justify-content: space-between;
+            h2{
+                @include mobile{
+                    font-size: 24px;
+                }
+            }
         }
 
         .reportar {
             margin-top: 6rem;
             margin-bottom: 6rem;
+            @include mobile{
+                margin-top: 32px;
+                margin-bottom: 32px;
+            }
+            h2{
+                @include mobile{
+                    font-size: 32px;
+                }
+            }
 
             p {
             width: 100%;
@@ -22,13 +46,16 @@
             }
 
             .wp-block-columns {
-            margin-top: 3.5rem;
+                margin-top: 3.5rem;
+                @include mobile{
+                    display: flex;
+                }
                 .wp-block-group {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                padding: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 20px;
                 }
             }
 
@@ -38,15 +65,45 @@
             margin-top: 40px;
             h2{
                 padding-top: 80px;
+                @include mobile{
+                    font-size: 24px;
+                    padding-top: 56px;
+                }
             }
             p {
                 width: 100%;
                 max-width: 45rem;
                 margin-bottom: 56px;
+                @include mobile{
+                    text-align: start;
+                    margin-bottom: 32px;
+                }
             }
             .materiais-de-referencia{
                 padding-bottom: 96px;
                 .post-card{
+                    &__content{
+                        @include mobile{
+                            height: 240px;
+                            gap: 0;
+                        }
+                        hr{
+                            @include mobile{
+                                bottom: 4px;
+                            }
+                        }
+
+                    }
+                    &__divisor{
+                        @include mobile{
+                            margin-top: 5px;
+                        }
+                    }
+                    &__title{
+                        @include mobile{
+                            font-size: 16px;
+                        }
+                    }
                     &__dia{
                         margin-bottom: 8px;
                     }
