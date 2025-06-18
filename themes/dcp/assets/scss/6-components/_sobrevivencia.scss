@@ -23,15 +23,16 @@
 
             .wp-block-columns {
             margin-top: 3.5rem;
+                .wp-block-group {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+                }
             }
 
-            .wp-block-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 13.688rem !important;
-            }
+
         }
         .wp-block-cover{
             margin-top: 40px;
