@@ -1,10 +1,10 @@
 <div id="dashboardRiscos" class="dashboard-content">
     <header class="dashboard-content-header">
         <h1>RISCOS MAPEADOS</h1>
-        <button class="button">
+        <a href="./?ver=riscos-adicionar" class="button">
             <iconify-icon icon="bi:plus-lg"></iconify-icon>
             <span>Adicionar Risco</span>
-        </button>
+        </a>
     </header>
     <div class="dashboard-content-tabs tabs">
         <div class="tabs__header">
@@ -55,7 +55,7 @@
                             </div>
 
                             <div class="post-card__see-more">
-                                <a href="#" class="button">
+                                <a href="./?ver=riscos-single" class="button">
                                     <span>Avaliar</span>
                                     <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                 </a>
@@ -162,7 +162,7 @@
                             </div>
 
                             <div class="post-card__see-more">
-                                <a href="#" class="button">
+                                <a href="./dashboard/?ver=riscos-single" class="button">
                                     <span>Avaliar</span>
                                     <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                 </a>

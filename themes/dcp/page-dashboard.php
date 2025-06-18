@@ -6,6 +6,7 @@
  */
 
 namespace hacklabr\dashboard;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +29,6 @@ namespace hacklabr\dashboard;
                     </a>
                 <?php endif; ?>
             </div>
-
             <nav class="dashboard__header__navigation">
                 <ul>
                     <li>
@@ -55,7 +55,8 @@ namespace hacklabr\dashboard;
                                 <span><?php _ex('Start', 'dashboard', 'hacklabr') ?></span>
                             </a>
                         </li>
-                        <li class="<?= is_dashboard('riscos') ? 'dashboard-current' : '' ?>">
+                        <?php // TODO : REFACTORY is-current ?>
+                        <li class="<?= ( is_dashboard('riscos') || is_dashboard('riscos-adicionar') || is_dashboard('riscos-single')) ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('riscos') ?>">
                                 <iconify-icon icon="bi:geo-alt-fill"></iconify-icon>
                                 <span><?php _ex('Risks', 'dashboard', 'hacklabr') ?></span>

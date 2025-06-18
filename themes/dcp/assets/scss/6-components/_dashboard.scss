@@ -118,7 +118,31 @@
             }
         }
 
+            .dashboard-content-breadcrumb {
+
+                margin: 0;
+                padding: 0 0 size( 30 ) 0;
+
+
+                .breadcrumb {
+
+                    margin: 0;
+                    padding: 0;
+
+
+                    li {
+                        display: inline-block;
+
+                        a {
+                            text-decoration: none;
+                            color: inherit;
+                        }
+                    }
+                }
+            }
+
             .dashboard-content-header {
+                color: $color--secondary-dark;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -126,9 +150,10 @@
 
                 h1 {}
 
-                button {
+                a {
                     background-color: $color--warning-dark;
                     color: $color--secondary-light;
+                    text-decoration: none;
                     border-radius: size( 50 );
 
                     &:hover {
@@ -297,6 +322,185 @@
 
                 }
             }
+
+            .dashboard-content-single {
+
+
+
+
+                form {
+                    display: block;
+                    position: relative;
+
+
+                    .fields {
+                        display: flex;
+                        justify-content: space-between;
+                        gap: 24px;
+                        margin-bottom: size( 30 );
+
+                        .input-wrap {
+                            color: $color--secondary-dark;
+                            width: 55%;
+                            position: relative;
+
+                            label {
+                                font-size: size( 13 );
+                                display: block;
+                                padding: size( 3 ) size( 20 );
+                            }
+                            input,
+                            textarea {
+                                font-size: size( 17 );
+                                color: $color--secondary-dark;
+                                width: 100%;
+                                padding: size( 15 ) size( 20 );
+                                border-radius: size( 15 );
+                                border: solid 1px $color--secondary-dark;
+                                position: relative;
+                                z-index: 1;
+                            }
+                            textarea {
+                                height: 200px;
+                                resize: none;
+                            }
+                            a.button {
+                                background-color: transparent;
+                                color: $color--secondary-dark;
+                                position: absolute;
+                                top: 35px;
+                                right: 0;
+                                z-index: 2;
+                                cursor: pointer;
+                                transform: scale( 1 );
+                                transition: all 0.2s 0s ease;
+
+                                &:hover {
+                                    background-color: $color--warning-dark;
+                                    color: $color--secondary-light;
+                                }
+                            }
+                        }
+                        .input-wrap.is-success {}
+                        .input-wrap.is-warning {}
+                        .input-wrap.is-error {}
+
+                        .input-media {
+
+                            font-size: size( 17 );
+                            color: $color--secondary-dark;
+                            width: 75%;
+                            padding: size( 15 ) size( 20 );
+                            border-radius: size( 15 );
+                            border: dotted 2px #C9C6C5;
+                            position: relative;
+                            z-index: 1;
+
+
+                            .input-media-uploader {
+                                display: flex;
+                                justify-content: space-between;
+                                gap: 10px;
+
+                                margin-bottom: size( 25 );
+
+                                h3 {
+                                    font-size: size( 25 );
+                                }
+
+                                .input-media-uploader-files {
+                                    text-align: right;
+                                    width: 50%;
+                                    position: relative;
+
+                                    input {
+                                        width: 100px;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                        z-index: 1;
+
+                                    }
+
+                                    .button {
+                                        background-color: transparent;
+                                        color: $color--secondary-dark;
+                                        padding: size( 10 ) size( 20 );
+                                        border: solid 1.5px $color--secondary-dark;
+                                        border-radius: size( 50 );
+                                        display: inline-block;
+                                        position: relative;
+                                        z-index: 2;
+
+                                        &:hover {
+                                            background-color: $color--secondary-dark;
+                                            color: $color--secondary-light;
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+
+
+                        .input-help {
+
+                            color: $color--secondary-dark;
+                            display: flex;
+
+                            padding: size( 30 ) size( 10 ) size( 1 );
+
+
+                        }
+
+
+                    }
+
+                    .form-submit {
+                        background-color: $color--secondary-light;
+                        text-align: right;
+                        width: 100%;
+                        padding: size( 20 );
+
+                        position: relative;
+                        top: 0;
+                        left: 0;
+                        z-index: 5;
+
+                        button {
+                            font-size: size( 20 );
+                            padding: size( 15 ) size( 50 );
+                            margin-left: size( 10 );
+                            border-radius: size( 75 );
+
+                            span {
+                                display: inline-block;
+                            }
+                        }
+                        button.is-archive {
+                            background-color: transparent;
+                            color: $color--warning-dark;
+                            border: solid 1px $color--warning-dark;
+                        }
+                        button.is-publish {
+                            background-color: $color--primary-pure;
+                            color: $color--secondary-light;
+                            border: solid 1px $color--primary-pure;
+                            padding: size( 15 ) size( 75 );
+                        }
+
+
+                        button.is-success {}
+                        button.is-warning {}
+                        button.is-error {}
+                        button.is-disabled {
+                            cursor: not-allowed;
+                            opacity: 0.5;
+                        }
+                    }
+                }
+            }
+
 
     }
 
