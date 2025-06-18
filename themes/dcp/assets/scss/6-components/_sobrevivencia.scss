@@ -25,6 +25,11 @@
                     font-size: 24px;
                 }
             }
+            .wp-block-spacer{
+                @include mobile{
+                    height: 0px !important;
+                }
+            }
         }
 
         .reportar {
@@ -48,7 +53,8 @@
             .wp-block-columns {
                 margin-top: 3.5rem;
                 @include mobile{
-                    display: flex;
+                    display: flex !important;
+                    flex-direction: column;
                 }
                 .wp-block-group {
                     display: flex;
