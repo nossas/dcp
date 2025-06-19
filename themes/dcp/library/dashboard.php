@@ -2,7 +2,54 @@
 
 namespace hacklabr\dashboard;
 
+define('DASHBOARD_AGENT_ROLE', 'agente-dcp');
 define('DASHBOARD_ROUTING_VAR', 'ver');
+
+function action_init(): void {
+    $option_key = 'role:' . DASHBOARD_AGENT_ROLE;
+
+    if (empty(get_option($option_key))) {
+        remove_role(DASHBOARD_AGENT_ROLE);
+
+        $risk_caps = [
+            'delete_risco' => true,
+            'delete_riscos' => true,
+            'delete_others_riscos' => true,
+            'delete_private_riscos' => true,
+            'delete_published_riscos' => true,
+            'edit_risco' => true,
+            'edit_riscos' => true,
+            'edit_others_riscos' => true,
+            'edit_private_riscos' => true,
+            'edit_published_riscos' => true,
+            'publish_riscos' => true,
+            'read_risco' => true,
+            'read_riscos' => true,
+            'read_private_riscos' => true,
+        ];
+
+        add_role(DASHBOARD_AGENT_ROLE, __('Community agent', 'hacklabr'), array_merge($risk_caps, [
+            'upload_files' => true,
+            'view' => true,
+        ]));
+
+        $admin_role = get_role('administrator');
+        foreach ( $risk_caps as $cap => $true ) {
+            $admin_role->add_cap($cap);
+        }
+
+        update_option($option_key, '1');
+    }
+}
+add_action('init', 'hacklabr\\dashboard\\action_init');
+
+function action_template_redirect(): void {
+    if (is_dashboard() && !current_user_can('edit_riscos')) {
+        wp_safe_redirect(get_home_url(), 302);
+        exit;
+    }
+}
+add_action('template_redirect', 'hacklabr\\dashboard\\action_template_redirect');
 
 function filter_get_custom_logo(string $logo_html) {
     if (is_dashboard()) {
@@ -12,6 +59,16 @@ function filter_get_custom_logo(string $logo_html) {
     return $logo_html;
 }
 add_filter('get_custom_logo', 'hacklabr\\dashboard\\filter_get_custom_logo');
+
+function filter_login_redirect(string $url, string $requested_url, \WP_User|\WP_Error $user): string {
+    if ($user instanceof \WP_User) {
+        if (in_array(DASHBOARD_AGENT_ROLE, $user->roles)) {
+            return get_dashboard_url();
+        }
+    }
+    return $url;
+}
+add_filter('login_redirect', 'hacklabr\\dashboard\\filter_login_redirect', 10, 3);
 
 function filter_query_vars(array $query_vars): array {
     $query_vars[] = DASHBOARD_ROUTING_VAR;
