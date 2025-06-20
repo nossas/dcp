@@ -131,6 +131,12 @@
     justify-content: space-evenly;
     margin-inline: auto;
     max-width: $grid--wide;
+
+    .form-image{
+        @include mobile{
+            display: none;
+        }
+    }
 }
 
 .formulario-risco{
@@ -144,11 +150,20 @@
 }
 
 .form-steps {
+    @include mobile{
+        padding-inline: $padding--medium;
+    }
     &__container {
         border-bottom: size(2) solid #E6E2E0;
         display: flex;
         justify-content: space-between;
         padding-bottom: size(40);
+
+        @include mobile{
+            border-bottom: none;
+            flex-direction: column;
+            padding-bottom: 0;
+        }
     }
 
     &__container-header {
@@ -162,6 +177,16 @@
         font-family: $font-family--secondary;
         font-size: $font-size--x-small;
         font-weight: $font-weight--medium;
+
+        @include mobile{
+            display: none;
+        }
+
+        .multistepform__pipe{
+            @include mobile{
+                display: none;
+            }
+        }
     }
 
     &__stage {
@@ -173,6 +198,11 @@
     &__progress-bar {
         display: flex;
         align-items: center;
+
+        @include mobile{
+            margin-left: $margin--small;
+            margin-top: size(12);
+        }
     }
 
     .step-circle {
@@ -238,6 +268,17 @@
         font-size: $font-size--xx-small;
         gap: $gap--x-small;
         padding-left: $padding--small;
+
+        @include mobile{
+            align-items: flex-start;
+            font-size: $font-size--xxx-small;
+        }
+
+        input{
+            @include mobile{
+                margin-top: size(3);
+            }
+        }
     }
 
     &__button{
@@ -302,6 +343,11 @@
         display: flex;
         justify-content: space-between;
         margin-bottom: $margin--large;
+
+        @include mobile{
+            border-top: size(1) solid #E6E2E0;
+            padding-top: $padding--large;
+        }
 
         .back-to-map{
             cursor: pointer;
@@ -406,6 +452,10 @@
 
     &__pipe{
         color: #E6E2E0;
+
+        @include mobile{
+            display: none;
+        }
     }
 
     &__location,
@@ -414,11 +464,19 @@
         align-items: center;
         display: flex;
         gap: $gap--small;
+
+        @include mobile {
+            align-items: flex-start;
+        }
     }
 
     &__review-item{
         max-width: size(550);
         width: 100%;
+
+        @include mobile{
+            flex-direction: column;
+        }
     }
 
     &__review-tag {
@@ -442,6 +500,10 @@
             font-size: size(40);
             margin-bottom: $margin--small;
         }
+
+        @include mobile{
+            font-size: size(20);
+        }
     }
 
     &__upload-area {
@@ -450,6 +512,10 @@
         align-items: center;
         gap: $gap--medium;
         margin-bottom: $margin--large;
+
+        @include mobile{
+            gap: $gap--small;
+        }
     }
 
     &__upload-button,

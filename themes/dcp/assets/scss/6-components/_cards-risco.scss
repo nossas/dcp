@@ -92,15 +92,35 @@
     .wp-block-cover{
         margin-bottom: $margin--large*2;
 
+        &__inner-container > .wp-block-columns > .wp-block-column > .wp-block-image {
+            @include mobile{
+                height: size(76);
+                width: size(78);
+            }
+        }
+
         .wp-block-columns > .wp-block-column:last-child{
             .wp-block-group{
                 max-width: size(448);
                 width: 100%;
+
+                .wp-block-heading {
+                    font-family: $font-family--secondary;
+                    font-weight: $font-weight--medium;
+
+                    @include mobile {
+                        font-size: size(24);
+                    }
+                }
             }
 
             .wp-block-columns {
                 align-items: center !important;
                 justify-content: center !important;
+
+                @include mobile{
+                    gap: $gap--small;
+                }
             }
 
             .wp-block-columns > .wp-block-column{
@@ -121,6 +141,11 @@
             & > p{
                 display: flex;
                 gap: $gap--small;
+
+                @include mobile{
+                    align-items: center;
+                    font-size: $font-size--xx-small;
+                }
 
                 & > img{
                     object-fit: contain;
