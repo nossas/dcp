@@ -35,7 +35,7 @@ get_header(); ?>
     </main>
 
     <div class="posts-grid__content">
-        <h2>O que já rolou</h2>
+        <h2 class="posts-grid__title"><?= __('O que já rolou') ?></h2>
         <div class="posts-grid__content-cards-concluidas">
         <?php
         $concluir_query = new WP_Query([
@@ -60,7 +60,7 @@ get_header(); ?>
         endif;
         ?>
         </div>
-        <button class="load-more-concluir ver-mais-acoes" data-status="Concluir" data-page="1">Ver mais</button>
+        <button class="load-more-concluir ver-mais-acoes" data-status="Concluir" data-page="1"><?= __('Ver mais') ?></button>
     </div>
 
 </div><!-- /.container -->

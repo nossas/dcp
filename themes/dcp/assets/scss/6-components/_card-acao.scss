@@ -100,6 +100,22 @@
         .post-card__acao-buttons, .post-card__author{
             display: none;
         }
+
+        .post-card__cta{
+            display: none;
+        }
+
+        .post-card__concluir-link{
+            display: flex;
+            justify-content: flex-end;
+
+            & > a{
+                align-items: center;
+                display: flex;
+                font-size: $font-size--xx-small;
+                text-decoration: underline;
+            }
+        }
     }
     .load-more-concluir,
     .load-more-agendar{
@@ -114,6 +130,53 @@
     .post-card {
         max-width: size(443);
         width: 100%;
+
+        &__cta {
+            border-radius: 0 0 $border-radius--large $border-radius--large;
+            display: flex;
+            justify-content: flex-end;
+            max-width: size(443) !important;
+            margin-inline: auto;
+            width: 100%;
+            padding: size(20);
+
+            &--limpeza {
+                background-color: $color--primary-light;
+            }
+
+            &--reparos {
+                background-color: $color--primary-dark;
+            }
+
+            &--cultural,
+            &--cultura {
+                background-color: $color--warning-dark;
+            }
+
+            &--outros {
+                background-color: $color--warning-pure;
+            }
+
+            & > a{
+                padding: $padding--small $padding--medium !important;
+            }
+        }
+
+        &__cta-button {
+            background-color: $color--high-light;
+            border-radius: $border-radius--large;
+            color: $color--secondary-dark;
+            display: block;
+            max-width: size(201);
+            padding: $padding--small;
+            text-decoration: none;
+            text-align: center;
+            width: 100%;
+        }
+
+        &__acao-buttons {
+            display: none;
+        }
 
         &__image {
             img{
@@ -136,8 +199,8 @@
             -moz-border-radius-bottomleft: size(16);
             border-bottom-right-radius: size(16);
             border-bottom-left-radius: size(16);
-            min-height: size(252);
             padding: size(20);
+            height: size(305);
 
             @include mobile{
                 min-height: inherit;
@@ -287,12 +350,42 @@
                         display: none;
                     }
                     .wpcf7-list-item-label{
-                        background: white;
+                        background: $color--high-light;
                         padding: .3rem .8rem;
                         border: 1px solid #000;
                         border-radius: calc($border-radius--large * 5);
-
+                        cursor: pointer;
                     }
+
+
+                    .wpcf7-list-item-label:hover {
+                        background-color: #e0e0e0;
+                    }
+
+                    .wpcf7-list-item:focus-within .wpcf7-list-item-label {
+                        outline: size(2) solid $color--secondary-dark;
+                        outline-offset: size(2);
+                    }
+
+                    .wpcf7-list-item-label:active {
+                        background-color: #d6d6d6;
+                    }
+
+                    input[disabled]+.wpcf7-list-item-label {
+                        background-color: #e0e0e0;
+                        color: #9e9e9e;
+                        border-color: #ccc;
+                        cursor: not-allowed;
+                    }
+
+                    input:checked+.wpcf7-list-item-label {
+                        background-color: $color--secondary-dark;
+                        color: $color--high-light;
+                        font-weight: $font-weight--regular;
+                        border-color: $color--secondary-dark;
+                        position: relative;
+                    }
+
                 }
             }
 

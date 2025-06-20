@@ -204,7 +204,6 @@ $categories = get_the_category();
         <?php endif; ?>
 
         <?php
-        // Exibir campos personalizados apenas para posts da categoria "manuais-de-referencia"
         if (has_category('manuais-de-referencia', $post)) {
             $pod = pods('post', get_the_ID());
 
@@ -245,6 +244,20 @@ $categories = get_the_category();
             </div>
         <?php } ?>
 
+        <?php
+        $status = get_post_meta(get_the_ID(), 'status_da_acao', true);
+
+        if ($status === 'Concluir') : ?>
+            <div class="post-card__concluir-link">
+                <a href="<?= get_permalink(); ?>" class="post-card__concluir-button">
+                    <?= __("Ver como foi", "dcp"); ?>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M4.98283 1.64689C5.02928 1.60033 5.08445 1.56339 5.1452 1.53818C5.20594 1.51297 5.27106 1.5 5.33683 1.5C5.4026 1.5 5.46772 1.51297 5.52846 1.53818C5.58921 1.56339 5.64439 1.60033 5.69083 1.64689L11.6908 7.64689C11.7374 7.69334 11.7743 7.74852 11.7995 7.80926C11.8247 7.87001 11.8377 7.93513 11.8377 8.00089C11.8377 8.06666 11.8247 8.13178 11.7995 8.19253C11.7743 8.25327 11.7374 8.30845 11.6908 8.35489L5.69083 14.3549C5.59694 14.4488 5.46961 14.5015 5.33683 14.5015C5.20406 14.5015 5.07672 14.4488 4.98283 14.3549C4.88894 14.261 4.8362 14.1337 4.8362 14.0009C4.8362 13.8681 4.88894 13.7408 4.98283 13.6469L10.6298 8.00089L4.98283 2.35489C4.93627 2.30845 4.89932 2.25327 4.87412 2.19253C4.84891 2.13178 4.83594 2.06666 4.83594 2.00089C4.83594 1.93513 4.84891 1.87001 4.87412 1.80926C4.89932 1.74852 4.93627 1.69334 4.98283 1.64689Z" fill="#281414" />
+                    </svg>
+                </a>
+            </div>
+        <?php endif; ?>
+
     </main>
     <?php if ($post_type == 'acao'): ?>
         <div class="post-card__acao-buttons">
@@ -255,16 +268,16 @@ $categories = get_the_category();
     <?php endif; ?>
 
     <?php if ($post_type === 'acao') : ?>
-    <?php
+        <?php
         $tipo_acao_term = get_the_terms(get_the_ID(), 'tipo_acao');
         $tipo_acao_slug = (!empty($tipo_acao_term) && !is_wp_error($tipo_acao_term)) ? $tipo_acao_term[0]->slug : 'padrao';
-    ?>
-    <div class="post-card__cta post-card__cta--<?= esc_attr($tipo_acao_slug); ?>">
-        <a href="<?= get_permalink(); ?>" class="post-card__cta-button">
-            <?= __("Saiba mais e participe", "dcp"); ?>
-        </a>
-    </div>
-<?php endif; ?>
+        ?>
+        <div class="post-card__cta post-card__cta--<?= esc_attr($tipo_acao_slug); ?>">
+            <a href="<?= get_permalink(); ?>" class="post-card__cta-button">
+                <?= __("Saiba mais e participe", "dcp"); ?>
+            </a>
+        </div>
+    <?php endif; ?>
 </article>
 <?php
 $post = $original_post;
