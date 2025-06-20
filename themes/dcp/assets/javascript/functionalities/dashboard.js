@@ -3,9 +3,6 @@ import 'iconify-icon';
 
 window.Alpine = Alpine;
 
-
-
-
 // TODO: COMPORTAMENTO MOCK jQUERY
 jQuery(function($) {
 
@@ -35,7 +32,6 @@ jQuery(function($) {
     }
 
     $( document ).ready( function() {
-
 
         // TODO: COMPORTAMENTO MOCK RISCOS
         if( $( '#dashboardRiscos' ).length ) {
@@ -88,29 +84,136 @@ jQuery(function($) {
 
         });
 
+        // if ( document.querySelector( '.is-load-now' ) ) {
+        //
+        //     new MediaLoader({
+        //         targetClass: '.is-load-now',
+        //         progressBar: document.getElementById('main-progress-bar'),
+        //         progressContainer: document.getElementById('main-progress-container')
+        //     });
+        //
+        // }
+
+        $( 'img' ).each( function () {
+
+            this.ondragstart = function() {
+                return false;
+            };
+
+        });
+
+        $( '.asset-item-preview .is-play' ).each( function () {
+
+            $( this ).on( 'click', function() {
+                $( this ).css( 'opacity', '0.3' );
+                $( this ).parent().find( 'video' ).get(0).play();
+            });
+
+        });
+
+        $( '.modal-confirm' ).each( function () {
+
+            const $this = $( this );
+
+            $this.find( '.is-close' ).on( 'click', function() {
+
+                $this.fadeOut( 200, function() {});
+
+            });
+
+        });
 
 
+        $( '#formSubmit .is-archive, #formSubmit .is-publish' ).on( 'click', function() {
+
+            $( '.modal-confirm' ).fadeIn( 200, function() {});
+
+        });
+
+        $( '.asset-item-preview-actions .is-delete' ).on( 'click', function() {
+
+            $( '.modal-confirm' ).fadeIn( 200, function() {});
+
+        });
+
+
+
+        $( window ).on( 'dragover', function( event ) {
+            console.log( '#mediaUpload dragover' );
+
+            $( '.input-media-uploader-progress' ).show();
+            $( '.input-media' ).css({
+                opacity : 0.5
+            });
+
+        });
+        $( window ).on( 'dragleave', function( event ) {
+            console.log( '#mediaUpload dragleave' );
+
+            $( '.input-media-uploader-progress' ).hide();
+            $( '.input-media' ).css({
+                opacity : 1
+            });
+
+        });
+        $( window ).on( 'drop', function( event ) {
+            console.log( '#mediaUpload drop' );
+
+            $( '.input-media-uploader-progress' ).show();
+
+
+        });
+
+        $( window ).mouseenter( function ( event ) {});
+        $( window ).mousemove( function ( event ) {});
+        $( window ).mouseleave( function ( event ) {});
 
     });
 
+    $( window ).on( 'load', function() {
 
+        $( 'body' ).addClass( 'is-loaded' );
 
+        // TODO: REFECTORY P/ COMPONENTE DE LOADING TIPO SKELETON
+        $( '.dashboard-content-skeleton' ).hide();
+        setTimeout( function() {
+            $( '.dashboard-content-single .dashboard-content-skeleton' ).remove();
+        }, 3000 );
 
-
+    });
 });
-
-
-
 
 
 document.addEventListener("DOMContentLoaded", function () {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-    // TODO : SEPARAR E COMPONENIZAR AO FINALIZAR dashboardRiscos
-    const dashboardRiscos = document.querySelector("#dashboardRiscos" );
-
-
     console.log( 'DOCUMENT LOADED' );
+
+    document.body.addEventListener("wheel", function(event) {
+
+        if (event.deltaY < 0) {
+            document.body.classList.add( 'is-scrolling-up' );
+            document.body.classList.remove('is-scrolling-down' );
+
+            // TODO: REFACTORY P/ COMPONENTE
+            if( document.body.className.match( 'loaded' ) ) {
+                document.getElementById( 'formSubmit' ).classList.add( 'show-minimal' );
+                document.getElementById( 'formSubmit' ).classList.remove( 'show' );
+            }
+
+
+        } else {
+            document.body.classList.add("is-scrolling-down");
+            document.body.classList.remove("is-scrolling-up");
+
+            // TODO: REFACTORY P/ COMPONENTE
+            if( document.body.className.match( 'loaded' ) ) {
+                document.getElementById( 'formSubmit' ).classList.add( 'show' );
+                document.getElementById( 'formSubmit' ).classList.remove( 'show-minimal' );
+            }
+        }
+
+    });
 });
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -121,7 +224,49 @@ window.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('resize', function () {
 
+});
 
+window.addEventListener('beforeunload', function(event) {
 
+    $( 'body' ).attr( 'class', 'loading is-loaded' );
 
+});
+
+window.addEventListener('unload', function(event) {
+    //console.log('I am the 4th and last one…');
+});
+
+window.addEventListener('offline', (event) => {
+    //console.log( "The network connection has been lost." );
+});
+
+window.onoffline = (event) => {
+    //console.log( "The network connection has been lost." );
+};
+
+window.addEventListener('online', (event) => {
+    //console.log("You are now connected to the network.");
+});
+
+window.ononline = (event) => {
+    //console.log("You are now connected to the network.");
+};
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+    });
+});
+window.oncontextmenu = function () {
+    //return false;
+}
+
+document.addEventListener("keydown", function(event) {
+
+    //console.log( 'KEY DOWN : ', event.code );
+
+    // if (event.code === "Space" && !document.activeElement.matches("input, textarea")) {
+    //     event.preventDefault();
+    //     //_space_special();
+    // }
 });
