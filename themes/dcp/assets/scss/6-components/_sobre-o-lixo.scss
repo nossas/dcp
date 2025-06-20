@@ -6,6 +6,7 @@
         width: 100%;
         @include mobile{
             margin: 16px 0px !important;
+            padding-inline: 1rem;
         }
     }
     .btn-coop > .wp-block-button {
