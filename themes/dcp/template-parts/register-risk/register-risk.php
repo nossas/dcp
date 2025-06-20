@@ -24,6 +24,7 @@
                     <div class="step-circle"><span>5</span></div>
                 </div>
             </div>
+
             <form id="multiStepForm" class="multistepform" method="post" enctype="multipart/form-data">
                 <div class="multistepform__1 step active" data-step="1">
                     <div class="multistepform__header">
@@ -234,7 +235,7 @@
                         <p><?php _e('Ele vai passar por uma verificação rápida e, assim que for aprovado, será publicado no mapa. Você receberá uma notificação no WhatsApp quando isso acontecer.') ?></p>
                     </div>
                     <div class="multistepform__buttons multistepform__buttons-success">
-                        <a href="#" class="multistepform__button multistepform__button-more-risk">
+                        <a href="/reportar-riscos" class="multistepform__button multistepform__button-more-risk">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                                 <path d="M9 18.002C9 18.002 15.75 11.6052 15.75 6.75195C15.75 4.96174 15.0388 3.24485 13.773 1.97898C12.5071 0.713112 10.7902 0.00195312 9 0.00195312C7.20979 0.00195312 5.4929 0.713112 4.22703 1.97898C2.96116 3.24485 2.25 4.96174 2.25 6.75195C2.25 11.6052 9 18.002 9 18.002ZM9 10.127C8.10489 10.127 7.24645 9.77137 6.61351 9.13844C5.98058 8.5055 5.625 7.64706 5.625 6.75195C5.625 5.85685 5.98058 4.9984 6.61351 4.36547C7.24645 3.73253 8.10489 3.37695 9 3.37695C9.89511 3.37695 10.7536 3.73253 11.3865 4.36547C12.0194 4.9984 12.375 5.85685 12.375 6.75195C12.375 7.64706 12.0194 8.5055 11.3865 9.13844C10.7536 9.77137 9.89511 10.127 9 10.127Z" fill="#F9F3EA" />
                             </svg>

@@ -145,8 +145,10 @@
 
 .form-steps {
     &__container {
+        border-bottom: size(2) solid #E6E2E0;
         display: flex;
         justify-content: space-between;
+        padding-bottom: size(40);
     }
 
     &__container-header {
@@ -223,8 +225,6 @@
 }
 
 .multistepform{
-    border-top: size(2) solid #E6E2E0;
-    padding-top: size(40);
     margin-top: size(40);
     width: size(772);
 
@@ -494,4 +494,8 @@
 
 .multistepform__checkbox-option input[type="checkbox"]:checked + .multistepform__checkbox-label {
     background-color: $color--high-light ;
+}
+
+.hidden-by-js{
+    display: none !important;
 }
