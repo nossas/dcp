@@ -40,6 +40,12 @@ $excerpt = !empty($post->post_excerpt) ? wp_kses_post($post->post_excerpt) : '';
 </header>
 
 <main class="post-content content content--normal">
+    <?php if (function_exists('bcn_display')) : ?>
+        <nav class="breadcrumb" typeof="BreadcrumbList" vocab="https://schema.org/">
+            <?php bcn_display(); ?>
+        </nav>
+    <?php endif; ?>
+
     <?php the_content() ?>
 </main>
 
