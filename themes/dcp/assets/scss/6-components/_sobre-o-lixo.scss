@@ -9,26 +9,52 @@
         }
     }
     .btn-coop > .wp-block-button {
+
         a{
             display: flex;
             align-items: center;
             padding: 7px 24px !important;
             gap: 8px;
             margin-top: 35px;
+
             img{
                 width: 16px;
                 height: 16px;
             }
+             &:hover{
+                background-color: #32373c !important;
+            }
+
         }
+    }
+    .btn-apoio > .wp-block-button {
+        a{
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
     }
     .wp-block-spacer{
         @include mobile{
-            height: 32px;
+            height: 32px !important;
         }
     }
     h2{
         @include mobile{
             font-size:24px !important;
+        }
+    }
+    .post-content{
+        .container{
+            @include mobile {
+                flex-direction: column-reverse;
+            }
+            .wp-block-column:last-child{
+               @include mobile{
+                    flex-basis: auto !important;
+                }
+            }
         }
     }
 }
