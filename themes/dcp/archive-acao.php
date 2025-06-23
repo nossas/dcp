@@ -36,6 +36,7 @@ get_header(); ?>
 
     <div class="posts-grid__content">
         <h2 class="posts-grid__title"><?= __('O que já rolou') ?></h2>
+        <p class="posts-grid__excerpt"><?= __('Quer saber o que já aconteceu? Veja outras atividades que já rolaram no território!') ?></p>
         <div class="posts-grid__content-cards-concluidas">
         <?php
         $concluir_query = new WP_Query([

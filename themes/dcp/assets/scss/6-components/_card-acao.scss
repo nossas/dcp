@@ -37,12 +37,23 @@
             width: 100%;
             margin-left: auto;
             margin-right: auto;
+
+            @include mobile{
+                margin-top: $margin--large !important;
+                margin-bottom: $margin--large !important;
+                max-width: size(350);
+                padding-inline: $padding--medium !important;
+            }
         }
     }
     .posts-grid__content{
         display: grid;
         grid-template-columns: 1fr;
         gap: 2rem;
+
+        @include mobile{
+            margin-top: $margin--large;
+        }
     }
 
     .posts-grid__content-cards-agendada,
@@ -50,6 +61,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         gap: 2rem;
+
         @include tablet{
             grid-template-columns: 1fr 1fr;
         }
@@ -61,11 +73,22 @@
 
     .posts-grid__content-cards-agendada{
         margin-top: calc($margin--large + $margin--medium);
+
+        @include mobile{
+            margin-top: 0;
+        }
+
         .post-card__image{
             display: none;
         }
         .post-card__content{
             border-radius: $border-radius--large $border-radius--large 0 0;
+
+            @include mobile{
+                gap: $gap--small;
+                height: auto;
+                justify-content: inherit;
+            }
         }
         .post-card__title{
             font-size: $font-size--medium;
@@ -89,11 +112,38 @@
             display: none;
         }
     }
-    .posts-grid__content-cards-concluidas{
-        .post-card__title{
+    .posts-grid{
+        &__title {
             font-size: $font-size--medium;
             color: $color--secondary-dark;
+
+            @include mobile {
+                font-size: size(24);
+            }
         }
+    }
+    .posts-grid__content-cards-concluidas{
+
+        .post-card{
+            &__title {
+                font-size: $font-size--medium;
+                color: $color--secondary-dark;
+
+                @include mobile {
+                    font-size: $font-size--x-small;
+                }
+            }
+
+            &__content {
+                @include mobile {
+                    gap: $gap--small;
+                    height: auto;
+                    justify-content: inherit;
+                }
+            }
+        }
+
+
         .post-card__excerpt{
             color: $color--secondary-dark;
         }
@@ -113,6 +163,7 @@
                 align-items: center;
                 display: flex;
                 font-size: $font-size--xx-small;
+                gap: $gap--x-small;
                 text-decoration: underline;
             }
         }
@@ -125,6 +176,13 @@
         display: flex;
         margin-left: auto;
         margin-right: auto;
+
+        @include mobile{
+            justify-content: center;
+            margin-inline: 0;
+            max-width: size(350);
+            width: 100%;
+        }
     }
 
     .post-card {
@@ -203,8 +261,8 @@
             height: size(305);
 
             @include mobile{
-                min-height: inherit;
                 gap: 0;
+                min-height: inherit;
             }
         }
 
@@ -399,6 +457,56 @@
                     border: none;
 
                 }
+            }
+        }
+
+        .wp-block-columns > .wp-block-column:first-child{
+            .wp-block-heading{
+                font-size: size(24);
+            }
+
+            & > .p1{
+                margin-top: size(200);
+                position: relative;
+                padding-top: 1.5rem;
+
+                @include mobile{
+                    display: none;
+                    margin-top: 0;
+                }
+            }
+
+                & > .p1::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: size(40);
+                height: size(1);
+                background-color: #ccc;
+            }
+        }
+
+        .wp-block-columns > .wp-block-column:last-child{
+            & > .p1-mobile {
+                display: none;
+
+
+                @include mobile{
+                    display: block;
+                    position: relative;
+                    padding-top: 1.5rem;
+                }
+            }
+
+            & > .p1-mobile::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: size(40);
+                height: size(1);
+                background-color: #ccc;
             }
         }
     }

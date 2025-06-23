@@ -202,5 +202,6 @@
 }
 
 .hacklabr-posts-grid-block:has(.empty-state){
+    padding-right: 0;
     overflow-y: inherit;
 }

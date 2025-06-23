@@ -104,12 +104,22 @@
         }
     }
 
+    .wp-block-button:nth-child(2) > a{
+        @include mobile{
+            width: size(143);
+        }
+    }
+
     .wp-block-button > a{
         display: flex;
         font-size: $font-size--x-small !important;
         gap: $gap--small;
         padding-bottom: size(10);
         padding-top: size(10);
+
+        @include mobile{
+            padding: $padding--x-small $padding--medium;
+        }
 
         & > img{
             object-fit: contain;
@@ -122,14 +132,14 @@
     color: $color--secondary-light;
     display: flex;
     align-items: center;
-    gap: $gap--medium;
-    padding: $padding--medium $padding--large;
+    gap: $gap--small;
+    padding: size(10) $padding--medium;
     border-radius: calc($border-radius--large * 5) !important;
     font-weight: $font-weight--medium;
     &::after {
         background-size: contain;
         background-repeat: no-repeat;
-        content: url('/wp-content/themes/dcp/assets/images/icon-down.png    ');
+        content: url('/wp-content/themes/dcp/assets/images/icon-down.png');
         display: inline-block;
         height: 1em;
         width: 1em;
