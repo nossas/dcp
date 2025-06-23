@@ -177,6 +177,11 @@
         margin-left: auto;
         margin-right: auto;
 
+        &:hover {
+            border: none;
+            background-color: $color--high-dark !important;
+        }
+
         @include mobile{
             justify-content: center;
             margin-inline: 0;

@@ -104,9 +104,21 @@
         }
     }
 
+    .wp-block-button:nth-child(1) > a{
+        &:hover {
+            border-color: $color--high-dark !important;
+            color: $color--high-dark !important;
+        }
+    }
+
     .wp-block-button:nth-child(2) > a{
         @include mobile{
             width: size(143);
+        }
+
+        &:hover {
+            border: none;
+            background-color: $color--high-dark !important;
         }
     }
 
