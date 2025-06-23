@@ -20,6 +20,10 @@
     .wp-block-columns > .wp-block-column > .wp-block-cover{
         border-radius: $border-radius--medium;
 
+        @media (max-width: size(1400)) {
+            max-height: size(166);
+        }
+
         .wp-block-columns {
             @include mobile {
                 display: grid;
