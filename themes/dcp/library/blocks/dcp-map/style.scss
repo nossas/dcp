@@ -1,0 +1,14 @@
+.dcp-map-block {
+
+    template {
+        display: none !important;
+    }
+
+    .jeomap {
+        height: 400px;
+
+        .legend-container {
+            display: none;
+        }
+    }
+}

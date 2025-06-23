@@ -1,0 +1,19 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "hacklabr/dcp-map",
+    "title": "Climate defense map",
+    "description": "Show risks and support spots on map",
+    "category": "widgets",
+    "icon": "location-alt",
+    "supports": {
+        "align": ["center"],
+        "html": false
+    },
+    "attributes": {
+    },
+    "textdomain": "hacklabr",
+    "editorScript": ["file:../../../dist/blocks/dcp-map/editor.js"],
+    "script": ["file:../../../dist/blocks/dcp-map/index.js"],
+    "style": ["file:../../../dist/blocks/dcp-map/style.css"]
+}
