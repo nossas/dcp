@@ -200,3 +200,7 @@
         }
     }
 }
+
+.hacklabr-posts-grid-block:has(.empty-state){
+    overflow-y: inherit;
+}
