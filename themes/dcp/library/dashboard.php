@@ -115,17 +115,17 @@ function get_dashboard_title(): string {
     $route = get_dashboard_route();
     switch ($route) {
         case 'acoes':
-            return esc_html_x('Actions', 'dashboard', 'hacklabr');
+            return 'Ações';
         case 'apoio':
-            return esc_html_x('Support', 'dashboard', 'hacklabr');
+            return 'Apoio';
         case 'indicadores':
-            return esc_attr_x('Indicators', 'dashboard', 'hacklabr');
+            return 'Indicadores';
         case 'inicio':
-            return esc_html_x('Start', 'dashboard', 'hacklabr');
+            return 'Início';
         case 'riscos':
-            return esc_html_x('Risks', 'dashboard', 'hacklabr');
+            return 'Riscos';
         case 'situacao_atual':
-            return esc_html_x('Current situation', 'dashboard', 'hacklabr');
+            return 'Situação Atual';
         default:
             return esc_html__('Dashboard', 'hacklabr');
     }
