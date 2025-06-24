@@ -70,5 +70,32 @@
     padding-left: $padding--x-large;
     padding-bottom: $padding--medium;
   }
+  .ficou-alguma-duvida{
+    margin-top: 120px;
+    @include mobile{
+        margin-top: 16px;
+    }
+    h2{
+        @include mobile{
+            font-size: 24px !important;
+        }
+    }
+    form {
+
+        textarea{
+            height:136px !important
+        }
+        input::placeholder,
+        textarea::placeholder {
+            color: var(--Color-Gray-800, #484646);
+            opacity: 1; /* Garante que a cor apareça em todos os navegadores */
+        }
+    }
+
+  }
+  .main-footer-subscribe{
+        display: none !important;
+    }
+
 
 }
