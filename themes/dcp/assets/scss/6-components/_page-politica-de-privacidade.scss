@@ -1,4 +1,12 @@
 .page-politica-de-privacidade {
+    h2{
+        margin-top: 6rem;
+        font-family: 'Gabarito';
+        @include mobile{
+            margin-top: 2rem;
+        }
+    }
+
   .wp-block-list {
 
     li {
