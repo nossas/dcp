@@ -19,6 +19,8 @@
         }
     }
     .wp-block-separator{
+        margin-right: 2rem !important;
+        margin-left: 2rem !important;
         @include mobile {
             margin: 16 !important;
         }
