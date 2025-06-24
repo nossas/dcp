@@ -1,7 +1,38 @@
+@import '../../../assets/scss/includes';
+
 .dcp-map-block {
 
-    template {
-        display: none !important;
+    &__tabs {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    &__tab {
+        align-items: center;
+        background-color: transparent;
+        border: 1px solid var(--tab-color);
+        color: var(--tab-color);
+        display: flex;
+        flex: 1;
+        font-weight: 500;
+        justify-content: center;
+        padding: 5px;
+
+        &--selected {
+            background-color: var(--tab-color);
+            color: white;
+        }
+
+        &[data-cpt="risco"] {
+            border-top-left-radius: size(10);
+            --tab-color: #{$color--warning-dark};
+        }
+
+        &[data-cpt="apoio"] {
+            border-top-right-radius: size(10);
+            --tab-color: #{$color--primary-pure};
+        }
     }
 
     .jeomap {
