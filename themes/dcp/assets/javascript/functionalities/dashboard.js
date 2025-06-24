@@ -33,14 +33,6 @@ jQuery(function($) {
 
     $( document ).ready( function() {
 
-        // TODO: COMPORTAMENTO MOCK RISCOS
-        if( $( '#dashboardRiscos' ).length ) {
-
-            window.location.hash = 'aguardando-aprovacao';
-            _mock_ajax_dashboard();
-        }
-
-
         // TODO: COMPORTAMENTO MOCK TAB PANELS ( componentizar / usar Alpine já existente )
         $( '.tabs__header a' ).on('click', function() {
 
@@ -80,7 +72,8 @@ jQuery(function($) {
 
             }
 
-            _mock_ajax_dashboard();
+            $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
+            $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
 
         });
 
@@ -115,7 +108,7 @@ jQuery(function($) {
 
             const $this = $( this );
 
-            $this.find( '.is-close' ).on( 'click', function() {
+            $this.find( '.is-close, .button' ).on( 'click', function() {
 
                 $this.fadeOut( 200, function() {});
 
@@ -123,12 +116,51 @@ jQuery(function($) {
 
         });
 
-
         $( '#formSubmit .is-archive, #formSubmit .is-publish' ).on( 'click', function() {
 
             $( '.modal-confirm' ).fadeIn( 200, function() {});
 
         });
+        $( '.asset-item-preview .is-show-hide' ).on( 'click', function() {
+
+            $( '.modal-confirm' ).fadeIn( 200, function() {});
+
+        });
+
+
+
+
+        $( '.modal-asset-fullscreen' ).each( function () {
+
+            const $this = $( this );
+
+            $this.find( '.is-close, .button' ).on( 'click', function() {
+
+                $this.fadeOut( 200, function() {});
+
+            });
+
+        });
+
+        $( '.asset-item-preview .is-fullscreen' ).on( 'click', function() {
+
+            $( '.modal-asset-fullscreen' ).fadeIn( 200, function() {});
+
+        });
+
+
+
+
+        $( '#' ).on( 'click', function() {
+
+            $( '.modal-asset-fullscreen' ).fadeIn( 200, function() {});
+
+        });
+
+
+
+
+
 
         $( '.asset-item-preview-actions .is-delete' ).on( 'click', function() {
 
@@ -136,6 +168,19 @@ jQuery(function($) {
 
         });
 
+        $( '.is-edit-input' ).each( function () {
+
+            const $this = $( this );
+
+            $this.on( 'click', function() {
+                $this.parent().find( '.input, .textarea' ).removeAttr( 'readonly' ).focus();
+                $this.css({
+                    opacity : 0.5,
+                    cursor : 'not-allowed'
+                });
+            });
+
+        })
 
 
         $( window ).on( 'dragover', function( event ) {
@@ -174,6 +219,10 @@ jQuery(function($) {
 
         $( 'body' ).addClass( 'is-loaded' );
 
+        $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
+        $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
+
+
         // TODO: REFECTORY P/ COMPONENTE DE LOADING TIPO SKELETON
         $( '.dashboard-content-skeleton' ).hide();
         setTimeout( function() {
@@ -181,6 +230,7 @@ jQuery(function($) {
         }, 3000 );
 
     });
+
 });
 
 
@@ -196,10 +246,10 @@ document.addEventListener("DOMContentLoaded", function () {
             document.body.classList.remove('is-scrolling-down' );
 
             // TODO: REFACTORY P/ COMPONENTE
-            if( document.body.className.match( 'loaded' ) ) {
-                document.getElementById( 'formSubmit' ).classList.add( 'show-minimal' );
-                document.getElementById( 'formSubmit' ).classList.remove( 'show' );
-            }
+            // if( document.body.className.match( 'loaded' ) ) {
+            //     document.getElementById( 'formSubmit' ).classList.add( 'show-minimal' );
+            //     document.getElementById( 'formSubmit' ).classList.remove( 'show' );
+            // }
 
 
         } else {
@@ -207,10 +257,10 @@ document.addEventListener("DOMContentLoaded", function () {
             document.body.classList.remove("is-scrolling-up");
 
             // TODO: REFACTORY P/ COMPONENTE
-            if( document.body.className.match( 'loaded' ) ) {
-                document.getElementById( 'formSubmit' ).classList.add( 'show' );
-                document.getElementById( 'formSubmit' ).classList.remove( 'show-minimal' );
-            }
+            // if( document.body.className.match( 'loaded' ) ) {
+            //     document.getElementById( 'formSubmit' ).classList.add( 'show' );
+            //     document.getElementById( 'formSubmit' ).classList.remove( 'show-minimal' );
+            // }
         }
 
     });

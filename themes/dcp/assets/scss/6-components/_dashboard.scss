@@ -382,6 +382,13 @@
                                 border: solid 1px $color--secondary-dark;
                                 position: relative;
                                 z-index: 1;
+                                opacity: 1;
+                                transition: all 0.4s 0s ease;
+                            }
+                            input[readonly],
+                            textarea[readonly] {
+                                opacity: 0.8;
+                                cursor: not-allowed;
                             }
                             textarea {
                                 height: 200px;
@@ -390,9 +397,15 @@
                             a.button {
                                 background-color: transparent;
                                 color: $color--secondary-dark;
+                                text-align: center;
+                                width: 40px;
+                                height: 40px;
+                                line-height: 36px;
+                                padding: size( 1 );
+                                border-radius: size( 10 );
                                 position: absolute;
-                                top: 35px;
-                                right: 0;
+                                top: 34px;
+                                right: 10px;
                                 z-index: 2;
                                 cursor: pointer;
                                 transform: scale( 1 );
@@ -763,16 +776,12 @@
 
 
 
-                .modal-confirm {
+                .modal-confirm,
+                .modal-asset-fullscreen {
                     background-color: rgba( 0,0,0,0.3 );
-
-                    display: block;
-                    //justify-content: center;
-                    //align-items: center;
-
+                    display: none;
                     width: 100%;
                     height: 100%;
-
                     position: fixed;
                     top: 0;
                     left: 0;
@@ -780,8 +789,8 @@
                     bottom: 0;
                     z-index: 100;
 
-
-                    .modal-confirm-content {
+                    .modal-confirm-content,
+                    .modal-asset-fullscreen-content {
 
                         background-color: $color--secondary-light;
 
@@ -869,24 +878,8 @@
                     }
                 }
 
-
-
-
-
                 .modal-asset-fullscreen {
 
-                    .modal-sset-fullscreen-content {
-
-
-
-                        h3 {}
-                        p {}
-                        .button {}
-                        .button.is-cancel {}
-                        .button.is-confirm {}
-
-
-                    }
                 }
 
 

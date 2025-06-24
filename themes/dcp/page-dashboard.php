@@ -52,38 +52,38 @@ namespace hacklabr\dashboard;
                         <li class="<?= is_dashboard('inicio') ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('inicio') ?>">
                                 <iconify-icon icon="bi:house-fill"></iconify-icon>
-                                <span><?php _ex('Start', 'dashboard', 'hacklabr') ?></span>
+                                <span>início</span>
                             </a>
                         </li>
                         <?php // TODO : REFACTORY is-current ?>
                         <li class="<?= ( is_dashboard('riscos') || is_dashboard('riscos-adicionar') || is_dashboard('riscos-single')) ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('riscos') ?>">
                                 <iconify-icon icon="bi:geo-alt-fill"></iconify-icon>
-                                <span><?php _ex('Risks', 'dashboard', 'hacklabr') ?></span>
+                                <span>Riscos</span>
                             </a>
                         </li>
                         <li class="<?= is_dashboard('situacao_atual') ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('situacao_atual') ?>">
                                 <iconify-icon icon="bi:exclamation-triangle-fill"></iconify-icon>
-                                <span><?php _ex('Current situation', 'dashboard', 'hacklabr') ?></span>
+                                <span>Situação Atual</span>
                             </a>
                         </li>
                         <li class="<?= is_dashboard('acoes') ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('acoes') ?>">
                                 <iconify-icon icon="bi:calendar2-week-fill"></iconify-icon>
-                                <span><?php _ex('Actions', 'dashboard', 'hacklabr') ?></span>
+                                <span>Ações</span>
                             </a>
                         </li>
                         <li class="<?= is_dashboard('apoio') ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('apoio') ?>">
                                 <iconify-icon icon="bi:people-fill"></iconify-icon>
-                                <span><?php _ex('Support', 'dashboard', 'hacklabr') ?></span>
+                                <span>Apoio</span>
                             </a>
                         </li>
                         <li class="<?= is_dashboard('indicadores') ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('indicadores') ?>">
                                 <iconify-icon icon="bi:graph-up"></iconify-icon>
-                                <span><?php _ex('Indicators', 'dashboard', 'hacklabr') ?></span>
+                                <span>Indicadores</span>
                             </a>
                         </li>
                     </ul>

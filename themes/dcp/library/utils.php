@@ -302,5 +302,3 @@ function load_more_acoes_callback() {
 }
 add_action('wp_ajax_load_more_acoes', 'load_more_acoes_callback');
 add_action('wp_ajax_nopriv_load_more_acoes', 'load_more_acoes_callback');
-
-
