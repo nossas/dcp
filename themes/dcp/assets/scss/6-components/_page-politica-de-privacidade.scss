@@ -1,12 +1,40 @@
-.page-politica-de-privacidade {
+.page-politica-de-privacidade,
+.page-politica-de-privacidade-2 {
+
     h2{
         margin-top: 6rem;
-        font-family: 'Gabarito';
         @include mobile{
             margin-top: 2rem;
+            font-size: 24px;
         }
     }
+    h3{
+        @include mobile{
+            font-size: 24px;
+        }
+    }
+    .wp-block-spacer{
+        @include mobile{
+            height: 0px !important;
+        }
+    }
+    .wp-block-separator{
+        @include mobile {
+            margin: 16 !important;
+        }
+    }
+    .col-1{
+        @include mobile{
+            display: flex;
+            flex-direction: column-reverse;
 
+        }
+
+
+    }
+    .col-1:not(.is-not-stacked-on-mobile)>.wp-block-column{
+        flex-basis: auto !important;
+    }
   .wp-block-list {
 
     li {
