@@ -8,23 +8,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const tabs = [...block.querySelectorAll('.dcp-map-block__tab')]
         const map = block.querySelector('.jeomap')
         let mapLoaded = false
+        let toggleLayer = null
 
-        let selectedCPT = tabsList.dataset.selected
+        const selectedCPT = { current: tabsList.dataset.selected }
         function selectCPT (cpt) {
             tabs.forEach((tab) => {
-                selectedCPT = cpt
+                selectedCPT.current = cpt
                 if (tab.dataset.cpt === cpt) {
                     tab.classList.add('dcp-map-block__tab--selected')
                 } else {
                     tab.classList.remove('dcp-map-block__tab--selected')
                 }
+                toggleLayer?.(cpt)
             })
         }
 
         tabs.forEach((tab) => {
             tab.addEventListener('click', () => {
                 const cpt = tab.dataset.cpt
-                if (cpt !== selectedCPT) {
+                if (cpt !== selectedCPT.current) {
                     selectCPT(cpt)
                 }
             })
@@ -36,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         await until(() => jeoMap.map)
 
-        setupMap(jeoMap, riscos, apoios)
+        toggleLayer = setupMap(jeoMap, riscos, apoios, selectedCPT)
         mapLoaded = true
     })
 })
