@@ -40,6 +40,12 @@ function action_init(): void {
 
         update_option($option_key, '1');
     }
+
+    add_rewrite_rule(
+        '^dashboard/([^/]+)/?',
+        'index.php?pagename=dashboard&' . DASHBOARD_ROUTING_VAR . '=$matches[1]',
+        'top'
+    );
 }
 add_action('init', 'hacklabr\\dashboard\\action_init');
 
@@ -133,11 +139,12 @@ function get_dashboard_title(): string {
 
 function get_dashboard_url(string $route = 'inicio', array $params = []): string {
     $base_url = get_dashboard_base_url();
-    $query_args = [
-        ...$params,
-        DASHBOARD_ROUTING_VAR => $route,
-    ];
-    return esc_url(add_query_arg($query_args, $base_url));
+    $route_url = $base_url . (str_ends_with($base_url, '/') ? '' : '/') . $route;
+    if (empty($params)) {
+        return $route_url;
+    } else {
+        return esc_url(add_query_arg($params, $route_url));
+    }
 }
 
 function is_dashboard(?string $route = null): bool {
