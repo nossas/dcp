@@ -38,6 +38,8 @@
     @include mobile{
         margin-bottom: $margin--large;
         margin-top: $margin--large;
+        margin-left: 1rem;
+        margin-right: 1rem;
     }
 }
 
