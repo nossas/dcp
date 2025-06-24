@@ -121,6 +121,12 @@
                 padding: $padding--medium;
                 width: 100%;
             }
+
+            .wpcf7-form-control-wrap > .wpcf7-textarea{
+                @include mobile {
+                    height: size(115);
+                }
+            }
         }
     }
 }

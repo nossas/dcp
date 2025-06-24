@@ -406,6 +406,19 @@
                     display: flex;
                     gap: 1rem;
                     margin-top: .8rem;
+
+                    @include mobile{
+                        display: grid;
+                        grid-template-columns: 0.3fr 0.3fr 0.3fr;
+                        gap: $gap--small;
+                    }
+
+                    .wpcf7-list-item{
+                        @include mobile{
+                            white-space: nowrap;
+                            width: fit-content;
+                        }
+                    }
                 }
                 .wpcf7-form-control-wrap{
 
