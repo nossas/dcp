@@ -58,6 +58,19 @@ class API {
             ],
             'permission_callback' => '__return_true',
         ]);
+
+        register_rest_route('hacklabr/v2', '/geocoding', [
+            'methods' => ['GET', 'POST'],
+            'callback' => 'hacklabr\API::rest_geocoding_callback',
+            'args' => [
+                'address' => [
+                    'type' => 'string',
+                    'required' => true,
+                ],
+            ],
+            // 'permission_callback' => 'hacklabr\API::rest_permission_to_edit_riscos',
+            'permission_callback' => '__return_true',
+        ]);
     }
 
     static function send_html ($html) {
@@ -68,6 +81,10 @@ class API {
 
     static function rest_permission_to_edit_posts () {
         return current_user_can('edit_posts');
+    }
+
+    static function rest_permission_to_edit_riscos () {
+        return current_user_can('edit_riscos');
     }
 
     static function rest_block_settings_callback () {
@@ -82,6 +99,22 @@ class API {
         ];
 
         return new \WP_REST_Response($response, 200);
+    }
+
+    static function rest_geocoding_callback (\WP_REST_Request $request) {
+        $address = $request->get_param('address');
+
+        $result = \Jeo\Geocode_Handler::get_instance()->get_active_geocoder()->geocode( $address );
+
+        if ( empty( $result[0] ) ) {
+            return null;
+        }
+
+        return [
+            'lat' => floatval($result[0]['lat']),
+            'lon' => floatval($result[0]['lon']),
+            'address' => $result[0]['raw']['address'],
+        ];
     }
 
     static function rest_options_callback () {
