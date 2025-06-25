@@ -13,7 +13,11 @@ $termos_tipo_acao = get_the_terms(get_the_ID(), 'tipo_acao');
 ?>
 
 <header class="post-header container container--medium">
-
+    <?php if (function_exists('bcn_display')) : ?>
+        <nav class="breadcrumb" typeof="BreadcrumbList" vocab="https://schema.org/">
+            <?php bcn_display(); ?>
+        </nav>
+    <?php endif; ?>
     <h1 class="post-header__title"> <?php the_title(); ?> </h1>
       <?php if (!empty($termos_tipo_acao) && !is_wp_error($termos_tipo_acao)) :
             $termo = $termos_tipo_acao[0]; // pega o primeiro termo, se quiser todos, pode iterar
@@ -37,23 +41,10 @@ $termos_tipo_acao = get_the_terms(get_the_ID(), 'tipo_acao');
             'style' => 'height: 455px; object-fit: cover; width: 100%;'
         ]); ?>
     </div>
-
-
-
-
-
-
-    <div class="post-header__author container">
-        <p class="post-header__author-name"><?php _e('Published by ', 'hacklabr') ?><?= get_the_author() ?></p>
-    </div>
 </header>
 
 <main class="post-content container container--medium">
-    <?php if (function_exists('bcn_display')) : ?>
-        <nav class="breadcrumb" typeof="BreadcrumbList" vocab="https://schema.org/">
-            <?php bcn_display(); ?>
-        </nav>
-    <?php endif; ?>
+
 
     <?php the_content() ?>
 </main>
