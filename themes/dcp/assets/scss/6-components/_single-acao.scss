@@ -1,0 +1,26 @@
+.single-acao {
+    .post-header {
+        padding-left: size(0);
+        padding-right: size(0);
+        @include mobile {
+            padding-inline: 2rem !important;
+        }
+        &__title{
+            color:$color--primary-pure;
+            margin-top: 16px;
+            margin-bottom: 16px;
+        }
+        &__excerpt{
+            margin-top: $margin--large;
+            margin-bottom: size(56);
+        }
+        &__tags{
+            align-items: center;
+            gap: 16px;
+        }
+    }
+    .post-content{
+        padding-left: size(0);
+        padding-right: size(0);
+    }
+}
