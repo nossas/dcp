@@ -78,6 +78,7 @@ add_filter('login_redirect', 'hacklabr\\dashboard\\filter_login_redirect', 10, 3
 
 function filter_query_vars(array $query_vars): array {
     $query_vars[] = DASHBOARD_ROUTING_VAR;
+    $query_vars[] = 'risco_id';
     return $query_vars;
 }
 add_filter('query_vars', 'hacklabr\\dashboard\\filter_query_vars');
