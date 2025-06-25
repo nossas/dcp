@@ -6,19 +6,27 @@ function format_risk_pin(\WP_Post $post): array {
     $latitude = get_post_meta($post->ID, 'latitude', true) ?: 0;
     $longitude = get_post_meta($post->ID, 'longitude', true) ?: 0;
 
-    $cat = wp_get_post_terms($post->ID, 'situacao_de_risco', [
+    $types = wp_get_post_terms($post->ID, 'situacao_de_risco', [
         'fields' => 'slugs',
         'parent' => 0,
     ]);
-    if (!is_array($cat)) {
-        $cat = [];
+    if (is_array($types)) {
+        if (in_array('alagamento', $types)) {
+            $type = 'alagamento';
+        } elseif (in_array('lixo', $types)) {
+            $type = 'lixo';
+        } else {
+            $type = 'risco';
+        }
+    } else {
+        $type = 'risco';
     }
 
     return [
         'ID' => $post->ID,
         'title' => $post->post_title,
         'href' => get_permalink($post),
-        'type' => $cat[0]?->slug ?? null,
+        'type' => $type,
         'lat' => $latitude,
         'lon' => $longitude,
     ];
