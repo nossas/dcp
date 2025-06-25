@@ -10,14 +10,14 @@ function createFeature (coordinates, properties) {
 }
 
 function createApoioFeature (apoio) {
-    return createFeature([apoio.lng, apoio.lat], {
+    return createFeature([apoio.lon, apoio.lat], {
         icon: 'apoio',
         title: apoio.title,
     })
 }
 
 function createRiscoFeature (risco) {
-    return createFeature([risco.lng, risco.lat], {
+    return createFeature([risco.lon, risco.lat], {
         icon: 'risco',
         title: risco.title,
     })

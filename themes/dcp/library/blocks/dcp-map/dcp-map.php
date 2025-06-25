@@ -3,7 +3,13 @@
 namespace hacklabr;
 
 function format_risk_pin(\WP_Post $post): array {
-    $cat = wp_get_post_terms($post->ID, 'situacao_de_risco', [ 'fields' => 'slugs' ]);
+    $latitude = get_post_meta($post->ID, 'latitude', true) ?: 0;
+    $longitude = get_post_meta($post->ID, 'longitude', true) ?: 0;
+
+    $cat = wp_get_post_terms($post->ID, 'situacao_de_risco', [
+        'fields' => 'slugs',
+        'parent' => 0,
+    ]);
     if (!is_array($cat)) {
         $cat = [];
     }
@@ -13,18 +19,21 @@ function format_risk_pin(\WP_Post $post): array {
         'title' => $post->post_title,
         'href' => get_permalink($post),
         'type' => $cat[0]?->slug ?? null,
-        'lat' => 0,
-        'lng' => 0,
+        'lat' => $latitude,
+        'lon' => $longitude,
     ];
 }
 
 function format_support_pin(\WP_Post $post): array {
+    $latitude = get_post_meta($post->ID, 'latitude', true) ?: 0;
+    $longitude = get_post_meta($post->ID, 'longitude', true) ?: 0;
+
     return [
         'ID' => $post->ID,
         'title' => $post->post_title,
         'href' => get_permalink($post),
-        'lat' => 0,
-        'lng' => 0,
+        'lat' => $latitude,
+        'lon' => $longitude,
     ];
 }
 
