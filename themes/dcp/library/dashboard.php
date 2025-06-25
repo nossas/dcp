@@ -78,6 +78,7 @@ add_filter('login_redirect', 'hacklabr\\dashboard\\filter_login_redirect', 10, 3
 
 function filter_query_vars(array $query_vars): array {
     $query_vars[] = DASHBOARD_ROUTING_VAR;
+    $query_vars[] = 'risco_id';
     return $query_vars;
 }
 add_filter('query_vars', 'hacklabr\\dashboard\\filter_query_vars');
@@ -154,23 +155,3 @@ function is_dashboard(?string $route = null): bool {
     }
     return $is_dashboard;
 }
-
-
-// TODO: CRIAR FUNÇÕES PARA CRUD DOS POSTS
-function get_posts_riscos( $args = [ 'post_status' => 'publish' ] ) {
-
-    $args['post_type'] = 'risco';
-    $args['posts_per_page'] = -1;
-    //$args['posts_per_page'] = 10;
-    $args['orderby'] = 'date';
-    $args['order'] = 'DESC';
-
-    //$args['post_status'] = 'publish';
-    //$args['post_status'] = 'draft';
-    //$args['post_status'] = 'pending';
-    //$args['post_status'] = 'future';
-    //$args['post_status'] = 'private';
-
-    return new WP_Query( $args );
-}
-

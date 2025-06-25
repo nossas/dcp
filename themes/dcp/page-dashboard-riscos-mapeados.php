@@ -129,7 +129,7 @@ namespace hacklabr\dashboard;
 
                             <div class="tabs__panel__content">
                                 <?php
-                                $riscosDraft = new WP_Query([
+                                $riscosDraft = new \WP_Query([
 
                                     'post_type'      => 'risco',
                                     'post_status'    => 'draft',

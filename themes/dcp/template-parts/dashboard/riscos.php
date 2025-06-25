@@ -36,6 +36,8 @@
 
             <div class="tabs__panel__content">
                 <?php
+
+                $riscos = get_query_var('riscos_id' );
                     $riscosDraft = new WP_Query([
 
                         'post_type'      => 'risco',
@@ -55,7 +57,7 @@
 
                             <div class="post-card__term">
                                 <span class="post-card__taxonomia term-alagamento">Alagamento</span>
-                                <div class="post-card__risco-meta"><?=get_the_date('H:i | d/m/Y')?> ( update : <?=get_the_modified_date('H:i | d/m/Y')?> )</div>
+                                <div class="post-card__risco-meta"><?=get_the_date('H:i | d/m/Y')?> <em>( update : <?=get_the_modified_date('H:i | d/m/Y')?> )</em> </div>
                             </div>
 
                             <h3 class="post-card__title">
@@ -70,7 +72,7 @@
                             </div>
 
                             <div class="post-card__see-more">
-                                <a href="./?ver=riscos-single" class="button">
+                                <a href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>" class="button">
                                     <span>Avaliar</span>
                                     <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                 </a>
@@ -184,7 +186,7 @@
                                 </div>
 
                                 <div class="post-card__see-more">
-                                    <a href="./?ver=riscos-single" class="button">
+                                    <a href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>" class="button">
                                         <span>Avaliar</span>
                                         <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                     </a>
@@ -267,7 +269,7 @@
                                 </div>
 
                                 <div class="post-card__see-more">
-                                    <a href="./?ver=riscos-single" class="button">
+                                    <a href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>" class="button">
                                         <span>Avaliar</span>
                                         <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                     </a>
@@ -288,10 +290,8 @@
                     </div>
                 <?php endif; ?>
 
-            </div>
-
+            </div
         </div>
-
     </div>
 </div>
 
