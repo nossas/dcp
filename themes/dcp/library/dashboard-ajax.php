@@ -20,6 +20,70 @@ function get_posts_riscos( $args = [ 'post_status' => 'publish' ] ) {
 
 
 
+
+
+
+
+function form_single_risco_new() {
+
+    $data = [
+
+        'post_type' => 'risco',
+        'post_status' => 'draft',
+
+        // 'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
+        //
+        // 'latitude' => 0,
+        // 'longitude' => 0,
+        //
+        // 'nome_completo' => sanitize_text_field( $_POST[ 'nome_completo' ] ),
+        // 'email' => sanitize_text_field( $_POST[ 'email' ] ),
+        // 'telefone' => sanitize_text_field( $_POST[ 'telefone' ] ),
+        //
+        // 'data_e_horario' => date('Y-m-d H:i:s'),
+        //
+        // 'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
+        //
+        // 'situacao_de_risco' => sanitize_text_field( $_POST[ 'situacao_de_risco' ] ),
+
+    ];
+    //TODO: REMOVE DEPOIS DE TESTAR
+    $data[ 'post_title' ] = sanitize_text_field( $_POST[ 'endereco' ] );
+    $data[ 'post_content' ] = sanitize_text_field( $_POST[ 'descricao' ] );
+    //TODO: REMOVE DEPOIS DE TESTAR
+
+    $postID = wp_insert_post( $data, true );
+
+    if ( is_wp_error( $postID ) ) {
+
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'Erro ao cadastrar o risco.',
+            'error' => $postID->get_error_message()
+        ], 500 );
+
+    }
+
+    wp_send_json_success([
+        'title' => 'Sucesso',
+        'message' => 'Formulário enviado com sucesso!'
+    ]);
+
+    //    $pod = pods( 'risco', $postID );
+    //    $pod->save( 'endereco', $data[ 'descricao' ];
+    //    $pod->save( 'descricao', sanitize_text_field( $data[ 'descricao' ] ) );
+
+}
+add_action('wp_ajax_form_single_risco_new', 'form_single_risco_new');
+add_action('wp_ajax_nopriv_form_single_risco_new', 'form_single_risco_new');
+
+
+
+
+
+
+
+
 function form_single_risco_edit() {
 
     if (!current_user_can('edit_posts')) {
@@ -138,3 +202,4 @@ function form_single_risco_edit() {
 
 }
 add_action('wp_ajax_form_single_risco_edit', 'form_single_risco_edit');
+//add_action('wp_ajax_nopriv_form_single_risco_edit', 'form_single_risco_edit');
