@@ -148,11 +148,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const form = document.getElementById('multiStepForm');
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', async (e)  => {
         e.preventDefault();
-        currentStep++;
         riskDraft.data_e_horario = new Date().toISOString();
-        handleShowStep(currentStep);
+        const success = await submitData(riskDraft);
+        if(success){
+            currentStep++;
+            handleShowStep(currentStep);
+        }
     });
 
     setTimeout(() => {
@@ -214,5 +217,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     })
+
+    async function submitData(data) {
+        const res = await fetch(new URL('/wp-admin/admin-ajax.php', location.href), {
+            method: 'POST',
+            body: JSON.stringify({
+                action: 'form_single_risco_new',
+                ...data,
+            })
+                
+        })
+        if (res.ok) {
+            return true;
+        } else{
+            return false;
+        }
+    }
 
 });
