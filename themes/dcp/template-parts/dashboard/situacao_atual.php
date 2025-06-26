@@ -2,6 +2,19 @@
 
 namespace hacklabr\dashboard;
 
+if (!function_exists(__NAMESPACE__ . '\render_svg')) {
+    function render_svg($id) {
+        $url = wp_get_attachment_url($id);
+        $path = get_attached_file($id);
+
+        if ($url && pathinfo($url, PATHINFO_EXTENSION) === 'svg' && file_exists($path)) {
+            return file_get_contents($path);
+        }
+
+        return ''; // Ou: return '<img src="'.esc_url($url).'" alt="ícone">';
+    }
+}
+
 $args = [
     'post_type' => 'recomendacao',
     'posts_per_page' => -1,
@@ -38,6 +51,10 @@ $recomendacoes_post = get_posts($args);
                 $recomendacao_2 = $pod ? $pod->display('recomendacao_2') : '';
                 $recomendacao_3 = $pod ? $pod->display('recomendacao_3') : '';
 
+                $icone_1_id = $pod ? $pod->field('icone_1.ID') : null;
+                $icone_2_id = $pod ? $pod->field('icone_2.ID') : null;
+                $icone_3_id = $pod ? $pod->field('icone_3.ID') : null;
+
                 $slug = sanitize_title($post->post_title);
                 ?>
                 <div class="situacao-atual__card">
@@ -51,7 +68,7 @@ $recomendacoes_post = get_posts($args);
                         <?php if (!empty($recomendacao_1)): ?>
                             <div class="situacao-atual__card-text">
                                 <div class="situacao-atual__icon">
-
+                                    <?= $icone_1_id ? render_svg($icone_1_id) : ''; ?>
                                 </div>
                                 <p><?= esc_html($recomendacao_1) ?></p>
                             </div>
@@ -60,7 +77,7 @@ $recomendacoes_post = get_posts($args);
                         <?php if (!empty($recomendacao_2)): ?>
                             <div class="situacao-atual__card-text">
                                 <div class="situacao-atual__icon">
-
+                                    <?= $icone_2_id ? render_svg($icone_2_id) : ''; ?>
                                 </div>
                                 <p><?= esc_html($recomendacao_2) ?></p>
                             </div>
@@ -69,7 +86,7 @@ $recomendacoes_post = get_posts($args);
                         <?php if (!empty($recomendacao_3)): ?>
                             <div class="situacao-atual__card-text">
                                 <div class="situacao-atual__icon">
-
+                                    <?= $icone_3_id ? render_svg($icone_3_id) : ''; ?>
                                 </div>
                                 <p><?= esc_html($recomendacao_3) ?></p>
                             </div>
