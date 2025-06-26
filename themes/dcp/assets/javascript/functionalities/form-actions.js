@@ -128,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+
     function validateStep(stepIndex) {
         switch (stepIndex) {
             case 0:
@@ -136,13 +137,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return riskDraft.descricao.trim() !== '';
             case 2:
                 return true;
-            case 3: 
+            case 3:
                 return (
                     riskDraft.nome_completo.trim() !== '' &&
                     riskDraft.email.trim() !== '' &&
                     riskDraft.telefone.trim() !== ''
                 );
-            case 4: 
+            case 4:
                 return true;
             default:
                 return true;
@@ -302,5 +303,82 @@ document.addEventListener('DOMContentLoaded', () => {
             return false;
         }
     }
+
+    const editarBtn = document.getElementById('editarResumo');
+    const enviarBtn = document.getElementById('enviarResumo');
+    let editandoResumo = false;
+
+    editarBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const reviewEndereco = document.getElementById('reviewEndereco');
+        const reviewTipo = document.getElementById('reviewTipoRiscoTexto');
+        const reviewDescricao = document.getElementById('reviewDescricao');
+
+        if (!editandoResumo) {
+            editandoResumo = true;
+            editarBtn.innerHTML = 'Salvar';
+
+            if (enviarBtn) enviarBtn.disabled = true;
+
+            if (reviewEndereco) {
+                reviewEndereco.innerHTML = `<input type="text" value="${riskDraft.endereco || ''}" />`;
+            }
+
+            if (reviewTipo) {
+                const select = document.createElement('select');
+                const radioInputs = document.querySelectorAll('input[name="situacao_de_risco"]');
+                const opcoes = Array.from(radioInputs).map(input => input.value);
+
+                opcoes.forEach(opcao => {
+                    const opt = document.createElement('option');
+                    opt.value = opcao;
+                    opt.textContent = opcao;
+                    if (opcao === riskDraft.situacao_de_risco) opt.selected = true;
+                    select.appendChild(opt);
+                });
+
+                reviewTipo.innerHTML = '';
+                reviewTipo.appendChild(select);
+            }
+
+            if (reviewDescricao) {
+                reviewDescricao.innerHTML = `<textarea>${riskDraft.descricao || ''}</textarea>`;
+            }
+
+        } else {
+            editandoResumo = false;
+            editarBtn.innerHTML = 'Editar';
+
+            if (enviarBtn) enviarBtn.disabled = false;
+
+            const inputEndereco = reviewEndereco.querySelector('input');
+            if (inputEndereco) {
+                riskDraft.endereco = inputEndereco.value;
+                reviewEndereco.textContent = riskDraft.endereco;
+            }
+
+            const selectTipo = reviewTipo.querySelector('select');
+            if (selectTipo) {
+                riskDraft.situacao_de_risco = selectTipo.value;
+                reviewTipo.textContent = riskDraft.situacao_de_risco;
+
+                const tipoWrapper = document.getElementById('reviewTipoRisco');
+                tipoWrapper.classList.forEach(cl => {
+                    if (cl.startsWith('tipo-')) tipoWrapper.classList.remove(cl);
+                });
+
+                const slug = riskDraft.situacao_de_risco.toLowerCase().normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-');
+                tipoWrapper.classList.add(`tipo-${slug}`);
+            }
+
+            const textareaDescricao = reviewDescricao.querySelector('textarea');
+            if (textareaDescricao) {
+                riskDraft.descricao = textareaDescricao.value;
+                reviewDescricao.textContent = riskDraft.descricao;
+            }
+        }
+    });
 
 });

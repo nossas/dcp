@@ -322,6 +322,14 @@
         padding-top: size(10);
         cursor: pointer;
 
+        &:disabled {
+            background-color: gray; 
+            color: #ccc; 
+            cursor: default;
+            opacity: 0.6;
+            pointer-events: none; 
+        }
+
         &-backmapa{
             border: size(1) solid $color--secondary-dark;
             border-radius: size(100);
