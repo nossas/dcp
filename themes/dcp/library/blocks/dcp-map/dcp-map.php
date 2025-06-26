@@ -46,7 +46,9 @@ function format_support_pin(\WP_Post $post): array {
 }
 
 function dcp_map_should_load_jeo(bool $should_load): bool {
-    if (is_singular() && has_block('hacklabr/dcp-map')) {
+    if (is_page_template('page-dcp-map.php')) {
+        return true;
+    } elseif (is_singular() && has_block('hacklabr/dcp-map')) {
         return true;
     }
     return $should_load;
