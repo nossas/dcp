@@ -12,6 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
         ''
     ];
 
+    const riskDraft = {
+        endereco: '',
+        latitude: 0,
+        longitude: 0,
+        midias: [],
+        nome_completo: '',
+        email: '',
+        telefone: '',
+        autoriza_contato: true,
+        data_e_horario: '',
+        descricao: '',
+        situacao_de_risco: '',
+    }
+
     const injectCheckIcon = (circle) => {
         if (!circle.querySelector('.step-circle__check-icon')) {
             const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -52,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const handleShowStep = (index) => {
+        console.log(index);
         steps.forEach((step, i) => {
             step.classList.toggle('active', i === index);
         });
@@ -59,10 +74,10 @@ document.addEventListener('DOMContentLoaded', () => {
         updateStepIndicators(index);
 
         if (index >= 0 && index <= 4) {
-            if(stageText) stageText.textContent = stepLabels[index];
-            if(header) header.style.display = 'flex';
+            if (stageText) stageText.textContent = stepLabels[index];
+            if (header) header.style.display = 'flex';
         } else {
-            if(header) header.style.display = 'none';
+            if (header) header.style.display = 'none';
         }
 
         const stepsContainer = document.querySelector('.form-steps__container');
@@ -72,17 +87,51 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 stepsContainer.style.display = '';
             }
-        } else {
-            console.warn('Elemento .form-steps__container não encontrado');
         }
+
+        if (index === 4) preencherResumo(); // <-- chamada aqui
     };
 
 
     let currentStep = 0;
 
+    const preencherResumo = () => {
+        const endereco = document.getElementById('reviewEndereco');
+        if (endereco) endereco.textContent = riskDraft.endereco || '';
+
+        const tipoTexto = document.getElementById('reviewTipoRiscoTexto');
+        if (tipoTexto) tipoTexto.textContent = riskDraft.situacao_de_risco || '';
+
+        const descricao = document.getElementById('reviewDescricao');
+        if (descricao) descricao.textContent = riskDraft.descricao || '';
+
+        const midiasContainer = document.getElementById('reviewMidias');
+        if (midiasContainer) {
+            midiasContainer.innerHTML = '';
+
+            if (riskDraft.midias && riskDraft.midias.length > 0) {
+                riskDraft.midias.forEach((file) => {
+                    const url = URL.createObjectURL(file);
+                    const item = document.createElement('div');
+                    item.classList.add('multistepform__carousel-item');
+
+                    if (file.type.startsWith('image')) {
+                        item.innerHTML = `<img src="${url}" alt="Imagem enviada" style="max-width: 100px; border-radius: 8px;">`;
+                    } else if (file.type.startsWith('video')) {
+                        item.innerHTML = `<video src="${url}" controls style="max-width: 100px; border-radius: 8px;"></video>`;
+                    }
+
+                    midiasContainer.appendChild(item);
+                });
+            } else {
+                midiasContainer.innerHTML = '<p>Nenhuma mídia enviada.</p>';
+            }
+        }
+    };
+
     document.querySelectorAll('.multistepform__button-next').forEach(btn => {
         btn.addEventListener('click', () => {
-            if (currentStep < steps.length - 1) {
+            if (currentStep < steps.length - 2) {
                 currentStep++;
                 handleShowStep(currentStep);
             }
@@ -99,17 +148,71 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const form = document.getElementById('multiStepForm');
-    if(form) {
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            currentStep++;
-            handleShowStep(currentStep);
-        });
-    } else {
-        console.warn('Form multiStepForm não encontrado');
-    }
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        currentStep++;
+        riskDraft.data_e_horario = new Date().toISOString();
+        handleShowStep(currentStep);
+    });
 
     setTimeout(() => {
         handleShowStep(currentStep);
     }, 50);
+
+    for (const textField of ['endereco', 'nome_completo', 'email', 'telefone', 'descricao']) {
+        const input = document.querySelector(`[name="${textField}"]`);
+
+        input.addEventListener('input', (event) => {
+            riskDraft[textField] = event.target.value;
+        });
+    }
+
+    for (const checkboxField of ['autoriza_contato']) {
+        const input = document.querySelector(`[name="${checkboxField}"]`);
+
+        input.addEventListener('input', (event) => {
+            riskDraft[checkboxField] = event.target.checked;
+        });
+    }
+
+    const midiaInput = document.querySelector('input[name="media_files[]"]');
+    if (midiaInput) {
+        midiaInput.addEventListener('change', (event) => {
+            const files = Array.from(event.target.files);
+            riskDraft.midias = files;
+        });
+    }
+
+    document.querySelectorAll('input[name="situacao_de_risco"]').forEach(radio => {
+        radio.addEventListener('change', (event) => {
+            if (event.target.checked) {
+                riskDraft.situacao_de_risco = event.target.value;
+            }
+        });
+    });
+
+    document.querySelector('input[name="endereco"]').addEventListener('change', async (event) => {
+        const {
+            address_suffix,
+            rest_url
+        } = globalThis.hl_form_actions_data
+        const address = event.target.value;
+        const fullAddress = address + address_suffix
+        const res = await fetch(`${rest_url}?address=${encodeURIComponent(fullAddress)}`, {
+            method: 'POST',
+        })
+        if (res.ok) {
+            try {
+                const json = await res.text()
+                const data = JSON.parse(json)
+                if (data) {
+                    riskDraft.latitude = data.lat
+                    riskDraft.longitude = data.lon
+                }
+            } catch (error) {
+                console.error(error)
+            }
+        }
+    })
+
 });
