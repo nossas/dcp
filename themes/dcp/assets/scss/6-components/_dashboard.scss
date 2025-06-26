@@ -221,11 +221,11 @@
                     display: block;
                     padding: size(25) 0;
 
-
                     .tabs__panel__content {
 
-                        display: flex;
-                        gap: 24px;
+                        display: block;
+                        position: relative;
+                        z-index: 1;
 
                         @include small {
                             display: block;
@@ -243,9 +243,12 @@
                             font-weight: 300;
                             border-color: #FEFBF9;
 
-                            display: block;
+                            display: inline-block;
                             width: 100%;
+                            max-width: calc( 33% - 25px );
+                            height: size( 350 );
                             padding: 25px;
+                            margin: 0 25px 25px 0;
 
                             border-radius: var(--Spacing-space-250, 20px);
 
@@ -277,8 +280,36 @@
                             &__term {
 
                                 span {
+                                    font-size: size( 14 );
+                                    display: inline-block;
+                                    width: auto;
+                                    max-width: initial;
+                                    padding: size( 5 ) size( 15 ) ;
+                                    border-radius: size( 50 );
 
+                                    &::before {
+                                        content: none;
+                                    }
                                 }
+
+                                span.is-alagamento {}
+                                span.is-lixo {
+                                    background-color: $color--highlight-dark;
+                                }
+                                span.is-bueiro-vazando {
+                                    background-color: $color--low-dark;
+                                }
+                                span.is-outros {
+                                    background-color: $color--high-dark;
+                                }
+
+                                span.is-default,
+                                span.is-sem-categoria {
+                                    background-color: $color--secondary-dark;
+                                    opacity: 0.5;
+                                    cursor: not-allowed;
+                                }
+
                                 div {
                                     padding: size( 10 ) 0;
                                 }
@@ -292,14 +323,20 @@
                             }
 
                             &__excerpt-wrapped {
-
                                 padding-bottom: size( 20 );
+
+                                div {
+                                    width: 100%;
+                                    height: size( 50 );
+                                    overflow: hidden;
+                                }
 
                                 a {
                                     font-size: $font-size--xx-small;
                                     text-decoration: underline;
                                     font-weight: bold;
                                     color: $color--secondary-dark;
+                                    padding: size( 5 ) size( 15 );
 
                                     &:hover {
                                         color: $color--primary-pure;
@@ -421,6 +458,9 @@
                                 position: relative;
                                 z-index: 1;
                                 opacity: 1;
+
+                                appearance: none;
+
                                 transition: all 0.4s 0s ease;
                             }
                             input[readonly],
@@ -452,8 +492,8 @@
                                 padding: size( 1 );
                                 border-radius: size( 10 );
                                 position: absolute;
-                                top: 34px;
-                                right: 10px;
+                                top: 32px;
+                                right: 8px;
                                 z-index: 2;
                                 cursor: pointer;
                                 transform: scale( 1 );
@@ -464,6 +504,12 @@
                                     color: $color--secondary-light;
                                 }
                             }
+                            a.button.is-loading {
+                                background-color: transparent;
+                                padding: size( 7 );
+
+                                opacity: 0.5;
+                            }
                         }
                         .input-wrap.is-success {}
                         .input-wrap.is-warning {}
@@ -473,10 +519,11 @@
                             font-size: size( 17 );
                             color: $color--secondary-dark;
                             width: 85%;
-                            padding: size( 15 ) size( 20 );
+                            padding: size( 15 ) size( 20 ) size( 5 ) size( 20 );
                             margin:  size( 25 ) 0  size( 125 ) 0;
                             border-radius: size( 15 );
                             border: dotted 2px #C9C6C5;
+                            overflow: hidden;
                             position: relative;
                             z-index: 1;
                             transition: all 0.2s 0s ease;
@@ -524,8 +571,6 @@
                                     }
                                 }
                             }
-
-
                             .input-media-uploader-progress {
                                 display: none;
                                 padding: size( 10 ) 0;
@@ -588,9 +633,6 @@
 
 
                             }
-
-
-
                             .input-media-preview {
                                 display: block;
 
@@ -700,7 +742,7 @@
                                                 z-index: 2;
 
                                                 .button {
-                                                    font-size: size( 15 );
+                                                    font-size: size( 13 );
                                                     z-index: 1;
                                                 }
 
@@ -723,6 +765,8 @@
                                                 .button.is-show-hide {
                                                     bottom: size( 10 );
                                                     left: size( 110 );
+                                                    cursor: not-allowed;
+                                                    opacity: 0.5 !important;
                                                 }
                                             }
 
@@ -765,22 +809,22 @@
                                 }
 
                             }
-
                         }
 
                         .input-help {
-
                             color: $color--secondary-dark;
                             display: flex;
-
                             padding: size( 30 ) size( 10 ) size( 1 );
 
                             .button {
                                 background-color: $color--high-light;
+                                font-size: size( 25 );
+                                font-weight: bold;
                                 color: $color--secondary-dark;
-
+                                text-align: center;
                                 width: 50px;
                                 height: 50px;
+                                line-height: 45px;
                                 padding: size( 1 );
                                 margin-right: size( 10 );
                                 border-radius: size( 50 );
@@ -814,8 +858,9 @@
                             opacity: 1 !important;
                         }
 
-                        button {
+                        .button {
                             font-size: size( 20 );
+                            text-decoration: none;
                             padding: size( 15 ) size( 50 );
                             margin-left: size( 10 );
                             border-radius: size( 75 );
@@ -823,13 +868,15 @@
                             span {
                                 display: inline-block;
                             }
+
                         }
-                        button.is-archive {
+                        .button.is-archive {
                             background-color: transparent;
                             color: $color--warning-dark;
                             border: solid 1px $color--warning-dark;
                         }
-                        button.is-publish {
+                        .button.is-publish,
+                        .button.is-save {
                             background-color: $color--primary-pure;
                             color: $color--secondary-light;
                             border: solid 1px $color--primary-pure;

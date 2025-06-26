@@ -14,30 +14,11 @@
         </div>
 
         <div id="riscosAprovacao" class="tabs__panels container--wide is-active">
-            <div class="dashboard-content-skeleton">
-                <svg width="100%" height="100%" viewBox="0 0 300 70" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
-                    <defs>
-                        <mask id="mask-element">
-                            <path fill="#777" d="M283,18.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-183.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l183.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z"/>
-                            <path fill="#777" d="M283,28.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-183.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l183.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z"/>
-                            <path fill="#777" d="M254,38.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-154.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l154.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z"/>
-                            <path fill="#777" d="M281.75,48.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-182.25,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l182.25,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z"/>
-                            <path id="qube" fill="#777" d="M92,20.87c0,-1.86 -1.51,-3.37 -3.37,-3.37l-28.26,0c-1.86,0 -3.37,1.51 -3.37,3.37l0,28.26c0,1.86 1.51,3.37 3.37,3.37l28.26,0c1.86,0 3.37,-1.51 3.37,-3.37l0,-28.26Z"/>
-                            <path fill="hsla(200,0%,10%,.6)" id="mask" d="M52,17.5l0,35l-40,0l20,-35l20,0Z"/>
-                        </mask>
-                    </defs>
-                    <path mask="url(#mask-element)" d="M283,18.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-183.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l183.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z" fill="#dadada"/>
-                    <path mask="url(#mask-element)" d="M283,28.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-183.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l183.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z" fill="#dadada"/>
-                    <path mask="url(#mask-element)" d="M254,38.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-154.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l154.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z" fill="#dadada"/>
-                    <path mask="url(#mask-element)" d="M281.75,48.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-182.25,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l182.25,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z" fill="#dadada"/>
-                    <path mask="url(#mask-element)" id="qube" d="M92,20.87c0,-1.86 -1.51,-3.37 -3.37,-3.37l-28.26,0c-1.86,0 -3.37,1.51 -3.37,3.37l0,28.26c0,1.86 1.51,3.37 3.37,3.37l28.26,0c1.86,0 3.37,-1.51 3.37,-3.37l0,-28.26Z" fill="#dadada"/>
-                </svg>
-            </div>
+            <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
 
             <div class="tabs__panel__content">
                 <?php
 
-                $riscos = get_query_var('riscos_id' );
                     $riscosDraft = new WP_Query([
 
                         'post_type'      => 'risco',
@@ -49,24 +30,36 @@
                     ]);
 
                     if( $riscosDraft->have_posts() ) :
+
+                        print_r($riscosDraft);
+                        die();
+
                         while( $riscosDraft->have_posts() ) :
-                            $riscosDraft->the_post(); ?>
+                            $riscosDraft->the_post();
+                            $pod = pods( 'risco', get_the_ID() );
+                    ?>
 
                     <article class="post-card" style="display: none;">
                         <main class="post-card__content">
-
                             <div class="post-card__term">
-                                <span class="post-card__taxonomia term-alagamento">Alagamento</span>
-                                <div class="post-card__risco-meta"><?=get_the_date('H:i | d/m/Y')?> <em>( update : <?=get_the_modified_date('H:i | d/m/Y')?> )</em> </div>
+                                <?php
+                                    $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
+                                    if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                                        risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
+                                    } else {
+                                        risco_badge_category( 'sem-categoria', 'NENHUMA CARTEGORIA ADICIONADA' );
+                                    }
+                                ?>
+                                <div class="post-card__risco-meta"><?=date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
                             </div>
 
                             <h3 class="post-card__title">
-                                <span><?=the_title()?></span>
+                                <span><?=$pod->field('endereco')?></span>
                             </h3>
 
                             <div class="post-card__excerpt-wrapped">
                                 <div class="post-card__excerpt">
-                                    <?=get_the_excerpt()?>
+                                    <?=$pod->field('descricao')?>
                                     <a href="#/">Ver mais</a>
                                 </div>
                             </div>
@@ -79,11 +72,6 @@
                             </div>
 
                         </main>
-                        <pre style=" margin-top: 25px; border-radius: 15px; display: block; width: 100%; height: 75px; overflow: auto; background-color: #222; color: #fff; font-size: 10px;">
-                            <?php
-                            print_r( get_the_terms(get_the_ID(), 'situacao_de_risco') );
-                            ?>
-                        </pre>
                     </article>
 
                     <?php endwhile;
@@ -130,25 +118,7 @@
         </div>
 
         <div id="riscosPublicados" class="tabs__panels" style="display: none;">
-            <div class="dashboard-content-skeleton">
-                <svg width="100%" height="100%" viewBox="0 0 300 70" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
-                    <defs>
-                        <mask id="mask-element">
-                            <path fill="#777" d="M283,18.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-183.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l183.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z"/>
-                            <path fill="#777" d="M283,28.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-183.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l183.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z"/>
-                            <path fill="#777" d="M254,38.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-154.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l154.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z"/>
-                            <path fill="#777" d="M281.75,48.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-182.25,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l182.25,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z"/>
-                            <path id="qube" fill="#777" d="M92,20.87c0,-1.86 -1.51,-3.37 -3.37,-3.37l-28.26,0c-1.86,0 -3.37,1.51 -3.37,3.37l0,28.26c0,1.86 1.51,3.37 3.37,3.37l28.26,0c1.86,0 3.37,-1.51 3.37,-3.37l0,-28.26Z"/>
-                            <path fill="hsla(200,0%,10%,.6)" id="mask" d="M52,17.5l0,35l-40,0l20,-35l20,0Z"/>
-                        </mask>
-                    </defs>
-                    <path mask="url(#mask-element)" d="M283,18.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-183.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l183.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z" fill="#dadada"/>
-                    <path mask="url(#mask-element)" d="M283,28.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-183.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l183.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z" fill="#dadada"/>
-                    <path mask="url(#mask-element)" d="M254,38.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-154.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l154.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z" fill="#dadada"/>
-                    <path mask="url(#mask-element)" d="M281.75,48.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-182.25,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l182.25,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z" fill="#dadada"/>
-                    <path mask="url(#mask-element)" id="qube" d="M92,20.87c0,-1.86 -1.51,-3.37 -3.37,-3.37l-28.26,0c-1.86,0 -3.37,1.51 -3.37,3.37l0,28.26c0,1.86 1.51,3.37 3.37,3.37l28.26,0c1.86,0 3.37,-1.51 3.37,-3.37l0,-28.26Z" fill="#dadada"/>
-                </svg>
-            </div>
+            <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
 
             <div class="tabs__panel__content">
                 <?php
@@ -168,36 +138,37 @@
 
                         <article class="post-card" style="display: none;">
                             <main class="post-card__content">
-
                                 <div class="post-card__term">
-                                    <span class="post-card__taxonomia term-alagamento">Alagamento</span>
-                                    <div class="post-card__risco-meta"><?=get_the_date('H:i | d/m/Y')?> ( update : <?=get_the_modified_date('H:i | d/m/Y')?> )</div>
+                                    <?php
+                                    $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
+                                    if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                                        risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
+                                    } else {
+                                        risco_badge_category( 'sem-categoria', 'NENHUMA CARTEGORIA ADICIONADA' );
+                                    }
+                                    ?>
+                                    <div class="post-card__risco-meta"><?=date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
                                 </div>
 
                                 <h3 class="post-card__title">
-                                    <span><?=the_title()?></span>
+                                    <span><?=$pod->field('endereco')?></span>
                                 </h3>
 
                                 <div class="post-card__excerpt-wrapped">
                                     <div class="post-card__excerpt">
-                                        <?=get_the_excerpt()?>
+                                        <?=$pod->field('descricao')?>
                                         <a href="#/">Ver mais</a>
                                     </div>
                                 </div>
 
                                 <div class="post-card__see-more">
                                     <a href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>" class="button">
-                                        <span>Avaliar</span>
-                                        <iconify-icon icon="bi:chevron-right"></iconify-icon>
+                                        <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                                        <span>EDITAR</span>
                                     </a>
                                 </div>
 
                             </main>
-                            <pre style=" margin-top: 25px; border-radius: 15px; display: block; width: 100%; height: 75px; overflow: auto; background-color: #222; color: #fff; font-size: 10px;">
-                            <?php
-                            print_r( get_the_terms(get_the_ID(), 'situacao_de_risco') );
-                            ?>
-                        </pre>
                         </article>
 
                     <?php endwhile;
@@ -213,25 +184,7 @@
         </div>
 
         <div id="riscosArquivados" class="tabs__panels" style="display: none;">
-            <div class="dashboard-content-skeleton">
-                <svg width="100%" height="100%" viewBox="0 0 300 70" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
-                    <defs>
-                        <mask id="mask-element">
-                            <path fill="#777" d="M283,18.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-183.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l183.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z"/>
-                            <path fill="#777" d="M283,28.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-183.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l183.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z"/>
-                            <path fill="#777" d="M254,38.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-154.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l154.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z"/>
-                            <path fill="#777" d="M281.75,48.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-182.25,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l182.25,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z"/>
-                            <path id="qube" fill="#777" d="M92,20.87c0,-1.86 -1.51,-3.37 -3.37,-3.37l-28.26,0c-1.86,0 -3.37,1.51 -3.37,3.37l0,28.26c0,1.86 1.51,3.37 3.37,3.37l28.26,0c1.86,0 3.37,-1.51 3.37,-3.37l0,-28.26Z"/>
-                            <path fill="hsla(200,0%,10%,.6)" id="mask" d="M52,17.5l0,35l-40,0l20,-35l20,0Z"/>
-                        </mask>
-                    </defs>
-                    <path mask="url(#mask-element)" d="M283,18.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-183.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l183.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z" fill="#dadada"/>
-                    <path mask="url(#mask-element)" d="M283,28.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-183.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l183.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z" fill="#dadada"/>
-                    <path mask="url(#mask-element)" d="M254,38.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-154.5,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l154.5,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z" fill="#dadada"/>
-                    <path mask="url(#mask-element)" d="M281.75,48.75c0,-0.69 -0.56,-1.25 -1.25,-1.25l-182.25,0c-0.69,0 -1.25,0.56 -1.25,1.25l0,2.5c0,0.69 0.56,1.25 1.25,1.25l182.25,0c0.69,0 1.25,-0.56 1.25,-1.25l0,-2.5Z" fill="#dadada"/>
-                    <path mask="url(#mask-element)" id="qube" d="M92,20.87c0,-1.86 -1.51,-3.37 -3.37,-3.37l-28.26,0c-1.86,0 -3.37,1.51 -3.37,3.37l0,28.26c0,1.86 1.51,3.37 3.37,3.37l28.26,0c1.86,0 3.37,-1.51 3.37,-3.37l0,-28.26Z" fill="#dadada"/>
-                </svg>
-            </div>
+            <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
 
             <div class="tabs__panel__content">
                 <?php
@@ -251,36 +204,37 @@
 
                         <article class="post-card" style="display: none;">
                             <main class="post-card__content">
-
                                 <div class="post-card__term">
-                                    <span class="post-card__taxonomia term-alagamento">Alagamento</span>
-                                    <div class="post-card__risco-meta"><?=get_the_date('H:i | d/m/Y')?> ( update : <?=get_the_modified_date('H:i | d/m/Y')?> )</div>
+                                    <?php
+                                    $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
+                                    if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                                        risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
+                                    } else {
+                                        risco_badge_category( 'sem-categoria', 'NENHUMA CARTEGORIA ADICIONADA' );
+                                    }
+                                    ?>
+                                    <div class="post-card__risco-meta"><?=date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
                                 </div>
 
                                 <h3 class="post-card__title">
-                                    <span><?=the_title()?></span>
+                                    <span><?=$pod->field('endereco')?></span>
                                 </h3>
 
                                 <div class="post-card__excerpt-wrapped">
                                     <div class="post-card__excerpt">
-                                        <?=get_the_excerpt()?>
+                                        <?=$pod->field('descricao')?>
                                         <a href="#/">Ver mais</a>
                                     </div>
                                 </div>
 
                                 <div class="post-card__see-more">
                                     <a href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>" class="button">
-                                        <span>Avaliar</span>
+                                        <span>Reavaliar</span>
                                         <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                     </a>
                                 </div>
 
                             </main>
-                            <pre style=" margin-top: 25px; border-radius: 15px; display: block; width: 100%; height: 75px; overflow: auto; background-color: #222; color: #fff; font-size: 10px;">
-                            <?php
-                            print_r( get_the_terms(get_the_ID(), 'situacao_de_risco') );
-                            ?>
-                        </pre>
                         </article>
                     <?php endwhile;
 
