@@ -25,18 +25,25 @@
         }
 
         &[data-cpt="risco"] {
-            border-top-left-radius: size(10);
+            border-top-left-radius: $border-radius--medium;
             --tab-color: #{$color--warning-dark};
         }
 
         &[data-cpt="apoio"] {
-            border-top-right-radius: size(10);
+            border-top-right-radius: $border-radius--medium;
             --tab-color: #{$color--primary-pure};
         }
     }
 
     .jeomap {
-        height: 400px;
+        background-color: transparent;
+        height: size(400);
+
+        canvas {
+            border: 1px solid #ddd;
+            border-bottom-left-radius: $border-radius--medium;
+            border-bottom-right-radius: $border-radius--medium;
+        }
 
         .legend-container {
             display: none;
