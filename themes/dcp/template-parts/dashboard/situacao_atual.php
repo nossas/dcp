@@ -11,7 +11,7 @@ if (!function_exists(__NAMESPACE__ . '\render_svg')) {
             return file_get_contents($path);
         }
 
-        return ''; // Ou: return '<img src="'.esc_url($url).'" alt="ícone">';
+        return '';
     }
 }
 
