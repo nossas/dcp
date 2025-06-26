@@ -30,10 +30,6 @@
                     ]);
 
                     if( $riscosDraft->have_posts() ) :
-
-                        print_r($riscosDraft);
-                        die();
-
                         while( $riscosDraft->have_posts() ) :
                             $riscosDraft->the_post();
                             $pod = pods( 'risco', get_the_ID() );
