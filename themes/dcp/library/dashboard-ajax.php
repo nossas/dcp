@@ -20,10 +20,6 @@ function get_posts_riscos( $args = [ 'post_status' => 'publish' ] ) {
 
 
 
-
-
-
-
 function form_single_risco_new() {
 
     $data = [
@@ -76,12 +72,6 @@ function form_single_risco_new() {
 }
 add_action('wp_ajax_form_single_risco_new', 'form_single_risco_new');
 add_action('wp_ajax_nopriv_form_single_risco_new', 'form_single_risco_new');
-
-
-
-
-
-
 
 
 function form_single_risco_edit() {
@@ -202,4 +192,4 @@ function form_single_risco_edit() {
 
 }
 add_action('wp_ajax_form_single_risco_edit', 'form_single_risco_edit');
-//add_action('wp_ajax_nopriv_form_single_risco_edit', 'form_single_risco_edit');
+add_action('wp_ajax_nopriv_form_single_risco_edit', 'form_single_risco_edit');
