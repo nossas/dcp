@@ -1,26 +1,114 @@
-.related-posts{
-    &__title{
-        border-top: $border-width--small solid $color--high-dark;
-        color: $color--primary-dark;
-        font-weight: $font-weight--bold;
-        margin-top: $margin--large;
-        padding-bottom: $padding--xx-large;
-        padding-top: $padding--x-large;
-    }
+.proximas-acoes {
+    padding: 2rem 0;
+    background: #f8f4ed;
+    text-align: center;
+    width: 100%;
+    max-width: 1370px;
+    margin: auto;
 
-    &__content{
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: $gap--large;
-    }
+  .secao-titulo {
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
 
-    .post-card{
-        &__author, &__date, &__excerpt{
-            display: none;
+  .secao-subtitulo {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    font-size: 1rem;
+    color: #555;
+  }
+
+  .acoes-grid {
+    gap: 1.5rem;
+    display: flex;
+    padding-inline: 2rem;
+  }
+
+  .acao-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    max-width: 443px;
+
+    .acao-topo {
+      padding: 0.5rem 1rem;
+      color: white;
+      display: flex;
+      align-items: center;
+      background-color: var(--cor-categoria); // cor dinâmica via style inline
+
+      .acao-categoria {
+        font-weight: bold;
+        font-size: 0.875rem;
+
+        .acao-icon {
+          margin-right: 0.3rem;
         }
-
-        &__title{
-            font-size: $font-size--x-large;
-        }
+      }
     }
+
+    .acao-conteudo {
+      padding: 1rem;
+      flex-grow: 1;
+
+      .acao-titulo {
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        text-align: left;
+      }
+
+      .acao-descricao {
+        font-size: 0.9rem;
+        color: #333;
+        text-align: left;
+      }
+
+      .acao-infos {
+        list-style: none;
+        padding: 0;
+        margin-top: 1rem;
+        font-size: 0.875rem;
+        color: #555;
+        text-align: left;
+
+        li {
+          margin-bottom: 0.3rem;
+
+          strong {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    .acao-rodape {
+      padding: 1rem;
+      text-align: center;
+      background-color: var(--cor-categoria); // mesma cor da topo
+
+      .acao-botao {
+        background: white;
+        color: black;
+        padding: 0.5rem 1.2rem;
+        border-radius: 25px;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-block;
+        transition: background 0.3s ease;
+
+        &:hover {
+          background: #eee;
+        }
+      }
+    }
+  }
 }
