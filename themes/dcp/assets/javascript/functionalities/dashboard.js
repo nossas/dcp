@@ -13,6 +13,141 @@ function formatFileSize(bytes) {
 }
 
 
+class MediaLoader {
+
+    constructor( options = {} ) {
+        this.targetClass = options.targetClass || '.is-load-now';
+        this.progressBar = options.progressBar || document.getElementById('progress-bar');
+        this.progressContainer = options.progressContainer || document.getElementById('progress-container');
+        this.config = {
+            delayBetweenLoads: options.delayBetweenLoads || 100,
+            maxRetries: options.maxRetries || 3
+        };
+        this.mediaElements = [];
+        this.totalBytes = 0;
+        this.loadedBytes = 0;
+        this.init();
+    }
+
+    async init() {
+        try {
+            await this.calculateTotalSize();
+            this.showProgress();
+            this.startLoading();
+        } catch (error) {
+            console.error('Erro de inicialização:', error);
+        }
+    }
+
+    async calculateTotalSize() {
+        const mediaNodes = document.querySelectorAll(`${this.targetClass}[data-media-src]`);
+        this.mediaElements = Array.from(mediaNodes);
+
+        const sizeRequests = this.mediaElements.map(async (media) => {
+            const url = media.dataset.mediaSrc;
+            const size = await this.getFileSize(url);
+            return { media, url, size };
+        });
+
+        const results = await Promise.all(sizeRequests);
+        this.mediaElements = results.filter(item => item.size > 0);
+        this.totalBytes = this.mediaElements.reduce((sum, item) => sum + item.size, 0);
+    }
+
+    async getFileSize(url) {
+        try {
+            const response = await fetch(url, { method: 'HEAD' });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return parseInt(response.headers.get('Content-Length')) || 0;
+        } catch (error) {
+            console.error(`Erro ao obter tamanho de ${url}:`, error);
+            return 0;
+        }
+    }
+
+    showProgress() {
+        this.progressContainer.style.display = 'block';
+        this.updateProgress(0);
+    }
+
+    updateProgress(loaded) {
+        this.loadedBytes += loaded;
+        const percent = (this.loadedBytes / this.totalBytes) * 100;
+        this.progressBar.style.width = `${Math.min(percent, 100)}%`;
+
+        // console.log( 'loaded', loaded );
+        // console.log( 'this.loadedBytes', this.loadedBytes );
+        // console.log( 'this.totalBytes', this.totalBytes );
+        // console.log( 'percent', percent );
+        // console.log( 'Math.min(percent, 100)', Math.min(percent, 100) );
+    }
+
+    async startLoading() {
+        for (const item of this.mediaElements) {
+            try {
+                await this.loadMediaItem(item);
+                item.media.classList.remove(this.targetClass.replace('.', ''));
+            } catch (error) {
+                console.error(`Falha no carregamento de ${item.url}:`, error);
+                item.media.style.display = 'none';
+            }
+        }
+        this.progressContainer.style.display = 'none';
+        //__scroll.update();
+    }
+
+    loadMediaItem(item) {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            let retries = 0;
+
+            xhr.open('GET', item.url);
+            xhr.responseType = 'blob';
+
+            xhr.onprogress = (e) => {
+                if (e.lengthComputable) {
+                    this.updateProgress(e.loaded - (item.loaded || 0));
+                    item.loaded = e.loaded;
+                }
+            };
+
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    this.applyMedia(item.media, URL.createObjectURL(xhr.response));
+                    resolve();
+                } else if (retries < this.config.maxRetries) {
+                    retries++;
+                    xhr.send();
+                } else {
+                    reject(new Error(`Status ${xhr.status}`));
+                }
+            };
+
+            xhr.onerror = () => {
+                if (retries < this.config.maxRetries) {
+                    retries++;
+                    xhr.send();
+                } else {
+                    reject(new Error('Erro de rede'));
+                }
+            };
+
+            xhr.send();
+        });
+    }
+
+    applyMedia(element, url) {
+
+        if (element.tagName === 'IMG') {
+            element.src = url;
+        } else if (element.tagName === 'SOURCE') {
+            element.src = url;
+            element.parentNode.load();
+        }
+        element.style.display = 'block';
+
+    }
+}
 
 
 // TODO: COMPORTAMENTO MOCK jQUERY
@@ -131,9 +266,24 @@ jQuery(function($) {
         });
 
         $( '.asset-item-preview-actions .is-delete' ).on( 'click', function() {
+            const $this = $( this );
+            custom_modal_confirm({
+                title: "Confirmar Exclusão",
+                description: "Deseja realmente excluir este item?",
 
-            $( '.modal-confirm' ).fadeIn( 200, function() {});
+                cancelText: "Voltar",
+                onCancel: function () {
+                    console.log("Ação cancelada");
+                },
 
+                confirmText: "Excluir",
+                onConfirm: function () {
+                    console.log("Item excluído");
+                    $this.parent().parent().remove();
+                },
+                //customConfirmText: "Arquivar",
+                //onCustomConfirm: function () { console.log("Item arquivado"); }
+            });
         });
 
         $( '.is-edit-input' ).each( function () {
@@ -176,37 +326,76 @@ jQuery(function($) {
 
 
 
-        function _modal_confirm_open( title, body, actions ) {
+        function custom_modal_confirm(options) {
+            const {
+                title,
+                description,
+                cancelText = 'Cancelar',
+                confirmText = 'Confirmar',
+                customConfirmText,
+                onCancel,
+                onConfirm,
+                onCustomConfirm
+            } = options;
 
-            const $this = $( '.modal-confirm' );
+            const $modal = $('.modal-confirm');
 
-            $this.find( 'h3' ).text( title );
-            $this.find( '.is-body' ).html( body );
+            // Preenche os conteúdos dinâmicos
+            $modal.find('h3').text(title);
+            $modal.find('.is-body p').html(description);
+            $modal.find('.is-cancel').text(cancelText);
+            $modal.find('.is-confirm span').text(confirmText);
 
-            if( actions ) {
-                $this.find( '.is-actions' ).show();
+            // Configura botão customizado (se fornecido)
+            const $customBtn = $modal.find('.is-custom');
+            if (customConfirmText) {
+                $customBtn.text(customConfirmText).show();
             } else {
-                $this.find( '.is-actions' ).hide();
+                $customBtn.hide();
             }
 
-            $this.fadeIn( 200, function() {
+            // Remove eventos anteriores
+            $modal.off('click', '.is-close, .is-cancel');
+            $modal.off('click', '.is-confirm');
+            $modal.off('click', '.is-custom');
+            $(document).off('keyup.modal');
 
+            // Evento de fechamento (cancelar)
+            $modal.on('click', '.is-close, .is-cancel', function() {
+                _modal_confirm_close();
+                if (typeof onCancel === 'function') onCancel();
             });
 
+            // Evento de confirmação principal
+            $modal.on('click', '.is-confirm', function() {
+                _modal_confirm_close();
+                if (typeof onConfirm === 'function') onConfirm();
+            });
+
+            // Evento de confirmação customizada
+            if (customConfirmText) {
+                $modal.on('click', '.is-custom', function() {
+                    _modal_confirm_close();
+                    if (typeof onCustomConfirm === 'function') onCustomConfirm();
+                });
+            }
+
+            // Fechar com ESC
+            $(document).on('keyup.modal', function(e) {
+                if (e.key === 'Escape') {
+                    _modal_confirm_close();
+                    if (typeof onCancel === 'function') onCancel();
+                }
+            });
+
+            // Mostrar modal
+            $modal.fadeIn(200);
         }
-        function _modal_confirm_close() {}
 
-        $( '.modal-confirm' ).each( function () {
+        function _modal_confirm_close() {
+            $('.modal-confirm').fadeOut(200);
+        }
 
-            const $this = $( this );
-
-            $this.find( '.is-close' ).on( 'click', function() {
-
-                $this.fadeOut( 200, function() {});
-
-            });
-
-        });
         $( '#riscoSingleForm' ).on( 'submit', function ( e ) {
             const $this = $( this );
 
@@ -235,28 +424,43 @@ jQuery(function($) {
             });
 
             if (!isValid) {
-                _modal_confirm_open(
-                    'Validação de formulário',
-                    'Verifique os campos do formulário. Todos os campos devem ter pelo menos 5 caracteres.',
-                    false
-                );
+                const $this = $( this );
+
+                custom_modal_confirm({
+                    title: "Validação de formulário",
+                    description: "Verifique os campos do formulário. Todos os campos devem ter pelo menos 5 caracteres.",
+
+                    cancelText: "Voltar",
+                    onCancel: function () {},
+
+                    confirmText: "OK",
+                    onConfirm: function () {}
+                });
+
                 $this.addClass('is-blocked');
                 $this.removeClass('is-sendable');
                 return;
-            } else {
+            }
+            else {
                 $this.removeClass('is-blocked');
                 $this.addClass('is-sendable');
             }
 
             if( !$this.hasClass( 'is-sendable' ) ) {
 
-                _modal_confirm_open(
-                    'Validação de formulário',
-                    'O formulário não está correto para enviar, verifique os campos e as instruções',
-                    false
-                );
+                custom_modal_confirm({
+                    title: "Validação de formulário",
+                    description: "O formulário não está correto para enviar, verifique os campos e as instruções",
 
-            } else {
+                    cancelText: "Voltar",
+                    onCancel: function () {},
+
+                    confirmText: "VERIFICAR",
+                    onConfirm: function () {}
+                });
+
+            }
+            else {
 
                 const form = e.target;
                 const formData = new FormData( form );
@@ -272,24 +476,53 @@ jQuery(function($) {
                         $this.removeClass( 'is-sending' );
 
                         if( response.success ) {
-                            _modal_confirm_open(
-                                response.data.title,
-                                response.data.message,
-                                false
-                            );
-                            window.location.reload();
+                            custom_modal_confirm({
+                                title: response.data.title,
+                                description: response.data.message,
+
+                                cancelText: "CANCELAR",
+                                onCancel: function () {},
+
+                                confirmText: "ATUALIZAR",
+                                onConfirm: function () {
+
+                                    window.location.reload();
+
+                                }
+                            });
                         } else {
-                            _modal_confirm_open(
-                                response.data.title,
-                                response.data.message,
-                                false
-                            );
+                            custom_modal_confirm({
+                                title: response.data.title,
+                                description: response.data.message,
+
+                                cancelText: "CANCELAR",
+                                onCancel: function () {},
+
+                                confirmText: "ATUALIZAR",
+                                onConfirm: function () {
+                                    window.location.reload();
+                                }
+                            });
                         }
 
                     })
                     .catch(error => {});
             }
 
+        });
+
+        $( '#riscoSingleForm .is-archive' ).on( 'click', function () {
+            $( 'input[name="post_status"]' ).val( 'pending' );
+            $( '#riscoSingleForm' ).submit();
+
+        });
+        $( '#riscoSingleForm .is-publish' ).on( 'click', function () {
+            $( 'input[name="post_status"]' ).val( 'publish' );
+            $( '#riscoSingleForm' ).submit();
+        });
+        $( '#riscoSingleForm .is-save' ).on( 'click', function () {
+            $( 'input[name="post_status"]' ).val( $( 'input[name="post_status_current"]' ).val() );
+            $( '#riscoSingleForm' ).submit();
         });
 
         $( window ).on( 'dragover', function( event ) {
@@ -343,7 +576,7 @@ jQuery(function($) {
                 beforeSend: function() {
                     $this.html( '<option>CARREGANDO...</option>' );
                     $this.parent().find( '.is-edit-input' ).hide();
-
+                    $this.parent().find( '.is-loading' ).show();
                 },
                 success: function( response ) {
                     $this.html( '<option>SELECIONE UMA CATEGORIA</option>' );
@@ -360,6 +593,7 @@ jQuery(function($) {
                 },
                 complete: function() {
                     $this.parent().find( '.is-edit-input' ).show();
+                    $this.parent().find( '.is-loading' ).hide();
                 }
             });
         });
@@ -373,6 +607,7 @@ jQuery(function($) {
                 beforeSend: function() {
                     $this.val( 'CARREGANDO . . .' );
                     $this.parent().find( '.is-edit-input' ).hide();
+                    $this.parent().find( '.is-loading' ).show();
                 },
                 success: function( response ) {
                     console.log( response );
@@ -390,6 +625,7 @@ jQuery(function($) {
                 },
                 complete: function() {
                     $this.parent().find( '.is-edit-input' ).show();
+                    $this.parent().find( '.is-loading' ).hide();
                 }
             });
         });
@@ -418,6 +654,13 @@ document.addEventListener("DOMContentLoaded", function () {
 window.addEventListener('DOMContentLoaded', () => {
     Alpine.start();
 
+    if ( document.querySelector( '.is-load-now' ) ) {
+        new MediaLoader({
+            targetClass: '.is-load-now',
+            progressBar: document.getElementById( 'mainProgressBar' ),
+            progressContainer: document.getElementById( 'mainProgressContainer' )
+        });
+    }
     console.log( 'WINDOW LOADED' );
 });
 

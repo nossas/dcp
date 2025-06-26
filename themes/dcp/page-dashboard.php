@@ -95,5 +95,11 @@ namespace hacklabr\dashboard;
         </div>
     </div>
     <?php wp_footer(); ?>
+
+    <div id="mainProgressBar">
+        <div id="mainProgressContainer">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
 </body>
 </html>
