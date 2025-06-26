@@ -2,10 +2,22 @@
 
 namespace hacklabr;
 
-function format_risk_pin(\WP_Post $post): array {
-    $latitude = get_post_meta($post->ID, 'latitude', true) ?: 0;
-    $longitude = get_post_meta($post->ID, 'longitude', true) ?: 0;
+function get_pin_attachments(\WP_Post $post): array {
+    $media = [];
 
+    $attachments = get_attached_media('', $post->ID);
+
+    foreach ($attachments as $attachment) {
+        $media[] = [
+            'src' => wp_get_attachment_url($attachment->ID),
+            'mime' => $attachment->post_mime_type,
+        ];
+    }
+
+    return $media;
+}
+
+function format_risk_pin(\WP_Post $post): array {
     $types = wp_get_post_terms($post->ID, 'situacao_de_risco', [
         'fields' => 'slugs',
         'parent' => 0,
@@ -28,22 +40,20 @@ function format_risk_pin(\WP_Post $post): array {
         'type' => $type,
         'date' => get_the_date('H:i | d/m/Y', $post),
         'excerpt' => get_the_excerpt($post),
-        'lat' => $latitude,
-        'lon' => $longitude,
+        'media' => get_pin_attachments($post),
+        'lat' => get_post_meta($post->ID, 'latitude', true) ?: 0,
+        'lon' => get_post_meta($post->ID, 'longitude', true) ?: 0,
     ];
 }
-
 function format_support_pin(\WP_Post $post): array {
-    $latitude = get_post_meta($post->ID, 'latitude', true) ?: 0;
-    $longitude = get_post_meta($post->ID, 'longitude', true) ?: 0;
-
     return [
         'ID' => $post->ID,
         'title' => $post->post_title,
         'excerpt' => get_the_excerpt($post),
         'endereco' => get_post_meta($post->ID, 'endereco', true),
-        'lat' => $latitude,
-        'lon' => $longitude,
+        'media' => get_pin_attachments($post),
+        'lat' => get_post_meta($post->ID, 'latitude', true) ?: 0,
+        'lon' => get_post_meta($post->ID, 'longitude', true) ?: 0,
     ];
 }
 
