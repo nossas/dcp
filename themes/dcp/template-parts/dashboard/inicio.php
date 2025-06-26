@@ -1,9 +1,8 @@
 <div id="dashboardInicio" class="dashboard-content">
     <header class="dashboard-content-header">
-        <h1>Olá, {{user}}</h1>
+    <!-- <h1>Olá, {{user}}</h1> -->
     </header>
     <div class="dashboard-content-section">
-
         <div class="dashboard-content-skeleton">
             <svg width="100%" height="100%" viewBox="0 0 300 70" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
                 <defs>
@@ -23,12 +22,6 @@
                 <path mask="url(#mask-element)" id="qube" d="M92,20.87c0,-1.86 -1.51,-3.37 -3.37,-3.37l-28.26,0c-1.86,0 -3.37,1.51 -3.37,3.37l0,28.26c0,1.86 1.51,3.37 3.37,3.37l28.26,0c1.86,0 3.37,-1.51 3.37,-3.37l0,-28.26Z" fill="#dadada"/>
             </svg>
         </div>
-
-        <div>
-            <h2>SITUAÇÃO ATUAL</h2>
-            <button>Editar</button>
-        </div>
-
         <div class="dashboard-content-skeleton">
             <svg width="100%" height="100%" viewBox="0 0 300 70" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
                 <defs>
@@ -48,14 +41,6 @@
                 <path mask="url(#mask-element)" id="qube" d="M92,20.87c0,-1.86 -1.51,-3.37 -3.37,-3.37l-28.26,0c-1.86,0 -3.37,1.51 -3.37,3.37l0,28.26c0,1.86 1.51,3.37 3.37,3.37l28.26,0c1.86,0 3.37,-1.51 3.37,-3.37l0,-28.26Z" fill="#dadada"/>
             </svg>
         </div>
-
-
-
-        <div>
-            <h2>RELATOS DE RISCO AGUARDANDO AVALIAÇÃO <span>(8)</span> </h2>
-            <button>Gerenciar</button>
-        </div>
-
         <div class="dashboard-content-skeleton">
             <svg width="100%" height="100%" viewBox="0 0 300 70" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
                 <defs>
@@ -75,8 +60,6 @@
                 <path mask="url(#mask-element)" id="qube" d="M92,20.87c0,-1.86 -1.51,-3.37 -3.37,-3.37l-28.26,0c-1.86,0 -3.37,1.51 -3.37,3.37l0,28.26c0,1.86 1.51,3.37 3.37,3.37l28.26,0c1.86,0 3.37,-1.51 3.37,-3.37l0,-28.26Z" fill="#dadada"/>
             </svg>
         </div>
-
-
     </div>
 </div>
 

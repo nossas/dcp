@@ -1,52 +1,4 @@
-<?php
-
-    $get_riscos_dashboard = [
-
-        'riscosAprovacao' => [
-            'is_active' => true,
-            'pagination' => false,
-            'riscos' => new WP_Query([
-
-                'post_type'      => 'risco',
-                'post_status'    => 'draft',
-                'posts_per_page' => -1,
-                'orderby'        => 'date',
-                'order'          => 'DESC',
-
-            ])
-        ],
-        'riscosPublicados' =>[
-            'is_active' => false,
-            'pagination' => false,
-            'riscos' => new WP_Query([
-
-                'post_type'      => 'risco',
-                'post_status'    => 'publish',
-                'posts_per_page' => -1,
-                'orderby'        => 'date',
-                'order'          => 'DESC',
-
-            ])
-        ],
-        'riscosArquivados' => [
-            'is_active' => false,
-            'pagination' => false,
-            'riscos' => new WP_Query([
-
-                'post_type'      => 'risco',
-                'post_status'    => 'pending',
-                'posts_per_page' => -1,
-                'orderby'        => 'date',
-                'order'          => 'DESC',
-
-            ])
-        ],
-    ];
-
-
-
-
-?><div id="dashboardRiscos" class="dashboard-content">
+<div id="dashboardRiscos" class="dashboard-content">
     <header class="dashboard-content-header">
         <h1>RISCOS MAPEADOS</h1>
         <a href="./?ver=riscos-adicionar" class="button">
@@ -60,18 +12,14 @@
             <a href="#publicados">PUBLICADOS</a>
             <a href="#arquivados">ARQUIVADOS</a>
         </div>
-
-        <div class="tabs__panels-container"></div>
-
         <?php
-
-            foreach ($get_riscos_dashboard as $panel_id => $value) {
+            foreach ( get_dashboard_riscos() as $panel_id => $value ) {
 
                 $is_active = $value['is_active'] ? 'is-active' : '';
 
                 ?>
 
-                    <div id="<?=$panel_id?>" class="tabs__panels container--wide <?=$is_active?>">
+                    <div id="<?=$panel_id?>" class="tabs__panels container--wide <?=$is_active?>" <?=($is_active) ? 'style="display: block;"' : 'style="display: none;"'?> >
                         <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
                         <div class="tabs__panel__content">
                             <?php
@@ -83,9 +31,6 @@
 
                                     <article class="post-card" style="display: none;">
                                         <main class="post-card__content">
-                                            <pre>
-
-                                            </pre>
                                             <div class="post-card__term">
                                                 <?php
                                                 $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
@@ -166,7 +111,6 @@
             }
 
         ?>
-
     </div>
 </div>
 

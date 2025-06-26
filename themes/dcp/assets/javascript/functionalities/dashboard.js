@@ -551,7 +551,8 @@ jQuery(function($) {
 
                 confirmText: "Publicar alterações",
                 onConfirm: function () {
-                    $( 'input[name="post_status"]' ).val( $( 'input[name="post_status_current"]' ).val() );
+                    $( 'input[name="post_status"]' ).val( 'publish' );
+                    //$( 'input[name="post_status"]' ).val( $( 'input[name="post_status_current"]' ).val() );
                     $( '#riscoSingleForm' ).submit();
                 }
             });

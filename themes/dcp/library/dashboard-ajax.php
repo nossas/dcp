@@ -18,6 +18,45 @@ function get_posts_riscos( $args = [ 'post_status' => 'publish' ] ) {
     return new WP_Query( $args );
 }
 
+function get_dashboard_riscos() {
+
+    return [
+        'riscosAprovacao' => [
+            'is_active' => true,
+            'pagination' => false,
+            'riscos' => new WP_Query([
+                'post_type'      => 'risco',
+                'post_status'    => 'draft',
+                'posts_per_page' => -1,
+                'orderby'        => 'date',
+                'order'          => 'DESC'
+            ])
+        ],
+        'riscosPublicados' =>[
+            'is_active' => false,
+            'pagination' => false,
+            'riscos' => new WP_Query([
+                'post_type'      => 'risco',
+                'post_status'    => 'publish',
+                'posts_per_page' => -1,
+                'orderby'        => 'date',
+                'order'          => 'DESC'
+            ])
+        ],
+        'riscosArquivados' => [
+            'is_active' => false,
+            'pagination' => false,
+            'riscos' => new WP_Query([
+                'post_type'      => 'risco',
+                'post_status'    => 'pending',
+                'posts_per_page' => -1,
+                'orderby'        => 'date',
+                'order'          => 'DESC'
+            ])
+        ],
+    ];
+
+}
 
 
 function form_single_risco_new() {
