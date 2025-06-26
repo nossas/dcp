@@ -63,3 +63,13 @@
         }
     }
 }
+.page-rede-de-apoio {
+    hr{
+        margin-left: 2rem !important;
+        margin-right: 2rem !important;
+        @media (max-width:1366px) {
+            margin-left: 1.5rem;
+            margin-right: 2.5rem;
+        }
+    }
+}
