@@ -12,236 +12,105 @@
             <a href="#publicados">PUBLICADOS</a>
             <a href="#arquivados">ARQUIVADOS</a>
         </div>
+        <?php
+            foreach ( get_dashboard_riscos() as $panel_id => $value ) {
 
-        <div id="riscosAprovacao" class="tabs__panels container--wide is-active">
-            <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
+                $is_active = $value['is_active'] ? 'is-active' : '';
 
-            <div class="tabs__panel__content">
-                <?php
+                ?>
 
-                    $riscosDraft = new WP_Query([
-
-                        'post_type'      => 'risco',
-                        'post_status'    => 'draft',
-                        'posts_per_page' => -1,
-                        'orderby'        => 'date',
-                        'order'          => 'DESC',
-
-                    ]);
-
-                    if( $riscosDraft->have_posts() ) :
-                        while( $riscosDraft->have_posts() ) :
-                            $riscosDraft->the_post();
-                            $pod = pods( 'risco', get_the_ID() );
-                    ?>
-
-                    <article class="post-card" style="display: none;">
-                        <main class="post-card__content">
-                            <div class="post-card__term">
-                                <?php
-                                    $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
-                                    if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
-                                        risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
-                                    } else {
-                                        risco_badge_category( 'sem-categoria', 'NENHUMA CARTEGORIA ADICIONADA' );
-                                    }
-                                ?>
-                                <div class="post-card__risco-meta"><?=date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
-                            </div>
-
-                            <h3 class="post-card__title">
-                                <span><?=$pod->field('endereco')?></span>
-                            </h3>
-
-                            <div class="post-card__excerpt-wrapped">
-                                <div class="post-card__excerpt">
-                                    <?=$pod->field('descricao')?>
-                                    <a href="#/">Ver mais</a>
-                                </div>
-                            </div>
-
-                            <div class="post-card__see-more">
-                                <a href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>" class="button">
-                                    <span>Avaliar</span>
-                                    <iconify-icon icon="bi:chevron-right"></iconify-icon>
-                                </a>
-                            </div>
-
-                        </main>
-                    </article>
-
-                    <?php endwhile;
-
-                    else : ?>
-
-                    <div class="message-response">
-                        <span class="tabs__panel-message">Nenhum risco foi publicado ainda.</span>
-                    </div>
-
-                    <?php endif; ?>
-
-            </div>
-
-            <div class="tabs__panel__pagination">
-                <ol class="">
-                    <li>
-                        <a href="" class="button is-previous is-disabled">
-                            <iconify-icon icon="bi:chevron-left"></iconify-icon>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="button is-active">
-                            <span>1</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="button">
-                            <span>3</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="button">
-                            <span>4</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="button is-next">
-                            <iconify-icon icon="bi:chevron-right"></iconify-icon>
-                        </a>
-                    </li>
-                </ol>
-            </div>
-        </div>
-
-        <div id="riscosPublicados" class="tabs__panels" style="display: none;">
-            <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
-
-            <div class="tabs__panel__content">
-                <?php
-                $riscosPublish = new WP_Query([
-
-                    'post_type'      => 'risco',
-                    'post_status'    => 'publish',
-                    'posts_per_page' => -1,
-                    'orderby'        => 'date',
-                    'order'          => 'DESC',
-
-                ]);
-
-                if( $riscosPublish->have_posts() ) :
-                    while( $riscosPublish->have_posts() ) :
-                        $riscosPublish->the_post();  ?>
-
-                        <article class="post-card" style="display: none;">
-                            <main class="post-card__content">
-                                <div class="post-card__term">
-                                    <?php
-                                    $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
-                                    if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
-                                        risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
-                                    } else {
-                                        risco_badge_category( 'sem-categoria', 'NENHUMA CARTEGORIA ADICIONADA' );
-                                    }
+                    <div id="<?=$panel_id?>" class="tabs__panels container--wide <?=$is_active?>" <?=($is_active) ? 'style="display: block;"' : 'style="display: none;"'?> >
+                        <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
+                        <div class="tabs__panel__content">
+                            <?php
+                            if( $value[ 'riscos' ]->have_posts() ) :
+                                while( $value[ 'riscos' ]->have_posts() ) :
+                                    $value[ 'riscos' ]->the_post();
+                                    $pod = pods( 'risco', get_the_ID() );
                                     ?>
-                                    <div class="post-card__risco-meta"><?=date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
+
+                                    <article class="post-card" style="display: none;">
+                                        <main class="post-card__content">
+                                            <div class="post-card__term">
+                                                <?php
+                                                $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
+                                                if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                                                    risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
+                                                } else {
+                                                    risco_badge_category( 'sem-categoria', 'NENHUMA CARTEGORIA ADICIONADA' );
+                                                }
+                                                ?>
+                                                <div class="post-card__risco-meta"><?=date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
+                                            </div>
+
+                                            <h3 class="post-card__title">
+                                                <span><?=$pod->field( 'endereco' )?></span>
+                                            </h3>
+
+                                            <div class="post-card__excerpt-wrapped">
+                                                <div class="post-card__excerpt">
+                                                    <?=$pod->field( 'descricao' )?>
+                                                    <a href="#/">Ver mais</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="post-card__see-more">
+                                                <a href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>" class="button">
+                                                    <span>Avaliar</span>
+                                                    <iconify-icon icon="bi:chevron-right"></iconify-icon>
+                                                </a>
+                                            </div>
+
+                                        </main>
+                                    </article>
+
+                                <?php endwhile;
+
+                            else : ?>
+
+                                <div class="message-response">
+                                    <span class="tabs__panel-message">Nenhum risco foi publicado ainda.</span>
                                 </div>
 
-                                <h3 class="post-card__title">
-                                    <span><?=$pod->field('endereco')?></span>
-                                </h3>
+                            <?php endif; ?>
 
-                                <div class="post-card__excerpt-wrapped">
-                                    <div class="post-card__excerpt">
-                                        <?=$pod->field('descricao')?>
-                                        <a href="#/">Ver mais</a>
-                                    </div>
-                                </div>
-
-                                <div class="post-card__see-more">
-                                    <a href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>" class="button">
-                                        <iconify-icon icon="bi:pencil-square"></iconify-icon>
-                                        <span>EDITAR</span>
+                        </div>
+                        <?php if( $value[ 'pagination' ] ) : ?>
+                        <div class="tabs__panel__pagination">
+                            <ol class="">
+                                <li>
+                                    <a href="" class="button is-previous is-disabled">
+                                        <iconify-icon icon="bi:chevron-left"></iconify-icon>
                                     </a>
-                                </div>
-
-                            </main>
-                        </article>
-
-                    <?php endwhile;
-
-                else : ?>
-                    <div class="message-response">
-                        <span class="tabs__panel-message">Nenhum risco foi publicado ainda.</span>
-                    </div>
-                <?php endif; ?>
-
-            </div>
-
-        </div>
-
-        <div id="riscosArquivados" class="tabs__panels" style="display: none;">
-            <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
-
-            <div class="tabs__panel__content">
-                <?php
-                $riscosPending = new WP_Query([
-
-                    'post_type'      => 'risco',
-                    'post_status'    => 'pending',
-                    'posts_per_page' => -1,
-                    'orderby'        => 'date',
-                    'order'          => 'DESC',
-
-                ]);
-
-                if( $riscosPending->have_posts() ) :
-                    while( $riscosPending->have_posts() ) :
-                        $riscosPending->the_post(); ?>
-
-                        <article class="post-card" style="display: none;">
-                            <main class="post-card__content">
-                                <div class="post-card__term">
-                                    <?php
-                                    $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
-                                    if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
-                                        risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
-                                    } else {
-                                        risco_badge_category( 'sem-categoria', 'NENHUMA CARTEGORIA ADICIONADA' );
-                                    }
-                                    ?>
-                                    <div class="post-card__risco-meta"><?=date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
-                                </div>
-
-                                <h3 class="post-card__title">
-                                    <span><?=$pod->field('endereco')?></span>
-                                </h3>
-
-                                <div class="post-card__excerpt-wrapped">
-                                    <div class="post-card__excerpt">
-                                        <?=$pod->field('descricao')?>
-                                        <a href="#/">Ver mais</a>
-                                    </div>
-                                </div>
-
-                                <div class="post-card__see-more">
-                                    <a href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>" class="button">
-                                        <span>Reavaliar</span>
+                                </li>
+                                <li>
+                                    <a href="" class="button is-active">
+                                        <span>1</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" class="button">
+                                        <span>3</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" class="button">
+                                        <span>4</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" class="button is-next">
                                         <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                     </a>
-                                </div>
-
-                            </main>
-                        </article>
-                    <?php endwhile;
-
-                else : ?>
-                    <div class="message-response">
-                        <span class="tabs__panel-message">Nenhum risco foi publicado ainda.</span>
+                                </li>
+                            </ol>
+                        </div>
+                        <?php endif; ?>
                     </div>
-                <?php endif; ?>
+                <?php
+            }
 
-            </div
-        </div>
+        ?>
     </div>
 </div>
 

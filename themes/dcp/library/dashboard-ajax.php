@@ -18,10 +18,45 @@ function get_posts_riscos( $args = [ 'post_status' => 'publish' ] ) {
     return new WP_Query( $args );
 }
 
+function get_dashboard_riscos() {
 
+    return [
+        'riscosAprovacao' => [
+            'is_active' => true,
+            'pagination' => false,
+            'riscos' => new WP_Query([
+                'post_type'      => 'risco',
+                'post_status'    => 'draft',
+                'posts_per_page' => -1,
+                'orderby'        => 'date',
+                'order'          => 'DESC'
+            ])
+        ],
+        'riscosPublicados' =>[
+            'is_active' => false,
+            'pagination' => false,
+            'riscos' => new WP_Query([
+                'post_type'      => 'risco',
+                'post_status'    => 'publish',
+                'posts_per_page' => -1,
+                'orderby'        => 'date',
+                'order'          => 'DESC'
+            ])
+        ],
+        'riscosArquivados' => [
+            'is_active' => false,
+            'pagination' => false,
+            'riscos' => new WP_Query([
+                'post_type'      => 'risco',
+                'post_status'    => 'pending',
+                'posts_per_page' => -1,
+                'orderby'        => 'date',
+                'order'          => 'DESC'
+            ])
+        ],
+    ];
 
-
-
+}
 
 
 function form_single_risco_new() {
@@ -76,12 +111,6 @@ function form_single_risco_new() {
 }
 add_action('wp_ajax_form_single_risco_new', 'form_single_risco_new');
 add_action('wp_ajax_nopriv_form_single_risco_new', 'form_single_risco_new');
-
-
-
-
-
-
 
 
 function form_single_risco_edit() {
@@ -202,4 +231,4 @@ function form_single_risco_edit() {
 
 }
 add_action('wp_ajax_form_single_risco_edit', 'form_single_risco_edit');
-//add_action('wp_ajax_nopriv_form_single_risco_edit', 'form_single_risco_edit');
+add_action('wp_ajax_nopriv_form_single_risco_edit', 'form_single_risco_edit');

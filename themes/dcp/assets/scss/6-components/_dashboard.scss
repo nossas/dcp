@@ -222,7 +222,7 @@
                 }
 
                 .tabs__panels {
-                    display: block;
+                    display: none !important;
                     padding: size(25) 0;
 
                     .tabs__panel__content {
@@ -368,9 +368,6 @@
                         }
 
                     }
-
-
-
                     .tabs__panel__pagination {
 
                         display: none;
@@ -422,6 +419,9 @@
 
                     }
 
+                }
+                .tabs__panels.is-active {]
+                    display: block !important;
                 }
             }
 

@@ -158,7 +158,7 @@
                                 <iconify-icon icon="bi:question"></iconify-icon>
                             </a>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                                Todos os campos devem ter pelo menos 5 caracteres.
                             </p>
                         </div>
                     </div>
@@ -258,7 +258,7 @@
                                 <iconify-icon icon="bi:question"></iconify-icon>
                             </a>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                                Todos os campos devem ter pelo menos 5 caracteres.
                             </p>
                         </div>
                     </div>

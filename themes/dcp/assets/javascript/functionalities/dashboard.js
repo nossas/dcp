@@ -512,17 +512,50 @@ jQuery(function($) {
         });
 
         $( '#riscoSingleForm .is-archive' ).on( 'click', function () {
-            $( 'input[name="post_status"]' ).val( 'pending' );
-            $( '#riscoSingleForm' ).submit();
+            custom_modal_confirm({
+                title: 'Arquivar esse registro de risco?',
+                description: 'As informações não serão publicadas e poderão ser acessadas novamente na aba “Arquivados”',
 
+                cancelText: "Cancelar",
+                onCancel: function () {},
+
+                confirmText: "Arquivar",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'pending' );
+                    $( '#riscoSingleForm' ).submit();
+                }
+            });
         });
         $( '#riscoSingleForm .is-publish' ).on( 'click', function () {
-            $( 'input[name="post_status"]' ).val( 'publish' );
-            $( '#riscoSingleForm' ).submit();
+            custom_modal_confirm({
+                title: 'Publicar registro de risco?',
+                description: 'Confirme que não há informações impróprias antes de publicar.',
+
+                cancelText: "Cancelar",
+                onCancel: function () {},
+
+                confirmText: "Publicar",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'publish' );
+                    $( '#riscoSingleForm' ).submit();
+                }
+            });
         });
         $( '#riscoSingleForm .is-save' ).on( 'click', function () {
-            $( 'input[name="post_status"]' ).val( $( 'input[name="post_status_current"]' ).val() );
-            $( '#riscoSingleForm' ).submit();
+            custom_modal_confirm({
+                title: 'Publicar registro de risco?',
+                description: 'Confirme que não há informações impróprias antes de publicar.',
+
+                cancelText: "Cancelar",
+                onCancel: function () {},
+
+                confirmText: "Publicar alterações",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'publish' );
+                    //$( 'input[name="post_status"]' ).val( $( 'input[name="post_status_current"]' ).val() );
+                    $( '#riscoSingleForm' ).submit();
+                }
+            });
         });
 
         $( window ).on( 'dragover', function( event ) {
