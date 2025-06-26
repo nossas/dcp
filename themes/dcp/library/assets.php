@@ -374,7 +374,17 @@ class Assets
 
             'form-actions' => [
                 'file' => 'form-actions.js',
-                'global' => true,
+                'preload_callback' => function () {
+                    return is_page_template('template-parts/page-register-risk.php');
+                },
+                'localize_callback' => function () {
+                    $default_suffix = ', Jacarezinho, Rio de Janeiro, Rio de Janeiro, Brasil';
+
+                    return [
+                        'rest_url' => rest_url('hacklabr/v2/geocoding'),
+                        'address_suffix' => apply_filters('dcp_address_suffix', $default_suffix),
+                    ];
+                },
             ],
 
             'gutenberg' => [
