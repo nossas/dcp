@@ -7,14 +7,17 @@
             align-items: center;
             display: flex;
             justify-content: center;
+            @include mobile{
+                justify-content: initial;
+            }
         }
         @include mobile {
             padding-inline: 2rem !important;
         }
         &__title{
             color:$color--primary-pure;
-            margin-top: 16px;
-            margin-bottom: 16px;
+            margin-top: $margin--medium;
+            margin-bottom: $margin--medium;
             @include mobile {
                 font-size: 24px;
                 text-align: start;
@@ -25,6 +28,16 @@
             margin-bottom: 56px;
             color:$color--secondary-dark;
             font-size: 16px !important;
+            @include mobile{
+                margin-top: $margin--medium;
+                margin-bottom: 32px;
+                text-align: start;
+            }
+        }
+        &_featured-image{
+            @include mobile{
+                margin: 16px;
+            }
         }
         &__tags{
             align-items: center;
@@ -41,10 +54,17 @@
                 color:white;
                 align-items: center;
             }
+            &__date {
+                color:$color--secondary-dark;
+                font-size: 1rem;
+            }
         }
     }
     .post-content{
         padding-left: size(0);
         padding-right: size(0);
+        @include mobile{
+        padding-inline: 2rem;
+        }
     }
 }
