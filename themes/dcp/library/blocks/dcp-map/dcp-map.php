@@ -25,7 +25,6 @@ function format_risk_pin(\WP_Post $post): array {
     return [
         'ID' => $post->ID,
         'title' => $post->post_title,
-        'href' => get_permalink($post),
         'type' => $type,
         'lat' => $latitude,
         'lon' => $longitude,
@@ -39,7 +38,6 @@ function format_support_pin(\WP_Post $post): array {
     return [
         'ID' => $post->ID,
         'title' => $post->post_title,
-        'href' => get_permalink($post),
         'lat' => $latitude,
         'lon' => $longitude,
     ];
