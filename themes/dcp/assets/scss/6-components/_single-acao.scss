@@ -4,6 +4,9 @@
         padding-right: size(0);
         .breadcrumb{
             margin-top: 72px;
+            align-items: center;
+            display: flex;
+            justify-content: center;
         }
         @include mobile {
             padding-inline: 2rem !important;
