@@ -25,6 +25,8 @@
         margin-left: 2rem !important;
         @include mobile {
             margin: 16 !important;
+            margin-right: 1rem !important;
+            margin-left: 1rem !important;
         }
     }
     .col-1{
