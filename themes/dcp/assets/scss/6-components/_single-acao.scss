@@ -2,6 +2,9 @@
     .post-header {
         padding-left: size(0);
         padding-right: size(0);
+        .breadcrumb{
+            margin-top: 72px;
+        }
         @include mobile {
             padding-inline: 2rem !important;
         }
@@ -9,14 +12,32 @@
             color:$color--primary-pure;
             margin-top: 16px;
             margin-bottom: 16px;
+            @include mobile {
+                font-size: 24px;
+                text-align: start;
+            }
         }
         &__excerpt{
             margin-top: $margin--large;
-            margin-bottom: size(56);
+            margin-bottom: 56px;
+            color:$color--secondary-dark;
+            font-size: 16px !important;
         }
         &__tags{
             align-items: center;
             gap: 16px;
+            @include mobile{
+            display: flex;
+            justify-content: flex-start;
+            }
+            a{
+                display: flex;
+                gap: 8px;
+                background-color:  $color--primary-pure;
+                border-color:  $color--primary-pure;
+                color:white;
+                align-items: center;
+            }
         }
     }
     .post-content{
