@@ -155,6 +155,11 @@ class Assets
                 }
 
                 wp_enqueue_script($handle, $src, $deps, $version, true);
+
+                if (!empty($data['localize_callback'])) {
+                    $object_name = 'hl_' . str_replace('-', '_', $handle) . '_data';
+                    wp_localize_script($handle, $object_name, $data['localize_callback']());
+                }
             }
         }
     }
@@ -185,6 +190,11 @@ class Assets
                 }
 
                 wp_enqueue_script($handle, $src, $deps, $version, true);
+
+                if (!empty($data['localize_callback'])) {
+                    $object_name = 'hl_' . str_replace('-', '_', $handle) . '_data';
+                    wp_localize_script($handle, $object_name, $data['localize_callback']());
+                }
             }
         }
     }
@@ -371,6 +381,23 @@ class Assets
                 'file'   => 'gutenberg.js',
                 'admin'  => true,
                 'global' => true,
+            ],
+
+            'edit-pins' => [
+                'file'  => 'edit-pins.js',
+                'admin' => true,
+                'preload_callback' => function () {
+                    $screen = get_current_screen();
+                    return $screen->base === 'post' && in_array($screen->post_type, ['apoio', 'risco']);
+                },
+                'localize_callback' => function () {
+                    $default_suffix = ', Jacarezinho, Rio de Janeiro, Rio de Janeiro, Brasil';
+
+                    return [
+                        'rest_url' => rest_url('hacklabr/v2/geocoding'),
+                        'address_suffix' => apply_filters('dcp_address_suffix', $default_suffix),
+                    ];
+                },
             ],
 
             'scroll-behavior'     => [

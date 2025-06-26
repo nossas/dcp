@@ -14,8 +14,8 @@ export function waitUntil ( condition, callback, intervalMs = 50, timeoutMs = 30
 	let interval = window.setInterval( () => {
 		const value = condition();
 		if ( value ) {
-			callback( value );
-			return window.clearInterval( interval );
+			window.clearInterval( interval );
+			return callback( value );
 		}
 
 		elapsed += intervalMs;

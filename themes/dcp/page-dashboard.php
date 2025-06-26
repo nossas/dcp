@@ -6,6 +6,7 @@
  */
 
 namespace hacklabr\dashboard;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +20,7 @@ namespace hacklabr\dashboard;
     <?php wp_body_open(); ?>
     <div class="dashboard">
         <header class="dashboard__header">
-            <div class="dashboard__logo">
+            <div class="dashboard__header__logo">
                 <?php if ( has_custom_logo() ): ?>
                     <?php the_custom_logo(); ?>
                 <?php else: ?>
@@ -28,6 +29,21 @@ namespace hacklabr\dashboard;
                     </a>
                 <?php endif; ?>
             </div>
+            <nav class="dashboard__header__navigation">
+                <ul>
+                    <li>
+                        <a href="#/conta/">Conta</a>
+                    </li>
+                    <li>
+                        <a href="#/conta/">Ajuda</a>
+                    </li>
+                    <li>
+                        <button class="button">
+                            <span>Sair</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
         </header>
         <div class="dashboard__body">
             <aside class="dashboard__sidebar">
@@ -39,7 +55,8 @@ namespace hacklabr\dashboard;
                                 <span>Início</span>
                             </a>
                         </li>
-                        <li class="<?= is_dashboard('riscos') ? 'dashboard-current' : '' ?>">
+                        <?php // TODO : REFACTORY is-current ?>
+                        <li class="<?= ( is_dashboard('riscos') || is_dashboard('riscos-adicionar') || is_dashboard('riscos-single')) ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('riscos') ?>">
                                 <iconify-icon icon="bi:geo-alt-fill"></iconify-icon>
                                 <span>Riscos</span>
@@ -48,7 +65,7 @@ namespace hacklabr\dashboard;
                         <li class="<?= is_dashboard('situacao_atual') ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('situacao_atual') ?>">
                                 <iconify-icon icon="bi:exclamation-triangle-fill"></iconify-icon>
-                                <span>Situação atual</span>
+                                <span>Situação Atual</span>
                             </a>
                         </li>
                         <li class="<?= is_dashboard('acoes') ? 'dashboard-current' : '' ?>">
@@ -78,5 +95,11 @@ namespace hacklabr\dashboard;
         </div>
     </div>
     <?php wp_footer(); ?>
+
+    <div id="mainProgressBar">
+        <div id="mainProgressContainer">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
 </body>
 </html>

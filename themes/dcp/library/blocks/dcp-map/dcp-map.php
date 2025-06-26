@@ -3,33 +3,52 @@
 namespace hacklabr;
 
 function format_risk_pin(\WP_Post $post): array {
-    $cat = wp_get_post_terms($post->ID, 'situacao_de_risco', [ 'fields' => 'slugs' ]);
-    if (!is_array($cat)) {
-        $cat = [];
+    $latitude = get_post_meta($post->ID, 'latitude', true) ?: 0;
+    $longitude = get_post_meta($post->ID, 'longitude', true) ?: 0;
+
+    $types = wp_get_post_terms($post->ID, 'situacao_de_risco', [
+        'fields' => 'slugs',
+        'parent' => 0,
+    ]);
+    if (is_array($types)) {
+        if (in_array('alagamento', $types)) {
+            $type = 'alagamento';
+        } elseif (in_array('lixo', $types)) {
+            $type = 'lixo';
+        } else {
+            $type = 'risco';
+        }
+    } else {
+        $type = 'risco';
     }
 
     return [
         'ID' => $post->ID,
         'title' => $post->post_title,
         'href' => get_permalink($post),
-        'type' => $cat[0]?->slug ?? null,
-        'lat' => 0,
-        'lng' => 0,
+        'type' => $type,
+        'lat' => $latitude,
+        'lon' => $longitude,
     ];
 }
 
 function format_support_pin(\WP_Post $post): array {
+    $latitude = get_post_meta($post->ID, 'latitude', true) ?: 0;
+    $longitude = get_post_meta($post->ID, 'longitude', true) ?: 0;
+
     return [
         'ID' => $post->ID,
         'title' => $post->post_title,
         'href' => get_permalink($post),
-        'lat' => 0,
-        'lng' => 0,
+        'lat' => $latitude,
+        'lon' => $longitude,
     ];
 }
 
 function dcp_map_should_load_jeo(bool $should_load): bool {
-    if (is_singular() && has_block('hacklabr/dcp-map')) {
+    if (is_page_template('page-dcp-map.php')) {
+        return true;
+    } elseif (is_singular() && has_block('hacklabr/dcp-map')) {
         return true;
     }
     return $should_load;

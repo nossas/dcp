@@ -10,17 +10,23 @@ function createFeature (coordinates, properties) {
 }
 
 function createApoioFeature (apoio) {
-    return createFeature([apoio.lng, apoio.lat], {
+    return createFeature([apoio.lon, apoio.lat], {
         icon: 'apoio',
         title: apoio.title,
+        href: apoio.href,
     })
 }
 
 function createRiscoFeature (risco) {
-    return createFeature([risco.lng, risco.lat], {
-        icon: 'risco',
+    return createFeature([risco.lon, risco.lat], {
+        icon: risco.type,
         title: risco.title,
+        href: risco.href,
     })
+}
+
+function formatFeatureHtml (feature) {
+    return `<a href="${feature.href}">${feature.title}</a>`
 }
 
 function insertFeatureCollection (map, slug, popupRef, features) {
@@ -47,8 +53,8 @@ function insertFeatureCollection (map, slug, popupRef, features) {
 
     map.on('click', pinsSlug, (event) => {
 		const feature = event.features[0]
-		const title = feature.properties.title
-		displayPopup(map, popupRef, title, feature.geometry.coordinates)
+		const html = formatFeatureHtml(feature.properties)
+		displayPopup(map, popupRef, html, feature.geometry.coordinates)
 	})
 
 	map.on('mousemove', (event) => {
