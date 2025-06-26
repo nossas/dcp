@@ -66,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const handleShowStep = (index) => {
-        console.log(index);
         steps.forEach((step, i) => {
             step.classList.toggle('active', i === index);
         });
@@ -148,13 +147,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const form = document.getElementById('multiStepForm');
-    form.addEventListener('submit', async (e)  => {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
         riskDraft.data_e_horario = new Date().toISOString();
         const success = await submitData(riskDraft);
-        if(success){
+        if (success) {
             currentStep++;
             handleShowStep(currentStep);
+        } else {
+            alert('Erro ao enviar o formulário. Tente novamente.');
         }
     });
 
@@ -219,17 +220,25 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     async function submitData(data) {
+        const formData = new FormData();
+        formData.append('action', 'form_single_risco_new');
+        for (const key in data) {
+            if (key === 'midias') {
+                data.midias.forEach((file, i) => {
+                    formData.append(`media_files[]`, file);
+                });
+            } else {
+                formData.append(key, data[key]);
+            }
+        }
         const res = await fetch(new URL('/wp-admin/admin-ajax.php', location.href), {
             method: 'POST',
-            body: JSON.stringify({
-                action: 'form_single_risco_new',
-                ...data,
-            })
-                
+            body: formData,
+
         })
         if (res.ok) {
             return true;
-        } else{
+        } else {
             return false;
         }
     }
