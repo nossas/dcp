@@ -1,0 +1,96 @@
+.dcp-map-modal {
+    border: none;
+    border-radius: $border-radius--medium;
+    margin: auto;
+    max-width: calc(100% - #{size(32)});
+    position: relative;
+    width: size(720);
+
+    &__close {
+        background-color: transparent;
+        right: size(16);
+        position: absolute;
+        top: size(16);
+    }
+
+    &__pill {
+        align-items: center;
+        background-color: green;
+        display: inline-flex;
+        border-radius: $border-radius--medium;
+        font-size: $font-size--xx-small;
+        font-weight: bold;
+        gap: $gap--small;
+        padding: size(2) size(12);
+    }
+
+    &__title {
+        font-family: $font-family--primary;
+        font-size: $font-size--medium;
+    }
+
+    &__whatsapp {
+        border: 1px solid $color--primary-pure;
+        border-radius: $border-radius--large;
+        background-color: transparent;
+        color: $color--primary-pure;
+        padding: size(8) size(16);
+        text-decoration: none;
+    }
+
+    &__whatsapp-desktop {
+        @include mobile {
+            display: none;
+        }
+    }
+
+    &__whatsapp-mobile {
+        display: none;
+
+        @include mobile {
+            display: inline;
+        }
+    }
+
+    main {
+        margin-block: $gap--medium;
+    }
+
+    footer {
+        align-items: center;
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+.risk-modal {
+    --risk-background: #{$color--warning-pure};
+    --risk-color: black;
+
+    &--alagamento {
+        --risk-background: #{$color--warning-dark};
+        --risk-color: white;
+    }
+
+    &--lixo {
+        --risk-background: #{$color--secondary-pure};
+        --risk-color: black;
+    }
+
+    &__date {
+        margin-block: $gap--medium;
+    }
+
+    &__pill {
+        background-color: var(--risk-background);
+        color: var(--risk-color);
+    }
+}
+
+.support-modal {
+
+    &__pill {
+        background-color: $color--primary-pure;
+        color: white;
+    }
+}

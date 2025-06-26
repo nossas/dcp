@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const tabsList = block.querySelector('.dcp-map-block__tabs')
         const tabs = [...block.querySelectorAll('.dcp-map-block__tab')]
         const map = block.querySelector('.jeomap')
-        let mapLoaded = false
         let toggleLayer = null
 
         const selectedCPT = { current: tabsList.dataset.selected }
@@ -38,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         await until(() => jeoMap.map)
 
-        toggleLayer = setupMap(jeoMap, riscos, apoios, selectedCPT)
-        mapLoaded = true
+        toggleLayer = setupMap(jeoMap, block, riscos, apoios, selectedCPT)
     })
 })

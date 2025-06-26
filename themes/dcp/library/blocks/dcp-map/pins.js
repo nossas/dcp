@@ -10,20 +10,23 @@ function createFeature (coordinates, properties) {
 }
 
 function createApoioFeature (apoio) {
-    return createFeature([apoio.lon, apoio.lat], {
+    const { lat, lon, ...data } = apoio
+    return createFeature([lon, lat], {
         icon: 'apoio',
-        title: apoio.title,
+        ...data,
     })
 }
 
 function createRiscoFeature (risco) {
-    return createFeature([risco.lon, risco.lat], {
-        icon: risco.type,
-        title: risco.title,
+    const { lat, lon, type, ...data } = risco
+    return createFeature([lon, lat], {
+        icon: `risco-${type}`,
+        type,
+        ...data,
     })
 }
 
-function insertFeatureCollection (map, slug, popupRef, features) {
+function insertFeatureCollection (map, container, slug, features) {
     const sourceSlug = slug
     const pinsSlug = `${slug}-pins`
 
@@ -47,8 +50,7 @@ function insertFeatureCollection (map, slug, popupRef, features) {
 
     map.on('click', pinsSlug, (event) => {
 		const feature = event.features[0]
-		const html = feature.properties.title
-		displayPopup(map, popupRef, html, feature.geometry.coordinates)
+        displayModal(container, slug, feature.properties)
 	})
 
 	map.on('mousemove', (event) => {
@@ -57,12 +59,66 @@ function insertFeatureCollection (map, slug, popupRef, features) {
 	})
 }
 
-function displayPopup (map, popupRef, html, coordinates) {
-    popupRef.current?.remove()
-    popupRef.current = new globalThis.mapboxgl.Popup()
-        .setLngLat([...coordinates])
-        .setHTML(html)
-        .addTo(map)
+function closeModals (container) {
+    container.querySelectorAll('dialog').forEach((dialog) => {
+        dialog.close()
+    })
+}
+
+function displayModal (container, type, feature) {
+    closeModals(container)
+    if (type === 'apoio') {
+        displayApoioModal(container, feature)
+    } else if (type === 'risco') {
+        displayRiscoModal(container, feature)
+    }
+}
+
+function displayApoioModal (container, apoio) {
+    const dialog = container.querySelector('.support-modal')
+
+    dialog.querySelector('.dcp-map-modal__title').innerHTML = apoio.title
+    dialog.querySelector('.dcp-map-modal__excerpt').innerHTML = apoio.excerpt
+    dialog.querySelector('.support-modal__address').innerHTML = apoio.endereco
+
+    const whatsappButton = dialog.querySelector('.dcp-map-modal__whatsapp')
+    const shareText = `[Apoio] ${apoio.title} - ${apoio.endereco} ${location.href}`
+    whatsappButton.href = whatsappButton.dataset.href.replace('$', decodeURIComponent(shareText))
+
+    dialog.showModal()
+}
+
+function displayRiscoModal (container, risco) {
+    const dialog = container.querySelector('.risk-modal')
+    dialog.classList.toggle('risk-modal--alagamento', risco.type === 'alagamento')
+    dialog.classList.toggle('risk-modal--lixo', risco.type === 'lixo')
+
+    let typeLabel
+    switch (risco.type) {
+        case 'alagamento':
+            typeLabel = 'Alagamento'
+            break
+        case 'lixo':
+            typeLabel = 'Lixo'
+            break
+        default:
+            typeLabel = 'Outro'
+            break
+    }
+
+    const pillImage = dialog.querySelector('.dcp-map-modal__pill > img')
+    pillImage.src = pillImage.dataset.src.replace('$', risco.type)
+    dialog.querySelector('.dcp-map-modal__pill > span').textContent = typeLabel
+
+    dialog.querySelector('.dcp-map-modal__title').innerHTML = risco.title
+    dialog.querySelector('.dcp-map-modal__excerpt').innerHTML = risco.excerpt
+    dialog.querySelector('.risk-modal__date').innerHTML = risco.date
+
+    const whatsappButton = dialog.querySelector('.dcp-map-modal__whatsapp')
+    const shareText = `[Risco - ${typeLabel}] ${risco.date} - ${risco.title} ${location.href}`
+    whatsappButton.href = whatsappButton.dataset.href.replace('$', decodeURIComponent(shareText))
+
+    dialog.showModal()
 }
 
 function getImageUrl (slug) {
@@ -82,18 +138,14 @@ async function loadImage (map, slug, height = 54, width = 44) {
 	})
 }
 
-export function setupMap (jeoMap, riscos, apoios, initialSource) {
+export function setupMap (jeoMap, container, riscos, apoios, initialSource) {
     const map = jeoMap.map
-
-    const riscoPopup = { current: null }
-    const apoioPopup = { current: null }
 
     const riscoFeatures = riscos.map(createRiscoFeature)
     const apoioFeatures = apoios.map(createApoioFeature)
 
     function toggleLayer (cpt) {
-        apoioPopup.current?.remove()
-        riscoPopup.current?.remove()
+        closeModals(container)
 
         for (const [source, features] of [['apoio', apoioFeatures], ['risco', riscoFeatures]]) {
             const filteredFeatures = (source === cpt) ? features : []
@@ -107,13 +159,13 @@ export function setupMap (jeoMap, riscos, apoios, initialSource) {
     map.on('load', async () => {
         await Promise.all([
             loadImage(map, 'apoio'),
-            loadImage(map, 'alagamento'),
-            loadImage(map, 'lixo'),
-            loadImage(map, 'risco'),
+            loadImage(map, 'risco-alagamento'),
+            loadImage(map, 'risco-lixo'),
+            loadImage(map, 'risco-outros'),
         ])
 
-        insertFeatureCollection(map, 'risco', riscoPopup, riscoFeatures)
-        insertFeatureCollection(map, 'apoio', apoioPopup, apoioFeatures)
+        insertFeatureCollection(map, container, 'risco', riscoFeatures)
+        insertFeatureCollection(map, container, 'apoio', apoioFeatures)
         toggleLayer(initialSource.current)
 
         if (window.innerWidth < 800) {

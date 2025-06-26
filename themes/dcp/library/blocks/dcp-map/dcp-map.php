@@ -16,16 +16,18 @@ function format_risk_pin(\WP_Post $post): array {
         } elseif (in_array('lixo', $types)) {
             $type = 'lixo';
         } else {
-            $type = 'risco';
+            $type = 'outros';
         }
     } else {
-        $type = 'risco';
+        $type = 'outros';
     }
 
     return [
         'ID' => $post->ID,
         'title' => $post->post_title,
         'type' => $type,
+        'date' => get_the_date('H:i | d/m/Y', $post),
+        'excerpt' => get_the_excerpt($post),
         'lat' => $latitude,
         'lon' => $longitude,
     ];
@@ -38,6 +40,8 @@ function format_support_pin(\WP_Post $post): array {
     return [
         'ID' => $post->ID,
         'title' => $post->post_title,
+        'excerpt' => get_the_excerpt($post),
+        'endereco' => get_post_meta($post->ID, 'endereco', true),
         'lat' => $latitude,
         'lon' => $longitude,
     ];
@@ -88,7 +92,7 @@ function render_dcp_map_callback(array $attributes) {
 
     ob_start();
 ?>
-    <div class="dcp-map-block">
+    <div class="dcp-map-block" x-data>
         <script type="application/json"><?= json_encode($data) ?></script>
         <div class="dcp-map-block__tabs" data-selected="risco">
             <button type="button" class="dcp-map-block__tab dcp-map-block__tab--selected" data-cpt="risco">
@@ -99,6 +103,7 @@ function render_dcp_map_callback(array $attributes) {
             </button>
         </div>
         <div class="jeomap map_id_<?= $jeo_map->ID ?>"></div>
+        <?php get_template_part('template-parts/dcp-map-modal') ?>
     </div>
 <?php
     $html = ob_get_clean();
