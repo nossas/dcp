@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        if (index === 4) preencherResumo(); // <-- chamada aqui
+        if (index === 4) preencherResumo();
     };
 
 
@@ -128,11 +128,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    function validateStep(stepIndex) {
+        switch (stepIndex) {
+            case 0:
+                return riskDraft.endereco.trim() !== '';
+            case 1:
+                return riskDraft.descricao.trim() !== '';
+            case 2:
+                return true;
+            case 3: 
+                return (
+                    riskDraft.nome_completo.trim() !== '' &&
+                    riskDraft.email.trim() !== '' &&
+                    riskDraft.telefone.trim() !== ''
+                );
+            case 4: 
+                return true;
+            default:
+                return true;
+        }
+    }
+
     document.querySelectorAll('.multistepform__button-next').forEach(btn => {
         btn.addEventListener('click', () => {
-            if (currentStep < steps.length - 2) {
-                currentStep++;
-                handleShowStep(currentStep);
+            if (validateStep(currentStep)) {
+                if (currentStep < steps.length - 2) {
+                    currentStep++;
+                    handleShowStep(currentStep);
+                }
+            } else {
+                alert('Por favor, preencha os campos obrigatórios antes de continuar.');
             }
         });
     });
@@ -183,6 +208,41 @@ document.addEventListener('DOMContentLoaded', () => {
     if (midiaInput) {
         midiaInput.addEventListener('change', (event) => {
             const files = Array.from(event.target.files);
+            riskDraft.midias = files;
+        });
+    }
+
+    const previewContainer = document.getElementById('mediaPreview');
+
+    if (midiaInput && previewContainer) {
+        midiaInput.addEventListener('change', (event) => {
+            const files = Array.from(event.target.files);
+            previewContainer.innerHTML = '';
+            files.forEach(file => {
+                const fileType = file.type;
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    if (fileType.startsWith('image/')) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        previewContainer.appendChild(img);
+                    } else if (fileType.startsWith('video/')) {
+                        const video = document.createElement('video');
+                        video.src = e.target.result;
+                        video.controls = true;
+                        previewContainer.appendChild(video);
+                    } else {
+                        const span = document.createElement('span');
+                        span.className = 'file-name';
+                        span.textContent = file.name;
+                        previewContainer.appendChild(span);
+                    }
+                }
+
+                reader.readAsDataURL(file);
+            });
+
             riskDraft.midias = files;
         });
     }
