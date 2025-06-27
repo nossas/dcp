@@ -1,4 +1,4 @@
-<article id="post-ID-<?php the_ID(); ?>" class="post">
+<article id="post-ID-<?php the_ID(); ?>" class="post" data-post-id="-<?php the_ID(); ?>">
     <div class="post-card">
         <div class="post-card--thumb">
             <a href="<?php the_permalink(); ?>">

@@ -1,17 +1,27 @@
-@import '../../../assets/scss/includes';
-
-.dcp-map-block {
+.dcp-map {
     position: relative;
+
+    &__tabs-container {
+        display: flex;
+        justify-content: center;
+        margin: auto;
+        position: absolute;
+        top: size(16);
+        width: 100%;
+        z-index: 1;
+    }
 
     &__tabs {
         align-items: center;
         display: flex;
         justify-content: center;
+        max-width: calc(100% - #{size(32)});
+        width: size(720);
     }
 
     &__tab {
         align-items: center;
-        background-color: transparent;
+        background-color: $color--secondary-light;
         border: 1px solid var(--tab-color);
         color: var(--tab-color);
         display: flex;
@@ -26,14 +36,26 @@
         }
 
         &[data-cpt="risco"] {
+            border-bottom-left-radius: $border-radius--medium;
             border-top-left-radius: $border-radius--medium;
             --tab-color: #{$color--warning-dark};
         }
 
         &[data-cpt="apoio"] {
+            border-bottom-right-radius: $border-radius--medium;
             border-top-right-radius: $border-radius--medium;
             --tab-color: #{$color--primary-pure};
         }
+    }
+
+    &__buttons-container {
+        display: flex;
+        justify-content: center;
+        margin: auto;
+        position: absolute;
+        bottom: size(16);
+        width: 100%;
+        z-index: 1;
     }
 
     &__buttons {
@@ -41,17 +63,20 @@
         bottom: size(0);
         display: flex;
         gap: $gap--medium;
-        justify-content: flex-end;
-        padding: $padding--medium;
+        justify-content: center;
+        margin: auto;
         position: absolute;
-        right: size(32);
+        max-width: calc(100% - #{size(32)});
+        width: size(720);
         z-index: 1;
 
-        a {
+        a, button {
             align-items: center;
             border-radius: $border-radius--large;
             display: flex;
+            flex: 1;
             gap: $gap--small;
+            justify-content: center;
             padding: $padding--small $padding--medium;
             text-decoration: none;
         }
@@ -62,15 +87,14 @@
         color: white;
     }
 
-    &__open-map {
-        background-color: white;
-        color: black;
-        outline: 1px solid black;
+    &__show-recommendations {
+        background-color: $color--primary-pure;
+        color: white;
     }
 
     .jeomap {
         background-color: transparent;
-        height: size(400);
+        height: calc(100vh - #{size(120)});
 
         canvas {
             border: 1px solid #ddd;
@@ -84,6 +108,12 @@
 
         .mapboxgl-ctrl-logo {
             display: none;
+        }
+
+        @media screen and (max-width: size(820)) {
+            .mapboxgl-ctrl-top-left {
+                top: size(64);
+            }
         }
     }
 }

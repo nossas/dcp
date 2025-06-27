@@ -12,7 +12,6 @@ function formatFileSize(bytes) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
-
 class MediaLoader {
 
     constructor( options = {} ) {
@@ -148,7 +147,6 @@ class MediaLoader {
 
     }
 }
-
 
 // TODO: COMPORTAMENTO MOCK jQUERY
 jQuery(function($) {
@@ -643,80 +641,14 @@ jQuery(function($) {
         $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
         $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
 
-
         // TODO: REFECTORY P/ COMPONENTE DE LOADING TIPO SKELETON
         $( '.dashboard-content-skeleton' ).hide();
         setTimeout( function() {
             $( '.dashboard-content-single .dashboard-content-skeleton' ).remove();
         }, 3000 );
 
-        $( '.is-select-load-category' ).each( function () {
-            const $this = $( this );
-            $.ajax({
-                url: $this.attr( 'data-endpoint' ),
-                type: 'GET',
-                data: {},
-                beforeSend: function() {
-                    $this.html( '<option>CARREGANDO...</option>' );
-                    $this.parent().find( '.is-edit-input' ).hide();
-                    $this.parent().find( '.is-loading' ).show();
-                },
-                success: function( response ) {
-                    $this.html( '<option>SELECIONE UMA CATEGORIA</option>' );
-                    console.log( response );
-
-                    response.forEach( function( item ) {
-                        if( item.parent === 0) {
-                            $this.append( '<option value="' + item.id + '">' + item.name + '</option>' );
-                        }
-                    });
-                },
-                error: function () {
-                    $this.html( '<option>ERROR</option>' );
-                },
-                complete: function() {
-                    $this.parent().find( '.is-edit-input' ).show();
-                    $this.parent().find( '.is-loading' ).hide();
-                }
-            });
-        });
-
-        $( '.is-chip-load-subcategory' ).each( function () {
-            const $this = $( this );
-            $.ajax({
-                url: $this.attr( 'data-endpoint' ),
-                type: 'GET',
-                data: {},
-                beforeSend: function() {
-                    $this.val( 'CARREGANDO . . .' );
-                    $this.parent().find( '.is-edit-input' ).hide();
-                    $this.parent().find( '.is-loading' ).show();
-                },
-                success: function( response ) {
-                    console.log( response );
-
-                    let _text = '';
-                    response.forEach( function( item ) {
-                        //_text += '<div class="chip is-chip-subcategory">' + item.name + '</div>';
-                        _text += item.name + ', ';
-                    });
-
-                    $this.val( _text );
-                },
-                error: function () {
-                    $this.val( 'ERROR' );
-                },
-                complete: function() {
-                    $this.parent().find( '.is-edit-input' ).show();
-                    $this.parent().find( '.is-loading' ).hide();
-                }
-            });
-        });
-
     });
-
 });
-
 
 document.addEventListener("DOMContentLoaded", function () {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);

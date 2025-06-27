@@ -1,0 +1,44 @@
+.recommendations-modal{
+    .header-title,
+    .recommendations-item,
+    .phone-text{
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+    }
+    .recommendations-content{
+        padding-bottom: 2rem;
+    }
+    .phones-content{
+        padding-bottom: 1rem;
+    }
+    .recommendations-content,
+    .phones-content{
+        border-bottom: 1px solid #281414    ;
+    }
+    .phones-item{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: .5rem;
+    }
+    .recommendations-items,
+    .phone-items{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .phones-content{
+        margin-top: .5rem;
+    }
+
+    .phone-number{
+        font-family: $font-family--heading;
+        color: $color--primary-light;
+        font-size: size(20);
+    }
+    footer{
+        justify-content: flex-start;
+    }
+}

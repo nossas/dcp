@@ -75,13 +75,13 @@
                         if (!is_wp_error($terms) && !empty($terms)) {
                             foreach ($terms as $term) {
                         ?>
-                            <label class="multistepform__checkbox-option">
-                                <input type="radio" name="situacao_de_risco" value="<?php echo esc_attr($term->slug); ?>">
-                                <span class="multistepform__checkbox-label"><?php echo esc_html($term->name); ?></span>
-                            </label>
+                                <label class="multistepform__checkbox-option">
+                                    <input type="radio" name="situacao_de_risco" value="<?php echo esc_attr($term->slug); ?>">
+                                    <span class="multistepform__checkbox-label"><?php echo esc_html($term->name); ?></span>
+                                </label>
                         <?php
                             }
-                        } 
+                        }
                         ?>
                     </div>
 
@@ -228,7 +228,7 @@
                                 <path d="M15.5865 4.79416C15.6388 4.84641 15.6804 4.90849 15.7088 4.97682C15.7371 5.04516 15.7517 5.11842 15.7517 5.19241C15.7517 5.2664 15.7371 5.33966 15.7088 5.408C15.6804 5.47634 15.6388 5.53841 15.5865 5.59066L7.71146 13.4657C7.65921 13.518 7.59714 13.5596 7.5288 13.588C7.46046 13.6163 7.3872 13.6309 7.31321 13.6309C7.23922 13.6309 7.16596 13.6163 7.09762 13.588C7.02928 13.5596 6.96721 13.518 6.91496 13.4657L2.97746 9.52816C2.87184 9.42254 2.8125 9.27928 2.8125 9.12991C2.8125 8.98054 2.87184 8.83728 2.97746 8.73166C3.08308 8.62604 3.22634 8.5667 3.37571 8.5667C3.52508 8.5667 3.66834 8.62604 3.77396 8.73166L7.31321 12.272L14.79 4.79416C14.8422 4.74178 14.9043 4.70022 14.9726 4.67186C15.041 4.6435 15.1142 4.62891 15.1882 4.62891C15.2622 4.62891 15.3355 4.6435 15.4038 4.67186C15.4721 4.70022 15.5342 4.74178 15.5865 4.79416V4.79416Z" fill="#F9F3EA" />
                             </svg>
                             <?php _e('Enviar'); ?>
- 
+
                         </button>
                     </div>
                 </div>

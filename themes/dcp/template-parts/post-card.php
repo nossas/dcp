@@ -19,7 +19,7 @@ $modifiers = implode(' ', $modifiers);
 
 $categories = get_the_category();
 ?>
-<article id="post-ID-<?php the_ID(); ?>" class="post-card <?= $modifiers ?>">
+<article id="post-ID-<?php the_ID(); ?>" class="post-card <?= $modifiers ?>" data-post-id="<?php the_ID() ?>">
     <header class="post-card__image">
         <a href="<?php the_permalink(); ?>">
             <?php if (has_post_thumbnail()): ?>
@@ -188,10 +188,15 @@ $categories = get_the_category();
         <?php endif; ?>
 
         <?php if ($post_type == 'apoio'): ?>
+
             <div class="post-card__see-in-map">
                 <button class="post-card__map-button">
                     <a href="<?= get_permalink(); ?>"><?= __("Veja no mapa", "dcp"); ?></a>
                 </button>
+                <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_apoio', ['apoio' => sanitize_title($post->post_title)]); ?>">
+                    <?= __('Editar') ?>
+                </a>
+                
             </div>
         <?php endif; ?>
 

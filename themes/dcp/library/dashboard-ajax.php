@@ -58,34 +58,28 @@ function get_dashboard_riscos() {
 
 }
 
-
 function form_single_risco_new() {
 
     $data = [
-
         'post_type' => 'risco',
         'post_status' => 'draft',
-
-        // 'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
-        //
-        // 'latitude' => 0,
-        // 'longitude' => 0,
-        //
-        // 'nome_completo' => sanitize_text_field( $_POST[ 'nome_completo' ] ),
-        // 'email' => sanitize_text_field( $_POST[ 'email' ] ),
-        // 'telefone' => sanitize_text_field( $_POST[ 'telefone' ] ),
-        //
-        // 'data_e_horario' => date('Y-m-d H:i:s'),
-        //
-        // 'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
-        //
-        // 'situacao_de_risco' => sanitize_text_field( $_POST[ 'situacao_de_risco' ] ),
-
+        'post_title' => sanitize_text_field( $_POST[ 'endereco' ] ),
+        'post_content' => sanitize_text_field( $_POST['descricao'] ),
+        'meta_input' => [
+            'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
+            'latitude' => sanitize_text_field( $_POST[ 'latitude' ] ),
+            'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
+            'nome_completo' => sanitize_text_field( $_POST[ 'nome_completo' ] ),
+            'email' => sanitize_text_field( $_POST[ 'email' ] ),
+            'telefone' => sanitize_text_field( $_POST[ 'telefone' ] ),
+            'autoriza_contato' => sanitize_text_field( $_POST[ 'autoriza_contato' ] ),
+            'data_e_horario' => date('Y-m-d H:i:s'),
+            'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
+        ],
+        'tax_input' => [
+            'situacao_de_risco' => sanitize_text_field( $_POST[ 'situacao_de_risco' ] ),
+        ],
     ];
-    //TODO: REMOVE DEPOIS DE TESTAR
-    $data[ 'post_title' ] = sanitize_text_field( $_POST[ 'endereco' ] );
-    $data[ 'post_content' ] = sanitize_text_field( $_POST[ 'descricao' ] );
-    //TODO: REMOVE DEPOIS DE TESTAR
 
     $postID = wp_insert_post( $data, true );
 
@@ -99,14 +93,24 @@ function form_single_risco_new() {
 
     }
 
-    wp_send_json_success([
-        'title' => 'Sucesso',
-        'message' => 'Formulário enviado com sucesso!'
-    ]);
+    $save_post = upload_file_to_attachment_by_ID( $_FILES['media_files'], $postID );
 
-    //    $pod = pods( 'risco', $postID );
-    //    $pod->save( 'endereco', $data[ 'descricao' ];
-    //    $pod->save( 'descricao', sanitize_text_field( $data[ 'descricao' ] ) );
+    if( empty( $save_post[ 'errors' ] ) ) {
+
+        wp_send_json_success([
+            'title' => 'Sucesso',
+            'message' => 'Formulário enviado com sucesso!',
+            'uploaded_files' => $save_post[ 'uploaded_files' ],
+            'post_id' => $postID,
+        ]);
+
+    }
+
+    wp_send_json_error([
+        'title' => 'Erro',
+        'message' => 'Erro ao salvar o formulário',
+        'error' => $save_post[ 'errors' ],
+    ], 400 );
 
 }
 add_action('wp_ajax_form_single_risco_new', 'form_single_risco_new');
@@ -137,18 +141,13 @@ function form_single_risco_edit() {
         'ID' => $postID,
         'post_type' => 'risco',
         'post_status' => sanitize_text_field($_POST['post_status'] ?? 'draft'),
-
-        'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
-
-        //'category' => sanitize_text_field( $_POST[ 'category' ] ),
-        //'subcategory' => sanitize_text_field( $_POST[ 'subcategory' ] ),
-        'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
+        'post_title' => sanitize_text_field( $_POST[ 'endereco' ] ),
+        'post_content' => sanitize_text_field( $_POST[ 'descricao' ] ),
+        'meta_input' => [
+            'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
+            'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
+        ],
     ];
-
-    //TODO: REMOVE DEPOIS DE TESTAR
-    $data[ 'post_title' ] = '[' . $data[ 'post_status_current' ] . '] RISCO : ' . $data[ 'endereco' ];
-    $data[ 'post_content' ] = 'RISCO : ' . $data[ 'endereco' ] . ' - ' . $data[ 'descricao' ];
-    //TODO: REMOVE DEPOIS DE TESTAR
 
     $updated_id = wp_update_post( $data, true );
 
@@ -162,63 +161,15 @@ function form_single_risco_edit() {
 
     }
 
-    $pod = pods( 'risco', $postID );
-    $pod->save( 'endereco', sanitize_text_field( $data[ 'endereco' ] ) );
-    $pod->save( 'descricao', sanitize_text_field( $data[ 'descricao' ] ) );
+    $save_post = upload_file_to_attachment_by_ID( $_FILES['media_files'], $postID );
 
-    $errors = [];
-    $uploaded_files = [];
-    $files = $_FILES['media_files'];
-
-    if( !empty( $files ) ) {
-
-        foreach ( $files['name'] as $key => $item ) {
-
-            if ( $files['error'][$key] === UPLOAD_ERR_OK ) {
-                $file = [
-                    'name'     => $files['name'][$key],
-                    'type'     => $files['type'][$key],
-                    'tmp_name' => $files['tmp_name'][$key],
-                    'error'    => $files['error'][$key],
-                    'size'     => $files['size'][$key]
-                ];
-            }
-
-            $file_type = wp_check_filetype( $file['name'] );
-            $allowed_types = array('jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov' );
-
-            if ( !in_array( strtolower( $file_type[ 'ext' ] ), $allowed_types ) ) {
-                $errors[] = 'Arquivo "%s" não permitido. Apenas imagens e vídeos são aceitos.';
-            }
-
-            $attachment_id = media_handle_sideload( $file, $postID, $file[ 'name' ] );
-
-            if (is_wp_error($attachment_id)) {
-                $errors[] = sprintf(
-                    __('Erro ao enviar "%s": %s', 'text-domain'),
-                    $file['name'],
-                    $attachment_id->get_error_message()
-                );
-            } else {
-                $uploaded_files[] = array(
-                    'id'  => $attachment_id,
-                    'name'  => $file['name'],
-                    'type'  => $file['type'],
-                    'url' => wp_get_attachment_url( $attachment_id )
-                );
-            }
-
-        }
-
-    }
-
-    if( empty( $errors ) ) {
+    if( empty( $save_post[ 'errors' ] ) ) {
 
         wp_send_json_success([
             'title' => 'Sucesso',
             'message' => 'Formulário enviado com sucesso!',
-            'uploaded_files' => $uploaded_files,
-            'updated_id' => $updated_id,
+            'uploaded_files' => $save_post[ 'uploaded_files' ],
+            'post_id' => $postID,
         ]);
 
     }
@@ -226,7 +177,7 @@ function form_single_risco_edit() {
     wp_send_json_error([
         'title' => 'Erro',
         'message' => 'Erro ao salvar o formulário',
-        'error' => $errors,
+        'error' => $save_post[ 'errors' ],
     ], 400 );
 
 }
@@ -275,3 +226,58 @@ function form_single_risco_delete_attachment() {
 }
 add_action('wp_ajax_form_single_risco_delete_attachment', 'form_single_risco_delete_attachment');
 //add_action('wp_ajax_nopriv_form_single_risco_delete_attachment', 'form_single_risco_delete_attachment');
+
+
+
+function upload_file_to_attachment_by_ID( $files = NULL, $postID = NULL, $attachment_id = NULL ) {
+
+    $errors = [];
+    $uploaded_files = [];
+
+    if( !empty( $files ) ) {
+
+        foreach ( $files['name'] as $key => $item ) {
+
+            if ( $files['error'][$key] === UPLOAD_ERR_OK ) {
+                $file = [
+                    'name'     => $files['name'][$key],
+                    'type'     => $files['type'][$key],
+                    'tmp_name' => $files['tmp_name'][$key],
+                    'error'    => $files['error'][$key],
+                    'size'     => $files['size'][$key]
+                ];
+            }
+
+            $file_type = wp_check_filetype( $file['name'] );
+            $allowed_types = array('jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov' );
+
+            if ( !in_array( strtolower( $file_type[ 'ext' ] ), $allowed_types ) ) {
+                $errors[] = 'Arquivo "%s" não permitido. Apenas imagens e vídeos são aceitos.';
+            }
+
+            $attachment_id = media_handle_sideload( $file, $postID, $file[ 'name' ] );
+
+            if (is_wp_error($attachment_id)) {
+                $errors[] = sprintf(
+                    __('Erro ao enviar "%s": %s', 'text-domain'),
+                    $file['name'],
+                    $attachment_id->get_error_message()
+                );
+            } else {
+                $uploaded_files[] = array(
+                    'id'  => $attachment_id,
+                    'name'  => $file['name'],
+                    'type'  => $file['type'],
+                    'url' => wp_get_attachment_url( $attachment_id )
+                );
+            }
+
+        }
+
+    }
+
+    return [
+        'errors' => $errors,
+        'uploaded_files' => $uploaded_files
+    ];
+}
