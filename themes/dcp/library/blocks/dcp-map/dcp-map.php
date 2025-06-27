@@ -68,21 +68,7 @@ function dcp_map_should_load_jeo(bool $should_load): bool {
 }
 add_filter('jeo_should_load_assets', 'hacklabr\\dcp_map_should_load_jeo');
 
-function render_dcp_map_callback(array $attributes) {
-    $risks_page = get_page_by_path('registro-de-riscos');
-
-    $jeo_maps = get_posts([
-        'post_type' => 'map',
-        'posts_per_page' => 1,
-    ]);
-
-    if (empty($jeo_maps)) {
-        return '';
-    }
-
-    $jeo_map = $jeo_maps[0];
-    assert($jeo_map instanceof \WP_Post);
-
+function get_dcp_map_data(): array {
     $data = [
         'riscos' => [],
         'apoios' => [],
@@ -104,16 +90,37 @@ function render_dcp_map_callback(array $attributes) {
         $data['apoios'][] = format_support_pin($support);
     }
 
+    return $data;
+}
+
+function render_dcp_map_callback(array $attributes) {
+    $maps_page = get_page_by_template('page-dcp-map.php');
+    $risks_page = get_page_by_path('reportar-riscos');
+
+    $jeo_maps = get_posts([
+        'post_type' => 'map',
+        'posts_per_page' => 1,
+    ]);
+
+    if (empty($jeo_maps)) {
+        return '';
+    }
+
+    $jeo_map = $jeo_maps[0];
+    assert($jeo_map instanceof \WP_Post);
+
+    $data = get_dcp_map_data();
+
     ob_start();
 ?>
-    <div class="dcp-map-block" x-data>
+    <div class="dcp-map-block" data-share-url="<?= get_permalink($maps_page) ?>" x-data>
         <script type="application/json"><?= json_encode($data) ?></script>
         <div class="dcp-map-block__tabs" data-selected="risco">
             <button type="button" class="dcp-map-block__tab dcp-map-block__tab--selected" data-cpt="risco">
-                Riscos (<?= count($risks) ?>)
+                Riscos (<?= count($data['riscos']) ?>)
             </button>
             <button type="button" class="dcp-map-block__tab" data-cpt="apoio">
-                Apoio (<?= count($supports) ?>)
+                Apoio (<?= count($data['apoios']) ?>)
             </button>
         </div>
         <div class="dcp-map-block__buttons">
@@ -121,7 +128,7 @@ function render_dcp_map_callback(array $attributes) {
                 <iconify-icon icon="bi:geo-alt-fill"></iconify-icon>
                 <span>Adicionar risco</span>
             </a>
-            <a class="dcp-map-block__open-map" href="#">
+            <a class="dcp-map-block__open-map" href="<?= get_permalink($maps_page) ?>">
                 <span>Abrir</span>
                 <iconify-icon icon="bi:chevron-right"></iconify-icon>
             </a>
@@ -135,7 +142,7 @@ function render_dcp_map_callback(array $attributes) {
 }
 
 function localize_dcp_map_script() {
-    wp_localize_script( 'hacklabr-dcp-map-script', 'dcp_map_data', [
+    wp_localize_script( 'hacklabr-dcp-map-script', 'hl_dcp_map_data', [
         'themeAssets' => get_stylesheet_directory_uri(),
     ]);
 }
