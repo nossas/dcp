@@ -447,115 +447,51 @@ jQuery(function($) {
         $( '#riscoSingleForm' ).on( 'submit', function ( e ) {
             const $this = $( this );
 
-            //TODO: REFACTORY P/ COMPONENTES/LIBRARY-JS
-            let isValid = true;
+            const form = e.target;
+            const formData = new FormData( form );
 
-            $this.find( '.input, .textarea' ).each( function () {
-                const $field = $(this);
-                const value = $field.val().trim();
+            $this.addClass( 'is-sending' );
 
-                if (!value || value.length < 5) {
-                    isValid = false;
-                    $field.addClass('is-invalid');
-                    return false;
-                } else {
-                    $field.removeClass('is-invalid');
-                }
-            });
-            $this.find( '.select' ).each( function () {
-                const $field = $(this);
-                //TODO: VALIDATION SELECT
-            });
-            $this.find( '.checkbox' ).each( function () {
-                const $field = $(this);
-                //TODO: VALIDATION CHECKBOX
-            });
+            fetch( $this.attr( 'data-action' ), {
+                method: 'POST',
+                body: formData
+            })
+                .then( res => res.json() )
+                .then( response => {
+                    $this.removeClass( 'is-sending' );
 
-            if (!isValid) {
-                const $this = $( this );
+                    if( response.success ) {
+                        custom_modal_confirm({
+                            title: response.data.title,
+                            description: response.data.message,
 
-                custom_modal_confirm({
-                    title: "Validação de formulário",
-                    description: "Verifique os campos do formulário. Todos os campos devem ter pelo menos 5 caracteres.",
+                            cancelText: "CANCELAR",
+                            onCancel: function () {},
 
-                    cancelText: "Voltar",
-                    onCancel: function () {},
+                            confirmText: "ATUALIZAR",
+                            onConfirm: function () {
 
-                    confirmText: "OK",
-                    onConfirm: function () {}
-                });
+                                window.location.reload();
 
-                $this.addClass('is-blocked');
-                $this.removeClass('is-sendable');
-                return;
-            }
-            else {
-                $this.removeClass('is-blocked');
-                $this.addClass('is-sendable');
-            }
+                            }
+                        });
+                    } else {
+                        custom_modal_confirm({
+                            title: response.data.title,
+                            description: response.data.message,
 
-            if( !$this.hasClass( 'is-sendable' ) ) {
+                            cancelText: "CANCELAR",
+                            onCancel: function () {},
 
-                custom_modal_confirm({
-                    title: "Validação de formulário",
-                    description: "O formulário não está correto para enviar, verifique os campos e as instruções",
+                            confirmText: "ATUALIZAR",
+                            onConfirm: function () {
+                                window.location.reload();
+                            }
+                        });
+                    }
 
-                    cancelText: "Voltar",
-                    onCancel: function () {},
-
-                    confirmText: "VERIFICAR",
-                    onConfirm: function () {}
-                });
-
-            }
-            else {
-
-                const form = e.target;
-                const formData = new FormData( form );
-
-                $this.addClass( 'is-sending' );
-
-                fetch( $this.attr( 'data-action' ), {
-                    method: 'POST',
-                    body: formData
                 })
-                    .then( res => res.json() )
-                    .then( response => {
-                        $this.removeClass( 'is-sending' );
-
-                        if( response.success ) {
-                            custom_modal_confirm({
-                                title: response.data.title,
-                                description: response.data.message,
-
-                                cancelText: "CANCELAR",
-                                onCancel: function () {},
-
-                                confirmText: "ATUALIZAR",
-                                onConfirm: function () {
-
-                                    window.location.reload();
-
-                                }
-                            });
-                        } else {
-                            custom_modal_confirm({
-                                title: response.data.title,
-                                description: response.data.message,
-
-                                cancelText: "CANCELAR",
-                                onCancel: function () {},
-
-                                confirmText: "ATUALIZAR",
-                                onConfirm: function () {
-                                    window.location.reload();
-                                }
-                            });
-                        }
-
-                    })
-                    .catch(error => {});
-            }
+                .catch(error => {});
 
         });
 

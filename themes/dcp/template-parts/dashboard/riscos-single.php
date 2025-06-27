@@ -110,7 +110,7 @@
                     <div class="fields">
                         <div class="input-wrap">
                             <label class="label">Categoria</label>
-                            <select class="select is-select-load-category" name="category" data-endpoint="<?=bloginfo( 'url' )?>/wp-json/wp/v2/situacao_de_risco/" required >
+                            <select class="select is-select-load-category" name="category" required >
                                 <option value="">SELECIONE UMA CATEGORIA</option>
                                 <?php foreach ( $all_terms as $key => $term ) :
                                     if( !$term->parent ) : ?>
@@ -122,7 +122,7 @@
                                     if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
                                         risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, '' );
                                     } else {
-                                        risco_badge_category( 'sem-categoria', 'NENHUMA CARTEGORIA ADICIONADA', '' );
+                                        risco_badge_category( 'sem-categoria', 'NENHUMA CATEGORIA ADICIONADA', '' );
                                     }
                                 ?>
                             </a>
@@ -144,14 +144,12 @@
                             <label class="label">Subcategoria</label>
                             <input class="input is-chip-load-subcategory" type="text" name="subcategory" placeholder="" value="" style="padding-left: 50px;" readonly required>
                             <div class="chips">
-                                <?php foreach ( $get_terms as $key => $term ) : ?>
-
+                                <?php foreach ( $get_terms as $key => $term ) : if( $term->parent ) : ?>
                                 <span class="chip" data-id="<?=$term->term_id?>" data-name="<?=$term->name?>" data-slug="<?=$term->slug?>">
                                     <iconify-icon icon="bi:check2"></iconify-icon>
                                     <?=$term->name?>
                                 </span>
-
-                                <?php endforeach; ?>
+                                <?php endif; endforeach; ?>
                             </div>
                             <a class="button is-category" style=" font-size: 21px; top: 34px; ">
                                 <iconify-icon icon="bi:list"></iconify-icon>

@@ -92,6 +92,12 @@ function form_single_risco_new() {
 
     }
 
+    $new_terms = array(
+        sanitize_text_field( $_POST[ 'situacao_de_risco' ] )
+        //sanitize_text_field( $_POST[ 'subcategory' ] )
+    );
+    wp_set_object_terms( $postID, $new_terms, 'situacao_de_risco', false );
+
     $pod = pods( 'risco', $postID );
     $pod->save( 'endereco', sanitize_text_field( $data[ 'endereco' ] ) );
     $pod->save( 'descricao', sanitize_text_field( $data[ 'descricao' ] ) );
@@ -152,11 +158,7 @@ function form_single_risco_edit() {
         'ID' => $postID,
         'post_type' => 'risco',
         'post_status' => sanitize_text_field($_POST['post_status'] ?? 'draft'),
-
         'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
-
-        //'category' => sanitize_text_field( $_POST[ 'category' ] ),
-        //'subcategory' => sanitize_text_field( $_POST[ 'subcategory' ] ),
         'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
     ];
 
@@ -176,6 +178,12 @@ function form_single_risco_edit() {
         ], 500);
 
     }
+
+    $new_terms = array(
+        sanitize_text_field( $_POST[ 'category' ] )
+        //sanitize_text_field( $_POST[ 'subcategory' ] )
+    );
+    wp_set_object_terms( $postID, $new_terms, 'situacao_de_risco', false );
 
     $pod = pods( 'risco', $postID );
     $pod->save( 'endereco', sanitize_text_field( $data[ 'endereco' ] ) );
