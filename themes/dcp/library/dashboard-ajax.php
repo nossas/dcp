@@ -231,4 +231,47 @@ function form_single_risco_edit() {
 
 }
 add_action('wp_ajax_form_single_risco_edit', 'form_single_risco_edit');
-add_action('wp_ajax_nopriv_form_single_risco_edit', 'form_single_risco_edit');
+//add_action('wp_ajax_nopriv_form_single_risco_edit', 'form_single_risco_edit');
+
+
+function form_single_risco_delete_attachment() {
+
+    if (!current_user_can('edit_posts')) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'Você não tem permissão para editar posts.',
+            'error' => [],
+        ], 403 );
+    }
+
+    $postID = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
+    $attachmentID = isset($_POST['attachment_id']) ? intval($_POST['attachment_id']) : 0;
+
+    if ( !$postID || !get_post( $postID ) ) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'ID do post inválido ou post não encontrado.',
+            'error' => [],
+        ], 400);
+    }
+
+    if( wp_delete_attachment( $attachmentID, true) ) {
+
+        wp_send_json_success([
+            'title' => 'Sucesso',
+            'message' => 'Mídia deletada com sucesso!'
+        ]);
+
+    }
+    else {
+
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'Erro ao deletar mídia'
+        ], 400 );
+
+    }
+
+}
+add_action('wp_ajax_form_single_risco_delete_attachment', 'form_single_risco_delete_attachment');
+//add_action('wp_ajax_nopriv_form_single_risco_delete_attachment', 'form_single_risco_delete_attachment');

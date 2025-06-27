@@ -83,7 +83,7 @@
                     }
                 ?>
                 <a class="button is-status <?=$class?>">
-                    <span><?=$text?> (<?=$post_status?>)</span>
+                    <span><?=$text?></span>
                 </a>
             </header>
 
@@ -216,7 +216,7 @@
                                                     <a class="button is-fullscreen">
                                                         <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
                                                     </a>
-                                                    <a class="button is-delete">
+                                                    <a class="button is-delete" data-id="<?=$video->ID?>">
                                                         <iconify-icon icon="bi:trash-fill"></iconify-icon>
                                                     </a>
                                                     <a class="button is-download">
@@ -247,7 +247,7 @@
                                                     <a class="button is-fullscreen">
                                                         <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
                                                     </a>
-                                                    <a class="button is-delete">
+                                                    <a class="button is-delete" data-id="<?=$image->ID?>">
                                                         <iconify-icon icon="bi:trash-fill"></iconify-icon>
                                                     </a>
                                                     <a class="button is-download">
@@ -332,9 +332,6 @@
 
                 <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
                 <?php echo get_template_part('template-parts/dashboard/ui/modal-assetset-fullscreen' ); ?>
-
-
-
 
                 <div style=" background-color: rgba( 0,0,0, 0.05 ); padding: 1rem; margin-bottom: 1rem; border-radius: 25px; font-size: 14px;">
                     <p><strong>OUTRAS INFOS :</strong></p>

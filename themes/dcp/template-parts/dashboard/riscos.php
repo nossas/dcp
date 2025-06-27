@@ -27,10 +27,12 @@
                                 while( $value[ 'riscos' ]->have_posts() ) :
                                     $value[ 'riscos' ]->the_post();
                                     $pod = pods( 'risco', get_the_ID() );
+                                    $post_status = get_post_status();
                                     ?>
 
-                                    <article class="post-card" style="display: none;">
+                                    <article class="post-card is-<?=$post_status?>" style="display: none;">
                                         <main class="post-card__content">
+                                            <div class="post-card__term">
                                             <div class="post-card__term">
                                                 <?php
                                                     $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
@@ -48,7 +50,7 @@
                                             </h3>
 
                                             <div class="post-card__excerpt-wrapped">
-                                                <p>
+                                                <p class="text-excerpt">
                                                     <?php
 
                                                     //TODO: REFACTORY P/ UTILS
@@ -69,28 +71,36 @@
 
                                             <?php if( $panel_id == 'riscosPublicados' ) : ?>
                                                 <div class="post-card__assets is-slider-thumb">
-                                                <?php foreach ( get_attached_media('', get_the_ID() ) as $attachment ) : ?>
-                                                <div class="slider-thumb-item">
-                                                    <?php if( $attachment->post_mime_type == 'image/jpeg' || $attachment->post_mime_type == 'image/png' ) : ?>
-                                                    <img class="is-load-now" data-media-src="<?=$attachment->guid?>" />
-                                                    <?php endif; ?>
+                                                <?php $get_attachments = get_attached_media('', get_the_ID() );
+                                                if( !empty( $get_attachments ) ) :
+                                                    foreach ( get_attached_media('', get_the_ID() ) as $attachment ) : ?>
+                                                    <div class="slider-thumb-item">
+                                                        <?php if( $attachment->post_mime_type == 'image/jpeg' || $attachment->post_mime_type == 'image/png' ) : ?>
+                                                        <img class="is-load-now" data-media-src="<?=$attachment->guid?>" />
+                                                        <?php endif; ?>
 
-                                                    <?php if( $attachment->post_mime_type == 'video/mp4' ) : ?>
-                                                    <video class="" poster="" playsinline controls>
-                                                        <source class="is-load-now" data-media-src="<?=$attachment->guid?>" type="video/mp4">
-                                                    </video>
-                                                    <?php endif; ?>
-                                                </div>
-                                                <?php endforeach; ?>
-                                                </div>
+                                                        <?php if( $attachment->post_mime_type == 'video/mp4' ) : ?>
+                                                        <video class="" poster="" playsinline controls>
+                                                            <source class="is-load-now" data-media-src="<?=$attachment->guid?>" type="video/mp4">
+                                                        </video>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                <?php endforeach;
 
+                                                else : ?>
+                                                    <div class="slider-thumb-empty">
+                                                        Nenhuma Mídia adicionada ainda.
+                                                    </div>
+
+                                                <?php endif; ?>
+                                                </div>
                                             <?php endif; ?>
 
                                             <div class="post-card__see-more">
 
                                                 <?php if( $panel_id == 'riscosAprovacao' ) : ?>
                                                 <a class="is-aprovacao button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
-                                                    <span>Avaliar</span>
+                                                    Avaliar
                                                     <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                                 </a>
                                                 <?php endif; ?>
@@ -98,13 +108,13 @@
                                                 <?php if( $panel_id == 'riscosPublicados' ) : ?>
                                                 <a class="is-publicados button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
                                                     <iconify-icon icon="bi:pencil-square"></iconify-icon>
-                                                    <span>Editar</span>
+                                                    Editar
                                                 </a>
                                                 <?php endif; ?>
 
                                                 <?php if( $panel_id == 'riscosArquivados' ) : ?>
                                                 <a class="is-arquivados button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
-                                                    <span>Reavaliar</span>
+                                                    Reavaliar
                                                     <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                                 </a>
                                                 <?php endif; ?>

@@ -153,27 +153,28 @@ class MediaLoader {
 // TODO: COMPORTAMENTO MOCK jQUERY
 jQuery(function($) {
 
-    function _mock_ajax_dashboard() {
+    function _ajax_dele_media_by_id( post_id, attachment_id, success, error ) {
         $.ajax({
-            url: './',
+            url: $( '#riscoSingleForm' ).attr( 'data-action' ),
             type: 'POST',
             data: {
-                action: 'dashboard_get_risks',
-                filter: 'lasted'
+                action : 'form_single_risco_delete_attachment',
+                post_id : post_id,
+                attachment_id : attachment_id
             },
-            beforeSend: function() {
-                $( '.tabs__panels .post-card, .tabs__panels .message-response, .tabs__panels .tabs__panel__pagination' ).hide();
-                $( '.tabs__panels .dashboard-content-skeleton' ).show();
+            beforeSend: function() {},
+            success: function( response ) {
+                if( typeof success === 'function' ) {
+                    success( response );
+                }
             },
-            success: function() {
-                //
-            },
-            error: function () {
-
+            error: function ( response ) {
+                if( typeof error === 'function' ) {
+                    error( response );
+                }
             },
             complete: function() {
-                $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
-                $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
+
             }
         });
     }
@@ -272,9 +273,26 @@ jQuery(function($) {
         });
 
         $( '.asset-item-preview .is-fullscreen' ).on( 'click', function() {
+            const $this = $( this );
+            const $modalFullscreen = $( '.modal-asset-fullscreen' );
 
-            $( '.modal-asset-fullscreen' ).fadeIn( 200, function() {});
+            $modalFullscreen.find( 'img, video' ).hide();
 
+            if( $this.parent().parent().find( 'img' ).length ) {
+                $modalFullscreen.find( 'img' ).attr( 'src', $this.parent().parent().find( 'img' ).attr( 'src') );
+                $modalFullscreen.find( 'img' ).show();
+            }
+            if( $this.parent().parent().find( 'video' ).length ) {
+                $modalFullscreen.find( 'video source' ).attr( 'src', $this.parent().parent().find( 'video source' ).attr( 'src') );
+                $modalFullscreen.find( 'video' ).show();
+            }
+
+
+            $modalFullscreen.fadeIn( 200, function() {
+
+
+
+            });
         });
 
         $( '.asset-item-preview-actions .is-delete' ).on( 'click', function() {
@@ -282,19 +300,39 @@ jQuery(function($) {
             custom_modal_confirm({
                 title: "Confirmar Exclusão",
                 description: "Deseja realmente excluir este item?",
-
                 cancelText: "Voltar",
                 onCancel: function () {
                     console.log("Ação cancelada");
                 },
-
                 confirmText: "Excluir",
                 onConfirm: function () {
-                    console.log("Item excluído");
-                    $this.parent().parent().remove();
-                },
-                //customConfirmText: "Arquivar",
-                //onCustomConfirm: function () { console.log("Item arquivado"); }
+                    $this.parent().parent().css({
+                        opacity : 0.5,
+                        cursor : 'wait'
+                    });
+                    _ajax_dele_media_by_id(
+                        $( '#riscoSingleForm' ).find( 'input[name="post_id"]' ).val(),
+                        $this.attr( 'data-id' ),
+                        function ( response ) {
+                            custom_modal_confirm({
+                                title: response.data.title,
+                                description: response.data.message,
+
+                                cancelText: "CANCELAR",
+                                onCancel: function () {},
+
+                                confirmText: "ATUALIZAR",
+                                onConfirm: function () {
+                                    window.location.reload();
+                                }
+                            });
+                            $this.parent().parent().remove();
+                        },
+                        function () {
+
+                        }
+                    );
+                }
             });
         });
 

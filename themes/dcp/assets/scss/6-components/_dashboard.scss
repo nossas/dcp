@@ -284,13 +284,10 @@
                                 max-width: calc( 100% - 25px );
                             }
 
-
-
                             &:hover {
                                 transform: scale(1.05);
                                 z-index: 2;
                             }
-
 
                             &__term {
 
@@ -330,7 +327,6 @@
                                 }
                             }
 
-
                             &__title {
                                 font-size: size( 23 );
                                 font-weight: normal;
@@ -338,20 +334,20 @@
                                 padding: 0;
 
                                 span {
-
+                                    font-size: size( 23 );
+                                    padding: 0;
+                                    margin: 0;
                                 }
                             }
 
                             &__excerpt-wrapped {
                                 padding-bottom: size( 20 );
-
                                 p {
                                     font-size: size( 17 );
-                                    min-height: size( 100 );
+                                    min-height: size( 110 );
                                     line-height: size( 18 );
 
                                     .read-more {
-                                        font-size: $font-size--xx-small;
                                         text-decoration: underline;
                                         color: $color--secondary-dark;
                                         font-weight: bold;
@@ -363,16 +359,20 @@
                                     }
 
                                     .read-more-full {
+                                        font-size: inherit;
                                         display: none;
+                                        padding: 0;
+                                        margin: 0;
                                     }
                                 }
                             }
 
                             &__assets {
-                                background-color: rgba( 0,0,0,0.03 );
+                                background-color: rgba( 0,0,0,0.05 );
                                 width: 100%;
                                 height: size( 200 );
                                 border-radius: size( 15 );
+                                padding: 0;
                                 margin-bottom: size( 20 );
                                 overflow: hidden;
                                 position: relative;
@@ -382,6 +382,8 @@
 
                                     width: 100%;
                                     height: auto;
+                                    padding: 0;
+                                    margin: 0;
 
                                     position: absolute;
                                     top: 0;
@@ -395,9 +397,16 @@
                                         display: block;
                                     }
                                 }
+                                .slider-thumb-empty {
+                                    text-align: center;
+                                    width: 100%;
+                                    height: size( 200 );
+                                    line-height: size( 160 );
+                                    position: relative;
+                                    z-index: 1;
+                                }
 
                             }
-
 
                             &__see-more {
 
@@ -437,7 +446,6 @@
                             }
 
                         }
-
                     }
                     .tabs__panel__pagination {
 
@@ -1028,8 +1036,7 @@
                     bottom: 0;
                     z-index: 100;
 
-                    .modal-confirm-content,
-                    .modal-asset-fullscreen-content {
+                    .modal-confirm-content {
 
                         background-color: $color--secondary-light;
 
@@ -1106,18 +1113,87 @@
                                 color: $color--secondary-light;
                                 padding: size( 10 ) size( 75 );
                             }
-
-
                         }
-
-
-
-
-
                     }
                 }
 
                 .modal-asset-fullscreen {
+
+                    .modal-asset-fullscreen-content {
+                        background-color: $color--secondary-light;
+                        width: 50%;
+                        height: auto;
+                        padding: 0;
+                        border-radius: size( 20 );
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        overflow: hidden;
+
+                        .is-title {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            z-index: 5;
+
+                            .button {
+                                background-color: rgba( 255,255,255,0.8 );
+                                font-size: size( 30 );
+                                color: $color--secondary-dark;
+                                padding: size( 10 ) size( 20 );
+                                border: none;
+                            }
+                        }
+                        .is-body {
+                            background-color: #000;
+                            display: block;
+                            width: 100%;
+                            height: auto;
+                            min-height: 300px;
+                            padding: 0;
+
+                            .is-image {
+                                max-height: 90vh;
+                            }
+                            .is-video {}
+                        }
+                        .is-actions {
+                            background-color: $color--secondary-dark;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: size( 20 );
+                            position: relative;
+
+                            .button {
+                                border-radius: size( 50 );
+                                font-size: size( 20 );
+
+                                height: 45px;
+
+                                i {
+
+                                }
+                                span {
+
+                                }
+                            }
+
+                            .button.is-cancel {
+                                background-color: transparent;
+                                color: $color--secondary-dark;
+                                border: solid 1px $color--secondary-dark;
+                                padding: size( 10 ) size( 25 );
+                            }
+                            .button.is-confirm {
+                                background-color: $color--warning-dark;
+                                color: $color--secondary-light;
+                                padding: size( 10 ) size( 75 );
+                            }
+                        }
+                    }
 
                 }
 
