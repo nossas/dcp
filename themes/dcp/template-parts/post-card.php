@@ -19,7 +19,7 @@ $modifiers = implode(' ', $modifiers);
 
 $categories = get_the_category();
 ?>
-<article id="post-ID-<?php the_ID(); ?>" class="post-card <?= $modifiers ?>">
+<article id="post-ID-<?php the_ID(); ?>" class="post-card <?= $modifiers ?>" data-post-id="<?php the_ID() ?>">
     <header class="post-card__image">
         <a href="<?php the_permalink(); ?>">
             <?php if (has_post_thumbnail()): ?>
@@ -63,7 +63,7 @@ $categories = get_the_category();
 
                     if (!empty($data_bruta)) {
                         $timestamp = strtotime($data_bruta);
-                        $data_formatada = date('H:i | d/m/Y', $timestamp);
+                        $data_formatada = wp_date('H:i | d/m/Y', $timestamp);
                         echo ' ' . esc_html($data_formatada);
                     }
                 }
@@ -196,7 +196,7 @@ $categories = get_the_category();
                 <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_apoio', ['id' => $post->ID]); ?>">
                     <?= __('Editar') ?>
                 </a>
-                
+
             </div>
         <?php endif; ?>
 

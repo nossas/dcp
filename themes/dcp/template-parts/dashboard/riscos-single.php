@@ -34,11 +34,15 @@
 
 
             $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
+            $all_terms = get_terms([
+                'taxonomy' => 'situacao_de_risco',
+                'hide_empty' => false,
+            ]);
 
-?>
+
+            ?>
 
         <div id="dashboardRiscoSingle" class="dashboard-content">
-
             <div class="dashboard-content-breadcrumb">
                 <ol class="breadcrumb">
                     <li>
@@ -52,14 +56,11 @@
                     <li><a href="#/">Avaliar risco</a></li>
                 </ol>
             </div>
-
             <header class="dashboard-content-header">
                 <h2>Confira se está tudo correto:</h2>
                 <?php
-
                     //TODO: REFACTORY P/ COMPONENT
                     $post_status = get_post_status();
-
                     switch ( $post_status ) {
                         case 'publish':
                             $class = 'is-publish';
@@ -109,28 +110,25 @@
                     <div class="fields">
                         <div class="input-wrap">
                             <label class="label">Categoria</label>
-                            <select class="select is-select-load-category" name="category" data-endpoint="<?=bloginfo( 'url' )?>/wp-json/wp/v2/situacao_de_risco/" readonly required>
-                                <option value="">CARREGANDO . . .</option>
+                            <select class="select is-select-load-category" name="category" required >
+                                <option value="">SELECIONE UMA CATEGORIA</option>
+                                <?php foreach ( $all_terms as $key => $term ) :
+                                    if( !$term->parent ) : ?>
+                                    <option value="<?=$term->slug?>" <?=( $term->slug == $get_terms[0]->slug ) ? 'selected' : '' ?> ><?=$term->name?></option>
+                                <?php endif; endforeach; ?>
                             </select>
                             <a class="button is-category">
                                 <?php
-
-                                if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
-                                    risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, '' );
-                                } else {
-                                    risco_badge_category( 'sem-categoria', 'NENHUMA CARTEGORIA ADICIONADA', '' );
-                                }
+                                    if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                                        risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, '' );
+                                    } else {
+                                        risco_badge_category( 'sem-categoria', 'SEM CATEGORIA ADICIONADA', '' );
+                                    }
                                 ?>
                             </a>
-                            <a class="button is-edit-input" style="display: none;">
-                                <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                            <a class="button is-edit-input">
+                                <iconify-icon icon="bi:chevron-down"></iconify-icon>
                             </a>
-                            <a class="button is-loading" style="display: block;">
-                                <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
-                            </a>
-                            <pre>
-                                <?php print_r( $get_terms ); ?>
-                            </pre>
                         </div>
                         <div class="input-help">
                             <a href="#/" class="button">
@@ -144,15 +142,20 @@
                     <div class="fields">
                         <div class="input-wrap">
                             <label class="label">Subcategoria</label>
-                            <input class="input is-chip-load-subcategory" type="text" name="subcategory" placeholder="" value="CARREGANDO . . ."  data-endpoint="<?=bloginfo( 'url' )?>/wp-json/wp/v2/situacao_de_risco/?post=<?=$risco_id?>" style="padding-left: 50px;" readonly required>
+                            <input class="input is-chip-load-subcategory" type="text" name="subcategory" placeholder="" value="" style="padding-left: 50px;" readonly required>
+                            <div class="chips">
+                                <?php foreach ( $get_terms as $key => $term ) : if( $term->parent ) : ?>
+                                <span class="chip" data-id="<?=$term->term_id?>" data-name="<?=$term->name?>" data-slug="<?=$term->slug?>">
+                                    <iconify-icon icon="bi:check2"></iconify-icon>
+                                    <?=$term->name?>
+                                </span>
+                                <?php endif; endforeach; ?>
+                            </div>
                             <a class="button is-category" style=" font-size: 21px; top: 34px; ">
                                 <iconify-icon icon="bi:list"></iconify-icon>
                             </a>
-                            <a class="button is-edit-input" style="display: none;">
+                            <a class="button is-edit-input">
                                 <iconify-icon icon="bi:pencil-square"></iconify-icon>
-                            </a>
-                            <a class="button is-loading" style="display: block;">
-                                <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
                             </a>
                         </div>
                         <div class="input-help">
@@ -219,7 +222,7 @@
                                                     <a class="button is-delete" data-id="<?=$video->ID?>">
                                                         <iconify-icon icon="bi:trash-fill"></iconify-icon>
                                                     </a>
-                                                    <a class="button is-download">
+                                                    <a class="button is-download" href="<?=$video->guid?>" target="_blank">
                                                         <iconify-icon icon="bi:download"></iconify-icon>
                                                     </a>
                                                     <a class="button is-show-hide">
@@ -250,7 +253,7 @@
                                                     <a class="button is-delete" data-id="<?=$image->ID?>">
                                                         <iconify-icon icon="bi:trash-fill"></iconify-icon>
                                                     </a>
-                                                    <a class="button is-download">
+                                                    <a class="button is-download" href="<?=$video->guid?>" target="_blank">
                                                         <iconify-icon icon="bi:download"></iconify-icon>
                                                     </a>
                                                     <a class="button is-show-hide">
@@ -264,12 +267,11 @@
                                 </div>
                                 <?php endif; ?>
 
-
-                                <?php /*if( empty( $attachment ) ) : ?>
+                                <?php if( empty( $videos ) && empty( $images ) ) : ?>
                                 <div class="input-media-preview-assets is-empty">
                                     <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
                                 </div>
-                                <?php endif;*/ ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="input-help">
@@ -326,25 +328,12 @@
                             }
 
                         ?>
-
                     </div>
                 </form>
-
                 <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
                 <?php echo get_template_part('template-parts/dashboard/ui/modal-assetset-fullscreen' ); ?>
-
-                <div style=" background-color: rgba( 0,0,0, 0.05 ); padding: 1rem; margin-bottom: 1rem; border-radius: 25px; font-size: 14px;">
-                    <p><strong>OUTRAS INFOS :</strong></p>
-                    <p>NOME : <?=$pod->field('nome_completo')?></p>
-                    <p>EMAIL : <?=$pod->field('email')?></p>
-                    <p>TELEFONE : <?=$pod->field('telefone')?></p>
-                    <p>AUTORIZA CONTATO : <?=$pod->field('autoriza_contato')?></p>
-                    <p>DATA E HORA : <?=$pod->field('data_e_horario')?></p>
-                </div>
-
             </div>
         </div>
-
     <?php endwhile; ?>
 <?php endif; ?>
 
