@@ -19,7 +19,7 @@ $modifiers = implode(' ', $modifiers);
 
 $categories = get_the_category();
 ?>
-<article id="post-ID-<?php the_ID(); ?>" class="post-card <?= $modifiers ?>">
+<article id="post-ID-<?php the_ID(); ?>" class="post-card <?= $modifiers ?>" data-post-id="<?php the_ID() ?>">
     <header class="post-card__image">
         <a href="<?php the_permalink(); ?>">
             <?php if (has_post_thumbnail()): ?>

@@ -117,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const url = URL.createObjectURL(file);
                     const item = document.createElement('div');
                     item.classList.add('multistepform__carousel-item');
+                    item.style.position = 'relative';
 
                     let mediaElement;
                     if (file.type.startsWith('image')) {
@@ -135,19 +136,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     item.appendChild(mediaElement);
 
-                    // Exibe botão remover só se estiver em modo edição
                     if (editandoResumo) {
                         const removeBtn = document.createElement('button');
-                        removeBtn.textContent = 'Remover';
-                        removeBtn.classList.add('remove-media-btn');
                         removeBtn.type = 'button';
-                        removeBtn.style.display = 'block';
-                        removeBtn.style.marginTop = '5px';
+                        removeBtn.classList.add('remove-media-btn');
+                        removeBtn.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none">
+                            <path d="M5 5L15 15M15 5L5 15" stroke="#B83D13" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    `;
+                        removeBtn.style.position = 'absolute';
+                        removeBtn.style.top = '0';
+                        removeBtn.style.right = '0';
+                        removeBtn.style.background = 'transparent';
+                        removeBtn.style.border = 'none';
+                        removeBtn.style.cursor = 'pointer';
+                        removeBtn.style.padding = '4px';
+
                         removeBtn.addEventListener('click', (e) => {
                             e.preventDefault();
                             riskDraft.midias.splice(index, 1);
                             preencherResumo();
                         });
+
                         item.appendChild(removeBtn);
                     }
 
@@ -159,13 +170,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Exibe input para adicionar mídias só se estiver em modo edição
             if (editandoResumo) {
+                const addMediaWrapper = document.createElement('div');
+                addMediaWrapper.style.marginTop = '10px';
+
                 const addMediaLabel = document.createElement('label');
                 addMediaLabel.classList.add('add-media-btn');
-                addMediaLabel.style.display = 'inline-block';
-                addMediaLabel.style.marginTop = '10px';
-                addMediaLabel.style.cursor = 'pointer';
-                addMediaLabel.textContent = 'Adicionar nova mídia';
                 addMediaLabel.htmlFor = 'addMidiaFromResumo';
+                addMediaLabel.style.display = 'inline-flex';
+                addMediaLabel.style.alignItems = 'center';
+                addMediaLabel.style.gap = '6px';
+                addMediaLabel.style.backgroundColor = '#B83D13';
+                addMediaLabel.style.color = '#fff';
+                addMediaLabel.style.borderRadius = '999px';
+                addMediaLabel.style.padding = '6px 12px';
+                addMediaLabel.style.cursor = 'pointer';
+                addMediaLabel.style.fontSize = '14px';
+
+                addMediaLabel.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 20 20" fill="none">
+                    <path d="M10 4V16M4 10H16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Adicionar mídia
+            `;
 
                 const addMediaInput = document.createElement('input');
                 addMediaInput.type = 'file';
@@ -180,8 +206,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     preencherResumo();
                 });
 
-                midiasContainer.appendChild(addMediaLabel);
-                midiasContainer.appendChild(addMediaInput);
+                addMediaWrapper.appendChild(addMediaLabel);
+                addMediaWrapper.appendChild(addMediaInput);
+                midiasContainer.appendChild(addMediaWrapper);
             }
         }
     };

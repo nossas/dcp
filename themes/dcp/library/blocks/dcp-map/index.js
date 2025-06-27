@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tabsList = block.querySelector('.dcp-map-block__tabs')
         const tabs = [...block.querySelectorAll('.dcp-map-block__tab')]
         const map = block.querySelector('.jeomap')
+        let displayModal
         let toggleLayer = null
 
         const selectedCPT = { current: tabsList.dataset.selected }
@@ -31,12 +32,34 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         })
 
+        document.querySelectorAll('.risco a').forEach((link) => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault()
+
+                if (displayModal) {
+                    const card = link.closest('.post-card')
+                    const postId = Number(card.dataset.postId)
+                    for (const risco of riscos) {
+                        if (risco.ID == postId) {
+                            displayModal(block, 'risco', {
+                                icon: `risco-${risco.type}`,
+                                ...risco,
+                            })
+                            break
+                        }
+                    }
+                }
+            })
+        })
+
         await until(() => map.dataset.map_id)
 
         const jeoMap = globalThis.jeomaps[map.dataset.uui_id]
 
         await until(() => jeoMap.map)
 
-        toggleLayer = setupMap(jeoMap, block, riscos, apoios, selectedCPT)
+        const mapContext = setupMap(jeoMap, block, riscos, apoios, selectedCPT)
+        displayModal = mapContext.displayModal
+        toggleLayer = mapContext.toggleLayer
     })
 })

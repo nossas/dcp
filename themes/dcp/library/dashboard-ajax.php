@@ -61,7 +61,6 @@ function get_dashboard_riscos() {
 function form_single_risco_new() {
 
     $data = [
-
         'post_type' => 'risco',
         'post_status' => 'draft',
         'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
@@ -162,8 +161,8 @@ function form_single_risco_edit() {
     ];
 
     //TODO: REMOVE DEPOIS DE TESTAR
-    $data[ 'post_title' ] = '[' . $data[ 'post_status_current' ] . '] RISCO : ' . $data[ 'endereco' ];
-    $data[ 'post_content' ] = 'RISCO : ' . $data[ 'endereco' ] . ' - ' . $data[ 'descricao' ];
+    $data[ 'post_title' ] = $data[ 'endereco' ];
+    $data[ 'post_content' ] = $data[ 'descricao' ];
     //TODO: REMOVE DEPOIS DE TESTAR
 
     $updated_id = wp_update_post( $data, true );
