@@ -79,6 +79,7 @@ function displayApoioModal (container, apoio) {
 
     dialog.querySelector('.dcp-map-modal__title').innerHTML = apoio.title
     dialog.querySelector('.dcp-map-modal__excerpt').innerHTML = apoio.excerpt
+    dialog.querySelector('.support-modal__hour').innerHTML = apoio.horario
     dialog.querySelector('.support-modal__address').innerHTML = apoio.endereco
 
     const whatsappButton = dialog.querySelector('.dcp-map-modal__whatsapp')

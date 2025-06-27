@@ -38,7 +38,7 @@
             <h1 class="dcp-map-modal__title">$</h1>
             <p class="dcp-map-modal__excerpt"></p>
             <div class="dcp-map-modal__details">
-                <!-- <p><iconify-icon icon="bi:calendar3"></iconify-icon> Horário: <span class="support-modal__hour"></span></p> -->
+                <p><iconify-icon icon="bi:calendar3"></iconify-icon> Horário: <span class="support-modal__hour"></span></p>
                 <p><iconify-icon icon="bi:geo-alt-fill"></iconify-icon> Endereço: <span class="support-modal__address"></span></p>
             </div>
         </main>

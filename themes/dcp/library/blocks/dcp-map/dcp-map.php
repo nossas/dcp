@@ -51,6 +51,7 @@ function format_support_pin(\WP_Post $post): array {
         'title' => $post->post_title,
         'excerpt' => get_the_excerpt($post),
         'endereco' => get_post_meta($post->ID, 'endereco', true),
+        'horario' => implode('; ', get_post_meta($post->ID, 'horario_de_atendimento')),
         'media' => get_pin_attachments($post),
         'lat' => get_post_meta($post->ID, 'latitude', true) ?: 0,
         'lon' => get_post_meta($post->ID, 'longitude', true) ?: 0,
