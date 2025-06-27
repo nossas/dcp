@@ -121,6 +121,10 @@ function render_dcp_map_callback(array $attributes) {
                 <iconify-icon icon="bi:geo-alt-fill"></iconify-icon>
                 <span>Adicionar risco</span>
             </a>
+            <a class="dcp-map-block__open-map" href="#">
+                <span>Abrir</span>
+                <iconify-icon icon="bi:chevron-right"></iconify-icon>
+            </a>
         </div>
         <div class="jeomap map_id_<?= $jeo_map->ID ?>"></div>
         <?php get_template_part('template-parts/dcp-map-modal') ?>

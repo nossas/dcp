@@ -62,6 +62,12 @@
         color: white;
     }
 
+    &__open-map {
+        background-color: white;
+        color: black;
+        outline: 1px solid black;
+    }
+
     .jeomap {
         background-color: transparent;
         height: size(400);
