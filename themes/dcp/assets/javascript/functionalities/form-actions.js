@@ -219,34 +219,58 @@ document.addEventListener('DOMContentLoaded', () => {
         midiaInput.addEventListener('change', (event) => {
             const files = Array.from(event.target.files);
             previewContainer.innerHTML = '';
-            files.forEach(file => {
+            riskDraft.midias = [];
+
+            files.forEach((file, index) => {
                 const fileType = file.type;
                 const reader = new FileReader();
 
                 reader.onload = function (e) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'media-item';
+
+                    // SVG de lixeira
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'media-delete';
+                    deleteBtn.type = 'button';
+                    deleteBtn.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#B83D13">
+                            <path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7a1 1 0 1 0-1.41 1.42L10.59 12l-4.89 4.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4z"/>
+                        </svg>
+                    `;
+
+                    deleteBtn.addEventListener('click', () => {
+                        wrapper.remove();
+                        riskDraft.midias.splice(index, 1);
+                    });
+
                     if (fileType.startsWith('image/')) {
                         const img = document.createElement('img');
                         img.src = e.target.result;
-                        previewContainer.appendChild(img);
+                        wrapper.appendChild(img);
                     } else if (fileType.startsWith('video/')) {
                         const video = document.createElement('video');
                         video.src = e.target.result;
                         video.controls = true;
-                        previewContainer.appendChild(video);
+                        wrapper.appendChild(video);
                     } else {
                         const span = document.createElement('span');
                         span.className = 'file-name';
                         span.textContent = file.name;
-                        previewContainer.appendChild(span);
+                        wrapper.appendChild(span);
                     }
-                }
+
+                    wrapper.appendChild(deleteBtn);
+                    previewContainer.appendChild(wrapper);
+
+                    riskDraft.midias.push(file);
+                };
 
                 reader.readAsDataURL(file);
             });
-
-            riskDraft.midias = files;
         });
     }
+
 
     document.querySelectorAll('input[name="situacao_de_risco"]').forEach(radio => {
         radio.addEventListener('change', (event) => {
