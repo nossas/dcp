@@ -65,7 +65,6 @@
         gap: $gap--medium;
         justify-content: center;
         margin: auto;
-        padding: $padding--medium;
         position: absolute;
         max-width: calc(100% - #{size(32)});
         width: size(720);
@@ -109,6 +108,12 @@
 
         .mapboxgl-ctrl-logo {
             display: none;
+        }
+
+        @media screen and (max-width: size(820)) {
+            .mapboxgl-ctrl-top-left {
+                top: size(64);
+            }
         }
     }
 }
