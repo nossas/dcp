@@ -43,8 +43,9 @@
                     <div class="phones-item">
                         <div class="phone-text">
                             <p class="phone-number">193</p>
+                            <p>Corpo de Bombeiros</p>
                         </div>
-                        <p>Corpo de Bombeiros</p>
+
                         <a href="tel:193">
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/phone-brown.png" alt="Ícone de telefone" />
                         </a>
@@ -52,8 +53,9 @@
                     <div class="phones-item">
                         <div class="phone-text">
                             <p class="phone-number">192</p>
+                            <p>SAMU</p>
                         </div>
-                        <p>SAMU</p>
+
                         <a href="tel:192">
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/phone-brown.png" alt="Ícone de telefone" />
                         </a>
@@ -61,8 +63,8 @@
                     <div class="phones-item">
                         <div class="phone-text">
                             <p class="phone-number">192</p>
+                            <p>Defesa Civil</p>
                         </div>
-                        <p>Defesa Civil</p>
                         <a href="tel:192">
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/phone-brown.png" alt="Ícone de telefone" />
                         </a>

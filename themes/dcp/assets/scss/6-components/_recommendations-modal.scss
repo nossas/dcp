@@ -1,12 +1,26 @@
 .recommendations-modal{
     .header-title,
     .recommendations-item,
-    .phones-item{
+    .phone-text{
         display: flex;
         gap: .5rem;
         align-items: center;
     }
-
+    .recommendations-content{
+        padding-bottom: 2rem;
+    }
+    .phones-content{
+        padding-bottom: 1rem;
+    }
+    .recommendations-content,
+    .phones-content{
+        border-bottom: 1px solid #281414    ;
+    }
+    .phones-item{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: .5rem;
+    }
     .recommendations-items,
     .phone-items{
         display: flex;
@@ -16,7 +30,7 @@
     }
 
     .phones-content{
-        margin-top: 2rem;
+        margin-top: .5rem;
     }
 
     .phone-number{

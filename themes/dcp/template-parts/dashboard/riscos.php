@@ -39,7 +39,7 @@
                                                     if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
                                                         risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
                                                     } else {
-                                                        risco_badge_category( 'sem-categoria', 'NENHUMA CARTEGORIA ADICIONADA' );
+                                                        risco_badge_category( 'sem-categoria', 'NENHUMA CATEGORIA ADICIONADA' );
                                                     }
                                                 ?>
                                                 <div class="post-card__risco-meta"><?=date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
