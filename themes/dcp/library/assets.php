@@ -372,6 +372,13 @@ class Assets
                 'global' => true,
             ],
 
+            'dashboard-modal' => [
+                'file' => 'dashboard-modal.js',
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
+            ],
+
             'form-actions' => [
                 'file' => 'form-actions.js',
                 'preload_callback' => function () {
