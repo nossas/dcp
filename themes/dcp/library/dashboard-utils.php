@@ -1,6 +1,10 @@
 <?php
 
 
+
+
+
+
 function risco_badge_category( $slug = 'default', $label = 'CATEGORIA GERAL', $class = 'post-card__taxonomia term-alagamento' ) {
 
     //TODO:  REFATORY P/ COMPONENTE (MELHOR LÓGICA)
