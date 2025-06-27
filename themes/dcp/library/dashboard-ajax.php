@@ -18,10 +18,45 @@ function get_posts_riscos( $args = [ 'post_status' => 'publish' ] ) {
     return new WP_Query( $args );
 }
 
+function get_dashboard_riscos() {
 
+    return [
+        'riscosAprovacao' => [
+            'is_active' => true,
+            'pagination' => false,
+            'riscos' => new WP_Query([
+                'post_type'      => 'risco',
+                'post_status'    => 'draft',
+                'posts_per_page' => -1,
+                'orderby'        => 'date',
+                'order'          => 'DESC'
+            ])
+        ],
+        'riscosPublicados' =>[
+            'is_active' => false,
+            'pagination' => false,
+            'riscos' => new WP_Query([
+                'post_type'      => 'risco',
+                'post_status'    => 'publish',
+                'posts_per_page' => -1,
+                'orderby'        => 'date',
+                'order'          => 'DESC'
+            ])
+        ],
+        'riscosArquivados' => [
+            'is_active' => false,
+            'pagination' => false,
+            'riscos' => new WP_Query([
+                'post_type'      => 'risco',
+                'post_status'    => 'pending',
+                'posts_per_page' => -1,
+                'orderby'        => 'date',
+                'order'          => 'DESC'
+            ])
+        ],
+    ];
 
-
-
+}
 
 
 function form_single_risco_new() {
@@ -76,12 +111,6 @@ function form_single_risco_new() {
 }
 add_action('wp_ajax_form_single_risco_new', 'form_single_risco_new');
 add_action('wp_ajax_nopriv_form_single_risco_new', 'form_single_risco_new');
-
-
-
-
-
-
 
 
 function form_single_risco_edit() {
@@ -203,3 +232,46 @@ function form_single_risco_edit() {
 }
 add_action('wp_ajax_form_single_risco_edit', 'form_single_risco_edit');
 //add_action('wp_ajax_nopriv_form_single_risco_edit', 'form_single_risco_edit');
+
+
+function form_single_risco_delete_attachment() {
+
+    if (!current_user_can('edit_posts')) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'Você não tem permissão para editar posts.',
+            'error' => [],
+        ], 403 );
+    }
+
+    $postID = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
+    $attachmentID = isset($_POST['attachment_id']) ? intval($_POST['attachment_id']) : 0;
+
+    if ( !$postID || !get_post( $postID ) ) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'ID do post inválido ou post não encontrado.',
+            'error' => [],
+        ], 400);
+    }
+
+    if( wp_delete_attachment( $attachmentID, true) ) {
+
+        wp_send_json_success([
+            'title' => 'Sucesso',
+            'message' => 'Mídia deletada com sucesso!'
+        ]);
+
+    }
+    else {
+
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'Erro ao deletar mídia'
+        ], 400 );
+
+    }
+
+}
+add_action('wp_ajax_form_single_risco_delete_attachment', 'form_single_risco_delete_attachment');
+//add_action('wp_ajax_nopriv_form_single_risco_delete_attachment', 'form_single_risco_delete_attachment');

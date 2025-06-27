@@ -101,5 +101,16 @@ namespace hacklabr\dashboard;
             <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
     </div>
+
+    <style>
+        pre {
+            background-color: #000;
+            font-size: 12px;
+            color: #00FF00;
+            text-align: left;
+            padding: 5px;
+            border-radius: 10px;
+        }
+    </style>
 </body>
 </html>

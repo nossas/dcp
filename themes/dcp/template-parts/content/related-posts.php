@@ -18,36 +18,34 @@
         $categoria_nome = $categorias ? $categorias[0]->name : '';
         $categoria_slug = $categorias ? $categorias[0]->slug : '';
 
-        // Definir cor por categoria
         $cores = [
           'limpeza' => '#2EAF4F',
-          'reparos' => '#3A9CA6',
-          'cultural' => '#B44420'
+          'reparos' => '#51B2AF',
+          'cultural' => '#B83D13'
         ];
         $cor = $cores[$categoria_slug] ?? '#888';
 
-        // Pegando os campos via Pods
         $pod   = pods('acao', get_the_ID());
         $data  = $pod->display('data');
         $hora  = $pod->display('horario');
         $local = $pod->display('endereco');
     ?>
-      <div class="acao-card">
-        <!-- Cabeçalho da categoria -->
-        <div class="acao-topo" style="background: <?= esc_attr($cor) ?>;">
-          <span class="acao-categoria">
-            <span class="acao-icon">🔈</span> <?= esc_html($categoria_nome) ?>
+      <div class="acao-card card-style--<?= $categoria_slug ?>">
+        <div class="acao-topo " style="background: <?= esc_attr($cor) ?>;">
+          <span class="acao-categoria acao-card--<?= $categoria_slug ?>">
+            <span class="acao-icon"></span> <?= esc_html($categoria_nome) ?>
           </span>
         </div>
 
-        <!-- Conteúdo do card -->
         <div class="acao-conteudo">
           <h3 class="acao-titulo"><?php the_title(); ?></h3>
           <p class="acao-descricao"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
 
           <ul class="acao-infos">
+            <?php $imagem_calendar = get_template_directory_uri() . '/assets/images/wrapper.svg'; ?>
+            <?php $imagem_pin = get_template_directory_uri() . '/assets/images/pin.svg'; ?>
             <?php if ($data && $hora): ?>
-              <li>📅 <strong>Dia:</strong> <?= esc_html($data) ?>, <?= esc_html($hora) ?></li>
+              <li> <img src="<?= esc_url($imagem_calendar) ?>" > Dia: <?= esc_html($data) ?>, <?= esc_html($hora) ?></li>
             <?php elseif ($data): ?>
               <li>📅 <strong>Dia:</strong> <?= esc_html($data) ?></li>
             <?php elseif ($hora): ?>
@@ -55,12 +53,11 @@
             <?php endif; ?>
 
             <?php if ($local): ?>
-              <li>📍 <strong>Endereço:</strong> <?= esc_html($local) ?></li>
+              <li> <img src="<?= esc_url($imagem_pin) ?>" > Endereço: <?= esc_html($local) ?></li>
             <?php endif; ?>
           </ul>
         </div>
 
-        <!-- Rodapé com botão -->
         <div class="acao-rodape" style="background: <?= esc_attr($cor) ?>;">
           <a href="<?php the_permalink(); ?>" class="acao-botao">Saiba mais e participe</a>
         </div>

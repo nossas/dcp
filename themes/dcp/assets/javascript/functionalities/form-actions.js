@@ -12,6 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
         ''
     ];
 
+    const riskDraft = {
+        endereco: '',
+        latitude: 0,
+        longitude: 0,
+        midias: [],
+        nome_completo: '',
+        email: '',
+        telefone: '',
+        autoriza_contato: true,
+        data_e_horario: '',
+        descricao: '',
+        situacao_de_risco: '',
+    }
+
     const injectCheckIcon = (circle) => {
         if (!circle.querySelector('.step-circle__check-icon')) {
             const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -59,10 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
         updateStepIndicators(index);
 
         if (index >= 0 && index <= 4) {
-            if(stageText) stageText.textContent = stepLabels[index];
-            if(header) header.style.display = 'flex';
+            if (stageText) stageText.textContent = stepLabels[index];
+            if (header) header.style.display = 'flex';
         } else {
-            if(header) header.style.display = 'none';
+            if (header) header.style.display = 'none';
         }
 
         const stepsContainer = document.querySelector('.form-steps__container');
@@ -72,19 +86,79 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 stepsContainer.style.display = '';
             }
-        } else {
-            console.warn('Elemento .form-steps__container não encontrado');
         }
+
+        if (index === 4) preencherResumo();
     };
 
 
     let currentStep = 0;
 
+    const preencherResumo = () => {
+        const endereco = document.getElementById('reviewEndereco');
+        if (endereco) endereco.textContent = riskDraft.endereco || '';
+
+        const tipoTexto = document.getElementById('reviewTipoRiscoTexto');
+        if (tipoTexto) tipoTexto.textContent = riskDraft.situacao_de_risco || '';
+
+        const descricao = document.getElementById('reviewDescricao');
+        if (descricao) descricao.textContent = riskDraft.descricao || '';
+
+        const midiasContainer = document.getElementById('reviewMidias');
+        if (midiasContainer) {
+            midiasContainer.innerHTML = '';
+
+            if (riskDraft.midias && riskDraft.midias.length > 0) {
+                riskDraft.midias.forEach((file) => {
+                    const url = URL.createObjectURL(file);
+                    const item = document.createElement('div');
+                    item.classList.add('multistepform__carousel-item');
+
+                    if (file.type.startsWith('image')) {
+                        item.innerHTML = `<img src="${url}" alt="Imagem enviada" style="max-width: 100px; border-radius: 8px;">`;
+                    } else if (file.type.startsWith('video')) {
+                        item.innerHTML = `<video src="${url}" controls style="max-width: 100px; border-radius: 8px;"></video>`;
+                    }
+
+                    midiasContainer.appendChild(item);
+                });
+            } else {
+                midiasContainer.innerHTML = '<p>Nenhuma mídia enviada.</p>';
+            }
+        }
+    };
+
+
+    function validateStep(stepIndex) {
+        switch (stepIndex) {
+            case 0:
+                return riskDraft.endereco.trim() !== '';
+            case 1:
+                return riskDraft.descricao.trim() !== '';
+            case 2:
+                return true;
+            case 3:
+                return (
+                    riskDraft.nome_completo.trim() !== '' &&
+                    riskDraft.email.trim() !== '' &&
+                    riskDraft.telefone.trim() !== ''
+                );
+            case 4:
+                return true;
+            default:
+                return true;
+        }
+    }
+
     document.querySelectorAll('.multistepform__button-next').forEach(btn => {
         btn.addEventListener('click', () => {
-            if (currentStep < steps.length - 1) {
-                currentStep++;
-                handleShowStep(currentStep);
+            if (validateStep(currentStep)) {
+                if (currentStep < steps.length - 2) {
+                    currentStep++;
+                    handleShowStep(currentStep);
+                }
+            } else {
+                alert('Por favor, preencha os campos obrigatórios antes de continuar.');
             }
         });
     });
@@ -99,17 +173,212 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const form = document.getElementById('multiStepForm');
-    if(form) {
-        form.addEventListener('submit', e => {
-            e.preventDefault();
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        riskDraft.data_e_horario = new Date().toISOString();
+        const success = await submitData(riskDraft);
+        if (success) {
             currentStep++;
             handleShowStep(currentStep);
-        });
-    } else {
-        console.warn('Form multiStepForm não encontrado');
-    }
+        } else {
+            alert('Erro ao enviar o formulário. Tente novamente.');
+        }
+    });
 
     setTimeout(() => {
         handleShowStep(currentStep);
     }, 50);
+
+    for (const textField of ['endereco', 'nome_completo', 'email', 'telefone', 'descricao']) {
+        const input = document.querySelector(`[name="${textField}"]`);
+
+        input.addEventListener('input', (event) => {
+            riskDraft[textField] = event.target.value;
+        });
+    }
+
+    for (const checkboxField of ['autoriza_contato']) {
+        const input = document.querySelector(`[name="${checkboxField}"]`);
+
+        input.addEventListener('input', (event) => {
+            riskDraft[checkboxField] = event.target.checked;
+        });
+    }
+
+    const midiaInput = document.querySelector('input[name="media_files[]"]');
+    if (midiaInput) {
+        midiaInput.addEventListener('change', (event) => {
+            const files = Array.from(event.target.files);
+            riskDraft.midias = files;
+        });
+    }
+
+    const previewContainer = document.getElementById('mediaPreview');
+
+    if (midiaInput && previewContainer) {
+        midiaInput.addEventListener('change', (event) => {
+            const files = Array.from(event.target.files);
+            previewContainer.innerHTML = '';
+            files.forEach(file => {
+                const fileType = file.type;
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    if (fileType.startsWith('image/')) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        previewContainer.appendChild(img);
+                    } else if (fileType.startsWith('video/')) {
+                        const video = document.createElement('video');
+                        video.src = e.target.result;
+                        video.controls = true;
+                        previewContainer.appendChild(video);
+                    } else {
+                        const span = document.createElement('span');
+                        span.className = 'file-name';
+                        span.textContent = file.name;
+                        previewContainer.appendChild(span);
+                    }
+                }
+
+                reader.readAsDataURL(file);
+            });
+
+            riskDraft.midias = files;
+        });
+    }
+
+    document.querySelectorAll('input[name="situacao_de_risco"]').forEach(radio => {
+        radio.addEventListener('change', (event) => {
+            if (event.target.checked) {
+                riskDraft.situacao_de_risco = event.target.value;
+            }
+        });
+    });
+
+    document.querySelector('input[name="endereco"]').addEventListener('change', async (event) => {
+        const {
+            address_suffix,
+            rest_url
+        } = globalThis.hl_form_actions_data
+        const address = event.target.value;
+        const fullAddress = address + address_suffix
+        const res = await fetch(`${rest_url}?address=${encodeURIComponent(fullAddress)}`, {
+            method: 'POST',
+        })
+        if (res.ok) {
+            try {
+                const json = await res.text()
+                const data = JSON.parse(json)
+                if (data) {
+                    riskDraft.latitude = data.lat
+                    riskDraft.longitude = data.lon
+                }
+            } catch (error) {
+                console.error(error)
+            }
+        }
+    })
+
+    async function submitData(data) {
+        const formData = new FormData();
+        formData.append('action', 'form_single_risco_new');
+        for (const key in data) {
+            if (key === 'midias') {
+                data.midias.forEach((file, i) => {
+                    formData.append(`media_files[]`, file);
+                });
+            } else {
+                formData.append(key, data[key]);
+            }
+        }
+        const res = await fetch(new URL('/wp-admin/admin-ajax.php', location.href), {
+            method: 'POST',
+            body: formData,
+
+        })
+        if (res.ok) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    const editarBtn = document.getElementById('editarResumo');
+    const enviarBtn = document.getElementById('enviarResumo');
+    let editandoResumo = false;
+
+    editarBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const reviewEndereco = document.getElementById('reviewEndereco');
+        const reviewTipo = document.getElementById('reviewTipoRiscoTexto');
+        const reviewDescricao = document.getElementById('reviewDescricao');
+
+        if (!editandoResumo) {
+            editandoResumo = true;
+            editarBtn.innerHTML = 'Salvar';
+
+            if (enviarBtn) enviarBtn.disabled = true;
+
+            if (reviewEndereco) {
+                reviewEndereco.innerHTML = `<input type="text" value="${riskDraft.endereco || ''}" />`;
+            }
+
+            if (reviewTipo) {
+                const select = document.createElement('select');
+                const radioInputs = document.querySelectorAll('input[name="situacao_de_risco"]');
+                const opcoes = Array.from(radioInputs).map(input => input.value);
+
+                opcoes.forEach(opcao => {
+                    const opt = document.createElement('option');
+                    opt.value = opcao;
+                    opt.textContent = opcao;
+                    if (opcao === riskDraft.situacao_de_risco) opt.selected = true;
+                    select.appendChild(opt);
+                });
+
+                reviewTipo.innerHTML = '';
+                reviewTipo.appendChild(select);
+            }
+
+            if (reviewDescricao) {
+                reviewDescricao.innerHTML = `<textarea>${riskDraft.descricao || ''}</textarea>`;
+            }
+
+        } else {
+            editandoResumo = false;
+            editarBtn.innerHTML = 'Editar';
+
+            if (enviarBtn) enviarBtn.disabled = false;
+
+            const inputEndereco = reviewEndereco.querySelector('input');
+            if (inputEndereco) {
+                riskDraft.endereco = inputEndereco.value;
+                reviewEndereco.textContent = riskDraft.endereco;
+            }
+
+            const selectTipo = reviewTipo.querySelector('select');
+            if (selectTipo) {
+                riskDraft.situacao_de_risco = selectTipo.value;
+                reviewTipo.textContent = riskDraft.situacao_de_risco;
+
+                const tipoWrapper = document.getElementById('reviewTipoRisco');
+                tipoWrapper.classList.forEach(cl => {
+                    if (cl.startsWith('tipo-')) tipoWrapper.classList.remove(cl);
+                });
+
+                const slug = riskDraft.situacao_de_risco.toLowerCase().normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-');
+                tipoWrapper.classList.add(`tipo-${slug}`);
+            }
+
+            const textareaDescricao = reviewDescricao.querySelector('textarea');
+            if (textareaDescricao) {
+                riskDraft.descricao = textareaDescricao.value;
+                reviewDescricao.textContent = riskDraft.descricao;
+            }
+        }
+    });
+
 });

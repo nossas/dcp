@@ -73,3 +73,13 @@
         }
     }
 }
+
+.wp-block-list {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    li{
+        padding-bottom: 1.5rem;
+        color:$color--secondary-dark !important;
+
+    }
+}

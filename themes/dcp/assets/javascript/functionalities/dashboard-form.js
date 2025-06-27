@@ -1,6 +1,18 @@
 
 // EXEMPLO PARA GERAR THUMBNAIL DO VÍDEO E DA IMAGEM NATES DE ENVIAR PARA ENDPOINT
 
+
+
+
+// {
+//         action : 'form_single_risco_new',
+//         endereco : 'Rua da Paz, 3099 - Ipanema, São Paulo/SP - CEP: 01000-394',
+//         descricao : 'Lorem ipsum',
+//         [ DEMAIS CAMPOS ]
+// }
+
+
+
 // Processar arquivos selecionados
 fileInput.addEventListener('change', async (e) => {
     const files = Array.from(e.target.files);
