@@ -8,9 +8,9 @@
     </header>
     <div class="dashboard-content-tabs tabs">
         <div class="tabs__header">
-            <a href="#aprovacao" class="is-active">AGUARDANDO APROVAÇÃO <span>(9)</span> </a>
-            <a href="#publicados">PUBLICADOS</a>
-            <a href="#arquivados">ARQUIVADOS</a>
+            <a href="#aprovacao" class="is-active">AGUARDANDO APROVAÇÃO <span class="total"></span> </a>
+            <a href="#publicados">PUBLICADOS <span class="total"></span></a>
+            <a href="#arquivados">ARQUIVADOS <span class="total"></span></a>
         </div>
         <?php
             foreach ( get_dashboard_riscos() as $panel_id => $value ) {
@@ -33,12 +33,12 @@
                                         <main class="post-card__content">
                                             <div class="post-card__term">
                                                 <?php
-                                                $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
-                                                if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
-                                                    risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
-                                                } else {
-                                                    risco_badge_category( 'sem-categoria', 'NENHUMA CARTEGORIA ADICIONADA' );
-                                                }
+                                                    $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
+                                                    if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                                                        risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
+                                                    } else {
+                                                        risco_badge_category( 'sem-categoria', 'NENHUMA CARTEGORIA ADICIONADA' );
+                                                    }
                                                 ?>
                                                 <div class="post-card__risco-meta"><?=date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
                                             </div>
@@ -48,17 +48,67 @@
                                             </h3>
 
                                             <div class="post-card__excerpt-wrapped">
-                                                <div class="post-card__excerpt">
-                                                    <?=$pod->field( 'descricao' )?>
-                                                    <a href="#/">Ver mais</a>
-                                                </div>
+                                                <p>
+                                                    <?php
+
+                                                    //TODO: REFACTORY P/ UTILS
+                                                    $descricao = $pod->field( 'descricao' );
+
+                                                    if ( strlen( $descricao ) <= 125 ) {
+                                                        echo $descricao;
+                                                    } else {
+                                                        echo substr( $descricao, 0, 125 ) . '<a class="read-more" href="#/">Ver mais</a>';
+                                                        echo '<span class="read-more-full">' . substr( $descricao, 125 ) . '</span>';
+                                                    }
+                                                    //TODO: REFACTORY P/ UTILS
+
+                                                    ?>
+
+                                                </p>
                                             </div>
 
+                                            <?php if( $panel_id == 'riscosPublicados' ) : ?>
+                                                <div class="post-card__assets is-slider-thumb">
+                                                <?php foreach ( get_attached_media('', get_the_ID() ) as $attachment ) : ?>
+                                                <div class="slider-thumb-item">
+                                                    <?php if( $attachment->post_mime_type == 'image/jpeg' || $attachment->post_mime_type == 'image/png' ) : ?>
+                                                    <img class="is-load-now" data-media-src="<?=$attachment->guid?>" />
+                                                    <?php endif; ?>
+
+                                                    <?php if( $attachment->post_mime_type == 'video/mp4' ) : ?>
+                                                    <video class="" poster="" playsinline controls>
+                                                        <source class="is-load-now" data-media-src="<?=$attachment->guid?>" type="video/mp4">
+                                                    </video>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <?php endforeach; ?>
+                                                </div>
+
+                                            <?php endif; ?>
+
                                             <div class="post-card__see-more">
-                                                <a href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>" class="button">
+
+                                                <?php if( $panel_id == 'riscosAprovacao' ) : ?>
+                                                <a class="is-aprovacao button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
                                                     <span>Avaliar</span>
                                                     <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                                 </a>
+                                                <?php endif; ?>
+
+                                                <?php if( $panel_id == 'riscosPublicados' ) : ?>
+                                                <a class="is-publicados button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
+                                                    <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                                                    <span>Editar</span>
+                                                </a>
+                                                <?php endif; ?>
+
+                                                <?php if( $panel_id == 'riscosArquivados' ) : ?>
+                                                <a class="is-arquivados button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
+                                                    <span>Reavaliar</span>
+                                                    <iconify-icon icon="bi:chevron-right"></iconify-icon>
+                                                </a>
+                                                <?php endif; ?>
+
                                             </div>
 
                                         </main>

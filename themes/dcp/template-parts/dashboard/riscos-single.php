@@ -32,6 +32,9 @@
 
             }
 
+
+            $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
+
 ?>
 
         <div id="dashboardRiscoSingle" class="dashboard-content">
@@ -109,12 +112,25 @@
                             <select class="select is-select-load-category" name="category" data-endpoint="<?=bloginfo( 'url' )?>/wp-json/wp/v2/situacao_de_risco/" readonly required>
                                 <option value="">CARREGANDO . . .</option>
                             </select>
+                            <a class="button is-category">
+                                <?php
+
+                                if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                                    risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, '' );
+                                } else {
+                                    risco_badge_category( 'sem-categoria', 'NENHUMA CARTEGORIA ADICIONADA', '' );
+                                }
+                                ?>
+                            </a>
                             <a class="button is-edit-input" style="display: none;">
                                 <iconify-icon icon="bi:pencil-square"></iconify-icon>
                             </a>
                             <a class="button is-loading" style="display: block;">
                                 <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
                             </a>
+                            <pre>
+                                <?php print_r( $get_terms ); ?>
+                            </pre>
                         </div>
                         <div class="input-help">
                             <a href="#/" class="button">
@@ -128,7 +144,10 @@
                     <div class="fields">
                         <div class="input-wrap">
                             <label class="label">Subcategoria</label>
-                            <input class="input is-chip-load-subcategory" type="text" name="subcategory" placeholder="" value="CARREGANDO . . ."  data-endpoint="<?=bloginfo( 'url' )?>/wp-json/wp/v2/situacao_de_risco/?post=<?=$risco_id?>" readonly required>
+                            <input class="input is-chip-load-subcategory" type="text" name="subcategory" placeholder="" value="CARREGANDO . . ."  data-endpoint="<?=bloginfo( 'url' )?>/wp-json/wp/v2/situacao_de_risco/?post=<?=$risco_id?>" style="padding-left: 50px;" readonly required>
+                            <a class="button is-category" style=" font-size: 21px; top: 34px; ">
+                                <iconify-icon icon="bi:list"></iconify-icon>
+                            </a>
                             <a class="button is-edit-input" style="display: none;">
                                 <iconify-icon icon="bi:pencil-square"></iconify-icon>
                             </a>
