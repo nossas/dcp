@@ -17,6 +17,7 @@ function buildGallery (container, feature) {
             slideContent.src = media.src
         } else if (media.mime.startsWith('video')) {
             slideContent = document.createElement('video')
+            slideContent.controls = true
             slideContent.src = media.src
         }
 
