@@ -208,16 +208,27 @@
                 margin: size(10) 0;
 
                 .tabs__header {
-                    border-bottom: 1px solid rgba( 0,0,0,0.5 );
-
+                    border-bottom: 1px solid $color--secondary-dark;
 
                     a {
                         text-decoration: none;
                         color: inherit;
                         padding: size(7) size(15);
+                        position: relative;
                     }
                     a.is-active {
                         font-weight: bold;
+
+                        &::before {
+                            content: '';
+                            display: block;
+                            width: 100%;
+                            height: 3px;
+                            background-color: $color--secondary-dark;
+                            position: absolute;
+                            bottom: -1px;
+                            left: 0;
+                        }
                     }
                 }
 
@@ -245,16 +256,16 @@
                         .post-card {
                             background-color: white;
                             font-weight: 300;
-                            border-color: #FEFBF9;
-
+                            color: $color--secondary-dark;
                             display: inline-block;
                             width: 100%;
                             max-width: calc( 33% - 25px );
-                            height: size( 350 );
-                            padding: 25px;
+                            min-height: size( 350 );
+                            padding: size( 25 ) size( 25 ) size( 35 ) size( 25 );
                             margin: 0 25px 25px 0;
 
-                            border-radius: var(--Spacing-space-250, 20px);
+                            border-color: #FEFBF9;
+                            border-radius: size( 20 );
 
                             position: relative;
                             z-index: 1;
@@ -264,13 +275,13 @@
                             transition: all 0.5s 0s ease;
 
                             @include small {
-
+                                max-width: calc( 100% - 25px );
                             }
                             @include mobile {
-
+                                max-width: calc( 100% - 25px );
                             }
                             @include tablet {
-
+                                max-width: calc( 100% - 25px );
                             }
 
 
@@ -321,31 +332,70 @@
 
 
                             &__title {
-                                font-size: $font-size--medium;
+                                font-size: size( 23 );
+                                font-weight: normal;
+                                line-height: size( 24 );
+                                padding: 0;
 
-                                span {}
+                                span {
+
+                                }
                             }
 
                             &__excerpt-wrapped {
                                 padding-bottom: size( 20 );
 
-                                div {
-                                    width: 100%;
-                                    height: size( 50 );
-                                    overflow: hidden;
-                                }
+                                p {
+                                    font-size: size( 17 );
+                                    min-height: size( 100 );
+                                    line-height: size( 18 );
 
-                                a {
-                                    font-size: $font-size--xx-small;
-                                    text-decoration: underline;
-                                    font-weight: bold;
-                                    color: $color--secondary-dark;
-                                    padding: size( 5 ) size( 15 );
+                                    .read-more {
+                                        font-size: $font-size--xx-small;
+                                        text-decoration: underline;
+                                        color: $color--secondary-dark;
+                                        font-weight: bold;
+                                        padding: size( 5 ) size( 15 );
 
-                                    &:hover {
-                                        color: $color--primary-pure;
+                                        &:hover {
+                                            color: $color--primary-pure;
+                                        }
+                                    }
+
+                                    .read-more-full {
+                                        display: none;
                                     }
                                 }
+                            }
+
+                            &__assets {
+                                background-color: rgba( 0,0,0,0.03 );
+                                width: 100%;
+                                height: size( 200 );
+                                border-radius: size( 15 );
+                                margin-bottom: size( 20 );
+                                overflow: hidden;
+                                position: relative;
+                                z-index: 1;
+
+                                .slider-thumb-item {
+
+                                    width: 100%;
+                                    height: auto;
+
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    z-index: 1;
+
+                                    img {
+                                        display: block;
+                                    }
+                                    video {
+                                        display: block;
+                                    }
+                                }
+
                             }
 
 
@@ -353,14 +403,35 @@
 
                                 text-align: right;
 
-                                a.button {
+                                .button {
+                                    font-size: size( 16 );
+                                    padding: size( 13 ) size( 23 );
+                                }
+
+                                .is-aprovacao {
                                     background-color: $color--secondary-dark;
                                     color: $color--secondary-light;
                                     border-radius: size( 50 );
 
-                                    &:hover {
-                                        background-color: $color--primary-pure;
-                                    }
+                                    &:hover {}
+                                }
+
+                                .is-publicados {
+                                    background-color: $color--secondary-light;
+                                    color: $color--warning-dark;
+                                    border-radius: size( 50 );
+                                    border: solid 1px $color--warning-dark;
+
+                                    &:hover {}
+                                }
+
+                                .is-arquivados {
+                                    background-color: $color--secondary-light;
+                                    color: $color--secondary-dark;
+                                    border-radius: size( 50 );
+                                    border: solid 1px $color--secondary-dark;
+
+                                    &:hover {}
                                 }
 
                             }
@@ -420,7 +491,7 @@
                     }
 
                 }
-                .tabs__panels.is-active {]
+                .tabs__panels.is-active {
                     display: block !important;
                 }
             }
@@ -481,10 +552,12 @@
                                 opacity: 0.5;
                                 cursor: not-allowed;
                             }
-
                             textarea {
                                 height: 200px;
                                 resize: none;
+                            }
+                            select {
+                                padding: size( 15 ) size( 20 ) size( 15 ) size( 50 );
                             }
                             a.button {
                                 background-color: transparent;
@@ -513,6 +586,19 @@
                                 padding: size( 7 );
 
                                 opacity: 0.5;
+                            }
+                            a.button.is-category {
+                                background-color: transparent;
+                                line-height: size( 20 );
+                                padding: size( 7 );
+                                right: auto;
+                                left: 8px;
+                                top: 33px;
+                                opacity: 0.5;
+
+                                span span {
+                                    display: none;
+                                }
                             }
                         }
                         .input-wrap.is-success {}

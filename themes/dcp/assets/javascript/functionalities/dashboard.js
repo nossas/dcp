@@ -187,6 +187,7 @@ jQuery(function($) {
             const tab = $this.attr( 'href' );
 
             $( '.tabs__header a, .tabs__panels' ).removeClass( 'is-active' );
+            $( '.tabs__header a .total' ).html( '' );
             $( '.tabs__panels' ).hide();
 
             switch ( tab ) {
@@ -195,6 +196,7 @@ jQuery(function($) {
 
                     $this.addClass( 'is-active' );
                     $( '#riscosAprovacao' ).show().addClass( 'is-active' );
+                    $this.find( '.total' ).html( '(' + $( '#riscosAprovacao .post-card' ).length + ')' );
 
                     break;
 
@@ -203,6 +205,7 @@ jQuery(function($) {
 
                     $this.addClass( 'is-active' );
                     $( '#riscosPublicados' ).show().addClass( 'is-active' );
+                    $this.find( '.total' ).html( '(' + $( '#riscosPublicados .post-card' ).length + ')' );
 
                     break;
 
@@ -210,6 +213,7 @@ jQuery(function($) {
 
                     $this.addClass( 'is-active' );
                     $( '#riscosArquivados' ).show().addClass( 'is-active' );
+                    $this.find( '.total' ).html( '(' + $( '#riscosArquivados .post-card' ).length + ')' );
 
                     break;
 
@@ -223,6 +227,14 @@ jQuery(function($) {
             $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
 
         });
+        $( '.tabs__header a.is-active' ).trigger( 'click' );
+        // TODO: COMPORTAMENTO MOCK TAB PANELS ( componentizar / usar Alpine já existente )
+
+        $( '.tabs__panel__content .post-card__excerpt-wrapped .read-more' ).on('click', function() {
+            const $this = $( this );
+            $this.hide();
+            $this.parent().find( '.read-more-full' ).show();
+        })
 
         $( 'img' ).each( function () {
 

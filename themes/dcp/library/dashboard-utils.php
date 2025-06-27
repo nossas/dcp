@@ -1,38 +1,29 @@
 <?php
 
 
-function risco_badge_category( $slug = 'default', $label = 'CATEGORIA GERAL' ) {
+function risco_badge_category( $slug = 'default', $label = 'CATEGORIA GERAL', $class = 'post-card__taxonomia term-alagamento' ) {
+
+    //TODO:  REFATORY P/ COMPONENTE (MELHOR LÓGICA)
+    echo '<span class=" ' . $class . ' is-' . $slug . '">';
 
     switch ( $slug ) {
 
         case 'alagamento':
-            echo '<span class="post-card__taxonomia term-alagamento is-' . $slug . '">'
-                . '<iconify-icon icon="bi:water"></iconify-icon>'
-                . '<span>' . $label . '</span>'
-                . '</span>';
+            echo '<iconify-icon icon="bi:water"></iconify-icon>';
             break;
 
         case 'lixo':
-            echo '<span class="post-card__taxonomia term-alagamento is-' . $slug . '">'
-                . '<iconify-icon icon="bi:trash3-fill"></iconify-icon>'
-                . '<span>' . $label . '</span>'
-                . '</span>';
+            echo '<iconify-icon icon="bi:trash3-fill"></iconify-icon>';
             break;
         case 'outros':
-            echo '<span class="post-card__taxonomia term-alagamento is-' . $slug . '">'
-                . '<iconify-icon icon="bi:moisture"></iconify-icon>'
-                . '<span>' . $label . '</span>'
-                . '</span>';
+            echo '<iconify-icon icon="bi:moisture"></iconify-icon>';
             break;
 
         default:
-
-            echo '<span class="post-card__taxonomia term-alagamento is-' . $slug . '">'
-                . '<iconify-icon icon="bi:life-preserver"></iconify-icon>'
-                . '<span>' . $label . '</span>'
-                . '</span>';
-
+            echo '<iconify-icon icon="bi:life-preserver"></iconify-icon>';
             break;
     }
+
+    echo '<span>' . $label . '</span>' . '</span>';
 
 }
