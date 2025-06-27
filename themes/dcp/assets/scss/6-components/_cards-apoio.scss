@@ -210,6 +210,21 @@
 .apoio{
     &__container{
         max-width: $break--desktop-large;
+
+        @include mobile{
+            max-width: size(350);
+        }
+    }
+
+    &__btn-wpp{
+        align-items: center;
+        background-color: $color--primary-pure;
+        border-radius: size(100);
+        color: $color--high-light;
+        display: flex;
+        gap: $gap--small;
+        padding: size(10) $padding--medium;
+        text-decoration: none;
     }
 
     &__btn-cancelar,
@@ -362,6 +377,11 @@
         grid-template-columns: repeat(3, 1fr);
         gap: size(24);
 
+        @include mobile{
+            display: flex;
+            flex-direction: column;
+        }
+
         .post-card{
             max-width: size(390);
             width: 100%;
@@ -457,6 +477,8 @@
             }
 
             &__image{
+                pointer-events: none;
+                
                 & > a > img{
                     border-radius: $border-radius--large $border-radius--large 0 0 ;
                 }
@@ -476,6 +498,7 @@
                 font-size: size(20);
                 font-weight: $font-weight--medium;
                 line-height: 120%;
+                pointer-events: none;
 
                 & > a{
                     color: $color--secondary-dark;
@@ -489,6 +512,8 @@
 
         @include mobile{
             margin-bottom: size(24);
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         &--edit {
@@ -524,6 +549,10 @@
         gap: $gap--medium;
         margin-top: $margin--large;
         margin-bottom: $margin--large;
+
+        @include mobile{
+            display: none;
+        }
     }
 
     &__title{
