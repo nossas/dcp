@@ -63,7 +63,7 @@ $categories = get_the_category();
 
                     if (!empty($data_bruta)) {
                         $timestamp = strtotime($data_bruta);
-                        $data_formatada = date('H:i | d/m/Y', $timestamp);
+                        $data_formatada = wp_date('H:i | d/m/Y', $timestamp);
                         echo ' ' . esc_html($data_formatada);
                     }
                 }
@@ -196,7 +196,7 @@ $categories = get_the_category();
                 <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_apoio', ['apoio' => sanitize_title($post->post_title)]); ?>">
                     <?= __('Editar') ?>
                 </a>
-                
+
             </div>
         <?php endif; ?>
 
