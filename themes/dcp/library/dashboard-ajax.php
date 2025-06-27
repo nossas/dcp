@@ -60,6 +60,8 @@ function get_dashboard_riscos() {
 
 function form_single_risco_new() {
 
+    $term = get_term_by( 'slug', sanitize_text_field( $_POST[ 'situacao_de_risco' ] ), 'situacao_de_risco' );
+
     $data = [
         'post_type' => 'risco',
         'post_status' => 'draft',
@@ -77,7 +79,7 @@ function form_single_risco_new() {
             'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
         ],
         'tax_input' => [
-            'situacao_de_risco' => sanitize_text_field( $_POST[ 'situacao_de_risco' ] ),
+            'situacao_de_risco' => [ $term->term_id ],
         ],
     ];
 
