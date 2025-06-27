@@ -51,6 +51,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const jeoMap = globalThis.jeomaps[map.dataset.uui_id]
 
+    jeoMap.element.style.height = (window.innerHeight - container.offsetTop) + 'px'
+    container.querySelector('canvas').style.height = jeoMap.element.style.height
+
     await until(() => jeoMap.map)
 
     toggleLayer = setupMap(jeoMap, container, riscos, apoios, selectedCPT)

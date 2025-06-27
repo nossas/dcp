@@ -87,6 +87,10 @@
                 }
             }
 
+            &__editar-btn{
+                display: none;
+            }
+
             &__title {
                 font-family: $font-family--primary !important;
                 font-size: $font-size--small;
@@ -247,6 +251,10 @@
                 padding: size(20);
             }
 
+            &__editar-btn{
+                display: block;
+            }
+
             &__excerpt{
                 color: $color--secondary-dark;
                 font-size: $font-size--x-small;
@@ -311,7 +319,7 @@
 
             &__see-in-map {
                 display: flex;
-                justify-content: flex-start;
+                justify-content: space-between !important;
                 margin-top: size(20);
 
                 @include mobile {
