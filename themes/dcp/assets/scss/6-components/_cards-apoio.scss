@@ -212,6 +212,17 @@
         max-width: $break--desktop-large;
     }
 
+    &__btn-cancelar,
+    &__btn-arquivar,
+    &__btn-salvar{
+        @include mobile{
+            justify-content: center;
+            width: 100%;
+        }
+    }
+
+
+
     &__btn-cancelar{
         align-items: center;
         border: size(1) solid $color--secondary-dark;
@@ -250,11 +261,25 @@
             gap: $gap--medium;
             justify-content: flex-end;
             max-width: $break--desktop-large;
+
+            @include mobile{
+                flex-direction: column;
+            }
         }
 
         &__hint{
             display: flex;
             gap: $gap--small;
+
+            @include mobile{
+                margin-top: $margin--small;
+            }
+
+            &-text{
+                @include mobile{
+                    display: none;
+                }
+            }
         }
 
         &__hint-icon {
@@ -311,7 +336,7 @@
 
                 @include mobile{
                     display: flex;
-                    flex-direction: column;
+                    gap: $gap--x-small;
                 }
 
                 &-img{
@@ -320,6 +345,7 @@
 
                     img{
                         width: size(676);
+                        margin-bottom: $margin--medium;
                     }
                 }
             }
