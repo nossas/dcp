@@ -99,7 +99,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (endereco) endereco.textContent = riskDraft.endereco || '';
 
         const tipoTexto = document.getElementById('reviewTipoRiscoTexto');
-        if (tipoTexto) tipoTexto.textContent = riskDraft.situacao_de_risco || '';
+        if (tipoTexto) {
+            const radio = document.querySelector(`input[name="situacao_de_risco"][value="${riskDraft.situacao_de_risco}"]`);
+            const label = radio?.nextElementSibling?.textContent;
+            tipoTexto.textContent = label || riskDraft.situacao_de_risco || '';
+        }
 
         const descricao = document.getElementById('reviewDescricao');
         if (descricao) descricao.textContent = riskDraft.descricao || '';
@@ -109,15 +113,42 @@ document.addEventListener('DOMContentLoaded', () => {
             midiasContainer.innerHTML = '';
 
             if (riskDraft.midias && riskDraft.midias.length > 0) {
-                riskDraft.midias.forEach((file) => {
+                riskDraft.midias.forEach((file, index) => {
                     const url = URL.createObjectURL(file);
                     const item = document.createElement('div');
                     item.classList.add('multistepform__carousel-item');
 
+                    let mediaElement;
                     if (file.type.startsWith('image')) {
-                        item.innerHTML = `<img src="${url}" alt="Imagem enviada" style="max-width: 100px; border-radius: 8px;">`;
+                        mediaElement = document.createElement('img');
+                        mediaElement.src = url;
+                        mediaElement.alt = 'Imagem enviada';
+                        mediaElement.style.maxWidth = '100px';
+                        mediaElement.style.borderRadius = '8px';
                     } else if (file.type.startsWith('video')) {
-                        item.innerHTML = `<video src="${url}" controls style="max-width: 100px; border-radius: 8px;"></video>`;
+                        mediaElement = document.createElement('video');
+                        mediaElement.src = url;
+                        mediaElement.controls = true;
+                        mediaElement.style.maxWidth = '100px';
+                        mediaElement.style.borderRadius = '8px';
+                    }
+
+                    item.appendChild(mediaElement);
+
+                    // Exibe botão remover só se estiver em modo edição
+                    if (editandoResumo) {
+                        const removeBtn = document.createElement('button');
+                        removeBtn.textContent = 'Remover';
+                        removeBtn.classList.add('remove-media-btn');
+                        removeBtn.type = 'button';
+                        removeBtn.style.display = 'block';
+                        removeBtn.style.marginTop = '5px';
+                        removeBtn.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            riskDraft.midias.splice(index, 1);
+                            preencherResumo();
+                        });
+                        item.appendChild(removeBtn);
                     }
 
                     midiasContainer.appendChild(item);
@@ -125,9 +156,35 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 midiasContainer.innerHTML = '<p>Nenhuma mídia enviada.</p>';
             }
+
+            // Exibe input para adicionar mídias só se estiver em modo edição
+            if (editandoResumo) {
+                const addMediaLabel = document.createElement('label');
+                addMediaLabel.classList.add('add-media-btn');
+                addMediaLabel.style.display = 'inline-block';
+                addMediaLabel.style.marginTop = '10px';
+                addMediaLabel.style.cursor = 'pointer';
+                addMediaLabel.textContent = 'Adicionar nova mídia';
+                addMediaLabel.htmlFor = 'addMidiaFromResumo';
+
+                const addMediaInput = document.createElement('input');
+                addMediaInput.type = 'file';
+                addMediaInput.accept = 'image/*,video/*';
+                addMediaInput.multiple = true;
+                addMediaInput.id = 'addMidiaFromResumo';
+                addMediaInput.hidden = true;
+
+                addMediaInput.addEventListener('change', (e) => {
+                    const newFiles = Array.from(e.target.files);
+                    riskDraft.midias = riskDraft.midias.concat(newFiles);
+                    preencherResumo();
+                });
+
+                midiasContainer.appendChild(addMediaLabel);
+                midiasContainer.appendChild(addMediaInput);
+            }
         }
     };
-
 
     function validateStep(stepIndex) {
         switch (stepIndex) {
@@ -229,7 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     const wrapper = document.createElement('div');
                     wrapper.className = 'media-item';
 
-                    // SVG de lixeira
                     const deleteBtn = document.createElement('button');
                     deleteBtn.className = 'media-delete';
                     deleteBtn.type = 'button';
@@ -342,7 +398,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!editandoResumo) {
             editandoResumo = true;
             editarBtn.innerHTML = 'Salvar';
-
             if (enviarBtn) enviarBtn.disabled = true;
 
             if (reviewEndereco) {
@@ -370,10 +425,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 reviewDescricao.innerHTML = `<textarea>${riskDraft.descricao || ''}</textarea>`;
             }
 
+            preencherResumo(); // Atualiza mídia com botões visíveis
+
         } else {
             editandoResumo = false;
             editarBtn.innerHTML = 'Editar';
-
             if (enviarBtn) enviarBtn.disabled = false;
 
             const inputEndereco = reviewEndereco.querySelector('input');
@@ -402,7 +458,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 riskDraft.descricao = textareaDescricao.value;
                 reviewDescricao.textContent = riskDraft.descricao;
             }
+
+            preencherResumo(); // Atualiza mídia com botões ocultos
         }
     });
-
 });
