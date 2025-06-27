@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const success = await submitData(riskDraft);
         if (success) {
             currentStep++;
-            handleShowStep(currentStep);
+            //handleShowStep(currentStep);
         } else {
             alert('Erro ao enviar o formulário. Tente novamente.');
         }

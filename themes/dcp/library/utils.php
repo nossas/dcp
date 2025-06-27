@@ -302,13 +302,3 @@ function load_more_acoes_callback() {
 }
 add_action('wp_ajax_load_more_acoes', 'load_more_acoes_callback');
 add_action('wp_ajax_nopriv_load_more_acoes', 'load_more_acoes_callback');
-
-add_action('wp_ajax_form_single_risco_new', 'form_single_risco_new_handler');
-add_action('wp_ajax_nopriv_form_single_risco_new', 'form_single_risco_new_handler');
-
-function form_single_risco_new_handler() {
-    $data = json_decode(file_get_contents('php://input'), true);
-
-    wp_send_json_success(['message' => 'Formulário enviado com sucesso!']);
-}
-
