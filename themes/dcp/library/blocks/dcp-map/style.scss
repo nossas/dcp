@@ -1,6 +1,7 @@
 @import '../../../assets/scss/includes';
 
 .dcp-map-block {
+    position: relative;
 
     &__tabs {
         align-items: center;
@@ -35,6 +36,38 @@
         }
     }
 
+    &__buttons {
+        align-items: center;
+        bottom: size(0);
+        display: flex;
+        gap: $gap--medium;
+        justify-content: flex-end;
+        padding: $padding--medium;
+        position: absolute;
+        right: size(32);
+        z-index: 1;
+
+        a {
+            align-items: center;
+            border-radius: $border-radius--large;
+            display: flex;
+            gap: $gap--small;
+            padding: $padding--small $padding--medium;
+            text-decoration: none;
+        }
+    }
+
+    &__add-risk {
+        background-color: $color--warning-dark;
+        color: white;
+    }
+
+    &__open-map {
+        background-color: white;
+        color: black;
+        outline: 1px solid black;
+    }
+
     .jeomap {
         background-color: transparent;
         height: size(400);
@@ -46,6 +79,10 @@
         }
 
         .legend-container {
+            display: none;
+        }
+
+        .mapboxgl-ctrl-logo {
             display: none;
         }
     }
