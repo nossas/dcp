@@ -34,10 +34,10 @@ get_header();
     <script type="application/json"><?= json_encode($data) ?></script>
     <div class="dcp-map__tabs-container">
         <div class="dcp-map__tabs" data-selected="risco">
-            <button type="button" class="dcp-map__tab dcp-map__tab--selected" data-cpt="risco">
+            <button type="button" class="dcp-map__tab<?= $tab === 'risco' ? ' dcp-map__tab--selected' : '' ?>" data-cpt="risco">
                 Riscos (<?= count($data['riscos']) ?>)
             </button>
-            <button type="button" class="dcp-map__tab" data-cpt="apoio">
+            <button type="button" class="dcp-map__tab<?= $tab === 'apoio' ? ' dcp-map__tab--selected' : '' ?>" data-cpt="apoio">
                 Apoio (<?= count($data['apoios']) ?>)
             </button>
         </div>

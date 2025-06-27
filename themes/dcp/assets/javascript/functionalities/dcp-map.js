@@ -19,6 +19,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    function updateSearchParams (tab) {
+        const url = new URL(location.href)
+        url.searchParams.set('tab', tab)
+        window.history.replaceState(null, '', url.toString())
+    }
+
     function selectCPT (cpt) {
         tabs.forEach((tab) => {
             selectedCPT.current = cpt
@@ -28,11 +34,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 tab.classList.remove('dcp-map__tab--selected')
             }
             toggleLayer?.(cpt)
-
         })
-
-        query.set('tab', cpt)
-        location.query = '?' + query.toString()
+        updateSearchParams(cpt)
     }
 
     tabs.forEach((tab) => {
