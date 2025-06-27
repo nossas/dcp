@@ -58,4 +58,7 @@ get_header();
     <?php get_template_part('template-parts/recommendations') ?>
 </div>
 
-<?php get_footer(); ?>
+<?php wp_footer(); ?>
+</div>
+</body>
+</html>
