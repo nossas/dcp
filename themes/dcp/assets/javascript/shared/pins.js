@@ -6,8 +6,10 @@ function buildGallery (container, feature) {
 
     gallery.splide?.destroy()
 
+    const medias = (typeof feature.media === 'string') ? JSON.parse(feature.media) : feature.media
+
     const slides = []
-    for (const media of JSON.parse(feature.media)) {
+    for (const media of medias) {
         let slideContent = null
 
         if (media.mime.startsWith('image')) {
@@ -232,5 +234,5 @@ export function setupMap (jeoMap, container, riscos, apoios, initialSource) {
         }
     })
 
-    return toggleLayer
+    return { displayModal, toggleLayer }
 }
