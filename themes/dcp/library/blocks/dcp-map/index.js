@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         })
 
-        document.querySelectorAll('.risco a').forEach((link) => {
+        document.querySelectorAll('.risco .post-card a').forEach((link) => {
             link.addEventListener('click', (event) => {
                 event.preventDefault()
 
