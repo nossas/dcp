@@ -39,7 +39,7 @@
         display: inline-flex;
         border-radius: $border-radius--medium;
         font-size: $font-size--xx-small;
-        font-weight: bold;
+        font-weight: $font-weight--medium;
         gap: $gap--small;
         padding: size(2) size(12);
     }
