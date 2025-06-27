@@ -212,6 +212,125 @@
         max-width: $break--desktop-large;
     }
 
+    &__btn-cancelar{
+        align-items: center;
+        border: size(1) solid $color--secondary-dark;
+        border-radius: size(100);
+        color: $color--secondary-dark;
+        display: flex;
+        gap: $gap--small;
+        padding: size(10) $gap--medium;
+        text-decoration: none;
+    }
+
+    &__btn-arquivar{
+        align-items: center;
+        border: size(1) solid $color--warning-dark;
+        border-radius: size(100);
+        color: $color--warning-dark;
+        display: flex;
+        gap: $gap--small;
+        padding: size(10) $gap--medium;
+        text-decoration: none;
+    }
+
+    &__btn-salvar{
+        align-items: center;
+        background-color: $color--primary-pure;
+        border-radius: size(100);
+        color: $color--high-light;
+        display: flex;
+        gap: $gap--small;
+    }
+
+    &-card{
+        &__actions{
+            align-items: center;
+            display: flex;
+            gap: $gap--medium;
+            justify-content: flex-end;
+            max-width: $break--desktop-large;
+        }
+
+        &__hint{
+            display: flex;
+            gap: $gap--small;
+        }
+
+        &__hint-icon {
+            align-items: center;
+            background: #D9D9D9;
+            border-radius: 50%;
+            color: gray;
+            display: flex;
+            flex-shrink: 0;
+            font-size: size(12);
+            font-weight: $font-weight--bold;
+            height: size(20);
+            justify-content: center;
+            line-height: 1;
+            width: size(20);
+        }
+
+        &__field{
+            display: flex;
+            flex-direction: column;
+
+            textarea,
+            input{
+                border: size(1) solid $color--secondary-dark;
+                border-radius: $border-radius--medium;
+                margin-bottom: size(48);
+                max-width: size(676);
+                padding: $padding--small $padding--medium;
+                width: 100%;
+
+                @include mobile{
+                    margin-bottom: size(24);
+                    min-width: unset;
+                }
+            }
+
+            textarea{
+                min-height: size(115);
+            }
+
+            label{
+                color: #484646;
+                font-family: var(--Typeface-Font-Gabarito, Gabarito);
+                font-size: $font-size--xx-small;
+                font-weight: $font-weight--medium;
+                line-height: 120%;
+                padding-left: $padding--small;
+                margin-bottom: $margin--small/2;
+            }
+
+            &-wrap{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+
+                @include mobile{
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                &-img{
+                    display: flex;
+                    flex-direction: column;
+
+                    img{
+                        width: size(676);
+                    }
+                }
+            }
+        }
+
+        &__metas{
+            display: flex;
+            gap: size(24);
+        }
+    }
+
     &__cards{
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -344,6 +463,19 @@
 
         @include mobile{
             margin-bottom: size(24);
+        }
+
+        &--edit {
+            margin-bottom: size(48);
+            margin-top: size(48);
+
+            &-title{
+                color: $color--secondary-dark;
+                font-size: size(32);
+                font-weight: $font-weight--medium;
+                line-height: 120%;
+                text-transform: uppercase;
+            }
         }
     }
 
