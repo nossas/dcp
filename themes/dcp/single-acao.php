@@ -45,8 +45,6 @@ $termos_tipo_acao = get_the_terms(get_the_ID(), 'tipo_acao');
 </header>
 
 <main class="post-content container container--medium">
-
-
     <?php the_content() ?>
 </main>
 

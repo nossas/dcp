@@ -5,27 +5,79 @@
     width: 100%;
     max-width: 1370px;
     margin: auto;
-
+    padding-inline: 2rem;
   .secao-titulo {
-    font-family: 'Comic Sans MS', cursive;
-    font-size: 2rem;
-    font-weight: bold;
+    font-size: 40px;
+    font-weight: 400;
     margin-bottom: 0.5rem;
+    text-align: start;
+    margin-bottom: 0;
+    @include mobile {
+        font-size: 24px;
+    }
   }
 
   .secao-subtitulo {
-    max-width: 600px;
+    display: flex;
     margin: 0 auto 2rem;
     font-size: 1rem;
     color: #555;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 12px;
+    margin-bottom: 40px;
   }
 
   .acoes-grid {
     gap: 1.5rem;
     display: flex;
-    padding-inline: 2rem;
+    .card-style--cultura{
+        .acao-rodape {
+            background-color: #B83D13 !important;
+        }
+    }
   }
+    .acao-card--cultura{
+        border-radius: 16px;
+        padding: 4px 17px;
+        background-color: #B83D13 !important;
+         .acao-icon{
+            width: 16px; /* ajuste conforme necessário */
+            height: 16px;
+            background-image: url('/wp-content/themes/dcp/assets/images/micro.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    }
+    .acao-card--reparos{
+        border-radius: 16px;
+        padding: 4px 17px;
+        background-color: #51B2AF !important;
+         .acao-icon{
+            width: 16px; /* ajuste conforme necessário */
+            height: 16px;
+            background-image: url('/wp-content/themes/dcp/assets/images/hammer-thor.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
 
+        }
+    }
+    .acao-card--limpeza{
+        border-radius: 16px;
+        padding: 4px 17px;
+        background-color: #50B15C !important;
+        .acao-icon{
+            width: 16px; /* ajuste conforme necessário */
+            height: 16px;
+            background-image: url('/wp-content/themes/dcp/assets/images/thrash-tag.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    }
   .acao-card {
     background: white;
     border-radius: 16px;
@@ -39,18 +91,20 @@
     max-width: 443px;
 
     .acao-topo {
-      padding: 0.5rem 1rem;
-      color: white;
-      display: flex;
-      align-items: center;
-      background-color: var(--cor-categoria); // cor dinâmica via style inline
+        padding: 0.5rem 1rem;
+        color:$color--secondary-dark !important;
+        display: flex;
+        align-items: center;
+        background-color: inherit !important;
 
       .acao-categoria {
         font-weight: bold;
         font-size: 0.875rem;
+        display: flex;
+        gap: 8px;
+        flex-direction: row;
 
         .acao-icon {
-          margin-right: 0.3rem;
         }
       }
     }
@@ -60,8 +114,10 @@
       flex-grow: 1;
 
       .acao-titulo {
-        font-size: 1rem;
+        font-size: 1.5rem;
+        color:$color--secondary-dark !important;
         font-weight: bold;
+        font-family: 'gabarito';
         margin-bottom: 0.5rem;
         text-align: left;
       }
@@ -81,19 +137,20 @@
         text-align: left;
 
         li {
-          margin-bottom: 0.3rem;
+            display:flex;
+            gap:8px;
+            margin-bottom: 0.3rem;
 
           strong {
-            font-weight: bold;
           }
         }
       }
     }
 
     .acao-rodape {
-      padding: 1rem;
-      text-align: center;
-      background-color: var(--cor-categoria); // mesma cor da topo
+        padding: 1rem;
+        background-color: var(--cor-categoria);
+        text-align: end;
 
       .acao-botao {
         background: white;
