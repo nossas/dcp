@@ -1,0 +1,30 @@
+.recommendations-modal{
+    .header-title,
+    .recommendations-item,
+    .phones-item{
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+    }
+
+    .recommendations-items,
+    .phone-items{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .phones-content{
+        margin-top: 2rem;
+    }
+
+    .phone-number{
+        font-family: $font-family--heading;
+        color: $color--primary-light;
+        font-size: size(20);
+    }
+    footer{
+        justify-content: flex-start;
+    }
+}
