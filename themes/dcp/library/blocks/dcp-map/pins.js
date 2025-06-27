@@ -1,3 +1,43 @@
+import { Splide } from '@splidejs/splide'
+
+function buildGallery (container, feature) {
+    const gallery = container.querySelector('.splide')
+    const slidesList = gallery.querySelector('.splide__list')
+
+    gallery.splide?.destroy()
+
+    const slides = []
+    for (const media of JSON.parse(feature.media)) {
+        let slideContent = null
+
+        if (media.mime.startsWith('image')) {
+            slideContent = document.createElement('img')
+            slideContent.src = media.src
+        } else if (media.mime.startsWith('video')) {
+            slideContent = document.createElement('video')
+            slideContent.src = media.src
+        }
+
+        if (slideContent) {
+            const slide = document.createElement('div')
+            slide.className = 'splide__slide'
+            slide.appendChild(slideContent)
+            slides.push(slide)
+        }
+    }
+
+    if (slides.length > 0) {
+        gallery.style.display = ''
+        slidesList.replaceChildren(...slides)
+
+        gallery.splide = new Splide(gallery)
+        gallery.splide.mount()
+    } else {
+        gallery.style.display = 'none'
+        slidesList.replaceChildren()
+    }
+}
+
 function createFeature (coordinates, properties) {
     return {
         type: 'Feature',
@@ -86,6 +126,7 @@ function displayApoioModal (container, apoio) {
     const shareText = `[Apoio] ${apoio.title} - ${apoio.endereco} ${location.href}`
     whatsappButton.href = whatsappButton.dataset.href.replace('$', decodeURIComponent(shareText))
 
+    buildGallery(dialog, apoio)
     dialog.showModal()
 }
 
@@ -119,6 +160,7 @@ function displayRiscoModal (container, risco) {
     const shareText = `[Risco - ${typeLabel}] ${risco.date} - ${risco.title} ${location.href}`
     whatsappButton.href = whatsappButton.dataset.href.replace('$', decodeURIComponent(shareText))
 
+    buildGallery(dialog, risco)
     dialog.showModal()
 }
 

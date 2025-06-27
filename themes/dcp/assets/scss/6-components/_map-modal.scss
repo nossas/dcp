@@ -1,3 +1,5 @@
+@import '~@splidejs/splide/dist/css/splide-core.min.css';
+
 .dcp-map-modal {
     border: none;
     border-radius: $border-radius--medium;
@@ -8,7 +10,7 @@
 
     &__close {
         background-color: transparent;
-        right: size(16);
+        inset-inline-end: size(16);
         position: absolute;
         top: size(16);
     }
@@ -70,6 +72,18 @@
 
         @include mobile {
             display: inline;
+        }
+    }
+
+    .splide {
+        margin-block: $gap--medium;
+
+        img, video {
+            aspect-ratio: 16 / 9;
+            border-radius: $border-radius--medium;
+            object-fit: cover;
+            object-position: center;
+            width: 100%;
         }
     }
 

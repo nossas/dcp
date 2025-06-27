@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@splidejs/splide": "^4.1.4",
     "@wordpress/block-editor": "^12.26.0",
     "@wordpress/blocks": "^12.35.0",
     "@wordpress/components": "^27.6.0",

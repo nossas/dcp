@@ -13,6 +13,7 @@
         <main>
             <h1 class="dcp-map-modal__title">$</h1>
             <p class="dcp-map-modal__excerpt"></p>
+            <?php get_template_part('template-parts/splide') ?>
         </main>
         <footer>
             <a class="dcp-map-modal__whatsapp" href="#" data-href="https://api.whatsapp.com/send?text=$">
@@ -41,6 +42,7 @@
                 <p><iconify-icon icon="bi:calendar3"></iconify-icon> Horário: <span class="support-modal__hour"></span></p>
                 <p><iconify-icon icon="bi:geo-alt-fill"></iconify-icon> Endereço: <span class="support-modal__address"></span></p>
             </div>
+            <?php get_template_part('template-parts/splide') ?>
         </main>
         <footer>
             <a class="dcp-map-modal__whatsapp" href="#" data-href="https://api.whatsapp.com/send?text=$">
