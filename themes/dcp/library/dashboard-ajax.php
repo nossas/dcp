@@ -63,22 +63,23 @@ function form_single_risco_new() {
     $data = [
         'post_type' => 'risco',
         'post_status' => 'draft',
-        'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
-        'latitude' => sanitize_text_field( $_POST[ 'latitude' ] ),
-        'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
-        'nome_completo' => sanitize_text_field( $_POST[ 'nome_completo' ] ),
-        'email' => sanitize_text_field( $_POST[ 'email' ] ),
-        'telefone' => sanitize_text_field( $_POST[ 'telefone' ] ),
-        'autoriza_contato' => sanitize_text_field( $_POST[ 'autoriza_contato' ] ),
-        'data_e_horario' => date('Y-m-d H:i:s'),
-        'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
-        'situacao_de_risco' => sanitize_text_field( $_POST[ 'situacao_de_risco' ] )
-
+        'post_title' => sanitize_text_field( $_POST[ 'endereco' ] ),
+        'post_content' => sanitize_text_field( $_POST['descricao'] ),
+        'meta_input' => [
+            'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
+            'latitude' => sanitize_text_field( $_POST[ 'latitude' ] ),
+            'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
+            'nome_completo' => sanitize_text_field( $_POST[ 'nome_completo' ] ),
+            'email' => sanitize_text_field( $_POST[ 'email' ] ),
+            'telefone' => sanitize_text_field( $_POST[ 'telefone' ] ),
+            'autoriza_contato' => sanitize_text_field( $_POST[ 'autoriza_contato' ] ),
+            'data_e_horario' => date('Y-m-d H:i:s'),
+            'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
+        ],
+        'tax_input' => [
+            'situacao_de_risco' => sanitize_text_field( $_POST[ 'situacao_de_risco' ] ),
+        ],
     ];
-    //TODO: REMOVE DEPOIS DE TESTAR
-    $data[ 'post_title' ] = sanitize_text_field( $_POST[ 'endereco' ] );
-    $data[ 'post_content' ] = sanitize_text_field( $_POST[ 'descricao' ] );
-    //TODO: REMOVE DEPOIS DE TESTAR
 
     $postID = wp_insert_post( $data, true );
 
@@ -91,18 +92,6 @@ function form_single_risco_new() {
         ], 500 );
 
     }
-
-    $pod = pods( 'risco', $postID );
-    $pod->save( 'endereco', sanitize_text_field( $data[ 'endereco' ] ) );
-    $pod->save( 'descricao', sanitize_text_field( $data[ 'descricao' ] ) );
-
-    $pod->save( 'latitude', sanitize_text_field( $data[ 'latitude' ] ) );
-    $pod->save( 'longitude', sanitize_text_field( $data[ 'longitude' ] ) );
-    $pod->save( 'nome_completo', sanitize_text_field( $data[ 'nome_completo' ] ) );
-    $pod->save( 'email', sanitize_text_field( $data[ 'email' ] ) );
-    $pod->save( 'telefone', sanitize_text_field( $data[ 'telefone' ] ) );
-    //$pod->save( 'autoriza_contato', sanitize_text_field( $data[ 'autoriza_contato' ] ) );
-    $pod->save( 'data_e_horario', sanitize_text_field( $data[ 'data_e_horario' ] ) );
 
     $save_post = upload_file_to_attachment_by_ID( $_FILES['media_files'], $postID );
 
@@ -152,18 +141,13 @@ function form_single_risco_edit() {
         'ID' => $postID,
         'post_type' => 'risco',
         'post_status' => sanitize_text_field($_POST['post_status'] ?? 'draft'),
-
-        'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
-
-        //'category' => sanitize_text_field( $_POST[ 'category' ] ),
-        //'subcategory' => sanitize_text_field( $_POST[ 'subcategory' ] ),
-        'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
+        'post_title' => sanitize_text_field( $_POST[ 'endereco' ] ),
+        'post_content' => sanitize_text_field( $_POST[ 'descricao' ] ),
+        'meta_input' => [
+            'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
+            'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
+        ],
     ];
-
-    //TODO: REMOVE DEPOIS DE TESTAR
-    $data[ 'post_title' ] = $data[ 'endereco' ];
-    $data[ 'post_content' ] = $data[ 'descricao' ];
-    //TODO: REMOVE DEPOIS DE TESTAR
 
     $updated_id = wp_update_post( $data, true );
 
@@ -176,10 +160,6 @@ function form_single_risco_edit() {
         ], 500);
 
     }
-
-    $pod = pods( 'risco', $postID );
-    $pod->save( 'endereco', sanitize_text_field( $data[ 'endereco' ] ) );
-    $pod->save( 'descricao', sanitize_text_field( $data[ 'descricao' ] ) );
 
     $save_post = upload_file_to_attachment_by_ID( $_FILES['media_files'], $postID );
 
