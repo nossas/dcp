@@ -323,11 +323,11 @@
         cursor: pointer;
 
         &:disabled {
-            background-color: gray; 
-            color: #ccc; 
+            background-color: gray;
+            color: #ccc;
             cursor: default;
             opacity: 0.6;
-            pointer-events: none; 
+            pointer-events: none;
         }
 
         &-backmapa{
@@ -440,7 +440,7 @@
         border-radius: size(100);
         color: $color--secondary-dark;
         padding: size(6) $padding--medium;
-    
+
         &:hover{
             background-color: $color--secondary-dark;
             color: $color--high-light;
@@ -662,4 +662,57 @@
 
 .hidden-by-js{
     display: none !important;
+}
+
+.modal-confirmacao {
+    align-items: center;
+    background: rgba(51, 51, 51, 0.4);
+    display: none;
+    inset: 0;
+    justify-content: center;
+    position: fixed;
+    z-index: 9999;
+}
+
+.modal-confirmacao .situacao-atual__buttons{
+    justify-content: space-between !important;
+
+    .back {
+        align-items: center;
+        background-color: transparent;
+        border: size(1) solid $color--secondary-dark;
+        border-radius: size(100);
+        color: $color--secondary-dark;
+        display: flex;
+        gap: $gap--small;
+        padding: size(10) $gap--medium;
+    }
+}
+
+.modal-content {
+    background: $color--high-light;
+    border-radius: size(12);
+    display: flex;
+    flex-direction: column;
+    gap: $gap--medium;
+    max-width: size(640);
+    padding: $padding--large;
+    position: relative;
+    width: 100%;
+}
+
+.modal-title {
+    color: $color--warning-dark;
+    font-size: size(24);
+    font-weight: $font-weight--medium;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: size(24);
+    position: absolute;
+    right: size(16);
+    top: size(16);
 }
