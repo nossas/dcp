@@ -69,8 +69,11 @@ function dcp_map_should_load_jeo(bool $should_load): bool {
 add_filter('jeo_should_load_assets', 'hacklabr\\dcp_map_should_load_jeo');
 
 function render_dcp_map_callback(array $attributes) {
+    $risks_page = get_page_by_path('registro-de-riscos');
+
     $jeo_maps = get_posts([
         'post_type' => 'map',
+        'posts_per_page' => 1,
     ]);
 
     if (empty($jeo_maps)) {
@@ -112,6 +115,12 @@ function render_dcp_map_callback(array $attributes) {
             <button type="button" class="dcp-map-block__tab" data-cpt="apoio">
                 Apoio (<?= count($supports) ?>)
             </button>
+        </div>
+        <div class="dcp-map-block__buttons">
+            <a class="dcp-map-block__add-risk" href="<?= get_permalink($risks_page) ?>">
+                <iconify-icon icon="bi:geo-alt-fill"></iconify-icon>
+                <span>Adicionar risco</span>
+            </a>
         </div>
         <div class="jeomap map_id_<?= $jeo_map->ID ?>"></div>
         <?php get_template_part('template-parts/dcp-map-modal') ?>
