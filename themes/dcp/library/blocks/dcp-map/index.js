@@ -1,4 +1,4 @@
-import { setupMap } from './pins'
+import { setupMap } from '../../../assets/javascript/shared/pins'
 import { until } from '../../../assets/javascript/shared/wait'
 
 document.addEventListener('DOMContentLoaded', () => {

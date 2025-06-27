@@ -123,7 +123,8 @@ function displayApoioModal (container, apoio) {
     dialog.querySelector('.support-modal__address').innerHTML = apoio.endereco
 
     const whatsappButton = dialog.querySelector('.dcp-map-modal__whatsapp')
-    const shareText = `[Apoio] ${apoio.title} - ${apoio.endereco} ${location.href}`
+    const shareUrl = `${container.dataset.shareUrl}?tab=apoio`
+    const shareText = `[Apoio] ${apoio.title} - ${apoio.endereco} ${decodeURI(shareUrl)}`
     whatsappButton.href = whatsappButton.dataset.href.replace('$', decodeURIComponent(shareText))
 
     buildGallery(dialog, apoio)
@@ -157,7 +158,8 @@ function displayRiscoModal (container, risco) {
     dialog.querySelector('.risk-modal__date').innerHTML = risco.date
 
     const whatsappButton = dialog.querySelector('.dcp-map-modal__whatsapp')
-    const shareText = `[Risco - ${typeLabel}] ${risco.date} - ${risco.title} ${location.href}`
+    const shareUrl = `${container.dataset.shareUrl}?tab=risco`
+    const shareText = `[Risco - ${typeLabel}] ${risco.date} - ${risco.title} ${shareUrl}`
     whatsappButton.href = whatsappButton.dataset.href.replace('$', decodeURIComponent(shareText))
 
     buildGallery(dialog, risco)
@@ -165,7 +167,7 @@ function displayRiscoModal (container, risco) {
 }
 
 function getImageUrl (slug) {
-    return `${globalThis.dcp_map_data.themeAssets}/assets/images/pin-${slug}.svg`
+    return `${globalThis.hl_dcp_map_data.themeAssets}/assets/images/pin-${slug}.svg`
 }
 
 async function loadImage (map, slug, height = 54, width = 44) {

@@ -367,6 +367,18 @@ class Assets
                 },
             ],
 
+            'dcp-map' => [
+                'file' => 'dcp-map.js',
+                'preload_callback' => function () {
+                    return is_page_template('page-dcp-map.php');
+                },
+                'localize_callback' => function () {
+                    return [
+                        'themeAssets' => get_stylesheet_directory_uri(),
+                    ];
+                },
+            ],
+
             'slider-button' => [
                 'file' => 'slider-button.js',
                 'global' => true,
