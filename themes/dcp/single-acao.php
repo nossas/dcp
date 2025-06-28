@@ -69,6 +69,6 @@ if (!empty($termos_tipo_acao) && !is_wp_error($termos_tipo_acao)) {
     <?php the_content(); ?>
 </main>
 
-<?php get_template_part('template-parts/content/related-posts'); ?>
+<?php get_template_part('template-parts/content/related-posts-acao'); ?>
 
 <?php get_footer(); ?>

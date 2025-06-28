@@ -1,0 +1,171 @@
+.proximas-acoes {
+    padding: 2rem 0;
+    background: #f8f4ed;
+    text-align: center;
+    width: 100%;
+    max-width: 1370px;
+    margin: auto;
+    padding-inline: 2rem;
+  .secao-titulo {
+    font-size: 40px;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    text-align: start;
+    margin-bottom: 0;
+    @include mobile {
+        font-size: 24px;
+    }
+  }
+
+  .secao-subtitulo {
+    display: flex;
+    margin: 0 auto 2rem;
+    font-size: 1rem;
+    color: #555;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 12px;
+    margin-bottom: 40px;
+  }
+
+  .acoes-grid {
+    gap: 1.5rem;
+    display: flex;
+    .card-style--cultura{
+        .acao-rodape {
+            background-color: #B83D13 !important;
+        }
+    }
+  }
+    .acao-card--cultura{
+        border-radius: 16px;
+        padding: 4px 17px;
+        background-color: #B83D13 !important;
+         .acao-icon{
+            width: 16px; /* ajuste conforme necessário */
+            height: 16px;
+            background-image: url('/wp-content/themes/dcp/assets/images/micro.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    }
+    .acao-card--reparos{
+        border-radius: 16px;
+        padding: 4px 17px;
+        background-color: #51B2AF !important;
+         .acao-icon{
+            width: 16px; /* ajuste conforme necessário */
+            height: 16px;
+            background-image: url('/wp-content/themes/dcp/assets/images/hammer-thor.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+
+        }
+    }
+    .acao-card--limpeza{
+        border-radius: 16px;
+        padding: 4px 17px;
+        background-color: #50B15C !important;
+        .acao-icon{
+            width: 16px; /* ajuste conforme necessário */
+            height: 16px;
+            background-image: url('/wp-content/themes/dcp/assets/images/thrash-tag.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    }
+  .acao-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    max-width: 443px;
+
+    .acao-topo {
+        padding: 0.5rem 1rem;
+        color:$color--secondary-dark !important;
+        display: flex;
+        align-items: center;
+        background-color: inherit !important;
+
+      .acao-categoria {
+        font-weight: bold;
+        font-size: 0.875rem;
+        display: flex;
+        gap: 8px;
+        flex-direction: row;
+
+        .acao-icon {
+        }
+      }
+    }
+
+    .acao-conteudo {
+      padding: 1rem;
+      flex-grow: 1;
+
+      .acao-titulo {
+        font-size: 1.5rem;
+        color:$color--secondary-dark !important;
+        font-weight: bold;
+        font-family: 'gabarito';
+        margin-bottom: 0.5rem;
+        text-align: left;
+      }
+
+      .acao-descricao {
+        font-size: 0.9rem;
+        color: #333;
+        text-align: left;
+      }
+
+      .acao-infos {
+        list-style: none;
+        padding: 0;
+        margin-top: 1rem;
+        font-size: 0.875rem;
+        color: #555;
+        text-align: left;
+
+        li {
+            display:flex;
+            gap:8px;
+            margin-bottom: 0.3rem;
+
+          strong {
+          }
+        }
+      }
+    }
+
+    .acao-rodape {
+        padding: 1rem;
+        background-color: var(--cor-categoria);
+        text-align: end;
+
+      .acao-botao {
+        background: white;
+        color: black;
+        padding: 0.5rem 1.2rem;
+        border-radius: 25px;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-block;
+        transition: background 0.3s ease;
+
+        &:hover {
+          background: #eee;
+        }
+      }
+    }
+  }
+}
