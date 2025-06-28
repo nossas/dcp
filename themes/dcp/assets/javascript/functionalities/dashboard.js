@@ -12,7 +12,6 @@ function formatFileSize(bytes) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
-
 class MediaLoader {
 
     constructor( options = {} ) {
@@ -148,7 +147,6 @@ class MediaLoader {
 
     }
 }
-
 
 // TODO: COMPORTAMENTO MOCK jQUERY
 jQuery(function($) {
@@ -449,115 +447,51 @@ jQuery(function($) {
         $( '#riscoSingleForm' ).on( 'submit', function ( e ) {
             const $this = $( this );
 
-            //TODO: REFACTORY P/ COMPONENTES/LIBRARY-JS
-            let isValid = true;
+            const form = e.target;
+            const formData = new FormData( form );
 
-            $this.find( '.input, .textarea' ).each( function () {
-                const $field = $(this);
-                const value = $field.val().trim();
+            $this.addClass( 'is-sending' );
 
-                if (!value || value.length < 5) {
-                    isValid = false;
-                    $field.addClass('is-invalid');
-                    return false;
-                } else {
-                    $field.removeClass('is-invalid');
-                }
-            });
-            $this.find( '.select' ).each( function () {
-                const $field = $(this);
-                //TODO: VALIDATION SELECT
-            });
-            $this.find( '.checkbox' ).each( function () {
-                const $field = $(this);
-                //TODO: VALIDATION CHECKBOX
-            });
+            fetch( $this.attr( 'data-action' ), {
+                method: 'POST',
+                body: formData
+            })
+                .then( res => res.json() )
+                .then( response => {
+                    $this.removeClass( 'is-sending' );
 
-            if (!isValid) {
-                const $this = $( this );
+                    if( response.success ) {
+                        custom_modal_confirm({
+                            title: response.data.title,
+                            description: response.data.message,
 
-                custom_modal_confirm({
-                    title: "Validação de formulário",
-                    description: "Verifique os campos do formulário. Todos os campos devem ter pelo menos 5 caracteres.",
+                            cancelText: "CANCELAR",
+                            onCancel: function () {},
 
-                    cancelText: "Voltar",
-                    onCancel: function () {},
+                            confirmText: "ATUALIZAR",
+                            onConfirm: function () {
 
-                    confirmText: "OK",
-                    onConfirm: function () {}
-                });
+                                window.location.reload();
 
-                $this.addClass('is-blocked');
-                $this.removeClass('is-sendable');
-                return;
-            }
-            else {
-                $this.removeClass('is-blocked');
-                $this.addClass('is-sendable');
-            }
+                            }
+                        });
+                    } else {
+                        custom_modal_confirm({
+                            title: response.data.title,
+                            description: response.data.message,
 
-            if( !$this.hasClass( 'is-sendable' ) ) {
+                            cancelText: "CANCELAR",
+                            onCancel: function () {},
 
-                custom_modal_confirm({
-                    title: "Validação de formulário",
-                    description: "O formulário não está correto para enviar, verifique os campos e as instruções",
+                            confirmText: "ATUALIZAR",
+                            onConfirm: function () {
+                                window.location.reload();
+                            }
+                        });
+                    }
 
-                    cancelText: "Voltar",
-                    onCancel: function () {},
-
-                    confirmText: "VERIFICAR",
-                    onConfirm: function () {}
-                });
-
-            }
-            else {
-
-                const form = e.target;
-                const formData = new FormData( form );
-
-                $this.addClass( 'is-sending' );
-
-                fetch( $this.attr( 'data-action' ), {
-                    method: 'POST',
-                    body: formData
                 })
-                    .then( res => res.json() )
-                    .then( response => {
-                        $this.removeClass( 'is-sending' );
-
-                        if( response.success ) {
-                            custom_modal_confirm({
-                                title: response.data.title,
-                                description: response.data.message,
-
-                                cancelText: "CANCELAR",
-                                onCancel: function () {},
-
-                                confirmText: "ATUALIZAR",
-                                onConfirm: function () {
-
-                                    window.location.reload();
-
-                                }
-                            });
-                        } else {
-                            custom_modal_confirm({
-                                title: response.data.title,
-                                description: response.data.message,
-
-                                cancelText: "CANCELAR",
-                                onCancel: function () {},
-
-                                confirmText: "ATUALIZAR",
-                                onConfirm: function () {
-                                    window.location.reload();
-                                }
-                            });
-                        }
-
-                    })
-                    .catch(error => {});
-            }
+                .catch(error => {});
 
         });
 
@@ -643,80 +577,14 @@ jQuery(function($) {
         $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
         $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
 
-
         // TODO: REFECTORY P/ COMPONENTE DE LOADING TIPO SKELETON
         $( '.dashboard-content-skeleton' ).hide();
         setTimeout( function() {
             $( '.dashboard-content-single .dashboard-content-skeleton' ).remove();
         }, 3000 );
 
-        $( '.is-select-load-category' ).each( function () {
-            const $this = $( this );
-            $.ajax({
-                url: $this.attr( 'data-endpoint' ),
-                type: 'GET',
-                data: {},
-                beforeSend: function() {
-                    $this.html( '<option>CARREGANDO...</option>' );
-                    $this.parent().find( '.is-edit-input' ).hide();
-                    $this.parent().find( '.is-loading' ).show();
-                },
-                success: function( response ) {
-                    $this.html( '<option>SELECIONE UMA CATEGORIA</option>' );
-                    console.log( response );
-
-                    response.forEach( function( item ) {
-                        if( item.parent === 0) {
-                            $this.append( '<option value="' + item.id + '">' + item.name + '</option>' );
-                        }
-                    });
-                },
-                error: function () {
-                    $this.html( '<option>ERROR</option>' );
-                },
-                complete: function() {
-                    $this.parent().find( '.is-edit-input' ).show();
-                    $this.parent().find( '.is-loading' ).hide();
-                }
-            });
-        });
-
-        $( '.is-chip-load-subcategory' ).each( function () {
-            const $this = $( this );
-            $.ajax({
-                url: $this.attr( 'data-endpoint' ),
-                type: 'GET',
-                data: {},
-                beforeSend: function() {
-                    $this.val( 'CARREGANDO . . .' );
-                    $this.parent().find( '.is-edit-input' ).hide();
-                    $this.parent().find( '.is-loading' ).show();
-                },
-                success: function( response ) {
-                    console.log( response );
-
-                    let _text = '';
-                    response.forEach( function( item ) {
-                        //_text += '<div class="chip is-chip-subcategory">' + item.name + '</div>';
-                        _text += item.name + ', ';
-                    });
-
-                    $this.val( _text );
-                },
-                error: function () {
-                    $this.val( 'ERROR' );
-                },
-                complete: function() {
-                    $this.parent().find( '.is-edit-input' ).show();
-                    $this.parent().find( '.is-loading' ).hide();
-                }
-            });
-        });
-
     });
-
 });
-
 
 document.addEventListener("DOMContentLoaded", function () {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);

@@ -1,0 +1,52 @@
+.splide {
+    position: relative;
+
+    &__arrow {
+        align-items: center;
+        background-color: white;
+        border: 1px solid black;
+        border-radius: $border-radius--round;
+        color: black;
+        display: flex;
+        height: size(24);
+        justify-content: center;
+        position: absolute;
+        top: calc(50% - #{size(12)});
+        width: size(24);
+        z-index: 1;
+
+        &:disabled {
+            display: none;
+        }
+
+        &--prev {
+            inset-inline-start: size(16);
+        }
+
+        &--next {
+            inset-inline-end: size(16);
+        }
+    }
+
+    &__pagination {
+        align-items: center;
+        bottom: size(32);
+        display: flex;
+        gap: size(8);
+        justify-content: center;
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+
+        button {
+            background-color: rgba(white, 0.5);
+            border-radius: $border-radius--round;
+            height: size(12);
+            width: size(12);
+
+            &.is-active {
+                background-color: white;
+            }
+        }
+    }
+}

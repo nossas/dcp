@@ -95,6 +95,10 @@
     &__main {
         padding: size(40);
 
+        @include mobile{
+            padding: $padding--medium;
+        }
+
 
         .dashboard-content {
             min-height: 75vh;
@@ -552,8 +556,6 @@
                                 opacity: 0.8;
                                 cursor: not-allowed;
                             }
-
-
                             input[disabled],
                             textarea[disabled],
                             select[disabled] {
@@ -606,6 +608,25 @@
 
                                 span span {
                                     display: none;
+                                }
+                            }
+
+
+                            .chips {
+                                display: flex;
+                                flex-wrap: wrap;
+                                gap: 10px;
+                                margin-top: size( 5 );
+                                margin-bottom: size( 10 );
+
+                                .chip {
+                                    font-size: size( 13 );
+                                    color: $color--secondary-light;
+                                    background-color: $color--secondary-dark;
+                                    padding: size( 5 ) size( 10 );
+                                    border-radius: size( 10 );
+                                    margin-bottom: size( 5 );
+                                    display: inline-block;
                                 }
                             }
                         }

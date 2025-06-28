@@ -8,6 +8,22 @@ add_action( 'init', function() {
     wp_dequeue_script( 'tainacan-google-recaptcha-script' );
 }, 150 );
 
+function get_page_by_template (string $template) {
+	$pages = get_pages([
+		'post_type' => 'page',
+		'meta_key' => '_wp_page_template',
+		'hierarchical' => 0,
+		'meta_value' => $template,
+	]);
+
+	foreach ($pages as $page) {
+		return $page;
+	}
+
+	return false;
+}
+
+
 /**
  * Print the excerpt with limit words
  */
@@ -302,13 +318,3 @@ function load_more_acoes_callback() {
 }
 add_action('wp_ajax_load_more_acoes', 'load_more_acoes_callback');
 add_action('wp_ajax_nopriv_load_more_acoes', 'load_more_acoes_callback');
-
-add_action('wp_ajax_form_single_risco_new', 'form_single_risco_new_handler');
-add_action('wp_ajax_nopriv_form_single_risco_new', 'form_single_risco_new_handler');
-
-function form_single_risco_new_handler() {
-    $data = json_decode(file_get_contents('php://input'), true);
-
-    wp_send_json_success(['message' => 'Formulário enviado com sucesso!']);
-}
-
