@@ -30,7 +30,7 @@
             'relatorio' => '#0d6efd',
             'publicacao' => '#198754',
           ];
-          $cor = $cor_categoria[$categoria_slug] ?? '#666';
+          $cor = $cor_categoria[$categoria_slug] ?? '#235540';
 
           $thumbnail = get_the_post_thumbnail_url(get_the_ID(), 'large');
           $data = get_the_date('d/m/Y');
