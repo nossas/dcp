@@ -34,8 +34,21 @@
 
           $thumbnail = get_the_post_thumbnail_url(get_the_ID(), 'large');
           $data = get_the_date('d/m/Y');
+
+          // Verificação do ícone baseado no slug (.svg ou .png)
+          $icon_base_path = get_template_directory() . '/assets/images/related-posts-icons/';
+          $icon_base_url  = get_template_directory_uri() . '/assets/images/related-posts-icons/';
+          $icon_file      = '';
+
+          if (file_exists($icon_base_path . $categoria_slug . '.svg')) {
+              $icon_file = $icon_base_url . $categoria_slug . '.svg';
+          } elseif (file_exists($icon_base_path . $categoria_slug . '.png')) {
+              $icon_file = $icon_base_url . $categoria_slug . '.png';
+          } else {
+              $icon_file = $icon_base_url . 'default.svg'; // opcional: ícone padrão
+          }
       ?>
-        <div class="transparencia-card">
+        <div class="transparencia-card ">
           <?php if ($thumbnail): ?>
             <div class="transparencia-thumb">
               <img src="<?= esc_url($thumbnail) ?>" alt="<?= esc_attr(get_the_title()) ?>">
@@ -46,6 +59,7 @@
             <div class="transparencia-meta">
               <?php if ($categoria_nome): ?>
                 <span class="transparencia-tag" style="background-color: <?= esc_attr($cor) ?>;">
+                  <span class="tag-icon acao-card--<?= $categoria_slug ?>" style="background-image: url('<?= esc_url($icon_file) ?>');"></span>
                   <?= esc_html($categoria_nome) ?>
                 </span>
               <?php endif; ?>

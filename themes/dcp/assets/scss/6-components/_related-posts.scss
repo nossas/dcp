@@ -102,7 +102,7 @@ $sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
             margin-bottom: 0.75rem;
 
             .transparencia-tag {
-              background-color: #198754;
+              background-color: #198754; // será sobrescrito inline no PHP
               padding: 0.25rem 0.75rem;
               font-size: 0.75rem;
               border-radius: 999px;
@@ -112,13 +112,13 @@ $sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
               gap: 0.35rem;
               font-weight: 500;
 
-              &::before {
-                content: '';
+              .tag-icon {
                 display: inline-block;
                 width: 14px;
                 height: 14px;
-                background-image: url('/wp-content/themes/seu-tema/assets/images/doc-icon.svg');
                 background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
               }
             }
 
@@ -163,4 +163,3 @@ $sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
   }
 }
-
