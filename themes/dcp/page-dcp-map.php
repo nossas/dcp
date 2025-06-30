@@ -42,6 +42,15 @@ get_header();
             </button>
         </div>
     </div>
+    <div class="dcp-map__form-container">
+        <form class="dcp-map__form">
+            <input type="text" name="address" placeholder="Busque sua localização">
+            <button type="submit" aria-label="Buscar">
+                <span>Buscar</span>
+                <iconify-icon icon="bi:search"></iconify-icon>
+            </button>
+        </form>
+    </div>
     <div class="dcp-map__buttons-container">
         <div class="dcp-map__buttons">
             <a class="dcp-map__add-risk" href="<?= get_permalink($risks_page) ?>">

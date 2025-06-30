@@ -47,6 +47,40 @@ document.addEventListener('DOMContentLoaded', async () => {
         })
     })
 
+    document.querySelector('.dcp-map__form').addEventListener('submit', async (event) => {
+        event.preventDefault()
+
+        const { addressSuffix, restUrl } = globalThis.hl_dcp_map_data
+        const input = event.target.querySelector('input[name="address"]')
+        if (input.value.length > 2) {
+            const address = input.value
+            const fullAddress = address.includes('Rio de Janeiro') ? address : (address + addressSuffix)
+
+            const res = await fetch(`${restUrl}?address=${encodeURIComponent(fullAddress)}`, {
+                method: 'POST',
+            })
+            if (res.ok) {
+                try {
+                    const json = await res.text()
+                    if (!json) {
+                        input.value = ''
+                        return
+                    }
+                    const { lat, lon } = JSON.parse(json)
+
+                    const jeoMap = globalThis.jeomaps[map.dataset.uui_id]
+                    const mapbox = await until(() => jeoMap.map)
+                    mapbox.flyTo({
+                        center: [lon, lat],
+                        zoom: 19,
+                    })
+                } catch (error) {
+                    console.error(error)
+                }
+            }
+        }
+    })
+
     await until(() => map.dataset.map_id)
 
     const jeoMap = globalThis.jeomaps[map.dataset.uui_id]

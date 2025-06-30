@@ -354,6 +354,8 @@ class Assets
             return $this->js_files;
         }
 
+        $default_suffix = ', Jacarezinho, Rio de Janeiro, Rio de Janeiro, Brasil';
+
         $js_files = [
             'app' => [
                 'file' => 'app.js',
@@ -372,8 +374,11 @@ class Assets
                 'preload_callback' => function () {
                     return is_page_template('page-dcp-map.php');
                 },
-                'localize_callback' => function () {
+                'localize_callback' => function () use ($default_suffix) {
+
                     return [
+                        'addressSuffix' => apply_filters('dcp_address_suffix', $default_suffix),
+                        'restUrl' => rest_url('hacklabr/v2/geocoding'),
                         'themeAssets' => get_stylesheet_directory_uri(),
                     ];
                 },
@@ -396,9 +401,7 @@ class Assets
                 'preload_callback' => function () {
                     return is_page_template('template-parts/page-register-risk.php');
                 },
-                'localize_callback' => function () {
-                    $default_suffix = ', Jacarezinho, Rio de Janeiro, Rio de Janeiro, Brasil';
-
+                'localize_callback' => function () use($default_suffix) {
                     return [
                         'rest_url' => rest_url('hacklabr/v2/geocoding'),
                         'address_suffix' => apply_filters('dcp_address_suffix', $default_suffix),
