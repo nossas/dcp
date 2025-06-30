@@ -113,7 +113,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_apoio'])) {
                 </div>
             </div>
 
-            <!-- Endereço -->
             <div class="apoio-card__field">
                 <label for="apoio_endereco">Endereço</label>
                 <div class="apoio-card__field-wrap">
@@ -125,7 +124,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_apoio'])) {
                 </div>
             </div>
 
-            <!-- Foto -->
             <div class="apoio-card__field">
                 <label for="apoio_capa">Foto de capa</label>
                 <div class="apoio-card__field-wrap">

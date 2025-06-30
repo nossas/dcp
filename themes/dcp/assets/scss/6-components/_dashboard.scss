@@ -96,7 +96,7 @@
         padding: size(40);
 
         @include mobile{
-            padding: $padding--medium;
+            padding-inline: $padding--medium;
         }
 
 

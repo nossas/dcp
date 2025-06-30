@@ -108,7 +108,7 @@
             }
         }
 
-        &>a {
+        & > a {
             color: $color--high-light;
             text-decoration: none;
         }
@@ -131,11 +131,16 @@
 
         &-text{
             display: flex;
-            gap: $gap--small;
             border-bottom: size(1) solid #E6E2E0;
             color: $color--secondary-dark;
+            gap: size(24);
             margin-bottom: $margin--medium;
             padding-bottom: $padding--medium;
+
+            &-icon {
+                display: flex;
+                flex-direction: column;
+            }
         }
 
         &-text:last-of-type {
@@ -229,42 +234,66 @@
     }
 
     &__icon-select{
-        border: size(1) solid $color--secondary-dark;
-        border-radius: $border-radius--medium;
         appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        background-color: $color--high-light; 
-        padding: 0.5rem 2.5rem 0.5rem 0.75rem;
-        font-size: $font-size--x-small;
-        cursor: pointer;
+        background-color: $color--high-light;
         background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.85276 5.22776C1.90501 5.17537 1.96708 5.13381 2.03542 5.10545C2.10376 5.0771 2.17702 5.0625 2.25101 5.0625C2.32499 5.0625 2.39826 5.0771 2.46659 5.10545C2.53493 5.13381 2.597 5.17537 2.64926 5.22776L9.001 11.5806L15.3528 5.22776C15.4051 5.17546 15.4671 5.13397 15.5355 5.10567C15.6038 5.07736 15.677 5.06279 15.751 5.06279C15.825 5.06279 15.8982 5.07736 15.9665 5.10567C16.0349 5.13397 16.097 5.17546 16.1493 5.22776C16.2016 5.28005 16.243 5.34214 16.2713 5.41047C16.2996 5.47881 16.3142 5.55204 16.3142 5.62601C16.3142 5.69997 16.2996 5.77321 16.2713 5.84154C16.243 5.90987 16.2016 5.97196 16.1493 6.02426L9.39925 12.7743C9.347 12.8266 9.28493 12.8682 9.21659 12.8966C9.14825 12.9249 9.07499 12.9395 9.001 12.9395C8.92702 12.9395 8.85376 12.9249 8.78542 12.8966C8.71708 12.8682 8.65501 12.8266 8.60275 12.7743L1.85276 6.02426C1.80037 5.972 1.75881 5.90993 1.73045 5.84159C1.7021 5.77325 1.6875 5.69999 1.6875 5.62601C1.6875 5.55202 1.7021 5.47876 1.73045 5.41042C1.75881 5.34208 1.80037 5.28001 1.85276 5.22776V5.22776Z" fill="%23605E5D"/></svg>');
         background-repeat: no-repeat;
         background-position: right 0.75rem center;
         background-size: 1rem;
+        border: size(1) solid $color--secondary-dark;
+        border-radius: $border-radius--medium;
+        cursor: pointer;
+        font-size: $font-size--x-small;
         max-height: size(66);
+        -moz-appearance: none;
+        padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+        -webkit-appearance: none;
 
         &::-ms-expand {
             display: none;
         }
+
+        @include mobile{
+            max-width: size(178);
+        }
+    }
+
+    &__label{
+        color: #484646;
+        font-size: $font-size--xx-small;
+        font-weight: $font-weight--medium;
+        line-height: 120%;
+        margin-bottom: $margin--small/2;
+        padding-left: $padding--small;
     }
 
     &__textarea{
         border: size(1) solid $color--secondary-dark;
         border-radius: $border-radius--medium;
+        max-height: size(42);
         padding: $padding--small $padding--medium;
         width: 100%;
     }
 
     &__textarea-wrapper{
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        position: relative;
         width: 100%;
 
-        .textarea__icon {
-            position: relative;
-            transform: translateY(-50%);
+        textarea {
+            flex: 1;
+            padding-right: 2.5rem;
+        }
+
+        .input-icon {
+            align-items: center;
+            display: flex;
+            margin-top: size(30);
+            position: absolute;
             pointer-events: none;
-            top: size(-53);
-            left: size(890);
+            right: 0.75rem;
         }
     }
 
@@ -281,16 +310,16 @@
 
 .breadcrumb-dashboard{
     margin-bottom: size(48);
-    
+
     @include mobile{
         magin-bottom: size(24);
     }
 
-    display: flex;
     align-items: center;
-    font-size: $font-size--x-small;
-    font-family: inherit;
     color: $color--secondary-dark;
+    display: flex;
+    font-size: $font-size--x-small;
+    font-weight: $font-weight--bold;
     gap: $gap--x-small;
 
     a {
@@ -305,11 +334,12 @@
 
     &__separator {
         font-size: 1.2em;
+        font-weight: $font-weight--medium;
         margin: 0 0.25rem;
     }
 
     &__current {
-        font-weight: $font-weight--bold;
+        font-weight: $font-weight--medium;
         text-decoration: underline;
     }
 }
@@ -343,11 +373,21 @@
     padding-top: 0;
 }
 
+.editar-recomendacao .situacao-atual__card-text{
+    @include mobile {
+        flex-direction: column;
+    }
+}
+
 .editar-recomendacao .situacao-atual__buttons{
     align-items: center;
     display: flex;
     gap: size(24);
     justify-content: flex-end;
+
+    @include mobile{
+        flex-direction: column;
+    }
 
     & > a{
         align-items: center;
@@ -357,6 +397,11 @@
         display: flex;
         gap: $gap--small;
         padding: size(10) $gap--medium;
+
+        @include mobile{
+            justify-content: center;
+            width: 100%;
+        }
     }
 
     & > button{
@@ -366,6 +411,11 @@
         color: $color--high-light;
         display: flex;
         gap: $gap--small;
+
+        @include mobile {
+            justify-content: center;
+            width: 100%;
+        }
     }
 }
 
