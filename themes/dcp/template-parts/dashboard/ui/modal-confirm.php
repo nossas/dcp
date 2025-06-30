@@ -10,6 +10,7 @@
         <article class="is-body">
             <p>{DESCRIÇÃO}</p>
         </article>
+        <div class="is-error"></div>
 
         <div class="is-actions">
             <button class="button is-cancel">{CANCEL}</button>

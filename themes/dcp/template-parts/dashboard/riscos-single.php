@@ -32,15 +32,11 @@
 
             }
 
-
             $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
             $all_terms = get_terms([
                 'taxonomy' => 'situacao_de_risco',
                 'hide_empty' => false,
-            ]);
-
-
-            ?>
+            ]); ?>
 
         <div id="dashboardRiscoSingle" class="dashboard-content">
             <div class="dashboard-content-breadcrumb">
@@ -110,7 +106,7 @@
                     <div class="fields">
                         <div class="input-wrap">
                             <label class="label">Categoria</label>
-                            <select class="select is-select-load-category" name="category" required >
+                            <select id="selectCategory" class="select" name="category" required >
                                 <option value="">SELECIONE UMA CATEGORIA</option>
                                 <?php foreach ( $all_terms as $key => $term ) :
                                     if( !$term->parent ) : ?>
@@ -126,7 +122,7 @@
                                     }
                                 ?>
                             </a>
-                            <a class="button is-edit-input">
+                            <a class="button is-select-input">
                                 <iconify-icon icon="bi:chevron-down"></iconify-icon>
                             </a>
                         </div>
@@ -142,15 +138,54 @@
                     <div class="fields">
                         <div class="input-wrap">
                             <label class="label">Subcategoria</label>
-                            <input class="input is-chip-load-subcategory" type="text" name="subcategory" placeholder="" value="" style="padding-left: 50px;" readonly required>
-                            <div class="chips">
-                                <?php foreach ( $get_terms as $key => $term ) : if( $term->parent ) : ?>
-                                <span class="chip" data-id="<?=$term->term_id?>" data-name="<?=$term->name?>" data-slug="<?=$term->slug?>">
-                                    <iconify-icon icon="bi:check2"></iconify-icon>
-                                    <?=$term->name?>
-                                </span>
-                                <?php endif; endforeach; ?>
+                            <div class="input-chips">
+                                <div class="chips-wrap">
+                                    <?php if( !empty( $get_terms ) ) : foreach ( $get_terms as $key => $term ) : if( $term->parent ) : ?>
+                                        <span id="chips_<?=$term->slug?>" class="chips" data-id="<?=$term->term_id?>" data-name="<?=$term->name?>" data-slug="<?=$term->slug?>">
+                                            <iconify-icon icon="bi:check2"></iconify-icon>
+                                            <?=$term->name?>
+                                        </span>
+                                    <?php endif; endforeach; endif; ?>
+                                </div>
+                                <div class="chips-checkbox">
+                                    <?php foreach ( risco_convert_terms( $all_terms ) as $term ) : ?>
+                                        <div class="is-<?=$term[ 'slug' ]?>">
+                                            <h4><?=$term[ 'name' ]?></h4>
+                                            <?php foreach ( $term[ 'children' ] as $subterm ) : ?>
+                                            <label for="input_<?=$subterm[ 'slug' ]?>">
+                                                    <input id="input_<?=$subterm[ 'slug' ]?>" type="checkbox" value="<?=$subterm[ 'slug' ]?>" data-label="<?=$subterm[ 'name' ]?>" name="subcategories[]">
+                                                    <?=$subterm[ 'name' ]?>
+                                                </label>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
                             </div>
+                            <div id="modalChips" class="modal-chips">
+                                <div class="modal-confirm-content">
+                                    <header class="is-title">
+                                        <h3>{TUITULO}</h3>
+                                        <button class="button is-close">
+                                            <iconify-icon icon="bi:x-lg"></iconify-icon>
+                                        </button>
+                                    </header>
+
+                                    <article class="is-body">
+                                        <p>{DESCRIÇÃO}</p>
+                                    </article>
+                                    <div class="is-error"></div>
+
+                                    <div class="is-actions">
+                                        <button class="button is-cancel">{CANCEL}</button>
+                                        <button class="button is-custom">{CUSTOM}</button>
+                                        <button class="button is-confirm">
+                                            <i><iconify-icon icon="bi:check"></iconify-icon></i>
+                                            <span>{MODAL}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
                             <a class="button is-category" style=" font-size: 21px; top: 34px; ">
                                 <iconify-icon icon="bi:list"></iconify-icon>
                             </a>
@@ -247,13 +282,13 @@
 
                                                 <div class="asset-item-preview-actions">
 
-                                                    <a class="button is-fullscreen">
+                                                    <a class="button is-fullscreen" data-id="<?=$image->ID?>" data-href="<?=$image->guid?>">
                                                         <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
                                                     </a>
                                                     <a class="button is-delete" data-id="<?=$image->ID?>">
                                                         <iconify-icon icon="bi:trash-fill"></iconify-icon>
                                                     </a>
-                                                    <a class="button is-download" href="<?=$video->guid?>" target="_blank">
+                                                    <a class="button is-download" href="<?=$image->guid?>" target="_blank">
                                                         <iconify-icon icon="bi:download"></iconify-icon>
                                                     </a>
                                                     <a class="button is-show-hide">
@@ -332,6 +367,7 @@
                 </form>
                 <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
                 <?php echo get_template_part('template-parts/dashboard/ui/modal-assetset-fullscreen' ); ?>
+
             </div>
         </div>
     <?php endwhile; ?>

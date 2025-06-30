@@ -529,9 +529,10 @@
                                 display: block;
                                 padding: size( 3 ) size( 20 );
                             }
-                            input,
+                            input[type="text"],
                             textarea,
-                            select {
+                            select,
+                            .input-chips {
                                 font-size: size( 17 );
                                 color: $color--secondary-dark;
                                 width: 100%;
@@ -541,9 +542,7 @@
                                 position: relative;
                                 z-index: 1;
                                 opacity: 1;
-
                                 appearance: none;
-
                                 transition: all 0.4s 0s ease;
                             }
                             input[readonly],
@@ -564,6 +563,58 @@
                             }
                             select {
                                 padding: size( 15 ) size( 20 ) size( 15 ) size( 50 );
+                            }
+                            .input-chips {
+                                background-color: #FFF;
+                                padding: size( 12 ) size( 20 ) size( 8 ) size( 50 );
+
+                                .chips-wrap {
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                    gap: 9px;
+                                    min-height: size( 33 );
+
+                                    .chips {
+                                        font-size: size( 13 );
+                                        color: $color--secondary-light;
+                                        background-color: $color--secondary-dark;
+                                        padding: size( 5 ) size( 10 );
+                                        border-radius: size( 10 );
+                                        margin-bottom: size( 5 );
+                                        display: inline-block;
+                                        height: size( 28 );
+                                    }
+                                }
+
+                                .chips-checkbox {
+                                    height: 0;
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                    gap: 10px;
+                                    position: relative;
+                                    overflow: hidden;
+                                    opacity: 1;
+                                    transition: all 0.4s 0s ease;
+
+                                    h4 {
+                                        font-size: size( 16 );
+                                        margin-top: size( 10 );
+                                    }
+                                    label {
+                                        font-size: size( 14 );
+                                    }
+
+                                    input[type="checkbox"] {
+                                        display: inline-block;
+                                        width: size( 15 );
+                                        height: size( 15 );
+                                    }
+                                    input[type="checkbox"] {
+
+                                    }
+
+
+                                }
                             }
                             a.button {
                                 background-color: transparent;
@@ -608,23 +659,7 @@
                             }
 
 
-                            .chips {
-                                display: flex;
-                                flex-wrap: wrap;
-                                gap: 10px;
-                                margin-top: size( 5 );
-                                margin-bottom: size( 10 );
 
-                                .chip {
-                                    font-size: size( 13 );
-                                    color: $color--secondary-light;
-                                    background-color: $color--secondary-dark;
-                                    padding: size( 5 ) size( 10 );
-                                    border-radius: size( 10 );
-                                    margin-bottom: size( 5 );
-                                    display: inline-block;
-                                }
-                            }
                         }
                         .input-wrap.is-success {}
                         .input-wrap.is-warning {}
@@ -634,8 +669,8 @@
                             font-size: size( 17 );
                             color: $color--secondary-dark;
                             width: 85%;
-                            padding: size( 15 ) size( 20 ) size( 5 ) size( 20 );
-                            margin:  size( 25 ) 0  size( 125 ) 0;
+                            padding: size( 15 ) size( 20 );
+                            margin:  size( 25 ) 0  size( 125 );
                             border-radius: size( 15 );
                             border: dotted 2px #C9C6C5;
                             overflow: hidden;
@@ -805,8 +840,10 @@
                                             img {
                                                 display: block;
                                                 width: auto;
-                                                max-width: initial;
-                                                height: size( 175 );
+                                                position: absolute;
+                                                top: 50%;
+                                                left: 50%;
+                                                transform: scale( 1.2 ) translate( -50%, -50% );
                                             }
 
                                             iframe {}
@@ -1041,7 +1078,8 @@
 
 
                 .modal-confirm,
-                .modal-asset-fullscreen {
+                .modal-asset-fullscreen,
+                .modal-chips {
                     background-color: rgba( 0,0,0,0.3 );
                     display: none;
                     width: 100%;
@@ -1099,6 +1137,12 @@
                             }
 
                         }
+                        .is-error {
+                            display: none;
+                            padding: size( 10 );
+                            border: solid 1px $color--warning-dark;
+                            border-radius: size( 10 );
+                        }
                         .is-actions {
                             display: flex;
                             justify-content: space-between;
@@ -1138,7 +1182,7 @@
 
                     .modal-asset-fullscreen-content {
                         background-color: $color--secondary-light;
-                        width: 50%;
+                        width: 60%;
                         height: auto;
                         padding: 0;
                         border-radius: size( 20 );
@@ -1149,9 +1193,9 @@
                         overflow: hidden;
 
                         .is-title {
+                            padding: size( 25 );
                             position: absolute;
                             top: 0;
-                            left: 0;
                             right: 0;
                             z-index: 5;
 
@@ -1159,7 +1203,9 @@
                                 background-color: rgba( 255,255,255,0.8 );
                                 font-size: size( 30 );
                                 color: $color--secondary-dark;
-                                padding: size( 10 ) size( 20 );
+                                width: size( 35 );
+                                height: size( 35 );
+                                padding: size( 10 );
                                 border: none;
                             }
                         }
@@ -1172,9 +1218,14 @@
                             padding: 0;
 
                             .is-image {
-                                max-height: 90vh;
+                                width: auto;
+                                max-height: 85vh;
                             }
-                            .is-video {}
+                            .is-video {
+                                width: 100%;
+                                height: auto;
+                                max-height: 75vh;
+                            }
                         }
                         .is-actions {
                             background-color: $color--secondary-dark;
@@ -1184,33 +1235,55 @@
                             padding: size( 20 );
                             position: relative;
 
-                            .button {
-                                border-radius: size( 50 );
-                                font-size: size( 20 );
+                            .is-actions-buttons {
+                                width: 55%;
+                                display: flex;
+                                align-items: center;
+                                gap: size( 15 );
 
-                                height: 45px;
-
-                                i {
-
+                                .button {
+                                    background-color: $color--secondary-light;
+                                    color: $color--secondary-dark;
+                                    text-decoration: none;
+                                    text-align: center;
+                                    font-size: size( 17 );
+                                    padding: size( 10 ) size( 22 );
+                                    border-radius: size( 50 );
                                 }
-                                span {
-
+                                .button.is-delete {
+                                    background-color: $color--warning-dark;
+                                    color: $color--secondary-light;
                                 }
                             }
 
-                            .button.is-cancel {
-                                background-color: transparent;
-                                color: $color--secondary-dark;
-                                border: solid 1px $color--secondary-dark;
-                                padding: size( 10 ) size( 25 );
-                            }
-                            .button.is-confirm {
-                                background-color: $color--warning-dark;
+                            .is-actions-info {
                                 color: $color--secondary-light;
-                                padding: size( 10 ) size( 75 );
+                                display: flex;
+                                gap: size( 10 );
+
+                                .button {
+                                    background-color: rgba( 255,255,255,0.3 );
+                                    font-size: size( 23 );
+                                    color: inherit;
+                                    text-align: center;
+                                    width: size( 40 );
+                                    height: size( 40 );
+                                    line-height: size( 40 );
+                                    border-radius: size( 35 );
+                                    padding: 0;
+                                }
+                                .is-blur {
+                                    opacity: 0.5;
+                                    cursor: not-allowed;
+                                }
                             }
+
                         }
                     }
+
+                }
+
+                .modal-chips {
 
                 }
 

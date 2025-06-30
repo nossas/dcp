@@ -104,7 +104,6 @@ function form_single_risco_new() {
     $pod = pods( 'risco', $postID );
     $pod->save( 'endereco', sanitize_text_field( $data[ 'meta_input' ][ 'endereco' ] ) );
     $pod->save( 'descricao', sanitize_text_field( $data[ 'meta_input' ][ 'descricao' ] ) );
-
     $pod->save( 'latitude', sanitize_text_field( $data[ 'meta_input' ][ 'latitude' ] ) );
     $pod->save( 'longitude', sanitize_text_field( $data[ 'meta_input' ][ 'longitude' ] ) );
     $pod->save( 'nome_completo', sanitize_text_field( $data[ 'meta_input' ][ 'nome_completo' ] ) );
@@ -135,7 +134,6 @@ function form_single_risco_new() {
 }
 add_action('wp_ajax_form_single_risco_new', 'form_single_risco_new');
 add_action('wp_ajax_nopriv_form_single_risco_new', 'form_single_risco_new');
-
 
 function form_single_risco_edit() {
 
@@ -185,14 +183,18 @@ function form_single_risco_edit() {
 
     $new_terms = array(
         sanitize_text_field( $_POST[ 'category' ] )
-        //sanitize_text_field( $_POST[ 'subcategory' ] )
     );
+
+    foreach ( $_POST[ 'subcategories' ] as $term ) {
+        $new_terms[] = sanitize_text_field( $term );
+    }
+
     wp_set_object_terms( $postID, $new_terms, 'situacao_de_risco', false );
 
 
     $pod = pods( 'risco', $postID );
-    $pod->save( 'endereco', sanitize_text_field( $data[ 'meta_input' ][ 'endereco' ] ) );
-    $pod->save( 'descricao', sanitize_text_field( $data[ 'meta_input' ][ 'descricao' ] ) );
+    $pod->save( 'endereco', sanitize_text_field( $data[ 'endereco' ] ) );
+    $pod->save( 'descricao', sanitize_text_field( $data[ 'descricao' ] ) );
 
     $save_post = upload_file_to_attachment_by_ID( $_FILES['media_files'], $postID );
 
@@ -216,7 +218,6 @@ function form_single_risco_edit() {
 }
 add_action('wp_ajax_form_single_risco_edit', 'form_single_risco_edit');
 //add_action('wp_ajax_nopriv_form_single_risco_edit', 'form_single_risco_edit');
-
 
 function form_single_risco_delete_attachment() {
 
@@ -259,8 +260,6 @@ function form_single_risco_delete_attachment() {
 }
 add_action('wp_ajax_form_single_risco_delete_attachment', 'form_single_risco_delete_attachment');
 //add_action('wp_ajax_nopriv_form_single_risco_delete_attachment', 'form_single_risco_delete_attachment');
-
-
 
 function upload_file_to_attachment_by_ID( $files = NULL, $postID = NULL, $attachment_id = NULL ) {
 

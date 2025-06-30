@@ -252,22 +252,13 @@ jQuery(function($) {
 
         });
 
-        $( '.asset-item-preview .is-show-hide' ).on( 'click', function() {
-
-            $( '.modal-confirm' ).fadeIn( 200, function() {});
-
-        });
+        $( '.asset-item-preview .is-blur' ).on( 'click', function() {});
 
         $( '.modal-asset-fullscreen' ).each( function () {
-
             const $this = $( this );
-
-            $this.find( '.is-close, .button' ).on( 'click', function() {
-
+            $this.find( '.is-close, .is-delete' ).on( 'click', function() {
                 $this.fadeOut( 200, function() {});
-
             });
-
         });
 
         $( '.asset-item-preview .is-fullscreen' ).on( 'click', function() {
@@ -281,19 +272,18 @@ jQuery(function($) {
                 $modalFullscreen.find( 'img' ).show();
             }
             if( $this.parent().parent().find( 'video' ).length ) {
-                $modalFullscreen.find( 'video source' ).attr( 'src', $this.parent().parent().find( 'video source' ).attr( 'src') );
+                $modalFullscreen.find( 'video source' ).attr( 'src', $this.parent().parent().parent().find( 'video source' ).attr( 'src') );
                 $modalFullscreen.find( 'video' ).show();
+                $modalFullscreen.find( 'video' )[0].play();
             }
 
+            $modalFullscreen.find( '.is-delete' ).attr( 'data-id', $this.attr( 'data-id' ) );
+            $modalFullscreen.find( '.is-download' ).attr( 'href', $this.attr( 'data-href' ) );
 
-            $modalFullscreen.fadeIn( 200, function() {
-
-
-
-            });
+            $modalFullscreen.fadeIn( 200, function() {});
         });
 
-        $( '.asset-item-preview-actions .is-delete' ).on( 'click', function() {
+        $( '.asset-item-preview-actions .is-delete, .modal-asset-fullscreen .is-delete' ).on( 'click', function() {
             const $this = $( this );
             custom_modal_confirm({
                 title: "Confirmar Exclusão",
@@ -339,11 +329,12 @@ jQuery(function($) {
             const $this = $( this );
 
             $this.on( 'click', function() {
-                $this.parent().find( '.input, .textarea, .select' ).removeAttr( 'readonly disabled' ).focus();
-                $this.css({
-                    opacity : 0.5,
-                    cursor : 'not-allowed'
+                $this.hide();
+                $this.parent().find( '.chips-checkbox' ).css({
+                    height : 'auto',
+                    opacity : 1
                 });
+                $this.parent().find( '.input, .textarea, .select' ).removeAttr( 'readonly disabled' ).focus();
             });
 
         });
@@ -370,6 +361,22 @@ jQuery(function($) {
 
         });
 
+        $( '#selectCategory' ).on( 'change', function () {
+            $( '.input-chips .chips-wrap').html( '' );
+            $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
+        });
+
+        $( '.input-chips input[type="checkbox"]' ).on( 'change', function () {
+            if( $( this ).is( ':checked' ) ) {
+                $( '.input-chips .chips-wrap').append( '<span id="chips_' + $( this ).val() + '" class="chips"><iconify-icon icon="bi:check2"></iconify-icon>' + $( this ).attr( 'data-label' ) + '</span>' );
+            } else {
+                $( '.input-chips .chips-wrap').find( '#chips_' + $( this ).val() ).remove();
+            }
+        });
+
+        $( '.input-chips .chips' ).each( function () {
+            $( '#input_' + $( this ).attr( 'data-slug' ) ).prop( 'checked', true );
+        });
 
 
 
@@ -391,6 +398,7 @@ jQuery(function($) {
             // Preenche os conteúdos dinâmicos
             $modal.find('h3').text(title);
             $modal.find('.is-body p').html(description);
+            $modal.find('.is-error').html( '' );
             $modal.find('.is-cancel').text(cancelText);
             $modal.find('.is-confirm span').text(confirmText);
 
@@ -569,7 +577,6 @@ jQuery(function($) {
         });
 
     });
-
     $( window ).on( 'load', function() {
 
         $( 'body' ).attr( 'class', 'loading is-loaded' );
@@ -586,7 +593,7 @@ jQuery(function($) {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function () {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     console.log( 'DOCUMENT LOADED' );

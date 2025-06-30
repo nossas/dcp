@@ -31,3 +31,29 @@ function risco_badge_category( $slug = 'default', $label = 'CATEGORIA GERAL', $c
     echo '<span>' . $label . '</span>' . '</span>';
 
 }
+
+
+function risco_convert_terms( $terms = [] )
+{
+    $all_terms_new = [];
+    foreach ($terms as $term_key => $term) {
+
+        if( !$term->parent ) {
+            $all_terms_new[ $term->term_id ] = [
+                'id' => $term->term_id,
+                'name' => $term->name,
+                'slug' => $term->slug,
+                'children' => [],
+            ];
+        } else {
+            $all_terms_new[ $term->parent ][ 'children' ][] = [
+                'id' => $term->term_id,
+                'name' => $term->name,
+                'slug' => $term->slug,
+            ];
+        }
+
+    }
+
+    return $all_terms_new;
+}

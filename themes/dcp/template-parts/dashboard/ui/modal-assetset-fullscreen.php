@@ -7,16 +7,33 @@
         </header>
         <article class="is-body">
             <img class="is-image" src="" style="display: none;">
-            <video class="is-video" style="display: none;" playsinline controls >
+            <video class="is-video" style="display: none;" playsinline controls autoplay >
                 <source src="" type="video/mp4">
             </video>
         </article>
         <div class="is-actions">
-            <button class="button is-cancel">Cancelar</button>
-            <button class="button is-confirm">
-                <i><iconify-icon icon="bi:check"></iconify-icon></i>
-                <span>Confirmar</span>
-            </button>
+            <div class="is-actions-buttons">
+                <a class="button is-delete">
+                    <iconify-icon icon="bi:trash-fill"></iconify-icon>
+                    <span>Excluir</span>
+                </a>
+                <a class="button is-download" href="" target="_blank">
+                    <iconify-icon icon="bi:download"></iconify-icon>
+                    <span>Baixar</span>
+                </a>
+                <a class="button is-blur">
+                    <iconify-icon icon="bi:eye-slash-fill"></iconify-icon>
+                    <span>Desfocar</span>
+                </a>
+            </div>
+            <div class="is-actions-info">
+                <a href="#/" class="button">
+                    <iconify-icon icon="bi:exclamation-lg"></iconify-icon>
+                </a>
+                <p>
+                    Fique atento, consectetur adipiscing elit. Phasellus ullamcorper.
+                </p>
+            </div>
         </div>
     </div>
 </div>
