@@ -36,15 +36,62 @@
         }
 
         &[data-cpt="risco"] {
-            border-bottom-left-radius: $border-radius--medium;
-            border-top-left-radius: $border-radius--medium;
+            border-bottom-left-radius: $border-radius--large;
+            border-top-left-radius: $border-radius--large;
             --tab-color: #{$color--warning-dark};
         }
 
         &[data-cpt="apoio"] {
-            border-bottom-right-radius: $border-radius--medium;
-            border-top-right-radius: $border-radius--medium;
+            border-bottom-right-radius: $border-radius--large;
+            border-top-right-radius: $border-radius--large;
             --tab-color: #{$color--primary-pure};
+        }
+    }
+
+    &__form-container {
+        display: flex;
+        justify-content: center;
+        margin: auto;
+        position: absolute;
+        top: size(64);
+        width: 100%;
+        z-index: 1;
+    }
+
+    &__form {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        max-width: calc(100% - #{size(32)});
+        width: size(720);
+
+        input, button {
+            border: 1px solid $color--low-pure;
+            min-height: size(42);
+            padding: $padding--small $padding--medium;
+        }
+
+        input {
+            border-bottom-left-radius: $border-radius--large;
+            border-top-left-radius: $border-radius--large;
+            flex: 1;
+        }
+
+        button {
+            align-items: center;
+            background-color: $color--low-pure;
+            color: $color--high-pure;
+            border-bottom-right-radius: $border-radius--large;
+            border-top-right-radius: $border-radius--large;
+            display: flex;
+            gap: $gap--small;
+
+            @include mobile {
+
+                span {
+                    display: none;
+                }
+            }
         }
     }
 
@@ -96,12 +143,6 @@
         background-color: transparent;
         height: calc(100vh - #{size(120)});
 
-        canvas {
-            border: 1px solid #ddd;
-            border-bottom-left-radius: $border-radius--medium;
-            border-bottom-right-radius: $border-radius--medium;
-        }
-
         .legend-container {
             display: none;
         }
@@ -110,9 +151,15 @@
             display: none;
         }
 
-        @media screen and (max-width: size(820)) {
-            .mapboxgl-ctrl-top-left {
-                top: size(64);
+        // Map zoom controls
+        .mapboxgl-ctrl-top-left {
+            bottom: size(16);
+            left: unset;
+            right: size(16);
+            top: unset;
+
+            @media screen and (max-width: size(820)) {
+                bottom: size(80);
             }
         }
     }

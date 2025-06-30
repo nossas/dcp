@@ -191,9 +191,9 @@ $categories = get_the_category();
 
             <div class="post-card__see-in-map">
                 <button class="post-card__map-button">
-                    <a href="<?= get_permalink(); ?>"><?= __("Veja no mapa", "dcp"); ?></a>
+                    <a href="/mapa"><?= __("Veja no mapa", "dcp"); ?></a>
                 </button>
-                <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_apoio', ['apoio' => sanitize_title($post->post_title)]); ?>">
+                <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_apoio', ['id' => $post->ID]); ?>">
                     <?= __('Editar') ?>
                 </a>
 

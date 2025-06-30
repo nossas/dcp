@@ -1,5 +1,3 @@
-console.log('dashboard-modal');
-
 document.addEventListener('DOMContentLoaded', function () {
     const abrirModalBtn = document.getElementById('abrir-modal');
     const modal = document.getElementById('modal-confirmacao');

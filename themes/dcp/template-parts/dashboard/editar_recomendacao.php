@@ -52,8 +52,8 @@ function render_svg_preview($id)
 
     <nav class="breadcrumb-dashboard">
         <a href="#">Situação atual</a>
-        <span class="breadcrumb__separator"> > </span>
-        <span class="breadcrumb__current">Editar recomendações</span>
+        <span class="breadcrumb-dashboard__separator"> > </span>
+        <span class="breadcrumb-dashboard__current">Editar recomendações</span>
     </nav>
 
     <h2 class="editar-recomendacao__card-title-big">
@@ -76,22 +76,34 @@ function render_svg_preview($id)
         ?>
 
             <div class="situacao-atual__card-text">
-                <div class="situacao-atual__icon" id="preview-icon-<?= $i ?>">
-                    <?= $icone_atual_id ? render_svg_preview($icone_atual_id) : ''; ?>
-                </div>
+                <div class="situacao-atual__card-text-icon">
+                    <label class="situacao-atual__label" for="recomendacao"><?= __('Ícones') ?></label>
+                    <div class="situacao-atual__icon" id="preview-icon-<?= $i ?>">
+                        <?= $icone_atual_id ? render_svg_preview($icone_atual_id) : ''; ?>
+                    </div>
 
-                <select name="<?= $icone_field ?>" class="situacao-atual__icon-select" data-preview-id="preview-icon-<?= $i ?>">
-                    <option value=""><?= __('Escolha um ícone') ?></option>
-                    <?php foreach ($opcoes_icones as $icon): ?>
-                        <option value="<?= $icon->ID ?>" <?= selected($icone_atual_id, $icon->ID) ?>>
-                            <?= esc_html($icon->post_title) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+                    <select name="<?= $icone_field ?>" class="situacao-atual__icon-select" data-preview-id="preview-icon-<?= $i ?>">
+                        <option value=""><?= __('Escolha um ícone') ?></option>
+                        <?php foreach ($opcoes_icones as $icon): ?>
+                            <option value="<?= $icon->ID ?>" <?= selected($icone_atual_id, $icon->ID) ?>>
+                                <?= esc_html($icon->post_title) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
                 <div class="situacao-atual__textarea-wrapper">
+                    <label class="situacao-atual__label" for="recomendacao"><?= __('Recomendações') ?></label>
                     <textarea name="<?= $reco_field ?>" rows="2" class="situacao-atual__textarea"><?= esc_textarea($texto) ?></textarea>
+
+                    <span class="input-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M17.4397 2.18343C17.5449 2.28887 17.6039 2.43168 17.6039 2.58056C17.6039 2.72944 17.5449 2.87224 17.4397 2.97768L16.2664 4.15218L14.0164 1.90218L15.1897 0.727681C15.2952 0.622228 15.4383 0.562988 15.5874 0.562988C15.7366 0.562988 15.8796 0.622228 15.9851 0.727681L17.4397 2.18231V2.18343ZM15.471 4.94643L13.221 2.69643L5.55638 10.3622C5.49446 10.4241 5.44785 10.4996 5.42025 10.5827L4.51463 13.2984C4.4982 13.3479 4.49587 13.401 4.50789 13.4518C4.51991 13.5026 4.54581 13.549 4.5827 13.5859C4.61958 13.6227 4.666 13.6486 4.71676 13.6607C4.76751 13.6727 4.82062 13.6704 4.87012 13.6539L7.58588 12.7483C7.66886 12.721 7.74435 12.6748 7.80638 12.6133L15.471 4.94643Z" fill="#605E5D" />
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M1.125 15.1884C1.125 15.636 1.30279 16.0652 1.61926 16.3817C1.93573 16.6981 2.36495 16.8759 2.8125 16.8759H15.1875C15.6351 16.8759 16.0643 16.6981 16.3807 16.3817C16.6972 16.0652 16.875 15.636 16.875 15.1884V8.43843C16.875 8.28925 16.8157 8.14617 16.7102 8.04068C16.6048 7.93519 16.4617 7.87593 16.3125 7.87593C16.1633 7.87593 16.0202 7.93519 15.9148 8.04068C15.8093 8.14617 15.75 8.28925 15.75 8.43843V15.1884C15.75 15.3376 15.6907 15.4807 15.5852 15.5862C15.4798 15.6917 15.3367 15.7509 15.1875 15.7509H2.8125C2.66332 15.7509 2.52024 15.6917 2.41475 15.5862C2.30926 15.4807 2.25 15.3376 2.25 15.1884V2.81343C2.25 2.66425 2.30926 2.52117 2.41475 2.41568C2.52024 2.31019 2.66332 2.25093 2.8125 2.25093H10.125C10.2742 2.25093 10.4173 2.19167 10.5227 2.08618C10.6282 1.98069 10.6875 1.83761 10.6875 1.68843C10.6875 1.53925 10.6282 1.39617 10.5227 1.29068C10.4173 1.18519 10.2742 1.12593 10.125 1.12593H2.8125C2.36495 1.12593 1.93573 1.30372 1.61926 1.62019C1.30279 1.93666 1.125 2.36588 1.125 2.81343V15.1884Z" fill="#605E5D" />
+                        </svg>
+                    </span>
                 </div>
+
             </div>
 
         <?php endfor; ?>

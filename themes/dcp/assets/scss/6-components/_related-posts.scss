@@ -1,169 +1,164 @@
-.proximas-acoes {
-    padding: 2rem 0;
-    background: #f8f4ed;
-    text-align: center;
-    width: 100%;
-    max-width: 1370px;
-    margin: auto;
-    padding-inline: 2rem;
-  .secao-titulo {
-    font-size: 40px;
-    font-weight: 400;
-    margin-bottom: 0.5rem;
-    text-align: start;
-    margin-bottom: 0;
-    @include mobile {
-        font-size: 24px;
-    }
-  }
+// Variáveis principais
+$cor-fundo: #fdf7ef;
+$cor-principal: #1c4c27;
+$cor-texto: #222;
+$cor-secundaria: #666;
+$radius: 1.25rem;
+$sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
 
-  .secao-subtitulo {
-    display: flex;
-    margin: 0 auto 2rem;
-    font-size: 1rem;
-    color: #555;
-    justify-content: flex-start;
-    width: 100%;
-    max-width: 100%;
-    margin-top: 12px;
-    margin-bottom: 40px;
-  }
+.transparencia {
+  background: $cor-fundo;
+  padding: 4rem 1rem;
+  font-family: 'Arial', sans-serif;
 
-  .acoes-grid {
-    gap: 1.5rem;
-    display: flex;
-    .card-style--cultura{
-        .acao-rodape {
-            background-color: #B83D13 !important;
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .transparencia-topo {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+
+      .transparencia-textos {
+        max-width: 800px;
+
+        .transparencia-titulo {
+          font-size: 2.5rem;
+          font-weight: bold;
+          color: $cor-principal;
+          font-family: 'Comic Sans MS', cursive;
+          margin-bottom: 0.75rem;
         }
-    }
-  }
-    .acao-card--cultura{
-        border-radius: 16px;
-        padding: 4px 17px;
-        background-color: #B83D13 !important;
-         .acao-icon{
-            width: 16px; /* ajuste conforme necessário */
-            height: 16px;
-            background-image: url('/wp-content/themes/dcp/assets/images/micro.svg');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-    }
-    .acao-card--reparos{
-        border-radius: 16px;
-        padding: 4px 17px;
-        background-color: #51B2AF !important;
-         .acao-icon{
-            width: 16px; /* ajuste conforme necessário */
-            height: 16px;
-            background-image: url('/wp-content/themes/dcp/assets/images/hammer-thor.svg');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
 
-        }
-    }
-    .acao-card--limpeza{
-        border-radius: 16px;
-        padding: 4px 17px;
-        background-color: #50B15C !important;
-        .acao-icon{
-            width: 16px; /* ajuste conforme necessário */
-            height: 16px;
-            background-image: url('/wp-content/themes/dcp/assets/images/thrash-tag.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-    }
-  .acao-card {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    width: 100%;
-    max-width: 443px;
-
-    .acao-topo {
-        padding: 0.5rem 1rem;
-        color:$color--secondary-dark !important;
-        display: flex;
-        align-items: center;
-        background-color: inherit !important;
-
-      .acao-categoria {
-        font-weight: bold;
-        font-size: 0.875rem;
-        display: flex;
-        gap: 8px;
-        flex-direction: row;
-
-        .acao-icon {
+        .transparencia-subtitulo {
+          font-size: 1rem;
+          color: $cor-texto;
+          line-height: 1.6;
         }
       }
-    }
 
-    .acao-conteudo {
-      padding: 1rem;
-      flex-grow: 1;
-
-      .acao-titulo {
-        font-size: 1.5rem;
-        color:$color--secondary-dark !important;
-        font-weight: bold;
-        font-family: 'gabarito';
-        margin-bottom: 0.5rem;
-        text-align: left;
-      }
-
-      .acao-descricao {
-        font-size: 0.9rem;
-        color: #333;
-        text-align: left;
-      }
-
-      .acao-infos {
-        list-style: none;
-        padding: 0;
-        margin-top: 1rem;
-        font-size: 0.875rem;
-        color: #555;
-        text-align: left;
-
-        li {
-            display:flex;
-            gap:8px;
-            margin-bottom: 0.3rem;
-
-          strong {
-          }
-        }
-      }
-    }
-
-    .acao-rodape {
-        padding: 1rem;
-        background-color: var(--cor-categoria);
-        text-align: end;
-
-      .acao-botao {
-        background: white;
-        color: black;
-        padding: 0.5rem 1.2rem;
-        border-radius: 25px;
-        font-weight: bold;
+      .transparencia-politica {
+        padding: 0.5rem 1.25rem;
+        border: 2px solid $cor-principal;
+        border-radius: 999px;
+        font-size: 0.95rem;
+        font-weight: 600;
         text-decoration: none;
-        display: inline-block;
-        transition: background 0.3s ease;
+        color: $cor-principal;
+        white-space: nowrap;
+        transition: all 0.3s ease;
 
         &:hover {
-          background: #eee;
+          background: $cor-principal;
+          color: #fff;
+        }
+      }
+    }
+
+    .transparencia-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+
+      .transparencia-card {
+        background: #fff;
+        border-radius: $radius;
+        box-shadow: $sombra;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s ease;
+
+        &:hover {
+          transform: translateY(-4px);
+        }
+
+        .transparencia-thumb {
+          width: 100%;
+          height: 180px;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+          }
+        }
+
+        .transparencia-body {
+          padding: 1.25rem 1.5rem 1.5rem 1.5rem;
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
+
+          .transparencia-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+
+            .transparencia-tag {
+              background-color: #198754; // será sobrescrito inline no PHP
+              padding: 0.25rem 0.75rem;
+              font-size: 0.75rem;
+              border-radius: 999px;
+              color: white;
+              display: inline-flex;
+              align-items: center;
+              gap: 0.35rem;
+              font-weight: 500;
+
+              .tag-icon {
+                display: inline-block;
+                width: 14px;
+                height: 14px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+              }
+            }
+
+            .transparencia-data {
+              font-size: 0.85rem;
+              color: $cor-secundaria;
+              white-space: nowrap;
+            }
+          }
+
+          .transparencia-titulo-card {
+            font-size: 20px;
+            font-weight: 500;
+            color: $color--secondary-dark;
+            font-family: 'gabarito';
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+          }
+
+          .transparencia-descricao {
+            font-size: 0.9rem;
+            color: $color--secondary-dark;
+            margin-bottom: 1rem;
+          }
+
+          .transparencia-link {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: $cor-principal;
+            text-decoration: none;
+            align-self: flex-start;
+
+            &::after {
+              content: ' →';
+            }
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
         }
       }
     }

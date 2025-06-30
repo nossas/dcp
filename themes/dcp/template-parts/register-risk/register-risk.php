@@ -36,13 +36,13 @@
                             <span class="multistepform__label"><?php _e('Localização'); ?></span>
                             <input type="text" name="endereco" placeholder="<?php _e('Digite o local ou endereço aqui'); ?>">
                         </div>
-                        <!-- <span class="or"><?php _e('ou'); ?></span> -->
-                        <!-- <a href="#" role="button" class="multistepform__button-map multistepform__button map-button">
+                        <span class="or"><?php _e('ou'); ?></span>
+                        <a href="#" role="button" class="multistepform__button-map multistepform__button map-button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                                 <path d="M4.66425 0.165227C4.71658 0.113025 4.77869 0.0716501 4.84703 0.0434669C4.91536 0.0152837 4.98858 0.000845444 5.0625 0.00097746H12.9375C13.0867 0.00097746 13.2298 0.0602407 13.3352 0.16573C13.4407 0.271219 13.5 0.414293 13.5 0.563477C13.5 1.32848 13.1153 1.88423 12.7733 2.22735C12.6315 2.36798 12.492 2.47935 12.375 2.5626V7.54748L12.4628 7.60148C12.6911 7.74435 12.9983 7.95473 13.3076 8.22585C13.905 8.74785 14.625 9.59385 14.625 10.6885C14.625 10.8377 14.5657 10.9807 14.4602 11.0862C14.3548 11.1917 14.2117 11.251 14.0625 11.251H9.5625V16.3135C9.5625 16.624 9.3105 18.001 9 18.001C8.6895 18.001 8.4375 16.624 8.4375 16.3135V11.251H3.9375C3.78832 11.251 3.64524 11.1917 3.53975 11.0862C3.43426 10.9807 3.375 10.8377 3.375 10.6885C3.375 9.59385 4.095 8.74785 4.69125 8.22585C4.98229 7.97314 5.29471 7.74616 5.625 7.54748V2.5626C5.48313 2.46216 5.34992 2.35001 5.22675 2.22735C4.88475 1.88423 4.5 1.32735 4.5 0.563477C4.49987 0.489559 4.51431 0.41634 4.54249 0.348006C4.57067 0.279671 4.61205 0.217561 4.66425 0.165227V0.165227Z" fill="#281414" />
                             </svg>
                             <?php _e('Marcar no mapa'); ?>
-                        </a> -->
+                        </a>
                     </div>
                     <div class="multistepform__buttons">
                         <a href="/reportar-riscos" role="button" class="multistepform__button back-to-map">

@@ -35,11 +35,19 @@
                 justify-content: space-between;
             }
 
+            &__excerpt-wrapped {
+                height: auto !important;
+                @include mobile {
+                    align-items: flex-end;
+                    display: flex;
+                }
+            }
+
             &__title{
                 font-family: $font-family--primary;
                 font-size: $font-size--xx-small;
                 font-weight: $font-weight--bold;
-                height: 0;
+                height: auto;
 
                 & > a{
                     display: flex;

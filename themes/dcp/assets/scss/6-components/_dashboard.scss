@@ -95,6 +95,10 @@
     &__main {
         padding: size(40);
 
+        @include mobile{
+            padding-inline: $padding--medium;
+        }
+
 
         .dashboard-content {
             min-height: 75vh;
