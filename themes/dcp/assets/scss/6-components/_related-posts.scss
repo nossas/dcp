@@ -11,6 +11,12 @@ $sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 4rem 1rem;
   font-family: 'Arial', sans-serif;
   padding-top: 80px;
+  @include mobile{
+    padding-top: 0px;
+    margin-top: -16px !important;
+    padding-left: 0;
+    padding-right: 0px;
+  }
 
   .container {
     max-width: 1376px;
@@ -25,7 +31,7 @@ $sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
         margin-bottom: 3rem;
 
       .transparencia-textos {
-        max-width: 694px;;
+        max-width: 694px;
         .transparencia-titulo {
           font-size: 2.5rem;
           font-weight: $font-weight--regular;
@@ -51,6 +57,9 @@ $sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
         color: $cor-principal;
         white-space: nowrap;
         transition: all 0.3s ease;
+        @include mobile{
+            display: none;
+        }
 
         &:hover {
           background: $cor-principal;
@@ -155,15 +164,24 @@ $sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
                 line-height: 130%;
           }
 
-          .transparencia-link {
+         .transparencia-link {
             font-size: 1rem;
             font-weight: 600;
             color: #281414;
             align-self: flex-end;
             margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
 
             &::after {
-              content: ' →';
+                content: '';
+                display: inline-block;
+                width: 16px; // ajuste conforme o tamanho do seu ícone
+                height: 16px;
+                background-image: url('/wp-content/themes/dcp/assets/images/right-arrow.svg');
+                background-size: contain;
+                background-repeat: no-repeat;
             }
 
             &:hover {

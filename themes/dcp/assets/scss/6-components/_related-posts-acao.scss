@@ -6,6 +6,9 @@
     max-width: 1370px;
     margin: auto;
     padding-inline: 2rem;
+    @include mobile{
+        padding-inline: 1rem;
+    }
   .secao-titulo {
     font-size: 40px;
     font-weight: 400;

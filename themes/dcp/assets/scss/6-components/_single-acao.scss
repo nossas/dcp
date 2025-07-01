@@ -13,7 +13,7 @@
             }
         }
         @include mobile {
-            padding-inline: 2rem !important;
+            padding-inline: 1rem !important;
         }
         &__title{
             color:$color--primary-pure;
@@ -35,9 +35,14 @@
                 text-align: start;
             }
         }
-        &_featured-image{
+        &__featured-image{
             @include mobile{
-                margin: 16px;
+                margin-bottom: 0px;
+            }
+            img{
+                @include mobile{
+                    height: 192px !important;
+                }
             }
         }
         &__tags{
@@ -61,13 +66,42 @@
             }
         }
     }
+    .wp-block-cover {
+        @include mobile {
+            padding: 0px !important;
+            margin-top: 0px !important;
+            margin-bottom: 48px;
+        }
+        &__inner-container{
+            @include mobile{
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+        }
+    }
+     .main-footer-subscribe {
+        @include mobile{
+            margin-top: 0px;
+        }
+        &__widget{
+            @include mobile {
+                padding-inline: 1rem;
+            }
+        }
+    }
 
 }
 .post-content{
     padding-left: size(0);
     padding-right: size(0);
     @include mobile{
-    padding-inline: 2rem;
+    padding-inline: 1rem;
     }
+    .wp-block-spacer{
+        @include mobile{
+            margin-top: 8px;
+        }
+    }
+
 
 }
