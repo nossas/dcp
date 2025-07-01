@@ -73,12 +73,6 @@ class MediaLoader {
         this.loadedBytes += loaded;
         const percent = (this.loadedBytes / this.totalBytes) * 100;
         this.progressBar.style.width = `${Math.min(percent, 100)}%`;
-
-        // console.log( 'loaded', loaded );
-        // console.log( 'this.loadedBytes', this.loadedBytes );
-        // console.log( 'this.totalBytes', this.totalBytes );
-        // console.log( 'percent', percent );
-        // console.log( 'Math.min(percent, 100)', Math.min(percent, 100) );
     }
 
     async startLoading() {
@@ -92,7 +86,6 @@ class MediaLoader {
             }
         }
         this.progressContainer.style.display = 'none';
-        //__scroll.update();
     }
 
     loadMediaItem(item) {
@@ -268,13 +261,13 @@ jQuery(function($) {
             $modalFullscreen.find( 'img, video' ).hide();
 
             if( $this.parent().parent().find( 'img' ).length ) {
-                $modalFullscreen.find( 'img' ).attr( 'src', $this.parent().parent().find( 'img' ).attr( 'src') );
                 $modalFullscreen.find( 'img' ).show();
+                $modalFullscreen.find( 'img' ).attr( 'src', $this.parent().parent().find( 'img' ).attr( 'src') );
             }
             if( $this.parent().parent().find( 'video' ).length ) {
-                $modalFullscreen.find( 'video source' ).attr( 'src', $this.parent().parent().parent().find( 'video source' ).attr( 'src') );
                 $modalFullscreen.find( 'video' ).show();
-                $modalFullscreen.find( 'video' )[0].play();
+                $modalFullscreen.find( 'video source' ).attr( 'src', $this.parent().parent().parent().find( 'video source' ).attr( 'src') );
+                $modalFullscreen.find( 'video' )[0].load();
             }
 
             $modalFullscreen.find( '.is-delete' ).attr( 'data-id', $this.attr( 'data-id' ) );

@@ -7,8 +7,8 @@
         </header>
         <article class="is-body">
             <img class="is-image" src="" style="display: none;">
-            <video class="is-video" style="display: none;" playsinline controls autoplay >
-                <source src="" type="video/mp4">
+            <video class="is-video" style="display: none;" playsinline controls >
+                <source type="video/mp4">
             </video>
         </article>
         <div class="is-actions">
