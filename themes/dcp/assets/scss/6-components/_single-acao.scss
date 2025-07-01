@@ -61,21 +61,13 @@
             }
         }
     }
-    .post-content{
-        padding-left: size(0);
-        padding-right: size(0);
-        @include mobile{
-        padding-inline: 2rem;
-        }
-        .wp-block-coblocks-gallery-carousel{
-            button{
-                background-color: #235540;
-            }
-            .coblocks-gallery-carousel-swiper-container{
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-            }
-        }
+
+}
+.post-content{
+    padding-left: size(0);
+    padding-right: size(0);
+    @include mobile{
+    padding-inline: 2rem;
     }
+
 }
