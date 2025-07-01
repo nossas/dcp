@@ -1032,7 +1032,8 @@
                             border: solid 1px $color--warning-dark;
                         }
                         .button.is-publish,
-                        .button.is-save {
+                        .button.is-save,
+                        .button.is-new {
                             background-color: $color--primary-pure;
                             color: $color--secondary-light;
                             border: solid 1px $color--primary-pure;

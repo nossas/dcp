@@ -378,9 +378,6 @@ jQuery(function($) {
             $( '#input_' + $( this ).attr( 'data-slug' ) ).prop( 'checked', true );
         });
 
-
-
-
         function custom_modal_confirm(options) {
             const {
                 title,
@@ -469,20 +466,46 @@ jQuery(function($) {
                     $this.removeClass( 'is-sending' );
 
                     if( response.success ) {
-                        custom_modal_confirm({
-                            title: response.data.title,
-                            description: response.data.message,
 
-                            cancelText: "CANCELAR",
-                            onCancel: function () {},
+                        if( response.data.is_new !== undefined ) {
 
-                            confirmText: "ATUALIZAR",
-                            onConfirm: function () {
+                            custom_modal_confirm({
+                                title: response.data.title,
+                                description: response.data.message,
 
-                                window.location.reload();
+                                cancelText: "Criar novo Risco",
+                                onCancel: function () {
+                                    $this.find( 'input, textarea, select' ).val( '' );
+                                    $( '.input-chips .chips-wrap').html( '' );
+                                    $( '#mediaUpload .input-media-uploader-progress').html( '' );
+                                    $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
+                                },
+                                confirmText: "Visualizar Risco",
+                                onConfirm: function () {
+                                    window.location.href = window.location.origin + window.location.pathname + '?ver=riscos-single&risco_id=' + response.data.post_id;
+                                }
+                            });
 
-                            }
-                        });
+                        } else {
+
+                            custom_modal_confirm({
+                                title: response.data.title,
+                                description: response.data.message,
+
+                                cancelText: "CANCELAR",
+                                onCancel: function () {},
+
+                                confirmText: "ATUALIZAR",
+                                onConfirm: function () {
+
+                                    window.location.reload();
+
+                                }
+                            });
+
+                        }
+
+
                     } else {
                         custom_modal_confirm({
                             title: response.data.title,
@@ -502,7 +525,6 @@ jQuery(function($) {
                 .catch(error => {});
 
         });
-
         $( '#riscoSingleForm .is-archive' ).on( 'click', function () {
             custom_modal_confirm({
                 title: 'Arquivar esse registro de risco?',
@@ -544,7 +566,18 @@ jQuery(function($) {
                 confirmText: "Publicar alterações",
                 onConfirm: function () {
                     $( 'input[name="post_status"]' ).val( 'publish' );
-                    //$( 'input[name="post_status"]' ).val( $( 'input[name="post_status_current"]' ).val() );
+                    $( '#riscoSingleForm' ).submit();
+                }
+            });
+        });
+        $( '#riscoSingleForm .is-new' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Criar novo registro de risco?',
+                description: 'Confirme que não há informações impróprias antes de publicar.',
+                cancelText: "Cancelar",
+                onCancel: function () {},
+                confirmText: "Publicar alterações",
+                onConfirm: function () {
                     $( '#riscoSingleForm' ).submit();
                 }
             });

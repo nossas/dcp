@@ -97,8 +97,10 @@ function form_single_risco_new() {
 
     $new_terms = array(
         sanitize_text_field( $_POST[ 'situacao_de_risco' ] )
-        //sanitize_text_field( $_POST[ 'subcategory' ] )
     );
+    foreach ( $_POST[ 'subcategories' ] as $term ) {
+        $new_terms[] = sanitize_text_field( $term );
+    }
     wp_set_object_terms( $postID, $new_terms, 'situacao_de_risco', false );
 
     $pod = pods( 'risco', $postID );
@@ -121,6 +123,7 @@ function form_single_risco_new() {
             'message' => 'Formulário enviado com sucesso!',
             'uploaded_files' => $save_post[ 'uploaded_files' ],
             'post_id' => $postID,
+            'is_new' => true,
         ]);
 
     }
@@ -182,7 +185,7 @@ function form_single_risco_edit() {
     }
 
     $new_terms = array(
-        sanitize_text_field( $_POST[ 'category' ] )
+        sanitize_text_field( $_POST[ 'situacao_de_risco' ] )
     );
 
     foreach ( $_POST[ 'subcategories' ] as $term ) {

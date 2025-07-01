@@ -36,7 +36,9 @@
             $all_terms = get_terms([
                 'taxonomy' => 'situacao_de_risco',
                 'hide_empty' => false,
-            ]); ?>
+            ]);
+
+            ?>
 
         <div id="dashboardRiscoSingle" class="dashboard-content">
             <div class="dashboard-content-breadcrumb">
@@ -106,7 +108,7 @@
                     <div class="fields">
                         <div class="input-wrap">
                             <label class="label">Categoria</label>
-                            <select id="selectCategory" class="select" name="category" required >
+                            <select id="selectCategory" class="select" name="situacao_de_risco" required >
                                 <option value="">SELECIONE UMA CATEGORIA</option>
                                 <?php foreach ( $all_terms as $key => $term ) :
                                     if( !$term->parent ) : ?>
@@ -159,30 +161,6 @@
                                             <?php endforeach; ?>
                                         </div>
                                     <?php endforeach; ?>
-                                </div>
-                            </div>
-                            <div id="modalChips" class="modal-chips">
-                                <div class="modal-confirm-content">
-                                    <header class="is-title">
-                                        <h3>{TUITULO}</h3>
-                                        <button class="button is-close">
-                                            <iconify-icon icon="bi:x-lg"></iconify-icon>
-                                        </button>
-                                    </header>
-
-                                    <article class="is-body">
-                                        <p>{DESCRIÇÃO}</p>
-                                    </article>
-                                    <div class="is-error"></div>
-
-                                    <div class="is-actions">
-                                        <button class="button is-cancel">{CANCEL}</button>
-                                        <button class="button is-custom">{CUSTOM}</button>
-                                        <button class="button is-confirm">
-                                            <i><iconify-icon icon="bi:check"></iconify-icon></i>
-                                            <span>{MODAL}</span>
-                                        </button>
-                                    </div>
                                 </div>
                             </div>
 
