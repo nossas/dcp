@@ -90,3 +90,18 @@
 
     }
 }
+.wp-block-coblocks-gallery-carousel{
+    button{
+        background-color: white;
+        border: 1px solid #235540;
+        .icon{
+            background-color: #235540;
+        }
+    }
+    .coblocks-gallery-carousel-swiper-container{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
