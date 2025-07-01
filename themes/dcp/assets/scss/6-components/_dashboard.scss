@@ -50,7 +50,7 @@
     &__body {
         display: grid;
         grid-template-columns: auto 1fr;
-        min-height: calc(100vh - size(56));
+        min-height: 95vh;
     }
 
     &__sidebar {
@@ -1296,8 +1296,139 @@
             }
 
 
+            .dashboard-content-home {
+
+                .dashboard-content-header {
+                    display: block;
+                }
 
 
+
+
+                .dashboard-content-section {
+
+
+                    &-header {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: size( 25 ) size( 10 );
+
+                        .button {
+                            background-color: transparent;
+                            color: $color--secondary-dark;
+                            text-decoration: none;
+                            padding: size( 13 ) size( 25 );
+                            border: solid 1.5px $color--secondary-dark;
+                            border-radius: size( 50 );
+                            display: inline-block;
+                            position: relative;
+                            z-index: 2;
+
+                            &:hover {
+                                background-color: $color--secondary-dark;
+                                color: $color--secondary-light;
+                            }
+                        }
+                    }
+
+                    &-body {
+
+
+
+                        .is-cards {
+
+                            display: flex;
+
+
+
+                            .card {
+                                background-color: white;
+                                font-weight: 300;
+                                color: $color--secondary-dark;
+                                display: inline-block;
+                                width: 17.5%;
+                                min-height: size( 100 );
+                                padding: 0;
+                                margin: 0 25px 25px 0;
+
+                                border-color: #FEFBF9;
+                                border-radius: size( 20 );
+
+                                position: relative;
+                                z-index: 1;
+                                overflow: hidden;
+
+                                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.30);
+                                transform: scale( 1 );
+                                transition: all 0.5s 0s ease;
+
+                                &:first-child {
+                                    width: 65%;
+                                }
+
+                                header {
+                                    background-color: $color--theme-warning;
+                                    font-size: size( 18 );
+                                    display: flex;
+                                    gap: size( 20 );
+                                    padding: size( 15 ) size( 20 );
+
+                                    figure {
+
+                                    }
+                                    p {
+
+                                        strong {
+                                            text-transform: uppercase;
+                                        }
+
+                                    }
+                                }
+
+                                article {
+                                    display: flex;
+                                    gap: size( 20 );
+                                    justify-content: space-between;
+                                    padding: size( 15 ) size( 20 );
+
+                                    p {
+
+                                        span {
+
+
+
+                                            &.is-separator {
+                                                font-size: size( 20 );
+                                                font-weight: bold;
+                                                display: inline-block;
+                                                opacity: 0.3;
+                                                position: relative;
+                                                top: 3px;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .is-counter {
+                                    padding: size( 5 ) size( 25 );
+
+                                    h3 {
+                                        font-size: size( 50 );
+                                    }
+                                    p {
+                                        font-size: size( 15 );
+                                    }
+                                }
+
+                            }
+
+                        }
+
+                    }
+                }
+
+            }
     }
 
 }

@@ -58,6 +58,19 @@ function get_dashboard_riscos() {
 
 }
 
+function get_riscos_by_status( $status ) {
+    return [
+        'pagination' => false,
+        'riscos' => new WP_Query([
+            'post_type'      => 'risco',
+            'post_status'    => $status,
+            'posts_per_page' => -1,
+            'orderby'        => 'date',
+            'order'          => 'DESC'
+        ])
+    ];
+}
+
 function form_single_risco_new() {
 
     $term = get_term_by( 'slug', sanitize_text_field( $_POST[ 'situacao_de_risco' ] ), 'situacao_de_risco' );

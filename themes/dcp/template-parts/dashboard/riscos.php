@@ -12,12 +12,9 @@
             <a href="#publicados">PUBLICADOS <span class="total"></span></a>
             <a href="#arquivados">ARQUIVADOS <span class="total"></span></a>
         </div>
-        <?php
-            foreach ( get_dashboard_riscos() as $panel_id => $value ) {
+        <?php foreach ( get_dashboard_riscos() as $panel_id => $value ) {
 
-                $is_active = $value['is_active'] ? 'is-active' : '';
-
-                ?>
+                $is_active = $value['is_active'] ? 'is-active' : ''; ?>
 
                     <div id="<?=$panel_id?>" class="tabs__panels container--wide <?=$is_active?>" <?=($is_active) ? 'style="display: block;"' : 'style="display: none;"'?> >
                         <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
@@ -103,7 +100,7 @@
                                                     Avaliar
                                                     <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                                 </a>
-                                                <?php endif; ?>
+                                                <?php  endif; ?>
 
                                                 <?php if( $panel_id == 'riscosPublicados' ) : ?>
                                                 <a class="is-publicados button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
