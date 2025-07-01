@@ -22,7 +22,7 @@ namespace hacklabr\dashboard;
 
             <div class="dashboard-content-section-body">
 
-                <div class="is-cards">
+                <div class="header-cards">
                     <div class="card">
                         <header>
                             <figure>
@@ -76,7 +76,7 @@ namespace hacklabr\dashboard;
                 <div class="dashboard-content-tabs tabs">
                     <div id="riscosAprovacao" class="tabs__panels container--wide" style=" display: block !important; ">
                         <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
-                        <div class="tabs__panel__content" style="display: block;">
+                        <div class="tabs__panel__content dashboard-content-cards " style="display: block;">
                             <?php $get_riscos = get_riscos_by_status( 'draft' );  if( $get_riscos[ 'riscos' ]->have_posts() ) :
                                 while( $get_riscos[ 'riscos' ]->have_posts() ) :
                                     $get_riscos[ 'riscos' ]->the_post();
@@ -85,48 +85,50 @@ namespace hacklabr\dashboard;
                                     <article class="post-card is-draft" style="display: none;">
                                         <main class="post-card__content">
                                             <div class="post-card__term">
-                                                <div class="post-card__term">
+                                                <?php
+                                                $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
+                                                if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                                                    risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
+                                                } else {
+                                                    risco_badge_category( 'sem-categoria', 'NENHUMA CATEGORIA ADICIONADA' );
+                                                }
+                                                ?>
+                                                <div class="post-card__risco-meta"><?=wp_date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
+                                            </div>
+
+                                            <h3 class="post-card__title">
+                                                <span><?=$pod->field( 'endereco' )?></span>
+                                            </h3>
+
+                                            <div class="post-card__excerpt-wrapped">
+                                                <p class="text-excerpt">
                                                     <?php
-                                                    $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
-                                                    if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
-                                                        risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
+
+                                                    //TODO: REFACTORY P/ UTILS
+                                                    $descricao = $pod->field( 'descricao' );
+
+                                                    if ( strlen( $descricao ) <= 125 ) {
+                                                        echo $descricao;
                                                     } else {
-                                                        risco_badge_category( 'sem-categoria', 'NENHUMA CATEGORIA ADICIONADA' );
+                                                        echo substr( $descricao, 0, 125 ) . '<a class="read-more" href="#/">Ver mais</a>';
+                                                        echo '<span class="read-more-full">' . substr( $descricao, 125 ) . '</span>';
                                                     }
+                                                    //TODO: REFACTORY P/ UTILS
+
                                                     ?>
-                                                    <div class="post-card__risco-meta"><?=wp_date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
-                                                </div>
 
-                                                <h3 class="post-card__title">
-                                                    <span><?=$pod->field( 'endereco' )?></span>
-                                                </h3>
+                                                </p>
+                                            </div>
 
-                                                <div class="post-card__excerpt-wrapped">
-                                                    <p class="text-excerpt">
-                                                        <?php
-
-                                                        //TODO: REFACTORY P/ UTILS
-                                                        $descricao = $pod->field( 'descricao' );
-
-                                                        if ( strlen( $descricao ) <= 125 ) {
-                                                            echo $descricao;
-                                                        } else {
-                                                            echo substr( $descricao, 0, 125 ) . '<a class="read-more" href="#/">Ver mais</a>';
-                                                            echo '<span class="read-more-full">' . substr( $descricao, 125 ) . '</span>';
-                                                        }
-                                                        //TODO: REFACTORY P/ UTILS
-
-                                                        ?>
-
-                                                    </p>
-                                                </div>
-
-                                                <div class="post-card__see-more">
+                                            <div class="post-card__see-more">
+                                                <div></div>
+                                                <div>
                                                     <a class="is-aprovacao button" href="<?=get_dashboard_url( 'riscos-single', [ 'risco_id' => get_the_ID() ] )?>">
                                                         Avaliar
                                                         <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                                     </a>
                                                 </div>
+                                            </div>
 
                                         </main>
                                     </article>

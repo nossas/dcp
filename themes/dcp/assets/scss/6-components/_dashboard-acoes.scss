@@ -1,0 +1,56 @@
+#dashboardAcoes {
+
+    .dashboard-content-header {
+
+        .is-actions {
+
+
+            .button {
+                margin-left: size( 15 );
+
+                &.acao {
+                    background-color: $color--primary-pure;
+                    color: $color--secondary-light;
+                }
+                &.relato {
+                    background-color: $color--secondary-light;
+                    color: $color--primary-pure;
+                    border: solid 1px $color--primary-pure;
+                }
+            }
+        }
+    }
+
+
+    .dashboard-content-acoes {
+
+        .dashboard-content-cards {
+
+            padding: size( 50 ) 0;
+
+            .post-card {
+
+                &__term {
+                    display: flex;
+                    justify-content: space-between;
+
+                    span {
+                        font-size: size( 14 );
+                        display: inline-block;
+                        width: auto;
+                        max-width: initial;
+                        padding: size( 5 ) size( 15 ) ;
+                        border-radius: size( 50 );
+                    }
+                }
+                &__excerpt-wrapped {
+                    p {
+                        min-height: size(25);
+                    }
+                }
+            }
+
+        }
+
+    }
+}

@@ -173,7 +173,7 @@ jQuery(function($) {
     $( document ).ready( function() {
 
         // TODO: COMPORTAMENTO MOCK TAB PANELS ( componentizar / usar Alpine já existente )
-        $( '.tabs__header a' ).on('click', function() {
+        $( '#dashboardRiscos .tabs__header a' ).on('click', function() {
 
             const $this = $( this );
             const tab = $this.attr( 'href' );
@@ -222,7 +222,7 @@ jQuery(function($) {
         $( '.tabs__header a.is-active' ).trigger( 'click' );
         // TODO: COMPORTAMENTO MOCK TAB PANELS ( componentizar / usar Alpine já existente )
 
-        $( '.tabs__panel__content .post-card__excerpt-wrapped .read-more' ).on('click', function() {
+        $( '.dashboard-content-cards .post-card__excerpt-wrapped .read-more' ).on('click', function() {
             const $this = $( this );
             $this.hide();
             $this.parent().find( '.read-more-full' ).show();
@@ -609,7 +609,8 @@ jQuery(function($) {
 
         $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
         $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
-        $( '#dashboardInicio .tabs__panels .post-card' ).show();
+        $( '#dashboardInicio .dashboard-content-cards .post-card' ).show();
+        $( '#dashboardAcoes .dashboard-content-cards .post-card' ).show();
 
         // TODO: REFECTORY P/ COMPONENTE DE LOADING TIPO SKELETON
         $( '.dashboard-content-skeleton' ).hide();

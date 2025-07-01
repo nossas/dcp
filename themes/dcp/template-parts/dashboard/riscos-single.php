@@ -85,7 +85,6 @@
                     <span><?=$text?></span>
                 </a>
             </header>
-
             <div class="dashboard-content-single">
                 <form id="riscoSingleForm" class="" method="post" enctype="multipart/form-data" action="javascript:void(0);" data-action="<?php bloginfo( 'url' );?>/wp-admin/admin-ajax.php">
                     <div class="fields">

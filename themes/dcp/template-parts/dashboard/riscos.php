@@ -18,7 +18,7 @@
 
                     <div id="<?=$panel_id?>" class="tabs__panels container--wide <?=$is_active?>" <?=($is_active) ? 'style="display: block;"' : 'style="display: none;"'?> >
                         <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
-                        <div class="tabs__panel__content">
+                        <div class="tabs__panel__content dashboard-content-cards">
                             <?php
                             if( $value[ 'riscos' ]->have_posts() ) :
                                 while( $value[ 'riscos' ]->have_posts() ) :
@@ -29,7 +29,7 @@
 
                                     <article class="post-card is-<?=$post_status?>" style="display: none;">
                                         <main class="post-card__content">
-                                            <div class="post-card__term">
+
                                             <div class="post-card__term">
                                                 <?php
                                                     $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
@@ -95,26 +95,29 @@
 
                                             <div class="post-card__see-more">
 
-                                                <?php if( $panel_id == 'riscosAprovacao' ) : ?>
-                                                <a class="is-aprovacao button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
-                                                    Avaliar
-                                                    <iconify-icon icon="bi:chevron-right"></iconify-icon>
-                                                </a>
-                                                <?php  endif; ?>
+                                                <div></div>
+                                                <div>
+                                                    <?php if( $panel_id == 'riscosAprovacao' ) : ?>
+                                                        <a class="is-aprovacao button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
+                                                            Avaliar
+                                                            <iconify-icon icon="bi:chevron-right"></iconify-icon>
+                                                        </a>
+                                                    <?php  endif; ?>
 
-                                                <?php if( $panel_id == 'riscosPublicados' ) : ?>
-                                                <a class="is-publicados button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
-                                                    <iconify-icon icon="bi:pencil-square"></iconify-icon>
-                                                    Editar
-                                                </a>
-                                                <?php endif; ?>
+                                                    <?php if( $panel_id == 'riscosPublicados' ) : ?>
+                                                        <a class="is-publicados button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
+                                                            <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                                                            Editar
+                                                        </a>
+                                                    <?php endif; ?>
 
-                                                <?php if( $panel_id == 'riscosArquivados' ) : ?>
-                                                <a class="is-arquivados button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
-                                                    Reavaliar
-                                                    <iconify-icon icon="bi:chevron-right"></iconify-icon>
-                                                </a>
-                                                <?php endif; ?>
+                                                    <?php if( $panel_id == 'riscosArquivados' ) : ?>
+                                                        <a class="is-arquivados button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
+                                                            Reavaliar
+                                                            <iconify-icon icon="bi:chevron-right"></iconify-icon>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                </div>
 
                                             </div>
 
@@ -166,7 +169,6 @@
                     </div>
                 <?php
             }
-
         ?>
     </div>
 </div>
