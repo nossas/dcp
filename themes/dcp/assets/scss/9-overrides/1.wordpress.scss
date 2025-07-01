@@ -94,14 +94,25 @@
     button{
         background-color: white;
         border: 1px solid #235540;
+        height: 38px;
+        width: 40px;
+        @include mobile{
+            margin-left: 10px;
+            margin-right: 10px;
+        }
         .icon{
             background-color: #235540;
+            height: 9px;
+            width: 16px;
         }
     }
     .coblocks-gallery-carousel-swiper-container{
         display: flex;
         flex-direction: column;
         gap: 8px;
+        .swiper-container {
+            height: 511px;
+        }
     }
 }
 .wp-block-file{
