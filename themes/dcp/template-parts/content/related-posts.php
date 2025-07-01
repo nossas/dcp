@@ -4,8 +4,7 @@
       <div class="transparencia-textos">
         <h2 class="transparencia-titulo">Transparência</h2>
         <p class="transparencia-subtitulo">
-          Aenean egestas ultricies nibh, at tempus purus fringilla in. Curabitur ornare enim justo, at tristique lorem iaculis et. Vivamus eget mollis nibh.
-        </p>
+Aenean egestas ultricies nibh, at tempus purus fringilla in. Curabitur ornare enim justo, at tristique lorem iaculis et. Vivamus eget mollis nibh. Quisque quis neque a augue vehicula laoreet at sed sem. Proin ut ornare enim. Donec rhoncus elit id neque tempor, in imperdiet ipsum blandit.          </p>
       </div>
       <a href="<?= get_permalink(get_page_by_path('politica-de-privacidade')) ?>" class="transparencia-politica">Política de privacidade</a>
     </div>

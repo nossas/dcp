@@ -104,4 +104,30 @@
         gap: 8px;
     }
 }
+.wp-block-file{
+    width: 100%;
+   a {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid #235540;
+        background: #235540;
+        padding: 10px 18px;
+        border-radius: 100px;
+        color: #F9F3EA;
+        text-decoration: none;
+        font-weight: 500;
+        gap: 10px;
+        position: relative;
+        }
 
+        a::before {
+        content: '';
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+            background-image: url('/wp-content/themes/dcp/assets/images/download.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}

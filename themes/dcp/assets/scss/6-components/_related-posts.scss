@@ -10,34 +10,34 @@ $sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
   background: $cor-fundo;
   padding: 4rem 1rem;
   font-family: 'Arial', sans-serif;
+  padding-top: 80px;
 
   .container {
-    max-width: 1200px;
+    max-width: 1376px;
     margin: 0 auto;
 
     .transparencia-topo {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      margin-bottom: 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
 
       .transparencia-textos {
-        max-width: 800px;
-
+        max-width: 694px;;
         .transparencia-titulo {
           font-size: 2.5rem;
-          font-weight: bold;
-          color: $cor-principal;
-          font-family: 'Comic Sans MS', cursive;
-          margin-bottom: 0.75rem;
+          font-weight: $font-weight--regular;
+          color:$color--primary-pure;
+          margin-bottom: 40px;
         }
 
         .transparencia-subtitulo {
           font-size: 1rem;
-          color: $cor-texto;
           line-height: 1.6;
+          color:$color--secondary-dark;
+          font-weight: $font-weight--regular;
         }
       }
 
@@ -60,18 +60,25 @@ $sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     .transparencia-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
+          display: flex;
+          width: 100%;
+          gap:32px;
+          @include mobile{
+            display: flex;
+            flex-direction: column;
+          }
 
       .transparencia-card {
         background: #fff;
-        border-radius: $radius;
+        border-radius: 20px;
         box-shadow: $sombra;
         overflow: hidden;
         display: flex;
         flex-direction: column;
         transition: transform 0.2s ease;
+        width: 100%;
+        max-width: 437px;
+
 
         &:hover {
           transform: translateY(-4px);
@@ -123,8 +130,9 @@ $sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
             }
 
             .transparencia-data {
-              font-size: 0.85rem;
-              color: $cor-secundaria;
+              font-size: 1rem;
+              color: #605E5D;
+              font-weight: $font-weight--regular;
               white-space: nowrap;
             }
           }
@@ -139,17 +147,20 @@ $sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
           }
 
           .transparencia-descricao {
-            font-size: 0.9rem;
-            color: $color--secondary-dark;
-            margin-bottom: 1rem;
+                color: var(--Color-Theme-Dark, #281414);
+                font-family: var(--Typeface-Font-Gabarito, Gabarito);
+                font-size: 1rem;
+                font-style: normal;
+                font-weight: $font-weight--regular;
+                line-height: 130%;
           }
 
           .transparencia-link {
-            font-size: 0.85rem;
+            font-size: 1rem;
             font-weight: 600;
-            color: $cor-principal;
-            text-decoration: none;
-            align-self: flex-start;
+            color: #281414;
+            align-self: flex-end;
+            margin-top: 20px;
 
             &::after {
               content: ' →';
