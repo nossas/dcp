@@ -35,8 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_apoio'])) {
         $post_obj = get_post($post_id);
     }
 }
-
-
 ?>
 
 <?php if (isset($_GET['sucesso'])): ?>
@@ -63,8 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_apoio'])) {
     <div class="apoio-card" data-id="<?= esc_attr($post_obj->ID); ?>">
         <form method="post" enctype="multipart/form-data" class="apoio-card__form">
             <input type="hidden" name="post_id" value="<?= esc_attr($post_obj->ID); ?>" />
+            <input type="hidden" name="salvar_apoio" value="1" />
 
-            <!-- Nome -->
+
             <div class="apoio-card__field">
                 <span class="input-icon-apoio">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -82,7 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_apoio'])) {
                 </div>
             </div>
 
-            <!-- Descrição -->
             <div class="apoio-card__field">
                 <span class="input-icon-apoio">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -168,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_apoio'])) {
                     </svg>
                     <?= __('Arquivar') ?>
                 </a>
-                <button type="submit" name="salvar_apoio" class="apoio__btn-salvar multistepform__button multistepform__button-submit">
+                <button id="abrir-modal-apoio" type="button" class="apoio__btn-salvar multistepform__button multistepform__button-submit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
                         <path d="M16.0865 4.83127C16.1388 4.88352 16.1804 4.94559 16.2088 5.01393C16.2371 5.08227 16.2517 5.15553 16.2517 5.22952C16.2517 5.30351 16.2371 5.37677 16.2088 5.44511C16.1804 5.51345 16.1388 5.57552 16.0865 5.62777L8.21146 13.5028C8.15921 13.5552 8.09714 13.5967 8.0288 13.6251C7.96046 13.6534 7.8872 13.668 7.81321 13.668C7.73922 13.668 7.66596 13.6534 7.59762 13.6251C7.52928 13.5967 7.46721 13.5552 7.41496 13.5028L3.47746 9.56527C3.37184 9.45965 3.3125 9.31639 3.3125 9.16702C3.3125 9.01765 3.37184 8.87439 3.47746 8.76877C3.58308 8.66315 3.72634 8.60381 3.87571 8.60381C4.02508 8.60381 4.16834 8.66315 4.27396 8.76877L7.81321 12.3091L15.29 4.83127C15.3422 4.77889 15.4043 4.73733 15.4726 4.70897C15.541 4.68061 15.6142 4.66602 15.6882 4.66602C15.7622 4.66602 15.8355 4.68061 15.9038 4.70897C15.9721 4.73733 16.0342 4.77889 16.0865 4.83127V4.83127Z" fill="#F9F3EA" />
                     </svg>
@@ -177,4 +175,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_apoio'])) {
             </div>
         </form>
     </div>
+
+    <div id="modal-confirmar-salvar" class="modal-confirmar-salvar is-hidden" role="dialog" aria-modal="true">
+        <div class="modal-confirmar-salvar__overlay"></div>
+        <div class="modal-confirmar-salvar__box">
+            <button class="modal-confirmar-salvar__close" aria-label="Fechar modal">&times;</button>
+            <h2 class="modal-confirmar-salvar__title">Salvar alterações?</h2>
+            <p class="modal-confirmar-salvar__desc">
+                <?= __('As mudanças feitas serão aplicadas imediatamente. Você ainda poderá editá-las depois, se necessário.') ?>
+            </p>
+            <div class="modal-confirmar-salvar__actions">
+                <button type="button" class="modal-confirmar-salvar__btn voltar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.7743 1.85276C12.8266 1.90501 12.8682 1.96708 12.8966 2.03542C12.9249 2.10376 12.9395 2.17702 12.9395 2.25101C12.9395 2.32499 12.9249 2.39826 12.8966 2.46659C12.8682 2.53493 12.8266 2.597 12.7743 2.64926L6.42138 9.001L12.7743 15.3528C12.8799 15.4584 12.9392 15.6016 12.9392 15.751C12.9392 15.9004 12.8799 16.0436 12.7743 16.1493C12.6686 16.2549 12.5254 16.3142 12.376 16.3142C12.2266 16.3142 12.0834 16.2549 11.9778 16.1493L5.22776 9.39925C5.17537 9.347 5.13381 9.28493 5.10545 9.21659C5.0771 9.14825 5.0625 9.07499 5.0625 9.001C5.0625 8.92702 5.0771 8.85376 5.10545 8.78542C5.13381 8.71708 5.17537 8.65501 5.22776 8.60275L11.9778 1.85276C12.03 1.80037 12.0921 1.75881 12.1604 1.73045C12.2288 1.7021 12.302 1.6875 12.376 1.6875C12.45 1.6875 12.5233 1.7021 12.5916 1.73045C12.6599 1.75881 12.722 1.80037 12.7743 1.85276V1.85276Z" fill="#281414" />
+                    </svg>
+                    <?= __('Voltar') ?>
+                </button>
+                <button type="button" class="modal-confirmar-salvar__btn salvar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M15.5865 4.10276C15.6388 4.15501 15.6804 4.21708 15.7088 4.28542C15.7371 4.35376 15.7517 4.42702 15.7517 4.50101C15.7517 4.57499 15.7371 4.64826 15.7088 4.71659C15.6804 4.78493 15.6388 4.847 15.5865 4.89926L7.71146 12.7743C7.65921 12.8266 7.59714 12.8682 7.5288 12.8966C7.46046 12.9249 7.3872 12.9395 7.31321 12.9395C7.23922 12.9395 7.16596 12.9249 7.09762 12.8966C7.02928 12.8682 6.96721 12.8266 6.91496 12.7743L2.97746 8.83676C2.87184 8.73113 2.8125 8.58788 2.8125 8.43851C2.8125 8.28913 2.87184 8.14588 2.97746 8.04026C3.08308 7.93463 3.22634 7.87529 3.37571 7.87529C3.52508 7.87529 3.66834 7.93463 3.77396 8.04026L7.31321 11.5806L14.79 4.10276C14.8422 4.05037 14.9043 4.00881 14.9726 3.98045C15.041 3.9521 15.1142 3.9375 15.1882 3.9375C15.2622 3.9375 15.3355 3.9521 15.4038 3.98045C15.4721 4.00881 15.5342 4.05037 15.5865 4.10276V4.10276Z" fill="#F9F3EA" />
+                    </svg>
+                    <?= __('Salvar alterações') ?>
+                </button>
+            </div>
+        </div>
+    </div>
+
 </div>

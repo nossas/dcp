@@ -30,3 +30,28 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.style.display = 'none';
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const abrirBtn = document.getElementById('abrir-modal-apoio');
+    const modal = document.getElementById('modal-confirmar-salvar');
+    const fecharBtn = modal.querySelector('.modal-confirmar-salvar__close');
+    const voltarBtn = modal.querySelector('.modal-confirmar-salvar__btn.voltar');
+    const salvarBtn = modal.querySelector('.modal-confirmar-salvar__btn.salvar');
+    const form = document.querySelector('.apoio-card__form');
+
+    abrirBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.classList.remove('is-hidden');
+    });
+
+    [fecharBtn, voltarBtn].forEach(btn => {
+        btn.addEventListener('click', () => {
+            modal.classList.add('is-hidden');
+        });
+    });
+
+    salvarBtn.addEventListener('click', () => {
+        form.submit();
+    });
+});
+
