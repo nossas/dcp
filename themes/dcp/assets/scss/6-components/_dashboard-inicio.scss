@@ -127,4 +127,22 @@
         }
 
     }
+
+
+    .dashboard-content-cards {
+        .post-card {
+            padding-top: size( 20 );
+            padding-bottom: size( 20 );
+
+            &__excerpt-wrapped {
+
+                margin-bottom: 0;
+
+                p {
+                    min-height: size(50);
+                }
+
+            }
+        }
+    }
 }

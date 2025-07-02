@@ -71,18 +71,12 @@ $sectios_tabs = [
                 <?php for( $i = 0; $i < 9; $i++ ) : ?>
                     <?php get_template_part('template-parts/dashboard/ui/loop-post-card-' . $tipo_acao ); ?>
                 <?php endfor; ?>
-
-
-
-
                 <!--
                     <dißv class="message-response" style="display: none;">
                         <span class="tabs__panel-message">Nenhuma ação foi registrada ainda.</span>
                     </div>
                 -->
             </div>
-
-
         </div>
     </div>
 </div>
