@@ -183,22 +183,22 @@ function dcp_api_contatos($request) {
         [
             'nome' => 'Defesa Civil',
             'telefone' => '199',
-            'descricao' => 'Atendimento a emergências e desastres naturais',
+            'descricao' => 'Ajuda em situações de risco, como enchentes ou deslizamentos.',
         ],
         [
-            'nome' => 'Corpo de Bombeiros',
+            'nome' => 'Bombeiros',
             'telefone' => '193',
-            'descricao' => 'Combate a incêndios e resgate de vítimas',
+            'descricao' => 'Atendimento em incêndios, resgates e salvamentos.',
         ],
         [
-            'nome' => 'Posto de Saúde Central',
-            'telefone' => '(21) 9999-8888',
-            'descricao' => 'Atendimento médico de urgência em JCarezinho',
+            'nome' => 'SAMU',
+            'telefone' => '192',
+            'descricao' => 'Atendimento médico de urgência.',
         ],
         [
-            'nome' => 'Polícia Militar',
-            'telefone' => '190',
-            'descricao' => 'Emergências de segurança pública',
+            'nome' => 'Portal Rio',
+            'telefone' => '1746',
+            'descricao' => 'Solicitações, reclamações ou serviços públicos da cidade.',
         ],
     ];
 
