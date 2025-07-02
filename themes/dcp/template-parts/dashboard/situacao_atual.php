@@ -51,7 +51,10 @@ $recomendacoes_post = get_posts($args);
                 </span>
                 <strong>ATENÇÃO</strong> Alagamento em algumas áreas do Jacarezinho. Evite locais de risco.
             </div>
-            <a href="#" class="alerta-faixa__alterar">Alterar</a>
+            <?php
+                $slug = sanitize_title($post->post_title);
+            ?>
+            <a href="<?= get_dashboard_url('alterar_risco', ['alterar-risco' => $slug]) ?>" class="alerta-faixa__alterar">Alterar</a>
         </div>
 
         <div class="alerta-faixa__info">
