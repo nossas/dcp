@@ -136,9 +136,24 @@
         display: inline-block;
         width: 20px;
         height: 20px;
-            background-image: url('/wp-content/themes/dcp/assets/images/download.svg');
+        background-image: url('/wp-content/themes/dcp/assets/images/download.svg');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
+    }
+}
+.image-gallery-wrapper{
+    .sssprev{
+        content: '';
+        display: inline-block;
+        background-image: url('/wp-content/themes/dcp/assets/images/arrow-left-2.svg');
+
+    }
+    .sssnext{
+        content: '';
+        display: inline-block;
+        background-image: url('/wp-content/themes/dcp/assets/images/arrow-right-slider.svg');
+        background-position: center !important;
+
     }
 }
