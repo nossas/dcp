@@ -225,6 +225,10 @@
         gap: $gap--small;
         padding: size(10) $padding--medium;
         text-decoration: none;
+
+        @include mobile{
+            display: none;
+        }
     }
 
     &__btn-cancelar,
@@ -291,6 +295,9 @@
             }
 
             &-text{
+                bottom: size(4);
+                position: relative;
+
                 @include mobile{
                     display: none;
                 }
@@ -347,6 +354,7 @@
 
             &-wrap{
                 display: grid;
+                gap: size(24);
                 grid-template-columns: 1fr 1fr;
 
                 @include mobile{
@@ -478,7 +486,7 @@
 
             &__image{
                 pointer-events: none;
-                
+
                 & > a > img{
                     border-radius: $border-radius--large $border-radius--large 0 0 ;
                 }
@@ -507,12 +515,17 @@
         }
     }
 
+    &__grid{
+        @include mobile{
+            padding-right: $padding--medium;
+        }
+    }
+
     &__header{
         margin-bottom: size(48);
 
         @include mobile{
             margin-bottom: size(24);
-            flex-direction: column;
             align-items: flex-start;
         }
 
@@ -530,6 +543,18 @@
         }
     }
 
+    &__icon{
+        &--add {
+            @include mobile{
+                background: $color--primary-pure;
+                border-radius: size(100);
+                margin-right: size(10);
+                padding: $padding--small;
+                position: relative;
+            }
+        }
+    }
+
     &__tab {
        border-bottom: size(2) solid transparent;
        color: $color--secondary-dark;
@@ -537,6 +562,7 @@
        padding: $padding--x-small $padding--medium;
        position: relative;
        text-decoration: none;
+       white-space: nowrap ;
 
        &.ativo {
            border-bottom-color: $color--secondary-dark;
@@ -550,9 +576,6 @@
         margin-top: $margin--large;
         margin-bottom: $margin--large;
 
-        @include mobile{
-            display: none;
-        }
     }
 
     &__title{
@@ -561,5 +584,43 @@
         font-weight: $font-weight--medium;
         line-height: 120%;
         text-transform: uppercase;
+    }
+}
+
+.input-icon-apoio{
+    position: absolute;
+    max-width: size(676);
+    width: 100%;
+    margin-top: $margin--large;
+    right: size(306);
+
+    @include mobile{
+        max-width: size(370);
+        right: size(-245);
+
+    }
+
+    @media (min-width: size(500)) and (max-width: size(1400)) {
+        max-width: size(505);
+        right: size(95);
+    }
+
+    @media (min-width: size(391)) and (max-width: size(430)) {
+        right: size(-304);
+    }
+
+
+    @media (min-width: size(361)) and (max-width: size(375)) {
+        max-width: size(329);
+        right: size(-275);
+    }
+
+    @media (min-width: size(376)) and (max-width: size(390)) {
+        max-width: size(343);
+        right: size(-275);
+    }
+
+    @media (min-width: size(300)) and (max-width: size(360)){
+        max-width: size(310);
     }
 }
