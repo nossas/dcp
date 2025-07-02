@@ -8,7 +8,7 @@
     </header>
     <div class="dashboard-content-tabs tabs">
         <div class="tabs__header">
-            <a href="#aprovacao" class="is-active">AGUARDANDO APROVAÇÃO <span class="total"></span> </a>
+            <a href="#aprovacao" class="is-active is-notification">AGUARDANDO APROVAÇÃO <span class="total"></span> </a>
             <a href="#publicados">PUBLICADOS <span class="total"></span></a>
             <a href="#arquivados">ARQUIVADOS <span class="total"></span></a>
         </div>
@@ -24,8 +24,7 @@
                                 while( $value[ 'riscos' ]->have_posts() ) :
                                     $value[ 'riscos' ]->the_post();
                                     $pod = pods( 'risco', get_the_ID() );
-                                    $post_status = get_post_status();
-                                    ?>
+                                    $post_status = get_post_status(); ?>
 
                                     <article class="post-card is-<?=$post_status?>" style="display: none;">
                                         <main class="post-card__content">
