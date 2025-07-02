@@ -240,8 +240,6 @@
         }
     }
 
-
-
     &__btn-cancelar{
         align-items: center;
         border: size(1) solid $color--secondary-dark;
@@ -527,6 +525,11 @@
         @include mobile{
             margin-bottom: size(24);
             align-items: flex-start;
+        }
+
+        &--edit-title{
+            margin-bottom: $margin--large;
+            text-transform: capitalize !important;
         }
 
         &--edit {

@@ -49,16 +49,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_apoio'])) {
 <?php endif; ?>
 
 <div class="apoio__container-edit">
-    <div class="apoio__header--edit">
-        <h2 class="apoio__header--edit-title">
-            <?php
-            $taxonomia = 'tipo_apoio';
-            $termos = get_the_terms(get_the_ID(), $taxonomia);
-            $nome_termo = $termos && !is_wp_error($termos) ? $termos[0]->name : 'Tipo de apoio';
-            ?>
-            <h2 class="apoio__header--edit-title"><?= esc_html($nome_termo); ?></h2>
-        </h2>
-    </div>
+
+    <nav class="breadcrumb-dashboard">
+        <a href="#">Apoio</a>
+        <span class="breadcrumb-dashboard__separator"> > </span>
+        <a href="#">Locais Seguros</a>
+        <span class="breadcrumb-dashboard__separator"> > </span>
+        <span class="breadcrumb-dashboard__current">Editar Local seguro</span>
+    </nav>
+
+    <?php
+    $taxonomia = 'tipo_apoio';
+    $termos = get_the_terms($post_id, $taxonomia);
+    $nome_termo = $termos && !is_wp_error($termos) ? $termos[0]->name : 'Tipo de apoio';
+    ?>
+    <h2 class="apoio__header--edit-title"><?= esc_html($nome_termo); ?></h2>
 
     <div class="apoio-card" data-id="<?= esc_attr($post_obj->ID); ?>">
         <form method="post" enctype="multipart/form-data" class="apoio-card__form">
