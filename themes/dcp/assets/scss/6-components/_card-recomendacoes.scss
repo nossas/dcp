@@ -439,7 +439,7 @@
 }
 
 .recomendacoes-card{
-    border-bottom: size(1) solid $color--secondary-dark;;
+    border-bottom: size(1) solid #E6E2E0;
     margin-bottom: size(48);
     padding-bottom: size(48);
 
@@ -457,7 +457,7 @@
 
     &__header{
         align-items: center;
-        border-top: size(1) solid $color--secondary-dark;;
+        border-top: size(1) solid #E6E2E0;
         display: flex;
         justify-content: space-between;
         margin-top: size(48);
@@ -484,5 +484,55 @@
 
     &__titulo{
         margin-bottom: $margin--medium;
+    }
+}
+
+.alerta-faixa {
+    border-radius: $border-radius--small;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    color: $color--secondary-dark;
+    font-size: $font-size--xx-small;
+    margin-bottom: size(48);
+    margin-top: size(48);
+
+    &__topo {
+        align-items: center;
+        background-color: $color--warning-pure;
+        border-radius: size(12) size(12) 0 0;
+        display: flex;
+        justify-content: space-between;
+        padding: $padding--small $padding--medium;
+    }
+
+    &__mensagem {
+        display: flex;
+        align-items: center;
+        gap: $gap--medium;
+    }
+
+    &__alterar {
+        color: $color--secondary-dark;
+        font-weight: $font-weight--bold;
+        text-decoration: none;
+    }
+
+    &__icone {
+        align-items: center;
+        display: flex;
+    }
+
+    &__info {
+        background-color: $color--high-light;
+        border-radius: 0 0 size(12 size(12));
+        display: flex;
+        flex-wrap: wrap;
+        gap: $gap--x-small;
+        justify-content: space-between;
+        padding: $padding--small $padding--medium;
+    }
+
+    &__local,
+    &__data {
+        font-size: size(13);
     }
 }
