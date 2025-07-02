@@ -80,6 +80,7 @@ function filter_query_vars(array $query_vars): array {
     $query_vars[] = DASHBOARD_ROUTING_VAR;
     $query_vars[] = 'situacao';
     $query_vars[] = 'risco_id';
+    $query_vars[] = 'tipo_acao';
     return $query_vars;
 }
 add_filter('query_vars', 'hacklabr\\dashboard\\filter_query_vars');
