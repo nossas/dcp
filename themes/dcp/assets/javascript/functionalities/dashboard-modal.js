@@ -55,3 +55,18 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const arquivarBtn = document.querySelector('.apoio__btn-arquivar');
+    const arquivarInput = document.getElementById('arquivar_apoio');
+    const form = document.querySelector('.apoio-card__form');
+
+    if (arquivarBtn && arquivarInput && form) {
+        arquivarBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            arquivarInput.value = '1';
+            form.submit();
+        });
+    }
+});
+
+

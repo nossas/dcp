@@ -43,32 +43,55 @@
                     <?= esc_html($termo->name) ?>
                 </a>
             <?php endforeach; ?>
+
+            <?php
+            $ativo_arquivados = ($termo_selecionado === 'arquivados') ? 'ativo' : '';
+            ?>
+            <a href="?tipo=arquivados" class="apoio__tab <?= $ativo_arquivados ?>">
+                Arquivados
+            </a>
         </div>
 
         <div class="apoio__grid">
             <div class="apoio__cards">
                 <?php
-                $locais_seguros_query = new WP_Query([
-                    'post_type' => 'apoio',
-                    'posts_per_page' => 3,
-                    'tax_query' => [
-                        [
-                            'taxonomy' => 'tipo_apoio',
-                            'field'    => 'slug',
-                            'terms' => $termo_selecionado ?: ($termos[0]->slug ?? ''),
-                        ],
-                    ],
-                ]);
+                $query_args = [
+                    'post_type'      => 'apoio',
+                    'posts_per_page' => -1,
+                ];
 
-                if ($locais_seguros_query->have_posts()) :
-                    while ($locais_seguros_query->have_posts()) : $locais_seguros_query->the_post();
+                if ($termo_selecionado === 'arquivados') {
+                    $query_args['meta_query'][] = [
+                        'key'     => 'apoio_arquivado',
+                        'value'   => '1',
+                        'compare' => '=',
+                    ];
+                } else {
+                    $termo_valido = $termo_selecionado ?: ($termos[0]->slug ?? '');
+                    $query_args['tax_query'][] = [
+                        'taxonomy' => 'tipo_apoio',
+                        'field'    => 'slug',
+                        'terms'    => $termo_valido,
+                    ];
+
+                    $query_args['meta_query'][] = [
+                        'key'     => 'apoio_arquivado',
+                        'compare' => 'NOT EXISTS',
+                    ];
+                }
+
+                $apoios_query = new WP_Query($query_args);
+
+                if ($apoios_query->have_posts()) :
+                    while ($apoios_query->have_posts()) : $apoios_query->the_post();
                         get_template_part('template-parts/post-card', 'vertical');
                     endwhile;
                     wp_reset_postdata();
+                else :
+                    echo '<p style="padding:1rem;">Nenhum item encontrado.</p>';
                 endif;
                 ?>
             </div>
-
         </div>
     </div>
     <div class="apoio__pagination">

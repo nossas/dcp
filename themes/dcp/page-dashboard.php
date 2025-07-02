@@ -7,6 +7,15 @@
 
 namespace hacklabr\dashboard;
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['arquivar_apoio'])) {
+    $post_id = intval($_POST['post_id']);
+    if (current_user_can('edit_post', $post_id)) {
+        update_post_meta($post_id, 'apoio_arquivado', '1');
+        wp_redirect(home_url('/dashboard/apoio?tipo=arquivados'));
+        exit;
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
