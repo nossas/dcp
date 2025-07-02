@@ -1,5 +1,5 @@
-.single-acao,
-.single {
+.single-acao-agendada,
+.single-transparencia {
     .post-header {
         padding-left: size(0);
         padding-right: size(0);
@@ -102,6 +102,20 @@
             margin-top: 8px;
         }
     }
+}
 
+//single
 
+.single-transparencia {
+    .post-header {
+        &__title{
+            color:#281414;
+            margin-top: $margin--medium;
+            margin-bottom: $margin--medium;
+            @include mobile {
+                font-size: 24px;
+                text-align: start;
+            }
+        }
+    }
 }

@@ -318,3 +318,16 @@ function load_more_acoes_callback() {
 }
 add_action('wp_ajax_load_more_acoes', 'load_more_acoes_callback');
 add_action('wp_ajax_nopriv_load_more_acoes', 'load_more_acoes_callback');
+
+add_filter('body_class', 'add_custom_body_classes');
+function add_custom_body_classes($classes) {
+    if (is_singular('acao')) {
+        $classes[] = 'single-acao-agendada';
+    }
+
+    if (is_singular('post')) {
+        $classes[] = 'single-transparencia';
+    }
+
+    return $classes;
+}
