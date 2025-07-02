@@ -498,7 +498,7 @@
     &__topo {
         align-items: center;
         background-color: $color--warning-pure;
-        border-radius: size(12) size(12) 0 0;
+        border-radius: 12px 12px 0 0;
         display: flex;
         justify-content: space-between;
         padding: $padding--small $padding--medium;
@@ -523,7 +523,7 @@
 
     &__info {
         background-color: $color--high-light;
-        border-radius: 0 0 size(12 size(12));
+        border-radius: 0 0 12px 12px;
         display: flex;
         flex-wrap: wrap;
         gap: $gap--x-small;
@@ -533,6 +533,55 @@
 
     &__local,
     &__data {
+        display: flex;
         font-size: size(13);
+        gap: $gap--small;
     }
+
+    @include mobile {
+       margin-top: size(24);
+       margin-bottom: size(24);
+       font-size: $font-size--xxx-small;
+
+       &__topo {
+           flex-direction: column;
+           align-items: flex-start;
+           gap: $gap--x-small;
+           padding: $padding--small;
+
+           border-radius: 12px 12px 0 0;
+       }
+
+       &__mensagem {
+           flex-direction: row;
+           align-items: flex-start;
+           font-size: $font-size--xx-small;
+       }
+
+       &__alterar {
+           align-self: flex-end;
+           font-size: $font-size--xx-small;
+       }
+
+       &__icone {
+           width: 16px;
+           height: 16px;
+       }
+
+       &__info {
+           flex-direction: column;
+           align-items: flex-start;
+           gap: $gap--x-small;
+           padding: $padding--small;
+
+           border-radius: 0 0 12px 12px;
+       }
+
+       &__local,
+       &__data {
+           flex-direction: column;
+           font-size: size(12);
+           gap: 2px;
+       }
+   }
 }

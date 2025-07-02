@@ -56,10 +56,12 @@ $recomendacoes_post = get_posts($args);
 
         <div class="alerta-faixa__info">
             <div class="alerta-faixa__local">
-                <strong>Rio de Janeiro:</strong> <span>ESTÁGIO 3</span> • <span>32º</span> • Chuvas medianas
+                Rio de Janeiro: <strong><span>ESTÁGIO 3</span></strong>
+                <div class="multistepform__pipe"> | </div>
+                <span>32º</span> • Chuvas medianas
             </div>
             <div class="alerta-faixa__data">
-                Última atualização: <span>15:30</span> – <span>15/01/25</span>
+                Última atualização: <span>15:30</span> <span>15/01/25</span>
             </div>
         </div>
     </div>
