@@ -24,8 +24,7 @@
                                 while( $value[ 'riscos' ]->have_posts() ) :
                                     $value[ 'riscos' ]->the_post();
                                     $pod = pods( 'risco', get_the_ID() );
-                                    $post_status = get_post_status();
-                                    ?>
+                                    $post_status = get_post_status(); ?>
 
                                     <article class="post-card is-<?=$post_status?>" style="display: none;">
                                         <main class="post-card__content">
