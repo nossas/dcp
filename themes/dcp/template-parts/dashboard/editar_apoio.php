@@ -10,8 +10,6 @@ if (!$post_obj || $post_obj->post_type !== 'apoio') {
     exit;
 }
 
-setup_postdata($post_obj);
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_apoio'])) {
     if (current_user_can('edit_post', $post_id)) {
         wp_update_post([
@@ -34,13 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar_apoio'])) {
             }
         }
 
-        if (!headers_sent()) {
-            ob_clean();
-            wp_redirect(add_query_arg(['id' => $post_id, 'sucesso' => '1'], get_permalink()));
-            exit;
-        }
+        $post_obj = get_post($post_id);
     }
 }
+
 
 ?>
 
