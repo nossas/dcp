@@ -8,7 +8,7 @@
     </header>
     <div class="dashboard-content-tabs tabs">
         <div class="tabs__header">
-            <a href="#aprovacao" class="is-active">AGUARDANDO APROVAÇÃO <span class="total"></span> </a>
+            <a href="#aprovacao" class="is-active is-notification">AGUARDANDO APROVAÇÃO <span class="total"></span> </a>
             <a href="#publicados">PUBLICADOS <span class="total"></span></a>
             <a href="#arquivados">ARQUIVADOS <span class="total"></span></a>
         </div>

@@ -221,17 +221,34 @@
                         position: relative;
                     }
                     a.is-active {
-                        font-weight: bold;
+                        font-weight: normal;
 
                         &::before {
                             content: '';
+                            background-color: $color--secondary-dark;
                             display: block;
                             width: 100%;
                             height: 3px;
-                            background-color: $color--secondary-dark;
                             position: absolute;
                             bottom: -1px;
                             left: 0;
+                        }
+
+                    }
+                    a.is-notification {
+                        font-weight: bold;
+                        padding-right: size( 25 );
+
+                        &::after {
+                            content: '';
+                            background-color: $color--warning-dark;
+                            display: block;
+                            width: 10px;
+                            height: 10px;
+                            border-radius: 10px;
+                            position: absolute;
+                            top: calc( 50% - 5px );
+                            right: 8px;
                         }
                     }
                 }
@@ -324,7 +341,7 @@
                     display: inline-block;
                     width: 100%;
                     max-width: calc( 33% - 25px );
-                    min-height: size( 350 );
+                    min-height: size( 250 );
                     padding: 0;
                     margin: 0 25px 25px 0;
                     border-color: #FEFBF9;
@@ -370,7 +387,7 @@
                             display: inline-block;
                             width: auto;
                             max-width: initial;
-                            padding: size( 5 ) size( 15 ) ;
+                            padding: size( 2 ) size( 12 );
                             border-radius: size( 50 );
 
                             &::before {
