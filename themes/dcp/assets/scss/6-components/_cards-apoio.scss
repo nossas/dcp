@@ -255,6 +255,10 @@
         background-color: $color--warning-dark;
         color: $color--high-light !important;
         cursor: pointer;
+
+        @include mobile{
+            justify-content: center;
+        }
     }
 
     &__btn-publicar,

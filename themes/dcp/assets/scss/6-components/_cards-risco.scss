@@ -241,6 +241,10 @@
     gap: size(24);
     justify-content: flex-end;
     margin-top: size(48);
+
+    @include mobile{
+        flex-direction: column;
+    }
 }
 
 .alterar-risco{
@@ -276,6 +280,7 @@
   align-items: center;
   justify-content: center;
   padding: 1rem;
+
 
   &__conteudo {
     background: $color--secondary-light;
@@ -334,5 +339,3 @@
     }
   }
 }
-
-

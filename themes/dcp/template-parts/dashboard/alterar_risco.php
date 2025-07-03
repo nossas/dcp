@@ -26,12 +26,12 @@ namespace hacklabr\dashboard;
                                 <path d="M19.6346 27.312C13.5802 27.312 13.5802 24.5029 7.52589 24.5029C3.54977 24.5029 2.18297 25.7162 0 26.547V30.0773H40V26.6323C37.3176 25.7796 36.2017 24.5029 31.7432 24.5029C25.6889 24.5029 25.6889 27.312 19.6346 27.312Z" fill="#281414" />
                             </svg>
                         </span>
-                        <strong><?= __('ATENÇÃO') ?></strong> <?= __('Alagamento em algumas áreas do Jacarezinho. Evite locais de risco.') ?>
+                        <div class="alerta-faixa__warning"><strong><?= __('ATENÇÃO') ?></strong> <?= __('Alagamento em algumas áreas do Jacarezinho. Evite locais de risco.') ?></div>
                     </div>
                 </div>
                 <div class="alerta-faixa__info">
                     <div class="alerta-faixa__local">
-                        <?= __('Rio de Janeiro:') ?> <strong><span><?= __('ESTÁGIO 3') ?></span></strong>
+                        <p class="alerta-faixa__local--estado"><?= __('Rio de Janeiro:') ?></p> <strong><span><?= __('ESTÁGIO 3') ?></span></strong>
                         <div class="multistepform__pipe"> | </div>
                         <span><?= __('32º') ?></span> • <?= __('Chuvas medianas') ?>
                     </div>
@@ -201,7 +201,7 @@ namespace hacklabr\dashboard;
                             <div class="alerta-faixa__topo alerta-faixa__topo--<?= esc_attr($risco['cor']) ?>">
                                 <div class="alerta-faixa__mensagem">
                                     <span class="alerta-faixa__icone"> <?= $risco['icone'] ?></span>
-                                    <strong><?= $risco['titulo'] ?></strong> <?= $risco['mensagem'] ?>
+                                    <div class="alerta-faixa__warning"><strong><?= $risco['titulo'] ?></strong> <?= $risco['mensagem'] ?></div>
                                 </div>
 
                                 <div class="alerta-faixa__topo-acoes">
@@ -216,7 +216,7 @@ namespace hacklabr\dashboard;
 
                             <div class="alerta-faixa__info">
                                 <div class="alerta-faixa__local">
-                                    <?= __('Rio de Janeiro:') ?> <strong><span><?= $risco['estagio'] ?></span></strong>
+                                    <p class="alerta-faixa__local--estado"><?= __('Rio de Janeiro:') ?></p> <strong><span><?= $risco['estagio'] ?></span></strong>
                                     <div class="multistepform__pipe"> | </div>
                                     <span><?= $risco['temperatura'] ?></span> • <?= $risco['descricao'] ?>
                                 </div>

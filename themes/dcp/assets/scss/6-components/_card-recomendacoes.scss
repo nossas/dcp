@@ -503,6 +503,10 @@
         justify-content: space-between;
         padding: $padding--small $padding--medium;
 
+        @include mobile{
+            align-items: flex-start;
+        }
+
         &-acoes{
             display: flex;
             gap: size(24);
@@ -522,13 +526,29 @@
     }
 
     &__saiba-mais{
-        color: $color--secondary-dark
+        color: $color--secondary-dark;
+
+        @include mobile{
+            display: none;
+        }
     }
 
     &__mensagem {
         display: flex;
         align-items: center;
         gap: $gap--medium;
+
+        span,
+        p {
+            @include mobile{
+                display: inline;
+                font-size: $font-size--x-small;
+            }
+        }
+
+        @include mobile{
+            align-items: flex-start;
+        }
     }
 
     &__alterar {
@@ -540,6 +560,18 @@
     &__icone {
         align-items: center;
         display: flex;
+
+        @include mobile {
+            flex-shrink: 0;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+
+            svg {
+                width: 100%;
+                height: 100%;
+            }
+        }
     }
 
     &__info {
@@ -552,14 +584,41 @@
         padding: $padding--small $padding--medium;
     }
 
+    &__data{
+        @include mobile{
+            display: none !important;
+        }
+    }
+
     &__local,
     &__data {
         display: flex;
         font-size: size(13);
         gap: $gap--small;
+
+        &--estado{
+            @include mobile{
+                display: none;
+            }
+        }
     }
 
     &__remover{
         background-color: transparent;
+
+        @include mobile{
+            bottom: size(30);
+            height: size(20);
+            padding: 0;
+            position: relative;
+            width: size(20);
+        }
+    }
+
+    &__warning{
+        @include mobile{
+            display: flex;
+            flex-direction: column;
+        }
     }
 }
