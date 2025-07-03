@@ -1,4 +1,4 @@
-#dashboardRiscoSingle {
+.dashboard-content {
     min-height: 75vh;
     position: relative;
 
@@ -14,13 +14,14 @@
             .fields {
                 display: flex;
                 justify-content: space-between;
-                gap: 24px;
+                gap: 25px;
                 margin-bottom: size( 30 );
 
                 .input-wrap {
                     color: $color--secondary-dark;
                     width: 55%;
                     position: relative;
+
 
                     label {
                         font-size: size( 13 );
@@ -155,18 +156,28 @@
                             display: none;
                         }
                     }
-
-
-
                 }
                 .input-wrap.is-success {}
                 .input-wrap.is-warning {}
                 .input-wrap.is-error {}
 
+                .is-group {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                    gap: 25px;
+                    width: 55%;
+
+                    .input-wrap {
+                        width: 47%;
+                    }
+
+                }
+
                 .input-media {
                     font-size: size( 17 );
                     color: $color--secondary-dark;
-                    width: 85%;
+                    width: 55%;
                     padding: size( 15 ) size( 20 );
                     margin:  size( 25 ) 0  size( 125 );
                     border-radius: size( 15 );
@@ -460,17 +471,17 @@
 
                     }
                 }
-
                 .input-help {
                     color: $color--secondary-dark;
                     display: flex;
+                    width: 44%;
                     padding: size( 30 ) size( 10 ) size( 1 );
 
                     .button {
-                        background-color: $color--high-light;
+                        background-color: rgba( 0,0,0,0.06 );
                         font-size: size( 25 );
                         font-weight: bold;
-                        color: $color--secondary-dark;
+                        color: rgba( 0,0,0,0.4 );
                         text-align: center;
                         width: 50px;
                         height: 50px;
@@ -478,6 +489,14 @@
                         padding: size( 1 );
                         margin-right: size( 10 );
                         border-radius: size( 50 );
+                        cursor: help;
+
+                        &:hover {
+                            color: $color--secondary-dark;
+                        }
+                    }
+                    p {
+                        padding: size( 10 ) size( 5 );
                     }
 
                 }
@@ -498,7 +517,7 @@
                 //transform: translateY( 200px );
                 z-index: 5;
 
-                opacity: 0.5;
+                opacity: 0.9;
                 cursor: not-allowed;
 
                 transition: all 0.4s 0s ease;
@@ -524,6 +543,11 @@
                     background-color: transparent;
                     color: $color--warning-dark;
                     border: solid 1px $color--warning-dark;
+                }
+                .button.is-goback {
+                    background-color: transparent;
+                    color: $color--secondary-dark;
+                    border: solid 1px $color--secondary-dark;
                 }
                 .button.is-publish,
                 .button.is-save,

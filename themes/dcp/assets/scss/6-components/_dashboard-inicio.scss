@@ -40,6 +40,16 @@
                 .header-cards {
                     display: flex;
 
+                    @include small {
+                        display: block;
+                    }
+                    @include mobile {
+                        display: block;
+                    }
+                    @include tablet {
+                        display: block;
+                    }
+
                     .card {
                         background-color: white;
                         font-weight: 300;
@@ -61,8 +71,34 @@
                         transform: scale( 1 );
                         transition: all 0.5s 0s ease;
 
+                        @include small {
+                            display: block;
+                            width: 100%;
+                        }
+                        @include mobile {
+                            display: block;
+                            width: 100%;
+                        }
+                        @include tablet {
+                            display: block;
+                            width: 100%;
+                        }
+
                         &:first-child {
                             width: 65%;
+
+                            @include small {
+                                display: block;
+                                width: 100%;
+                            }
+                            @include mobile {
+                                display: block;
+                                width: 100%;
+                            }
+                            @include tablet {
+                                display: block;
+                                width: 100%;
+                            }
                         }
 
                         header {

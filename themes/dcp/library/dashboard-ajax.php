@@ -71,6 +71,35 @@ function get_riscos_by_status( $status ) {
     ];
 }
 
+
+function form_single_acao_new()
+{
+
+
+    wp_send_json_error([
+        'title' => 'Erro',
+        'message' => 'Erro ao salvar o formulário',
+        //'error' => $save_post[ 'errors' ],
+    ], 400 );
+
+}
+add_action('wp_ajax_form_single_acao_new', 'form_single_acao_new');
+
+
+function form_single_relato_new()
+{
+
+
+    wp_send_json_error([
+        'title' => 'Erro',
+        'message' => 'Erro ao salvar o formulário',
+        //'error' => $save_post[ 'errors' ],
+    ], 400 );
+
+}
+add_action('wp_ajax_form_single_relato_new', 'form_single_relato_new');
+
+
 function form_single_risco_new() {
 
     $term = get_term_by( 'slug', sanitize_text_field( $_POST[ 'situacao_de_risco' ] ), 'situacao_de_risco' );
@@ -233,7 +262,6 @@ function form_single_risco_edit() {
 
 }
 add_action('wp_ajax_form_single_risco_edit', 'form_single_risco_edit');
-//add_action('wp_ajax_nopriv_form_single_risco_edit', 'form_single_risco_edit');
 
 function form_single_risco_delete_attachment() {
 
@@ -275,7 +303,6 @@ function form_single_risco_delete_attachment() {
 
 }
 add_action('wp_ajax_form_single_risco_delete_attachment', 'form_single_risco_delete_attachment');
-//add_action('wp_ajax_nopriv_form_single_risco_delete_attachment', 'form_single_risco_delete_attachment');
 
 function upload_file_to_attachment_by_ID( $files = NULL, $postID = NULL, $attachment_id = NULL ) {
 

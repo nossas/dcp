@@ -442,7 +442,7 @@ jQuery(function($) {
             $('.modal-confirm').fadeOut(200);
         }
 
-        $( '#riscoSingleForm' ).on( 'submit', function ( e ) {
+        $( '#riscoSingleForm, #acaoSingleForm' ).on( 'submit', function ( e ) {
             const $this = $( this );
 
             const form = e.target;
@@ -518,6 +518,7 @@ jQuery(function($) {
                 .catch(error => {});
 
         });
+
         $( '#riscoSingleForm .is-archive' ).on( 'click', function () {
             custom_modal_confirm({
                 title: 'Arquivar esse registro de risco?',
@@ -572,6 +573,31 @@ jQuery(function($) {
                 confirmText: "Publicar alterações",
                 onConfirm: function () {
                     $( '#riscoSingleForm' ).submit();
+                }
+            });
+        });
+
+        $( '#acaoSingleForm .is-new.acao' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Criar ação?',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
+                cancelText: "Voltar",
+                onCancel: function () {},
+                confirmText: "Criar Ação",
+                onConfirm: function () {
+                    $( '#acaoSingleForm' ).submit();
+                }
+            });
+        });
+        $( '#acaoSingleForm .is-new.relato' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Criar Relato?',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
+                cancelText: "Voltar",
+                onCancel: function () {},
+                confirmText: "Criar Relato",
+                onConfirm: function () {
+                    $( '#acaoSingleForm' ).submit();
                 }
             });
         });
