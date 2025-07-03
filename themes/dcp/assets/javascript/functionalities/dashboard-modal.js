@@ -74,6 +74,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnPublicar = document.getElementById("btn-publicar");
     const situacaoAtual = document.getElementById("situacao-atual");
 
+    const modal = document.getElementById("modal-publicar");
+    const fecharModal = () => (modal.style.display = "none");
+
+    const btnFechar = modal.querySelector(".modal-publicar__fechar");
+    const btnVoltar = modal.querySelector(".modal-publicar__voltar");
+    const btnConfirmar = modal.querySelector(".modal-publicar__confirmar");
+
     checkboxes.forEach((checkbox) => {
         checkbox.addEventListener("change", () => {
             checkboxes.forEach((cb) => {
@@ -88,6 +95,15 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Por favor, selecione uma situação de risco.");
             return;
         }
+        modal.style.display = "flex";
+    });
+
+    btnFechar.addEventListener("click", fecharModal);
+    btnVoltar.addEventListener("click", fecharModal);
+
+    btnConfirmar.addEventListener("click", () => {
+        const selected = Array.from(checkboxes).find(cb => cb.checked);
+        if (!selected) return;
 
         const label = selected.nextElementSibling;
         if (!label || !label.classList.contains("alerta-faixa")) {
@@ -96,15 +112,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const clone = label.cloneNode(true);
-
-        const removerBtn = clone.querySelector(".alerta-faixa__remover");
-        if (removerBtn) removerBtn.remove();
-
-        const innerInput = clone.querySelector('input[type="checkbox"]');
-        if (innerInput) innerInput.remove();
+        clone.querySelectorAll('input, .alerta-faixa__remover').forEach(el => el.remove());
 
         situacaoAtual.innerHTML = "";
         situacaoAtual.appendChild(clone);
+
+        fecharModal();
     });
 });
 
