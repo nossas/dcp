@@ -54,7 +54,14 @@ if (!file_exists($icon_path)) {
 
 <main class="post-content container container--medium">
     <?php the_content(); ?>
-    <div class="contact-form-single"></div>
+
+</div>
+
+</main>
+
+<?php get_template_part('template-parts/content/related-posts'); ?>
+
+<div class=" container container--medium contact-form-single"></div>
     <div class="wp-block-cover alignfull is-light ficou-alguma-duvida" style="display: flex;">
     <span aria-hidden="true" class="wp-block-cover__background has-secondary-light-background-color has-background-dim-100 has-background-dim"></span>
 
@@ -72,11 +79,4 @@ if (!file_exists($icon_path)) {
 
         <div style="height:32px" aria-hidden="true" class="wp-block-spacer"></div>
     </div>
-</div>
-
-</main>
-
-<?php get_template_part('template-parts/content/related-posts'); ?>
-
-
 <?php get_footer(); ?>
