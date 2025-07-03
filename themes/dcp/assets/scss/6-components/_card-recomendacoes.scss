@@ -497,11 +497,32 @@
 
     &__topo {
         align-items: center;
-        background-color: $color--warning-pure;
         border-radius: 12px 12px 0 0;
+        background-color: $color--warning-pure;
         display: flex;
         justify-content: space-between;
         padding: $padding--small $padding--medium;
+
+        &-acoes{
+            display: flex;
+            gap: size(24);
+        }
+
+        &--normal{
+            background-color: $color--primary-light;
+        }
+
+        &--atencao{
+            background-color: $color--warning-pure;
+        }
+
+        &--perigo{
+            background-color: $color--secondary-pure
+        }
+    }
+
+    &__saiba-mais{
+        color: $color--secondary-dark
     }
 
     &__mensagem {
@@ -536,5 +557,9 @@
         display: flex;
         font-size: size(13);
         gap: $gap--small;
+    }
+
+    &__remover{
+        background-color: transparent;
     }
 }

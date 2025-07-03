@@ -69,4 +69,42 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const checkboxes = document.querySelectorAll('input[name="risco_selecionado"]');
+    const btnPublicar = document.getElementById("btn-publicar");
+    const situacaoAtual = document.getElementById("situacao-atual");
+
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener("change", () => {
+            checkboxes.forEach((cb) => {
+                if (cb !== checkbox) cb.checked = false;
+            });
+        });
+    });
+
+    btnPublicar.addEventListener("click", () => {
+        const selected = Array.from(checkboxes).find(cb => cb.checked);
+        if (!selected) {
+            alert("Por favor, selecione uma situação de risco.");
+            return;
+        }
+
+        const label = selected.nextElementSibling;
+        if (!label || !label.classList.contains("alerta-faixa")) {
+            alert("Erro ao localizar o card selecionado.");
+            return;
+        }
+
+        const clone = label.cloneNode(true);
+
+        const removerBtn = clone.querySelector(".alerta-faixa__remover");
+        if (removerBtn) removerBtn.remove();
+
+        const innerInput = clone.querySelector('input[type="checkbox"]');
+        if (innerInput) innerInput.remove();
+
+        situacaoAtual.innerHTML = "";
+        situacaoAtual.appendChild(clone);
+    });
+});
 

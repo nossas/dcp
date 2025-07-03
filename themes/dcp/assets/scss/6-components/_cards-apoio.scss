@@ -251,6 +251,13 @@
         text-decoration: none;
     }
 
+    &__btn-publicar{
+        background-color: $color--warning-dark;
+        color: $color--high-light !important;
+        cursor: pointer;
+    }
+
+    &__btn-publicar,
     &__btn-arquivar{
         align-items: center;
         border: size(1) solid $color--warning-dark;
