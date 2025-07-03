@@ -1,4 +1,8 @@
+<?php
 
+namespace hacklabr\dashboard;
+
+?>
 <article class="post-card is-sugestao" style="display: none;">
     <main class="post-card__content">
         <div class="post-card__term">
@@ -38,7 +42,7 @@
         <div class="post-card__see-more">
             <div></div>
             <div>
-                <a class="is-arquivados button" href="">Avaliar</a>
+                <a class="is-arquivados button" href="<?=get_dashboard_url( 'editar-acao' )?>/?post_id=1092">Avaliar</a>
             </div>
         </div>
     </main>

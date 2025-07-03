@@ -1,4 +1,8 @@
+<?php
 
+namespace hacklabr\dashboard;
+
+?>
 <article class="post-card is-realizadas" style="display: none;">
     <main class="post-card__content">
 

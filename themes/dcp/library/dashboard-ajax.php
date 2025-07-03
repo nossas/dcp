@@ -71,9 +71,7 @@ function get_riscos_by_status( $status ) {
     ];
 }
 
-
-function form_single_acao_new()
-{
+function form_single_acao_new() {
 
 
     wp_send_json_error([
@@ -85,9 +83,7 @@ function form_single_acao_new()
 }
 add_action('wp_ajax_form_single_acao_new', 'form_single_acao_new');
 
-
-function form_single_relato_new()
-{
+function form_single_relato_new() {
 
 
     wp_send_json_error([
@@ -98,7 +94,6 @@ function form_single_relato_new()
 
 }
 add_action('wp_ajax_form_single_relato_new', 'form_single_relato_new');
-
 
 function form_single_risco_new() {
 

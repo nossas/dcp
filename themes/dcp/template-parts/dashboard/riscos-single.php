@@ -201,7 +201,7 @@
                             <div class="input-media-uploader">
                                 <h3>Mídias</h3>
                                 <div class="input-media-uploader-files">
-                                    <a id="mediaUploadButton" class="button is-primary is-small is-upload-media">
+                                    <a id="mediaUploadButton" class="button is-primary is-small is-upload-media is-multiple">
                                         <iconify-icon icon="bi:upload"></iconify-icon>
                                         <span>Adicionar fotos e vídeos</span>
                                     </a>

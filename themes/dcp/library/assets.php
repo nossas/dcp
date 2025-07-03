@@ -362,13 +362,6 @@ class Assets
                 'global' => true,
             ],
 
-            'dcp-dashboard' => [
-                'file' => 'dashboard.js',
-                'preload_callback' => function () {
-                    return dashboard\is_dashboard();
-                },
-            ],
-
             'dcp-map' => [
                 'file' => 'dcp-map.js',
                 'preload_callback' => function () {
@@ -387,13 +380,6 @@ class Assets
             'slider-button' => [
                 'file' => 'slider-button.js',
                 'global' => true,
-            ],
-
-            'dashboard-modal' => [
-                'file' => 'dashboard-modal.js',
-                'preload_callback' => function () {
-                    return dashboard\is_dashboard();
-                },
             ],
 
             'form-actions' => [
@@ -456,11 +442,6 @@ class Assets
                 }
             ],
 
-            'search' => [
-                'file'   => 'search.js',
-                'global' => true,
-            ],
-
             'copy-url' => [
                 'file' => 'copy-url.js',
                 'global' => true,
@@ -476,6 +457,21 @@ class Assets
             'tabs' => [
                 'file' => 'tabs.js',
                 'global' => true,
+            ],
+
+            // DASHBOARD
+            'dcp-dashboard' => [
+                'file' => 'dashboard.js',
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
+            ],
+
+            'dashboard-modal' => [
+                'file' => 'dashboard-modal.js',
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
             ],
         ];
 

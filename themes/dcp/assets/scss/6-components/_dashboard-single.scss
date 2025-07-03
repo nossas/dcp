@@ -197,6 +197,11 @@
                         h3 {
                             font-size: size( 25 );
                         }
+                        h4 {
+                            font-size: size( 12 );
+                            padding: size( 7 ) size( 15 );
+                            opacity: 0.7;
+                        }
 
                         .input-media-uploader-files {
                             text-align: right;
@@ -471,6 +476,10 @@
 
                     }
                 }
+
+
+
+
                 .input-help {
                     color: $color--secondary-dark;
                     display: flex;

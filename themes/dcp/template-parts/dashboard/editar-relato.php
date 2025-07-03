@@ -159,7 +159,7 @@ namespace hacklabr\dashboard;
             <div class="form-submit">
                 <input type="hidden" name="action" value="form_single_acao_new">
                 <input type="hidden" name="email" value="admin@admin.com">
-                <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
+                <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>">
                     <iconify-icon icon="bi:chevron-left"></iconify-icon>
                     <span>Voltar</span>
                 </a>

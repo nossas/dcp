@@ -222,6 +222,81 @@ jQuery(function($) {
         $( '.tabs__header a.is-active' ).trigger( 'click' );
         // TODO: COMPORTAMENTO MOCK TAB PANELS ( componentizar / usar Alpine já existente )
 
+        // TODO: COMPONENT
+        function custom_modal_confirm(options) {
+            const {
+                title,
+                description,
+                cancelText = 'Cancelar',
+                confirmText = 'Confirmar',
+                customConfirmText,
+                onCancel,
+                onConfirm,
+                onCustomConfirm
+            } = options;
+
+            const $modal = $('.modal-confirm');
+
+            // Preenche os conteúdos dinâmicos
+            $modal.find('h3').text(title);
+            $modal.find('.is-body p').html(description);
+            $modal.find('.is-error').html( '' );
+            $modal.find('.is-cancel').text(cancelText);
+            $modal.find('.is-confirm span').text(confirmText);
+
+            // Configura botão customizado (se fornecido)
+            const $customBtn = $modal.find('.is-custom');
+            if (customConfirmText) {
+                $customBtn.text(customConfirmText).show();
+            } else {
+                $customBtn.hide();
+            }
+
+            // Remove eventos anteriores
+            $modal.off('click', '.is-close, .is-cancel');
+            $modal.off('click', '.is-confirm');
+            $modal.off('click', '.is-custom');
+            $(document).off('keyup.modal');
+
+            // Evento de fechamento (cancelar)
+            $modal.on('click', '.is-close, .is-cancel', function() {
+                _modal_confirm_close();
+                if (typeof onCancel === 'function') onCancel();
+            });
+
+            // Evento de confirmação principal
+            $modal.on('click', '.is-confirm', function() {
+                _modal_confirm_close();
+                if (typeof onConfirm === 'function') onConfirm();
+            });
+
+            // Evento de confirmação customizada
+            if (customConfirmText) {
+                $modal.on('click', '.is-custom', function() {
+                    _modal_confirm_close();
+                    if (typeof onCustomConfirm === 'function') onCustomConfirm();
+                });
+            }
+
+            // Fechar com ESC
+            $(document).on('keyup.modal', function(e) {
+                if (e.key === 'Escape') {
+                    _modal_confirm_close();
+                    if (typeof onCancel === 'function') onCancel();
+                }
+            });
+
+            // Mostrar modal
+            $modal.fadeIn(200);
+        }
+
+        function _modal_confirm_close() {
+            $('.modal-confirm').fadeOut(200);
+        }
+        // TODO: COMPONENT
+
+
+
         $( '.dashboard-content-cards .post-card__excerpt-wrapped .read-more' ).on('click', function() {
             const $this = $( this );
             $this.hide();
@@ -332,28 +407,6 @@ jQuery(function($) {
 
         });
 
-        $( '#mediaUploadButton' ).on( 'click', function () {
-            const $this = $( this );
-
-            $this.parent().append( '<input id="mediaUploadInput" type="file" name="media_files[]" style="display:none;" accept="image/*,video/*" multiple >');
-            $this.parent().find( '#mediaUploadInput' ).on( 'change', function ( e ) {
-                const files = Array.from( e.target.files );
-
-                $( '.input-media-uploader-progress' ).show().html( '' );
-
-                files.forEach( function ( file ) {
-
-                    $( '.input-media-uploader-progress' ).append( '<div class="progress is-small">' +
-                        '<div class="progress-bar"><span>' +
-                        formatFileSize( file.size ) + '</span><span>' +
-                        file.name + '</span></div> </div>' );
-
-                });
-
-            }).trigger( 'click' );
-
-        });
-
         $( '#selectCategory' ).on( 'change', function () {
             $( '.input-chips .chips-wrap').html( '' );
             $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
@@ -371,76 +424,33 @@ jQuery(function($) {
             $( '#input_' + $( this ).attr( 'data-slug' ) ).prop( 'checked', true );
         });
 
-        function custom_modal_confirm(options) {
-            const {
-                title,
-                description,
-                cancelText = 'Cancelar',
-                confirmText = 'Confirmar',
-                customConfirmText,
-                onCancel,
-                onConfirm,
-                onCustomConfirm
-            } = options;
+        $( '#mediaUploadButton, #mediaUploadButtonCover' ).on( 'click', function () {
+            const $this = $( this );
 
-            const $modal = $('.modal-confirm');
-
-            // Preenche os conteúdos dinâmicos
-            $modal.find('h3').text(title);
-            $modal.find('.is-body p').html(description);
-            $modal.find('.is-error').html( '' );
-            $modal.find('.is-cancel').text(cancelText);
-            $modal.find('.is-confirm span').text(confirmText);
-
-            // Configura botão customizado (se fornecido)
-            const $customBtn = $modal.find('.is-custom');
-            if (customConfirmText) {
-                $customBtn.text(customConfirmText).show();
-            } else {
-                $customBtn.hide();
+            let isMultiple = '';
+            if( $this.hasClass( 'is-multiple' ) ) {
+                isMultiple = 'multiple';
             }
 
-            // Remove eventos anteriores
-            $modal.off('click', '.is-close, .is-cancel');
-            $modal.off('click', '.is-confirm');
-            $modal.off('click', '.is-custom');
-            $(document).off('keyup.modal');
+            $this.parent().append( '<input id="mediaUploadInput" type="file" name="media_files[]" style="display:none;" accept="image/*,video/*" ' + isMultiple + ' >');
+            $this.parent().find( '#mediaUploadInput' ).on( 'change', function ( e ) {
+                const files = Array.from( e.target.files );
 
-            // Evento de fechamento (cancelar)
-            $modal.on('click', '.is-close, .is-cancel', function() {
-                _modal_confirm_close();
-                if (typeof onCancel === 'function') onCancel();
-            });
+                $( '.input-media-uploader-progress' ).show().html( '' );
 
-            // Evento de confirmação principal
-            $modal.on('click', '.is-confirm', function() {
-                _modal_confirm_close();
-                if (typeof onConfirm === 'function') onConfirm();
-            });
+                files.forEach( function ( file ) {
 
-            // Evento de confirmação customizada
-            if (customConfirmText) {
-                $modal.on('click', '.is-custom', function() {
-                    _modal_confirm_close();
-                    if (typeof onCustomConfirm === 'function') onCustomConfirm();
+                    $( '.input-media-uploader-progress' ).append( '<div class="progress is-small">' +
+                        '<div class="progress-bar"><span>' +
+                        formatFileSize( file.size ) + '</span><span>' +
+                        file.name + '</span></div> </div>' );
+
                 });
-            }
 
-            // Fechar com ESC
-            $(document).on('keyup.modal', function(e) {
-                if (e.key === 'Escape') {
-                    _modal_confirm_close();
-                    if (typeof onCancel === 'function') onCancel();
-                }
-            });
+            }).trigger( 'click' );
+        });
 
-            // Mostrar modal
-            $modal.fadeIn(200);
-        }
 
-        function _modal_confirm_close() {
-            $('.modal-confirm').fadeOut(200);
-        }
 
         $( '#riscoSingleForm, #acaoSingleForm' ).on( 'submit', function ( e ) {
             const $this = $( this );
