@@ -53,7 +53,7 @@ $sectios_tabs = [
                     <iconify-icon icon="bi:plus-lg"></iconify-icon>
                     <span>Criar ação</span>
                 </a>
-                <a href="<?=get_dashboard_url( 'adicionar-pagina-relato' )?>" class="button relato">
+                <a href="<?=get_dashboard_url( 'adicionar-relato' )?>" class="button relato">
                     <iconify-icon icon="bi:file-earmark-richtext-fill"></iconify-icon>
                     <span>Criar página relato</span>
                 </a>
