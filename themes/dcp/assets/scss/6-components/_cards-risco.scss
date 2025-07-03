@@ -213,3 +213,129 @@
     padding-right: 0;
     overflow-y: inherit;
 }
+
+//dashboard
+.lista-riscos{
+    list-style: none;
+    padding-left: 0;
+
+    .risco-item{
+        display: grid;
+        gap: size(24);
+        grid-template-columns: 0.0fr 3fr;
+
+        & > .alerta-faixa{
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+    }
+
+    .risco-checkbox{
+        height: size(128);
+        width: size(18);
+    }
+}
+
+.botoes-acoes{
+    display: flex;
+    gap: size(24);
+    justify-content: flex-end;
+    margin-top: size(48);
+
+    @include mobile{
+        flex-direction: column;
+    }
+}
+
+.alterar-risco{
+    &__title{
+        color: $color--secondary-dark;
+        font-size: size(24);
+        font-style: normal;
+        font-weight: $font-weight--medium;
+        line-height: 120%;
+    }
+}
+
+#situacao-atual{
+    label{
+        .alerta-faixa {
+            &__topo {
+                margin-top: $margin--large;
+            }
+
+            &__info{
+                margin-bottom: $margin--large;
+            }
+        }
+    }
+}
+
+.modal-publicar {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+
+
+  &__conteudo {
+    background: $color--secondary-light;
+    border-radius: size(12);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    max-width: size(720);
+    padding: $padding--large;
+    position: relative;
+    width: 100%;
+  }
+
+  &__fechar {
+    background: transparent;
+    border: none;
+    color: #63382b;
+    cursor: pointer;
+    font-size: size(24);
+    position: absolute;
+    right: size(16);
+    top: size(16);
+  }
+
+  &__titulo {
+    margin-bottom: $margin--medium;
+
+    &--destaque {
+      color: $color--warning-dark;
+      font-size: size(20);
+    }
+  }
+
+  &__descricao {
+    margin-bottom: $margin--large;
+    color: $color--secondary-dark;
+  }
+
+  &__botoes {
+    display: flex;
+    gap: $gap--medium;
+    justify-content: flex-end;
+
+    .btn--voltar {
+      background: transparent;
+      border: size(1) solid $color--secondary-dark;
+      display: flex;
+      align-items: center;
+      gap: $gap--small;
+    }
+
+    .btn--publicar {
+      background: $color--warning-dark;
+      color: $color--high-light;
+      display: flex;
+      align-items: center;
+      gap: $gap--small;
+    }
+  }
+}
