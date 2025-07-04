@@ -8,19 +8,15 @@ the_post();
 $excerpt = !empty($post->post_excerpt) ? wp_kses_post($post->post_excerpt) : '';
 $termos_tipo_acao = get_the_terms(get_the_ID(), 'tipo_acao');
 
-// Diretório base dos ícones
 $base_icon_dir = get_template_directory_uri() . '/assets/images/tipo-acao/';
 $icon_filename = 'default.svg'; // fallback padrão
 
-// Seleciona o primeiro termo da taxonomia
 if (!empty($termos_tipo_acao) && !is_wp_error($termos_tipo_acao)) {
     $termo = $termos_tipo_acao[0];
     $slug = $termo->slug;
 
-    // Caminho base físico para verificar arquivos
     $base_icon_path = get_template_directory() . '/assets/images/tipo-acao/';
 
-    // Tenta achar SVG primeiro
     $svg_file = $slug . '.svg';
     $png_file = $slug . '.png';
 
