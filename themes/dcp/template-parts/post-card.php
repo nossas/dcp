@@ -215,15 +215,22 @@ $categories = get_the_category();
         <?php endif; ?>
 
         <?php if ($post_type == 'apoio'): ?>
-
             <div class="post-card__see-in-map">
                 <button class="post-card__map-button">
                     <a href="/mapa"><?= __("Veja no mapa", "dcp"); ?></a>
                 </button>
-                <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_apoio', ['id' => $post->ID]); ?>">
-                    <?= __('Editar') ?>
-                </a>
-
+                <?php
+                $tem_quem_acionar = has_term('quem-acionar', 'tipo_apoio', $post);
+                ?>
+                <?php if ($tem_quem_acionar): ?>
+                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_quem_acionar', ['id' => $post->ID]); ?>">
+                        <?= __('Editar') ?>
+                    </a>
+                <?php else: ?>
+                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_apoio', ['id' => $post->ID]); ?>">
+                        <?= __('Editar') ?>
+                    </a>
+                <?php endif; ?>
             </div>
         <?php endif; ?>
 
