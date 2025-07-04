@@ -112,7 +112,11 @@ p {
 
 // Formulário
 .formulario-participar {
-  margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-end;
+    flex-wrap: wrap;
+    margin-top: 4rem;
 
   h2 {
     font-size: 1.5rem;
