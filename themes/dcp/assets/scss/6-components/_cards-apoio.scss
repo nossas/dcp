@@ -389,21 +389,21 @@
         }
     }
 
-    &__cards{
+    &__cards {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: size(24);
 
-        @include mobile{
+        @include mobile {
             display: flex;
             flex-direction: column;
         }
 
-        .post-card{
+        .post-card {
             max-width: size(390);
             width: 100%;
 
-            @include mobile{
+            @include mobile {
                 min-width: unset;
             }
 
@@ -423,37 +423,27 @@
                 }
             }
 
-            &__author{
+            &__author {
                 display: none;
             }
 
-            &__content{
+            &__content {
                 background-color: $color--high-light;
                 border-radius: 0 0 $border-radius--large $border-radius--large;
                 padding: size(20);
             }
 
-            &__editar-btn{
+            &__editar-btn {
                 display: block;
             }
 
-            &__excerpt{
+            &__excerpt {
                 color: $color--secondary-dark;
                 font-size: $font-size--x-small;
                 font-weight: $font-weight--regular;
                 line-height: 130%;
                 overflow: hidden;
                 text-overflow: ellipsis;
-
-                &::after {
-                  background-color: #C4C4C4;
-                  border-radius: size(1);
-                  content: "";
-                  display: block;
-                  height: size(2);
-                  margin-top: $margin--medium;
-                  width: size(24);
-                }
             }
 
             &__map-button {
@@ -463,7 +453,7 @@
                 font-weight: $font-weight--medium;
                 text-decoration: underline;
 
-                & > a{
+                &>a {
                     color: $color--secondary-dark;
                 }
             }
@@ -493,11 +483,11 @@
                 gap: $gap--x-small;
             }
 
-            &__image{
+            &__image {
                 pointer-events: none;
 
-                & > a > img{
-                    border-radius: $border-radius--large $border-radius--large 0 0 ;
+                &>a>img {
+                    border-radius: $border-radius--large $border-radius--large 0 0;
                 }
             }
 
@@ -511,14 +501,78 @@
                 }
             }
 
-            &__title{
+            &__title {
                 font-size: size(20);
                 font-weight: $font-weight--medium;
                 line-height: 120%;
                 pointer-events: none;
 
-                & > a{
+                & > a {
                     color: $color--secondary-dark;
+                }
+            }
+        }
+
+        &--cacambas {
+            .post-card{
+                &__content {
+                    border-radius: $border-radius--large;
+                }
+
+                &__excerpt {
+                    &::after {
+                        background-color: #C4C4C4;
+                        border-radius: size(1);
+                        content: "";
+                        display: block;
+                        height: size(2);
+                        margin-top: $margin--medium;
+                        width: size(24);
+                    }
+                }
+
+                &__image,
+                &__schedule {
+                    display: none;
+                }
+            }
+        }
+
+        &--quem-acionar{
+            .post-card{
+                &__content{
+                    border-radius: $border-radius--large;
+                }
+
+                &__excerpt{
+                    border-top: size(1) solid #C4C4C4;
+                    padding-top: $padding--medium;
+                }
+
+                &__excerpt-wrapped{
+                    order: 1;
+                }
+
+                &__image,
+                &__map-button,
+                &__schedule{
+                    display: none;
+                }
+
+                &__see-in-map{
+                    order: 2;
+                }
+
+                &__title {
+                    &::after {
+                        background-color: #C4C4C4;
+                        border-radius: size(1);
+                        content: "";
+                        display: block;
+                        height: size(2);
+                        margin-top: $margin--medium;
+                        width: size(24);
+                    }
                 }
             }
         }
@@ -591,6 +645,9 @@
         margin-top: $margin--large;
         margin-bottom: $margin--large;
 
+        @include mobile{
+            overflow-x: scroll;
+        }
     }
 
     &__title{

@@ -9,6 +9,24 @@ h1{
 p {
     margin: 0px;
 }
+.bread-relato{
+    display: flex !important;
+    width: 75%;
+    max-width: 100%;
+    align-content: flex-end;
+    flex-direction: row;
+    text-align: left;
+    margin-top: 40px;
+    align-items: flex-end;
+    color: $color--secondary-dark;
+    @media ( max-width: 1366px) {
+        max-width: 75%;
+    }
+    @include mobile {
+        margin-top: 32px;
+    }
+}
+
 // Container principal
 .relato-grid {
   display: flex;
@@ -47,19 +65,6 @@ p {
     display: flex;
     flex-direction: column;
 
-  .breadcrumbs {
-    font-size: 0.9rem;
-    color: $cinza-texto;
-
-    a {
-      color: $verde;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
 
   .relato-titulo {
     color: $color--secondary-dark;
@@ -70,6 +75,8 @@ p {
     line-height: 120%;
     margin-top: 24px;
     margin-bottom: 24px;
+    @include mobile{
+        font-size: 24px;    }
   }
 
   .relato-categoria {
@@ -82,6 +89,9 @@ p {
       padding: 0.25rem 0.6rem;
       border-radius: $bordas;
       font-size: 0.9rem;
+      img {
+            width: auto !important;
+      }
     }
   }
 
@@ -91,6 +101,10 @@ p {
     line-height: 1.6;
     margin-top: 32px;
     margin-bottom: 32px;
+    @include mobile{
+    margin-top: 16px;
+    margin-bottom: 16px;
+    }
     p{
         word-break: normal;
         hyphens: auto;
@@ -105,6 +119,7 @@ p {
     color:$color--secondary-dark;
     li {
       margin-bottom: 0.5rem;
+      display: flex;
 
       strong {
         margin-right: 0.5rem;
@@ -186,6 +201,9 @@ p {
 
       &:hover {
         background: darken($verde, 5%);
+      }
+      @include mobile{
+        margin-left: 0px;
       }
     }
   }

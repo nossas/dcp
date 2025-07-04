@@ -53,53 +53,57 @@
         </div>
 
         <div class="apoio__grid">
-            <div class="apoio__cards">
-                <?php
-                $query_args = [
-                    'post_type'      => 'apoio',
-                    'posts_per_page' => -1,
-                ];
+            <?php
+            $classes_cards = 'apoio__cards';
 
-                if ($termo_selecionado === 'arquivados') {
-                    $query_args['meta_query'][] = [
-                        'key'     => 'apoio_arquivado',
-                        'value'   => '1',
-                        'compare' => '=',
-                    ];
-                } else {
-                    $termo_valido = $termo_selecionado ?: ($termos[0]->slug ?? '');
-                    $query_args['tax_query'][] = [
-                        'taxonomy' => 'tipo_apoio',
-                        'field'    => 'slug',
-                        'terms'    => $termo_valido,
-                    ];
-
-                    $query_args['meta_query'][] = [
-                        'key'     => 'apoio_arquivado',
-                        'compare' => 'NOT EXISTS',
-                    ];
+            if ($termo_selecionado === 'arquivados') {
+                $classes_cards .= ' apoio__cards--arquivados';
+            } else {
+                $termo_slug = $termo_selecionado ?: ($termos[0]->slug ?? '');
+                if ($termo_slug) {
+                    $classes_cards .= ' apoio__cards--' . sanitize_html_class($termo_slug);
                 }
+            }
+            ?>
+            <div class="<?= esc_attr($classes_cards) ?>">
+                    <?php
+                    $query_args = [
+                        'post_type'      => 'apoio',
+                        'posts_per_page' => -1,
+                    ];
 
-                $apoios_query = new WP_Query($query_args);
+                    if ($termo_selecionado === 'arquivados') {
+                        $query_args['meta_query'][] = [
+                            'key'     => 'apoio_arquivado',
+                            'value'   => '1',
+                            'compare' => '=',
+                        ];
+                    } else {
+                        $termo_valido = $termo_selecionado ?: ($termos[0]->slug ?? '');
+                        $query_args['tax_query'][] = [
+                            'taxonomy' => 'tipo_apoio',
+                            'field'    => 'slug',
+                            'terms'    => $termo_valido,
+                        ];
 
-                if ($apoios_query->have_posts()) :
-                    while ($apoios_query->have_posts()) : $apoios_query->the_post();
-                        get_template_part('template-parts/post-card', 'vertical');
-                    endwhile;
-                    wp_reset_postdata();
-                else :
-                    echo '<p style="padding:1rem;">Nenhum item encontrado.</p>';
-                endif;
-                ?>
+                        $query_args['meta_query'][] = [
+                            'key'     => 'apoio_arquivado',
+                            'compare' => 'NOT EXISTS',
+                        ];
+                    }
+
+                    $apoios_query = new WP_Query($query_args);
+
+                    if ($apoios_query->have_posts()) :
+                        while ($apoios_query->have_posts()) : $apoios_query->the_post();
+                            get_template_part('template-parts/post-card', 'vertical');
+                        endwhile;
+                        wp_reset_postdata();
+                    else :
+                        echo '<p style="padding:1rem;">Nenhum item encontrado.</p>';
+                    endif;
+                    ?>
+                </div>
             </div>
         </div>
     </div>
-    <div class="apoio__pagination">
-        <?php
-        the_posts_pagination([
-            'prev_text' => __('<iconify-icon icon="iconamoon:arrow-left-2-bold"></iconify-icon>', 'hacklbr'),
-            'next_text' => __('<iconify-icon icon="iconamoon:arrow-right-2-bold"></iconify-icon>', 'hacklbr'),
-
-        ]); ?>
-    </div>
-</div>
