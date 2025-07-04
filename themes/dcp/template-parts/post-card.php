@@ -109,12 +109,39 @@ $categories = get_the_category();
                     return;
                 }
 
-                if ($post_type === 'apoio' && has_term('locais-seguros', 'tipo_apoio', $post_id)) {
+                if ($post_type === 'apoio' && has_term(['locais-seguros', 'quem-acionar', 'cacambas'], 'tipo_apoio', $post_id)) {
                     $hora_atendimento = $pod->field('horario_de_atendimento');
                     $telefone = $pod->field('telefone');
                     $site = $pod->field('site');
                     $observacoes = $pod->field('observacoes');
                 ?>
+
+                    <div class="post-card__apoio-meta">
+                        <?php
+                        $post_id = get_the_ID();
+
+                        if (get_post_type($post_id) === 'apoio') {
+                            $termos = get_the_terms($post_id, 'tipo_apoio');
+
+                            if (!empty($termos) && !is_wp_error($termos)) {
+                                $slugs = wp_list_pluck($termos, 'slug');
+
+                                if (in_array('quem-acionar', $slugs) || in_array('cacambas', $slugs)) {
+                                    $data_bruta = get_post_meta($post_id, 'data_e_horario', true);
+
+                                    if (!empty($data_bruta)) {
+                                        $timestamp = strtotime($data_bruta);
+                                        if ($timestamp) {
+                                            $data_formatada = wp_date('d/m/Y', $timestamp);
+                                            $hora_formatada = wp_date('H:i', $timestamp);
+                                            echo 'Dia: ' . esc_html($data_formatada) . ', ' . esc_html($hora_formatada);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        ?>
+                    </div>
 
                     <?php if (!empty($hora_atendimento)): ?>
                         <div class="post-card__field post-card__schedule">
