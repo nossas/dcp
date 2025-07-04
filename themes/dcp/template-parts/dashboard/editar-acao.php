@@ -2,6 +2,13 @@
 
 namespace hacklabr\dashboard;
 
+    $post_id = get_query_var('post_id' );
+
+    $postSingle = new \WP_Query([
+        'p' => $post_id,
+        'post_type' => 'acao'
+    ]);
+
     $all_terms = get_terms([
         'taxonomy' => 'tipo_acao',
         'hide_empty' => false,
@@ -14,10 +21,6 @@ namespace hacklabr\dashboard;
         <ol class="breadcrumb">
             <li>
                 <a href="">Ações</a>
-                <iconify-icon icon="bi:chevron-right"></iconify-icon>
-            </li>
-            <li>
-                <a href="">( Sugestão / Agendadas / Realizadas / Arquivadas )</a>
                 <iconify-icon icon="bi:chevron-right"></iconify-icon>
             </li>
             <li><a href="#/">Avaliar / Editar ação</a></li>
@@ -62,6 +65,9 @@ namespace hacklabr\dashboard;
     </header>
 
     <div class="dashboard-content-single">
+        <pre>
+            <?php print_r( $postSingle->posts[ 0 ] ); ?>
+        </pre>
         <form id="acaoSingleForm" class="" method="post" enctype="multipart/form-data" action="javascript:void(0);" data-action="<?php bloginfo( 'url' );?>/wp-admin/admin-ajax.php">
             <div class="fields">
                 <div class="input-wrap">

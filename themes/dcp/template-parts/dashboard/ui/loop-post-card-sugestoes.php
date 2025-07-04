@@ -21,12 +21,12 @@ $pod = pods( 'acao', get_the_ID() );
             <div class="post-card__risco-meta"><?=$pod->field( 'data' )?></div>
         </div>
         <h3 class="post-card__title">
-            <span>Endereço sugerido</span>
+            <span><?=$pod->field( 'endereco' )?></span>
         </h3>
         <div class="post-card__excerpt-wrapped">
             <p class="text-excerpt">
-                <?=$pod->field( 'endereco' )?>
                 <?php if( !empty( $pod->field( 'descricao' ) ) ) : ?>
+                    <?=$pod->field( 'descricao' )?>
                     <a class="read-more" href="#/">Ver mais</a>
                     <span class="read-more-full"><?=$pod->field( 'descricao' )?></span>
                 <?php endif; ?>
@@ -35,11 +35,11 @@ $pod = pods( 'acao', get_the_ID() );
         <ul class="post-card__list-infos">
             <li>
                 <i><iconify-icon icon="bi:person-fill"></iconify-icon></i>
-                <span>Nome: João de souza</span>
+                <span>Nome: <?=$pod->field( 'nome_completo' )?></span>
             </li>
             <li>
                 <i><iconify-icon icon="bi:telephone-fill"></iconify-icon></i>
-                <span>Telefone: (21) 99851-2135</span>
+                <span>Telefone: <?=$pod->field( 'telefone' )?></span>
             </li>
         </ul>
         <div class="post-card__see-more">
