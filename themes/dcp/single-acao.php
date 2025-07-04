@@ -36,7 +36,7 @@ if (!empty($termos_tipo_acao) && !is_wp_error($termos_tipo_acao)) {
 
 <header class="post-header container container--medium">
     <?php if (function_exists('bcn_display')) : ?>
-        <nav class="breadcrumb" typeof="BreadcrumbList" vocab="https://schema.org/">
+        <nav class="bread-relato" typeof="BreadcrumbList" vocab="https://schema.org/">
             <?php bcn_display(); ?>
         </nav>
     <?php endif; ?>
