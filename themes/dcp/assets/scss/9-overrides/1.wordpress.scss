@@ -117,6 +117,9 @@
 }
 .wp-block-file{
     width: 100%;
+    @include mobile{
+        margin-bottom: 48px !important;
+    }
    a {
         display: inline-flex;
         align-items: center;
@@ -143,6 +146,7 @@
     }
 }
 .image-gallery-wrapper{
+
     .sssprev{
         content: '';
         display: inline-block;
