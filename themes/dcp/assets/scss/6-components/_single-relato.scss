@@ -19,6 +19,10 @@ p {
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
+  @include mobile{
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 // Imagem destacada
@@ -73,8 +77,8 @@ p {
 
     .badge {
       display: inline-block;
-      background: #c2f3cf;
-      color: #0a5e2a;
+      background: #235540;
+      color: white;
       padding: 0.25rem 0.6rem;
       border-radius: $bordas;
       font-size: 0.9rem;
@@ -98,40 +102,49 @@ p {
     list-style: none;
     padding: 0;
     font-size: 1rem;
-
+    color:$color--secondary-dark;
     li {
       margin-bottom: 0.5rem;
 
       strong {
-        font-weight: bold;
         margin-right: 0.5rem;
       }
     }
   }
+
 }
 
 // Formulário
 .formulario-participar {
-    display: flex;
-    flex-direction: column;
-    align-content: flex-end;
-    flex-wrap: wrap;
-    margin-top: 4rem;
-
+    display: grid;
+    width: 100%;
+    max-width: 793px;
+    float: right;
+    margin-top: 40px;
+    padding-bottom: 58px;
+    @media ( max-width: 1366px ) {
+        width: 61%;
+    }
+    @include mobile{
+        width: auto;
+    }
   h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
+   color: #281414;
+    font-family: 'gabarito';
+    font-size: var(--Spacing-space-400, 32px);
+    font-style: normal;
+    font-weight: $font-weight--medium;
+    line-height: 120%; /* 38.4px */
+    margin-bottom: 12px;
+    }
 
   .form-descricao {
-    margin-bottom: 2rem;
-    color: $cinza-texto;
+    margin-bottom: 1.5rem;
   }
 
   .form-participar {
-    display: grid;
-    gap: 1.5rem;
-    max-width: 600px;
+    display: flex;
+    flex-direction: column;
 
     input[type="text"],
     input[type="email"] {
@@ -140,28 +153,42 @@ p {
       border-radius: $bordas;
       font-size: 1rem;
       width: 100%;
+      margin-bottom: 25px;
     }
-
+    p{
+        color: var(--Color-Gray-800, #484646);
+    /* Label/medium */
+    font-family: var(--Typeface-Font-Gabarito, Gabarito);
+    font-size: var(--Spacing-space-175, 14px);
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%; /* 16.8px */
+    }
     .checkbox-aceite {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.95rem;
+      font-size: 14px;
+      color: $color--secondary-dark;
+      margin-bottom: 27px;
     }
 
     .botao-confirmar {
-      background: $verde;
-      color: white;
-      padding: 1rem;
-      border: none;
-      border-radius: $bordas;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.2s ease;
+    background: $color--primary-pure;
+    color: $color--secondary-light;
+    padding: 10px;
+    border: none;
+    border-radius: 100px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    margin-left: 70%;
 
       &:hover {
         background: darken($verde, 5%);
       }
     }
   }
+
 }
+
