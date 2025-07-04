@@ -51,7 +51,10 @@ add_action('init', 'hacklabr\\dashboard\\action_init');
 
 function action_template_redirect(): void {
     if (is_dashboard() && !current_user_can('edit_riscos')) {
-        wp_safe_redirect(get_home_url(), 302);
+        global $wp;
+        $current_url = home_url($wp->request ?? '');
+        $login_url = wp_login_url($current_url);
+        wp_safe_redirect($login_url, 302);
         exit;
     }
 }

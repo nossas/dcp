@@ -351,6 +351,7 @@
             background-color: transparent;
             border-radius: $border-radius--large*5;
             border: size(2) solid $color--secondary-dark;
+            display: flex;
             gap: $gap--small;
             justify-content: center;
         }
