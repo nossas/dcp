@@ -17,15 +17,48 @@ namespace hacklabr\dashboard;
                 <iconify-icon icon="bi:chevron-right"></iconify-icon>
             </li>
             <li>
-                <a href="">Adicionar</a>
+                <a href="">( Sugestão / Agendadas / Realizadas / Arquivadas )</a>
                 <iconify-icon icon="bi:chevron-right"></iconify-icon>
             </li>
-            <li><a href="#/">Nova Ação</a></li>
+            <li><a href="#/">Avaliar / Editar ação</a></li>
         </ol>
     </div>
 
     <header class="dashboard-content-header">
-        <h1>Adicionar Ação</h1>
+        <h2>Adicionar Ação</h2>
+        <?php
+        //TODO: REFACTORY P/ COMPONENT
+        $post_status = 'draft';
+        switch ( $post_status ) {
+            case 'publish':
+                $class = 'is-publish';
+                $text = 'Ação Sugerida';
+                break;
+
+            case 'draft':
+                $class = 'is-draft';
+                $text = 'Ação Sugerida';
+                break;
+
+            case 'scheduled':
+                $class = 'is-scheduled';
+                $text = 'Ação Agendada';
+                break;
+
+            case 'pending':
+                $class = 'is-pending';
+                $text = 'Ação Arquivada';
+                break;
+
+            default:
+                $class = 'is-blocked';
+                $text = 'BLOQUEADO';
+                break;
+        }
+        ?>
+        <a class="button is-status <?=$class?>">
+            <span><?=$text?></span>
+        </a>
     </header>
 
     <div class="dashboard-content-single">
@@ -59,7 +92,10 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Título</label>
-                    <input class="input" type="text" name="titulo" placeholder="Digite aqui" value="" required>
+                    <input class="input" type="text" name="titulo" placeholder="Digite aqui" value="" required readonly>
+                    <a class="button is-edit-input">
+                        <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                    </a>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
@@ -92,11 +128,17 @@ namespace hacklabr\dashboard;
                 <div class="is-group">
                     <div class="input-wrap">
                         <label class="label">Data</label>
-                        <input class="input" type="text" name="data" placeholder="Digite aqui" value="" required>
+                        <input class="input" type="date" name="data" placeholder="" value="" required readonly>
+                        <a class="button is-edit-input">
+                            <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                        </a>
                     </div>
                     <div class="input-wrap">
                         <label class="label">Horário</label>
-                        <input class="input" type="text" name="horario" placeholder="Digite aqui" value="" required>
+                        <input class="input" type="time" name="horario" placeholder="" value="" required readonly>
+                        <a class="button is-edit-input">
+                            <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                        </a>
                     </div>
                 </div>
                 <div class="input-help">
@@ -112,7 +154,10 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Localização</label>
-                    <input class="input" type="text" name="localizacao" placeholder="Digite o local ou endereço aqui" value="" required>
+                    <input class="input" type="text" name="localizacao" placeholder="Digite o local ou endereço aqui" value="" required readonly>
+                    <a class="button is-edit-input">
+                        <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                    </a>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">

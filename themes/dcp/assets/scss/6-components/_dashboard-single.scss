@@ -22,6 +22,10 @@
                     width: 55%;
                     position: relative;
 
+                    @include tablet {
+                        width: 84%;
+                    }
+
 
                     label {
                         font-size: size( 13 );
@@ -29,6 +33,8 @@
                         padding: size( 3 ) size( 20 );
                     }
                     input[type="text"],
+                    input[type="time"],
+                    input[type="date"],
                     textarea,
                     select,
                     .input-chips {
@@ -486,6 +492,10 @@
                     width: 44%;
                     padding: size( 30 ) size( 10 ) size( 1 );
 
+                    @include tablet {
+                        width: 15%;
+                    }
+
                     .button {
                         background-color: rgba( 0,0,0,0.06 );
                         font-size: size( 25 );
@@ -506,6 +516,10 @@
                     }
                     p {
                         padding: size( 10 ) size( 5 );
+
+                        @include tablet {
+                            display: none;
+                        }
                     }
 
                 }

@@ -92,11 +92,11 @@ namespace hacklabr\dashboard;
                 <div class="is-group">
                     <div class="input-wrap">
                         <label class="label">Data</label>
-                        <input class="input" type="text" name="data" placeholder="Digite aqui" value="" required>
+                        <input class="input" type="date" name="data" placeholder="Digite aqui" value="" required>
                     </div>
                     <div class="input-wrap">
                         <label class="label">Horário</label>
-                        <input class="input" type="text" name="horario" placeholder="Digite aqui" value="" required>
+                        <input class="input" type="time" name="horario" placeholder="Digite aqui" value="" required>
                     </div>
                 </div>
                 <div class="input-help">
