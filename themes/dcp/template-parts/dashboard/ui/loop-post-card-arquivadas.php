@@ -2,13 +2,22 @@
 
 namespace hacklabr\dashboard;
 
+$pod = pods( 'acao', get_the_ID() );
+
 ?>
 <article class="post-card is-arquivadas" style="display: none;">
     <main class="post-card__content">
 
         <div class="post-card__term">
             <div>
-                <span class="post-card__taxonomia term-cultural"><iconify-icon icon="bi:mic-fill"></iconify-icon>Cultural</span>
+                <?php
+                $get_terms = get_the_terms( get_the_ID(), 'tipo_acao' );
+                if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                    risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, 'post-card__taxonomia term-' . $get_terms[0]->slug );
+                } else {
+                    risco_badge_category( 'sem-categoria', 'NENHUMA CATEGORIA ADICIONADA' );
+                }
+                ?>
             </div>
             <div class="post-card__risco-meta">10/06/2025</div>
         </div>

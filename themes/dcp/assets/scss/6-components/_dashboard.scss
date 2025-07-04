@@ -586,6 +586,15 @@
                     }
 
                 }
+
+                .message-response {
+                    background-color: rgba( 0,0,0,0.04 );
+                    display: none;
+                    padding: size( 20 );
+                    border-radius: size( 15 );
+                    position: relative;
+                    z-index: 1;
+                }
             }
 
     }
