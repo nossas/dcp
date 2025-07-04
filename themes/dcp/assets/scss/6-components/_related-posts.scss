@@ -10,7 +10,7 @@ $sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
   background: $cor-fundo;
   padding: 4rem 1rem;
   font-family: 'Arial', sans-serif;
-  padding-top: 80px;
+  padding-top: 0px !important;
   @include mobile{
     padding-top: 0px;
     margin-top: -16px !important;
@@ -37,6 +37,10 @@ $sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
           font-weight: $font-weight--regular;
           color:$color--primary-pure;
           margin-bottom: 40px;
+          @include mobile{
+            font-size: 24px;
+            color:$color--secondary-dark;
+          }
         }
 
         .transparencia-subtitulo {
@@ -147,12 +151,13 @@ $sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
           }
 
           .transparencia-titulo-card {
-            font-size: 20px;
+            font-size: 20px !important;
             font-weight: 500;
             color: $color--secondary-dark;
             font-family: 'gabarito';
             margin-bottom: 0.5rem;
             line-height: 1.4;
+
           }
 
           .transparencia-descricao {

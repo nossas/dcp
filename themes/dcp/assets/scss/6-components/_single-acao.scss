@@ -10,18 +10,20 @@
             justify-content: center;
             @include mobile{
                 justify-content: initial;
+                margin-top: 32px;
             }
         }
         @include mobile {
             padding-inline: 1rem !important;
         }
+
         &__title{
             color:$color--primary-pure;
             margin-top: $margin--medium;
             margin-bottom: $margin--medium;
             @include mobile {
                 font-size: 24px;
-                text-align: start;
+                text-align: center !important;
             }
         }
         &__excerpt{
@@ -59,6 +61,9 @@
                 border-color:  $color--primary-pure;
                 color:white;
                 align-items: center;
+                @include mobile{
+                    font-size: 12px;
+                }
             }
             &__date {
                 color:$color--secondary-dark;
@@ -120,5 +125,19 @@
     }
     .wp-block-list{
         list-style: disc;
+        @include mobile {
+            margin-left: 1rem !important;
+            margin-bottom: 48px !important;
+        }
+    }
+    h3 {
+        letter-spacing: 1.6px;
+        @include mobile{
+            margin-top: 48px !important;
+        }
+    }
+    .wp-block-separator {
+        margin-right: 1rem !important;
+        margin-left: 0rem !important;
     }
 }
