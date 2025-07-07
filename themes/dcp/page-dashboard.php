@@ -1,11 +1,11 @@
 <?php
-
 /**
  * Template Name: Dashboard
  * Description: Template específico para o dashboard
  */
 
 namespace hacklabr\dashboard;
+ob_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['arquivar_apoio'])) {
     $post_id = intval($_POST['post_id']);
@@ -15,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['arquivar_apoio'])) {
         exit;
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -125,4 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['arquivar_apoio'])) {
         }
     </style>
 </body>
+<?php
+ob_end_flush();
+?>
 </html>
