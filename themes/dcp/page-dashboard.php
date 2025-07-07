@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['arquivar_apoio'])) {
                             </a>
                         </li>
                         <?php // TODO : REFACTORY is-current ?>
-                        <li class="<?= ( is_dashboard('acoes') || is_dashboard('adicionar-acao') || is_dashboard('adicionar-relato')) ? 'dashboard-current' : '' ?>">
+                        <li class="<?= ( is_dashboard('acoes') || is_dashboard('adicionar-acao') || is_dashboard('editar-acao') || is_dashboard('adicionar-relato') || is_dashboard('editar-relato') ) ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('acoes') ?>">
                                 <iconify-icon icon="bi:calendar2-week-fill"></iconify-icon>
                                 <span>Ações</span>

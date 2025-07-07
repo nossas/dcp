@@ -12,135 +12,6 @@ function formatFileSize(bytes) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
-class MediaLoader {
-
-    constructor( options = {} ) {
-        this.targetClass = options.targetClass || '.is-load-now';
-        this.progressBar = options.progressBar || document.getElementById('progress-bar');
-        this.progressContainer = options.progressContainer || document.getElementById('progress-container');
-        this.config = {
-            delayBetweenLoads: options.delayBetweenLoads || 100,
-            maxRetries: options.maxRetries || 3
-        };
-        this.mediaElements = [];
-        this.totalBytes = 0;
-        this.loadedBytes = 0;
-        this.init();
-    }
-
-    async init() {
-        try {
-            await this.calculateTotalSize();
-            this.showProgress();
-            this.startLoading();
-        } catch (error) {
-            console.error('Erro de inicialização:', error);
-        }
-    }
-
-    async calculateTotalSize() {
-        const mediaNodes = document.querySelectorAll(`${this.targetClass}[data-media-src]`);
-        this.mediaElements = Array.from(mediaNodes);
-
-        const sizeRequests = this.mediaElements.map(async (media) => {
-            const url = media.dataset.mediaSrc;
-            const size = await this.getFileSize(url);
-            return { media, url, size };
-        });
-
-        const results = await Promise.all(sizeRequests);
-        this.mediaElements = results.filter(item => item.size > 0);
-        this.totalBytes = this.mediaElements.reduce((sum, item) => sum + item.size, 0);
-    }
-
-    async getFileSize(url) {
-        try {
-            const response = await fetch(url, { method: 'HEAD' });
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            return parseInt(response.headers.get('Content-Length')) || 0;
-        } catch (error) {
-            console.error(`Erro ao obter tamanho de ${url}:`, error);
-            return 0;
-        }
-    }
-
-    showProgress() {
-        this.progressContainer.style.display = 'block';
-        this.updateProgress(0);
-    }
-
-    updateProgress(loaded) {
-        this.loadedBytes += loaded;
-        const percent = (this.loadedBytes / this.totalBytes) * 100;
-        this.progressBar.style.width = `${Math.min(percent, 100)}%`;
-    }
-
-    async startLoading() {
-        for (const item of this.mediaElements) {
-            try {
-                await this.loadMediaItem(item);
-                item.media.classList.remove(this.targetClass.replace('.', ''));
-            } catch (error) {
-                console.error(`Falha no carregamento de ${item.url}:`, error);
-                item.media.style.display = 'none';
-            }
-        }
-        this.progressContainer.style.display = 'none';
-    }
-
-    loadMediaItem(item) {
-        return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            let retries = 0;
-
-            xhr.open('GET', item.url);
-            xhr.responseType = 'blob';
-
-            xhr.onprogress = (e) => {
-                if (e.lengthComputable) {
-                    this.updateProgress(e.loaded - (item.loaded || 0));
-                    item.loaded = e.loaded;
-                }
-            };
-
-            xhr.onload = () => {
-                if (xhr.status === 200) {
-                    this.applyMedia(item.media, URL.createObjectURL(xhr.response));
-                    resolve();
-                } else if (retries < this.config.maxRetries) {
-                    retries++;
-                    xhr.send();
-                } else {
-                    reject(new Error(`Status ${xhr.status}`));
-                }
-            };
-
-            xhr.onerror = () => {
-                if (retries < this.config.maxRetries) {
-                    retries++;
-                    xhr.send();
-                } else {
-                    reject(new Error('Erro de rede'));
-                }
-            };
-
-            xhr.send();
-        });
-    }
-
-    applyMedia(element, url) {
-
-        if (element.tagName === 'IMG') {
-            element.src = url;
-        } else if (element.tagName === 'SOURCE') {
-            element.src = url;
-            element.parentNode.load();
-        }
-        element.style.display = 'block';
-
-    }
-}
-
 // TODO: COMPORTAMENTO MOCK jQUERY
 jQuery(function($) {
 
@@ -221,6 +92,81 @@ jQuery(function($) {
         });
         $( '.tabs__header a.is-active' ).trigger( 'click' );
         // TODO: COMPORTAMENTO MOCK TAB PANELS ( componentizar / usar Alpine já existente )
+
+        // TODO: COMPONENT
+        function custom_modal_confirm(options) {
+            const {
+                title,
+                description,
+                cancelText = 'Cancelar',
+                confirmText = 'Confirmar',
+                customConfirmText,
+                onCancel,
+                onConfirm,
+                onCustomConfirm
+            } = options;
+
+            const $modal = $('.modal-confirm');
+
+            // Preenche os conteúdos dinâmicos
+            $modal.find('h3').text(title);
+            $modal.find('.is-body p').html(description);
+            $modal.find('.is-error').html( '' );
+            $modal.find('.is-cancel').text(cancelText);
+            $modal.find('.is-confirm span').text(confirmText);
+
+            // Configura botão customizado (se fornecido)
+            const $customBtn = $modal.find('.is-custom');
+            if (customConfirmText) {
+                $customBtn.text(customConfirmText).show();
+            } else {
+                $customBtn.hide();
+            }
+
+            // Remove eventos anteriores
+            $modal.off('click', '.is-close, .is-cancel');
+            $modal.off('click', '.is-confirm');
+            $modal.off('click', '.is-custom');
+            $(document).off('keyup.modal');
+
+            // Evento de fechamento (cancelar)
+            $modal.on('click', '.is-close, .is-cancel', function() {
+                _modal_confirm_close();
+                if (typeof onCancel === 'function') onCancel();
+            });
+
+            // Evento de confirmação principal
+            $modal.on('click', '.is-confirm', function() {
+                _modal_confirm_close();
+                if (typeof onConfirm === 'function') onConfirm();
+            });
+
+            // Evento de confirmação customizada
+            if (customConfirmText) {
+                $modal.on('click', '.is-custom', function() {
+                    _modal_confirm_close();
+                    if (typeof onCustomConfirm === 'function') onCustomConfirm();
+                });
+            }
+
+            // Fechar com ESC
+            $(document).on('keyup.modal', function(e) {
+                if (e.key === 'Escape') {
+                    _modal_confirm_close();
+                    if (typeof onCancel === 'function') onCancel();
+                }
+            });
+
+            // Mostrar modal
+            $modal.fadeIn(200);
+        }
+
+        function _modal_confirm_close() {
+            $('.modal-confirm').fadeOut(200);
+        }
+        // TODO: COMPONENT
+
+
 
         $( '.dashboard-content-cards .post-card__excerpt-wrapped .read-more' ).on('click', function() {
             const $this = $( this );
@@ -332,28 +278,6 @@ jQuery(function($) {
 
         });
 
-        $( '#mediaUploadButton' ).on( 'click', function () {
-            const $this = $( this );
-
-            $this.parent().append( '<input id="mediaUploadInput" type="file" name="media_files[]" style="display:none;" accept="image/*,video/*" multiple >');
-            $this.parent().find( '#mediaUploadInput' ).on( 'change', function ( e ) {
-                const files = Array.from( e.target.files );
-
-                $( '.input-media-uploader-progress' ).show().html( '' );
-
-                files.forEach( function ( file ) {
-
-                    $( '.input-media-uploader-progress' ).append( '<div class="progress is-small">' +
-                        '<div class="progress-bar"><span>' +
-                        formatFileSize( file.size ) + '</span><span>' +
-                        file.name + '</span></div> </div>' );
-
-                });
-
-            }).trigger( 'click' );
-
-        });
-
         $( '#selectCategory' ).on( 'change', function () {
             $( '.input-chips .chips-wrap').html( '' );
             $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
@@ -371,76 +295,114 @@ jQuery(function($) {
             $( '#input_' + $( this ).attr( 'data-slug' ) ).prop( 'checked', true );
         });
 
-        function custom_modal_confirm(options) {
-            const {
-                title,
-                description,
-                cancelText = 'Cancelar',
-                confirmText = 'Confirmar',
-                customConfirmText,
-                onCancel,
-                onConfirm,
-                onCustomConfirm
-            } = options;
+        $( '#mediaUploadButton, #mediaUploadButtonCover' ).on( 'click', function () {
+            const $this = $( this );
 
-            const $modal = $('.modal-confirm');
-
-            // Preenche os conteúdos dinâmicos
-            $modal.find('h3').text(title);
-            $modal.find('.is-body p').html(description);
-            $modal.find('.is-error').html( '' );
-            $modal.find('.is-cancel').text(cancelText);
-            $modal.find('.is-confirm span').text(confirmText);
-
-            // Configura botão customizado (se fornecido)
-            const $customBtn = $modal.find('.is-custom');
-            if (customConfirmText) {
-                $customBtn.text(customConfirmText).show();
-            } else {
-                $customBtn.hide();
+            let isMultiple = '';
+            if( $this.hasClass( 'is-multiple' ) ) {
+                isMultiple = 'multiple';
             }
 
-            // Remove eventos anteriores
-            $modal.off('click', '.is-close, .is-cancel');
-            $modal.off('click', '.is-confirm');
-            $modal.off('click', '.is-custom');
-            $(document).off('keyup.modal');
+            $this.parent().append( '<input id="mediaUploadInput" type="file" name="media_files[]" style="display:none;" accept="image/*,video/*" ' + isMultiple + ' >');
+            $this.parent().find( '#mediaUploadInput' ).on( 'change', function ( e ) {
+                const files = Array.from( e.target.files );
 
-            // Evento de fechamento (cancelar)
-            $modal.on('click', '.is-close, .is-cancel', function() {
-                _modal_confirm_close();
-                if (typeof onCancel === 'function') onCancel();
-            });
+                $( '.input-media-uploader-progress' ).show().html( '' );
 
-            // Evento de confirmação principal
-            $modal.on('click', '.is-confirm', function() {
-                _modal_confirm_close();
-                if (typeof onConfirm === 'function') onConfirm();
-            });
+                files.forEach( function ( file ) {
 
-            // Evento de confirmação customizada
-            if (customConfirmText) {
-                $modal.on('click', '.is-custom', function() {
-                    _modal_confirm_close();
-                    if (typeof onCustomConfirm === 'function') onCustomConfirm();
+                    $( '.input-media-uploader-progress' ).append( '<div class="progress is-small">' +
+                        '<div class="progress-bar"><span>' +
+                        formatFileSize( file.size ) + '</span><span>' +
+                        file.name + '</span></div> </div>' );
+
                 });
-            }
 
-            // Fechar com ESC
-            $(document).on('keyup.modal', function(e) {
-                if (e.key === 'Escape') {
-                    _modal_confirm_close();
-                    if (typeof onCancel === 'function') onCancel();
+            }).trigger( 'click' );
+        });
+
+        $( '#riscoSingleForm .is-archive' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Arquivar esse registro de risco?',
+                description: 'As informações não serão publicadas e poderão ser acessadas novamente na aba “Arquivados”',
+
+                cancelText: "Cancelar",
+                onCancel: function () {},
+
+                confirmText: "Arquivar",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'pending' );
+                    $( '#riscoSingleForm' ).submit();
                 }
             });
+        });
+        $( '#riscoSingleForm .is-publish' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Publicar registro de risco?',
+                description: 'Confirme que não há informações impróprias antes de publicar.',
 
-            // Mostrar modal
-            $modal.fadeIn(200);
-        }
+                cancelText: "Cancelar",
+                onCancel: function () {},
 
-        function _modal_confirm_close() {
-            $('.modal-confirm').fadeOut(200);
-        }
+                confirmText: "Publicar",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'publish' );
+                    $( '#riscoSingleForm' ).submit();
+                }
+            });
+        });
+        $( '#riscoSingleForm .is-save' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Publicar registro de risco?',
+                description: 'Confirme que não há informações impróprias antes de publicar.',
+
+                cancelText: "Cancelar",
+                onCancel: function () {},
+
+                confirmText: "Publicar alterações",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'publish' );
+                    $( '#riscoSingleForm' ).submit();
+                }
+            });
+        });
+        $( '#riscoSingleForm .is-new' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Criar novo registro de risco?',
+                description: 'Confirme que não há informações impróprias antes de publicar.',
+                cancelText: "Cancelar",
+                onCancel: function () {},
+                confirmText: "Publicar alterações",
+                onConfirm: function () {
+                    $( '#riscoSingleForm' ).submit();
+                }
+            });
+        });
+
+        $( '#acaoSingleForm .is-new.acao' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Criar ação?',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
+                cancelText: "Voltar",
+                onCancel: function () {},
+                confirmText: "Criar Ação",
+                onConfirm: function () {
+                    $( '#acaoSingleForm' ).submit();
+                }
+            });
+        });
+        $( '#acaoSingleForm .is-new.relato' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Criar Relato?',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
+                cancelText: "Voltar",
+                onCancel: function () {},
+                confirmText: "Criar Relato",
+                onConfirm: function () {
+                    $( '#acaoSingleForm' ).submit();
+                }
+            });
+        });
 
         $( '#riscoSingleForm, #acaoSingleForm' ).on( 'submit', function ( e ) {
             const $this = $( this );
@@ -635,8 +597,8 @@ jQuery(function($) {
 
         $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
         $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
-        $( '#dashboardInicio .dashboard-content-cards .post-card' ).show();
-        $( '#dashboardAcoes .dashboard-content-cards .post-card' ).show();
+        $( '#dashboardInicio .dashboard-content-cards .post-card, #dashboardInicio .dashboard-content-cards .message-response' ).show();
+        $( '#dashboardAcoes .dashboard-content-cards .post-card, #dashboardAcoes .dashboard-content-cards .message-response' ).show();
 
         // TODO: REFECTORY P/ COMPONENTE DE LOADING TIPO SKELETON
         $( '.dashboard-content-skeleton' ).hide();
@@ -665,14 +627,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 window.addEventListener('DOMContentLoaded', () => {
     Alpine.start();
-
-    if ( document.querySelector( '.is-load-now' ) ) {
-        new MediaLoader({
-            targetClass: '.is-load-now',
-            progressBar: document.getElementById( 'mainProgressBar' ),
-            progressContainer: document.getElementById( 'mainProgressContainer' )
-        });
-    }
     console.log( 'WINDOW LOADED' );
 });
 

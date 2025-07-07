@@ -19,8 +19,26 @@ function risco_badge_category( $slug = 'default', $label = 'CATEGORIA GERAL', $c
         case 'lixo':
             echo '<iconify-icon icon="bi:trash3-fill"></iconify-icon>';
             break;
+
         case 'outros':
             echo '<iconify-icon icon="bi:moisture"></iconify-icon>';
+            break;
+
+
+        case 'reparos':
+            echo '<iconify-icon icon="bi:hammer"></iconify-icon>';
+            break;
+
+        case 'limpeza':
+            echo '<iconify-icon icon="bi:bucket-fill"></iconify-icon>';
+            break;
+
+        case 'cultural':
+            echo '<iconify-icon icon="bi:mic-fill"></iconify-icon>';
+            break;
+
+        case 'mobilizacao':
+            echo '<iconify-icon icon="bi:people-fill"></iconify-icon>';
             break;
 
         default:

@@ -72,9 +72,25 @@ function get_riscos_by_status( $status ) {
 }
 
 
-function form_single_acao_new()
-{
+function get_acoes_by_status( $status ) {
+    return [
+        'pagination' => false,
+        'posts' => new WP_Query([
+            'post_type'      => 'acao',
+            'post_status'    => $status,
+            'posts_per_page' => -1,
+            'orderby'        => 'date',
+            'order'          => 'DESC'
+        ])
+    ];
+}
 
+
+
+
+
+
+function form_single_acao_new() {
 
     wp_send_json_error([
         'title' => 'Erro',
@@ -85,10 +101,7 @@ function form_single_acao_new()
 }
 add_action('wp_ajax_form_single_acao_new', 'form_single_acao_new');
 
-
-function form_single_relato_new()
-{
-
+function form_single_relato_new() {
 
     wp_send_json_error([
         'title' => 'Erro',
@@ -98,7 +111,6 @@ function form_single_relato_new()
 
 }
 add_action('wp_ajax_form_single_relato_new', 'form_single_relato_new');
-
 
 function form_single_risco_new() {
 
