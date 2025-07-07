@@ -53,7 +53,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         salvarBtn.addEventListener('click', () => {
-            // Garante que não estamos arquivando por engano
             if (arquivarInput) {
                 arquivarInput.remove();
             }
