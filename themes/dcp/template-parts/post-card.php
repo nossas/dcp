@@ -145,7 +145,7 @@ $categories = get_the_category();
 
                     <?php if (!empty($hora_atendimento)): ?>
                         <div class="post-card__field post-card__schedule">
-                            <strong>Horário de atendimento:</strong>
+                            Horário de atendimento:
                             <?= esc_html(is_array($hora_atendimento) ? implode(', ', $hora_atendimento) : $hora_atendimento); ?>
                         </div>
                     <?php endif; ?>
