@@ -16,6 +16,7 @@ require __DIR__ . '/library/sanitizers/index.php';
 require __DIR__ . '/library/template-tags/index.php';
 require __DIR__ . '/library/utils.php';
 require __DIR__ . '/library/blocks/index.php';
+require __DIR__ . '/library/custom_post_status.php';
 require __DIR__ . '/library/dashboard.php';
 require __DIR__ . '/library/dashboard-utils.php';
 require __DIR__ . '/library/dashboard-ajax.php';
