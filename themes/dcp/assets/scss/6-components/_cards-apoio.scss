@@ -264,6 +264,7 @@
     &__btn-publicar,
     &__btn-arquivar{
         align-items: center;
+        background-color: transparent;
         border: size(1) solid $color--warning-dark;
         border-radius: size(100);
         color: $color--warning-dark;
@@ -332,18 +333,41 @@
             display: flex;
             flex-direction: column;
 
+            &-horario{
+                display: flex;
+                flex-direction: column;
+            }
+
             textarea,
             input{
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'%3E%3Cpath d='M17.4437 2.18343C17.5488 2.28887 17.6078 2.43168 17.6078 2.58056C17.6078 2.72944 17.5488 2.87224 17.4437 2.97768L16.2703 4.15218L14.0203 1.90218L15.1937 0.727681C15.2991 0.622228 15.4422 0.562988 15.5913 0.562988C15.7405 0.562988 15.8835 0.622228 15.989 0.727681L17.4437 2.18231V2.18343ZM15.4749 4.94643L13.2249 2.69643L5.56028 10.3622C5.49836 10.4241 5.45175 10.4996 5.42416 10.5827L4.51853 13.2984C4.50211 13.3479 4.49978 13.401 4.5118 13.4518C4.52382 13.5026 4.54972 13.549 4.5866 13.5859C4.62349 13.6227 4.6699 13.6486 4.72066 13.6607C4.77142 13.6727 4.82452 13.6704 4.87403 13.6539L7.58978 12.7483C7.67277 12.721 7.74826 12.6748 7.81028 12.6133L15.4749 4.94643Z' fill='%23605E5D'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M1.12891 15.1884C1.12891 15.636 1.3067 16.0652 1.62316 16.3817C1.93963 16.6981 2.36885 16.8759 2.81641 16.8759H15.1914C15.639 16.8759 16.0682 16.6981 16.3846 16.3817C16.7011 16.0652 16.8789 15.636 16.8789 15.1884V8.43843C16.8789 8.28925 16.8196 8.14617 16.7142 8.04068C16.6087 7.93519 16.4656 7.87593 16.3164 7.87593C16.1672 7.87593 16.0241 7.93519 15.9187 8.04068C15.8132 8.14617 15.7539 8.28925 15.7539 8.43843V15.1884C15.7539 15.3376 15.6946 15.4807 15.5892 15.5862C15.4837 15.6917 15.3406 15.7509 15.1914 15.7509H2.81641C2.66722 15.7509 2.52415 15.6917 2.41866 15.5862C2.31317 15.4807 2.25391 15.3376 2.25391 15.1884V2.81343C2.25391 2.66425 2.31317 2.52117 2.41866 2.41568C2.52415 2.31019 2.66722 2.25093 2.81641 2.25093H10.1289C10.2781 2.25093 10.4212 2.19167 10.5267 2.08618C10.6321 1.98069 10.6914 1.83761 10.6914 1.68843C10.6914 1.53925 10.6321 1.39617 10.5267 1.29068C10.4212 1.18519 10.2781 1.12593 10.1289 1.12593H2.81641C2.36885 1.12593 1.93963 1.30372 1.62316 1.62019C1.3067 1.93666 1.12891 2.36588 1.12891 2.81343V15.1884Z' fill='%23605E5D'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: right size(16) center;
+                background-size: size(18);
+                padding-right: size(48); // espaço para o ícone
                 border: size(1) solid $color--secondary-dark;
                 border-radius: $border-radius--medium;
                 margin-bottom: size(48);
                 max-width: size(676);
                 padding: $padding--small $padding--medium;
+                position: relative;
                 width: 100%;
 
                 @include mobile{
                     margin-bottom: size(24);
                     min-width: unset;
+                }
+
+                &::after {
+                    content: '';
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    width: size(18);
+                    height: size(18);
+                    position: absolute;
+                    top: size(12);
+                    right: size(12);
+                    pointer-events: none;
                 }
             }
 
@@ -814,5 +838,9 @@
   background: transparent;
   border: none;
   cursor: pointer;
+}
+
+.is-hidden {
+    display: none !important;
 }
 
