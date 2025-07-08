@@ -17,10 +17,10 @@ jQuery(function($) {
 
     function _ajax_dele_media_by_id( post_id, attachment_id, success, error ) {
         $.ajax({
-            url: $( '#riscoSingleForm' ).attr( 'data-action' ),
+            url: $( '.dashboard-content-single form' ).attr( 'data-action' ),
             type: 'POST',
             data: {
-                action : 'form_single_risco_delete_attachment',
+                action : 'form_single_delete_attachment',
                 post_id : post_id,
                 attachment_id : attachment_id
             },
@@ -54,7 +54,6 @@ jQuery(function($) {
             $( '.tabs__panels' ).hide();
 
             switch ( tab ) {
-
                 case '#aprovacao':
 
                     $this.addClass( 'is-active' );
@@ -62,8 +61,6 @@ jQuery(function($) {
                     $this.find( '.total' ).html( '(' + $( '#riscosAprovacao .post-card' ).length + ')' );
 
                     break;
-
-
                 case '#publicados':
 
                     $this.addClass( 'is-active' );
@@ -71,7 +68,6 @@ jQuery(function($) {
                     $this.find( '.total' ).html( '(' + $( '#riscosPublicados .post-card' ).length + ')' );
 
                     break;
-
                 case '#arquivados':
 
                     $this.addClass( 'is-active' );
@@ -79,11 +75,9 @@ jQuery(function($) {
                     $this.find( '.total' ).html( '(' + $( '#riscosArquivados .post-card' ).length + ')' );
 
                     break;
-
                 default:
 
                     break;
-
             }
 
             $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
@@ -166,8 +160,6 @@ jQuery(function($) {
         }
         // TODO: COMPONENT
 
-
-
         $( '.dashboard-content-cards .post-card__excerpt-wrapped .read-more' ).on('click', function() {
             const $this = $( this );
             $this.hide();
@@ -238,7 +230,7 @@ jQuery(function($) {
                         cursor : 'wait'
                     });
                     _ajax_dele_media_by_id(
-                        $( '#riscoSingleForm' ).find( 'input[name="post_id"]' ).val(),
+                        $( '.dashboard-content-single form' ).find( 'input[name="post_id"]' ).val(),
                         $this.attr( 'data-id' ),
                         function ( response ) {
                             custom_modal_confirm({
@@ -592,6 +584,8 @@ jQuery(function($) {
 
     });
     $( window ).on( 'load', function() {
+
+        console.log( 'JQUERY WINDOW LOADED' );
 
         $( 'body' ).attr( 'class', 'loading is-loaded' );
 

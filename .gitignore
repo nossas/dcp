@@ -14,3 +14,4 @@ mix-manifest.json
 wp-root
 themes/dcp/mix-manifest.json
 .DS_Store
+.idea
