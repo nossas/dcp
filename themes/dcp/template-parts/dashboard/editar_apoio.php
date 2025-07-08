@@ -1,4 +1,5 @@
 <?php
+
 namespace hacklabr\dashboard;
 
 $post_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -35,9 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && current_user_can('edit_post', $post
         $post_obj = get_post($post_id);
     }
 
-    if (isset($_POST['arquivar_apoio'])) {
+    if (!empty($_POST['arquivar_apoio']) && $_POST['arquivar_apoio'] === '1') {
         update_post_meta($post_id, 'apoio_arquivado', '1');
-
         wp_redirect(home_url('/dashboard/apoio?tipo=arquivados'));
         exit;
     }

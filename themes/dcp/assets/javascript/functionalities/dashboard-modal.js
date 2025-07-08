@@ -38,21 +38,28 @@ document.addEventListener('DOMContentLoaded', function () {
     const voltarBtn = modal.querySelector('.modal-confirmar-salvar__btn.voltar');
     const salvarBtn = modal.querySelector('.modal-confirmar-salvar__btn.salvar');
     const form = document.querySelector('.apoio-card__form');
+    const arquivarInput = document.getElementById('arquivar_apoio');
 
-    abrirBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        modal.classList.remove('is-hidden');
-    });
-
-    [fecharBtn, voltarBtn].forEach(btn => {
-        btn.addEventListener('click', () => {
-            modal.classList.add('is-hidden');
+    if (abrirBtn && modal && form && salvarBtn) {
+        abrirBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.classList.remove('is-hidden');
         });
-    });
 
-    salvarBtn.addEventListener('click', () => {
-        form.submit();
-    });
+        [fecharBtn, voltarBtn].forEach(btn => {
+            btn?.addEventListener('click', () => {
+                modal.classList.add('is-hidden');
+            });
+        });
+
+        salvarBtn.addEventListener('click', () => {
+            if (arquivarInput) {
+                arquivarInput.remove();
+            }
+            modal.classList.add('is-hidden');
+            form.submit();
+        });
+    }
 });
 
 document.addEventListener('DOMContentLoaded', function () {
