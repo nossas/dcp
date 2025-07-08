@@ -52,21 +52,7 @@ namespace hacklabr\dashboard;
 
                                             <div class="post-card__excerpt-wrapped">
                                                 <p class="text-excerpt">
-                                                    <?php
-
-                                                    //TODO: REFACTORY P/ UTILS
-                                                    $descricao = $pod->field( 'descricao' );
-
-                                                    if ( strlen( $descricao ) <= 125 ) {
-                                                        echo $descricao;
-                                                    } else {
-                                                        echo substr( $descricao, 0, 125 ) . '<a class="read-more" href="#/">Ver mais</a>';
-                                                        echo '<span class="read-more-full">' . substr( $descricao, 125 ) . '</span>';
-                                                    }
-                                                    //TODO: REFACTORY P/ UTILS
-
-                                                    ?>
-
+                                                    <?php dashboard_excerpt( $pod->field( 'descricao' ) ); ?>
                                                 </p>
                                             </div>
 

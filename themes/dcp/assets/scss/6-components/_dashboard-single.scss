@@ -19,13 +19,12 @@
 
                 .input-wrap {
                     color: $color--secondary-dark;
-                    width: 55%;
+                    width: 61%;
                     position: relative;
 
                     @include tablet {
                         width: 84%;
                     }
-
 
                     label {
                         font-size: size( 13 );
@@ -64,6 +63,7 @@
                     }
                     textarea {
                         height: 200px;
+                        padding: size( 15 ) size( 50 ) size( 15 ) size( 20 );
                         resize: none;
                     }
                     select {
@@ -483,13 +483,10 @@
                     }
                 }
 
-
-
-
                 .input-help {
                     color: $color--secondary-dark;
                     display: flex;
-                    width: 44%;
+                    width: 38%;
                     padding: size( 30 ) size( 10 ) size( 1 );
 
                     @include tablet {
@@ -574,7 +571,8 @@
                 }
                 .button.is-publish,
                 .button.is-save,
-                .button.is-new {
+                .button.is-new, {
+                .button.is-scheduled {
                     background-color: $color--primary-pure;
                     color: $color--secondary-light;
                     border: solid 1px $color--primary-pure;

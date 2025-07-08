@@ -292,8 +292,10 @@ jQuery(function($) {
                 isMultiple = 'multiple';
             }
 
-            $this.parent().append( '<input id="mediaUploadInput" type="file" name="media_files[]" style="display:none;" accept="image/*,video/*" ' + isMultiple + ' >');
-            $this.parent().find( '#mediaUploadInput' ).on( 'change', function ( e ) {
+            if( !$this.parent().find( 'input[type="file"]' ).length ) {
+                $this.parent().append( '<input type="file" name="media_files[]" style="display:none;" accept="image/*,video/*" ' + isMultiple + ' >');
+            }
+            $this.parent().find( 'input[type="file"]' ).on( 'change', function ( e ) {
                 const files = Array.from( e.target.files );
 
                 $( '.input-media-uploader-progress' ).show().html( '' );
@@ -308,89 +310,6 @@ jQuery(function($) {
                 });
 
             }).trigger( 'click' );
-        });
-
-        $( '#riscoSingleForm .is-archive' ).on( 'click', function () {
-            custom_modal_confirm({
-                title: 'Arquivar esse registro de risco?',
-                description: 'As informações não serão publicadas e poderão ser acessadas novamente na aba “Arquivados”',
-
-                cancelText: "Cancelar",
-                onCancel: function () {},
-
-                confirmText: "Arquivar",
-                onConfirm: function () {
-                    $( 'input[name="post_status"]' ).val( 'pending' );
-                    $( '#riscoSingleForm' ).submit();
-                }
-            });
-        });
-        $( '#riscoSingleForm .is-publish' ).on( 'click', function () {
-            custom_modal_confirm({
-                title: 'Publicar registro de risco?',
-                description: 'Confirme que não há informações impróprias antes de publicar.',
-
-                cancelText: "Cancelar",
-                onCancel: function () {},
-
-                confirmText: "Publicar",
-                onConfirm: function () {
-                    $( 'input[name="post_status"]' ).val( 'publish' );
-                    $( '#riscoSingleForm' ).submit();
-                }
-            });
-        });
-        $( '#riscoSingleForm .is-save' ).on( 'click', function () {
-            custom_modal_confirm({
-                title: 'Publicar registro de risco?',
-                description: 'Confirme que não há informações impróprias antes de publicar.',
-
-                cancelText: "Cancelar",
-                onCancel: function () {},
-
-                confirmText: "Publicar alterações",
-                onConfirm: function () {
-                    $( 'input[name="post_status"]' ).val( 'publish' );
-                    $( '#riscoSingleForm' ).submit();
-                }
-            });
-        });
-        $( '#riscoSingleForm .is-new' ).on( 'click', function () {
-            custom_modal_confirm({
-                title: 'Criar novo registro de risco?',
-                description: 'Confirme que não há informações impróprias antes de publicar.',
-                cancelText: "Cancelar",
-                onCancel: function () {},
-                confirmText: "Publicar alterações",
-                onConfirm: function () {
-                    $( '#riscoSingleForm' ).submit();
-                }
-            });
-        });
-
-        $( '#acaoSingleForm .is-new.acao' ).on( 'click', function () {
-            custom_modal_confirm({
-                title: 'Criar ação?',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
-                cancelText: "Voltar",
-                onCancel: function () {},
-                confirmText: "Criar Ação",
-                onConfirm: function () {
-                    $( '#acaoSingleForm' ).submit();
-                }
-            });
-        });
-        $( '#acaoSingleForm .is-new.relato' ).on( 'click', function () {
-            custom_modal_confirm({
-                title: 'Criar Relato?',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
-                cancelText: "Voltar",
-                onCancel: function () {},
-                confirmText: "Criar Relato",
-                onConfirm: function () {
-                    $( '#acaoSingleForm' ).submit();
-                }
-            });
         });
 
         $( '#riscoSingleForm, #acaoSingleForm' ).on( 'submit', function ( e ) {
@@ -530,16 +449,48 @@ jQuery(function($) {
 
         $( '#acaoSingleForm .is-new.acao' ).on( 'click', function () {
             custom_modal_confirm({
-                title: 'Criar ação?',
+                title: 'Agendar ação?',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
                 cancelText: "Voltar",
                 onCancel: function () {},
-                confirmText: "Criar Ação",
+                confirmText: "Agendar Ação",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'publish' );
+                    $( '#acaoSingleForm' ).submit();
+                }
+            });
+        });
+        $( '#acaoSingleForm .is-archive' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Arquivar essa ação?',
+                description: 'As informações não serão publicadas e poderão ser acessadas novamente na aba “Arquivados”',
+
+                cancelText: "Cancelar",
+                onCancel: function () {},
+
+                confirmText: "Arquivar",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'pending' );
+                    $( '#acaoSingleForm' ).submit();
+                }
+            });
+        });
+        $( '#acaoSingleForm .is-save' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Salvar essa ação?',
+                description: 'As informações não serão publicadas e poderão ser acessadas novamente na aba “Arquivados”',
+
+                cancelText: "Cancelar",
+                onCancel: function () {},
+
+                confirmText: "Arquivar",
                 onConfirm: function () {
                     $( '#acaoSingleForm' ).submit();
                 }
             });
         });
+
+
         $( '#acaoSingleForm .is-new.relato' ).on( 'click', function () {
             custom_modal_confirm({
                 title: 'Criar Relato?',

@@ -70,7 +70,7 @@ function risco_convert_terms( $terms = [] )
     return $all_terms_new;
 }
 
-function upload_file_to_attachment_by_ID( $files = NULL, $postID = NULL, $attachment_id = NULL ) {
+function upload_file_to_attachment_by_ID( $files = null, $postID = null, $is_featured = false ) {
 
     $errors = [];
     $uploaded_files = [];
@@ -98,6 +98,10 @@ function upload_file_to_attachment_by_ID( $files = NULL, $postID = NULL, $attach
 
             $attachment_id = media_handle_sideload( $file, $postID, $file[ 'name' ] );
 
+            if( $is_featured ) {
+                set_post_thumbnail( $postID, $attachment_id );
+            }
+
             if (is_wp_error($attachment_id)) {
                 $errors[] = sprintf(
                     __('Erro ao enviar "%s": %s', 'text-domain'),
@@ -121,4 +125,16 @@ function upload_file_to_attachment_by_ID( $files = NULL, $postID = NULL, $attach
         'errors' => $errors,
         'uploaded_files' => $uploaded_files
     ];
+}
+
+
+function dashboard_excerpt( $descricao = null ) {
+    if( !empty( $descricao ) ) {
+        if ( strlen( $descricao ) <= 125 ) {
+            echo $descricao;
+        } else {
+            echo substr( $descricao, 0, 125 ) . '<a class="read-more" href="#/">Ver mais</a>';
+            echo '<span class="read-more-full">' . substr( $descricao, 125 ) . '</span>';
+        }
+    }
 }

@@ -7,51 +7,51 @@ function form_single_acao_new() {
         $nome_completo = $current_user->display_name;
         $email = $current_user->user_email;
     } else {
-        $nome_completo = sanitize_text_field( $_POST[ 'nome_completo' ] );
-        $email = sanitize_text_field( $_POST[ 'email' ] );
+        $nome_completo = sanitize_text_field($_POST['nome_completo']);
+        $email = sanitize_text_field($_POST['email']);
     }
 
     $postID = wp_insert_post([
         'post_type' => 'acao',
         'post_status' => 'draft',
-        'post_title' => sanitize_text_field( $_POST[ 'endereco' ] ),
-        'post_content' => sanitize_text_field( $_POST['descricao'] ),
+        'post_title' => sanitize_text_field($_POST['endereco']),
+        'post_content' => sanitize_text_field($_POST['descricao']),
         'meta_input' => [
-            'titulo' => sanitize_text_field( $_POST[ 'titulo' ] ),
-            'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
-            'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
-            'latitude' => sanitize_text_field( $_POST[ 'latitude' ] ),
-            'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
+            'titulo' => sanitize_text_field($_POST['titulo']),
+            'descricao' => sanitize_text_field($_POST['descricao']),
+            'endereco' => sanitize_text_field($_POST['endereco']),
+            'latitude' => sanitize_text_field($_POST['latitude']),
+            'longitude' => sanitize_text_field($_POST['longitude']),
             'nome_completo' => $nome_completo,
             'email' => $email,
-            'telefone' => sanitize_text_field( $_POST[ 'telefone' ] ),
-            'autoriza_contato' => sanitize_text_field( $_POST[ 'autoriza_contato' ] ),
+            'telefone' => sanitize_text_field($_POST['telefone']),
+            'autoriza_contato' => sanitize_text_field($_POST['autoriza_contato']),
             'data_e_horario' => date('Y-m-d H:i:s'),
         ]
-    ], true );
+    ], true);
 
-    if ( is_wp_error( $postID ) ) {
+    if (is_wp_error($postID)) {
         wp_send_json_error([
             'title' => 'Erro',
             'message' => 'Erro ao cadastrar o risco.',
             'error' => $postID->get_error_message()
-        ], 500 );
+        ], 500);
     }
 
     wp_set_object_terms(
         $postID,
-        [ sanitize_text_field( $_POST[ 'tipo_acao' ] ) ],
+        [sanitize_text_field($_POST['tipo_acao'])],
         'tipo_acao',
         false
     );
 
-    $save_attachment = upload_file_to_attachment_by_ID( $_FILES['media_files'], $postID );
+    $save_attachment = upload_file_to_attachment_by_ID($_FILES['media_files'], $postID, true );
 
-    if( empty( $save_attachment[ 'errors' ] ) ) {
+    if (empty($save_attachment['errors'])) {
         wp_send_json_success([
             'title' => 'Sucesso',
             'message' => 'Formulário enviado com sucesso!',
-            'uploaded_files' => $save_attachment[ 'uploaded_files' ],
+            'uploaded_files' => $save_attachment['uploaded_files'],
             'post_id' => $postID,
             'url_callback' => get_site_url() . '/dashboard/editar-acao/?post_id=' . $postID,
             'is_new' => true,
@@ -61,9 +61,8 @@ function form_single_acao_new() {
     wp_send_json_error([
         'title' => 'Erro',
         'message' => 'Erro ao salvar o formulário / anexos',
-        'error' => $save_attachment[ 'errors' ],
-    ], 400 );
-
+        'error' => $save_attachment['errors'],
+    ], 400);
 
 }
 add_action('wp_ajax_form_single_acao_new', 'form_single_acao_new');
@@ -89,22 +88,22 @@ function form_single_acao_edit() {
         ], 400);
     }
 
-    $data = [
-        'ID' => $postID,
-        'post_type' => 'acao',
-        'post_status' => sanitize_text_field($_POST['post_status'] ?? 'draft'),
-        'post_title' => sanitize_text_field( $_POST[ 'endereco' ] ),
-        'post_content' => sanitize_text_field( $_POST[ 'descricao' ] ),
-        'meta_input' => [
-            'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
-            'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
-            'titulo' => sanitize_text_field( $_POST[ 'titulo' ] ),
-            'data' => sanitize_text_field( $_POST[ 'data' ] ),
-            'horario' => sanitize_text_field( $_POST[ 'horario' ] )
+    $updated_id = wp_update_post([
+            'ID' => $postID,
+            'post_type' => 'acao',
+            'post_status' => sanitize_text_field($_POST['post_status'] ?? 'draft'),
+            'post_title' => sanitize_text_field( $_POST[ 'endereco' ] ),
+            'post_content' => sanitize_text_field( $_POST[ 'descricao' ] ),
+            'meta_input' => [
+                'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
+                'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
+                'titulo' => sanitize_text_field( $_POST[ 'titulo' ] ),
+                'data' => sanitize_text_field( $_POST[ 'data' ] ),
+                'horario' => sanitize_text_field( $_POST[ 'horario' ] )
+            ],
         ],
-    ];
-
-    $updated_id = wp_update_post( $data, true );
+        true
+    );
 
     if ( is_wp_error( $updated_id ) ) {
 
@@ -125,7 +124,27 @@ function form_single_acao_edit() {
         false
     );
 
-    $save_post = upload_file_to_attachment_by_ID( $_FILES['media_files'], $postID );
+    //TODO: REFACTORY
+    if( !empty( $_FILES['media_files'] ) ) {
+        if ( has_post_thumbnail( $updated_id ) ) {
+            $old_attachment_id = get_post_thumbnail_id( $updated_id );
+            wp_delete_attachment( $old_attachment_id );
+        }
+
+        $get_attachments = get_posts([
+            'post_type'      => 'attachment',
+            'posts_per_page' => -1,
+            'post_status'    => 'any',
+            'post_parent'    => $updated_id,
+        ]);
+
+        foreach ( $get_attachments as $attachment ) {
+            wp_delete_attachment( $attachment->ID );
+        }
+    }
+    //TODO: REFACTORY
+
+    $save_post = upload_file_to_attachment_by_ID( $_FILES['media_files'], $postID, true );
 
     if( empty( $save_post[ 'errors' ] ) ) {
 
@@ -333,5 +352,3 @@ function form_single_delete_attachment() {
 
 }
 add_action('wp_ajax_form_single_delete_attachment', 'form_single_delete_attachment');
-
-

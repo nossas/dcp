@@ -41,21 +41,21 @@ namespace hacklabr\dashboard;
         <h2>Avaliar ação sugerida</h2>
         <?php
         //TODO: REFACTORY P/ COMPONENT
-        $post_status = 'draft';
+        $post_status = get_post_status();
         switch ( $post_status ) {
-            case 'publish':
-                $class = 'is-publish';
-                $text = 'Ação Sugerida';
-                break;
-
             case 'draft':
                 $class = 'is-draft';
                 $text = 'Ação Sugerida';
                 break;
 
-            case 'scheduled':
-                $class = 'is-scheduled';
+            case 'publish':
+                $class = 'is-publish';
                 $text = 'Ação Agendada';
+                break;
+
+            case 'future':
+                $class = 'is-scheduled';
+                $text = 'Ação Realizada';
                 break;
 
             case 'pending':
@@ -245,19 +245,58 @@ namespace hacklabr\dashboard;
                     </p>
                 </div>
             </div>
-
             <div class="form-submit">
                 <input type="hidden" name="action" value="form_single_acao_edit">
                 <input type="hidden" name="post_id" value="<?=get_the_ID()?>">
-                <input type="hidden" name="post_status" value="draft">
-                <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>">
-                    <iconify-icon icon="bi:chevron-left"></iconify-icon>
-                    <span>Voltar</span>
+                <input type="hidden" name="post_status" value="<?=$post_status?>">
+                <a class="button is-archive">
+                    <iconify-icon icon="bi:x-lg"></iconify-icon>
+                    <span>Arquivar</span>
                 </a>
-                <a class="button is-new acao">
-                    <iconify-icon icon="bi:check2"></iconify-icon>
-                    <span>Criar Ação</span>
-                </a>
+
+                <?php
+
+                //TODO: REFACTORY P/ MELHOR LOGICA
+                switch ( $post_status ) {
+
+                    case 'draft':
+
+                        ?>
+                        <a class="button is-new acao">
+                            <iconify-icon icon="bi:check2"></iconify-icon>
+                            <span>Agendar Ação</span>
+                        </a>
+                        <?php
+
+                        break;
+                    case 'publish':
+
+                        ?>
+
+                        <a class="button is-scheduled">
+                            <iconify-icon icon="bi:check2"></iconify-icon>
+                            <span>Publicar Alterações</span>
+                        </a>
+
+                        <?php
+
+                        break;
+
+                    case 'pending':
+
+                        ?>
+
+                        <a class="button is-save">
+                            <iconify-icon icon="bi:check2"></iconify-icon>
+                            <span>Publicar Alterações</span>
+                        </a>
+
+                        <?php
+
+                        break;
+                }
+
+                ?>
             </div>
         </form>
 

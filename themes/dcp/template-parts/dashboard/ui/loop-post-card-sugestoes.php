@@ -25,11 +25,7 @@ $pod = pods( 'acao', get_the_ID() );
         </h3>
         <div class="post-card__excerpt-wrapped">
             <p class="text-excerpt">
-                <?php if( !empty( $pod->field( 'descricao' ) ) ) : ?>
-                    <?=$pod->field( 'descricao' )?>
-                    <a class="read-more" href="#/">Ver mais</a>
-                    <span class="read-more-full"><?=$pod->field( 'descricao' )?></span>
-                <?php endif; ?>
+                <?php dashboard_excerpt( $pod->field( 'descricao' ) ); ?>
             </p>
         </div>
         <ul class="post-card__list-infos">
@@ -44,8 +40,7 @@ $pod = pods( 'acao', get_the_ID() );
                     <i><iconify-icon icon="bi:telephone-fill"></iconify-icon></i>
                     <span>Telefone: <?=$pod->field( 'telefone' )?></span>
                 </li>
-            <?php endif; ?>
-            <?php if( !empty( $pod->field( 'email' ) ) ) : ?>
+            <?php else : ?>
                 <li>
                     <i><iconify-icon icon="bi:envelope-fill"></iconify-icon></i>
                     <span>E-mail: <?=$pod->field( 'email' )?></span>
