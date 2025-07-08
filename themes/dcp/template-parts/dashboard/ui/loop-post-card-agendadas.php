@@ -31,7 +31,7 @@ $pod = pods( 'acao', get_the_ID() );
         <ul class="post-card__list-infos">
             <li>
                 <i><iconify-icon icon="bi:calendar3"></iconify-icon></i>
-                <span>Dia: <?=$pod->field( 'data' )?>, <?=$pod->field( 'horario' )[0]?></span>
+                <span>Dia: <?=$pod->field( 'data' )?>, <?=$pod->field( 'horario' )?></span>
             </li>
             <?php if( !empty( $pod->field( 'endereco' ) ) ) : ?>
                 <li>
