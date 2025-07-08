@@ -33,14 +33,24 @@ $pod = pods( 'acao', get_the_ID() );
             </p>
         </div>
         <ul class="post-card__list-infos">
+            <?php if( !empty( $pod->field( 'nome_completo' ) ) ) : ?>
             <li>
                 <i><iconify-icon icon="bi:person-fill"></iconify-icon></i>
                 <span>Nome: <?=$pod->field( 'nome_completo' )?></span>
             </li>
-            <li>
-                <i><iconify-icon icon="bi:telephone-fill"></iconify-icon></i>
-                <span>Telefone: <?=$pod->field( 'telefone' )?></span>
-            </li>
+            <?php endif; ?>
+            <?php if( !empty( $pod->field( 'telefone' ) ) ) : ?>
+                <li>
+                    <i><iconify-icon icon="bi:telephone-fill"></iconify-icon></i>
+                    <span>Telefone: <?=$pod->field( 'telefone' )?></span>
+                </li>
+            <?php endif; ?>
+            <?php if( !empty( $pod->field( 'email' ) ) ) : ?>
+                <li>
+                    <i><iconify-icon icon="bi:envelope-fill"></iconify-icon></i>
+                    <span>E-mail: <?=$pod->field( 'email' )?></span>
+                </li>
+            <?php endif; ?>
         </ul>
         <div class="post-card__see-more">
             <div></div>

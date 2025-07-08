@@ -1,3 +1,8 @@
+<?php
+
+namespace hacklabr\dashboard;
+
+?>
 <div id="dashboardRiscos" class="dashboard-content">
     <header class="dashboard-content-header">
         <h1>RISCOS MAPEADOS</h1>
@@ -97,21 +102,21 @@
                                                 <div></div>
                                                 <div>
                                                     <?php if( $panel_id == 'riscosAprovacao' ) : ?>
-                                                        <a class="is-aprovacao button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
+                                                        <a class="is-aprovacao button" href="<?=get_dashboard_url( 'riscos-single' )?>/?post_id=<?=get_the_ID()?>">
                                                             Avaliar
                                                             <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                                         </a>
                                                     <?php  endif; ?>
 
                                                     <?php if( $panel_id == 'riscosPublicados' ) : ?>
-                                                        <a class="is-publicados button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
+                                                        <a class="is-publicados button" href="<?=get_dashboard_url( 'riscos-single' )?>/?post_id=<?=get_the_ID()?>">
                                                             <iconify-icon icon="bi:pencil-square"></iconify-icon>
                                                             Editar
                                                         </a>
                                                     <?php endif; ?>
 
                                                     <?php if( $panel_id == 'riscosArquivados' ) : ?>
-                                                        <a class="is-arquivados button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
+                                                        <a class="is-arquivados button" href="<?=get_dashboard_url( 'riscos-single' )?>/?post_id=<?=get_the_ID()?>">
                                                             Reavaliar
                                                             <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                                         </a>

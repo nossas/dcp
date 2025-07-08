@@ -73,10 +73,7 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Descrição</label>
-                    <textarea class="textarea" name="descricao" readonly required></textarea>
-                    <a class="button is-edit-input">
-                        <iconify-icon icon="bi:pencil-square"></iconify-icon>
-                    </a>
+                    <textarea class="textarea" name="descricao" required></textarea>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
@@ -112,7 +109,7 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Localização</label>
-                    <input class="input" type="text" name="localizacao" placeholder="Digite o local ou endereço aqui" value="" required>
+                    <input class="input" type="text" name="endereco" placeholder="Digite o local ou endereço aqui" value="" required>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">

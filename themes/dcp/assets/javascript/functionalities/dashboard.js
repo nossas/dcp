@@ -182,8 +182,23 @@ jQuery(function($) {
             });
 
         });
-
         $( '.asset-item-preview .is-blur' ).on( 'click', function() {});
+        $( '.is-edit-input' ).each( function () {
+
+            const $this = $( this );
+
+            $this.on( 'click', function() {
+                $this.hide();
+                $this.parent().find( '.chips-checkbox' ).css({
+                    height : 'auto',
+                    opacity : 1
+                });
+                $this.parent().find( '.input, .textarea, .select' ).removeAttr( 'readonly disabled' ).focus();
+            });
+
+        });
+
+
 
         $( '.modal-asset-fullscreen' ).each( function () {
             const $this = $( this );
@@ -191,7 +206,6 @@ jQuery(function($) {
                 $this.fadeOut( 200, function() {});
             });
         });
-
         $( '.asset-item-preview .is-fullscreen' ).on( 'click', function() {
             const $this = $( this );
             const $modalFullscreen = $( '.modal-asset-fullscreen' );
@@ -255,26 +269,10 @@ jQuery(function($) {
             });
         });
 
-        $( '.is-edit-input' ).each( function () {
-
-            const $this = $( this );
-
-            $this.on( 'click', function() {
-                $this.hide();
-                $this.parent().find( '.chips-checkbox' ).css({
-                    height : 'auto',
-                    opacity : 1
-                });
-                $this.parent().find( '.input, .textarea, .select' ).removeAttr( 'readonly disabled' ).focus();
-            });
-
-        });
-
         $( '#selectCategory' ).on( 'change', function () {
             $( '.input-chips .chips-wrap').html( '' );
             $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
         });
-
         $( '.input-chips input[type="checkbox"]' ).on( 'change', function () {
             if( $( this ).is( ':checked' ) ) {
                 $( '.input-chips .chips-wrap').append( '<span id="chips_' + $( this ).val() + '" class="chips"><iconify-icon icon="bi:check2"></iconify-icon>' + $( this ).attr( 'data-label' ) + '</span>' );
@@ -282,7 +280,6 @@ jQuery(function($) {
                 $( '.input-chips .chips-wrap').find( '#chips_' + $( this ).val() ).remove();
             }
         });
-
         $( '.input-chips .chips' ).each( function () {
             $( '#input_' + $( this ).attr( 'data-slug' ) ).prop( 'checked', true );
         });
@@ -422,14 +419,14 @@ jQuery(function($) {
 
                                 cancelText: "Criar novo Risco",
                                 onCancel: function () {
-                                    $this.find( 'input, textarea, select' ).val( '' );
+                                    $this.find( 'input[type="text"], input[type="date"], input[type="time"], textarea, select' ).val( '' );
                                     $( '.input-chips .chips-wrap').html( '' );
                                     $( '#mediaUpload .input-media-uploader-progress').html( '' );
                                     $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
                                 },
                                 confirmText: "Visualizar Risco",
                                 onConfirm: function () {
-                                    window.location.href = window.location.origin + window.location.pathname + '?ver=riscos-single&risco_id=' + response.data.post_id;
+                                    window.location.href = response.data.url_callback;
                                 }
                             });
 
