@@ -66,15 +66,14 @@ function form_single_acao_edit() {
 
     }
 
-    $new_terms = array(
-        sanitize_text_field( $_POST[ 'situacao_de_risco' ] )
+    wp_set_object_terms(
+        $postID,
+        array(
+            sanitize_text_field( $_POST[ 'tipo_acao' ] )
+        ),
+        'tipo_acao',
+        false
     );
-
-    foreach ( $_POST[ 'subcategories' ] as $term ) {
-        $new_terms[] = sanitize_text_field( $term );
-    }
-
-    wp_set_object_terms( $postID, $new_terms, 'situacao_de_risco', false );
 
     $save_post = upload_file_to_attachment_by_ID( $_FILES['media_files'], $postID );
 
@@ -305,4 +304,4 @@ function form_single_delete_attachment() {
     }
 
 }
-add_action('wp_ajax_form_single_risco_delete_attachment', 'form_single_risco_delete_attachment');
+add_action('wp_ajax_form_single_delete_attachment', 'form_single_delete_attachment');

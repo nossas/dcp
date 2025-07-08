@@ -466,12 +466,12 @@ class Assets
                     return dashboard\is_dashboard();
                 },
             ],
-//            'dashboard-modal' => [
-//                'file' => 'dashboard-modal.js',
-//                'preload_callback' => function () {
-//                    return dashboard\is_dashboard();
-//                },
-//            ],
+            'dashboard-modal' => [
+                'file' => 'dashboard-modal.js',
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
+            ],
 
             'dcp-dashboard' => [
                 'file' => 'dashboard.js',
