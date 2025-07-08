@@ -1,0 +1,55 @@
+.block-transparencia {
+  gap: 32px !important;
+
+  article {
+    .post-card {
+
+        &__image {
+            a > img {
+            height: 220px;
+            }
+        }
+
+        &__content {
+            gap: 0;
+
+            &__adress{
+                display: flex;
+            }
+
+            &__category {
+            padding-top: 20px !important;
+            padding-bottom: 20px !important;
+
+            }
+        }
+
+        &__title {
+            color: #281414;
+            font-size: 20px;
+            font-family: 'gabarito';
+        }
+
+        &__excerpt-wrapped {
+            display: -webkit-box;
+            -webkit-line-clamp: 2; // Limita o texto a 2 linhas
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-height: 3.2em;
+        }
+        &__field:not(.post-card__manual){
+            display: none;
+        }
+        &__manual{
+            display: flex;
+            text-align: end;
+            justify-content: flex-end !important;
+            max-width: 95%;;
+            a{
+                text-decoration: underline;
+            }
+        }
+    }
+  }
+}

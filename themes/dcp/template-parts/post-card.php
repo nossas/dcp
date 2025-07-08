@@ -145,7 +145,7 @@ $categories = get_the_category();
 
                     <?php if (!empty($hora_atendimento)): ?>
                         <div class="post-card__field post-card__schedule">
-                            <strong>Horário de atendimento:</strong>
+                            Horário de atendimento:
                             <?= esc_html(is_array($hora_atendimento) ? implode(', ', $hora_atendimento) : $hora_atendimento); ?>
                         </div>
                     <?php endif; ?>
@@ -215,15 +215,29 @@ $categories = get_the_category();
         <?php endif; ?>
 
         <?php if ($post_type == 'apoio'): ?>
-
             <div class="post-card__see-in-map">
                 <button class="post-card__map-button">
                     <a href="/mapa"><?= __("Veja no mapa", "dcp"); ?></a>
                 </button>
-                <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_apoio', ['id' => $post->ID]); ?>">
-                    <?= __('Editar') ?>
-                </a>
 
+                <?php
+                $tem_quem_acionar = has_term('quem-acionar', 'tipo_apoio', $post);
+                $tem_cacambas = has_term('cacambas', 'tipo_apoio', $post);
+                ?>
+
+                <?php if ($tem_quem_acionar): ?>
+                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_quem_acionar', ['id' => $post->ID]); ?>">
+                        <?= __('Editar') ?>
+                    </a>
+                <?php elseif ($tem_cacambas): ?>
+                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_cacambas', ['id' => $post->ID]); ?>">
+                        <?= __('Editar') ?>
+                    </a>
+                <?php else: ?>
+                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_apoio', ['id' => $post->ID]); ?>">
+                        <?= __('Editar') ?>
+                    </a>
+                <?php endif; ?>
             </div>
         <?php endif; ?>
 

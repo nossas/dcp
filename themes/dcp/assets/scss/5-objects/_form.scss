@@ -164,6 +164,8 @@
         display: flex;
         justify-content: space-between;
         padding-bottom: size(40);
+        max-width: size(752);
+        width: 100%;
 
         @include mobile{
             border-bottom: none;
@@ -262,7 +264,7 @@
 
 .multistepform{
     margin-top: size(40);
-    width: size(772);
+    width: size(752);
 
     @include mobile{
         width: 100%;
@@ -354,6 +356,7 @@
             display: flex;
             gap: $gap--small;
             justify-content: center;
+            max-width: size(752);
         }
 
         &-more-risk{
@@ -383,9 +386,13 @@
     }
 
     &__buttons{
+        border-top: size(1) solid #E6E2E0;
         display: flex;
         justify-content: space-between;
+        margin-top: size(48);
         margin-bottom: $margin--large;
+        max-width: size(752);
+        padding-top: size(48);
 
         @include mobile{
             border-top: size(1) solid #E6E2E0;
@@ -489,6 +496,10 @@
         gap: $gap--medium;
         justify-content: center;
 
+        textarea{
+            min-height: size(115);
+        }
+
         textarea
         ,input{
             background-color: $color--high-light;
@@ -583,6 +594,7 @@
 
         @include mobile{
             font-size: size(20);
+            white-space: nowrap;
         }
     }
 
