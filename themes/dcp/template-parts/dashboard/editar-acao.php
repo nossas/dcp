@@ -146,14 +146,14 @@ namespace hacklabr\dashboard;
                 <div class="is-group">
                     <div class="input-wrap">
                         <label class="label">Data</label>
-                        <input class="input" type="date" name="data" placeholder="" value="<?=$pod->field('data')?>" required readonly>
+                        <input class="input" type="date" name="data" value="<?=date( 'Y-m-d', strtotime( $pod->field('data_e_horario' ) ) )?>" required readonly>
                         <a class="button is-edit-input">
                             <iconify-icon icon="bi:pencil-square"></iconify-icon>
                         </a>
                     </div>
                     <div class="input-wrap">
                         <label class="label">Horário</label>
-                        <input class="input" type="time" name="horario" placeholder="" value="<?=$pod->field('horario')?>" required readonly>
+                        <input class="input" type="time" name="horario" placeholder="" value="<?=date( 'H:i', strtotime( $pod->field('data_e_horario' ) ) )?>" required readonly>
                         <a class="button is-edit-input">
                             <iconify-icon icon="bi:pencil-square"></iconify-icon>
                         </a>
