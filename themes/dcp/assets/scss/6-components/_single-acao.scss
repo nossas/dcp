@@ -3,139 +3,175 @@
     .post-header {
         padding-left: size(0);
         padding-right: size(0);
-        .breadcrumb{
+
+        .breadcrumb {
             margin-top: 72px;
             align-items: center;
             display: flex;
             justify-content: center;
-            @include mobile{
+
+            @include mobile {
                 justify-content: initial;
                 margin-top: 32px;
             }
         }
+
         @include mobile {
             padding-inline: 1rem !important;
         }
 
-        &__title{
-            color:$color--primary-pure;
+        &__title {
+            color: $color--primary-pure;
             margin-top: $margin--medium;
             margin-bottom: $margin--medium;
+
             @include mobile {
                 font-size: 24px;
                 text-align: center !important;
             }
         }
-        &__excerpt{
+
+        &__excerpt {
             margin-top: $margin--large;
             margin-bottom: 56px;
-            color:$color--secondary-dark;
+            color: $color--secondary-dark;
             font-size: 16px !important;
-            @include mobile{
+
+            @include mobile {
                 margin-top: $margin--medium;
                 margin-bottom: 32px;
-                text-align: start;
+                text-align: center;
             }
         }
-        &__featured-image{
-            @include mobile{
+
+        &__featured-image {
+            @include mobile {
                 margin-bottom: 0px;
             }
-            img{
-                @include mobile{
+
+            img {
+                @include mobile {
                     height: 192px !important;
                 }
             }
         }
-        &__tags{
+
+        &__tags {
             align-items: center;
             gap: 16px;
-            @include mobile{
-            display: flex;
-            justify-content: flex-start;
+
+            @include mobile {
+                display: flex;
+                justify-content: center;
             }
-            a{
+
+            a {
                 display: flex;
                 gap: 8px;
-                background-color:  $color--primary-pure;
-                border-color:  $color--primary-pure;
-                color:white;
+                background-color: $color--primary-pure;
+                border-color: $color--primary-pure;
+                color: white;
                 align-items: center;
-                @include mobile{
+
+                @include mobile {
                     font-size: 12px;
                 }
             }
+
             &__date {
-                color:$color--secondary-dark;
+                color: $color--secondary-dark;
                 font-size: 1rem;
             }
         }
     }
+
+    .post-content {
+        padding-left: size(0);
+        padding-right: size(0);
+        padding-top: 0px;
+
+        @include mobile {
+            padding-inline: 1rem;
+        }
+
+        .wp-block-spacer {
+            @include mobile {
+                margin-top: 16px;
+                margin-bottom: 16px;
+            }
+        }
+        p{
+            @include mobile{
+                padding-top: $padding--medium;
+                padding-bottom: $padding--medium;
+            }
+        }
+        .wp-block-coblocks-gallery-carousel{
+            padding-bottom: 40px !important;
+        }
+    }
+
     .wp-block-cover {
         @include mobile {
             padding: 0px !important;
             margin-top: 0px !important;
-            margin-bottom: 32px;
         }
-        &__inner-container{
-            @include mobile{
+
+        &__inner-container {
+            @include mobile {
                 padding-left: 0px;
                 padding-right: 0px;
             }
         }
     }
-     .main-footer-subscribe {
-        @include mobile{
+
+    .main-footer-subscribe {
+        @include mobile {
             margin-top: 0px;
         }
-        &__widget{
+
+        &__widget {
             @include mobile {
                 padding-inline: 1rem;
             }
         }
     }
-
-}
-.post-content{
-    padding-left: size(0);
-    padding-right: size(0);
-    @include mobile{
-    padding-inline: 1rem;
-    }
-    .wp-block-spacer{
-        @include mobile{
-            margin-top: 8px;
-        }
-    }
 }
 
-//single
+// single
 
 .single-transparencia {
     .post-header {
-        &__title{
-            color:#281414;
+        &__title {
+            color: #281414;
             margin-top: $margin--medium;
             margin-bottom: $margin--medium;
+
             @include mobile {
                 font-size: 24px;
                 text-align: start;
             }
         }
     }
-    .wp-block-list{
+
+    .wp-block-list {
         list-style: disc;
+        padding-left: 2rem;
+
         @include mobile {
             margin-left: 1rem !important;
             margin-bottom: 48px !important;
         }
     }
+
     h3 {
         letter-spacing: 1.6px;
-        @include mobile{
+
+        @include mobile {
             margin-top: 48px !important;
         }
     }
+
     .wp-block-separator {
         margin-right: 1rem !important;
         margin-left: 0rem !important;
