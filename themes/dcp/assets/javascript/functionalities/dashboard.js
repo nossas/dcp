@@ -286,12 +286,14 @@ jQuery(function($) {
             const $this = $( this );
 
             let isMultiple = '';
+            let isAccept = 'image/*';
             if( $this.hasClass( 'is-multiple' ) ) {
                 isMultiple = 'multiple';
+                isAccept = 'image/*,video/*'
             }
 
             if( !$this.parent().find( 'input[type="file"]' ).length ) {
-                $this.parent().append( '<input type="file" name="media_files[]" style="display:none;" accept="image/*,video/*" ' + isMultiple + ' >');
+                $this.parent().append( '<input type="file" name="media_files[]" style="display:none;" accept="' + isAccept + '" ' + isMultiple + ' >');
             }
             $this.parent().find( 'input[type="file"]' ).on( 'change', function ( e ) {
                 const files = Array.from( e.target.files );

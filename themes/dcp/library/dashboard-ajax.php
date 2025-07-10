@@ -48,12 +48,17 @@ function form_single_acao_new() {
     $save_attachment = upload_file_to_attachment_by_ID($_FILES['media_files'], $postID, true );
 
     if (empty($save_attachment['errors'])) {
+
+        $url_callback = '/acao-registrada-sucesso/?utm';
+        if (is_user_logged_in()) {
+            $url_callback = get_site_url() . '/dashboard/editar-acao/?post_id=' . $postID;
+        }
         wp_send_json_success([
             'title' => 'Sucesso',
             'message' => 'Formulário enviado com sucesso!',
             'uploaded_files' => $save_attachment['uploaded_files'],
             'post_id' => $postID,
-            'url_callback' => get_site_url() . '/dashboard/editar-acao/?post_id=' . $postID,
+            'url_callback' => $url_callback,
             'is_new' => true,
         ]);
     }
@@ -219,13 +224,18 @@ function form_single_risco_new() {
 
     $save_attachment = upload_file_to_attachment_by_ID( $_FILES['media_files'], $postID );
 
+    $url_callback = '/risco-registrado-sucesso/?utm';
+    if (is_user_logged_in()) {
+        $url_callback = get_site_url() . '/dashboard/risco-single/?post_id=' . $postID;
+    }
+
     if( empty( $save_attachment[ 'errors' ] ) ) {
         wp_send_json_success([
             'title' => 'Sucesso',
             'message' => 'Formulário enviado com sucesso!',
             'uploaded_files' => $save_attachment[ 'uploaded_files' ],
             'post_id' => $postID,
-            'url_callback' => get_site_url() . '/dashboard/risco-single/?post_id=' . $postID,
+            'url_callback' => $url_callback,
             'is_new' => true,
         ]);
     }

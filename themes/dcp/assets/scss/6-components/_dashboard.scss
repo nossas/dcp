@@ -369,9 +369,20 @@
                     &.is-arquivadas {}
                     &.is-relatos {}
 
+                    .is-edit-post-hover {
+                        display: none;
+                        position: absolute;
+                        top: size( 10 );
+                        right: size( 10 );
+                    }
+
                     &:hover {
                         transform: scale(1.05);
                         z-index: 2;
+
+                        .is-edit-post-hover {
+                            display: block;
+                        }
                     }
 
                     &__cover {
