@@ -198,8 +198,6 @@ jQuery(function($) {
 
         });
 
-
-
         $( '.modal-asset-fullscreen' ).each( function () {
             const $this = $( this );
             $this.find( '.is-close, .is-delete' ).on( 'click', function() {
@@ -336,14 +334,14 @@ jQuery(function($) {
                                 title: response.data.title,
                                 description: response.data.message,
 
-                                cancelText: "Criar novo Risco",
+                                cancelText: "Criar novo",
                                 onCancel: function () {
                                     $this.find( 'input[type="text"], input[type="date"], input[type="time"], textarea, select' ).val( '' );
                                     $( '.input-chips .chips-wrap').html( '' );
                                     $( '#mediaUpload .input-media-uploader-progress').html( '' );
                                     $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
                                 },
-                                confirmText: "Visualizar Risco",
+                                confirmText: "Visualizar",
                                 onConfirm: function () {
                                     window.location.href = response.data.url_callback;
                                 }
@@ -447,7 +445,20 @@ jQuery(function($) {
             });
         });
 
-        $( '#acaoSingleForm .is-new.acao' ).on( 'click', function () {
+        $( '#acaoSingleForm .is-new' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Criar ação?',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
+                cancelText: "Voltar",
+                onCancel: function () {},
+                confirmText: "Criar Ação",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'draft' );
+                    $( '#acaoSingleForm' ).submit();
+                }
+            });
+        });
+        $( '#acaoSingleForm .is-scheduled' ).on( 'click', function () {
             custom_modal_confirm({
                 title: 'Agendar ação?',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
@@ -475,21 +486,35 @@ jQuery(function($) {
                 }
             });
         });
-        $( '#acaoSingleForm .is-save' ).on( 'click', function () {
+        $( '#acaoSingleForm .is-done' ).on( 'click', function () {
             custom_modal_confirm({
-                title: 'Salvar essa ação?',
+                title: 'Finalizar essa ação?',
                 description: 'As informações não serão publicadas e poderão ser acessadas novamente na aba “Arquivados”',
 
                 cancelText: "Cancelar",
                 onCancel: function () {},
 
-                confirmText: "Arquivar",
+                confirmText: "Finalizar",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'future' );
+                    $( '#acaoSingleForm' ).submit();
+                }
+            });
+        });
+        $( '#acaoSingleForm .is-save' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Publicar alterações essa ação?',
+                description: 'As informações não serão publicadas e poderão ser acessadas novamente na aba “Arquivados”',
+
+                cancelText: "Cancelar",
+                onCancel: function () {},
+
+                confirmText: "Publicar alterações",
                 onConfirm: function () {
                     $( '#acaoSingleForm' ).submit();
                 }
             });
         });
-
 
         $( '#acaoSingleForm .is-new.relato' ).on( 'click', function () {
             custom_modal_confirm({

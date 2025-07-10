@@ -249,54 +249,67 @@ namespace hacklabr\dashboard;
                 <input type="hidden" name="action" value="form_single_acao_edit">
                 <input type="hidden" name="post_id" value="<?=get_the_ID()?>">
                 <input type="hidden" name="post_status" value="<?=$post_status?>">
-                <a class="button is-archive">
-                    <iconify-icon icon="bi:x-lg"></iconify-icon>
-                    <span>Arquivar</span>
-                </a>
+                <div>
+                    <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
+                        <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                        <span>Voltar</span>
+                    </a>
+                </div>
+                <div>
 
-                <?php
-
-                //TODO: REFACTORY P/ MELHOR LOGICA
-                switch ( $post_status ) {
-
-                    case 'draft':
-
-                        ?>
-                        <a class="button is-new acao">
-                            <iconify-icon icon="bi:check2"></iconify-icon>
-                            <span>Agendar Ação</span>
+                    <?php if( $post_status !== 'pending' ) : ?>
+                        <a class="button is-archive">
+                            <iconify-icon icon="bi:x-lg"></iconify-icon>
+                            <span>Arquivar</span>
                         </a>
-                        <?php
+                    <?php endif; ?>
 
-                        break;
-                    case 'publish':
+                    <?php
+                        //TODO: REFACTORY P/ MELHOR LOGICA
+                        switch ( $post_status ) {
 
-                        ?>
+                            case 'draft':
 
-                        <a class="button is-scheduled">
-                            <iconify-icon icon="bi:check2"></iconify-icon>
-                            <span>Publicar Alterações</span>
-                        </a>
+                                ?>
+                                <a class="button is-scheduled">
+                                    <iconify-icon icon="bi:check2"></iconify-icon>
+                                    <span>Agendar Ação</span>
+                                </a>
+                                <?php
 
-                        <?php
+                                break;
+                            case 'publish':
 
-                        break;
+                                ?>
+                                <a class="button is-save">
+                                    <iconify-icon icon="bi:check2"></iconify-icon>
+                                    <span>Publicar Alterações</span>
+                                </a>
+                                <a class="button is-done">
+                                    <span>Ação Realizada</span>
+                                    <iconify-icon icon="bi:check-square-fill"></iconify-icon>
+                                </a>
+                                <?php
 
-                    case 'pending':
+                                break;
 
-                        ?>
+                            case 'pending':
 
-                        <a class="button is-save">
-                            <iconify-icon icon="bi:check2"></iconify-icon>
-                            <span>Publicar Alterações</span>
-                        </a>
+                                ?>
+                                <a class="button is-scheduled">
+                                    <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                                    <span>Agendar Novamente</span>
+                                </a>
+                                <a class="button is-save">
+                                    <iconify-icon icon="bi:check2"></iconify-icon>
+                                    <span>Salvar Alterações</span>
+                                </a>
+                                <?php
 
-                        <?php
-
-                        break;
-                }
-
-                ?>
+                                break;
+                        }
+                    ?>
+                </div>
             </div>
         </form>
 
