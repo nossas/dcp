@@ -14,10 +14,11 @@ p {
     width: 75%;
     max-width: 100%;
     align-content: flex-end;
-    flex-direction: row;
+    flex-direction: row !important;
     text-align: left;
     margin-top: 40px;
     align-items: flex-end;
+    align-items: center;
     color: $color--secondary-dark;
     @media ( max-width: 1366px) {
         max-width: 75%;
