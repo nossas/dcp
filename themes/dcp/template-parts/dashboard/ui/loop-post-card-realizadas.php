@@ -44,5 +44,14 @@ $pod = pods( 'acao', get_the_ID() );
                 <span>Endereço: <?=$pod->field( 'endereco' )?></span>
             </li>
         </ul>
+        <div class="post-card__see-more term-<?=$get_terms[0]->slug?>">
+            <div></div>
+            <div>
+                <a class="is-arquivados button" href="<?=get_dashboard_url( 'adicionar-relato' )?>/?post_id=<?=get_the_ID()?>">
+                    <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                    Criar Relato
+                </a>
+            </div>
+        </div>
     </main>
 </article>

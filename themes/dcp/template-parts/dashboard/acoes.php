@@ -27,7 +27,7 @@ $sectios_tabs = [
         'link' => '',
         'icon' => 'check-square-fill',
         'tipo_acao' => 'realizadas',
-        'post_status' => 'future',
+        'post_status' => 'private',
         'notification' => false
     ],
     'arquivadas' => [

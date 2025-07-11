@@ -498,7 +498,7 @@ jQuery(function($) {
 
                 confirmText: "Finalizar",
                 onConfirm: function () {
-                    $( 'input[name="post_status"]' ).val( 'future' );
+                    $( 'input[name="post_status"]' ).val( 'private' );
                     $( '#acaoSingleForm' ).submit();
                 }
             });

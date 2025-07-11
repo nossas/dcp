@@ -93,20 +93,20 @@ function form_single_acao_edit() {
         ], 400);
     }
 
-    $publish_date = null;
-    $publish_date_gmt = null;
-
-    if( $_POST['post_status'] === 'future' ) {
-        $publish_date = date('Y-m-d H:i:s', strtotime('+90 days'));
-        $publish_date_gmt = get_gmt_from_date( $publish_date );
-    }
+//    $publish_date = null;
+//    $publish_date_gmt = null;
+//
+//    if( $_POST['post_status'] === 'future' ) {
+//        $publish_date = date('Y-m-d H:i:s', strtotime('+90 days'));
+//        $publish_date_gmt = get_gmt_from_date( $publish_date );
+//    }
 
     $updated_id = wp_update_post([
             'ID' => $postID,
             'post_type' => 'acao',
             'post_status' => sanitize_text_field($_POST['post_status'] ?? 'draft'),
-            'post_date' => $publish_date,
-            'post_date_gmt' => $publish_date_gmt,
+//            'post_date' => $publish_date,
+//            'post_date_gmt' => $publish_date_gmt,
             'post_title' => sanitize_text_field( $_POST[ 'endereco' ] ),
             'post_content' => sanitize_text_field( $_POST[ 'descricao' ] ),
             'meta_input' => [

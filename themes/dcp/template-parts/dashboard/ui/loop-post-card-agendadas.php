@@ -43,7 +43,14 @@ $pod = pods( 'acao', get_the_ID() );
         </ul>
 
         <div class="post-card__see-more term-<?=$get_terms[0]->slug?>">
-            <div></div>
+            <div>
+                <div>
+                    <a class="is-download button" href="<?=get_dashboard_url( 'editar-acao' )?>/?post_id=<?=get_the_ID()?>">
+                        <iconify-icon icon="bi:download"></iconify-icon>
+                        Lista de participantes
+                    </a>
+                </div>
+            </div>
             <div>
                 <a class="is-arquivados button" href="<?=get_dashboard_url( 'editar-acao' )?>/?post_id=<?=get_the_ID()?>">
                     <iconify-icon icon="bi:pencil-square"></iconify-icon>

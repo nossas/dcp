@@ -594,6 +594,15 @@
                             &:hover {}
                         }
 
+                        .is-download {
+                            background-color: transparent;
+                            color: $color--secondary-dark;
+                            border-radius: size( 50 );
+                            border: none;
+
+                            &:hover {}
+                        }
+
                     }
 
                 }
