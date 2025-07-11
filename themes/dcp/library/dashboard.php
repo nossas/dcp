@@ -83,7 +83,7 @@ function filter_query_vars(array $query_vars): array {
     $query_vars[] = DASHBOARD_ROUTING_VAR;
     $query_vars[] = 'situacao';
     $query_vars[] = 'alterar-risco';
-    $query_vars[] = 'risco_id';
+    $query_vars[] = 'post_id';
     $query_vars[] = 'tipo_acao';
     return $query_vars;
 }

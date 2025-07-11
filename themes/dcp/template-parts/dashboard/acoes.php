@@ -19,7 +19,7 @@ $sectios_tabs = [
         'link' => '',
         'icon' => 'calendar3',
         'tipo_acao' => 'agendadas',
-        'post_status' => 'future',
+        'post_status' => 'publish',
         'notification' => true
     ],
     'realizadas' => [
@@ -27,7 +27,7 @@ $sectios_tabs = [
         'link' => '',
         'icon' => 'check-square-fill',
         'tipo_acao' => 'realizadas',
-        'post_status' => 'publish',
+        'post_status' => 'future',
         'notification' => false
     ],
     'arquivadas' => [
@@ -47,11 +47,6 @@ $sectios_tabs = [
         'notification' => true
     ]
 ];
-
-
-
-
-
 
 ?>
 <div id="dashboardAcoes" class="dashboard-content">

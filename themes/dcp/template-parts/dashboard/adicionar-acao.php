@@ -73,10 +73,7 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Descrição</label>
-                    <textarea class="textarea" name="descricao" readonly required></textarea>
-                    <a class="button is-edit-input">
-                        <iconify-icon icon="bi:pencil-square"></iconify-icon>
-                    </a>
+                    <textarea class="textarea" name="descricao" required></textarea>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
@@ -92,7 +89,7 @@ namespace hacklabr\dashboard;
                 <div class="is-group">
                     <div class="input-wrap">
                         <label class="label">Data</label>
-                        <input class="input" type="date" name="data" placeholder="Digite aqui" value="" required>
+                        <input class="input" type="date" name="date" placeholder="Digite aqui" value="" required>
                     </div>
                     <div class="input-wrap">
                         <label class="label">Horário</label>
@@ -112,7 +109,7 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Localização</label>
-                    <input class="input" type="text" name="localizacao" placeholder="Digite o local ou endereço aqui" value="" required>
+                    <input class="input" type="text" name="endereco" placeholder="Digite o local ou endereço aqui" value="" required>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
@@ -158,16 +155,17 @@ namespace hacklabr\dashboard;
 
             <div class="form-submit">
                 <input type="hidden" name="action" value="form_single_acao_new">
-                <input type="hidden" name="email" value="admin@admin.com">
-                <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
-                    <iconify-icon icon="bi:chevron-left"></iconify-icon>
-                    <span>Voltar</span>
-                </a>
-
-                <a class="button is-new acao">
-                    <iconify-icon icon="bi:check2"></iconify-icon>
-                    <span>Criar Ação</span>
-                </a>
+                <div></div>
+                <div>
+                    <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
+                        <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                        <span>Voltar</span>
+                    </a>
+                    <a class="button is-new">
+                        <iconify-icon icon="bi:check2"></iconify-icon>
+                        <span>Criar Ação</span>
+                    </a>
+                </div>
             </div>
         </form>
 

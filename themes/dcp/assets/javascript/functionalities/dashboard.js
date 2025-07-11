@@ -17,10 +17,10 @@ jQuery(function($) {
 
     function _ajax_dele_media_by_id( post_id, attachment_id, success, error ) {
         $.ajax({
-            url: $( '#riscoSingleForm' ).attr( 'data-action' ),
+            url: $( '.dashboard-content-single form' ).attr( 'data-action' ),
             type: 'POST',
             data: {
-                action : 'form_single_risco_delete_attachment',
+                action : 'form_single_delete_attachment',
                 post_id : post_id,
                 attachment_id : attachment_id
             },
@@ -54,7 +54,6 @@ jQuery(function($) {
             $( '.tabs__panels' ).hide();
 
             switch ( tab ) {
-
                 case '#aprovacao':
 
                     $this.addClass( 'is-active' );
@@ -62,8 +61,6 @@ jQuery(function($) {
                     $this.find( '.total' ).html( '(' + $( '#riscosAprovacao .post-card' ).length + ')' );
 
                     break;
-
-
                 case '#publicados':
 
                     $this.addClass( 'is-active' );
@@ -71,7 +68,6 @@ jQuery(function($) {
                     $this.find( '.total' ).html( '(' + $( '#riscosPublicados .post-card' ).length + ')' );
 
                     break;
-
                 case '#arquivados':
 
                     $this.addClass( 'is-active' );
@@ -79,11 +75,9 @@ jQuery(function($) {
                     $this.find( '.total' ).html( '(' + $( '#riscosArquivados .post-card' ).length + ')' );
 
                     break;
-
                 default:
 
                     break;
-
             }
 
             $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
@@ -166,8 +160,6 @@ jQuery(function($) {
         }
         // TODO: COMPONENT
 
-
-
         $( '.dashboard-content-cards .post-card__excerpt-wrapped .read-more' ).on('click', function() {
             const $this = $( this );
             $this.hide();
@@ -190,8 +182,21 @@ jQuery(function($) {
             });
 
         });
-
         $( '.asset-item-preview .is-blur' ).on( 'click', function() {});
+        $( '.is-edit-input' ).each( function () {
+
+            const $this = $( this );
+
+            $this.on( 'click', function() {
+                $this.hide();
+                $this.parent().find( '.chips-checkbox' ).css({
+                    height : 'auto',
+                    opacity : 1
+                });
+                $this.parent().find( '.input, .textarea, .select' ).removeAttr( 'readonly disabled' ).focus();
+            });
+
+        });
 
         $( '.modal-asset-fullscreen' ).each( function () {
             const $this = $( this );
@@ -199,7 +204,6 @@ jQuery(function($) {
                 $this.fadeOut( 200, function() {});
             });
         });
-
         $( '.asset-item-preview .is-fullscreen' ).on( 'click', function() {
             const $this = $( this );
             const $modalFullscreen = $( '.modal-asset-fullscreen' );
@@ -238,7 +242,7 @@ jQuery(function($) {
                         cursor : 'wait'
                     });
                     _ajax_dele_media_by_id(
-                        $( '#riscoSingleForm' ).find( 'input[name="post_id"]' ).val(),
+                        $( '.dashboard-content-single form' ).find( 'input[name="post_id"]' ).val(),
                         $this.attr( 'data-id' ),
                         function ( response ) {
                             custom_modal_confirm({
@@ -263,26 +267,10 @@ jQuery(function($) {
             });
         });
 
-        $( '.is-edit-input' ).each( function () {
-
-            const $this = $( this );
-
-            $this.on( 'click', function() {
-                $this.hide();
-                $this.parent().find( '.chips-checkbox' ).css({
-                    height : 'auto',
-                    opacity : 1
-                });
-                $this.parent().find( '.input, .textarea, .select' ).removeAttr( 'readonly disabled' ).focus();
-            });
-
-        });
-
         $( '#selectCategory' ).on( 'change', function () {
             $( '.input-chips .chips-wrap').html( '' );
             $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
         });
-
         $( '.input-chips input[type="checkbox"]' ).on( 'change', function () {
             if( $( this ).is( ':checked' ) ) {
                 $( '.input-chips .chips-wrap').append( '<span id="chips_' + $( this ).val() + '" class="chips"><iconify-icon icon="bi:check2"></iconify-icon>' + $( this ).attr( 'data-label' ) + '</span>' );
@@ -290,7 +278,6 @@ jQuery(function($) {
                 $( '.input-chips .chips-wrap').find( '#chips_' + $( this ).val() ).remove();
             }
         });
-
         $( '.input-chips .chips' ).each( function () {
             $( '#input_' + $( this ).attr( 'data-slug' ) ).prop( 'checked', true );
         });
@@ -299,12 +286,16 @@ jQuery(function($) {
             const $this = $( this );
 
             let isMultiple = '';
+            let isAccept = 'image/*';
             if( $this.hasClass( 'is-multiple' ) ) {
                 isMultiple = 'multiple';
+                isAccept = 'image/*,video/*'
             }
 
-            $this.parent().append( '<input id="mediaUploadInput" type="file" name="media_files[]" style="display:none;" accept="image/*,video/*" ' + isMultiple + ' >');
-            $this.parent().find( '#mediaUploadInput' ).on( 'change', function ( e ) {
+            if( !$this.parent().find( 'input[type="file"]' ).length ) {
+                $this.parent().append( '<input type="file" name="media_files[]" style="display:none;" accept="' + isAccept + '" ' + isMultiple + ' >');
+            }
+            $this.parent().find( 'input[type="file"]' ).on( 'change', function ( e ) {
                 const files = Array.from( e.target.files );
 
                 $( '.input-media-uploader-progress' ).show().html( '' );
@@ -319,89 +310,6 @@ jQuery(function($) {
                 });
 
             }).trigger( 'click' );
-        });
-
-        $( '#riscoSingleForm .is-archive' ).on( 'click', function () {
-            custom_modal_confirm({
-                title: 'Arquivar esse registro de risco?',
-                description: 'As informações não serão publicadas e poderão ser acessadas novamente na aba “Arquivados”',
-
-                cancelText: "Cancelar",
-                onCancel: function () {},
-
-                confirmText: "Arquivar",
-                onConfirm: function () {
-                    $( 'input[name="post_status"]' ).val( 'pending' );
-                    $( '#riscoSingleForm' ).submit();
-                }
-            });
-        });
-        $( '#riscoSingleForm .is-publish' ).on( 'click', function () {
-            custom_modal_confirm({
-                title: 'Publicar registro de risco?',
-                description: 'Confirme que não há informações impróprias antes de publicar.',
-
-                cancelText: "Cancelar",
-                onCancel: function () {},
-
-                confirmText: "Publicar",
-                onConfirm: function () {
-                    $( 'input[name="post_status"]' ).val( 'publish' );
-                    $( '#riscoSingleForm' ).submit();
-                }
-            });
-        });
-        $( '#riscoSingleForm .is-save' ).on( 'click', function () {
-            custom_modal_confirm({
-                title: 'Publicar registro de risco?',
-                description: 'Confirme que não há informações impróprias antes de publicar.',
-
-                cancelText: "Cancelar",
-                onCancel: function () {},
-
-                confirmText: "Publicar alterações",
-                onConfirm: function () {
-                    $( 'input[name="post_status"]' ).val( 'publish' );
-                    $( '#riscoSingleForm' ).submit();
-                }
-            });
-        });
-        $( '#riscoSingleForm .is-new' ).on( 'click', function () {
-            custom_modal_confirm({
-                title: 'Criar novo registro de risco?',
-                description: 'Confirme que não há informações impróprias antes de publicar.',
-                cancelText: "Cancelar",
-                onCancel: function () {},
-                confirmText: "Publicar alterações",
-                onConfirm: function () {
-                    $( '#riscoSingleForm' ).submit();
-                }
-            });
-        });
-
-        $( '#acaoSingleForm .is-new.acao' ).on( 'click', function () {
-            custom_modal_confirm({
-                title: 'Criar ação?',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
-                cancelText: "Voltar",
-                onCancel: function () {},
-                confirmText: "Criar Ação",
-                onConfirm: function () {
-                    $( '#acaoSingleForm' ).submit();
-                }
-            });
-        });
-        $( '#acaoSingleForm .is-new.relato' ).on( 'click', function () {
-            custom_modal_confirm({
-                title: 'Criar Relato?',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
-                cancelText: "Voltar",
-                onCancel: function () {},
-                confirmText: "Criar Relato",
-                onConfirm: function () {
-                    $( '#acaoSingleForm' ).submit();
-                }
-            });
         });
 
         $( '#riscoSingleForm, #acaoSingleForm' ).on( 'submit', function ( e ) {
@@ -428,16 +336,16 @@ jQuery(function($) {
                                 title: response.data.title,
                                 description: response.data.message,
 
-                                cancelText: "Criar novo Risco",
+                                cancelText: "Criar novo",
                                 onCancel: function () {
-                                    $this.find( 'input, textarea, select' ).val( '' );
+                                    $this.find( 'input[type="text"], input[type="date"], input[type="time"], textarea, select' ).val( '' );
                                     $( '.input-chips .chips-wrap').html( '' );
                                     $( '#mediaUpload .input-media-uploader-progress').html( '' );
                                     $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
                                 },
-                                confirmText: "Visualizar Risco",
+                                confirmText: "Visualizar",
                                 onConfirm: function () {
-                                    window.location.href = window.location.origin + window.location.pathname + '?ver=riscos-single&risco_id=' + response.data.post_id;
+                                    window.location.href = response.data.url_callback;
                                 }
                             });
 
@@ -539,7 +447,7 @@ jQuery(function($) {
             });
         });
 
-        $( '#acaoSingleForm .is-new.acao' ).on( 'click', function () {
+        $( '#acaoSingleForm .is-new' ).on( 'click', function () {
             custom_modal_confirm({
                 title: 'Criar ação?',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
@@ -547,10 +455,69 @@ jQuery(function($) {
                 onCancel: function () {},
                 confirmText: "Criar Ação",
                 onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'draft' );
                     $( '#acaoSingleForm' ).submit();
                 }
             });
         });
+        $( '#acaoSingleForm .is-scheduled' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Agendar ação?',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
+                cancelText: "Voltar",
+                onCancel: function () {},
+                confirmText: "Agendar Ação",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'publish' );
+                    $( '#acaoSingleForm' ).submit();
+                }
+            });
+        });
+        $( '#acaoSingleForm .is-archive' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Arquivar essa ação?',
+                description: 'As informações não serão publicadas e poderão ser acessadas novamente na aba “Arquivados”',
+
+                cancelText: "Cancelar",
+                onCancel: function () {},
+
+                confirmText: "Arquivar",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'pending' );
+                    $( '#acaoSingleForm' ).submit();
+                }
+            });
+        });
+        $( '#acaoSingleForm .is-done' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Finalizar essa ação?',
+                description: 'As informações não serão publicadas e poderão ser acessadas novamente na aba “Arquivados”',
+
+                cancelText: "Cancelar",
+                onCancel: function () {},
+
+                confirmText: "Finalizar",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'future' );
+                    $( '#acaoSingleForm' ).submit();
+                }
+            });
+        });
+        $( '#acaoSingleForm .is-save' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Publicar alterações essa ação?',
+                description: 'As informações não serão publicadas e poderão ser acessadas novamente na aba “Arquivados”',
+
+                cancelText: "Cancelar",
+                onCancel: function () {},
+
+                confirmText: "Publicar alterações",
+                onConfirm: function () {
+                    $( '#acaoSingleForm' ).submit();
+                }
+            });
+        });
+
         $( '#acaoSingleForm .is-new.relato' ).on( 'click', function () {
             custom_modal_confirm({
                 title: 'Criar Relato?',
@@ -592,6 +559,8 @@ jQuery(function($) {
 
     });
     $( window ).on( 'load', function() {
+
+        console.log( 'JQUERY WINDOW LOADED' );
 
         $( 'body' ).attr( 'class', 'loading is-loaded' );
 

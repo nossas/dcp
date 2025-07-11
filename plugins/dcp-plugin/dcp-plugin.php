@@ -202,6 +202,7 @@ function dcp_api_contatos($request) {
         ],
     ];
 
+
     return rest_ensure_response($contatos);
 }
 

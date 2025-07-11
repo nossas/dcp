@@ -1,7 +1,7 @@
 <?php
 
     //TODO: REFACTORY P/ METHOD/FUNCTIONS
-    $risco_id = get_query_var('risco_id' );
+    $risco_id = get_query_var('post_id' );
 
     $riscoSingle = new WP_Query([
         'p' => $risco_id,

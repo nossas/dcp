@@ -1,3 +1,8 @@
+<?php
+
+namespace hacklabr\dashboard;
+
+?>
 <div id="dashboardRiscos" class="dashboard-content">
     <header class="dashboard-content-header">
         <h1>RISCOS MAPEADOS</h1>
@@ -47,21 +52,7 @@
 
                                             <div class="post-card__excerpt-wrapped">
                                                 <p class="text-excerpt">
-                                                    <?php
-
-                                                    //TODO: REFACTORY P/ UTILS
-                                                    $descricao = $pod->field( 'descricao' );
-
-                                                    if ( strlen( $descricao ) <= 125 ) {
-                                                        echo $descricao;
-                                                    } else {
-                                                        echo substr( $descricao, 0, 125 ) . '<a class="read-more" href="#/">Ver mais</a>';
-                                                        echo '<span class="read-more-full">' . substr( $descricao, 125 ) . '</span>';
-                                                    }
-                                                    //TODO: REFACTORY P/ UTILS
-
-                                                    ?>
-
+                                                    <?php dashboard_excerpt( $pod->field( 'descricao' ) ); ?>
                                                 </p>
                                             </div>
 
@@ -97,21 +88,21 @@
                                                 <div></div>
                                                 <div>
                                                     <?php if( $panel_id == 'riscosAprovacao' ) : ?>
-                                                        <a class="is-aprovacao button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
+                                                        <a class="is-aprovacao button" href="<?=get_dashboard_url( 'riscos-single' )?>/?post_id=<?=get_the_ID()?>">
                                                             Avaliar
                                                             <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                                         </a>
                                                     <?php  endif; ?>
 
                                                     <?php if( $panel_id == 'riscosPublicados' ) : ?>
-                                                        <a class="is-publicados button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
+                                                        <a class="is-publicados button" href="<?=get_dashboard_url( 'riscos-single' )?>/?post_id=<?=get_the_ID()?>">
                                                             <iconify-icon icon="bi:pencil-square"></iconify-icon>
                                                             Editar
                                                         </a>
                                                     <?php endif; ?>
 
                                                     <?php if( $panel_id == 'riscosArquivados' ) : ?>
-                                                        <a class="is-arquivados button" href="./?ver=riscos-single&risco_id=<?=get_the_ID()?>">
+                                                        <a class="is-arquivados button" href="<?=get_dashboard_url( 'riscos-single' )?>/?post_id=<?=get_the_ID()?>">
                                                             Reavaliar
                                                             <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                                         </a>

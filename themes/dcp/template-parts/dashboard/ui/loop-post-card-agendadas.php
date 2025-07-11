@@ -10,37 +10,36 @@ $pod = pods( 'acao', get_the_ID() );
         <div class="post-card__term">
             <div>
                 <?php
-                $get_terms = get_the_terms( get_the_ID(), 'tipo_acao' );
-                if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
-                    risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, 'post-card__taxonomia term-' . $get_terms[0]->slug );
-                } else {
-                    risco_badge_category( 'sem-categoria', 'NENHUMA CATEGORIA ADICIONADA' );
-                }
+                    $get_terms = get_the_terms( get_the_ID(), 'tipo_acao' );
+                    if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                        risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, 'post-card__taxonomia term-' . $get_terms[0]->slug );
+                    } else {
+                        risco_badge_category( 'sem-categoria', 'NENHUMA CATEGORIA ADICIONADA' );
+                    }
                 ?>
             </div>
         </div>
 
         <h3 class="post-card__title">
-            <span>Endereço sugerido</span>
+            <span><?=$pod->field( 'titulo' )?></span>
         </h3>
         <div class="post-card__excerpt-wrapped">
             <p class="text-excerpt">
-                <?=$pod->field( 'endereco' )?>
-                <?php if( !empty( $pod->field( 'descricao' ) ) ) : ?>
-                <a class="read-more" href="#/">Ver mais</a>
-                <span class="read-more-full"><?=$pod->field( 'descricao' )?></span>
-                <?php endif; ?>
+                <?php dashboard_excerpt( $pod->field( 'descricao' ) ); ?>
+                <pre style="display: none">000 - CADASTROS : faça parte da rede!</pre>
             </p>
         </div>
         <ul class="post-card__list-infos">
             <li>
                 <i><iconify-icon icon="bi:calendar3"></iconify-icon></i>
-                <span>Dia: 10/06/25, 10:00</span>
+                <span>Dia: <?=$pod->field( 'data' )?>, <?=$pod->field( 'horario' )?></span>
             </li>
-            <li>
-                <i><iconify-icon icon="bi:geo-alt-fill"></iconify-icon></i>
-                <span>Endereço: Rua Primeira Souza, nº 194, em frente à farmácia</span>
-            </li>
+            <?php if( !empty( $pod->field( 'endereco' ) ) ) : ?>
+                <li>
+                    <i><iconify-icon icon="bi:geo-alt-fill"></iconify-icon></i>
+                    <span>Endereço: <?=$pod->field( 'endereco' )?></span>
+                </li>
+            <?php endif; ?>
         </ul>
 
         <div class="post-card__see-more term-<?=$get_terms[0]->slug?>">

@@ -21,26 +21,31 @@ $pod = pods( 'acao', get_the_ID() );
             <div class="post-card__risco-meta"><?=$pod->field( 'data' )?></div>
         </div>
         <h3 class="post-card__title">
-            <span>Endereço sugerido</span>
+            <span><?=$pod->field( 'endereco' )?></span>
         </h3>
         <div class="post-card__excerpt-wrapped">
             <p class="text-excerpt">
-                <?=$pod->field( 'endereco' )?>
-                <?php if( !empty( $pod->field( 'descricao' ) ) ) : ?>
-                    <a class="read-more" href="#/">Ver mais</a>
-                    <span class="read-more-full"><?=$pod->field( 'descricao' )?></span>
-                <?php endif; ?>
+                <?php dashboard_excerpt( $pod->field( 'descricao' ) ); ?>
             </p>
         </div>
         <ul class="post-card__list-infos">
+            <?php if( !empty( $pod->field( 'nome_completo' ) ) ) : ?>
             <li>
                 <i><iconify-icon icon="bi:person-fill"></iconify-icon></i>
-                <span>Nome: João de souza</span>
+                <span>Nome: <?=$pod->field( 'nome_completo' )?></span>
             </li>
-            <li>
-                <i><iconify-icon icon="bi:telephone-fill"></iconify-icon></i>
-                <span>Telefone: (21) 99851-2135</span>
-            </li>
+            <?php endif; ?>
+            <?php if( !empty( $pod->field( 'telefone' ) ) ) : ?>
+                <li>
+                    <i><iconify-icon icon="bi:telephone-fill"></iconify-icon></i>
+                    <span>Telefone: <?=$pod->field( 'telefone' )?></span>
+                </li>
+            <?php else : ?>
+                <li>
+                    <i><iconify-icon icon="bi:envelope-fill"></iconify-icon></i>
+                    <span>E-mail: <?=$pod->field( 'email' )?></span>
+                </li>
+            <?php endif; ?>
         </ul>
         <div class="post-card__see-more">
             <div></div>
