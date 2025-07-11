@@ -9,8 +9,7 @@ $excerpt = !empty($post->post_excerpt) ? wp_kses_post($post->post_excerpt) : '';
 $termos_tipo_acao = get_the_terms(get_the_ID(), 'relato');
 
 $base_icon_dir = get_template_directory_uri() . '/assets/images/tipo-acao/';
-$icon_filename = 'default.svg'; // fallback padrão
-
+$icon_filename = 'default.svg';
 if (!empty($termos_tipo_acao) && !is_wp_error($termos_tipo_acao)) {
     $termo = $termos_tipo_acao[0];
     $slug = $termo->slug;

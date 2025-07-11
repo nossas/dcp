@@ -15,21 +15,18 @@
     <?php endif; ?>
 
     <section class="relato-grid">
-        <div class="relato-thumb">
+       <div class="relato-thumb" style="width: 100%; display: flex; align-items: center;">
     <?php if ( has_post_thumbnail() ) : ?>
         <div class="relato-thumb-wrapper">
             <?php the_post_thumbnail('large'); ?>
         </div>
-            <?php else: ?>
-                <?php
-                    // Pega o tamanho 'large' do WordPress
-                    $large = wp_get_additional_image_sizes()['large'] ?? ['width' => get_option('large_size_w'), 'height' => get_option('large_size_h')];
-                ?>
-                <div class="relato-thumb-wrapper no-thumb" style="width: <?= esc_attr($large['width']) ?>px; height: <?= esc_attr($large['height']) ?>px; background-color: #eee;">
-                    <!-- Espaço reservado sem imagem -->
-                </div>
-            <?php endif; ?>
+    <?php else: ?>
+        <div class="relato-thumb-wrapper no-thumb" style="background-color: #eee; width: 100%; height: 300px;">
+            <!-- Espaço reservado sem imagem -->
         </div>
+    <?php endif; ?>
+    </div>
+
         <div class="relato-conteudo">
 
             <h1 class="relato-titulo"><?php the_title(); ?></h1>
