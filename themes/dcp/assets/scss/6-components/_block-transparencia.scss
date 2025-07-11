@@ -2,11 +2,14 @@
   gap: 32px !important;
 
   article {
-     .post-card__category a{
-        background-color: #235540;
-        border: #235540;
-
-     }
+    .post-card__category{
+        margin-top: 20px;
+        margin-bottom: 20px;
+        a{
+            background-color: #235540;
+            border: #235540;
+        }
+    }
     .post-card {
 
         &__image {
@@ -19,6 +22,8 @@
             color: #281414;
             font-size: 20px;
             font-family: 'gabarito';
+            height: auto;
+            margin-bottom: 8px;
         }
 
 
@@ -29,6 +34,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             max-height: 3.2em;
+            margin-bottom: 8px;
         }
         &__field:not(.post-card__manual){
             display: none;
