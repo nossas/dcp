@@ -2,25 +2,16 @@
   gap: 32px !important;
 
   article {
+     .post-card__category a{
+        background-color: #235540;
+        border: #235540;
+
+     }
     .post-card {
 
         &__image {
             a > img {
             height: 220px;
-            }
-        }
-
-        &__content {
-            gap: 0;
-
-            &__adress{
-                display: flex;
-            }
-
-            &__category {
-            padding-top: 20px !important;
-            padding-bottom: 20px !important;
-
             }
         }
 
@@ -30,9 +21,10 @@
             font-family: 'gabarito';
         }
 
+
         &__excerpt-wrapped {
             display: -webkit-box;
-            -webkit-line-clamp: 2; // Limita o texto a 2 linhas
+            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -50,6 +42,20 @@
                 text-decoration: underline;
             }
         }
+        &__content {
+            gap: 0;
+
+            &__adress{
+                display: flex;
+            }
+
+            &__category {
+            padding-top: 20px !important;
+            padding-bottom: 20px !important;
+
+            }
+        }
+
     }
   }
 }
