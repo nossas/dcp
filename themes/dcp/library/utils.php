@@ -288,15 +288,16 @@ function load_more_acoes_callback() {
 
     $query = new WP_Query([
         'post_type' => 'acao',
+        'post_status' => 'publish',
         'posts_per_page' => 3,
         'paged' => $paged,
-        'meta_query' => [
-            [
-                'key' => 'status_da_acao',
-                'value' => $status,
-                'compare' => '='
-            ]
-        ]
+//        'meta_query' => [
+//            [
+//                'key' => 'status_da_acao',
+//                'value' => $status,
+//                'compare' => '='
+//            ]
+//        ]
     ]);
 
     ob_start();
@@ -318,6 +319,47 @@ function load_more_acoes_callback() {
 }
 add_action('wp_ajax_load_more_acoes', 'load_more_acoes_callback');
 add_action('wp_ajax_nopriv_load_more_acoes', 'load_more_acoes_callback');
+
+
+
+function load_more_relatos_callback() {
+    $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
+    $status = sanitize_text_field($_POST['status']);
+
+    $query = new WP_Query([
+        'post_type' => 'relato',
+        'post_status' => 'publish',
+        'posts_per_page' => 3,
+        'paged' => $paged,
+//        'meta_query' => [
+//            [
+//                'key' => 'status_da_acao',
+//                'value' => $status,
+//                'compare' => '='
+//            ]
+//        ]
+    ]);
+
+    ob_start();
+
+    if ( $query->have_posts() ) {
+        while ( $query->have_posts() ) {
+            $query->the_post();
+            get_template_part('template-parts/post-card', 'vertical');
+        }
+    }
+
+    $html = ob_get_clean();
+
+    // Retorna HTML + total de páginas
+    wp_send_json([
+        'html' => $html,
+        'max'  => $query->max_num_pages
+    ]);
+}
+add_action('wp_ajax_load_more_relatos', 'load_more_relatos_callback');
+add_action('wp_ajax_nopriv_load_more_relatos', 'load_more_relatos_callback');
+
 
 add_filter('body_class', 'add_custom_body_classes');
 function add_custom_body_classes($classes) {

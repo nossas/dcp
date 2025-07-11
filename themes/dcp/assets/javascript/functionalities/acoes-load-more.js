@@ -1,17 +1,21 @@
 jQuery(function($) {
     function handleLoadMore(buttonClass, statusValue, containerClass) {
         $(document).on('click', buttonClass, function() {
-            var button = $(this);
-
+            let button = $(this);
             if (button.hasClass('disabled')) return;
 
-            var page = parseInt(button.data('page')) + 1;
+            let action = 'load_more_acoes';
+            if( button.hasClass( 'load-more-concluir' ) ) {
+                action = 'load_more_relatos';
+            }
+
+            let page = parseInt(button.data('page')) + 1;
 
             $.ajax({
                 url: acoesLoadMore.ajaxurl,
                 type: 'POST',
                 data: {
-                    action: 'load_more_acoes',
+                    action: action,
                     status: statusValue,
                     page: page
                 },

@@ -11,14 +11,15 @@ get_header(); ?>
         <?php
         $agendar_query = new WP_Query([
             'post_type' => 'acao',
+            'post_status' => 'publish',
             'posts_per_page' => 3,
-            'meta_query' => [
-                [
-                    'key' => 'status_da_acao',
-                    'value' => 'Agendar',
-                    'compare' => '='
-                ]
-            ]
+//            'meta_query' => [
+//                [
+//                    'key' => 'status_da_acao',
+//                    'value' => 'Agendar',
+//                    'compare' => '='
+//                ]
+//            ]
         ]);
 
         if ( $agendar_query->have_posts() ) :
@@ -26,10 +27,11 @@ get_header(); ?>
                 get_template_part( 'template-parts/post-card', 'vertical' );
             endwhile;
             wp_reset_postdata();
-        else :
-            echo '<p>Não há ações a serem agendadas.</p>';
-        endif;
-        ?>
+        else : ?>
+        <div style="background-color: rgba(0,0,0,0.03); padding: 25px; border-radius: 25px;">
+            <p>Não há ações a serem agendadas.</p>
+        </div>
+        <?php endif; ?>
         </div>
         <button class="load-more-agendar ver-mais-acoes" data-status="Agendar" data-page="1">Ver mais</button>
     </main>
@@ -40,15 +42,16 @@ get_header(); ?>
         <div class="posts-grid__content-cards-concluidas">
         <?php
         $concluir_query = new WP_Query([
-            'post_type' => 'acao',
+            'post_type' => 'relato',
+            'post_status' => 'publish',
             'posts_per_page' => 3,
-            'meta_query' => [
-                [
-                    'key' => 'status_da_acao',
-                    'value' => 'Concluir',
-                    'compare' => '='
-                ]
-            ]
+//            'meta_query' => [
+//                [
+//                    'key' => 'status_da_acao',
+//                    'value' => 'Concluir',
+//                    'compare' => '='
+//                ]
+//            ]
         ]);
 
         if ( $concluir_query->have_posts() ) :
@@ -56,10 +59,11 @@ get_header(); ?>
                 get_template_part( 'template-parts/post-card', 'vertical' );
             endwhile;
             wp_reset_postdata();
-        else :
-            echo '<p>Não há ações concluídas.</p>';
-        endif;
-        ?>
+        else : ?>
+            <div style="background-color: rgba(0,0,0,0.03); padding: 25px; border-radius: 25px;">
+                <p>Não há ações a serem agendadas.</p>
+            </div>
+        <?php endif; ?>
         </div>
         <button class="load-more-concluir ver-mais-acoes" data-status="Concluir" data-page="1"><?= __('Ver mais') ?></button>
     </div>
