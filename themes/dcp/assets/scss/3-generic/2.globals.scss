@@ -18,5 +18,15 @@ html {
                 top: 32px;
             }
         }
+
+
+
+        hr.is-separator {
+            background-color: #E6E2E0;
+            height: 3px;
+            margin: size( 55 ) 0 size( 75 ) 0;
+            border: none;
+        }
+
     }
 }

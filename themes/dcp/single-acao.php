@@ -2,27 +2,24 @@
 
 <main id="primary" class="site-main container  container--wide">
     <?php if ( have_posts() ) : while ( have_posts() ) : the_post();
-
-        // Campos personalizados via Pods
         $pods = pods( 'relato', get_the_ID() );
         $dia = $pods->display( 'dia' );
         $endereco = $pods->display( 'endereco' );
     ?>
     <section class="relato-grid">
        <div class="relato-thumb" style="width: 100%; display: flex; align-items: center;">
-    <?php if ( has_post_thumbnail() ) : ?>
-        <div class="relato-thumb-wrapper">
-            <?php the_post_thumbnail('large'); ?>
+        <?php if ( has_post_thumbnail() ) : ?>
+            <div class="relato-thumb-wrapper">
+                <?php the_post_thumbnail('large'); ?>
+            </div>
+        <?php else: ?>
+            <div class="relato-thumb-wrapper no-thumb" style="background-color: #eee; width: 100%; height: 300px;">
+                <!-- Espaço reservado sem imagem -->
+            </div>
+        <?php endif; ?>
         </div>
-    <?php else: ?>
-        <div class="relato-thumb-wrapper no-thumb" style="background-color: #eee; width: 100%; height: 300px;">
-            <!-- Espaço reservado sem imagem -->
-        </div>
-    <?php endif; ?>
-    </div>
 
         <div class="relato-conteudo">
-
             <?php if (function_exists('bcn_display')) : ?>
                 <nav class="relato-conteudo breadcrumb bread-relato" typeof="BreadcrumbList" vocab="https://schema.org/">
                     <?php bcn_display(); ?>
@@ -99,7 +96,7 @@
                 <h2>Participe:</h2>
                 <p class="form-descricao">Aenean egestas ultricies nibh, at tempus purus fringilla in. Curabitur ornare enim justo, at tristique.</p>
 
-                <form class="form-participar" action="#" method="post">
+                <form class="form-participar" action="javascript:void(0);" method="post">
                     <p>Nome</p>
                     <input type="text" name="nome" placeholder="Digite seu nome" required>
                     <p> Telefone (WhatsApp) </p>
@@ -126,7 +123,7 @@
     <?php endif; ?>
 
     <hr>
-    <?php get_template_part('template-parts/content/related-posts-acao'); ?>
+    <?php get_template_part('template-parts/content/related-posts-acao' ); ?>
     <p style="margin-bottom: 64px;padding-inline:1rem;">
         Ficou com alguma dúvida? Fale com a gente para saber mais sobre o projeto ou como participar.
         <strong style="text-decoration: underline; "> Entre em contato </strong>

@@ -1,26 +1,26 @@
 .proximas-acoes {
-    padding: 2rem 0;
-    background: #f8f4ed;
-    text-align: center;
+    text-align: left;
     width: 100%;
     max-width: 1370px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    border-top: 1px solid #E6E2E0;
-    padding-top: 80px;
-    padding-bottom: 80px;
-    @include mobile{
+    padding: size( 75 ) 0 size( 15 ) 0;
+
+    @include mobile {
         padding-inline: 1rem;
         padding-top: 1rem;
         padding-bottom: 1rem;
     }
+
+    h2 {
+        padding-bottom: size( 18 );
+    }
+
   .secao-titulo {
     font-size: 40px;
     font-weight: 400;
     margin-bottom: 0.5rem;
     text-align: start;
     margin-bottom: 0;
+
     @include mobile {
         font-size: 24px;
     }

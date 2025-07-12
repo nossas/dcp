@@ -3,8 +3,15 @@ get_header(); ?>
 
 <?php echo hacklabr\get_layout_part_header(); ?>
 
-<div class="container container--wide">
-    <main class="posts-grid__content" style="padding-bottom: 50px">
+<div class="container container--wide archive-acao">
+
+    <hr class="is-separator">
+
+    <div class="container container--wide proximas-acoes">
+        <h2><?= __('PRÓXIMAS AÇÕES') ?></h2>
+        <p>Aenean egestas ultricies nibh, at tempus purus fringilla in. Curabitur ornare enim justo, at tristique.</p>
+    </div>
+    <div class="posts-grid__content">
         <?php
         $agendar_query = new WP_Query([
             'post_type' => 'acao',
@@ -19,18 +26,25 @@ get_header(); ?>
                     endwhile;
                 ?>
             </div>
-            <?php if( $agendar_query->post_count > 3 ) : ?>
+            <?php if( $agendar_query->post_count > 2 ) : ?>
                 <button class="load-more-agendar ver-mais-acoes" data-status="Agendar" data-page="1">Ver mais</button>
             <?php endif; wp_reset_postdata();
         else : ?>
-        <div style="background-color: rgba(0,0,0,0.03); padding: 25px; border-radius: 25px;">
+        <div style="background-color: rgba(0,0,0,0.03); padding: 25px; margin: 25px 0; border-radius: 25px;">
             <p>Não existe ações agendadas.</p>
         </div>
         <?php endif; ?>
-    </main>
+    </div>
 
-    <div class="posts-grid__content" style="padding-bottom: 50px">
-        <h2 class="posts-grid__title"><?= __('O que já rolou') ?></h2>
+    <hr class="is-separator">
+
+    <div class="container container--wide proximas-acoes">
+        <h2><?= __('O que já rolou') ?></h2>
+        <p>Aenean egestas ultricies nibh, at tempus purus fringilla in. Curabitur ornare enim justo, at tristique.</p>
+    </div>
+
+    <div class="posts-grid__content">
+
         <?php
         $concluir_query = new WP_Query([
             'post_type' => 'relato',
@@ -45,15 +59,17 @@ get_header(); ?>
                     get_template_part( 'template-parts/post-card', 'vertical' );
                 } ?>
             </div>
-            <?php if( $concluir_query->post_count > 3 ) : ?>
+            <?php if( $concluir_query->post_count > 2 ) : ?>
                 <button class="load-more-concluir ver-mais-acoes" data-status="Concluir" data-page="1"><?= __('Ver mais') ?></button>
             <?php endif; wp_reset_postdata();
         else : ?>
-            <div style="background-color: rgba(0,0,0,0.03); padding: 25px; border-radius: 25px;">
+            <div style="background-color: rgba(0,0,0,0.03); padding: 25px; margin: 25px 0; border-radius: 25px;">
                 <p>Não existe relatos agendados.</p>
             </div>
         <?php endif; ?>
     </div>
+
+    <hr class="is-separator">
 
 </div><!-- /.container -->
 

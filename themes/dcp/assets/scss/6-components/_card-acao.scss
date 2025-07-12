@@ -1,6 +1,7 @@
 .post-type-archive-acao{
     .layout-part--header-archive-acao{
-        padding-top: $padding--xx-large;
+        padding-top: size( 110 );
+        padding-bottom: size( 10 );
         @include mobile{
             padding-top: $padding--x-large;
         }
@@ -78,11 +79,13 @@
             margin-top: 0;
         }
 
+
         .post-card__image{
             display: none;
         }
         .post-card__content{
             border-radius: $border-radius--large $border-radius--large 0 0;
+            justify-content: start;
 
             @include mobile{
                 gap: $gap--small;
@@ -174,6 +177,8 @@
         max-width: fit-content;
         border-radius: 4px;
         display: flex;
+        padding-left: size( 30 );
+        padding-right: size( 30 );
         margin-left: auto;
         margin-right: auto;
 
