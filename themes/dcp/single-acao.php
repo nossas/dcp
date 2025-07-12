@@ -8,12 +8,6 @@
         $dia = $pods->display( 'dia' );
         $endereco = $pods->display( 'endereco' );
     ?>
-    <?php if (function_exists('bcn_display')) : ?>
-        <nav class="relato-conteudo breadcrumb bread-relato" typeof="BreadcrumbList" vocab="https://schema.org/">
-            <?php bcn_display(); ?>
-        </nav>
-    <?php endif; ?>
-
     <section class="relato-grid">
        <div class="relato-thumb" style="width: 100%; display: flex; align-items: center;">
     <?php if ( has_post_thumbnail() ) : ?>
@@ -28,6 +22,12 @@
     </div>
 
         <div class="relato-conteudo">
+
+            <?php if (function_exists('bcn_display')) : ?>
+                <nav class="relato-conteudo breadcrumb bread-relato" typeof="BreadcrumbList" vocab="https://schema.org/">
+                    <?php bcn_display(); ?>
+                </nav>
+            <?php endif; ?>
 
             <h1 class="relato-titulo"><?php the_title(); ?></h1>
 
@@ -93,30 +93,32 @@
                     </li>
                 <?php endif; ?>
             </ul>
+
+
+            <section class="formulario-participar">
+                <h2>Participe:</h2>
+                <p class="form-descricao">Aenean egestas ultricies nibh, at tempus purus fringilla in. Curabitur ornare enim justo, at tristique.</p>
+
+                <form class="form-participar" action="#" method="post">
+                    <p>Nome</p>
+                    <input type="text" name="nome" placeholder="Digite seu nome" required>
+                    <p> Telefone (WhatsApp) </p>
+                    <input type="text" name="telefone" placeholder="(xx) xxxxx-xxxx" required>
+                    <p> E-mail (opcional) </p>
+                    <input type="email" name="email" placeholder="exemplo@email.com">
+
+                    <label class="checkbox-aceite">
+                        <input type="radio" name="aceita">
+                        Aceito receber confirmações e informações sobre esta ação via e-mail e WhatsApp
+                    </label>
+
+                    <button type="submit" class="botao-confirmar">
+                        Confirmar participação
+                    </button>
+                </form>
+            </section>
+
         </div>
-    </section>
-
-    <section class="formulario-participar">
-        <h2>Participe:</h2>
-        <p class="form-descricao">Aenean egestas ultricies nibh, at tempus purus fringilla in. Curabitur ornare enim justo, at tristique.</p>
-
-        <form class="form-participar" action="#" method="post">
-            <p>Nome</p>
-            <input type="text" name="nome" placeholder="Digite seu nome" required>
-            <p> Telefone (WhatsApp) </p>
-            <input type="text" name="telefone" placeholder="(xx) xxxxx-xxxx" required>
-            <p> E-mail (opcional) </p>
-            <input type="email" name="email" placeholder="exemplo@email.com">
-
-            <label class="checkbox-aceite">
-                <input type="radio" name="aceita">
-                Aceito receber confirmações e informações sobre esta ação via e-mail e WhatsApp
-            </label>
-
-            <button type="submit" class="botao-confirmar">
-                Confirmar participação
-            </button>
-        </form>
     </section>
 
     <?php endwhile; else : ?>
