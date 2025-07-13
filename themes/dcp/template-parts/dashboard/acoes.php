@@ -104,7 +104,6 @@ $sectios_tabs = [
                         </div>
 
                     <?php endif; endif; ?>
-
             </div>
         </div>
     </div>

@@ -1,5 +1,44 @@
 <?php
 
+function download_participantes_acao() {
+
+    if ( !current_user_can('manage_options' ) ) wp_die('Você não tem permissão para editar posts.' );
+
+    $postID = isset($_GET['post_id']) ? intval($_GET['post_id']) : 0;
+    $get_acao = get_post( $postID );
+
+    if ( !$get_acao ) wp_die('ID do post inválido ou post não encontrado.' );
+
+    $subscriptions = new WP_Query([
+        'post_type' => 'acao_subscription',
+        'post_status' => 'private',
+        'meta_key' => 'post_id',
+        'meta_value' => $postID, // ID do evento atual
+        'posts_per_page' => -1,
+    ]);
+
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename=' . date( 'Y-m-d-H-i-s' ) . '-participantes-' . $get_acao->post_name . '.csv' );
+
+    $output = fopen('php://output', 'w' );
+    fputcsv( $output, [ '#ID', 'Nome completo', 'Telefone', 'E-mail', 'Data e horário', 'IP' ] );
+
+    foreach ( $subscriptions->posts as $key => $item ) {
+        $pod = pods( 'acao_subscription', $item->ID );
+        fputcsv($output, [
+            $item->ID,
+            $pod->field( 'nome_completo' ),
+            $pod->field( 'telefone' ),
+            $pod->field( 'email' ),
+            $pod->field( 'data_e_horario' ),
+            $pod->field( 'ip_address' ),
+        ]);
+    }
+    fclose($output);
+    exit;
+}
+add_action('wp_ajax_download_participantes_acao', 'download_participantes_acao');
+
 function form_participar_acao() {
 
     $acao_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
@@ -27,7 +66,7 @@ function form_participar_acao() {
             'ip_address' => $_SERVER[ 'REMOTE_ADDR' ],
             'post_id' => $acao_id,
         ]
-    ], true);
+    ], true );
 
     if (is_wp_error($postID)) {
         wp_send_json_error([
@@ -37,7 +76,7 @@ function form_participar_acao() {
         ], 500);
     }
 
-    $total_participantes = get_post_meta( $acao_id, 'total_participantes', true);
+    $total_participantes = get_post_meta( $acao_id, 'total_participantes', true );
     $updated_acao = wp_update_post([
             'ID' => $acao_id,
             'post_type' => 'acao',

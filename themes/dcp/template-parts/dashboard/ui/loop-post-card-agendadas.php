@@ -45,7 +45,7 @@ $pod = pods( 'acao', get_the_ID() );
         <div class="post-card__see-more term-<?=$get_terms[0]->slug?>">
             <div>
                 <?php if( !empty( $pod->field( 'total_participantes' ) ) ) : ?>
-                    <a class="is-download button" href="<?=get_dashboard_url( 'download-participantes-acao' )?>/?post_id=<?=get_the_ID()?>" target="_blank">
+                    <a class="is-download button" href="<?=admin_url( 'admin-ajax.php?action=download_participantes_acao&post_id=' . get_the_ID() )?>" target="_blank">
                         <iconify-icon icon="bi:download"></iconify-icon>
                         Lista de participantes <span>(<?=$pod->field( 'total_participantes' )?>)</span>
                     </a>
