@@ -47,4 +47,5 @@ jQuery(function($) {
 
     handleLoadMore('.load-more-agendar', 'Agendar', '.posts-grid__content-cards-agendada');
     handleLoadMore('.load-more-concluir', 'Concluir', '.posts-grid__content-cards-concluidas');
+
 });

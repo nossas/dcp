@@ -418,16 +418,21 @@ class Assets
                 },
             ],
 
-            'scroll-behavior'     => [
+            'scroll-behavior' => [
                 'file' => 'anchor-behavior.js',
                 'global' => true,
             ],
 
-            'acoes-load-more'     => [
+            'acoes-load-more' => [
                 'file' => 'acoes-load-more.js',
                 'preload_callback' => function () {
                     return is_archive('acao');
                 }
+            ],
+
+            'acoes-participar' => [
+                'file' => 'acoes-participar.js',
+                'global' => true,
             ],
 
             'search' => [
@@ -435,7 +440,7 @@ class Assets
                 'global' => true,
             ],
 
-            'acoes-anchor'     => [
+            'acoes-anchor' => [
                 'file' => 'acoes-anchor.js',
                 'preload_callback' => function () {
                     return is_archive('acao');
@@ -447,7 +452,7 @@ class Assets
                 'global' => true,
             ],
 
-            'anchor-sidebar'     => [
+            'anchor-sidebar' => [
                 'file' => 'anchor-sidebar.js',
                 'preload_callback' => function () {
                     return is_page_template('page-anchor.php');
@@ -472,14 +477,12 @@ class Assets
                     return dashboard\is_dashboard();
                 },
             ],
-
             'dcp-dashboard' => [
                 'file' => 'dashboard.js',
                 'preload_callback' => function () {
                     return dashboard\is_dashboard();
                 },
             ],
-
             'dashboard-single' => [
                 'file' => 'dashboard-single.js',
                 'preload_callback' => function () {

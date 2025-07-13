@@ -49,8 +49,11 @@ p {
     width: 100%;
     max-width: 503px !important;
     display: flex;
-    align-items: center;
+    align-items: start;
+    padding-top: size( 25 );
+
   .relato-thumb-wrapper {
+      display: block;
     border-radius: 16px;
     overflow: hidden;
 
@@ -165,21 +168,19 @@ p {
 
     input[type="text"],
     input[type="email"] {
-      padding: 0.75rem;
-      border: 1px solid #ccc;
-      border-radius: $bordas;
-      font-size: 1rem;
-      width: 100%;
-      margin-bottom: 25px;
+        font-size: size( 15 );
+        width: 100%;
+        padding: size( 9 ) size( 18 );
+        margin-bottom: size( 15 );
+        border: 1px solid $color--secondary-dark;
+        border-radius: size( 12 );
     }
-    p{
-        color: var(--Color-Gray-800, #484646);
-    /* Label/medium */
-    font-family: var(--Typeface-Font-Gabarito, Gabarito);
-    font-size: var(--Spacing-space-175, 14px);
-    font-style: normal;
-    font-weight: 500;
-    line-height: 120%; /* 16.8px */
+    p {
+        font-size: size( 13 );
+        font-style: normal;
+        font-weight: 500;
+        line-height: size( 14 );
+        padding: size( 4 ) size( 12 );
     }
     .checkbox-aceite {
       display: flex;
@@ -191,15 +192,14 @@ p {
     }
 
     .botao-confirmar {
-    background: $color--primary-pure;
-    color: $color--secondary-light;
-    padding: 10px;
-    border: none;
-    border-radius: 100px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.2s ease;
-    margin-left: 70%;
+        background: $color--primary-pure;
+        color: $color--secondary-light;
+        padding: size( 8 ) size( 20 );
+        border: none;
+        border-radius: size( 50 );
+        font-size: size( 15 );
+        cursor: pointer;
+        transition: background 0.2s ease;
 
       &:hover {
         background: darken($verde, 5%);

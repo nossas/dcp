@@ -7,7 +7,7 @@
         $endereco = $pods->display( 'endereco' );
     ?>
     <section class="relato-grid">
-       <div class="relato-thumb" style="width: 100%; display: flex; align-items: center;">
+       <div class="relato-thumb">
         <?php if ( has_post_thumbnail() ) : ?>
             <div class="relato-thumb-wrapper">
                 <?php the_post_thumbnail('large'); ?>
@@ -96,22 +96,30 @@
                 <h2>Participe:</h2>
                 <p class="form-descricao">Aenean egestas ultricies nibh, at tempus purus fringilla in. Curabitur ornare enim justo, at tristique.</p>
 
-                <form class="form-participar" action="javascript:void(0);" method="post">
+                <form id="formParticiparAcao" class="form-participar" action="javascript:void(0);" method="post" data-action="<?php bloginfo( 'url' );?>/wp-admin/admin-ajax.php">
                     <p>Nome</p>
-                    <input type="text" name="nome" placeholder="Digite seu nome" required>
+                    <input type="text" name="nome_completo" placeholder="Digite seu nome" required>
                     <p> Telefone (WhatsApp) </p>
                     <input type="text" name="telefone" placeholder="(xx) xxxxx-xxxx" required>
                     <p> E-mail (opcional) </p>
                     <input type="email" name="email" placeholder="exemplo@email.com">
 
                     <label class="checkbox-aceite">
-                        <input type="radio" name="aceita">
+                        <input type="radio" name="aceite_termos">
                         Aceito receber confirmações e informações sobre esta ação via e-mail e WhatsApp
                     </label>
+                    <input type="hidden" name="post_id" value="<?=get_the_ID()?>">
+                    <input type="hidden" name="action" value="form_participar_acao">
 
-                    <button type="submit" class="botao-confirmar">
-                        Confirmar participação
-                    </button>
+                    <div style="display: flex; justify-content: space-between">
+                        <div> <!----> </div>
+                        <button class="botao-confirmar">
+                            <iconify-icon icon="bi:check2"></iconify-icon>
+                            &nbsp;
+                            <span>Confirmar participação</span>
+                            &nbsp;
+                        </button>
+                    </div>
                 </form>
             </section>
 

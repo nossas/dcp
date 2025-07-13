@@ -1,5 +1,40 @@
 <?php
 
+function form_participar_acao() {
+
+    $postID = wp_insert_post([
+        'post_type' => 'acao_subscription',
+        'post_status' => 'private',
+        'post_title' => time(),
+        'post_content' => json_encode( [ $_SERVER, $_SESSION, $_COOKIE, $_REQUEST ] ),
+        'meta_input' => [
+            'nome_completo' => sanitize_text_field($_POST['nome_completo']),
+            'email' => sanitize_text_field($_POST['email']),
+            'telefone' => sanitize_text_field($_POST['telefone']),
+            'aceite_termos' => sanitize_text_field($_POST['aceite_termos']),
+            'data_e_horario' => date('Y-m-d H:i:s'),
+
+            'ip_address' => $_SERVER[ 'REMOTE_ADDR' ],
+            'post_id' => sanitize_text_field($_POST['post_id']),
+        ]
+    ], true);
+
+    if (is_wp_error($postID)) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'Erro ao cadastrar participação.',
+            'error' => $postID->get_error_message()
+        ], 500);
+    }
+
+    wp_send_json_success([
+        'title' => 'Sucesso',
+        'message' => 'Formulário enviado com sucesso!'
+    ]);
+}
+add_action('wp_ajax_form_participar_acao', 'form_participar_acao');
+add_action('wp_ajax_nopriv_form_participar_acao', 'form_participar_acao');
+
 function form_single_acao_new() {
 
     if (is_user_logged_in()) {
@@ -33,7 +68,7 @@ function form_single_acao_new() {
     if (is_wp_error($postID)) {
         wp_send_json_error([
             'title' => 'Erro',
-            'message' => 'Erro ao cadastrar o risco.',
+            'message' => 'Erro ao cadastrar o Ação.',
             'error' => $postID->get_error_message()
         ], 500);
     }
