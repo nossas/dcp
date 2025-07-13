@@ -2,6 +2,17 @@
 
 function form_participar_acao() {
 
+    $acao_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
+    $get_acao = get_post( $acao_id );
+
+    if ( !$get_acao ) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'Ação não finalizada ou indisponível.',
+            'error' => [],
+        ], 400);
+    }
+
     $postID = wp_insert_post([
         'post_type' => 'acao_subscription',
         'post_status' => 'private',
@@ -13,9 +24,8 @@ function form_participar_acao() {
             'telefone' => sanitize_text_field($_POST['telefone']),
             'aceite_termos' => sanitize_text_field($_POST['aceite_termos']),
             'data_e_horario' => date('Y-m-d H:i:s'),
-
             'ip_address' => $_SERVER[ 'REMOTE_ADDR' ],
-            'post_id' => sanitize_text_field($_POST['post_id']),
+            'post_id' => $acao_id,
         ]
     ], true);
 
@@ -24,6 +34,25 @@ function form_participar_acao() {
             'title' => 'Erro',
             'message' => 'Erro ao cadastrar participação.',
             'error' => $postID->get_error_message()
+        ], 500);
+    }
+
+    $total_participantes = get_post_meta( $acao_id, 'total_participantes', true);
+    $updated_acao = wp_update_post([
+            'ID' => $acao_id,
+            'post_type' => 'acao',
+            'meta_input' => [
+                'total_participantes' => ($total_participantes) ? $total_participantes + 1 : 1
+            ],
+        ],
+        true
+    );
+
+    if ( is_wp_error( $updated_acao ) ) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'ID do post inválido ou post não encontrado.',
+            'error' => $updated_acao->get_error_message(),
         ], 500);
     }
 

@@ -597,11 +597,18 @@
                         .is-download {
                             background-color: transparent;
                             color: $color--secondary-dark;
-                            font-size: size( 18 );
+                            font-size: size( 16 );
+                            padding: 0;
                             border-radius: size( 50 );
                             border: none;
 
                             &:hover {}
+
+                            span {
+                                font-size: size( 13 );
+                                font-weight: bold;
+                                opacity: 0.5;
+                            }
                         }
 
                     }

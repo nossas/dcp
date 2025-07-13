@@ -44,12 +44,12 @@ $pod = pods( 'acao', get_the_ID() );
 
         <div class="post-card__see-more term-<?=$get_terms[0]->slug?>">
             <div>
-                <div>
-                    <a class="is-download button" href="<?=get_dashboard_url( 'editar-acao' )?>/?post_id=<?=get_the_ID()?>">
+                <?php if( !empty( $pod->field( 'total_participantes' ) ) ) : ?>
+                    <a class="is-download button" href="<?=get_dashboard_url( 'download-participantes-acao' )?>/?post_id=<?=get_the_ID()?>" target="_blank">
                         <iconify-icon icon="bi:download"></iconify-icon>
-                        Lista de participantes
+                        Lista de participantes <span>(<?=$pod->field( 'total_participantes' )?>)</span>
                     </a>
-                </div>
+                <?php endif; ?>
             </div>
             <div>
                 <a class="is-arquivados button" href="<?=get_dashboard_url( 'editar-acao' )?>/?post_id=<?=get_the_ID()?>">
