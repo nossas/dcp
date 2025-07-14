@@ -19,7 +19,6 @@ $pod = pods( 'acao', get_the_ID() );
                 ?>
             </div>
         </div>
-
         <h3 class="post-card__title">
             <span><?=$pod->field( 'titulo' )?></span>
         </h3>
@@ -41,7 +40,6 @@ $pod = pods( 'acao', get_the_ID() );
                 </li>
             <?php endif; ?>
         </ul>
-
         <div class="post-card__see-more term-<?=$get_terms[0]->slug?>">
             <div>
                 <?php if( !empty( $pod->field( 'total_participantes' ) ) ) : ?>
