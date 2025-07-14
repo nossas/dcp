@@ -98,8 +98,6 @@
         @include mobile{
             padding-inline: $padding--medium;
         }
-
-
         .dashboard-content {
             min-height: 75vh;
             position: relative;
@@ -144,7 +142,6 @@
                     height: 200px;
                 }
             }
-
             .dashboard-content-breadcrumb {
 
                 margin: 0;
@@ -167,7 +164,6 @@
                     }
                 }
             }
-
             .dashboard-content-header {
                 color: $color--secondary-dark;
                 display: flex;
@@ -206,7 +202,6 @@
                 }
 
             }
-
             .dashboard-content-tabs {
 
                 margin: size(10) 0;
@@ -330,8 +325,6 @@
                     display: block !important;
                 }
             }
-
-
             .dashboard-content-cards {
 
                 .post-card {
@@ -615,14 +608,14 @@
 
                 }
 
-                .message-response {
-                    background-color: rgba( 0,0,0,0.04 );
-                    display: none;
-                    padding: size( 20 );
-                    border-radius: size( 15 );
-                    position: relative;
-                    z-index: 1;
-                }
+            }
+            .message-response {
+                background-color: rgba( 0,0,0,0.04 );
+                display: none;
+                padding: size( 20 );
+                border-radius: size( 15 );
+                position: relative;
+                z-index: 1;
             }
 
     }

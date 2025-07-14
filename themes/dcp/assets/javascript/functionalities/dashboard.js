@@ -267,6 +267,11 @@ jQuery(function($) {
             });
         });
 
+        $( '#selectAcaoRealizada' ).on( 'change', function () {
+            const _location = window.location;
+            _location.href = _location.origin + _location.pathname + '?post_id=' + $( this ).val();
+        });
+
         $( '#selectCategory' ).on( 'change', function () {
             $( '.input-chips .chips-wrap').html( '' );
             $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
@@ -287,26 +292,33 @@ jQuery(function($) {
 
             let isMultiple = '';
             let isAccept = 'image/*';
+            let inputName = 'media_file[]';
+
             if( $this.hasClass( 'is-multiple' ) ) {
                 isMultiple = 'multiple';
-                isAccept = 'image/*,video/*'
+                isAccept = 'image/*,video/*';
+                inputName = 'media_files[]';
             }
 
             if( !$this.parent().find( 'input[type="file"]' ).length ) {
-                $this.parent().append( '<input type="file" name="media_files[]" style="display:none;" accept="' + isAccept + '" ' + isMultiple + ' >');
+                $this.parent().append( '<input type="file" name="' + inputName + '" style="display:none;" accept="' + isAccept + '" ' + isMultiple + ' >');
             }
             $this.parent().find( 'input[type="file"]' ).on( 'change', function ( e ) {
                 const files = Array.from( e.target.files );
+                const $preview = $this.parent().parent().parent().find( '.input-media-preview' );
+                const $progress = $this.parent().parent().parent().find( '.input-media-uploader-progress' );
 
-                $( '.input-media-uploader-progress' ).show().html( '' );
+                $progress.show().html( '' );
+                $preview.find( '.is-empty' ).remove();
+                if( !$this.hasClass( 'is-multiple' ) ) {
+                    $preview.html( '' );
+                }
 
                 files.forEach( function ( file ) {
-
-                    $( '.input-media-uploader-progress' ).append( '<div class="progress is-small">' +
+                    $progress.append( '<div class="progress is-small">' +
                         '<div class="progress-bar"><span>' +
                         formatFileSize( file.size ) + '</span><span>' +
                         file.name + '</span></div> </div>' );
-
                 });
 
             }).trigger( 'click' );
@@ -568,6 +580,29 @@ jQuery(function($) {
         $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
         $( '#dashboardInicio .dashboard-content-cards .post-card, #dashboardInicio .dashboard-content-cards .message-response' ).show();
         $( '#dashboardAcoes .dashboard-content-cards .post-card, #dashboardAcoes .dashboard-content-cards .message-response' ).show();
+
+
+        // if (typeof tinymce !== 'undefined') {
+        //     tinymce.init({
+        //         selector: '#textoAcaoTinyMCE',
+        //         body_class: 'texto-acao-tinymce',
+        //         menubar: false,
+        //         toolbar: 'bold italic underline | bullist numlist | link unlink | undo redo',
+        //         plugins: 'lists link',
+        //         setup: function(editor) {
+        //             editor.on('change', function() {
+        //                 editor.save();
+        //             });
+        //         },
+        //         content_css: _tiny_mce_content_css,
+        //         skin: 'lightgray',
+        //         wpautop: true,
+        //         indent: false,
+        //         paste_as_text: true
+        //     });
+        // }
+
+
 
         // TODO: REFECTORY P/ COMPONENTE DE LOADING TIPO SKELETON
         $( '.dashboard-content-skeleton' ).hide();

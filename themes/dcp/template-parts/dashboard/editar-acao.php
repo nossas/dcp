@@ -85,11 +85,11 @@ namespace hacklabr\dashboard;
                     </select>
                     <a class="button is-category">
                         <?php
-                        if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
-                            risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, '' );
-                        } else {
-                            risco_badge_category( 'sem-categoria', 'SEM CATEGORIA ADICIONADA', '' );
-                        }
+                            if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                                risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, '' );
+                            } else {
+                                risco_badge_category( 'sem-categoria', 'SEM CATEGORIA ADICIONADA', '' );
+                            }
                         ?>
                     </a>
                     <a class="button is-select-input">
@@ -271,19 +271,13 @@ namespace hacklabr\dashboard;
                         //TODO: REFACTORY P/ MELHOR LOGICA
                         switch ( $post_status ) {
 
-                            case 'draft':
-
-                                ?>
+                            case 'draft': ?>
                                 <a class="button is-scheduled">
                                     <iconify-icon icon="bi:check2"></iconify-icon>
                                     <span>Agendar Ação</span>
                                 </a>
-                                <?php
-
-                                break;
-                            case 'publish':
-
-                                ?>
+                                <?php break;
+                            case 'publish': ?>
                                 <a class="button is-save">
                                     <iconify-icon icon="bi:check2"></iconify-icon>
                                     <span>Publicar Alterações</span>
@@ -292,13 +286,9 @@ namespace hacklabr\dashboard;
                                     <iconify-icon icon="bi:check-square-fill"></iconify-icon>
                                     <span>Concluir Ação</span>
                                 </a>
-                                <?php
+                                <?php break;
 
-                                break;
-
-                            case 'pending':
-
-                                ?>
+                            case 'pending': ?>
                                 <a class="button is-scheduled">
                                     <iconify-icon icon="bi:chevron-left"></iconify-icon>
                                     <span>Agendar Novamente</span>
@@ -307,9 +297,18 @@ namespace hacklabr\dashboard;
                                     <iconify-icon icon="bi:check2"></iconify-icon>
                                     <span>Salvar Alterações</span>
                                 </a>
-                                <?php
+                                <?php break;
 
-                                break;
+                            case 'private': ?>
+                                <a class="button is-save">
+                                    <iconify-icon icon="bi:check2"></iconify-icon>
+                                    <span>Publicar Alterações</span>
+                                </a>
+                                <a class="button is-duplicate" href="<?=get_dashboard_url( 'criar-relato-por-acao' )?>/?post_id=<?=get_the_ID()?>">
+                                    <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                                    Criar Relato
+                                </a>
+                                <?php break;
                         }
                     ?>
                 </div>

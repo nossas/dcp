@@ -56,7 +56,7 @@ $pod = pods( 'acao', get_the_ID() );
                 </div>
             </div>
             <div>
-                <a class="is-arquivados button" href="<?=get_dashboard_url( 'criar-relato-por-acao' )?>/?post_id=<?=get_the_ID()?>">
+                <a class="is-arquivados button" href="<?=get_dashboard_url( 'adicionar-relato' )?>/?post_id=<?=get_the_ID()?>">
                     <iconify-icon icon="bi:pencil-square"></iconify-icon>
                     Criar Relato
                 </a>

@@ -103,6 +103,64 @@ function form_participar_acao() {
 add_action('wp_ajax_form_participar_acao', 'form_participar_acao');
 add_action('wp_ajax_nopriv_form_participar_acao', 'form_participar_acao');
 
+function form_single_relato_new() {
+
+    $current_user = wp_get_current_user();
+    $postID = wp_insert_post([
+        'post_type' => 'relato',
+        'post_status' => 'publish',
+        'post_title' => sanitize_text_field($_POST['titulo']),
+        'post_content' => sanitize_text_field($_POST['text_post']),
+        'meta_input' => [
+            'titulo' => sanitize_text_field($_POST['titulo']),
+            'descricao' => sanitize_text_field($_POST['descricao']),
+            'date' => sanitize_text_field($_POST['date']),
+            'horario' => sanitize_text_field($_POST['horario']),
+            'nome_completo' => $current_user->display_name,
+            'email' => $current_user->user_email,
+            'data_e_horario' => date('Y-m-d H:i:s'),
+        ]
+    ], true);
+
+    if (is_wp_error($postID)) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'Erro ao cadastrar o Ação.',
+            'error' => $postID->get_error_message()
+        ], 500);
+    }
+
+    wp_set_object_terms(
+        $postID,
+        [sanitize_text_field($_POST['tipo_acao'])],
+        'tipo_acao',
+        false
+    );
+
+    $save_cover = upload_file_to_attachment_by_ID($_FILES['media_file'], $postID, true );
+    $save_attachment = upload_file_to_attachment_by_ID($_FILES['media_files'], $postID, false );
+
+    if ( empty($save_cover['errors']) && empty($save_attachment['errors']) ) {
+
+        wp_send_json_success([
+            'title' => 'Sucesso',
+            'message' => 'Formulário enviado com sucesso!',
+            'uploaded_files' => $save_attachment['uploaded_files'],
+            'post_id' => $postID,
+            'url_callback' => get_site_url() . '/dashboard/editar-relato/?post_id=' . $postID,
+            'is_new' => true,
+        ]);
+    }
+
+    wp_send_json_error([
+        'title' => 'Erro',
+        'message' => 'Erro ao salvar o formulário / anexos',
+        'error' => array_merge( $save_attachment['errors'], $save_cover['errors'] ),
+    ], 400);
+
+}
+add_action('wp_ajax_form_single_relato_new', 'form_single_relato_new');
+
 function form_single_acao_new() {
 
     if (is_user_logged_in()) {
@@ -148,7 +206,7 @@ function form_single_acao_new() {
         false
     );
 
-    $save_attachment = upload_file_to_attachment_by_ID($_FILES['media_files'], $postID, true );
+    $save_attachment = upload_file_to_attachment_by_ID($_FILES['media_file'], $postID, true );
 
     if (empty($save_attachment['errors'])) {
 
@@ -243,7 +301,7 @@ function form_single_acao_edit() {
     );
 
     //TODO: REFACTORY
-    if( !empty( $_FILES['media_files'] ) ) {
+    if( !empty( $_FILES['media_file'] ) ) {
         if ( has_post_thumbnail( $updated_id ) ) {
             $old_attachment_id = get_post_thumbnail_id( $updated_id );
             wp_delete_attachment( $old_attachment_id );
@@ -262,7 +320,7 @@ function form_single_acao_edit() {
     }
     //TODO: REFACTORY
 
-    $save_post = upload_file_to_attachment_by_ID( $_FILES['media_files'], $postID, true );
+    $save_post = upload_file_to_attachment_by_ID( $_FILES['media_file'], $postID, true );
 
     if( empty( $save_post[ 'errors' ] ) ) {
 
