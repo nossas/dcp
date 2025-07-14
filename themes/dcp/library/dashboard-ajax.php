@@ -18,7 +18,7 @@ function download_participantes_acao() {
     ]);
 
     header('Content-Type: text/csv; charset=utf-8');
-    header('Content-Disposition: attachment; filename=' . date( 'Y-m-d-H-i-s' ) . '-participantes-' . $get_acao->post_name . '.csv' );
+    header('Content-Disposition: attachment; filename=' . date( 'Y-m-d_H.i' ) . '-participantes-' . $get_acao->post_name . '.csv' );
 
     $output = fopen('php://output', 'w' );
     fputcsv( $output, [ '#ID', 'Nome completo', 'Telefone', 'E-mail', 'Data e horário', 'IP' ] );

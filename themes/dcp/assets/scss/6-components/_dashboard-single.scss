@@ -17,6 +17,23 @@
                 gap: 25px;
                 margin-bottom: size( 30 );
 
+                a.button.is-download {
+                    background-color: transparent;
+                    color: $color--secondary-dark;
+                    text-decoration: none;
+                    font-size: size( 18 );
+                    padding: 0;
+                    border-radius: size( 50 );
+                    border: none;
+
+                    &:hover {}
+
+                    span {
+                        font-size: size( 13 );
+                        font-weight: bold;
+                        opacity: 0.5;
+                    }
+                }
                 .input-wrap {
                     color: $color--secondary-dark;
                     width: 61%;
@@ -172,20 +189,19 @@
                     flex-wrap: wrap;
                     justify-content: space-between;
                     gap: 25px;
-                    width: 55%;
+                    width: 61%;
 
                     .input-wrap {
                         width: 47%;
                     }
 
                 }
-
                 .input-media {
                     font-size: size( 17 );
                     color: $color--secondary-dark;
-                    width: 55%;
+                    width: 61%;
                     padding: size( 15 ) size( 20 );
-                    margin:  size( 25 ) 0  size( 125 );
+                    margin:  size( 25 ) 0  size( 25 );
                     border-radius: size( 15 );
                     border: dotted 2px #C9C6C5;
                     overflow: hidden;
@@ -482,7 +498,6 @@
 
                     }
                 }
-
                 .input-help {
                     color: $color--secondary-dark;
                     display: flex;
@@ -527,7 +542,7 @@
                 background-color: $color--secondary-light;
                 display: flex;
                 justify-content: space-between;
-                padding: size( 30 ) size( 30 );
+                padding: size( 30 ) 0;
                 z-index: 5;
                 opacity: 1;
                 cursor: not-allowed;
@@ -539,6 +554,10 @@
                     padding: size( 15 ) size( 50 );
                     margin-left: size( 15 );
                     border-radius: size( 75 );
+
+                    &:first-child {
+                        margin-left: 0;
+                    }
 
                     span {
                         display: inline-block;

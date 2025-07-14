@@ -490,13 +490,13 @@ jQuery(function($) {
         });
         $( '#acaoSingleForm .is-done' ).on( 'click', function () {
             custom_modal_confirm({
-                title: 'Finalizar essa ação?',
-                description: 'As informações não serão publicadas e poderão ser acessadas novamente na aba “Arquivados”',
+                title: 'Concluir essa ação?',
+                description: 'As informações não serão publicadas e poderão ser acessadas novamente na aba “Ações Realizadas”',
 
                 cancelText: "Cancelar",
                 onCancel: function () {},
 
-                confirmText: "Finalizar",
+                confirmText: "Concluir",
                 onConfirm: function () {
                     $( 'input[name="post_status"]' ).val( 'private' );
                     $( '#acaoSingleForm' ).submit();

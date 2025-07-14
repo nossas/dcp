@@ -26,7 +26,6 @@ namespace hacklabr\dashboard;
             ?>
 
 <div id="dashboardAcaoSingle" class="dashboard-content">
-
     <div class="dashboard-content-breadcrumb">
         <ol class="breadcrumb">
             <li>
@@ -36,44 +35,42 @@ namespace hacklabr\dashboard;
             <li><a href="#/">Avaliar / Editar ação</a></li>
         </ol>
     </div>
-
     <header class="dashboard-content-header">
         <h2>Avaliar ação sugerida</h2>
         <?php
-        //TODO: REFACTORY P/ COMPONENT
-        $post_status = get_post_status();
-        switch ( $post_status ) {
-            case 'draft':
-                $class = 'is-draft';
-                $text = 'Ação Sugerida';
-                break;
+            //TODO: REFACTORY P/ COMPONENT
+            $post_status = get_post_status();
+            switch ( $post_status ) {
+                case 'draft':
+                    $class = 'is-draft';
+                    $text = 'Ação Sugerida';
+                    break;
 
-            case 'publish':
-                $class = 'is-publish';
-                $text = 'Ação Agendada';
-                break;
+                case 'publish':
+                    $class = 'is-publish';
+                    $text = 'Ação Agendada';
+                    break;
 
-            case 'future':
-                $class = 'is-scheduled';
-                $text = 'Ação Realizada';
-                break;
+                case 'private':
+                    $class = 'is-scheduled';
+                    $text = 'Ação Realizada';
+                    break;
 
-            case 'pending':
-                $class = 'is-pending';
-                $text = 'Ação Arquivada';
-                break;
+                case 'pending':
+                    $class = 'is-pending';
+                    $text = 'Ação Arquivada';
+                    break;
 
-            default:
-                $class = 'is-blocked';
-                $text = 'BLOQUEADO';
-                break;
-        }
+                default:
+                    $class = 'is-blocked';
+                    $text = 'BLOQUEADO';
+                    break;
+            }
         ?>
         <a class="button is-status <?=$class?>">
             <span><?=$text?></span>
         </a>
     </header>
-
     <div class="dashboard-content-single">
         <form id="acaoSingleForm" class="" method="post" enctype="multipart/form-data" action="javascript:void(0);" data-action="<?php bloginfo( 'url' );?>/wp-admin/admin-ajax.php">
             <div class="fields">
@@ -245,6 +242,14 @@ namespace hacklabr\dashboard;
                     </p>
                 </div>
             </div>
+            <div class="fields">
+                <?php if( !empty( $pod->field( 'total_participantes' ) ) ) : ?>
+                    <a class="is-download button" href="<?=admin_url( 'admin-ajax.php?action=download_participantes_acao&post_id=' . get_the_ID() )?>" target="_blank">
+                        <iconify-icon icon="bi:download"></iconify-icon>
+                        Lista de participantes <span>(<?=$pod->field( 'total_participantes' )?>)</span>
+                    </a>
+                <?php endif; ?>
+            </div>
             <div class="form-submit">
                 <input type="hidden" name="action" value="form_single_acao_edit">
                 <input type="hidden" name="post_id" value="<?=get_the_ID()?>">
@@ -256,15 +261,13 @@ namespace hacklabr\dashboard;
                     </a>
                 </div>
                 <div>
-
                     <?php if( $post_status !== 'pending' ) : ?>
                         <a class="button is-archive">
                             <iconify-icon icon="bi:x-lg"></iconify-icon>
                             <span>Arquivar</span>
                         </a>
-                    <?php endif; ?>
+                    <?php endif;
 
-                    <?php
                         //TODO: REFACTORY P/ MELHOR LOGICA
                         switch ( $post_status ) {
 
@@ -286,8 +289,8 @@ namespace hacklabr\dashboard;
                                     <span>Publicar Alterações</span>
                                 </a>
                                 <a class="button is-done">
-                                    <span>Ação Realizada</span>
                                     <iconify-icon icon="bi:check-square-fill"></iconify-icon>
+                                    <span>Concluir Ação</span>
                                 </a>
                                 <?php
 

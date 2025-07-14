@@ -2,7 +2,12 @@
 
 namespace hacklabr\dashboard;
 
-    $get_acoes = get_acoes_by_status( 'publish' );
+    $post_id = get_query_var('post_id' );
+
+    $get_acao = get_post( $post_id );
+
+
+
     $all_terms = get_terms([
         'taxonomy' => 'tipo_acao',
         'hide_empty' => false,
@@ -35,21 +40,18 @@ namespace hacklabr\dashboard;
                 <div class="input-wrap">
                     <label class="label">Selecione a ação realizada</label>
 
-                    <select id="selectAcaoRealizada" class="select" name="acao_realizada" required >
-                        <option value="">SELECIONE UMA AÇÃO</option>
-                        <?php if( $get_acoes[ 'posts' ]->have_posts() ) :
-                            while( $get_acoes[ 'posts' ]->have_posts() ) :
-                                $get_acoes[ 'posts' ]->the_post(); ?>
-                                <option value="<?=get_the_ID()?>"><?=get_the_title()?></option>
-                            <?php endwhile; endif; ?>
-                    </select>
+                    <input type="hidden" name="acao_realizada" value="<?=$get_acao->ID?>">
+                    <input type="text" value="<?=$get_acao->post_title?>" style="padding-left: 50px;" disabled>
                     <a class="button is-category">
-                        <?php risco_badge_category( 'sem-categoria', 'SEM CATEGORIA ADICIONADA', '' ); ?>
+                        <?php
+                        $get_terms = get_the_terms( $get_acao->ID, 'tipo_acao' );
+                        if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                            risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, '' );
+                        } else {
+                            risco_badge_category( 'sem-categoria', 'SEM CATEGORIA ADICIONADA', '' );
+                        }
+                        ?>
                     </a>
-                    <a class="button is-select-input">
-                        <iconify-icon icon="bi:chevron-down"></iconify-icon>
-                    </a>
-
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">

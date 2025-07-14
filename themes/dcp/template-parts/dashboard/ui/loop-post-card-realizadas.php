@@ -37,7 +37,7 @@ $pod = pods( 'acao', get_the_ID() );
         <ul class="post-card__list-infos">
             <li>
                 <i><iconify-icon icon="bi:calendar3"></iconify-icon></i>
-                <span>Dia: <?=$pod->field( 'data' )?>, <?=$pod->field( 'horario' )?></span>
+                <span>Dia: <?=$pod->field( 'date' )?>, <?=$pod->field( 'horario' )?></span>
             </li>
             <li>
                 <i><iconify-icon icon="bi:geo-alt-fill"></iconify-icon></i>
@@ -45,9 +45,18 @@ $pod = pods( 'acao', get_the_ID() );
             </li>
         </ul>
         <div class="post-card__see-more term-<?=$get_terms[0]->slug?>">
-            <div></div>
             <div>
-                <a class="is-arquivados button" href="<?=get_dashboard_url( 'adicionar-relato' )?>/?post_id=<?=get_the_ID()?>">
+                <div>
+                    <?php if( !empty( $pod->field( 'total_participantes' ) ) ) : ?>
+                        <a class="is-download button" href="<?=admin_url( 'admin-ajax.php?action=download_participantes_acao&post_id=' . get_the_ID() )?>" target="_blank">
+                            <iconify-icon icon="bi:download"></iconify-icon>
+                            Lista de participantes <span>(<?=$pod->field( 'total_participantes' )?>)</span>
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div>
+                <a class="is-arquivados button" href="<?=get_dashboard_url( 'criar-relato-por-acao' )?>/?post_id=<?=get_the_ID()?>">
                     <iconify-icon icon="bi:pencil-square"></iconify-icon>
                     Criar Relato
                 </a>
