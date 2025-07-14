@@ -7,6 +7,11 @@
         $endereco = $pods->display( 'endereco' );
     ?>
     <section class="relato-grid">
+        <?php if ( wp_is_mobile() && function_exists('bcn_display') ) : ?>
+            <nav class="relato-conteudo breadcrumb bread-relato" typeof="BreadcrumbList" vocab="https://schema.org/">
+                <?php bcn_display(); ?>
+            </nav>
+        <?php endif; ?>
        <div class="relato-thumb">
         <?php if ( has_post_thumbnail() ) : ?>
             <div class="relato-thumb-wrapper">
@@ -20,7 +25,7 @@
         </div>
 
         <div class="relato-conteudo">
-            <?php if (function_exists('bcn_display')) : ?>
+            <?php if (function_exists('bcn_display') && !wp_is_mobile()) : ?>
                 <nav class="relato-conteudo breadcrumb bread-relato" typeof="BreadcrumbList" vocab="https://schema.org/">
                     <?php bcn_display(); ?>
                 </nav>
