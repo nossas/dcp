@@ -105,6 +105,7 @@ add_action('wp_ajax_nopriv_form_participar_acao', 'form_participar_acao');
 
 function form_single_relato_new() {
 
+    $acao_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
     $current_user = wp_get_current_user();
     $postID = wp_insert_post([
         'post_type' => 'relato',
@@ -118,7 +119,8 @@ function form_single_relato_new() {
             'horario' => sanitize_text_field($_POST['horario']),
             'nome_completo' => $current_user->display_name,
             'email' => $current_user->user_email,
-            'data_e_horario' => date('Y-m-d H:i:s'),
+            'post_id' => $acao_id,
+            'acao_titulo' => sanitize_text_field($_POST['acao_titulo']),
         ]
     ], true);
 
