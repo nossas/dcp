@@ -161,6 +161,7 @@ namespace hacklabr\dashboard;
                                 <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
                                 <div class="assets-list">
                                     <?php foreach ( $attachments as $image ) : ?>
+                                        <input type="hidden" name="attatchment_cover_id" value="<?=$image->ID?>">
                                         <figure class="asset-item-preview">
                                             <img class="is-load-now" data-media-src="<?=$image->guid?>">
                                             <div class="asset-item-preview-actions">
