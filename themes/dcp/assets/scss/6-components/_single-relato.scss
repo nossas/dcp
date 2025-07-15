@@ -15,7 +15,9 @@ p {
     margin-top: 40px;
     align-items: flex-end;
     align-items: center;
+    justify-content: center;
     color: $color--secondary-dark;
+    gap: 8px;
     @media ( max-width: 1366px) {
         max-width: 75%;
     }
