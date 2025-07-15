@@ -123,6 +123,9 @@
             }
 
             .wpcf7-form-control-wrap > .wpcf7-textarea{
+                height: size( 150 );
+                resize: none;
+
                 @include mobile {
                     height: size(115);
                 }
