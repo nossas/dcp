@@ -373,3 +373,12 @@ function add_custom_body_classes($classes) {
 
     return $classes;
 }
+
+function cpt_acao_assets() {
+    if (is_singular('acao')) {
+        wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css');
+        wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js', [], null, true);
+        wp_enqueue_script('slider-single', get_template_directory_uri() . '/assets/js/slider-single.js', ['swiper-js'], null, true);
+    }
+}
+add_action('wp_enqueue_scripts', 'cpt_acao_assets');
