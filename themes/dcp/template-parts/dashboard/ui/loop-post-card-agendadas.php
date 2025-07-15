@@ -25,7 +25,6 @@ $pod = pods( 'acao', get_the_ID() );
         <div class="post-card__excerpt-wrapped">
             <p class="text-excerpt">
                 <?php dashboard_excerpt( $pod->field( 'descricao' ) ); ?>
-                <pre style="display: none">000 - CADASTROS : faça parte da rede!</pre>
             </p>
         </div>
         <ul class="post-card__list-infos">
