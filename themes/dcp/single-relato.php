@@ -65,11 +65,12 @@ if (!empty($termos_tipo_acao) && !is_wp_error($termos_tipo_acao)) {
 
     <?php
     // Exibe slider de anexos (imagens)
-    $attachments = get_attached_media('image', get_the_ID());
+   $attachments = get_attached_media('image', get_the_ID());
 
     if (!empty($attachments)) : ?>
         <!-- Swiper CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
         <!-- Estrutura do slider -->
         <div class="anexos-slider swiper">
             <div class="swiper-wrapper">
@@ -90,11 +91,25 @@ if (!empty($termos_tipo_acao) && !is_wp_error($termos_tipo_acao)) {
         </div>
 
         <!-- Swiper JS -->
-        <script ></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
         <!-- Script de inicialização -->
         <script>
-
+            document.addEventListener('DOMContentLoaded', function () {
+                const swiper = new Swiper('.anexos-slider', {
+                    loop: true,
+                    slidesPerView: 1,
+                    spaceBetween: 30,
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                });
+            });
         </script>
     <?php endif; ?>
 </main>
