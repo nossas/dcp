@@ -21,7 +21,7 @@ function download_participantes_acao() {
     header('Content-Disposition: attachment; filename=' . date( 'Y-m-d_H.i' ) . '-participantes-' . $get_acao->post_name . '.csv' );
 
     $output = fopen('php://output', 'w' );
-    fputcsv( $output, [ '#ID', 'Nome completo', 'Telefone', 'E-mail', 'Data e horário', 'IP' ] );
+    fputcsv( $output, [ '#ID', 'Nome completo', 'Telefone', 'E-mail', 'Data e horário' ] );
 
     foreach ( $subscriptions->posts as $key => $item ) {
         $pod = pods( 'acao_subscription', $item->ID );
@@ -30,8 +30,7 @@ function download_participantes_acao() {
             $pod->field( 'nome_completo' ),
             $pod->field( 'telefone' ),
             $pod->field( 'email' ),
-            $pod->field( 'data_e_horario' ),
-            $pod->field( 'ip_address' ),
+            $pod->field( 'data_e_horario' )
         ]);
     }
     fclose($output);
@@ -56,7 +55,7 @@ function form_participar_acao() {
         'post_type' => 'acao_subscription',
         'post_status' => 'private',
         'post_title' => time(),
-        'post_content' => json_encode( [ $_SERVER, $_SESSION, $_COOKIE, $_REQUEST ] ),
+        'post_content' => base64_encode( json_encode( [ $_SERVER, $_SESSION, $_COOKIE, $_REQUEST ] ) ),
         'meta_input' => [
             'nome_completo' => sanitize_text_field($_POST['nome_completo']),
             'email' => sanitize_text_field($_POST['email']),
@@ -107,6 +106,8 @@ function form_single_relato_new() {
 
     $acao_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
     $current_user = wp_get_current_user();
+    $data_e_horario = sanitize_text_field($_POST['date']) . ' ' . sanitize_text_field($_POST['horario']) . ':00';
+
     $postID = wp_insert_post([
         'post_type' => 'relato',
         'post_status' => 'publish',
@@ -115,8 +116,7 @@ function form_single_relato_new() {
         'meta_input' => [
             'titulo' => sanitize_text_field($_POST['titulo']),
             'descricao' => sanitize_text_field($_POST['descricao']),
-            'date' => sanitize_text_field($_POST['date']),
-            'horario' => sanitize_text_field($_POST['horario']),
+            'data_e_horario' => date( 'Y-m-d H:i:s', strtotime( $data_e_horario ) ),
             'nome_completo' => $current_user->display_name,
             'email' => $current_user->user_email,
             'post_id' => $acao_id,
@@ -143,11 +143,10 @@ function form_single_relato_new() {
     $save_attachment = upload_file_to_attachment_by_ID($_FILES['media_files'], $postID, false );
 
     if ( empty($save_cover['errors']) && empty($save_attachment['errors']) ) {
-
         wp_send_json_success([
             'title' => 'Sucesso',
             'message' => 'Formulário enviado com sucesso!',
-            'uploaded_files' => $save_attachment['uploaded_files'],
+            'uploaded_files' => array_merge( $save_cover['uploaded_files'], $save_attachment['uploaded_files'] ),
             'post_id' => $postID,
             'url_callback' => get_site_url() . '/dashboard/editar-relato/?post_id=' . $postID,
             'is_new' => true,
@@ -169,9 +168,11 @@ function form_single_acao_new() {
         $current_user = wp_get_current_user();
         $nome_completo = $current_user->display_name;
         $email = $current_user->user_email;
+        $data_e_horario = sanitize_text_field($_POST['date']) . ' ' . sanitize_text_field($_POST['horario']) . ':00';
     } else {
         $nome_completo = sanitize_text_field($_POST['nome_completo']);
         $email = sanitize_text_field($_POST['email']);
+        $data_e_horario = date('Y-m-d H:i:s');
     }
 
     $postID = wp_insert_post([
@@ -183,13 +184,11 @@ function form_single_acao_new() {
             'titulo' => sanitize_text_field($_POST['titulo']),
             'descricao' => sanitize_text_field($_POST['descricao']),
             'endereco' => sanitize_text_field($_POST['endereco']),
-            'date' => sanitize_text_field($_POST['date']),
-            'horario' => sanitize_text_field($_POST['horario']),
             'nome_completo' => $nome_completo,
             'email' => $email,
             'telefone' => sanitize_text_field($_POST['telefone']),
             'autoriza_contato' => sanitize_text_field($_POST['autoriza_contato']),
-            'data_e_horario' => date('Y-m-d H:i:s'),
+            'data_e_horario' => $data_e_horario,
         ]
     ], true);
 
@@ -264,6 +263,8 @@ function form_single_acao_edit() {
 //        $publish_date_gmt = get_gmt_from_date( $publish_date );
 //    }
 
+    $data_e_horario = sanitize_text_field($_POST['date']) . ' ' . sanitize_text_field($_POST['horario']) . ':00';
+
     $updated_id = wp_update_post([
             'ID' => $postID,
             'post_type' => 'acao',
@@ -276,8 +277,7 @@ function form_single_acao_edit() {
                 'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
                 'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
                 'titulo' => sanitize_text_field( $_POST[ 'titulo' ] ),
-                'date' => sanitize_text_field( $_POST[ 'date' ] ),
-                'horario' => sanitize_text_field( $_POST[ 'horario' ] )
+                'data_e_horario' => $data_e_horario
             ],
         ],
         true
@@ -304,6 +304,7 @@ function form_single_acao_edit() {
 
     //TODO: REFACTORY
     if( !empty( $_FILES['media_file'] ) ) {
+
         if ( has_post_thumbnail( $updated_id ) ) {
             $old_attachment_id = get_post_thumbnail_id( $updated_id );
             wp_delete_attachment( $old_attachment_id );
