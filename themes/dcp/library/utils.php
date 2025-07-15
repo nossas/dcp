@@ -409,7 +409,7 @@ function salvar_formulario_especifico_como_post($contact_form) {
     if ($submission) {
         $posted_data = $submission->get_posted_data();
 
-        wp_insert_post(array(
+        $postID = wp_insert_post(array(
             'post_type' => 'acao',
             'post_title' => 'SUGESTÃO DE AÇÃO / SITE',
             'post_content' => isset($posted_data['descricao']) ? $posted_data['descricao'] : 'DESCRIÇÃO VAZIA',
@@ -422,5 +422,13 @@ function salvar_formulario_especifico_como_post($contact_form) {
                 'data_e_horario' => date('Y-m-d H:i:s')
             ]
         ));
+
+        wp_set_object_terms(
+            $postID,
+            [sanitize_text_field(isset($posted_data['acao-categoria']) ? $posted_data['acao-categoria'] : 'sem-categoria')],
+            'tipo_acao',
+            false
+        );
+
     }
 }
