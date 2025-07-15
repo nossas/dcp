@@ -48,7 +48,7 @@ $pod = pods( 'relato', get_the_ID() );
         <ul class="post-card__list-infos">
             <li>
                 <i><iconify-icon icon="bi:calendar3"></iconify-icon></i>
-                <span>Dia: <?=$pod->field( 'data' )?>, <?=$pod->field( 'horario' )?></span>
+                <span>Dia: <?=date( 'd/m/Y, H:i', strtotime( $pod->field( 'data_e_horario' ) ) )?></span>
             </li>
             <?php if( !empty( $pod->field( 'endereco' ) ) ) : ?>
                 <li>

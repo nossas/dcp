@@ -19,7 +19,7 @@ $pod = pods( 'acao', get_the_ID() );
                 }
                 ?>
             </div>
-            <div class="post-card__risco-meta"><?=$pod->field( 'data' )?></div>
+            <div class="post-card__risco-meta"><?=date( 'd/m/Y', strtotime( $pod->field( 'data_e_horario' ) ) )?></div>
         </div>
 
         <h3 class="post-card__title">

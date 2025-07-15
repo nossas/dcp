@@ -37,7 +37,7 @@ $pod = pods( 'acao', get_the_ID() );
         <ul class="post-card__list-infos">
             <li>
                 <i><iconify-icon icon="bi:calendar3"></iconify-icon></i>
-                <span>Dia: <?=$pod->field( 'date' )?>, <?=$pod->field( 'horario' )?></span>
+                <span>Dia: <?=date( 'd/m/Y, H:i', strtotime( $pod->field( 'data_e_horario' ) ) )?></span>
             </li>
             <li>
                 <i><iconify-icon icon="bi:geo-alt-fill"></iconify-icon></i>
