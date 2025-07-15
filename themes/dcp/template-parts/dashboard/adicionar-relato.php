@@ -92,7 +92,7 @@ namespace hacklabr\dashboard;
                 <div class="is-group">
                     <div class="input-wrap">
                         <label class="label">Data</label>
-                        <input class="input" type="text" name="date" placeholder="Digite aqui" value="<?=(!empty($pod->field( 'date' ))) ? $pod->field( 'date' ) : '' ?>" required disabled>
+                        <input class="input" type="text" name="data" placeholder="Digite aqui" value="<?=(!empty($pod->field( 'data' ))) ? $pod->field( 'data' ) : '' ?>" required disabled>
                     </div>
                     <div class="input-wrap">
                         <label class="label">Horário</label>
@@ -246,7 +246,7 @@ namespace hacklabr\dashboard;
             </div>
             <div class="form-submit">
                 <input type="hidden" name="action" value="form_single_relato_new">
-                <input type="hidden" name="email" value="admin@admin.com">
+                <input type="hidden" name="post_id" value="<?=$get_acao->ID?>">
                 <a class="button is-goback">
                     <iconify-icon icon="bi:chevron-left"></iconify-icon>
                     <span>Voltar</span>
