@@ -36,7 +36,7 @@ if (!empty($termos_tipo_acao) && !is_wp_error($termos_tipo_acao)) {
         </nav>
     <?php endif; ?>
 
-    <h1 class="post-header__title"><?php the_title(); ?></h1>
+    <h1 class="post-header__title" style="color: #281414;"><?php the_title(); ?></h1>
 
     <?php if (!empty($termo)) : ?>
         <div class="post-header__tags">
