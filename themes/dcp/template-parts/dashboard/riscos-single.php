@@ -14,7 +14,7 @@
             $riscoSingle->the_post();
 
             $pod = pods( 'risco', get_the_ID());
-            $attachments = get_attached_media('', get_the_ID() );
+            //$attachments = get_attached_media('', get_the_ID() );
 
             //TODO: REFACTORY P/ MELHOR MANEIRA
             $videos = [];

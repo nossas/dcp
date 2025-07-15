@@ -244,7 +244,7 @@ namespace hacklabr\dashboard;
                 </div>
             </div>
             <div class="form-submit">
-                <input type="hidden" name="action" value="form_single_relato_new">
+                <input type="hidden" name="action" value="form_single_relato_edit">
                 <input type="hidden" name="email" value="admin@admin.com">
                 <a class="button is-goback">
                     <iconify-icon icon="bi:chevron-left"></iconify-icon>
@@ -252,7 +252,7 @@ namespace hacklabr\dashboard;
                 </a>
                 <a class="button is-new relato">
                     <iconify-icon icon="bi:check2"></iconify-icon>
-                    <span>Criar Relato</span>
+                    <span>Publicar Alterações</span>
                 </a>
             </div>
         </form>
