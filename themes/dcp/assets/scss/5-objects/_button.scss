@@ -141,13 +141,15 @@
 
 .ver-mais-acoes{
     background-color: $color--secondary-dark;
+    font-weight: $font-weight--medium;
     color: $color--secondary-light;
     display: flex;
     align-items: center;
     gap: $gap--small;
-    padding: size(10) $padding--medium;
-    border-radius: calc($border-radius--large * 5) !important;
-    font-weight: $font-weight--medium;
+    padding: size( 10 ) $padding--medium;
+    border-radius: size( 50 );
+    cursor: pointer;
+
     &::after {
         background-size: contain;
         background-repeat: no-repeat;

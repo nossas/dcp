@@ -80,16 +80,14 @@ $sectios_tabs = [
                 <?php get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
 
                 <?php
-                    if( $tipo_acao === 'relatos-compartilhados' ) : ?>
 
-                        <div class="message-response">
-                            <span class="tabs__panel-message">Nenhum relato foi registrado ainda.</span>
-                        </div>
-
-                    <?php else :
-
+                    if( $tipo_acao === 'relatos-compartilhados' ) {
+                        $get_acoes = get_relatos_by_status();
+                    } else {
                         $get_acoes = get_acoes_by_status( $sectios_tabs[ $tipo_acao ][ 'post_status' ] );
-                        if( $get_acoes[ 'posts' ]->have_posts() ) :
+                    }
+
+                    if( $get_acoes[ 'posts' ]->have_posts() ) :
                         while( $get_acoes[ 'posts' ]->have_posts() ) :
                             $get_acoes[ 'posts' ]->the_post(); ?>
 
@@ -99,11 +97,11 @@ $sectios_tabs = [
 
                     else : ?>
 
-                        <div class="message-response">
-                            <span class="tabs__panel-message">Nenhuma ação foi registrada ainda.</span>
-                        </div>
+                    <div class="message-response">
+                        <span class="tabs__panel-message">Nenhuma ação foi registrada ainda.</span>
+                    </div>
 
-                    <?php endif; endif; ?>
+                <?php endif;  ?>
             </div>
         </div>
     </div>
