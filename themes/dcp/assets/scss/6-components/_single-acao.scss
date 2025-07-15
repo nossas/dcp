@@ -179,3 +179,14 @@
         margin-left: 0rem !important;
     }
 }
+.single-acao {
+    .bread-relato {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 8px;
+        justify-content: flex-start;
+        margin-top: 40px;
+        max-width: 100%;
+        text-align: left !important;
+    }
+}
