@@ -75,7 +75,7 @@
                 <?php if ( $dia ) : ?>
                     <li>
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pin.svg" alt="Ícone de horário" style="width: 1em; vertical-align: middle; margin-right: 0.5em;">
-                        Dia: <?php echo esc_html($dia); ?>
+                        Dia: <?=date( 'd/m/Y, H:i', strtotime( $pods->field( 'data_e_horario' ) ) )?>
                     </li>
                 <?php endif; ?>
 

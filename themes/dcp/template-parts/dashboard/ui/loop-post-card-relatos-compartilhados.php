@@ -8,20 +8,16 @@ $pod = pods( 'relato', get_the_ID() );
 <article class="post-card is-relatos" style="display: none;">
     <main class="post-card__content">
         <div class="post-card__cover">
-            <div class="post-card__assets is-slider-thumb">
-                <?php $get_attachments = get_attached_media('', get_the_ID() );
-                if( !empty( $get_attachments ) ) :
-                    foreach ( get_attached_media('', get_the_ID() ) as $attachment ) : ?>
-                        <div class="slider-thumb-item">
-                            <img class="is-load-now" data-media-src="<?=$attachment->guid?>" />
-                        </div>
-                    <?php endforeach;
-                else : ?>
-                    <div class="slider-thumb-empty">
-                        Nenhuma Mídia adicionada ainda.
-                    </div>
-                <?php endif; ?>
-            </div>
+            <?php $get_attachments = get_attached_media('', get_the_ID() );
+            if( !empty( $get_attachments ) ) :
+                foreach ( get_attached_media('', get_the_ID() ) as $attachment ) : ?>
+                    <img class="is-load-now" data-media-src="<?=$attachment->guid?>" />
+                <?php endforeach;
+            else : ?>
+                <div class="slider-thumb-empty">
+                    Nenhuma Mídia adicionada ainda.
+                </div>
+            <?php endif; ?>
         </div>
         <div class="post-card__term">
             <div>

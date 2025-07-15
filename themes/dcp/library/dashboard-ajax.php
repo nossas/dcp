@@ -139,7 +139,13 @@ function form_single_relato_new() {
         false
     );
 
-    $save_cover = upload_file_to_attachment_by_ID($_FILES['media_file'], $postID, true );
+    if( empty( $_FILES['media_file'] ) ) {
+        $attachment_id = isset($_POST['attatchment_cover_id']) ? intval($_POST['attatchment_cover_id']) : 0;
+        $save_cover = set_post_thumbnail( $postID, $attachment_id );
+    } else {
+        $save_cover = upload_file_to_attachment_by_ID($_FILES['media_file'], $postID, true );
+    }
+
     $save_attachment = upload_file_to_attachment_by_ID($_FILES['media_files'], $postID, false );
 
     if ( empty($save_cover['errors']) && empty($save_attachment['errors']) ) {
