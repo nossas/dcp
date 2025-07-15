@@ -386,3 +386,41 @@ function cpt_acao_assets() {
     }
 }
 add_action('wp_enqueue_scripts', 'cpt_acao_assets');
+
+
+
+
+
+
+// Salvar dados de UM FORMULÁRIO ESPECÍFICO do CF7 como Custom Post Type
+add_action('wpcf7_mail_sent', 'salvar_formulario_especifico_como_post');
+
+function salvar_formulario_especifico_como_post($contact_form) {
+    // ID do formulário específico que você quer direcionar
+    $formulario_alvo_id = 712; // Substitua pelo ID do seu formulário
+
+    // Verificar se é o formulário correto
+    if ($contact_form->id() != $formulario_alvo_id) {
+        return;
+    }
+
+    $submission = WPCF7_Submission::get_instance();
+
+    if ($submission) {
+        $posted_data = $submission->get_posted_data();
+
+        wp_insert_post(array(
+            'post_type' => 'acao',
+            'post_title' => 'SUGESTÃO DE AÇÃO / SITE',
+            'post_content' => isset($posted_data['descricao']) ? $posted_data['descricao'] : 'DESCRIÇÃO VAZIA',
+            'post_status' => 'draft',
+            'meta_input' => [
+                'nome_completo' => isset($posted_data['nome-completo']) ? $posted_data['nome-completo'] : 'NOME COMPLETO VAZIO',
+                'telefone' => isset($posted_data['telefone']) ? $posted_data['telefone'] : 'TELEFONE VAZIO',
+                'categoria' => isset($posted_data['categoria']) ? $posted_data['categoria'] : 'CATEGORIA VAZIA',
+                'descricao' => isset($posted_data['descricao']) ? $posted_data['descricao'] : 'DESCRIÇÃO VAZIA',
+                'data_e_horario' => date('Y-m-d H:i:s')
+            ]
+        ));
+    }
+}

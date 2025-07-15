@@ -32,7 +32,6 @@ $pod = pods( 'relato', get_the_ID() );
             </div>
             <div class="post-card__risco-meta"><?=$pod->field( 'data' )?></div>
         </div>
-
         <h3 class="post-card__title">
             <span><?=get_the_title()?></span>
         </h3>
@@ -53,13 +52,12 @@ $pod = pods( 'relato', get_the_ID() );
                 </li>
             <?php endif; ?>
         </ul>
-
         <div class="post-card__see-more">
             <div>
                 <span>Publicada</span>
             </div>
             <div>
-                <a class="is-arquivados button" href="<?=get_dashboard_url( 'adicionar-relato' )?>?post_id=<?=get_the_ID()?>">
+                <a class="is-arquivados button" href="<?=get_dashboard_url( 'editar-relato' )?>?post_id=<?=get_the_ID()?>">
                     <iconify-icon icon="bi:pencil-square"></iconify-icon>
                     Editar
                 </a>
