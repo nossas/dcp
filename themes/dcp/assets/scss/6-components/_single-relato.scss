@@ -185,9 +185,7 @@ p {
     margin-top: 40px;
     padding-bottom: 58px;
     padding-left: inherit;
-    @media ( max-width: 1366px ) {
-        width: 61%;
-    }
+
     @include mobile{
         width: auto;
     }

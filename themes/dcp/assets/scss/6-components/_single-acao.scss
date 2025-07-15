@@ -8,7 +8,7 @@
             margin-top: 72px;
             align-items: center;
             display: flex;
-            justify-content: center;
+            width: 100%;
 
             @include mobile {
                 justify-content: initial;
