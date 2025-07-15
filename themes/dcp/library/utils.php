@@ -377,8 +377,12 @@ function add_custom_body_classes($classes) {
 function cpt_acao_assets() {
     if (is_singular('acao')) {
         wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css');
+
+        // Carrega primeiro o Swiper.js
         wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js', [], null, true);
-        wp_enqueue_script('slider-single', get_template_directory_uri() . '/assets/js/slider-single.js', ['swiper-js'], null, true);
+
+        // Depois, seu script que usa Swiper (com 'swiper-js' como dependência)
+        wp_enqueue_script('app-js', get_template_directory_uri() . '/dist/js/functionalities/app.js', ['swiper-js'], null, true);
     }
 }
 add_action('wp_enqueue_scripts', 'cpt_acao_assets');
