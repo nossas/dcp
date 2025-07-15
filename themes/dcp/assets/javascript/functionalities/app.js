@@ -135,3 +135,19 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+
+document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.anexos-slider', {
+        loop: true,
+        slidesPerView: 1,
+        spaceBetween: 30,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+});
