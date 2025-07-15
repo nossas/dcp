@@ -1,7 +1,4 @@
-$verde: #235540;
-$cinza-claro: #f5f5f5;
-$cinza-texto: #444;
-$bordas: 6px;
+
 h1{
     margin: 0px;
 }
@@ -24,6 +21,14 @@ p {
     }
     @include mobile {
         margin-top: 32px;
+    }
+}
+.post-content {
+    .wp-block-cover {
+        padding: 0px;
+        &__inner-container {
+            padding:0;
+        }
     }
 }
 
@@ -52,7 +57,7 @@ p {
     padding-top: size( 25 );
 
   .relato-thumb-wrapper {
-      display: block;
+    display: block;
     border-radius: 16px;
     overflow: hidden;
 
@@ -91,7 +96,6 @@ p {
       background: #235540;
       color: white;
       padding: 0.25rem 0.6rem;
-      border-radius: $bordas;
       font-size: 0.9rem;
       img {
             width: auto !important;
@@ -101,7 +105,6 @@ p {
 
   .relato-descricao {
     margin-bottom: 8px;
-    color: $cinza-texto;
     line-height: 1.6;
     margin-top: 32px;
     margin-bottom: 32px;
@@ -137,16 +140,39 @@ p {
     h1 {
         color: $color--primary-pure !important;
         font-size: 48px;
+        @include mobile {
+            text-align: start;
+            font-size: 24px;
+        }
+    }
+    &__excerpt {
+        font-size: $font-size--x-small;
     }
     &__tags{
         align-items: center;
+        margin-top: $margin--medium;
+        margin-bottom: 34px;
+        gap: $gap--medium;
+        color: $color--secondary-light;
+        @include mobile{
+            justify-content: flex-start;
+            margin-bottom: $margin--medium;
+
+        }
         .tag{
             padding: 4px 16px !important;
             display: flex;
-
+            font-size: 14px;
+            border: solid 1px $color--primary-pure;
+            background-color: $color--primary-pure;
+            align-items: center;
+            @include mobile {
+                font-size: 12px;
+            }
         }
     }
 }
+
 // Formulário
 .formulario-participar {
     display: grid;
@@ -216,7 +242,7 @@ p {
         transition: background 0.2s ease;
 
       &:hover {
-        background: darken($verde, 5%);
+        background: darken(#235514, 5%);
       }
       @include mobile{
         margin-left: 0px;

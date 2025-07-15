@@ -1,4 +1,4 @@
-<section class="proximas-acoes">
+<section class=" container container--medium proximas-acoes">
   <h2 class="secao-titulo">Próximas Ações</h2>
   <p class="secao-subtitulo">Aenean egestas ultricies nibh, at tempus purus fringilla in. Curabitur ornare enim justo, at tristique.</p>
 

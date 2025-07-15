@@ -6,7 +6,7 @@
 get_header();
 the_post();
 $excerpt = !empty($post->post_excerpt) ? wp_kses_post($post->post_excerpt) : '';
-$termos_tipo_acao = get_the_terms(get_the_ID(), 'relato');
+$termos_tipo_acao = get_the_terms(get_the_ID(), 'tipo_acao');
 
 $base_icon_dir = get_template_directory_uri() . '/assets/images/tipo-acao/';
 $icon_filename = 'default.svg';
