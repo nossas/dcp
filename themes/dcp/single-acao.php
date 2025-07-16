@@ -3,13 +3,11 @@
 <main id="primary" class="site-main container  container--wide">
     <?php if ( have_posts() ) : while ( have_posts() ) : the_post();
         $pods = pods( 'acao', get_the_ID() );
-        $dia = $pods->display( 'data' );
-        $endereco = $pods->display( 'endereco' );
     ?>
     <section class="relato-grid">
-        <?php if ( wp_is_mobile() && function_exists('bcn_display') ) : ?>
+        <?php if ( wp_is_mobile() ) : ?>
             <nav class="relato-conteudo breadcrumb bread-relato" typeof="BreadcrumbList" vocab="https://schema.org/">
-                <?php bcn_display(); ?>
+                <?php if ( function_exists('bcn_display') ) {  bcn_display(); } ?>
             </nav>
         <?php endif; ?>
        <div class="relato-thumb">
@@ -25,9 +23,9 @@
         </div>
 
         <div class="relato-conteudo">
-            <?php if (function_exists('bcn_display') && !wp_is_mobile()) : ?>
+            <?php if (!wp_is_mobile()) : ?>
                 <nav class="relato-conteudo breadcrumb bread-relato" typeof="BreadcrumbList" vocab="https://schema.org/">
-                    <?php bcn_display(); ?>
+                    <?php if ( function_exists('bcn_display') ) {  bcn_display(); } ?>
                 </nav>
             <?php endif; ?>
 
@@ -72,20 +70,15 @@
             </div>
 
             <ul class="relato-info">
-                <?php if ( $dia ) : ?>
-                    <li>
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pin.svg" alt="Ícone de horário" style="width: 1em; vertical-align: middle; margin-right: 0.5em;">
-                        Dia: <?=date( 'd/m/Y, H:i', strtotime( $pods->field( 'data_e_horario' ) ) )?>
-                    </li>
-                <?php endif; ?>
+                <li>
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pin.svg" alt="Ícone de horário" style="width: 1em; vertical-align: middle; margin-right: 0.5em;">
+                    Dia: <?=date( 'd/m/Y, H:i', strtotime( $pods->field( 'data_e_horario' ) ) )?>
+                </li>
 
-                <?php if ( $endereco ) : ?>
-                    <li>
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/wrapper.svg" alt="Ícone de endereço" style="width: 1em; vertical-align: middle; margin-right: 0.5em;">
-                        Endereço: <?php echo esc_html($endereco); ?>
-                    </li>
-                <?php endif; ?>
-
+                <li>
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/wrapper.svg" alt="Ícone de endereço" style="width: 1em; vertical-align: middle; margin-right: 0.5em;">
+                    Endereço: <?php echo esc_html( $pods->display( 'endereco' ) ); ?>
+                </li>
                 <?php
                 $imagem = $pods->display('imagem_relato');
                 if ( $imagem ) : ?>

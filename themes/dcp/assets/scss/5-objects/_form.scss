@@ -89,10 +89,16 @@
             cursor: pointer;
             display: flex;
             font-size: $font-size--x-small;
-            gap: $gap--x-small;
+            gap: size(5);
             height: size(40);
-            padding: 10px 16px 10px 10px;
+            padding: size( 5 ) size( 20 ) size( 5 ) size( 10 );
             transition: background-color 0.3s ease;
+
+            span {
+                display: inline-block;
+                font-size: size( 15 );
+                margin-top: -5px;
+            }
 
             @include mobile{
                 padding-inline: size(104);
@@ -123,11 +129,18 @@
             }
 
             .wpcf7-form-control-wrap > .wpcf7-textarea{
+                height: size( 150 );
+                resize: none;
+
                 @include mobile {
                     height: size(115);
                 }
             }
         }
+    }
+
+    .wpcf7-response-output {
+        display: none !important;
     }
 }
 

@@ -81,7 +81,7 @@ namespace hacklabr\dashboard;
                     get_template_part('template-parts/dashboard/ui/skeleton' );
 
                     if( $tipo_acao === 'relatos-compartilhados' ) {
-                        $get_acoes = get_relatos_by_status();
+                        $get_acoes = get_relatos();
                     } else {
                         $get_acoes = get_acoes_by_status( $sectios_tabs[ $tipo_acao ][ 'post_status' ] );
                     }
