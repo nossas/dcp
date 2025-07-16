@@ -59,7 +59,8 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Categoria</label>
-                    <select id="selectCategory" class="select" name="tipo_acao" required disabled >
+                    <input type="hidden" name="tipo_acao" value="<?=$get_terms[0]->slug?>">
+                    <select id="selectCategory" class="select" required readonly >
                         <?php if( !empty( $get_terms[0]->slug ) ) : ?>
                             <option value="<?=$get_terms[0]->slug?>" selected ><?=$get_terms[0]->name?></option>
                         <?php else : ?>
@@ -92,11 +93,13 @@ namespace hacklabr\dashboard;
                 <div class="is-group">
                     <div class="input-wrap">
                         <label class="label">Data</label>
-                        <input class="input" type="text" name="date" placeholder="Digite aqui" value="<?=date( 'd/m/Y', strtotime( $pod->field( 'data_e_horario' ) ) )?>" required disabled>
+                        <input class="input" type="hidden" name="data" value="<?=date( 'Y-m-d', strtotime( $pod->field('data_e_horario' ) ) )?>">
+                        <input class="input" type="text" value="<?=date( 'd/m/Y', strtotime( $pod->field('data_e_horario' ) ) )?>" required disabled>
                     </div>
                     <div class="input-wrap">
                         <label class="label">Horário</label>
-                        <input class="input" type="text" name="horario" placeholder="Digite aqui" value="<?=date( 'H:i', strtotime( $pod->field( 'data_e_horario' ) ) )?>" required disabled>
+                        <input class="input" type="hidden" name="horario" value="<?=date( 'H:i', strtotime( $pod->field( 'data_e_horario' ) ) )?>">
+                        <input class="input" type="text" value="<?=date( 'H:i', strtotime( $pod->field( 'data_e_horario' ) ) )?>" required disabled>
                     </div>
                 </div>
                 <div class="input-help">

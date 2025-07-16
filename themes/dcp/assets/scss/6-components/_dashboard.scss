@@ -566,6 +566,19 @@
                         min-height: size( 75 );
                         padding: size( 10 ) size( 20 );
 
+                        div {
+
+                            span {
+                                font-size: size( 15 );
+                            }
+                            span.is-draft {
+                                color: #777;
+                            }
+                            span.is-publish {
+                                color: $color--primary-pure;
+                            }
+                        }
+
                         .button {
                             font-size: size( 16 );
                             padding: size( 13 ) size( 23 );

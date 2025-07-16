@@ -30,7 +30,7 @@ $pod = pods( 'relato', get_the_ID() );
                     }
                 ?>
             </div>
-            <div class="post-card__risco-meta"><?=$pod->field( 'data' )?></div>
+            <div class="post-card__risco-meta"><?=get_the_date( 'd/m/Y' )?></div>
         </div>
         <h3 class="post-card__title">
             <span><?=get_the_title()?></span>
@@ -54,7 +54,11 @@ $pod = pods( 'relato', get_the_ID() );
         </ul>
         <div class="post-card__see-more">
             <div>
-                <span>Publicada</span>
+                <?php if( get_post_status() === 'draft' ) : ?>
+                    <span class="is-draft">Rascunho</span>
+                <?php else : ?>
+                    <span class="is-publish">Publicado</span>
+                <?php endif; ?>
             </div>
             <div>
                 <a class="is-arquivados button" href="<?=get_dashboard_url( 'editar-relato' )?>?post_id=<?=get_the_ID()?>">

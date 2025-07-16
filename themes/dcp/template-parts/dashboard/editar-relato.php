@@ -91,11 +91,11 @@ namespace hacklabr\dashboard;
                 <div class="is-group">
                     <div class="input-wrap">
                         <label class="label">Data</label>
-                        <input class="input" type="text" name="data" placeholder="Digite aqui" value="<?=(!empty($pod->field( 'data' ))) ? $pod->field( 'data' ) : '' ?>" required disabled>
+                        <input class="input" type="text" name="data" placeholder="Digite aqui" value="<?=date( 'Y-m-d', strtotime( $pod->field('data_e_horario' ) ) )?>" required disabled>
                     </div>
                     <div class="input-wrap">
                         <label class="label">Horário</label>
-                        <input class="input" type="text" name="horario" placeholder="Digite aqui" value="<?=(!empty($pod->field( 'horario' ))) ? $pod->field( 'horario' ) : '' ?>" required disabled>
+                        <input class="input" type="text" name="horario" placeholder="Digite aqui" value="<?=date( 'H:i', strtotime( $pod->field('data_e_horario' ) ) )?>" required disabled>
                     </div>
                 </div>
                 <div class="input-help">

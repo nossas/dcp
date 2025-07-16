@@ -1,5 +1,4 @@
 jQuery(function($) {
-    //
     $( window ).on( 'load', function() {
         $( '#formParticiparAcao' ).on( 'submit', function () {
             const $this = $( this );
@@ -42,11 +41,19 @@ jQuery(function($) {
         });
         $( '.layout-part--footer-archive-acao .wpcf7-form' ).on( 'submit', function () {
             const $this = $( this );
-            const $button = $this.find( '.btn-submit button' );
-            $button.html( '<iconify-icon icon="bi:arrow-clockwise"></iconify-icon> <span>Enviando . . .</span>' );
+            const $button = $this.find( '.btn-submit button span' );
+            $this.css({
+                opacity : 0.5,
+                cursor : 'not-allowed'
+            });
+            $button.text( 'Enviando . . .' );
             setTimeout(function () {
-                $button.html( '<iconify-icon icon="bi:check"></iconify-icon> <span>Enviar</span>' );
-            }, 3000 );
+                $this.css({
+                    opacity : 1,
+                    cursor : 'initial'
+                });
+                $button.text( 'Enviar' );
+            }, 2000 );
         });
     });
 });

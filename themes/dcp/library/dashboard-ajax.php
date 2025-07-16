@@ -106,11 +106,11 @@ function form_single_relato_new() {
 
     $acao_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
     $current_user = wp_get_current_user();
-    $data_e_horario = sanitize_text_field($_POST['date']) . ' ' . sanitize_text_field($_POST['horario']) . ':00';
+    $data_e_horario = sanitize_text_field($_POST['data']) . ' ' . sanitize_text_field($_POST['horario']) . ':00';
 
     $postID = wp_insert_post([
         'post_type' => 'relato',
-        'post_status' => 'publish',
+        'post_status' => 'draft',
         'post_title' => sanitize_text_field($_POST['titulo']),
         'post_content' => sanitize_text_field($_POST['text_post']),
         'meta_input' => [
