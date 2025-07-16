@@ -73,54 +73,55 @@ if (!empty($termos_tipo_acao) && !is_wp_error($termos_tipo_acao)) {
     <?php the_content(); ?>
 
     <?php
-    // Exibe slider de anexos (imagens)
-   $attachments = get_attached_media('image', get_the_ID());
+        // Exibe slider de anexos (imagens)
+        $attachments = get_attached_media('image', get_the_ID());
 
-    if (!empty($attachments)) : ?>
-        <!-- Swiper CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+        if (!empty($attachments)) :
+            unset( $attachments[ get_post_thumbnail_id( get_the_ID() ) ] ); ?>
+            <!-- Swiper CSS -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
-        <!-- Estrutura do slider -->
-        <div class="anexos-slider swiper">
-            <div class="swiper-wrapper">
-                <?php foreach ($attachments as $attachment) :
-                    $img_url = wp_get_attachment_url($attachment->ID); ?>
-                    <div class="swiper-slide">
-                        <img src="<?= esc_url($img_url); ?>" alt="Anexo">
-                    </div>
-                <?php endforeach; ?>
+            <!-- Estrutura do slider -->
+            <div class="anexos-slider swiper">
+                <div class="swiper-wrapper">
+                    <?php foreach ($attachments as $attachment) :
+                        $img_url = wp_get_attachment_url($attachment->ID); ?>
+                        <div class="swiper-slide">
+                            <img src="<?= esc_url($img_url); ?>" alt="Anexo">
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+
+                <!-- Botões -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+
+                <!-- Paginação -->
+                <div class="swiper-pagination"></div>
             </div>
 
-            <!-- Botões -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+            <!-- Swiper JS -->
+            <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
-            <!-- Paginação -->
-            <div class="swiper-pagination"></div>
-        </div>
-
-        <!-- Swiper JS -->
-        <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-
-        <!-- Script de inicialização -->
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const swiper = new Swiper('.anexos-slider', {
-                    loop: true,
-                    slidesPerView: 1,
-                    spaceBetween: 30,
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
-                    pagination: {
-                        el: '.swiper-pagination',
-                        clickable: true,
-                    },
+            <!-- Script de inicialização -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const swiper = new Swiper('.anexos-slider', {
+                        loop: true,
+                        slidesPerView: 1,
+                        spaceBetween: 30,
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                        },
+                    });
                 });
-            });
-        </script>
-    <?php endif; ?>
+            </script>
+        <?php endif; ?>
 </main>
 
 <?php get_template_part('template-parts/content/related-posts-acao'); ?>

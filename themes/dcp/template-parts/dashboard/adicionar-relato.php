@@ -115,6 +115,7 @@ namespace hacklabr\dashboard;
                 <div class="input-wrap">
                     <label class="label">Título</label>
                     <input class="input" type="text" name="titulo" placeholder="Digite aqui" value="<?=(!empty($pod->field( 'titulo' ))) ? $pod->field( 'titulo' ) : '' ?>" required>
+                    <input type="hidden" name="acao_titulo" value="<?=$pod->field( 'titulo' )?>">
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">

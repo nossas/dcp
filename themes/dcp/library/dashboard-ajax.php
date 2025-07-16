@@ -112,7 +112,7 @@ function form_single_relato_new() {
         'post_type' => 'relato',
         'post_status' => 'draft',
         'post_title' => sanitize_text_field($_POST['titulo']),
-        'post_content' => sanitize_text_field($_POST['text_post']),
+        'post_content' => wpautop( sanitize_text_field($_POST['text_post']), true ),
         'meta_input' => [
             'titulo' => sanitize_text_field($_POST['titulo']),
             'descricao' => sanitize_text_field($_POST['descricao']),
