@@ -178,6 +178,12 @@
         &__excerpt {
             font-size: $font-size--x-small;
         }
+        &__featured-image{
+            margin-top: 2rem;
+            @include mobile {
+                margin-top: 1rem;
+            }
+        }
         &__tags{
             align-items: center;
             margin-top: $margin--medium;
@@ -208,7 +214,7 @@
 
     img {
         max-height: fit-content !important;
-        border-radius: 0px;
+        border-radius: 0px !important;
     }
 
     .swiper-button-prev,
