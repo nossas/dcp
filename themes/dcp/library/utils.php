@@ -389,28 +389,16 @@ add_action('wp_enqueue_scripts', 'cpt_acao_assets');
 
 
 
+function wpcf7_form_sugestao_acao( $contact_form ) {
 
-
-
-// Salvar dados de UM FORMULÁRIO ESPECÍFICO do CF7 como Custom Post Type
-add_action('wpcf7_mail_sent', 'salvar_formulario_especifico_como_post');
-
-function salvar_formulario_especifico_como_post($contact_form) {
-    // ID do formulário específico que você quer direcionar
-    $formulario_alvo_id = 712; // Substitua pelo ID do seu formulário
-
-    // Verificar se é o formulário correto
-    if ($contact_form->id() != $formulario_alvo_id) {
-        return;
-    }
+    $form_id = 712;
+    if ( $contact_form->id() != $form_id ) return;
 
     $submission = WPCF7_Submission::get_instance();
 
-    if ($submission) {
+    if ( $submission ) {
         $posted_data = $submission->get_posted_data();
-
         $categoria = isset($posted_data['acao-categoria']) ? $posted_data['acao-categoria'] : 'sem-categoria';
-
         $postID = wp_insert_post(array(
             'post_type' => 'acao',
             'post_title' => 'WEBSITE / SUGESTÃO DE AÇÃO - ' . $categoria[0],
@@ -424,13 +412,12 @@ function salvar_formulario_especifico_como_post($contact_form) {
                 'data_e_horario' => date('Y-m-d H:i:s')
             ]
         ));
-
         wp_set_object_terms(
             $postID,
             [ $categoria[0] ],
             'tipo_acao',
             false
         );
-
     }
 }
+add_action( 'wpcf7_mail_sent', 'wpcf7_form_sugestao_acao' );
