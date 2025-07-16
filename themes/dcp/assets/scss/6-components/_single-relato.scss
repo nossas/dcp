@@ -200,7 +200,57 @@ p {
         }
     }
 }
+.anexos-slider {
+    width: 100%;
+    max-width: 1200px !important;
 
+    img {
+        max-height: fit-content !important;
+        border-radius: 0px;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        width: 40px; /* ajuste conforme o tamanho do seu SVG */
+        height: 40px;
+        color: transparent; /* oculta o ícone padrão (flecha preta) */
+        background-color: transparent;
+        font-family: inherit !important; /* remove fonte Swiper */
+    }
+
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+        display: none !important; /* esconde flecha padrão */
+    }
+
+    .swiper-button-prev {
+        background-image: url('/wp-content/themes/dcp/assets/images/arrow-left-2.svg');
+    }
+
+    .swiper-button-next {
+        background-image: url('/wp-content/themes/dcp/assets/images/arrow-right-slider.svg');
+    }
+    .swiper-pagination-bullet {
+        width: 10px;
+        height: 10px;
+        background-color: transparent !important;   /* <- sem preenchimento */
+        border: 1px solid #F9F3EA;
+        background: #F9F3EA !important;
+        opacity: 0.5;    /* borda verde */
+        margin: 0 5px;
+        border-radius: 50%;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .swiper-pagination-bullet-active {
+        background-color: #fff !important; /* verde escuro */
+        border-color: #fff !important;
+        opacity: 1;
+    }
+}
 // Formulário
 .formulario-participar {
     display: grid;
