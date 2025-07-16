@@ -5,8 +5,11 @@
 
 get_header();
 the_post();
-$excerpt = !empty($post->post_excerpt) ? wp_kses_post($post->post_excerpt) : '';
+
 $termos_tipo_acao = get_the_terms(get_the_ID(), 'tipo_acao');
+$pods = pods( 'relato', get_the_ID() );
+
+$excerpt = !empty( $pods->field( 'descricao' ) ) ? wp_kses_post( $pods->field( 'descricao' ) ) : '';
 
 $base_icon_dir = get_template_directory_uri() . '/assets/images/tipo-acao/';
 $icon_filename = 'default.svg';
@@ -44,7 +47,13 @@ if (!empty($termos_tipo_acao) && !is_wp_error($termos_tipo_acao)) {
                 <img src="<?= esc_url($icon_url) ?>" alt="Ícone <?= esc_attr($termo->name) ?>" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle;">
                 <?= esc_html($termo->name) ?>
             </a>
-            <p class="post-header__date"><?= get_the_date(); ?></p>
+            <p class="post-header__date">
+                <?=date( 'd', strtotime( $pods->field( 'data_e_horario' ) ) )?>
+                de
+                <?=date( 'F', strtotime( $pods->field( 'data_e_horario' ) ) )?>
+                de
+                <?=date( 'Y', strtotime( $pods->field( 'data_e_horario' ) ) )?>
+            </p>
         </div>
     <?php endif; ?>
 

@@ -32,8 +32,16 @@ function risco_badge_category( $slug = 'default', $label = 'CATEGORIA GERAL', $c
             echo '<iconify-icon icon="bi:mic-fill"></iconify-icon>';
             break;
 
-        case 'mobilizacao':
+        case 'solidariedade':
             echo '<iconify-icon icon="bi:people-fill"></iconify-icon>';
+            break;
+
+        case 'incidencia':
+            echo '<iconify-icon icon="bi:megaphone-fill"></iconify-icon>';
+            break;
+
+        case 'educacao':
+            echo '<iconify-icon icon="bi:mortarboard-fill"></iconify-icon>';
             break;
 
         default:
