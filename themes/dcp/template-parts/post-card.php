@@ -192,6 +192,12 @@ $categories = get_the_category();
             </div>
         <?php endif; ?>
 
+        <?php if ($post_type == 'acao') : $pods = pods('acao', get_the_ID()); ?>
+            <time class="post-card__datetime">
+                Dia: <?=date( 'd/m/Y, H:i', strtotime( $pods->field( 'data_e_horario' ) ) )?>
+            </time>
+        <?php endif; ?>
+
         <?php if (!$hide_address): ?>
             <div class="post-card__address">
                 <?php
