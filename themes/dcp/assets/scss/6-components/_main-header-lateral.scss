@@ -1,5 +1,6 @@
 .main-header-lateral {
     background-color: $color--secondary-light;
+    box-shadow: 0 0 5px rgba( 0,0,0,0.3 );
 
     &__menu-mobile{
         & > ul{

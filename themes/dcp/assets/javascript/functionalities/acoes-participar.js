@@ -1,4 +1,11 @@
 jQuery(function($) {
+
+    $( document ).ready( function() {
+        $( '.sub-header .sub-header__close' ).on( 'click', function () {
+            $( '.sub-header' ).hide();
+        });
+    });
+
     $( window ).on( 'load', function() {
         $( '#formParticiparAcao' ).on( 'submit', function () {
             const $this = $( this );
@@ -56,4 +63,5 @@ jQuery(function($) {
             }, 2000 );
         });
     });
+
 });
