@@ -112,9 +112,10 @@ function form_single_relato_new() {
         'post_type' => 'relato',
         'post_status' => 'draft',
         'post_title' => sanitize_text_field($_POST['titulo']),
-        'post_content' => sanitize_text_field($_POST['text_post']),
+        'post_content' => wpautop( sanitize_text_field($_POST['text_post']), true ),
         'meta_input' => [
             'titulo' => sanitize_text_field($_POST['titulo']),
+            'endereco' => sanitize_text_field($_POST['endereco']),
             'descricao' => sanitize_text_field($_POST['descricao']),
             'data_e_horario' => date( 'Y-m-d H:i:s', strtotime( $data_e_horario ) ),
             'nome_completo' => $current_user->display_name,
@@ -140,9 +141,13 @@ function form_single_relato_new() {
     );
 
     $save_cover = [];
+
     if( empty( $_FILES['media_file'] ) ) {
         $attachment_id = isset($_POST['attatchment_cover_id']) ? intval($_POST['attatchment_cover_id']) : 0;
-        $save_cover['uploaded_files'] = [ set_post_thumbnail( $postID, $attachment_id ) ];
+        $save_cover = [
+            'errors' => [],
+            'uploaded_files' => [ [ 'id' => set_post_thumbnail( $postID, $attachment_id ) ] ],
+        ];
     } else {
         $save_cover = upload_file_to_attachment_by_ID($_FILES['media_file'], $postID, true );
     }
@@ -150,10 +155,11 @@ function form_single_relato_new() {
     $save_attachment = upload_file_to_attachment_by_ID($_FILES['media_files'], $postID, false );
 
     if ( empty($save_cover['errors']) && empty($save_attachment['errors']) ) {
+        $merge_files = array_merge( $save_cover['uploaded_files'], $save_attachment['uploaded_files'] );
         wp_send_json_success([
             'title' => 'Sucesso',
             'message' => 'Formulário enviado com sucesso!',
-            'uploaded_files' => array_merge( $save_cover['uploaded_files'], $save_attachment['uploaded_files'] ),
+            'uploaded_files' => $merge_files,
             'post_id' => $postID,
             'url_callback' => get_site_url() . '/dashboard/editar-relato/?post_id=' . $postID,
             'is_new' => true,

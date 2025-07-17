@@ -8,15 +8,13 @@ $pod = pods( 'relato', get_the_ID() );
 <article class="post-card is-relatos" style="display: none;">
     <main class="post-card__content">
         <div class="post-card__cover">
-            <?php $get_attachments = get_attached_media('', get_the_ID() );
-            if( !empty( $get_attachments ) ) :
-                foreach ( get_attached_media('', get_the_ID() ) as $attachment ) : ?>
-                    <img class="is-load-now" data-media-src="<?=$attachment->guid?>" />
-                <?php endforeach;
-            else : ?>
-                <div class="slider-thumb-empty">
-                    Nenhuma Mídia adicionada ainda.
-                </div>
+            <?php $get_attachment = wp_get_attachment_url( get_post_thumbnail_id( get_the_ID() ) );
+                if( !empty( $get_attachment ) ) : ?>
+                    <img class="is-load-now" data-media-src="<?=$get_attachment?>" />
+                <?php else : ?>
+                    <div class="slider-thumb-empty">
+                        Nenhuma Mídia adicionada ainda.
+                    </div>
             <?php endif; ?>
         </div>
         <div class="post-card__term">
@@ -26,7 +24,7 @@ $pod = pods( 'relato', get_the_ID() );
                     if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
                         risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, 'post-card__taxonomia term-' . $get_terms[0]->slug );
                     } else {
-                        risco_badge_category( 'sem-categoria', 'NENHUMA CATEGORIA ADICIONADA' );
+                        risco_badge_category( 'sem-categoria', 'S/ CATEGORIA' );
                     }
                 ?>
             </div>

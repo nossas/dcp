@@ -1,12 +1,9 @@
 <?php
-get_header(); ?>
-
-<?php echo hacklabr\get_layout_part_header(); ?>
-
+    get_header();
+    echo hacklabr\get_layout_part_header();
+?>
 <div class="container container--wide archive-acao">
-
     <hr class="is-separator">
-
     <div class="container container--wide proximas-acoes">
         <h2><?= __('PRÓXIMAS AÇÕES') ?></h2>
         <p>Aenean egestas ultricies nibh, at tempus purus fringilla in. Curabitur ornare enim justo, at tristique.</p>

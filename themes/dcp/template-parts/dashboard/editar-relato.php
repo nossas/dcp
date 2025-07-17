@@ -9,15 +9,30 @@ namespace hacklabr\dashboard;
         'post_type' => 'relato'
     ]);
 
-
     if ( $postSingle->have_posts() ) :
 
         while ( $postSingle->have_posts()) :
             $postSingle->the_post();
-
             $pod = pods( 'relato', get_the_ID() );
             $attachments = get_attached_media('', get_the_ID() );
             $get_terms = get_the_terms( get_the_ID(), 'tipo_acao' );
+            $attachment_cover_id = get_post_thumbnail_id( get_the_ID() );
+            $get_attachment = wp_get_attachment_url( $attachment_cover_id );
+
+            $videos = [];
+            $images = [];
+
+            foreach ( $attachments as $key => $value ) {
+
+                if( $value->post_mime_type == 'image/jpeg' || $value->post_mime_type == 'image/png' ) {
+                    $images[] = $value;
+                }
+
+                if( $value->post_mime_type == 'video/mp4' ) {
+                    $videos[] = $value;
+                }
+
+            }
 
             $get_acoes = get_acoes_by_status( 'private' );
             $get_acao = get_post( $post_id );
@@ -44,7 +59,13 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Ação realizada</label>
-                    <input class="input" type="text" name="acao_titulo" value="<?=(!empty($pod->field( 'acao_titulo' ))) ? $pod->field( 'acao_titulo' ) : '' ?>" >
+                    <input class="input" type="text" name="acao_titulo" value="<?=(!empty($pod->field( 'acao_titulo' ))) ? $pod->field( 'acao_titulo' ) : '' ?>" disabled>
+                    <p class="input-links">
+                        <a href="<?=get_dashboard_url( 'editar-acao' )?>/?post_id=<?=get_the_ID()?>" target="_blank">
+                            <iconify-icon icon="bi:box-arrow-up-right"></iconify-icon>
+                            <span>Ver Ação</span>
+                        </a>
+                    </p>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
@@ -77,6 +98,21 @@ namespace hacklabr\dashboard;
                     <a class="button is-select-input">
                         <iconify-icon icon="bi:chevron-down"></iconify-icon>
                     </a>
+                </div>
+                <div class="input-help">
+                    <a href="#/" class="button">
+                        <iconify-icon icon="bi:question"></iconify-icon>
+                    </a>
+                    <p>
+                        Todos os campos devem ter pelo menos 5 caracteres.
+                    </p>
+                </div>
+            </div>
+            <div class="fields">
+                <div class="input-wrap">
+                    <label class="label">Endereço</label>
+                    <input type="hidden" name="endereco" value="<?=$pod->field( 'endereco' )?>">
+                    <input class="input" type="text" name="endereco_preview" placeholder="Digite aqui" value="<?=(!empty($pod->field( 'endereco' ))) ? $pod->field( 'endereco' ) : '' ?>" disabled>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
@@ -156,29 +192,27 @@ namespace hacklabr\dashboard;
                     </div>
                     <div class="input-media-preview">
                         <div class="input-media-preview-assets is-images">
-                            <?php if( !empty( $attachments ) ) : ?>
+                            <?php if( !empty( $get_attachment ) ) : ?>
                                 <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
                                 <div class="assets-list">
-                                    <?php foreach ( $attachments as $image ) : ?>
-                                        <input type="hidden" name="attatchment_cover_id" value="<?=$image->ID?>">
-                                        <figure class="asset-item-preview">
-                                            <img class="is-load-now" data-media-src="<?=$image->guid?>">
-                                            <div class="asset-item-preview-actions">
-                                                <a class="button is-fullscreen" data-id="<?=$image->ID?>" data-href="<?=$image->guid?>">
-                                                    <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
-                                                </a>
-                                                <a class="button is-delete" data-id="<?=$image->ID?>">
-                                                    <iconify-icon icon="bi:trash-fill"></iconify-icon>
-                                                </a>
-                                                <a class="button is-download" href="<?=$image->guid?>" target="_blank">
-                                                    <iconify-icon icon="bi:download"></iconify-icon>
-                                                </a>
-                                                <a class="button is-show-hide">
-                                                    <iconify-icon icon="bi:eye-slash-fill"></iconify-icon>
-                                                </a>
-                                            </div>
-                                        </figure>
-                                    <?php endforeach; ?>
+                                    <input type="hidden" name="attatchment_cover_id" value="<?=$attachment_cover_id?>">
+                                    <figure class="asset-item-preview">
+                                        <img class="is-load-now" data-media-src="<?=$get_attachment?>">
+                                        <div class="asset-item-preview-actions">
+                                            <a class="button is-fullscreen" data-id="<?=$attachment_cover_id?>" data-href="<?=$get_attachment?>">
+                                                <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
+                                            </a>
+                                            <a class="button is-delete" data-id="<?=$attachment_cover_id?>">
+                                                <iconify-icon icon="bi:trash-fill"></iconify-icon>
+                                            </a>
+                                            <a class="button is-download" href="<?=$get_attachment?>" target="_blank">
+                                                <iconify-icon icon="bi:download"></iconify-icon>
+                                            </a>
+                                            <a class="button is-show-hide">
+                                                <iconify-icon icon="bi:eye-slash-fill"></iconify-icon>
+                                            </a>
+                                        </div>
+                                    </figure>
                                 </div>
                             <?php else : ?>
                                 <div class="input-media-preview">
@@ -230,9 +264,77 @@ namespace hacklabr\dashboard;
                         </div>
                     </div>
                     <div class="input-media-preview">
-                        <div class="input-media-preview-assets is-empty">
-                            <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
-                        </div>
+                        <?php if( !empty( $videos ) ) : ?>
+                            <div class="input-media-preview-assets is-video">
+                                <h4>Vídeos</h4>
+                                <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
+                                <div class="assets-list">
+                                    <?php foreach ( $videos as $video) : ?>
+                                        <figure class="asset-item-preview">
+                                            <video class="" poster="" playsinline loop muted>
+                                                <source class="is-load-now" data-media-src="<?=$video->guid?>" type="video/mp4">
+                                            </video>
+                                            <a class="button is-play">
+                                                <iconify-icon icon="bi:play-fill"></iconify-icon>
+                                            </a>
+
+                                            <div class="asset-item-preview-actions">
+                                                <a class="button is-fullscreen">
+                                                    <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
+                                                </a>
+                                                <a class="button is-delete" data-id="<?=$video->ID?>">
+                                                    <iconify-icon icon="bi:trash-fill"></iconify-icon>
+                                                </a>
+                                                <a class="button is-download" href="<?=$video->guid?>" target="_blank">
+                                                    <iconify-icon icon="bi:download"></iconify-icon>
+                                                </a>
+                                                <a class="button is-show-hide">
+                                                    <iconify-icon icon="bi:eye-slash-fill"></iconify-icon>
+                                                </a>
+                                            </div>
+
+                                        </figure>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endif;
+
+                        if( !empty( $images ) ) : ?>
+                            <div class="input-media-preview-assets is-images">
+                                <h4>Fotos</h4>
+                                <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
+                                <div class="assets-list">
+                                    <?php foreach ( $images as $image ) : ?>
+                                        <figure class="asset-item-preview">
+                                            <img class="is-load-now" data-media-src="<?=$image->guid?>">
+
+                                            <div class="asset-item-preview-actions">
+
+                                                <a class="button is-fullscreen" data-id="<?=$image->ID?>" data-href="<?=$image->guid?>">
+                                                    <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
+                                                </a>
+                                                <a class="button is-delete" data-id="<?=$image->ID?>">
+                                                    <iconify-icon icon="bi:trash-fill"></iconify-icon>
+                                                </a>
+                                                <a class="button is-download" href="<?=$image->guid?>" target="_blank">
+                                                    <iconify-icon icon="bi:download"></iconify-icon>
+                                                </a>
+                                                <a class="button is-show-hide">
+                                                    <iconify-icon icon="bi:eye-slash-fill"></iconify-icon>
+                                                </a>
+                                            </div>
+
+                                        </figure>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if( empty( $videos ) && empty( $images ) ) : ?>
+                            <div class="input-media-preview-assets is-empty">
+                                <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="input-help">
@@ -257,6 +359,7 @@ namespace hacklabr\dashboard;
             </div>
         </form>
         <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
+        <?php echo get_template_part('template-parts/dashboard/ui/modal-assetset-fullscreen' ); ?>
         <script src="<?=includes_url('js/tinymce/tinymce.min.js')?>"></script>
         <script>
             const _tiny_mce_content_css = '<?php echo includes_url("css/dashicons.css"); ?>,<?php echo includes_url("js/tinymce/skins/wordpress/wp-content.css"); ?>';

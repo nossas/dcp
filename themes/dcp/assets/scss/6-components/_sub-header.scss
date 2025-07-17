@@ -1,7 +1,7 @@
 .sub-header{
     background-color: $color--warning-pure;
     display: flex;
-    min-height: size(40);
+    min-height: size( 60 );
 
     &__icon,
     &__content-left,
@@ -69,8 +69,9 @@
     }
 
     &__close {
-        a{
+        a {
             text-decoration: none;
+            cursor: pointer;
         }
     }
 

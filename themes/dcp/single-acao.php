@@ -29,7 +29,7 @@
                 </nav>
             <?php endif; ?>
 
-            <h1 class="relato-titulo"><?php the_title(); ?></h1>
+            <h1 class="relato-titulo"><?=$pods->field( 'titulo' )?></h1>
 
             <div class="relato-categoria">
                 <?php
@@ -57,9 +57,10 @@
                         $img_path = $template_uri . '/assets/images/tipo-acao/default.png';
                     }
 
-                    echo '<span class="badge" style="display: inline-flex; align-items: center; gap: 0.5em;">';
-                    echo '<img src="' . esc_url($img_path) . '" alt="' . esc_attr($nome) . '" style="width: 1.2em; height: auto;">';
-                    echo esc_html($nome);
+                        echo '<span class="badge" style="display: inline-flex; align-items: center; gap: 0.5em;">';
+                        //echo '<img src="' . esc_url($img_path) . '" alt="' . esc_attr($nome) . '" style="width: 1.2em; height: auto;">';
+                        echo '<iconify-icon icon="bi:mic-fill"></iconify-icon>';
+                        echo esc_html($nome);
                     echo '</span>';
                 }
                 ?>
@@ -70,14 +71,14 @@
             </div>
 
             <ul class="relato-info">
-                <li>
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pin.svg" alt="Ícone de horário" style="width: 1em; vertical-align: middle; margin-right: 0.5em;">
-                    Dia: <?=date( 'd/m/Y, H:i', strtotime( $pods->field( 'data_e_horario' ) ) )?>
-                </li>
 
                 <li>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/wrapper.svg" alt="Ícone de endereço" style="width: 1em; vertical-align: middle; margin-right: 0.5em;">
                     Endereço: <?php echo esc_html( $pods->display( 'endereco' ) ); ?>
+                </li>
+                <li>
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pin.svg" alt="Ícone de horário" style="width: 1em; vertical-align: middle; margin-right: 0.5em;">
+                    Dia: <?=date( 'd/m/Y, H:i', strtotime( $pods->field( 'data_e_horario' ) ) )?>
                 </li>
                 <?php
                 $imagem = $pods->display('imagem_relato');
@@ -88,7 +89,6 @@
                     </li>
                 <?php endif; ?>
             </ul>
-
 
             <section class="formulario-participar">
                 <h2>Participe:</h2>
@@ -103,8 +103,12 @@
                     <input type="email" name="email" placeholder="exemplo@email.com">
 
                     <label class="checkbox-aceite">
-                        <input type="radio" name="aceite_termos">
+                        <input type="checkbox" name="aceite_whatsapp" value="ACEITE">
                         Aceito receber confirmações e informações sobre esta ação via e-mail e WhatsApp
+                    </label>
+                    <label class="checkbox-aceite">
+                        <input type="radio" name="aceite_termos">
+                        Aceito termos de uso e política de privacidade.
                     </label>
                     <input type="hidden" name="post_id" value="<?=get_the_ID()?>">
                     <input type="hidden" name="action" value="form_participar_acao">
@@ -128,9 +132,9 @@
         <p>Nenhum relato encontrado.</p>
     <?php endif; ?>
 
-    <hr>
+    <hr class="is-separator">
     <?php get_template_part('template-parts/content/related-posts-acao' ); ?>
-    <p style="margin-bottom: 64px;padding-inline:1rem;">
+    <p style="padding: 100px 0;">
         Ficou com alguma dúvida? Fale com a gente para saber mais sobre o projeto ou como participar.
         <strong style="text-decoration: underline; "> Entre em contato </strong>
     </p>

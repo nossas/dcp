@@ -1,5 +1,5 @@
-.post-type-archive-acao{
-    .layout-part--header-archive-acao{
+.post-type-archive-acao {
+    .layout-part--header-archive-acao {
         padding-top: size( 110 );
         padding-bottom: size( 10 );
         @include mobile{
@@ -212,6 +212,16 @@
                 background-color: $color--primary-light;
             }
 
+            &--educacao {
+                background-color: #50b15c;
+            }
+            &--incidencia {
+                background-color: #ffb301;
+            }
+            &--solidariedade {
+                background-color: #fc7753;
+            }
+
             &--reparos {
                 background-color: $color--primary-dark;
             }
@@ -404,8 +414,10 @@
         }
     }
 
-    .layout-part--footer-archive-acao{
-        .wpcf7{
+    .layout-part--footer-archive-acao {
+        padding-bottom: size( 50 );
+
+        .wpcf7 {
             .categoria-acao{
                 .wpcf7-form-control{
                     display: flex;
@@ -470,7 +482,7 @@
                 }
             }
 
-            .enviar-acao{
+            .enviar-acao {
                 input{
                     display: inherit;
                 }

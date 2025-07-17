@@ -7,14 +7,13 @@
     p {
         margin: 0px;
     }
-    .bread-relato{
+    .bread-relato {
         display: flex !important;
         max-width: 100%;
         align-content: flex-end;
         flex-direction: row !important;
         text-align: left;
         margin-top: 40px;
-        align-items: flex-end;
         align-items: center;
         justify-content: center;
         color: $color--secondary-dark;
@@ -79,11 +78,15 @@
 
     // Imagem destacada
     .relato-thumb {
-        width: 100%;
-        max-width: 503px !important;
+        width: 40%;
         display: flex;
         align-items: start;
         padding-top: size( 25 );
+
+        @include mobile{
+            width: 100%;
+        }
+
 
         .relato-thumb-wrapper {
             display: block;
@@ -110,6 +113,7 @@
             font-size:40px;
             font-style: normal;
             font-weight: $font-weight--medium;
+            text-wrap: initial;
             line-height: 120%;
             margin-top: 24px;
             margin-bottom: 24px;
@@ -118,7 +122,7 @@
         }
 
         .relato-categoria {
-            margin-bottom: 8;
+            margin-bottom: 8px;
 
             .badge {
                 display: inline-block;
@@ -195,7 +199,7 @@
                 margin-bottom: $margin--medium;
 
         }
-        .tag{
+        .tag {
             padding: 4px 16px !important;
             display: flex;
             font-size: 14px;
@@ -244,7 +248,6 @@
     .swiper-pagination-bullet {
         width: 10px;
         height: 10px;
-        background-color: transparent !important;   /* <- sem preenchimento */
         border: 1px solid #F9F3EA;
         background: #F9F3EA !important;
         opacity: 0.5;    /* borda verde */
@@ -252,7 +255,6 @@
         border-radius: 50%;
         transition: background-color 0.3s ease, border-color 0.3s ease;
     }
-
     .swiper-pagination-bullet-active {
         background-color: #fff !important; /* verde escuro */
         border-color: #fff !important;
@@ -338,3 +340,10 @@
 
 }
 
+.single-acao {
+
+    .bread-relato {
+        justify-content: start;
+    }
+
+}
