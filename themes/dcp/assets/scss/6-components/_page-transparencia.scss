@@ -1,0 +1,47 @@
+.page-transparencia {
+      h2 {
+        margin: 0px ;
+        font-size: 40px;
+        line-height: 130%;
+        letter-spacing: 2px;
+        font-weight: 400;
+        @include mobile {
+            font-size: 24px;
+        }
+    }
+    .page-content {
+        h2{
+            font-weight: 400 !important;
+        }
+        hr {
+            color: #E6E2E0 !important;
+            margin-top: 40px !important;
+            margin-bottom: 40px !important;
+            color: #E6E2E0 !important;
+            @include mobile {
+                margin-top: 16px !important;
+                margin-bottom: 16px !important;
+            }
+        }
+        .wp-block-group {
+            padding-left: 0px;
+            padding-right: 0px;
+            @include mobile{
+                .wp-block-spacer{
+                    height: 32px !important;
+                }
+            }
+            .title{
+                /* padding-left: 24px !important; */
+            }
+            .reverse-mob{
+                @include mobile {
+                    display: flex;
+                    flex-direction: column-reverse;
+                }
+            }
+        }
+
+    }
+
+}
