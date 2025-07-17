@@ -1,0 +1,21 @@
+.page-sobre {
+    h2 {
+        margin: 0px ;
+        font-size: 40px;
+        line-height: 130%;
+        letter-spacing: 2px;
+        font-weight: 400;
+    }
+    .post-content {
+        hr {
+            color: #E6E2E0 !important;
+            margin-top: 40px !important;
+            margin-bottom: 40px !important;
+        }
+        .wp-block-group {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+    }
+
+}
