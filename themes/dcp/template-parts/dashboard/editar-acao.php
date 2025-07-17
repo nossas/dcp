@@ -83,6 +83,13 @@ namespace hacklabr\dashboard;
                                 <option value="<?=$term->slug?>" <?=( $term->slug == $get_terms[0]->slug ) ? 'selected' : '' ?>><?=$term->name?></option>
                             <?php endif; endforeach; ?>
                     </select>
+                    <p class="input-links">
+                        <a href="<?=the_permalink()?>" target="_blank">
+                            <iconify-icon icon="bi:box-arrow-up-right"></iconify-icon>
+                            <span>Ver Ação</span>
+                        </a>
+                    </p>
+
                     <a class="button is-category">
                         <?php
                             if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {

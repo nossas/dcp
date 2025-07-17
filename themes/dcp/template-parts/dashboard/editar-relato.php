@@ -61,7 +61,7 @@ namespace hacklabr\dashboard;
                     <label class="label">Ação realizada</label>
                     <input class="input" type="text" name="acao_titulo" value="<?=(!empty($pod->field( 'acao_titulo' ))) ? $pod->field( 'acao_titulo' ) : '' ?>" disabled>
                     <p class="input-links">
-                        <a href="<?=get_dashboard_url( 'editar-acao' )?>/?post_id=<?=$pod->field( 'post_id' )?>" target="_blank">
+                        <a href="<?=get_dashboard_url( 'editar-acao' )?>/?post_id=<?=get_the_ID()?>" target="_blank">
                             <iconify-icon icon="bi:box-arrow-up-right"></iconify-icon>
                             <span>Ver Ação</span>
                         </a>

@@ -7,14 +7,13 @@
     p {
         margin: 0px;
     }
-    .bread-relato{
+    .bread-relato {
         display: flex !important;
         max-width: 100%;
         align-content: flex-end;
         flex-direction: row !important;
         text-align: left;
         margin-top: 40px;
-        align-items: flex-end;
         align-items: center;
         justify-content: center;
         color: $color--secondary-dark;
@@ -79,8 +78,7 @@
 
     // Imagem destacada
     .relato-thumb {
-        width: 100%;
-        max-width: 503px !important;
+        width: 65%;
         display: flex;
         align-items: start;
         padding-top: size( 25 );
@@ -338,3 +336,9 @@
 
 }
 
+.single-acao {
+
+    .bread-relato {
+        justify-content: start;
+    }
+}
