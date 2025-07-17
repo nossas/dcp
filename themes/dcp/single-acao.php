@@ -29,7 +29,7 @@
                 </nav>
             <?php endif; ?>
 
-            <h1 class="relato-titulo"><?php the_title(); ?></h1>
+            <h1 class="relato-titulo"><?=$pods->field( 'titulo' )?></h1>
 
             <div class="relato-categoria">
                 <?php
@@ -57,9 +57,10 @@
                         $img_path = $template_uri . '/assets/images/tipo-acao/default.png';
                     }
 
-                    echo '<span class="badge" style="display: inline-flex; align-items: center; gap: 0.5em;">';
-                    //echo '<img src="' . esc_url($img_path) . '" alt="' . esc_attr($nome) . '" style="width: 1.2em; height: auto;">';
-                    echo esc_html($nome);
+                        echo '<span class="badge" style="display: inline-flex; align-items: center; gap: 0.5em;">';
+                        //echo '<img src="' . esc_url($img_path) . '" alt="' . esc_attr($nome) . '" style="width: 1.2em; height: auto;">';
+                        echo '<iconify-icon icon="bi:mic-fill"></iconify-icon>';
+                        echo esc_html($nome);
                     echo '</span>';
                 }
                 ?>
@@ -101,8 +102,12 @@
                     <input type="email" name="email" placeholder="exemplo@email.com">
 
                     <label class="checkbox-aceite">
-                        <input type="radio" name="aceite_termos">
+                        <input type="checkbox" name="aceite_whatsapp" value="ACEITE">
                         Aceito receber confirmações e informações sobre esta ação via e-mail e WhatsApp
+                    </label>
+                    <label class="checkbox-aceite">
+                        <input type="radio" name="aceite_termos">
+                        Aceito termos de uso e política de privacidade.
                     </label>
                     <input type="hidden" name="post_id" value="<?=get_the_ID()?>">
                     <input type="hidden" name="action" value="form_participar_acao">
