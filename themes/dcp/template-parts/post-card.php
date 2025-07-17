@@ -74,7 +74,13 @@
         <h3 class="post-card__title">
             <a href="<?php the_permalink(); ?>">
                 <?php
-                the_title();
+
+                if( $post_type == 'acao' ) {
+                    $pods = pods('acao', get_the_ID());
+                    echo $pods->field( 'titulo' );
+                } else {
+                    the_title();
+                }
                 ?>
             </a>
         </h3>
@@ -85,10 +91,10 @@
                     <?php
                         if( $post_type == 'acao' ) {
                             $pods = pods('acao', get_the_ID());
-                            echo substr( $pods->field( 'descricao' ), 0, 125 ) . ' ...';
+                            echo substr( $pods->field( 'descricao' ), 0, 200 ) . ' ...';
                         } else if( $post_type == 'relato' ) {
                             $pods = pods('relato', get_the_ID());
-                            echo substr( $pods->field( 'descricao' ), 0, 125 ) . ' ...';
+                            echo substr( $pods->field( 'descricao' ), 0, 250 ) . ' ...';
                         } else {
                             echo get_the_excerpt();
                         }
