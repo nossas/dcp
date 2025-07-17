@@ -78,10 +78,15 @@
 
     // Imagem destacada
     .relato-thumb {
-        width: 50%;
+        width: 40%;
         display: flex;
         align-items: start;
         padding-top: size( 25 );
+
+        @include mobile{
+            width: 100%;
+        }
+
 
         .relato-thumb-wrapper {
             display: block;
@@ -108,6 +113,7 @@
             font-size:40px;
             font-style: normal;
             font-weight: $font-weight--medium;
+            text-wrap: initial;
             line-height: 120%;
             margin-top: 24px;
             margin-bottom: 24px;

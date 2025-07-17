@@ -71,13 +71,14 @@
             </div>
 
             <ul class="relato-info">
-                <li>
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pin.svg" alt="Ícone de horário" style="width: 1em; vertical-align: middle; margin-right: 0.5em;">
-                    Dia: <?=date( 'd/m/Y, H:i', strtotime( $pods->field( 'data_e_horario' ) ) )?>
-                </li>
+
                 <li>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/wrapper.svg" alt="Ícone de endereço" style="width: 1em; vertical-align: middle; margin-right: 0.5em;">
                     Endereço: <?php echo esc_html( $pods->display( 'endereco' ) ); ?>
+                </li>
+                <li>
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pin.svg" alt="Ícone de horário" style="width: 1em; vertical-align: middle; margin-right: 0.5em;">
+                    Dia: <?=date( 'd/m/Y, H:i', strtotime( $pods->field( 'data_e_horario' ) ) )?>
                 </li>
                 <?php
                 $imagem = $pods->display('imagem_relato');
@@ -131,9 +132,9 @@
         <p>Nenhum relato encontrado.</p>
     <?php endif; ?>
 
-    <hr>
+    <hr class="is-separator">
     <?php get_template_part('template-parts/content/related-posts-acao' ); ?>
-    <p style="margin-bottom: 64px;padding-inline:1rem;">
+    <p style="padding: 100px 0;">
         Ficou com alguma dúvida? Fale com a gente para saber mais sobre o projeto ou como participar.
         <strong style="text-decoration: underline; "> Entre em contato </strong>
     </p>
