@@ -10,10 +10,14 @@
         }
     }
     .post-content {
+        h2{
+            font-weight: 400 !important;
+        }
         hr {
             color: #E6E2E0 !important;
             margin-top: 40px !important;
             margin-bottom: 40px !important;
+            color: #E6E2E0 !important;
             @include mobile {
                 margin-top: 16px !important;
                 margin-bottom: 16px !important;
@@ -27,7 +31,17 @@
                     height: 32px !important;
                 }
             }
+            .title{
+                padding-left: 24px !important;
+            }
+            .reverse-mob{
+                @include mobile {
+                    display: flex;
+                    flex-direction: column-reverse;
+                }
+            }
         }
+
     }
 
 }
