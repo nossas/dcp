@@ -58,7 +58,7 @@
                     }
 
                     echo '<span class="badge" style="display: inline-flex; align-items: center; gap: 0.5em;">';
-                    echo '<img src="' . esc_url($img_path) . '" alt="' . esc_attr($nome) . '" style="width: 1.2em; height: auto;">';
+                    //echo '<img src="' . esc_url($img_path) . '" alt="' . esc_attr($nome) . '" style="width: 1.2em; height: auto;">';
                     echo esc_html($nome);
                     echo '</span>';
                 }
@@ -74,7 +74,6 @@
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pin.svg" alt="Ícone de horário" style="width: 1em; vertical-align: middle; margin-right: 0.5em;">
                     Dia: <?=date( 'd/m/Y, H:i', strtotime( $pods->field( 'data_e_horario' ) ) )?>
                 </li>
-
                 <li>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/wrapper.svg" alt="Ícone de endereço" style="width: 1em; vertical-align: middle; margin-right: 0.5em;">
                     Endereço: <?php echo esc_html( $pods->display( 'endereco' ) ); ?>
@@ -88,7 +87,6 @@
                     </li>
                 <?php endif; ?>
             </ul>
-
 
             <section class="formulario-participar">
                 <h2>Participe:</h2>

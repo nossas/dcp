@@ -44,7 +44,7 @@ if (!empty($termos_tipo_acao) && !is_wp_error($termos_tipo_acao)) {
     <?php if (!empty($termo)) : ?>
         <div class="post-header__tags">
             <a class="tag tag--<?= esc_attr($termo->slug) ?>" href="<?= esc_url(get_term_link($termo)) ?>">
-                <img src="<?= esc_url($icon_url) ?>" alt="Ícone <?= esc_attr($termo->name) ?>" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle;">
+<!--                <img src="--><?php //= esc_url($icon_url) ?><!--" alt="Ícone --><?php //= esc_attr($termo->name) ?><!--" style="width: 16px; height: 16px; margin-right: 6px; vertical-align: middle;">-->
                 <?= esc_html($termo->name) ?>
             </a>
             <p class="post-header__date">
