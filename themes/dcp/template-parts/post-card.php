@@ -82,7 +82,17 @@
         <?php if (!$hide_excerpt): ?>
             <div class="post-card__excerpt-wrapped">
                 <div class="post-card__excerpt">
-                    <?= get_the_excerpt(); ?>
+                    <?php
+                        if( $post_type == 'acao' ) {
+                            $pods = pods('acao', get_the_ID());
+                            echo substr( $pods->field( 'descricao' ), 0, 125 ) . ' ...';
+                        } else if( $post_type == 'relato' ) {
+                            $pods = pods('relato', get_the_ID());
+                            echo substr( $pods->field( 'descricao' ), 0, 125 ) . ' ...';
+                        } else {
+                            echo get_the_excerpt();
+                        }
+                    ?>
                 </div>
             </div>
         <?php endif; ?>

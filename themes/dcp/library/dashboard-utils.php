@@ -146,3 +146,39 @@ function dashboard_excerpt( $descricao = null ) {
         }
     }
 }
+
+
+function wpcf7_form_sugestao_acao( $contact_form ) {
+
+    $form_id = 712;
+    if ( $contact_form->id() != $form_id ) return;
+
+    $submission = WPCF7_Submission::get_instance();
+
+    if ( $submission ) {
+        $posted_data = $submission->get_posted_data();
+        $categoria = isset($posted_data['acao-categoria']) ? $posted_data['acao-categoria'] : 'sem-categoria';
+        $postID = wp_insert_post(array(
+            'post_type' => 'acao',
+            'post_title' => 'WEBSITE / SUGESTÃO DE AÇÃO - ' . $categoria[0],
+            'post_content' => isset($posted_data['descricao']) ? $posted_data['descricao'] : 'DESCRIÇÃO VAZIA',
+            'post_status' => 'draft',
+            'meta_input' => [
+                'titulo' => 'WEBSITE / SUGESTÃO DE AÇÃO ' . date('Y-m-d H:i:s'),
+                'endereco' => 'Endereço não informado.',
+                'nome_completo' => isset($posted_data['nome-completo']) ? $posted_data['nome-completo'] : 'NOME COMPLETO VAZIO',
+                'telefone' => isset($posted_data['telefone']) ? $posted_data['telefone'] : 'TELEFONE VAZIO',
+                'categoria' => isset($posted_data['categoria']) ? $posted_data['categoria'] : 'CATEGORIA VAZIA',
+                'descricao' => 'SUGESTÃO / IDÉIA : '. isset($posted_data['descricao']) ? $posted_data['descricao'] : 'DESCRIÇÃO VAZIA',
+                'data_e_horario' => date('Y-m-d H:i:s')
+            ]
+        ));
+        wp_set_object_terms(
+            $postID,
+            [ $categoria[0] ],
+            'tipo_acao',
+            false
+        );
+    }
+}
+add_action( 'wpcf7_mail_sent', 'wpcf7_form_sugestao_acao' );
