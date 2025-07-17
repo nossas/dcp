@@ -115,6 +115,7 @@ function form_single_relato_new() {
         'post_content' => wpautop( sanitize_text_field($_POST['text_post']), true ),
         'meta_input' => [
             'titulo' => sanitize_text_field($_POST['titulo']),
+            'endereco' => sanitize_text_field($_POST['endereco']),
             'descricao' => sanitize_text_field($_POST['descricao']),
             'data_e_horario' => date( 'Y-m-d H:i:s', strtotime( $data_e_horario ) ),
             'nome_completo' => $current_user->display_name,
@@ -142,7 +143,8 @@ function form_single_relato_new() {
     $save_cover = [];
     if( empty( $_FILES['media_file'] ) ) {
         $attachment_id = isset($_POST['attatchment_cover_id']) ? intval($_POST['attatchment_cover_id']) : 0;
-        $save_cover['uploaded_files'] = [ set_post_thumbnail( $postID, $attachment_id ) ];
+        set_post_thumbnail( $postID, $attachment_id );
+        //$save_cover['uploaded_files'] = [ set_post_thumbnail( $postID, $attachment_id ) ];
     } else {
         $save_cover = upload_file_to_attachment_by_ID($_FILES['media_file'], $postID, true );
     }

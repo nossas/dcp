@@ -84,7 +84,27 @@
                         resize: none;
                     }
                     select {
-                        padding: size( 15 ) size( 20 ) size( 15 ) size( 50 );
+                        padding: size( 19 ) size( 20 ) size( 19 ) size( 50 );
+                    }
+                    select[disabled] {
+                        opacity: 0.4;
+                    }
+                    .input-links {
+                        font-size: size( 11 );
+                        text-align: right;
+                        width: calc( 100% - 10px );
+                        padding: 0;
+                        margin: 0;
+                        position: absolute;
+                        left: 0;
+                        bottom: -23px;
+
+                        a {
+                            color: $color--secondary-dark;
+                            text-decoration: none;
+                            display: inline-block;
+                            padding: size( 5 );
+                        }
                     }
                     .input-chips {
                         background-color: #FFF;

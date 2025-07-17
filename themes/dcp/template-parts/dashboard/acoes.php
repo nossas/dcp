@@ -47,7 +47,6 @@ namespace hacklabr\dashboard;
             'notification' => true
         ]
     ];
-
 ?>
 <div id="dashboardAcoes" class="dashboard-content">
     <div class="dashboard-content-acoes">
@@ -75,7 +74,6 @@ namespace hacklabr\dashboard;
                     </a>
                 <?php endforeach; ?>
             </div>
-
             <div class="dashboard-content-cards">
                 <?php
                     get_template_part('template-parts/dashboard/ui/skeleton' );

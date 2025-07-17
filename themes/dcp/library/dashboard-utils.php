@@ -19,7 +19,6 @@ function risco_badge_category( $slug = 'default', $label = 'CATEGORIA GERAL', $c
             echo '<iconify-icon icon="bi:moisture"></iconify-icon>';
             break;
 
-
         case 'reparos':
             echo '<iconify-icon icon="bi:hammer"></iconify-icon>';
             break;
@@ -135,7 +134,6 @@ function upload_file_to_attachment_by_ID( $files = null, $postID = null, $is_fea
     ];
 }
 
-
 function dashboard_excerpt( $descricao = null ) {
     if( !empty( $descricao ) ) {
         if ( strlen( $descricao ) <= 125 ) {
@@ -146,7 +144,6 @@ function dashboard_excerpt( $descricao = null ) {
         }
     }
 }
-
 
 function wpcf7_form_sugestao_acao( $contact_form ) {
 

@@ -24,7 +24,9 @@ namespace hacklabr\dashboard;
         <h1>Novo Relato de ação</h1>
     </header>
     <div class="dashboard-content-single">
-        <?php if( !empty( $get_acao ) ) :
+        <?php
+        //TODO : REFACTORY P/ MELHORAR o $get_acao (quando vazio vem o post_page Dashboard)
+        if( !empty( $get_acao ) ) :
             $pod = pods( 'acao', $get_acao->ID );
             $attachments = get_attached_media('', $get_acao->ID );
             $get_terms = get_the_terms( $get_acao->ID, 'tipo_acao' ); ?>
@@ -40,6 +42,18 @@ namespace hacklabr\dashboard;
                                 <option value="<?=get_the_ID()?>" <?=( $get_acao->ID == get_the_ID() ) ? 'selected' : '' ?> ><?=get_the_title()?> (<?=get_the_ID()?>)</option>
                             <?php endwhile; endif; ?>
                     </select>
+                    <?php if( !empty( $get_acao->post_type === 'acao' ) ) : ?>
+                        <p class="input-links">
+                            <a href="<?=get_dashboard_url( 'editar-acao' )?>/?post_id=<?=$get_acao->ID?>" target="_blank">
+                                <iconify-icon icon="bi:box-arrow-up-right"></iconify-icon>
+                                <span>Editar Ação</span>
+                            </a>
+                            <a href="<?=$get_acao->guid?>" target="_blank">
+                                <iconify-icon icon="bi:box-arrow-up-right"></iconify-icon>
+                                <span>Ver Ação</span>
+                            </a>
+                        </p>
+                    <?php endif; ?>
                     <a class="button is-category">
                         <?php risco_badge_category( 'sem-categoria', 'SEM CATEGORIA ADICIONADA', '' ); ?>
                     </a>
@@ -60,11 +74,11 @@ namespace hacklabr\dashboard;
                 <div class="input-wrap">
                     <label class="label">Categoria</label>
                     <input type="hidden" name="tipo_acao" value="<?=$get_terms[0]->slug?>">
-                    <select id="selectCategory" class="select" required readonly >
+                    <select id="selectCategory" class="select" disabled >
                         <?php if( !empty( $get_terms[0]->slug ) ) : ?>
                             <option value="<?=$get_terms[0]->slug?>" selected ><?=$get_terms[0]->name?></option>
                         <?php else : ?>
-                            <option value="">SELECIONE UMA CATEGORIA</option>
+                            <option value="">SELECIONE UMA AÇÃO</option>
                         <?php endif; ?>
                     </select>
                     <a class="button is-category">
@@ -79,6 +93,21 @@ namespace hacklabr\dashboard;
                     <a class="button is-select-input">
                         <iconify-icon icon="bi:chevron-down"></iconify-icon>
                     </a>
+                </div>
+                <div class="input-help">
+                    <a href="#/" class="button">
+                        <iconify-icon icon="bi:question"></iconify-icon>
+                    </a>
+                    <p>
+                        Todos os campos devem ter pelo menos 5 caracteres.
+                    </p>
+                </div>
+            </div>
+            <div class="fields">
+                <div class="input-wrap">
+                    <label class="label">Endereço</label>
+                    <input type="hidden" name="endereco" value="<?=$pod->field( 'endereco' )?>">
+                    <input class="input" type="text" name="endereco_preview" placeholder="Selecione uma Ação" value="<?=(!empty($pod->field( 'endereco' ))) ? $pod->field( 'endereco' ) : '' ?>" disabled>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">

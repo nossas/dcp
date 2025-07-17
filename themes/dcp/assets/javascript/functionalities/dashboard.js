@@ -269,7 +269,9 @@ jQuery(function($) {
 
         $( '#selectAcaoRealizada' ).on( 'change', function () {
             const _location = window.location;
-            _location.href = _location.origin + _location.pathname + '?post_id=' + $( this ).val();
+            if( $( this ).val().length ) {
+                _location.href = _location.origin + _location.pathname + '?post_id=' + $( this ).val();
+            }
         });
 
         $( '#selectCategory' ).on( 'change', function () {
