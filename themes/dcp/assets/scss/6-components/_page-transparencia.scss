@@ -1,4 +1,5 @@
 .page-transparencia {
+    margin-top: 24px;
       h2 {
         margin: 0px ;
         font-size: 40px;
@@ -8,10 +9,19 @@
         @include mobile {
             font-size: 24px;
         }
+
     }
     .page-content {
+        p {
+            margin: 0px !important;
+        }
         h2{
             font-weight: 400 !important;
+            font-size: $font-family--heading;
+            font-size: 40px;
+            margin: 0px;
+
+
         }
         hr {
             color: #E6E2E0 !important;
@@ -28,11 +38,32 @@
             padding-right: 0px;
             @include mobile{
                 .wp-block-spacer{
+                    margin: 0px !important;
                     height: 32px !important;
                 }
             }
-            .title{
-                /* padding-left: 24px !important; */
+            .col-1{
+                @include mobile {
+                    display: flex;
+                    flex-direction: column-reverse;
+                }
+                .wp-block-column:first-child{
+                    p:last-child {
+                        padding-top: 16px !important;
+                    }
+                }
+            }
+            .col-2 {
+                .wp-block-column {
+                    p {
+                        padding-bottom: 24px;
+
+                    }
+                    strong{
+                        margin-bottom: 8px !important;
+                    }
+                }
+
             }
             .reverse-mob{
                 @include mobile {
