@@ -386,3 +386,47 @@ function cpt_acao_assets() {
     }
 }
 add_action('wp_enqueue_scripts', 'cpt_acao_assets');
+
+
+
+add_action('admin_menu', 'adicionar_link_dashboard_personalizado');
+
+function adicionar_link_dashboard_personalizado() {
+    // Adiciona o item principal do menu
+    add_menu_page(
+        'Dashboard',
+        'Dashboard',
+        'read',
+        'dashboard_personalizado',
+        'redirecionar_para_dashboard',
+        'dashicons-chart-pie',
+        1
+    );
+
+    // Remove o submenu padrão criado automaticamente
+    remove_submenu_page('dashboard_personalizado', 'dashboard_personalizado');
+}
+
+// Função de redirecionamento
+function redirecionar_para_dashboard() {
+    echo '<h2 style="opacity: 0.5;">redirecionando . . .</h2>';
+    echo "<script>window.location.href = window.location.origin + '/dashboard/';</script>";
+    exit;
+}
+
+// Adiciona CSS personalizado
+add_action('admin_head', 'estilo_personalizado_menu');
+
+function estilo_personalizado_menu() {
+    echo '<style>
+        #adminmenu .wp-menu-image.dashicons-chart-pie:before {
+            color: #00ff00 !important;
+        }
+        #adminmenu li.toplevel_page_dashboard_personalizado:hover .wp-menu-image:before,
+        #adminmenu li.toplevel_page_dashboard_personalizado.current .wp-menu-image:before {
+            color: #ffffff !important;
+        }
+    </style>';
+}
+
+
