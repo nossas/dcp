@@ -33,7 +33,7 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Categoria</label>
-                    <select id="selectCategory" class="select" name="tipo_acao" required >
+                    <select id="selectCategory" class="select" name="tipo_acao" required>
                         <option value="">SELECIONE UMA CATEGORIA</option>
                         <?php foreach ( $all_terms as $key => $term ) :
                             if( !$term->parent ) : ?>

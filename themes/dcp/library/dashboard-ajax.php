@@ -104,7 +104,24 @@ add_action('wp_ajax_nopriv_form_participar_acao', 'form_participar_acao');
 
 function form_single_relato_new() {
 
+    if (!current_user_can('edit_posts')) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'Você não tem permissão para editar posts.',
+            'error' => [],
+        ], 403);
+    }
+
     $acao_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
+
+    if( empty( $_POST['tipo_acao'] ) ) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'Selecione uma ação.',
+            'error' => []
+        ], 400);
+    }
+
     $current_user = wp_get_current_user();
     $data_e_horario = sanitize_text_field($_POST['data']) . ' ' . sanitize_text_field($_POST['horario']) . ':00';
 
@@ -174,6 +191,92 @@ function form_single_relato_new() {
 
 }
 add_action('wp_ajax_form_single_relato_new', 'form_single_relato_new');
+
+function form_single_relato_edit() {
+
+    if (!current_user_can('edit_posts')) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'Você não tem permissão para editar posts.',
+            'error' => [],
+        ], 403);
+    }
+
+    $postID = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
+
+    if ( !$postID || !get_post( $postID ) ) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'ID do post inválido ou post não encontrado.',
+            'error' => [],
+        ], 400);
+    }
+
+    $data_e_horario = sanitize_text_field($_POST['data']) . ' ' . sanitize_text_field($_POST['horario']) . ':00';
+
+    $updated_id = wp_update_post([
+        'ID' => $postID,
+        'post_type' => 'relato',
+        'post_status' => sanitize_text_field($_POST['post_status'] ?? 'draft'),
+        'post_title' => sanitize_text_field($_POST['titulo']),
+        'post_content' => wpautop( sanitize_text_field($_POST['text_post']), true ),
+        'meta_input' => [
+            'titulo' => sanitize_text_field($_POST['titulo']),
+            'endereco' => sanitize_text_field($_POST['endereco']),
+            'descricao' => sanitize_text_field($_POST['descricao']),
+            'data_e_horario' => date( 'Y-m-d H:i:s', strtotime( $data_e_horario ) ),
+        ]
+    ], true);
+
+    if ( is_wp_error( $updated_id ) ) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'Erro ao cadastrar o Ação.',
+            'error' => $updated_id->get_error_message()
+        ], 500);
+    }
+
+    wp_set_object_terms(
+        $updated_id,
+        [sanitize_text_field($_POST['tipo_acao'])],
+        'tipo_acao',
+        false
+    );
+
+    $save_cover = [];
+
+    if( !empty( $_FILES['media_file'] ) ) {
+
+        if ( has_post_thumbnail( $updated_id ) ) {
+            $old_attachment_id = get_post_thumbnail_id( $updated_id );
+            wp_delete_attachment( $old_attachment_id );
+        }
+
+    } else {
+        $save_cover = upload_file_to_attachment_by_ID($_FILES['media_file'], $postID, true );
+    }
+
+    $save_attachment = upload_file_to_attachment_by_ID($_FILES['media_files'], $postID, false );
+
+    if ( empty($save_cover['errors']) && empty($save_attachment['errors']) ) {
+        $merge_files = array_merge( $save_cover['uploaded_files'], $save_attachment['uploaded_files'] );
+        wp_send_json_success([
+            'title' => 'Sucesso',
+            'message' => 'Formulário enviado com sucesso!',
+            'uploaded_files' => $merge_files,
+            'post_id' => $postID,
+            'url_callback' => get_site_url() . '/dashboard/editar-relato/?post_id=' . $postID
+        ]);
+    }
+
+    wp_send_json_error([
+        'title' => 'Erro',
+        'message' => 'Erro ao salvar o formulário / anexos',
+        'error' => array_merge( $save_attachment['errors'], $save_cover['errors'] ),
+    ], 400);
+
+}
+add_action('wp_ajax_form_single_relato_edit', 'form_single_relato_edit');
 
 function form_single_acao_new() {
 
@@ -307,7 +410,7 @@ function form_single_acao_edit() {
     }
 
     wp_set_object_terms(
-        $postID,
+        $updated_id,
         array(
             sanitize_text_field( $_POST[ 'tipo_acao' ] )
         ),

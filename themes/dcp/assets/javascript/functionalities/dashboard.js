@@ -544,6 +544,18 @@ jQuery(function($) {
                 }
             });
         });
+        $( '#acaoSingleForm .is-save.relato' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Publicar Relato?',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
+                cancelText: "Voltar",
+                onCancel: function () {},
+                confirmText: "Publicar Relato",
+                onConfirm: function () {
+                    $( '#acaoSingleForm' ).submit();
+                }
+            });
+        });
 
         $( window ).on( 'dragover', function( event ) {
             event.preventDefault();

@@ -436,6 +436,8 @@
                         font-size: size( 23 );
                         font-weight: normal;
                         line-height: size( 24 );
+
+                        min-height: size( 45 );
                         padding: 0 size( 20 );
 
                         span {
@@ -446,6 +448,7 @@
                     }
 
                     &__excerpt-wrapped {
+                        min-height: size( 75 );
                         padding: size( 10 ) size( 20 );
                         margin-bottom: size( 10 );
 
@@ -573,7 +576,7 @@
                                 font-weight: bold;
                             }
                             span.is-draft {
-                                color: #777;
+                                color: #999;
                             }
                             span.is-publish {
                                 color: $color--primary-pure;

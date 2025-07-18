@@ -38,8 +38,11 @@ namespace hacklabr\dashboard;
                         <option value="">SELECIONE UMA AÇÃO</option>
                         <?php if( $get_acoes[ 'posts' ]->have_posts() ) :
                             while( $get_acoes[ 'posts' ]->have_posts() ) :
-                                $get_acoes[ 'posts' ]->the_post(); ?>
-                                <option value="<?=get_the_ID()?>" <?=( $get_acao->ID == get_the_ID() ) ? 'selected' : '' ?> ><?=get_the_title()?> (<?=get_the_ID()?>)</option>
+                                $get_acoes[ 'posts' ]->the_post();
+                                $acao_term = get_the_terms( get_the_ID(), 'tipo_acao' );
+                                $pod_acoes = pods( 'acao', get_the_ID() );
+                                ?>
+                                <option value="<?=get_the_ID()?>" <?=( $get_acao->ID == get_the_ID() ) ? 'selected' : '' ?> ><?=( $get_acao->ID == get_the_ID() ) ? '( #' . get_the_ID() . ' )' : '( ' . $acao_term[0]->name . ' )' ?> <?=$pod_acoes->field( 'titulo') ?></option>
                             <?php endwhile; endif; ?>
                     </select>
                     <?php if( !empty( $get_acao->post_type === 'acao' ) ) : ?>
@@ -73,7 +76,7 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Categoria</label>
-                    <input type="hidden" name="tipo_acao" value="<?=$get_terms[0]->slug?>">
+                    <input type="hidden" name="tipo_acao" value="<?=( !empty( $get_terms[0]->slug ) ) ? $get_terms[0]->slug : ''?>">
                     <select id="selectCategory" class="select" disabled >
                         <?php if( !empty( $get_terms[0]->slug ) ) : ?>
                             <option value="<?=$get_terms[0]->slug?>" selected ><?=$get_terms[0]->name?></option>
