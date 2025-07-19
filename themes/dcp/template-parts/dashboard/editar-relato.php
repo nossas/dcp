@@ -51,7 +51,7 @@ namespace hacklabr\dashboard;
             <li><a href="">Criar página relato</a></li>
         </ol>
     </div>
-    <header class="dashboard-content-header">
+    <header class="dashboard-content-header is-single">
         <h1>Editar Relato de ação</h1>
     </header>
     <div class="dashboard-content-single">

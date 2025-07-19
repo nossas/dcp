@@ -7,7 +7,10 @@ namespace hacklabr\dashboard;
     <div class="dashboard-content-home">
         <header class="dashboard-content-header">
             <h1>Olá, <?=wp_get_current_user()->display_name?></h1>
-            <p><?=get_user_meta( wp_get_current_user()->ID, 'description', true )?></p>
+            <p>
+                Lorem ipsum dolor sit amet. Curabitur ornare enim justo, at tristique.
+                <?php //get_user_meta( wp_get_current_user()->ID, 'description', true ) ?>
+            </p>
         </header>
 
         <div class="dashboard-content-section">

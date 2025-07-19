@@ -2,11 +2,19 @@
 
     .dashboard-content-header {
 
-        .is-actions {
+        h1 {
+            font-size: size( 35 );
+            @include mobile {
+                font-size: size( 20 );
+            }
+        }
 
+        .is-actions {
 
             .button {
                 margin-left: size( 15 );
+                display: inline-block;
+                position: relative;
 
                 &.acao {
                     background-color: $color--primary-pure;
@@ -16,11 +24,35 @@
                     background-color: $color--secondary-light;
                     color: $color--primary-pure;
                     border: solid 1px $color--primary-pure;
+
+                    @include mobile {
+                        text-align: center;
+                        width: 38px;
+                        height: 38px;
+                        line-height: 36px;
+                        padding: 0;
+                        margin-right: size( 25 );
+                        top: 0;
+
+                        span {
+                            display: none;
+                        }
+                    }
                 }
             }
         }
     }
 
+    .dashboard-content-tabs {
+        .tabs__header {
+            a {
+                &:last-child {
+                    min-width: 300px;
+                    margin-right: size( 30 );
+                }
+            }
+        }
+    }
 
     .dashboard-content-acoes {
 

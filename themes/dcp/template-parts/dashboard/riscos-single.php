@@ -54,7 +54,7 @@
                     <li><a href="#/">Avaliar risco</a></li>
                 </ol>
             </div>
-            <header class="dashboard-content-header">
+            <header class="dashboard-content-header is-single">
                 <h2>Confira se está tudo correto:</h2>
                 <?php
                     //TODO: REFACTORY P/ COMPONENT

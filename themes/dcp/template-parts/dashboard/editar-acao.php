@@ -35,7 +35,7 @@ namespace hacklabr\dashboard;
             <li><a href="#/">Avaliar / Editar ação</a></li>
         </ol>
     </div>
-    <header class="dashboard-content-header">
+    <header class="dashboard-content-header is-single">
         <h2>Avaliar ação sugerida</h2>
         <?php
             //TODO: REFACTORY P/ COMPONENT
@@ -191,6 +191,7 @@ namespace hacklabr\dashboard;
             </div>
             <div class="fields is-media-attachments">
                 <div id="mediaUploadCover" class="input-media">
+                    <?php if( !wp_is_mobile() ) : ?>
                     <div class="input-media-uploader">
                         <h4>Foto de capa</h4>
                         <div class="input-media-uploader-files">
@@ -200,6 +201,20 @@ namespace hacklabr\dashboard;
                             </a>
                         </div>
                     </div>
+                    <?php else : ?>
+                        <div class="input-media-uploader is-mobile-only">
+                            <h4 style="margin-top: 15px">Foto (opcional)</h4>
+                            <div class="input-help">
+                                <a href="#/" class="button" style="top: 0 !important;">
+                                    <iconify-icon icon="bi:question"></iconify-icon>
+                                </a>
+                                <p>
+                                    Todos os campos devem ter pelo menos 5 caracteres.
+                                </p>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
                     <div class="input-media-uploader-progress">
                         <div class="progress is-empty">
                             <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
@@ -240,21 +255,39 @@ namespace hacklabr\dashboard;
                             <?php endif; ?>
                         </div>
                     </div>
+
+                    <?php if( wp_is_mobile() ) : ?>
+                        <div class="input-media-uploader">
+                            <div class="input-media-uploader-files">
+                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                                    <iconify-icon icon="bi:upload"></iconify-icon>
+                                    <span>Adicionar foto</span>
+                                </a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
-                <div class="input-help">
-                    <a href="#/" class="button">
-                        <iconify-icon icon="bi:question"></iconify-icon>
-                    </a>
-                    <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
-                    </p>
-                </div>
+                <?php if( !wp_is_mobile() ) : ?>
+                    <div class="input-help">
+                        <a href="#/" class="button">
+                            <iconify-icon icon="bi:question"></iconify-icon>
+                        </a>
+                        <p>
+                            Todos os campos devem ter pelo menos 5 caracteres.
+                        </p>
+                    </div>
+                <?php endif; ?>
             </div>
             <div class="fields">
                 <?php if( !empty( $pod->field( 'total_participantes' ) ) ) : ?>
                     <a class="is-download button" href="<?=admin_url( 'admin-ajax.php?action=download_participantes_acao&post_id=' . get_the_ID() )?>" target="_blank">
                         <iconify-icon icon="bi:download"></iconify-icon>
                         Lista de participantes <span>(<?=$pod->field( 'total_participantes' )?>)</span>
+                    </a>
+                <?php else : ?>
+                    <a class="is-download button" style="cursor: not-allowed; opacity: 0.5">
+                        <iconify-icon icon="bi:download"></iconify-icon>
+                        Lista de participantes indisponível</span>
                     </a>
                 <?php endif; ?>
             </div>

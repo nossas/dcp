@@ -2,6 +2,8 @@ import Alpine from 'alpinejs';
 import 'iconify-icon';
 
 window.Alpine = Alpine;
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 
 //TODO: CRIAR UTILS
 function formatFileSize(bytes) {
@@ -42,6 +44,38 @@ jQuery(function($) {
     }
 
     $( document ).ready( function() {
+
+        $( '#btnOpenMenuMobile' ).on( 'click', function () {
+            if( $( '#dashboardSidebar' ).hasClass( 'is-show' ) ) {
+                //$( '#dashboardSidebar' ).hide();
+                $( '#dashboardSidebar' ).removeClass( 'is-show' );
+                $( this ).removeClass( 'is-opened' );
+            } else {
+                //$( '#dashboardSidebar' ).show();
+                $( '#dashboardSidebar' ).addClass( 'is-show' );
+                $( this ).addClass( 'is-opened' );
+            }
+        });
+
+        $( '#dashboardSidebar a' ).each(function () {
+            $( this ).on( 'click', function () {
+                if( isMobile ) {
+                    $( '#dashboardSidebar' ).hide();
+                    $( '#dashboardSidebar' ).removeClass( 'is-show' );
+                    $( '#btnOpenMenuMobile' ).removeClass( 'is-opened' );
+                }
+            });
+        });
+
+        $( '.dashboard .tabs__header a' ).each(function () {
+            $( this ).on( 'click', function () {
+                $( this ).removeClass( 'is-notification' );
+                $( '.tabs__header a, .tabs__panels' ).removeClass( 'is-active' );
+                $( this ).addClass( 'is-active' );
+            });
+        });
+
+
 
         // TODO: COMPORTAMENTO MOCK TAB PANELS ( componentizar / usar Alpine já existente )
         $( '#dashboardRiscos .tabs__header a' ).on('click', function() {
@@ -588,7 +622,8 @@ jQuery(function($) {
 
         console.log( 'JQUERY WINDOW LOADED' );
 
-        $( 'body' ).attr( 'class', 'loading is-loaded' );
+        $( 'body' ).removeClass( 'loading' );
+        $( '.loading-global' ).fadeOut();
 
         $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
         $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
@@ -625,10 +660,13 @@ jQuery(function($) {
         }, 3000 );
 
     });
+    $( window ).on( 'beforeunload', function () {
+        $( '.loading-global' ).fadeIn();
+        $( 'body' ).addClass( 'loading' );
+    });
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     console.log( 'DOCUMENT LOADED' );
 

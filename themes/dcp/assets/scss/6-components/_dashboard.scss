@@ -1,26 +1,65 @@
 .dashboard {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    transition: all 0.5s 0s ease;
 
     &__header {
-        box-shadow: 0 0 5px rgba(black, 0.5);
+        background-color: $color--secondary-light;
+
+        width: 100%;
+        height: 65px;
         padding: size(5) size(40);
         display: flex;
         justify-content: space-between;
         align-items: center;
+        overflow: hidden;
+        box-shadow: 0 0 5px rgba(black, 0.5);
+
+        @include mobile {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
 
         &__logo {
+            display: flex;
+            position: relative;
 
+            a {
+                display: block;
+                width: 90px;
+
+                @include mobile{
+                    width: 35px;
+                }
+
+                img {
+                    display: block;
+                    max-width: initial;
+                    width: 100%;
+                }
+            }
         }
 
         &__navigation {
-
-
-
+            display: flex;
+            position: relative;
 
             ul {
 
                 list-style: none;
                 margin: 0;
                 padding: 0;
+
+                @include mobile{
+                    display: none;
+                }
 
                 li {
 
@@ -44,7 +83,58 @@
 
             }
 
+            .loading-global {
+                display: inline-block;
+                padding: size( 10 );
+                position: absolute;
+                top: 2px;
+                right: -30px;
+                opacity: 0.3;
+
+                @include mobile {
+                    right: 20px;
+                }
+
+                img {
+                    width: 20px;
+                    height: auto;
+                }
+            }
+
+            #btnOpenMenuMobile {
+                display: none;
+                position: relative;
+                top: 2px;
+                right: -25px;
+
+                @include mobile{
+                    display: block;
+                }
+
+                span {
+                    background-color: $color--secondary-dark;
+                    display: block;
+                    width: 25px;
+                    height: 3px;
+                    margin-bottom: 5px;
+                    border-radius: 2px;
+                    opacity: 1;
+                    transition: all 0.4s 0.02s ease;
+                }
+
+                &.is-opened {
+                    span {
+                        &:first-child,
+                        &:last-child {
+                            opacity: 0;
+                        }
+                    }
+                }
+            }
+
         }
+
+
     }
 
     &__body {
@@ -55,16 +145,29 @@
 
     &__sidebar {
         background-color: $color--secondary-dark;
-        color: white;
+        color: #FFF;
+        padding-top: size( 20 );
+        transition: all 0.4s 0.02s ease;
 
-        @include mobile{
-            display: none;
+        @include mobile {
+            padding-top: size( 75 );
+            width: 80%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 5;
+            transform: translateX( -120vw );
+
+            &.is-show {
+                transform: translateX( 0 );
+            }
         }
 
         ul {
             list-style: none;
             margin: 0;
-            padding: size(40) 0;
+            padding: size( 20 ) 0 size( 5 ) 0;
         }
 
         li {
@@ -93,11 +196,14 @@
     }
 
     &__main {
-        padding: size(40);
+        padding: size( 40 );
+        position: relative;
+        transition: all 0.5s 0s ease;
 
-        @include mobile{
-            padding-inline: $padding--medium;
+        @include mobile {
+            padding: size( 100 ) size( 20 ) size( 20 );
         }
+
         .dashboard-content {
             min-height: 75vh;
             position: relative;
@@ -147,6 +253,10 @@
                 margin: 0;
                 padding: 0 0 size( 30 ) 0;
 
+                @include mobile {
+                    padding: 0 0 size( 20 ) 0;
+                }
+
 
                 .breadcrumb {
 
@@ -171,7 +281,16 @@
                 align-items: center;
                 margin-bottom: size(50);
 
-                h1 {}
+                @include mobile {
+                    margin-bottom: size(20);
+                }
+
+                h1 {
+                    font-size: size( 35 );
+                    @include mobile {
+                        font-size: size( 20 );
+                    }
+                }
 
                 .button {
                     background-color: $color--warning-dark;
@@ -205,18 +324,67 @@
             .dashboard-content-tabs {
 
                 margin: size(10) 0;
+                position: relative;
+
+                &::after {
+                    content: '';
+                    display: none;
+                    background-color: $color--secondary-light;
+                    width: 40px;
+                    height: 100px;
+                    position: absolute;
+                    top: 0;
+                    right: -10px;
+                    filter: blur( 15px );
+                }
+
+                @include mobile {
+                    &::after {
+                        display: block;
+                    }
+                }
 
                 .tabs__header {
-                    border-bottom: 1px solid $color--secondary-dark;
+                    border-bottom: 1px solid rgba(0,0,0,0.3);
+                    display: flex;
+                    position: relative;
+
+                    @include mobile {
+                        width: 96vw;
+                        overflow-x: scroll;
+                        overflow-y: hidden;
+                    }
 
                     a {
+                        font-weight: 400;
+                        font-size: size( 18 );
+                        text-transform: uppercase;
                         text-decoration: none;
                         color: inherit;
+                        letter-spacing: 0.3s;
+                        display: flex;
                         padding: size(7) size(15);
                         position: relative;
+
+                        &:last-child {
+                            margin-right: size( 30 );
+                        }
+
+                        iconify-icon {
+                            display: block;
+                            position: relative;
+                            left: -4px;
+                            top: 4px;
+                        }
+
+                        span {
+                            display: block;
+                        }
                     }
+
+
                     a.is-active {
-                        font-weight: normal;
+                        font-weight: 400;
 
                         &::before {
                             content: '';
@@ -231,7 +399,7 @@
 
                     }
                     a.is-notification {
-                        font-weight: bold;
+                        font-weight: 500;
                         padding-right: size( 25 );
 
                         &::after {
@@ -645,6 +813,16 @@
                 z-index: 1;
             }
 
+    }
+
+}
+
+
+.loading .dashboard {
+
+    &__main {
+        opacity: 0.7;
+        cursor: wait;
     }
 
 }

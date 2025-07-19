@@ -2,6 +2,46 @@
     min-height: 75vh;
     position: relative;
 
+    .dashboard-content-header {
+
+        h1 {
+            font-size: size( 35 );
+            @include mobile {
+                font-size: size( 20 );
+            }
+        }
+
+        .button {
+            display: inline-block;
+            position: relative;
+
+            @include mobile {
+                text-align: center;
+                width: 38px;
+                height: 38px;
+                line-height: 36px;
+                padding: 0;
+                margin-right: size( 25 );
+                top: 2px;
+
+                span {
+                    display: none;
+                }
+            }
+        }
+
+    }
+
+    .dashboard-content-tabs {
+        .tabs__header {
+            a {
+                &:first-child {
+                    min-width: 300px;
+                }
+            }
+        }
+    }
+
     .dashboard-content-cards {
         .post-card {
             padding-top: size( 10 );
