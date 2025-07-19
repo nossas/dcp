@@ -20,7 +20,7 @@
         </ol>
     </div>
 
-    <header class="dashboard-content-header">
+    <header class="dashboard-content-header is-single-new">
         <h1>ADICIONAR NOVO RISCO</h1>
     </header>
 

@@ -2,6 +2,29 @@
     min-height: 75vh;
     position: relative;
 
+    .dashboard-content-header {
+
+        &.is-single,
+        &.is-single-new {
+
+            @include mobile {
+
+                display: block;
+                justify-content: initial;
+                align-items: initial;
+                padding-bottom: size( 10 );
+
+                h2 {
+                    margin-bottom: size( 10 );
+                }
+                a {
+
+                }
+
+            }
+        }
+    }
+
     .dashboard-content-single {
         position: relative;
 
@@ -22,9 +45,14 @@
                     color: $color--secondary-dark;
                     text-decoration: none;
                     font-size: size( 18 );
-                    padding: 0;
+                    border: solid 1px $color--secondary-dark;;
                     border-radius: size( 50 );
-                    border: none;
+
+                    @include mobile {
+                        text-align: center;
+                        display: block;
+                        width: 100%;
+                    }
 
                     &:hover {}
 
@@ -211,8 +239,18 @@
                     gap: 25px;
                     width: 61%;
 
+                    @include mobile {
+                        display: block;
+                        flex-wrap: initial;
+                        justify-content: initial;
+                        width: 100%;
+                    }
+
                     .input-wrap {
                         width: 47%;
+                        @include mobile {
+                            width: 100%;
+                        }
                     }
 
                 }
@@ -229,12 +267,28 @@
                     z-index: 1;
                     transition: all 0.2s 0s ease;
 
+                    @include mobile {
+                        width: 100%;
+                    }
+
                     .input-media-uploader {
                         display: flex;
                         justify-content: space-between;
                         gap: 10px;
 
                         margin-bottom: size( 25 );
+
+                        @include mobile {
+                            display: block;
+                            justify-content: initial;
+                            gap: initial;
+                        }
+
+                        &.is-mobile-only {
+                            display: flex !important;
+                            justify-content: space-between !important;
+                            gap: 10px !important;
+                        }
 
                         h3 {
                             font-size: size( 25 );
@@ -249,6 +303,10 @@
                             text-align: right;
                             width: 50%;
                             position: relative;
+
+                            @include mobile {
+                                width: 100%;
+                            }
 
                             input {
                                 width: 100px;
@@ -270,6 +328,13 @@
                                 position: relative;
                                 z-index: 2;
 
+                                @include mobile {
+                                    text-align: center;
+                                    display: block;
+                                    width: 100%;
+                                    margin-top: size( 25 );
+                                }
+
                                 &:hover {
                                     background-color: $color--secondary-dark;
                                     color: $color--secondary-light;
@@ -280,8 +345,6 @@
                     .input-media-uploader-progress {
                         display: none;
                         padding: size( 10 ) 0;
-
-
                         .progress {
                             background-color: rgba( 0,0,0,0.15 );
                             width: 100%;
@@ -336,8 +399,6 @@
                             padding: size( 25 );
                             border-radius: size( 15 );
                         }
-
-
                     }
                     .input-media-preview {
                         display: block;
@@ -522,9 +583,10 @@
                     color: $color--secondary-dark;
                     display: flex;
                     width: 38%;
-                    padding: size( 30 ) size( 10 ) size( 1 );
+                    padding: size( 30 ) size( 1 ) size( 1 );
+                    position: relative;
 
-                    @include tablet {
+                    @include mobile {
                         width: 15%;
                     }
 
@@ -541,6 +603,14 @@
                         margin-right: size( 10 );
                         border-radius: size( 50 );
                         cursor: help;
+                        position: relative;
+
+                        @include mobile {
+                            position: absolute;
+                            top: size( 26 );
+                            right: -10px;
+                            z-index: 3;
+                        }
 
                         &:hover {
                             color: $color--secondary-dark;
@@ -551,6 +621,10 @@
 
                         @include tablet {
                             display: none;
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            z-index: 3;
                         }
                     }
 
@@ -568,6 +642,11 @@
                 cursor: not-allowed;
                 transition: all 0.4s 0s ease;
 
+                @include mobile {
+                    display: block;
+                    justify-content: initial;
+                }
+
                 .button {
                     font-size: size( 20 );
                     text-decoration: none;
@@ -576,7 +655,14 @@
                     border-radius: size( 75 );
 
                     &:first-child {
+                        text-align: center;
                         margin-left: 0;
+                    }
+
+                    @include mobile {
+                        display: block;
+                        width: 100%;
+                        margin: 0 0 size( 15 ) 0;
                     }
 
                     span {

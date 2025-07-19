@@ -24,7 +24,7 @@ namespace hacklabr\dashboard;
         </ol>
     </div>
 
-    <header class="dashboard-content-header">
+    <header class="dashboard-content-header is-single-new">
         <h1>Adicionar Ação</h1>
     </header>
 
