@@ -67,8 +67,8 @@
                     width: 61%;
                     position: relative;
 
-                    @include tablet {
-                        width: 84%;
+                    @include mobile {
+                        width: 100%;
                     }
 
                     label {

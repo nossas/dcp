@@ -12,8 +12,18 @@
         }
 
         .button {
+            display: inline-block;
+            position: relative;
+
             @include mobile {
-                margin-right: size( 20 );
+                text-align: center;
+                width: 38px;
+                height: 38px;
+                line-height: 36px;
+                padding: 0;
+                margin-right: size( 25 );
+                top: 2px;
+
                 span {
                     display: none;
                 }

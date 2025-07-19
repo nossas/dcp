@@ -13,6 +13,8 @@
 
             .button {
                 margin-left: size( 15 );
+                display: inline-block;
+                position: relative;
 
                 &.acao {
                     background-color: $color--primary-pure;
@@ -24,7 +26,14 @@
                     border: solid 1px $color--primary-pure;
 
                     @include mobile {
-                        margin-right: size( 20 );
+                        text-align: center;
+                        width: 38px;
+                        height: 38px;
+                        line-height: 36px;
+                        padding: 0;
+                        margin-right: size( 25 );
+                        top: 0;
+
                         span {
                             display: none;
                         }
