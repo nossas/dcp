@@ -277,7 +277,16 @@
                 align-items: center;
                 margin-bottom: size(50);
 
-                h1 {}
+                @include mobile {
+                    margin-bottom: size(20);
+                }
+
+                h1 {
+                    font-size: size( 35 );
+                    @include mobile {
+                        font-size: size( 20 );
+                    }
+                }
 
                 .button {
                     background-color: $color--warning-dark;
