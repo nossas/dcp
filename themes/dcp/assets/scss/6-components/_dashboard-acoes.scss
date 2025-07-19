@@ -2,8 +2,14 @@
 
     .dashboard-content-header {
 
-        .is-actions {
+        h1 {
+            font-size: size( 50 );
+            @include mobile {
+                font-size: size( 25 );
+            }
+        }
 
+        .is-actions {
 
             .button {
                 margin-left: size( 15 );
@@ -16,11 +22,28 @@
                     background-color: $color--secondary-light;
                     color: $color--primary-pure;
                     border: solid 1px $color--primary-pure;
+
+                    @include mobile {
+                        margin-right: size( 20 );
+                        span {
+                            display: none;
+                        }
+                    }
                 }
             }
         }
     }
 
+    .dashboard-content-tabs {
+        .tabs__header {
+            a {
+                &:last-child {
+                    min-width: 300px;
+                    margin-right: size( 30 );
+                }
+            }
+        }
+    }
 
     .dashboard-content-acoes {
 

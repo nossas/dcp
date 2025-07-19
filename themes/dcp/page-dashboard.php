@@ -5,58 +5,73 @@
  */
 
 namespace hacklabr\dashboard;
-ob_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['arquivar_apoio'])) {
-    $post_id = intval($_POST['post_id']);
-    if (current_user_can('edit_post', $post_id)) {
-        update_post_meta($post_id, 'apoio_arquivado', '1');
-        wp_redirect(home_url('/dashboard/apoio?tipo=arquivados'));
-        exit;
+    //TODO : REFACTORY
+    ob_start();
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['arquivar_apoio'])) {
+        $post_id = intval($_POST['post_id']);
+        if (current_user_can('edit_post', $post_id)) {
+            update_post_meta($post_id, 'apoio_arquivado', '1');
+            wp_redirect(home_url('/dashboard/apoio?tipo=arquivados'));
+            exit;
+        }
     }
-}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= get_dashboard_title() ?> | <?= get_bloginfo('name') ?></title>
-    <meta property="og:image" content="<?= get_template_directory_uri() ?>/assets/images/cover-dashboard.png">
-
+    <title><?=get_dashboard_title() ?> | <?= get_bloginfo( 'name' )?></title>
     <?php wp_head(); ?>
 </head>
-<body <?php body_class(); ?>>
+<body <?php body_class( 'loading' ); ?>>
     <?php wp_body_open(); ?>
     <div class="dashboard">
         <header class="dashboard__header">
             <div class="dashboard__header__logo">
-                <?php if ( has_custom_logo() ): ?>
-                    <?php the_custom_logo(); ?>
-                <?php else: ?>
-                    <a href="<?= get_dashboard_url() ?>">
-                        <img src="<?= get_template_directory_uri() ?>/assets/images/logo.png" width="200" alt="<?= get_bloginfo( 'name' ) ?>">
-                    </a>
-                <?php endif; ?>
+                <a href="<?= get_dashboard_url() ?>">
+                    <?php if ( wp_is_mobile() ) : ?>
+                        <img src="<?= get_template_directory_uri() ?>/assets/images/logo-defesa-climatica-popular-icon.svg" alt="<?= get_bloginfo( 'name' ) ?>">
+                    <?php else : ?>
+                        <img src="<?= get_template_directory_uri() ?>/assets/images/logo-defesa-climatica-popular-full.svg" alt="<?= get_bloginfo( 'name' ) ?>">
+                    <?php endif; ?>
+                </a>
             </div>
             <nav class="dashboard__header__navigation">
-                <ul>
-                    <li>
-                        <a href="#/conta/">Conta</a>
-                    </li>
-                    <li>
-                        <a href="#/conta/">Ajuda</a>
-                    </li>
-                    <li>
-                        <button class="button">
-                            <span>Sair</span>
-                        </button>
-                    </li>
-                </ul>
+                <?php if( !wp_is_mobile() ) : ?>
+                    <ul>
+                        <li>
+                            <a href="<?= get_dashboard_url('conta') ?>">Conta</a>
+                        </li>
+                        <li>
+                            <a href="<?= get_dashboard_url('ajuda') ?>">Ajuda</a>
+                        </li>
+                        <li>
+                            <a href="<?= get_dashboard_url('sair') ?>">
+                                <button class="button">
+                                    <span>Sair</span>
+                                </button>
+                            </a>
+                        </li>
+                    </ul>
+                <?php endif; ?>
+
+                <i class="loading-global">
+                    <img src="<?= get_template_directory_uri() ?>/assets/images/loading.gif">
+                </i>
+
+                <a id="btnOpenMenuMobile" class="button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
             </nav>
+
         </header>
         <div class="dashboard__body">
-            <aside class="dashboard__sidebar">
+            <aside id="dashboardSidebar" class="dashboard__sidebar">
                 <nav>
                     <ul>
                         <li class="<?= is_dashboard('inicio') ? 'dashboard-current' : '' ?>">
@@ -99,6 +114,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['arquivar_apoio'])) {
                         </li>
                     </ul>
                 </nav>
+
+                <?php if( wp_is_mobile() ) : ?>
+                <nav>
+                    <ul>
+                        <li class="">
+                            <a href="<?= get_dashboard_url('conta') ?>">
+                                <iconify-icon icon="bi:person-circle"></iconify-icon>
+                                <span>Conta</span>
+                            </a>
+                        </li>
+
+                        <li class="">
+                            <a href="<?= get_dashboard_url('ajuda') ?>">
+                                <iconify-icon icon="bi:question-circle"></iconify-icon>
+                                <span>Ajuda</span>
+                            </a>
+                        </li>
+
+                        <li class="">
+                            <a href="<?= get_dashboard_url('sair') ?>">
+                                <iconify-icon icon="bi:box-arrow-left"></iconify-icon>
+                                <span>Sair</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+                <?php endif; ?>
             </aside>
             <main class="dashboard__main">
                 <?php get_dashboard_content(); ?>
