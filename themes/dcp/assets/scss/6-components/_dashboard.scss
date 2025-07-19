@@ -31,6 +31,10 @@
             display: flex;
             position: relative;
 
+            @include mobile {
+                left: -20px;
+            }
+
             a {
                 display: block;
                 width: 90px;
@@ -92,7 +96,7 @@
                 opacity: 0.3;
 
                 @include mobile {
-                    right: 20px;
+                    right: 10px;
                 }
 
                 img {
@@ -105,7 +109,7 @@
                 display: none;
                 position: relative;
                 top: 2px;
-                right: -25px;
+                right: -40px;
 
                 @include mobile{
                     display: block;
@@ -139,13 +143,14 @@
 
     &__body {
         display: grid;
-        grid-template-columns: auto 1fr;
+        grid-template-columns: auto 2fr;
         min-height: 95vh;
     }
 
     &__sidebar {
         background-color: $color--secondary-dark;
         color: #FFF;
+        width: 300px;
         padding-top: size( 20 );
         transition: all 0.4s 0.02s ease;
 
@@ -213,20 +218,28 @@
                 min-height: 50vh;
                 position: relative;
 
+                @include mobile {
+                    min-height: 20vh;
+                }
+
                 svg {
                     position: absolute;
                     margin: auto;
                     width: 100%;
-                    top: -20%;
+                    top: -25%;
                     left: -15%;
+
+                    @include mobile {
+                        top: -20%;
+                    }
                 }
 
                 #mask {
-                    animation: mask 975ms ease infinite;
+                    animation: mask 1.8s ease infinite;
                 }
                 @keyframes mask {
-                    from {transform: translateX(0)}
-                    to {transform: translateX(280px)}
+                    from { transform: translateX( 0 ) }
+                    to { transform: translateX( 280px ) }
                 }
             }
             .dashboard-content-skeleton.is-load-form {
@@ -495,6 +508,10 @@
             }
             .dashboard-content-cards {
 
+                @include mobile {
+                    padding-top: size( 17 ) !important;
+                }
+
                 .post-card {
                     background-color: white;
                     font-weight: 300;
@@ -754,6 +771,28 @@
                         .button {
                             font-size: size( 16 );
                             padding: size( 13 ) size( 23 );
+
+                            @include mobile {
+                                display: block;
+                                min-width: size( 100 );
+                            }
+                        }
+
+                        .is-download {
+                            background-color: transparent;
+                            color: $color--secondary-dark;
+                            font-size: size( 13 );
+                            padding: 0;
+                            border-radius: size( 50 );
+                            border: none;
+
+                            &:hover {}
+
+                            span {
+                                font-size: size( 13 );
+                                font-weight: bold;
+                                opacity: 0.5;
+                            }
                         }
 
                         .is-aprovacao {
@@ -782,22 +821,7 @@
                             &:hover {}
                         }
 
-                        .is-download {
-                            background-color: transparent;
-                            color: $color--secondary-dark;
-                            font-size: size( 16 );
-                            padding: 0;
-                            border-radius: size( 50 );
-                            border: none;
 
-                            &:hover {}
-
-                            span {
-                                font-size: size( 13 );
-                                font-weight: bold;
-                                opacity: 0.5;
-                            }
-                        }
 
                     }
 

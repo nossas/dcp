@@ -22,7 +22,14 @@ namespace hacklabr\dashboard;
                 $is_active = $value['is_active'] ? 'is-active' : ''; ?>
 
                     <div id="<?=$panel_id?>" class="tabs__panels container--wide <?=$is_active?>" <?=($is_active) ? 'style="display: block;"' : 'style="display: none;"'?> >
-                        <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
+                        <?php
+                            get_template_part('template-parts/dashboard/ui/skeleton' );
+
+                            if( wp_is_mobile() ) {
+                                get_template_part('template-parts/dashboard/ui/skeleton' );
+                                get_template_part('template-parts/dashboard/ui/skeleton' );
+                            }
+                        ?>
                         <div class="tabs__panel__content dashboard-content-cards">
                             <?php
                             if( $value[ 'riscos' ]->have_posts() ) :

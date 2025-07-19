@@ -78,6 +78,11 @@ namespace hacklabr\dashboard;
                 <?php
                     get_template_part('template-parts/dashboard/ui/skeleton' );
 
+                    if( wp_is_mobile() ) {
+                        get_template_part('template-parts/dashboard/ui/skeleton' );
+                        get_template_part('template-parts/dashboard/ui/skeleton' );
+                    }
+
                     if( $tipo_acao === 'relatos-compartilhados' ) {
                         $get_acoes = get_relatos();
                     } else {
