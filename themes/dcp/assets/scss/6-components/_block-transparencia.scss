@@ -15,10 +15,11 @@
         }
     }
     .post-card {
+        // outros estilos...
 
         &__image {
             a > img {
-            height: 220px;
+                height: 220px;
             }
         }
 
@@ -30,7 +31,6 @@
             margin-bottom: 8px;
         }
 
-
         &__excerpt-wrapped {
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -40,32 +40,35 @@
             max-height: 3.2em;
             margin-bottom: 8px;
         }
-        &__field:not(.post-card__manual){
+
+        &__field:not(.post-card__manual) {
             display: none;
         }
-        &__manual{
+
+        &__manual {
             display: flex;
             text-align: end;
             justify-content: flex-end !important;
-            max-width: 95%;;
-            a{
+            max-width: 95%;
+
+            a {
                 text-decoration: underline;
             }
         }
+
         &__content {
             gap: 0;
 
-            &__adress{
+            &__adress {
                 display: flex;
             }
 
             &__category {
-            padding-top: 20px !important;
-            padding-bottom: 20px !important;
-
+                padding-top: 20px !important;
+                padding-bottom: 20px !important;
             }
-        }
 
+        }
     }
   }
 }

@@ -277,6 +277,7 @@
         <?php endif; ?>
 
         <?php
+
             if (has_category('manuais-de-referencia', $post)) {
             $pod = pods('post', get_the_ID());
 
@@ -314,6 +315,14 @@
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icon-left-link.png" alt="Ícone de seta" />
                     </div>
                 <?php endif; ?>
+            </div>
+        <?php }
+         else { ?>
+            <div class="post-card__meta post-card__meta--default" style="text-align: end;">
+                <a href="<?php the_permalink(); ?>" class="saiba-mais-link" style="display: inline-flex; align-items: center; gap: 6px; color: #281414; text-decoration: none;">
+                    <span class="saiba-mais-text" style="text-decoration: underline;"><?php echo __("Saiba mais", "dcp"); ?></span>
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/seta_card.svg" alt="Seta" class="saiba-mais-icon" style="width: 12px; height: auto;" />
+                </a>
             </div>
         <?php } ?>
 
