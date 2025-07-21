@@ -389,6 +389,49 @@ add_action('wp_enqueue_scripts', 'cpt_acao_assets');
 
 
 
+// Altera os rótulos do post type "post"
+function alterar_labels_post_para_conteudos( $labels ) {
+    $labels->name               = 'Conteúdos';
+    $labels->singular_name      = 'Conteúdo';
+    $labels->add_new            = 'Adicionar novo';
+    $labels->add_new_item       = 'Adicionar novo conteúdo';
+    $labels->edit_item          = 'Editar conteúdo';
+    $labels->new_item           = 'Novo conteúdo';
+    $labels->view_item          = 'Ver conteúdo';
+    $labels->search_items       = 'Buscar conteúdos';
+    $labels->not_found          = 'Nenhum conteúdo encontrado';
+    $labels->not_found_in_trash = 'Nenhum conteúdo na lixeira';
+    $labels->all_items          = 'Todos os conteúdos';
+    $labels->menu_name          = 'Conteúdos';
+    $labels->name_admin_bar     = 'Conteúdo';
+    return $labels;
+}
+add_filter( 'post_type_labels_post', 'alterar_labels_post_para_conteudos' );
+
+// Altera o nome do menu lateral
+function alterar_menu_posts_para_conteudos() {
+    global $menu;
+    global $submenu;
+
+    // Altera o nome principal do menu
+    foreach ( $menu as $key => $item ) {
+        if ( isset($item[2]) && $item[2] == 'edit.php' ) {
+            $menu[$key][0] = 'Conteúdos';
+        }
+    }
+
+    // Altera os subitens
+    if ( isset($submenu['edit.php']) ) {
+        $submenu['edit.php'][5][0] = 'Todos os conteúdos';
+        $submenu['edit.php'][10][0] = 'Adicionar novo';
+        $submenu['edit.php'][15][0] = 'Categorias';
+        $submenu['edit.php'][16][0] = 'Tags';
+    }
+}
+add_action( 'admin_menu', 'alterar_menu_posts_para_conteudos' );
+
+
+
 add_action('admin_menu', 'adicionar_link_dashboard_personalizado');
 
 function adicionar_link_dashboard_personalizado() {
@@ -428,5 +471,3 @@ function estilo_personalizado_menu() {
         }
     </style>';
 }
-
-
