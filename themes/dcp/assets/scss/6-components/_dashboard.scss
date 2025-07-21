@@ -9,7 +9,6 @@
 
     &__header {
         background-color: $color--secondary-light;
-
         width: 100%;
         height: 65px;
         padding: size(5) size(40);
@@ -26,7 +25,6 @@
             right: 0;
             z-index: 10;
         }
-
         &__logo {
             display: flex;
             position: relative;
@@ -50,7 +48,6 @@
                 }
             }
         }
-
         &__navigation {
             display: flex;
             position: relative;
@@ -77,6 +74,9 @@
                     &:hover {
                         color: #000;
                     }
+                    &:last-child {
+                        padding-right: 0;
+                    }
 
                     button {
                         background-color: $color--secondary-dark;
@@ -91,8 +91,8 @@
                 display: inline-block;
                 padding: size( 10 );
                 position: absolute;
-                top: 2px;
-                right: -30px;
+                top: 5px;
+                right: -37px;
                 opacity: 0.3;
 
                 @include mobile {
@@ -100,7 +100,7 @@
                 }
 
                 img {
-                    width: 20px;
+                    width: 15px;
                     height: auto;
                 }
             }
@@ -137,20 +137,17 @@
             }
 
         }
-
-
     }
 
     &__body {
         display: grid;
-        grid-template-columns: auto 2fr;
+        grid-template-columns: auto 1fr;
         min-height: 95vh;
     }
 
     &__sidebar {
         background-color: $color--secondary-dark;
         color: #FFF;
-        //width: 300px;
         padding-top: size( 20 );
         transition: all 0.4s 0.02s ease;
 
@@ -169,20 +166,19 @@
             }
         }
 
-        //@include tablet {
-        //    width: 240px;
-        //}
-        //@include desktop {
-        //    width: 250px;
-        //}
-        //@include desktop-large {
-        //    width: 250px;
-        //}
-
         ul {
+            display: block;
+            width: 260px;
             list-style: none;
             margin: 0;
             padding: size( 20 ) 0 size( 5 ) 0;
+
+            @include mobile {
+                width: 100%;
+            }
+            @include desktop-xxlarge {
+                width: 300px;
+            }
         }
 
         li {
@@ -220,7 +216,7 @@
             padding: size( 100 ) size( 20 ) size( 20 );
         }
         @include tablet {
-            padding: size( 20 );
+            padding: size( 100 ) size( 20 ) size( 20 );
         }
         @include desktop {
             padding: size( 20 );
@@ -320,7 +316,7 @@
             }
             .dashboard-content-header {
                 color: $color--secondary-dark;
-                width: calc( 100% - 175px );
+                width: calc( 100% - 145px );
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -363,6 +359,10 @@
                     color: $color--secondary-light;
                     text-decoration: none;
                     border-radius: size( 50 );
+
+                    @include mobile {
+                        margin-right: 0 !important;
+                    }
 
                     &:hover {
                         background-color: $color--primary-pure;
@@ -416,10 +416,14 @@
                 .tabs__header {
                     border-bottom: 1px solid rgba(0,0,0,0.3);
                     display: flex;
-                    width: 96vw;
+                    width: calc( 100vw - 175px );
                     overflow-x: scroll;
                     overflow-y: hidden;
                     position: relative;
+
+                    @include mobile {
+                        width: calc( 100vw - 40px );
+                    }
 
                     a {
                         font-weight: 400;
@@ -431,6 +435,16 @@
                         display: flex;
                         padding: size(7) size(15);
                         position: relative;
+
+                        @include desktop {
+                            font-size: size( 14 );
+                        }
+                        @include desktop-xlarge {
+                            font-size: size( 16 );
+                        }
+                        @include desktop-xxlarge {
+                            font-size: size( 18 );
+                        }
 
                         &:last-child {
                             margin-right: size( 30 );
@@ -447,7 +461,6 @@
                             display: block;
                         }
                     }
-
 
                     a.is-active {
                         font-weight: 400;
@@ -572,7 +585,7 @@
             .dashboard-content-cards {
 
                 display: block;
-                width: calc( 100% - 150px );
+                width: calc( 100% - 100px );
 
                 @include mobile {
                     width: 100%;
@@ -600,10 +613,12 @@
 
 
                     @include mobile {
-                        max-width: calc( 100% - 25px );
+                        max-width: 100%;
+                        margin: 0 0 25px 0;
                     }
                     @include tablet {
-                        max-width: calc( 100% - 25px );
+                        max-width: 100%;
+                        margin: 0 0 25px 0;
                     }
                     @include desktop {
                         max-width: calc( 48% - 25px );
@@ -661,10 +676,10 @@
                     }
 
                     &__term {
-                        padding: size( 10 ) size( 20 );
+                        padding: size( 8 ) size( 18 );
 
                         span {
-                            font-size: size( 14 );
+                            font-size: size( 13 );
                             display: inline-block;
                             width: auto;
                             max-width: initial;
@@ -925,10 +940,8 @@
 
 
 .loading .dashboard {
-
     &__main {
         opacity: 0.7;
         cursor: wait;
     }
-
 }

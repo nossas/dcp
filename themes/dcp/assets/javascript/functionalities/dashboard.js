@@ -26,7 +26,9 @@ jQuery(function($) {
                 post_id : post_id,
                 attachment_id : attachment_id
             },
-            beforeSend: function() {},
+            beforeSend: function() {
+                $( '.loading-global' ).fadeIn( 400 );
+            },
             success: function( response ) {
                 if( typeof success === 'function' ) {
                     success( response );
@@ -38,7 +40,7 @@ jQuery(function($) {
                 }
             },
             complete: function() {
-
+                $( '.loading-global' ).fadeOut( 400 );
             }
         });
     }
@@ -56,7 +58,6 @@ jQuery(function($) {
                 $( this ).addClass( 'is-opened' );
             }
         });
-
         $( '#dashboardSidebar a' ).each(function () {
             $( this ).on( 'click', function () {
                 if( isMobile ) {
@@ -66,7 +67,6 @@ jQuery(function($) {
                 }
             });
         });
-
         $( '.dashboard .tabs__header a' ).each(function () {
             $( this ).on( 'click', function () {
                 $( this ).removeClass( 'is-notification' );
@@ -74,8 +74,6 @@ jQuery(function($) {
                 $( this ).addClass( 'is-active' );
             });
         });
-
-
 
         // TODO: COMPORTAMENTO MOCK TAB PANELS ( componentizar / usar Alpine já existente )
         $( '#dashboardRiscos .tabs__header a' ).on('click', function() {
@@ -367,6 +365,7 @@ jQuery(function($) {
             const formData = new FormData( form );
 
             $this.addClass( 'is-sending' );
+            $( '.loading-global' ).fadeIn( 400 );
 
             fetch( $this.attr( 'data-action' ), {
                 method: 'POST',
@@ -375,6 +374,7 @@ jQuery(function($) {
                 .then( res => res.json() )
                 .then( response => {
                     $this.removeClass( 'is-sending' );
+                    $( '.loading-global' ).fadeOut( 400 );
 
                     if( response.success ) {
 
@@ -623,7 +623,7 @@ jQuery(function($) {
         console.log( 'JQUERY WINDOW LOADED' );
 
         $( 'body' ).removeClass( 'loading' );
-        $( '.loading-global' ).fadeOut();
+        $( '.loading-global' ).fadeOut( 400 );
 
         $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
         $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
@@ -661,7 +661,7 @@ jQuery(function($) {
 
     });
     $( window ).on( 'beforeunload', function () {
-        $( '.loading-global' ).fadeIn();
+        $( '.loading-global' ).fadeIn( 400 );
         $( 'body' ).addClass( 'loading' );
     });
 });
