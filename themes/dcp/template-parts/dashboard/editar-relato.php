@@ -176,15 +176,30 @@ namespace hacklabr\dashboard;
             </div>
             <div class="fields is-media-attachments">
                 <div id="mediaUploadCover" class="input-media">
-                    <div class="input-media-uploader">
-                        <h4>Foto de capa</h4>
-                        <div class="input-media-uploader-files">
-                            <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
-                                <iconify-icon icon="bi:upload"></iconify-icon>
-                                <span>Adicionar foto</span>
-                            </a>
+                    <?php if( !wp_is_mobile() ) : ?>
+                        <div class="input-media-uploader">
+                            <h4>Foto de capa</h4>
+                            <div class="input-media-uploader-files">
+                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                                    <iconify-icon icon="bi:upload"></iconify-icon>
+                                    <span>Adicionar foto</span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    <?php else : ?>
+                        <div class="input-media-uploader is-mobile-only">
+                            <h4 style="margin-top: 15px">Foto (opcional)</h4>
+                            <div class="input-help">
+                                <a href="#/" class="button" style="top: 0 !important;">
+                                    <iconify-icon icon="bi:question"></iconify-icon>
+                                </a>
+                                <p>
+                                    Todos os campos devem ter pelo menos 5 caracteres.
+                                </p>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
                     <div class="input-media-uploader-progress">
                         <div class="progress is-empty">
                             <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
@@ -223,15 +238,29 @@ namespace hacklabr\dashboard;
                             <?php endif; ?>
                         </div>
                     </div>
+
+                    <?php if( wp_is_mobile() ) : ?>
+                        <div class="input-media-uploader">
+                            <div class="input-media-uploader-files">
+                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                                    <iconify-icon icon="bi:upload"></iconify-icon>
+                                    <span>Adicionar foto</span>
+                                </a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
                 </div>
-                <div class="input-help">
-                    <a href="#/" class="button">
-                        <iconify-icon icon="bi:question"></iconify-icon>
-                    </a>
-                    <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
-                    </p>
-                </div>
+                <?php if( !wp_is_mobile() ) : ?>
+                    <div class="input-help">
+                        <a href="#/" class="button">
+                            <iconify-icon icon="bi:question"></iconify-icon>
+                        </a>
+                        <p>
+                            Todos os campos devem ter pelo menos 5 caracteres.
+                        </p>
+                    </div>
+                <?php endif; ?>
             </div>
             <div class="fields">
                 <div class="input-wrap">
@@ -249,15 +278,29 @@ namespace hacklabr\dashboard;
             </div>
             <div class="fields is-media-attachments">
                 <div id="mediaUpload" class="input-media">
-                    <div class="input-media-uploader">
-                        <h3>Mídias</h3>
-                        <div class="input-media-uploader-files">
-                            <a id="mediaUploadButton" class="button is-primary is-small is-upload-media is-multiple">
-                                <iconify-icon icon="bi:upload"></iconify-icon>
-                                <span>Adicionar fotos e vídeos</span>
-                            </a>
+                    <?php if( !wp_is_mobile() ) : ?>
+                        <div class="input-media-uploader">
+                            <h4>Mídias</h4>
+                            <div class="input-media-uploader-files">
+                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                                    <iconify-icon icon="bi:upload"></iconify-icon>
+                                    <span>Adicionar fotos e vídeos</span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    <?php else : ?>
+                        <div class="input-media-uploader is-mobile-only">
+                            <h4 style="margin-top: 15px">Mídias</h4>
+                            <div class="input-help">
+                                <a href="#/" class="button" style="top: 0 !important;">
+                                    <iconify-icon icon="bi:question"></iconify-icon>
+                                </a>
+                                <p>
+                                    Todos os campos devem ter pelo menos 5 caracteres.
+                                </p>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                     <div class="input-media-uploader-progress">
                         <div class="progress is-empty">
                             <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
@@ -336,15 +379,27 @@ namespace hacklabr\dashboard;
                             </div>
                         <?php endif; ?>
                     </div>
+                    <?php if( wp_is_mobile() ) : ?>
+                        <div class="input-media-uploader">
+                            <div class="input-media-uploader-files">
+                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                                    <iconify-icon icon="bi:upload"></iconify-icon>
+                                    <span>Adicionar fotos e vídeos</span>
+                                </a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
-                <div class="input-help">
-                    <a href="#/" class="button">
-                        <iconify-icon icon="bi:question"></iconify-icon>
-                    </a>
-                    <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
-                    </p>
-                </div>
+                <?php if( !wp_is_mobile() ) : ?>
+                    <div class="input-help">
+                        <a href="#/" class="button">
+                            <iconify-icon icon="bi:question"></iconify-icon>
+                        </a>
+                        <p>
+                            Todos os campos devem ter pelo menos 5 caracteres.
+                        </p>
+                    </div>
+                <?php endif; ?>
             </div>
             <div class="form-submit">
                 <input type="hidden" name="action" value="form_single_relato_edit">
