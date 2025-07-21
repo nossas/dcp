@@ -21,7 +21,7 @@ namespace hacklabr\dashboard;
 
                 $is_active = $value['is_active'] ? 'is-active' : ''; ?>
 
-                    <div id="<?=$panel_id?>" class="tabs__panels container--wide <?=$is_active?>" <?=($is_active) ? 'style="display: block;"' : 'style="display: none;"'?> >
+                    <div id="<?=$panel_id?>" class="tabs__panels <?=$is_active?>" <?=($is_active) ? 'style="display: block;"' : 'style="display: none;"'?> >
                         <?php
                             get_template_part('template-parts/dashboard/ui/skeleton' );
 

@@ -54,6 +54,18 @@
     }
 }
 
+@mixin desktop-xxlarge {
+    @media (min-width: $break--desktop-xx-large) {
+        @content;
+    }
+}
+
+@mixin desktop-xxxlarge {
+    @media (min-width: $break--desktop-xxx-large) {
+        @content;
+    }
+}
+
 @mixin print {
     @media print {
         @content;

@@ -150,7 +150,7 @@
     &__sidebar {
         background-color: $color--secondary-dark;
         color: #FFF;
-        width: 300px;
+        //width: 300px;
         padding-top: size( 20 );
         transition: all 0.4s 0.02s ease;
 
@@ -168,6 +168,16 @@
                 transform: translateX( 0 );
             }
         }
+
+        //@include tablet {
+        //    width: 240px;
+        //}
+        //@include desktop {
+        //    width: 250px;
+        //}
+        //@include desktop-large {
+        //    width: 250px;
+        //}
 
         ul {
             list-style: none;
@@ -201,12 +211,22 @@
     }
 
     &__main {
+        display: block;
         padding: size( 40 );
         position: relative;
         transition: all 0.5s 0s ease;
 
         @include mobile {
             padding: size( 100 ) size( 20 ) size( 20 );
+        }
+        @include tablet {
+            padding: size( 20 );
+        }
+        @include desktop {
+            padding: size( 20 );
+        }
+        @include desktop-large {
+            padding: size( 20 );
         }
 
         .dashboard-content {
@@ -221,6 +241,17 @@
                 @include mobile {
                     min-height: 20vh;
                 }
+
+                @include tablet {
+                    top: 30px;
+                }
+                @include desktop {
+                    top: 40px;
+                }
+                @include desktop-large {
+                    top: 50px;
+                }
+
 
                 svg {
                     position: absolute;
@@ -289,19 +320,41 @@
             }
             .dashboard-content-header {
                 color: $color--secondary-dark;
+                width: calc( 100% - 175px );
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 margin-bottom: size(50);
 
                 @include mobile {
+                    width: 100%;
                     margin-bottom: size(20);
+                }
+
+                @include tablet {
+                    margin-bottom: size(20);
+                }
+                @include desktop {
+                    margin-bottom: size(20);
+                }
+                @include desktop-large {
+                    margin-bottom: size(15);
+                }
+
+                &.is-single {
+                    width: 100%;
                 }
 
                 h1 {
                     font-size: size( 35 );
                     @include mobile {
                         font-size: size( 20 );
+                    }
+                    @include desktop {
+                        font-size: size( 20 );
+                    }
+                    @include desktop-large {
+                        font-size: size( 25 );
                     }
                 }
 
@@ -335,13 +388,11 @@
 
             }
             .dashboard-content-tabs {
-
-                margin: size(10) 0;
                 position: relative;
 
                 &::after {
                     content: '';
-                    display: none;
+                    display: block;
                     background-color: $color--secondary-light;
                     width: 40px;
                     height: 100px;
@@ -351,22 +402,24 @@
                     filter: blur( 15px );
                 }
 
-                @include mobile {
+                @include desktop {
                     &::after {
-                        display: block;
+                        right: -30px;
+                    }
+                }
+                @include desktop-xxlarge {
+                    &::after {
+                        display: none;
                     }
                 }
 
                 .tabs__header {
                     border-bottom: 1px solid rgba(0,0,0,0.3);
                     display: flex;
+                    width: 96vw;
+                    overflow-x: scroll;
+                    overflow-y: hidden;
                     position: relative;
-
-                    @include mobile {
-                        width: 96vw;
-                        overflow-x: scroll;
-                        overflow-y: hidden;
-                    }
 
                     a {
                         font-weight: 400;
@@ -374,7 +427,7 @@
                         text-transform: uppercase;
                         text-decoration: none;
                         color: inherit;
-                        letter-spacing: 0.3s;
+                        letter-spacing: 0.3px;
                         display: flex;
                         padding: size(7) size(15);
                         position: relative;
@@ -432,6 +485,16 @@
                 .tabs__panels {
                     display: none !important;
                     padding: size(25) 0;
+
+                    @include tablet {
+                        padding: size(5) 0;
+                    }
+                    @include desktop {
+                        padding: size(5) 0;
+                    }
+                    @include desktop-large {
+                        padding: size(5) 0;
+                    }
 
                     .tabs__panel__content {
 
@@ -508,7 +571,11 @@
             }
             .dashboard-content-cards {
 
+                display: block;
+                width: calc( 100% - 150px );
+
                 @include mobile {
+                    width: 100%;
                     padding-top: size( 17 ) !important;
                 }
 
@@ -518,7 +585,7 @@
                     color: $color--secondary-dark;
                     display: inline-block;
                     width: 100%;
-                    max-width: calc( 33% - 25px );
+                    max-width: calc( 100% - 25px );
                     min-height: size( 250 );
                     padding: 0;
                     margin: 0 25px 25px 0;
@@ -531,15 +598,30 @@
                     transform: scale( 1 );
                     transition: all 0.5s 0s ease;
 
-                    @include small {
-                        max-width: calc( 100% - 25px );
-                    }
+
                     @include mobile {
                         max-width: calc( 100% - 25px );
                     }
                     @include tablet {
                         max-width: calc( 100% - 25px );
                     }
+                    @include desktop {
+                        max-width: calc( 48% - 25px );
+                    }
+                    @include desktop-large {
+                        max-width: calc( 49% - 15px );
+                        margin: 0 15px 15px 0;
+                    }
+                    @include desktop-xlarge {
+                        max-width: calc( 33% - 25px );
+                    }
+                    @include desktop-xxlarge {
+                        max-width: calc( 33% - 25px );
+                    }
+                    @include desktop-xxxlarge {
+                        max-width: calc( 23% - 25px );
+                    }
+
 
                     &.is-sugestao {}
                     &.is-agendadas {}
