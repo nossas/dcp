@@ -14,12 +14,23 @@
     .page-content {
         p {
             margin: 0px !important;
+            @include mobile {
+                margin: revert;
+            }
+        }
+        @include mobile {
+            padding-left: 24px;
+            padding-right: 24px;
+
         }
         h2{
             font-weight: 400 !important;
             font-size: $font-family--heading;
             font-size: 40px;
             margin: 0px;
+            @include mobile{
+                font-size: 24px;
+            }
 
 
         }
@@ -29,17 +40,16 @@
             margin-bottom: 40px !important;
             color: #E6E2E0 !important;
             @include mobile {
-                margin-top: 16px !important;
-                margin-bottom: 16px !important;
+                margin-top: 32px !important;
+                margin-bottom: 32px !important;
             }
         }
         .wp-block-group {
             padding-left: 0px;
             padding-right: 0px;
-            @include mobile{
-                .wp-block-spacer{
-                    margin: 0px !important;
-                    height: 32px !important;
+            .wp-block-spacer{
+                @include mobile {
+                    height: 0px !important;
                 }
             }
             .col-1{
@@ -52,6 +62,7 @@
                         padding-top: 16px !important;
                     }
                 }
+
             }
             .col-2 {
                 .wp-block-column {
@@ -62,13 +73,29 @@
                     strong{
                         margin-bottom: 8px !important;
                     }
+                    h2{
+                        margin-bottom: 24px;
+                        font-size: 32px;
+                    }
                 }
 
             }
+
             .reverse-mob{
                 @include mobile {
                     display: flex;
                     flex-direction: column-reverse;
+                }
+            }
+        }
+        .wp-block-cover {
+            .wp-block-cover__inner-container  {
+                padding-top: 80px;
+                padding-bottom: 56px;
+                .wp-block-image {
+                    @include mobile {
+                        display: none !important;
+                    }
                 }
             }
         }
