@@ -64,7 +64,6 @@ namespace hacklabr\dashboard;
 
         </div>
 
-
         <div class="dashboard-content-section">
 
             <div class="dashboard-content-section-header">

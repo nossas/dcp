@@ -28,6 +28,27 @@
     .dashboard-content-single {
         position: relative;
 
+        @include mobile {
+            padding: 0 size( 15 );
+            margin-bottom: size(20);
+        }
+        @include tablet {
+            padding: 0 size( 20 );
+            margin-bottom: size(23);
+        }
+        @include desktop {
+            padding: 0 size( 30 );
+            margin-bottom: size(30);
+        }
+        @include desktop-large {
+            padding: 0 size( 35 );
+            margin-bottom: size(35);
+        }
+        @include desktop-xxlarge {
+            padding: 0 size( 40 );
+            margin-bottom: size(40);
+        }
+
         form {
             display: block;
             position: relative;

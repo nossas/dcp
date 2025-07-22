@@ -43,6 +43,7 @@
     }
 
     .dashboard-content-cards {
+
         .post-card {
             padding-top: size( 10 );
             padding-bottom: size( 10 );
@@ -53,6 +54,24 @@
 
                 p {
                     min-height: size(50);
+                }
+
+            }
+
+            &__see-more {
+
+                @include mobile {
+                    display: block;
+                    justify-content: initial;
+                    align-items: initial;
+                }
+
+                .button {
+
+                    @include mobile {
+                        text-align: center;
+                        display: block;
+                    }
                 }
 
             }
