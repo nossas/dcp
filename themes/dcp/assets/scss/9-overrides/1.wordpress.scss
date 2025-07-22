@@ -166,3 +166,12 @@
         }
     }
 }
+.ficou-alguma-duvida {
+    .custom-submit-button{
+        @include mobile {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    }
+}

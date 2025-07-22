@@ -1,4 +1,8 @@
 .page-sobre {
+  /*   padding: 2rem;
+    @include mobile {
+        padding-inline: inherit;
+    } */
     h2 {
         margin: 0px ;
         font-size: 40px;
@@ -8,6 +12,15 @@
         @include mobile {
             font-size: 24px;
         }
+
+    }
+    .wp-block-group {
+         .wp-block-columns {
+              /*   padding-inline: 2rem;
+                @include mobile {
+                    padding-inline: 1rem;
+                } */
+            }
     }
     .post-content {
         h2{
@@ -26,6 +39,7 @@
         .wp-block-group {
             padding-left: 0px;
             padding-right: 0px;
+
             @include mobile{
                 .wp-block-spacer{
                     height: 32px !important;

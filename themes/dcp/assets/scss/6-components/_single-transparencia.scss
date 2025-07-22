@@ -9,7 +9,7 @@
             display: flex;
             width: 100%;
             justify-content: center;
-
+            color: #281414;
 
             @include mobile {
                 justify-content: initial;
@@ -116,6 +116,14 @@
         .wp-block-coblocks-gallery-carousel{
             padding-bottom: 40px !important;
         }
+        .wp-block-list {
+            list-style: disc;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            padding-left: 16px;
+
+        }
     }
 
     .wp-block-cover {
@@ -154,11 +162,4 @@
             }
         }
     }
-}
-
-.single-transparencia {
-    nav {
-        text-align: center;
-    }
-
 }
