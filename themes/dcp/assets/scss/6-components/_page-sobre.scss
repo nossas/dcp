@@ -14,6 +14,9 @@
         }
 
     }
+    .wp-block-columns {
+        padding: 0;
+    }
     .wp-block-group {
          .wp-block-columns {
                 padding-inline: 0rem;
@@ -21,6 +24,14 @@
                     padding-inline: 1rem;
                 }
             }
+        .wp-block-coblocks-accordion{
+            padding-right: 0 !important;
+            padding-left: 0 !important;
+            summary {
+                border-radius: 20px;
+            }
+        }
+
     }
     .post-content {
         h2{

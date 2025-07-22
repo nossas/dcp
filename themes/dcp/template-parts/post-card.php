@@ -17,6 +17,25 @@
     $modifiers = implode(' ', $modifiers);
 
     $categories = get_the_category();
+
+    // Pega categorias do post e encontra apenas a categoria pai
+    $categories = get_the_category($post->ID);
+    $categoria_pai = '';
+    if (!empty($categories)) {
+        foreach ($categories as $cat) {
+            if ($cat->category_parent == 0) {
+                $categoria_pai = $cat->name;
+                break;
+            }
+        }
+
+        if (empty($categoria_pai)) {
+            $categoria_pai = $categories[0]->name;
+        }
+    }
+
+    $data_post = get_the_date('d/m/Y', $post->ID);
+    $show_info_between = !$hide_date;
 ?>
 <article id="post-ID-<?php the_ID(); ?>" class="post-card <?= $modifiers ?>" data-post-id="<?php the_ID() ?>">
     <header class="post-card__image">
@@ -30,15 +49,25 @@
     </header>
 
     <main class="post-card__content">
-        <?php if (!$hide_categories && !empty($categories)): ?>
-            <div class="post-card__category">
-                <?php foreach ($categories as $category): ?>
-                    <a class="tag tag--solid tag--category-<?= $category->slug ?>" href="<?= get_term_link($category, 'category') ?>">
-                        <?= $category->name ?>
-                    </a>
-                <?php endforeach; ?>
-            </div>
+       <?php if (!$hide_categories && !empty($categoria_pai)): ?>
+    <div class="post-card__category">
+        <?php
+        // Buscar o objeto da categoria pai pelo nome
+        $categoria_obj = null;
+        foreach ($categories as $cat) {
+            if ($cat->name === $categoria_pai) {
+                $categoria_obj = $cat;
+                break;
+            }
+        }
+
+        if ($categoria_obj): ?>
+            <a class="tag tag--solid tag--category-<?= $categoria_obj->slug ?>" href="<?= get_term_link($categoria_obj, 'category') ?>">
+                <?= esc_html($categoria_obj->name); ?>
+            </a>
         <?php endif; ?>
+    </div>
+<?php endif; ?>
 
         <div class="post-card__term">
             <?php
