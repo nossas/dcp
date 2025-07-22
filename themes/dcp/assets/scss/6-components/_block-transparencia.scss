@@ -1,8 +1,8 @@
 .block-transparencia {
     gap: 32px !important;
-    padding-inline: 2rem;
+
     @include mobile {
-        padding-inline: 2rem;
+
     }
   article {
     border-radius: var(--Spacing-space-250, 20px);
