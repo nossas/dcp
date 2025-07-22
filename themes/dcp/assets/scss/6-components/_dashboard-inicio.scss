@@ -2,6 +2,7 @@
 
     .dashboard-content-home {
 
+
         .dashboard-content-header {
             display: block;
         }
@@ -14,6 +15,40 @@
                 justify-content: space-between;
                 align-items: center;
                 padding: size( 25 ) size( 10 );
+
+                @include mobile {
+                    padding: 0 size( 15 );
+                    margin-bottom: size(20);
+                }
+                @include tablet {
+                    padding: 0 size( 20 );
+                    margin-bottom: size(23);
+                }
+                @include desktop {
+                    padding: 0 size( 30 );
+                    margin-bottom: size(30);
+                }
+                @include desktop-large {
+                    padding: 0 size( 35 );
+                    margin-bottom: size(35);
+                }
+                @include desktop-xxlarge {
+                    padding: 0 size( 40 );
+                    margin-bottom: size(40);
+                }
+
+                h2 {
+                    font-size: size( 20 );
+                    text-transform: uppercase;
+                    line-height: size( 22 );
+
+                    @include mobile {
+                        font-size: size( 18 );
+                        font-weight: 400;
+                        width: 60%;
+                        line-height: size( 20 );
+                    }
+                }
 
                 .button {
                     background-color: transparent;
@@ -40,18 +75,31 @@
                 .header-cards {
                     display: flex;
 
-                    @include small {
-                        display: block;
-                    }
                     @include mobile {
                         display: block;
+                        padding: 0 size( 15 );
+                        margin-bottom: size(20);
                     }
                     @include tablet {
                         display: block;
+                        padding: 0 size( 20 );
+                        margin-bottom: size(23);
+                    }
+                    @include desktop {
+                        padding: 0 size( 30 );
+                        margin-bottom: size(30);
+                    }
+                    @include desktop-large {
+                        padding: 0 size( 35 );
+                        margin-bottom: size(35);
+                    }
+                    @include desktop-xxlarge {
+                        padding: 0 size( 40 );
+                        margin-bottom: size(40);
                     }
 
                     .card {
-                        background-color: white;
+                        background-color: #FFF;
                         font-weight: 300;
                         color: $color--secondary-dark;
                         display: inline-block;
@@ -179,6 +227,25 @@
                 }
 
             }
+
+            &__see-more {
+
+                @include mobile {
+                    display: block;
+                    justify-content: initial;
+                    align-items: initial;
+                }
+
+                .button {
+
+                    @include mobile {
+                        text-align: center;
+                        display: block;
+                    }
+                }
+
+            }
+
         }
     }
 }

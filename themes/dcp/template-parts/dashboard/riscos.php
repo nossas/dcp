@@ -95,21 +95,21 @@ namespace hacklabr\dashboard;
                                                 <div></div>
                                                 <div>
                                                     <?php if( $panel_id == 'riscosAprovacao' ) : ?>
-                                                        <a class="is-aprovacao button" href="<?=get_dashboard_url( 'riscos-single' )?>/?post_id=<?=get_the_ID()?>">
+                                                        <a class="is-aprovacao button" href="<?=get_dashboard_url( 'editar-risco' )?>/?post_id=<?=get_the_ID()?>">
                                                             Avaliar
                                                             <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                                         </a>
                                                     <?php  endif; ?>
 
                                                     <?php if( $panel_id == 'riscosPublicados' ) : ?>
-                                                        <a class="is-publicados button" href="<?=get_dashboard_url( 'riscos-single' )?>/?post_id=<?=get_the_ID()?>">
+                                                        <a class="is-publicados button" href="<?=get_dashboard_url( 'editar-risco' )?>/?post_id=<?=get_the_ID()?>">
                                                             <iconify-icon icon="bi:pencil-square"></iconify-icon>
                                                             Editar
                                                         </a>
                                                     <?php endif; ?>
 
                                                     <?php if( $panel_id == 'riscosArquivados' ) : ?>
-                                                        <a class="is-arquivados button" href="<?=get_dashboard_url( 'riscos-single' )?>/?post_id=<?=get_the_ID()?>">
+                                                        <a class="is-arquivados button" href="<?=get_dashboard_url( 'editar-risco' )?>/?post_id=<?=get_the_ID()?>">
                                                             Reavaliar
                                                             <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                                         </a>

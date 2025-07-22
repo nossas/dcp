@@ -13,12 +13,21 @@
         <div class="is-error"></div>
 
         <div class="is-actions">
-            <button class="button is-cancel">{CANCEL}</button>
-            <button class="button is-custom">{CUSTOM}</button>
-            <button class="button is-confirm">
-                <i><iconify-icon icon="bi:check"></iconify-icon></i>
-                <span>{MODAL}</span>
-            </button>
+            <?php if( wp_is_mobile() ) : ?>
+                <button class="button is-confirm">
+                    <i><iconify-icon icon="bi:check"></iconify-icon></i>
+                    <span>{MODAL}</span>
+                </button>
+                <button class="button is-custom">{CUSTOM}</button>
+                <button class="button is-cancel">{CANCEL}</button>
+            <?php else : ?>
+                <button class="button is-cancel">{CANCEL}</button>
+                <button class="button is-custom">{CUSTOM}</button>
+                <button class="button is-confirm">
+                    <i><iconify-icon icon="bi:check"></iconify-icon></i>
+                    <span>{MODAL}</span>
+                </button>
+            <?php endif; ?>
         </div>
     </div>
 </div>

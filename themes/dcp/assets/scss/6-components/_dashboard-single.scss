@@ -28,6 +28,27 @@
     .dashboard-content-single {
         position: relative;
 
+        @include mobile {
+            padding: 0 size( 15 );
+            margin-bottom: size(20);
+        }
+        @include tablet {
+            padding: 0 size( 20 );
+            margin-bottom: size(23);
+        }
+        @include desktop {
+            padding: 0 size( 30 );
+            margin-bottom: size(30);
+        }
+        @include desktop-large {
+            padding: 0 size( 35 );
+            margin-bottom: size(35);
+        }
+        @include desktop-xxlarge {
+            padding: 0 size( 40 );
+            margin-bottom: size(40);
+        }
+
         form {
             display: block;
             position: relative;
@@ -586,7 +607,7 @@
                 }
                 .input-help {
                     color: $color--secondary-dark;
-                    display: flex;
+                    display: block;
                     width: 38%;
                     padding: size( 30 ) size( 1 ) size( 1 );
                     position: relative;
@@ -601,20 +622,20 @@
                         font-weight: bold;
                         color: rgba( 0,0,0,0.4 );
                         text-align: center;
+                        display: block;
                         width: 50px;
                         height: 50px;
                         line-height: 45px;
                         padding: size( 1 );
-                        margin-right: size( 10 );
                         border-radius: size( 50 );
                         cursor: help;
-                        position: relative;
+                        position: absolute;
+                        top: size( 26 );
+                        left: 0;
+                        z-index: 3;
 
                         @include mobile {
-                            position: absolute;
-                            top: size( 26 );
                             right: -10px;
-                            z-index: 3;
                         }
 
                         &:hover {
@@ -622,14 +643,26 @@
                         }
                     }
                     p {
-                        padding: size( 10 ) size( 5 );
+                        padding-left: size( 65 );
 
                         @include tablet {
-                            display: none;
+                            background-color: $color--secondary-dark;
+                            color: $color--secondary-light;
+                            width: calc(100vw - 150px);
+                            padding: size( 10 );
+                            border-radius: size( 5 );
                             position: absolute;
-                            top: 0;
-                            right: 0;
+                            top: 20px;
+                            right: -110vw;
                             z-index: 3;
+                            transition: all 0.4s 0.1s ease;
+                            opacity: 0;
+
+                            &.is-show {
+                                right: 60px;
+                                opacity: 1;
+                            }
+
                         }
                     }
 
@@ -666,6 +699,7 @@
 
                     @include mobile {
                         display: block;
+                        text-align: center;
                         width: 100%;
                         margin: 0 0 size( 15 ) 0;
                     }
@@ -729,8 +763,7 @@
 
 
         .modal-confirm,
-        .modal-asset-fullscreen,
-        .modal-chips {
+        .modal-asset-fullscreen {
             background-color: rgba( 0,0,0,0.3 );
             display: none;
             width: 100%;
@@ -741,24 +774,25 @@
             right: 0;
             bottom: 0;
             z-index: 100;
+        }
 
+        .modal-confirm {
             .modal-confirm-content {
-
                 background-color: $color--secondary-light;
-
                 width: 50%;
                 height: auto;
-
                 padding: size( 15 ) size( 30 );
-
                 border-radius: size( 20 );
-
                 position: absolute;
                 top: 50%;
                 left: 50%;
                 transform: translate( -50%, -50% );
-
                 overflow: hidden;
+
+                @include mobile {
+                    width: 90%;
+                    padding: size( 15 ) size( 25 ) size( 1 ) size( 25 );
+                }
 
                 .is-title {
                     display: flex;
@@ -768,7 +802,13 @@
 
                     h3 {
                         font-size: size( 25 );
+                        font-weight: 400;
                         color: $color--warning-dark;
+
+                        @include mobile {
+                            font-size: size( 22 );
+                            line-height: size( 23 );
+                        }
                     }
                     .button {
                         background-color: transparent;
@@ -776,6 +816,12 @@
                         color: $color--secondary-dark;
                         padding: size( 10 ) size( 20 );
                         border: none;
+                        position: relative;
+
+                        @include mobile {
+                            top: -5px;
+                            right: -25px;
+                        }
                     }
                 }
                 .is-content {
@@ -800,11 +846,22 @@
                     align-items: center;
                     padding: size( 20 ) 0;
 
+                    @include mobile {
+                        display: block;
+                        padding: size( 15 ) 0 size( 5 );
+                    }
+
                     .button {
                         border-radius: size( 50 );
                         font-size: size( 20 );
-
                         height: 45px;
+
+                        @include mobile {
+                            text-align: center;
+                            display: block;
+                            width: 100%;
+                            margin-bottom: size( 15 );
+                        }
 
                         i {
 
@@ -830,7 +887,6 @@
         }
 
         .modal-asset-fullscreen {
-
             .modal-asset-fullscreen-content {
                 background-color: $color--secondary-light;
                 width: 60%;
@@ -931,13 +987,7 @@
 
                 }
             }
-
         }
-
-        .modal-chips {
-
-        }
-
 
     }
 

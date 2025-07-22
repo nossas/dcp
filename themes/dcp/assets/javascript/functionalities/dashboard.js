@@ -229,6 +229,22 @@ jQuery(function($) {
             });
 
         });
+        $( '.input-help .button' ).each( function () {
+            const $this = $( this );
+            $this.on( 'click', function() {
+                const $currentTip = $this.parent().find( 'p' );
+                if( $currentTip.hasClass( 'is-show' ) ) {
+                    $currentTip.removeClass( 'is-show' );
+                } else {
+                    $currentTip.addClass( 'is-show' );
+                }
+            });
+        });
+        $( '.input-help p' ).each( function () {
+            $( this ).on( 'click', function() {
+                $( this ).removeClass( 'is-show' );
+            });
+        });
 
         $( '.modal-asset-fullscreen' ).each( function () {
             const $this = $( this );
