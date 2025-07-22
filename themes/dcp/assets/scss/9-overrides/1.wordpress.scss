@@ -167,6 +167,11 @@
     }
 }
 .ficou-alguma-duvida {
+    .wp-block-spacer{
+        @include mobile {
+            height: 32px !important;
+        }
+    }
     .custom-submit-button{
         height: 2rem;
         @include mobile {
