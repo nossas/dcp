@@ -62,16 +62,20 @@ namespace hacklabr\dashboard;
                     <img src="<?= get_template_directory_uri() ?>/assets/images/loading.gif">
                 </i>
 
-                <a id="btnOpenMenuMobile" class="button">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </a>
             </nav>
 
         </header>
         <div class="dashboard__body">
+            <a id="btnOpenMenuMobile" class="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
             <aside id="dashboardSidebar" class="dashboard__sidebar">
+                <?php if ( wp_is_mobile() ) : ?>
+                    <img class="logo-icon" src="<?= get_template_directory_uri() ?>/assets/images/logo-defesa-climatica-popular-icon-negative.svg" alt="<?= get_bloginfo( 'name' ) ?>">
+                <?php endif; ?>
+
                 <nav>
                     <ul>
                         <li class="<?= is_dashboard('inicio') ? 'dashboard-current' : '' ?>">

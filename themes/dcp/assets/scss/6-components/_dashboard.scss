@@ -7,6 +7,8 @@
     overflow-x: hidden;
     transition: all 0.5s 0s ease;
 
+
+
     &__header {
         background-color: $color--secondary-light;
         width: 100%;
@@ -104,38 +106,6 @@
                     height: auto;
                 }
             }
-
-            #btnOpenMenuMobile {
-                display: none;
-                position: relative;
-                top: 2px;
-                right: -40px;
-
-                @include mobile{
-                    display: block;
-                }
-
-                span {
-                    background-color: $color--secondary-dark;
-                    display: block;
-                    width: 25px;
-                    height: 3px;
-                    margin-bottom: 5px;
-                    border-radius: 2px;
-                    opacity: 1;
-                    transition: all 0.4s 0.02s ease;
-                }
-
-                &.is-opened {
-                    span {
-                        &:first-child,
-                        &:last-child {
-                            opacity: 0;
-                        }
-                    }
-                }
-            }
-
         }
     }
 
@@ -143,53 +113,110 @@
         display: grid;
         grid-template-columns: auto 1fr;
         min-height: 95vh;
+
+        #btnOpenMenuMobile {
+            display: none;
+            position: fixed;
+            top: 15px;
+            right: 5px;
+            z-index: 15;
+
+            @include mobile{
+                display: block;
+            }
+
+            span {
+                background-color: $color--secondary-dark;
+                display: block;
+                width: 25px;
+                height: 2px;
+                margin-bottom: 5.5px;
+                border-radius: 2px;
+                opacity: 1;
+                position: relative;
+                transition: all 0.4s 0.02s ease;
+                transform: translate( 0, 0 ) rotate( 0deg );
+            }
+
+            &.is-opened {
+                span {
+                    background-color: #FFF;
+                    opacity: 0;
+                    &:first-child {
+                        opacity: 1;
+                        transform: translate( 5px, 10px ) rotate( 45deg );
+                    }
+                    &:last-child {
+                        opacity: 1;
+                        transform: translate( 5px, -5px ) rotate( -45deg );
+                    }
+                }
+            }
+        }
+
     }
 
     &__sidebar {
         background-color: $color--secondary-dark;
         color: #FFF;
         padding-top: size( 20 );
-        transition: all 0.4s 0.02s ease;
 
         @include mobile {
-            padding-top: size( 75 );
-            width: 80%;
-            height: 100vh;
+            padding-top: 35px;
+            width: 90%;
+            height: calc( 100vh - 45px );
+            border-radius: size( 20 ) 0 0 size( 20 );
             position: fixed;
             top: 0;
-            left: 0;
-            z-index: 5;
-            transform: translateX( -120vw );
+            right: 0;
+            z-index: 10;
+            transform: translateX( 120vw );
+            transition: all 0.4s 0.02s ease;
 
             &.is-show {
                 transform: translateX( 0 );
+                box-shadow: 0 0 200px rgba(0, 0, 0, 0.9);
             }
+        }
+
+        .logo-icon {
+            display: block;
+            width: 40px;
+            height: auto;
+            margin: size( 1 ) size( 25 ) size( 15 ) size( 35 );
         }
 
         ul {
             display: block;
             width: 260px;
             list-style: none;
-            margin: 0;
-            padding: size( 20 ) 0 size( 5 ) 0;
+            padding: 0;
+            margin: size( 25 ) size( 35 ) size( 15 ) size( 35 );
 
             @include mobile {
-                width: 100%;
+                width: 80%;
             }
             @include desktop-xxlarge {
                 width: 300px;
             }
+
+            li {
+                padding: 0;
+
+                @include mobile {
+                    border-bottom: solid 1px rgba( 255,255,255,0.3 );
+                }
+            }
+
         }
 
-        li {
-            padding: 0;
-        }
+
 
         a {
             color: inherit;
             display: block;
             font-size: $font-size--medium;
-            padding: size(12) size(40);
+            padding: size(15) size(25);
             text-decoration: none;
             text-underline-offset: size(6);
 

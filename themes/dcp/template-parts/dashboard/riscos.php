@@ -6,7 +6,7 @@ namespace hacklabr\dashboard;
 <div id="dashboardRiscos" class="dashboard-content">
     <header class="dashboard-content-header">
         <h1>RISCOS MAPEADOS</h1>
-        <a href="./?ver=riscos-adicionar" class="button">
+        <a href="<?=get_dashboard_url( 'adicionar-risco' )?>" class="button">
             <iconify-icon icon="bi:plus-lg"></iconify-icon>
             <span>Adicionar Risco</span>
         </a>
