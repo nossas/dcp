@@ -282,7 +282,7 @@ namespace hacklabr\dashboard;
                         <div class="input-media-uploader">
                             <h4>Mídias</h4>
                             <div class="input-media-uploader-files">
-                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                                <a id="mediaUploadButton" class="button is-primary is-small is-upload-media is-multiple">
                                     <iconify-icon icon="bi:upload"></iconify-icon>
                                     <span>Adicionar fotos e vídeos</span>
                                 </a>
@@ -382,7 +382,7 @@ namespace hacklabr\dashboard;
                     <?php if( wp_is_mobile() ) : ?>
                         <div class="input-media-uploader">
                             <div class="input-media-uploader-files">
-                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                                <a id="mediaUploadButton" class="button is-primary is-small is-upload-media is-multiple">
                                     <iconify-icon icon="bi:upload"></iconify-icon>
                                     <span>Adicionar fotos e vídeos</span>
                                 </a>

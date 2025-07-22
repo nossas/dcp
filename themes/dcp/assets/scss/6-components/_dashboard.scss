@@ -672,15 +672,11 @@
                         max-width: calc( 49% - 20px );
                     }
                     @include desktop-large {
-                        max-width: calc( 33% - 25px );
+                        max-width: calc( 33% - 15px );
                         margin: 0 15px 15px 0;
                     }
-                    @include desktop-xlarge {
-                        max-width: calc( 33% - 25px );
-                    }
-                    @include desktop-xxlarge {
-                        max-width: calc( 33% - 15px );
-                    }
+                    @include desktop-xlarge {}
+                    @include desktop-xxlarge {}
                     @include desktop-xxxlarge {
                         max-width: calc( 25% - 20px );
                     }
