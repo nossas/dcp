@@ -12,16 +12,16 @@
 
     }
     .page-content {
-        p {
-/*             margin: 0px !important;
-            @include mobile {
-                margin: revert;
-            } */
-        }
+        padding-inline: 1rem;
+
         @include mobile {
             padding-left: 24px;
             padding-right: 24px;
+            padding-inline: 2rem;
 
+        }
+        .container{
+            padding:0px;
         }
         h2{
             font-weight: 400 !important;
