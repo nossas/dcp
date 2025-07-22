@@ -168,6 +168,7 @@
 }
 .ficou-alguma-duvida {
     .custom-submit-button{
+        height: 2rem;
         @include mobile {
             width: 100%;
             display: flex;

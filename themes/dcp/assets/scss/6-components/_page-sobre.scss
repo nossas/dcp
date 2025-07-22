@@ -3,6 +3,13 @@
     @include mobile {
         padding-inline: inherit;
     } */
+    .wp-block-cover{
+         width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        position: relative;
+        left: 0;
+        right: 0;
+    }
     h2 {
         margin: 0px ;
         font-size: 40px;
