@@ -10,6 +10,9 @@
         left: 0;
         right: 0;
     }
+    .has-secondary-light-background-color {
+        color: #E6E2E0 !important
+    }
     h2 {
         margin: 0px ;
         font-size: 40px;
@@ -25,10 +28,18 @@
         padding: 0;
     }
     .wp-block-group {
+        @include mobile{
+            .wp-block-spacer {
+                height: 16px !important;
+            }
+        }
          .wp-block-columns {
                 padding-inline: 0rem;
                 @include mobile {
                     padding-inline: 1rem;
+                    .wp-block-spacer {
+                        height: 16px !important;
+                    }
                 }
             }
         .wp-block-coblocks-accordion{
