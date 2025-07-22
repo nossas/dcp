@@ -1,4 +1,4 @@
-.single-acao-agendada{
+.single-transparencia {
     .post-header {
         padding-left: size(0);
         padding-right: size(0);
@@ -8,7 +8,7 @@
             align-items: center;
             display: flex;
             width: 100%;
-            justify-content: flex-start;
+            justify-content: center;
 
 
             @include mobile {
@@ -22,12 +22,12 @@
         }
 
         &__title {
-            color: $color--primary-pure;
+            color: #281414;
             margin-top: $margin--medium;
             margin-bottom: $margin--medium;
-
+            font-size: 48px !important;
             @include mobile {
-                font-size: 24px;
+                font-size: 24px !important;
                 text-align: center !important;
             }
         }
@@ -73,15 +73,20 @@
                 border-color: $color--primary-pure;
                 color: white;
                 align-items: center;
+                font-size: 14px;
 
                 @include mobile {
                     font-size: 12px;
                 }
             }
 
-            &__date {
-                color: $color--secondary-dark;
-                font-size: 1rem;
+
+        }
+        &__date {
+            color: $color--secondary-dark;
+            font-size: 18px;
+            @include mobile {
+                font-size: 16px;
             }
         }
     }
@@ -96,6 +101,7 @@
         }
 
         .wp-block-spacer {
+
             @include mobile {
                 margin-top: 16px;
                 margin-bottom: 16px;
@@ -113,8 +119,19 @@
     }
 
     .wp-block-cover {
+        padding-left: 0;
+        padding-right: 0;
+        @include mobile{
+            padding: 1rem;
+        }
+        .wp-block-cover {
+            &__inner-container{
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
         @include mobile {
-            padding: 0px !important;
+            padding: 1rem;
             margin-top: 0px !important;
         }
 
@@ -139,14 +156,9 @@
     }
 }
 
-.single-acao {
-    .bread-relato {
-        display: flex !important;
-        flex-direction: row !important;
-        gap: 8px;
-        justify-content: flex-start;
-        margin-top: 40px;
-        max-width: 100%;
-        text-align: left !important;
+.single-transparencia {
+    nav {
+        text-align: center;
     }
+
 }
