@@ -124,6 +124,7 @@ jQuery(function($) {
             const {
                 title,
                 description,
+                error = null,
                 cancelText = 'Cancelar',
                 confirmText = 'Confirmar',
                 customConfirmText,
@@ -140,7 +141,11 @@ jQuery(function($) {
             $modal.find('.is-error').html( '' );
             $modal.find('.is-cancel').text(cancelText);
             $modal.find('.is-confirm span').text(confirmText);
-
+            if( error ) {
+                $modal.find('.is-error').html( error ).show();
+            } else {
+                $modal.find('.is-error').html( '' ).hide();
+            }
             // Configura botão customizado (se fornecido)
             const $customBtn = $modal.find('.is-custom');
             if (customConfirmText) {
@@ -413,7 +418,8 @@ jQuery(function($) {
                                 }
                             });
 
-                        } else {
+                        } else
+                        {
 
                             custom_modal_confirm({
                                 title: response.data.title,
@@ -437,6 +443,7 @@ jQuery(function($) {
                         custom_modal_confirm({
                             title: response.data.title,
                             description: response.data.message,
+                            error: response.data.error,
 
                             cancelText: "CANCELAR",
                             onCancel: function () {},

@@ -11,13 +11,19 @@ $pod = pods( 'acao', get_the_ID() );
         <div class="post-card__term">
             <div>
                 <?php
-                $get_terms = get_the_terms( get_the_ID(), 'tipo_acao' );
-                if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
-                    risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, 'post-card__taxonomia term-' . $get_terms[0]->slug );
-                } else {
-                    risco_badge_category( 'sem-categoria', 'NENHUMA CATEGORIA ADICIONADA' );
-                }
+                    $get_terms = get_the_terms( get_the_ID(), 'tipo_acao' );
+                    if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                        risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, 'post-card__taxonomia term-' . $get_terms[0]->slug );
+                    } else {
+                        risco_badge_category( 'sem-categoria', 'NENHUMA CATEGORIA ADICIONADA' );
+                    }
                 ?>
+                <style>
+                    .post-card .post-card__taxonomia {
+                        background-color: #F4F0EE !important;
+                        color: #281414 !important;
+                    }
+                </style>
             </div>
             <div class="post-card__risco-meta"><?=date( 'd/m/Y', strtotime( $pod->field( 'data_e_horario' ) ) )?></div>
         </div>

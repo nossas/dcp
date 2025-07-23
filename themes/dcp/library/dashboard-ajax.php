@@ -403,7 +403,8 @@ function form_single_acao_edit() {
 
         wp_send_json_error([
             'title' => 'Erro',
-            'message' => 'ID do post inválido ou post não encontrado.',
+            //'message' => 'ID do post inválido ou post não encontrado.',
+            'message' => null,
             'error' => $updated_id->get_error_message(),
         ], 500);
 

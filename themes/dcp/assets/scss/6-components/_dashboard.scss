@@ -269,13 +269,14 @@
             padding-top: size( 90 );
         }
         @include tablet {
-            padding-top: size( 90 );
+            padding-top: size( 50 );
         }
         @include desktop {
             padding-top: size( 30 );
         }
         @include desktop-large {
             padding-top: size( 40 );
+            max-width: calc( 100vw - 250px );
         }
 
         .dashboard-content {
@@ -498,6 +499,7 @@
                 .tabs__header {
                     border-bottom: 1px solid rgba(0,0,0,0.3);
                     display: flex;
+                    justify-content: start;
                     padding: 0;
                     margin: 0;
                     overflow-x: scroll;
@@ -711,7 +713,6 @@
                     transform: scale( 1 );
                     transition: all 0.5s 0s ease;
 
-
                     @include mobile {
                         max-width: 100%;
                         margin: 0 0 25px 0;
@@ -732,7 +733,6 @@
                     @include desktop-xxxlarge {
                         max-width: calc( 25% - 20px );
                     }
-
 
                     &.is-sugestao {}
                     &.is-agendadas {}
@@ -809,7 +809,6 @@
                             padding: size( 10 ) 0;
                         }
                     }
-
 
                     &__title {
                         font-size: size( 21 );
@@ -1058,11 +1057,8 @@
                 position: relative;
                 z-index: 1;
             }
-
     }
-
 }
-
 
 .loading .dashboard {
     &__main {

@@ -47,8 +47,14 @@
         .tabs__header {
             a {
                 &:last-child {
-                    min-width: 315px;
-                    margin-right: size( 30 );
+                    @include desktop {
+                        min-width: 275px;
+                        margin-right: size( 20 );
+                    }
+                    @include desktop-xxlarge {
+                        min-width: 315px;
+                        margin-right: size( 30 );
+                    }
                 }
             }
         }
