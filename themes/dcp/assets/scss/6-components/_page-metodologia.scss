@@ -1,0 +1,52 @@
+.page-metodologia {
+    .breadcrumb {
+        color: #281414;
+    }
+    .wp-block-spacer {
+        @include mobile {
+            height: 0 !important;
+        }
+    }
+    h2 {
+        @include mobile {
+            font-size: 24px !important;
+        }
+    }
+    .center-title{
+        max-width: 720px;
+    }
+    .col-1 {
+        margin-top: 24px;
+        @include mobile {
+            display: flex;
+            flex-direction: column-reverse;
+            margin-top: 32px;
+        }
+
+        .wp-block-column:first-child {
+            @include mobile {
+                flex-basis: initial !important;
+            }
+        }
+        .wp-block-column:last-child {
+            @include mobile {
+                flex-basis: initial !important;
+            }
+            img {
+                @include mobile {
+                    width: 287px;
+                }
+            }
+        }
+    }
+    .wp-block-group {
+        @include mobile {
+            .wp-block-spacer {
+                height: 12px !important
+            }
+            h3 {
+                font-size: 24px !important;
+            }
+        }
+    }
+}

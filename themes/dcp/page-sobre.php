@@ -7,8 +7,6 @@ if (have_posts()) :
         <main class="container container--wide page-sobre">
             <?php the_content(); ?>
         </main>
-
-    <?php get_template_part('template-parts/form-ficou-alguma-duvida'); ?>
     <?php endwhile;
 endif;
 
