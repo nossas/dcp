@@ -910,6 +910,11 @@
                 transform: translate(-50%, -50%);
                 overflow: hidden;
 
+
+                @include mobile {
+                    width: 90%;
+                }
+
                 .is-title {
                     padding: size( 25 );
                     position: absolute;
@@ -953,11 +958,16 @@
                     padding: size( 20 );
                     position: relative;
 
+                    @include mobile {
+                        display: block;
+                        padding: size( 15 );
+                    }
+
                     .is-actions-buttons {
                         width: 55%;
                         display: flex;
                         align-items: center;
-                        gap: size( 15 );
+                        gap: size( 5 );
 
                         .button {
                             background-color: $color--secondary-light;
@@ -965,8 +975,19 @@
                             text-decoration: none;
                             text-align: center;
                             font-size: size( 17 );
+                            display: flex;
                             padding: size( 10 ) size( 22 );
                             border-radius: size( 50 );
+
+                            @include mobile {
+                                font-size: size( 15 );
+                                padding: size( 7 ) size( 15 );
+                            }
+
+                            span {
+                                display: inline-block;
+                                padding-left: size( 5 );
+                            }
                         }
                         .button.is-delete {
                             background-color: $color--warning-dark;
@@ -979,20 +1000,34 @@
                         display: flex;
                         gap: size( 10 );
 
+                        @include mobile {
+                            padding-top: size( 15 );
+                            margin-top: size( 15 );
+                            border-top: solid 1px rgba( 255,255,255,0.3 );
+                        }
+
                         .button {
                             background-color: rgba( 255,255,255,0.3 );
                             font-size: size( 23 );
                             color: inherit;
                             text-align: center;
-                            width: size( 40 );
-                            height: size( 40 );
-                            line-height: size( 40 );
+                            display: block;
+                            width: 75px;
+                            height: 75px;
+                            line-height: 75px;
                             border-radius: size( 35 );
                             padding: 0;
+
+                            @include mobile {
+                                width: 115px;
+                                height: 60px;
+                                line-height: 60px;
+                            }
                         }
-                        .is-blur {
-                            opacity: 0.5;
-                            cursor: not-allowed;
+                        p {
+                            font-size: size( 17 );
+                            line-height: size( 18 );
+                            padding-left: size( 15 );
                         }
                     }
 
