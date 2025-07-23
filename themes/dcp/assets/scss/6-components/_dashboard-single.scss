@@ -141,6 +141,7 @@
                     .input-links {
                         font-size: size( 11 );
                         text-align: right;
+                        display: none;
                         width: calc( 100% - 10px );
                         padding: 0;
                         margin: 0;
@@ -692,6 +693,10 @@
                     margin-left: size( 15 );
                     border-radius: size( 75 );
 
+                    @include mobile {
+                        padding: size( 15 );
+                    }
+
                     &:first-child {
                         text-align: center;
                         margin-left: 0;
@@ -728,6 +733,9 @@
                     color: $color--secondary-light;
                     border: solid 1px $color--primary-pure;
                     padding: size( 15 ) size( 75 );
+                    @include mobile {
+                        padding: size( 15 );
+                    }
                 }
 
                 button.is-success {}
@@ -881,6 +889,9 @@
                         background-color: $color--warning-dark;
                         color: $color--secondary-light;
                         padding: size( 10 ) size( 75 );
+                        @include mobile {
+                            padding: size( 10 );
+                        }
                     }
                 }
             }

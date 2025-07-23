@@ -405,14 +405,27 @@ namespace hacklabr\dashboard;
                 <input type="hidden" name="action" value="form_single_relato_edit">
                 <input type="hidden" name="post_id" value="<?=get_the_ID()?>">
                 <input type="hidden" name="post_status" value="publish">
-                <a class="button is-goback">
-                    <iconify-icon icon="bi:chevron-left"></iconify-icon>
-                    <span>Voltar</span>
-                </a>
-                <a class="button is-save relato">
-                    <iconify-icon icon="bi:check2"></iconify-icon>
-                    <span>Publicar Relato</span>
-                </a>
+                <?php
+                    //TODO: REFACOTRY p/ UI
+                    if( !wp_is_mobile() ) :?>
+                    <a class="button is-goback">
+                        <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                        <span>Voltar</span>
+                    </a>
+                    <a class="button is-save relato">
+                        <iconify-icon icon="bi:check2"></iconify-icon>
+                        <span>Publicar Relato</span>
+                    </a>
+                <?php else : ?>
+                    <a class="button is-save relato">
+                        <iconify-icon icon="bi:check2"></iconify-icon>
+                        <span>Publicar Relato</span>
+                    </a>
+                    <a class="button is-goback">
+                        <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                        <span>Voltar</span>
+                    </a>
+                <?php endif; ?>
             </div>
         </form>
         <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>

@@ -295,20 +295,26 @@ namespace hacklabr\dashboard;
                 <input type="hidden" name="action" value="form_single_acao_edit">
                 <input type="hidden" name="post_id" value="<?=get_the_ID()?>">
                 <input type="hidden" name="post_status" value="<?=$post_status?>">
+                <?php if( !wp_is_mobile() ) : ?>
+                    <div>
+                        <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
+                            <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                            <span>Voltar</span>
+                        </a>
+                    </div>
+                <?php endif; ?>
                 <div>
-                    <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
-                        <iconify-icon icon="bi:chevron-left"></iconify-icon>
-                        <span>Voltar</span>
-                    </a>
-                </div>
-                <div>
-                    <?php if( $post_status !== 'pending' ) : ?>
+                    <?php
+                        //TODO: REFACTORY P/ UI
+                        if( !wp_is_mobile() ) :
+                            if( $post_status !== 'pending' ) : ?>
                         <a class="button is-archive">
                             <iconify-icon icon="bi:x-lg"></iconify-icon>
                             <span>Arquivar</span>
                         </a>
-                    <?php endif;
+                    <?php endif; endif; ?>
 
+                    <?php
                         //TODO: REFACTORY P/ MELHOR LOGICA
                         switch ( $post_status ) {
 
@@ -352,15 +358,32 @@ namespace hacklabr\dashboard;
                                 <?php break;
                         }
                     ?>
+
+                    <?php
+                    //TODO: REFACTORY P/ UI
+                    if( wp_is_mobile() ) :
+                        if( $post_status !== 'pending' ) : ?>
+                            <a class="button is-archive">
+                                <iconify-icon icon="bi:x-lg"></iconify-icon>
+                                <span>Arquivar</span>
+                            </a>
+                        <?php endif; endif; ?>
+
                 </div>
+                <?php if( wp_is_mobile() ) : ?>
+                    <div>
+                        <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
+                            <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                            <span>Voltar</span>
+                        </a>
+                    </div>
+                <?php endif; ?>
             </div>
         </form>
 
         <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
         <?php echo get_template_part('template-parts/dashboard/ui/modal-assetset-fullscreen' ); ?>
     </div>
-
-
 </div>
         <?php endwhile; ?>
     <?php endif; ?>

@@ -159,7 +159,7 @@
     &__sidebar {
         background-color: $color--secondary-dark;
         color: #FFF;
-        padding-top: size( 20 );
+        padding-top: size( 40 );
 
         @include mobile {
             padding-top: 35px;
@@ -183,7 +183,7 @@
             display: block;
             width: 40px;
             height: auto;
-            margin: size( 1 ) size( 25 ) size( 15 ) size( 35 );
+            margin: -5px size( 25 ) size( 10 ) size( 30 );
         }
 
         ul {
@@ -672,23 +672,23 @@
                 width: 100%;
 
                 @include mobile {
-                    padding: size( 5 ) size( 15 );
+                    padding: size( 15 );
                     margin-bottom: size(20);
                 }
                 @include tablet {
-                    padding: size( 10 ) size( 20 );
+                    padding: size( 15 ) size( 20 );
                     margin-bottom: size(23);
                 }
                 @include desktop {
-                    padding: size( 25 ) size( 30 );
+                    padding: size( 30 );
                     margin-bottom: size(30);
                 }
-                @include desktop-large {
-                    padding: size( 30 ) size( 35 );
+                @include desktop-xlarge {
+                    padding: size( 35 );
                     margin-bottom: size(35);
                 }
-                @include desktop-xxlarge {
-                    padding: size( 35 ) size( 40 );
+                @include desktop-xxxlarge {
+                    padding: size( 40 );
                     margin-bottom: size(40);
                 }
 

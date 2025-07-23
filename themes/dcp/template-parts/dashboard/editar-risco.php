@@ -319,10 +319,12 @@
                         <input type="hidden" name="post_status_current" value="<?=$post_status?>">
                         <input type="hidden" name="post_status_new" value="">
 
-                        <a class="button is-archive">
-                            <iconify-icon icon="bi:x-lg"></iconify-icon>
-                            <span>Arquivar</span>
-                        </a>
+                        <?php if( !wp_is_mobile() ) : ?>
+                            <a class="button is-archive">
+                                <iconify-icon icon="bi:x-lg"></iconify-icon>
+                                <span>Arquivar</span>
+                            </a>
+                        <?php endif; ?>
 
                         <?php
 
@@ -356,6 +358,13 @@
                             }
 
                         ?>
+
+                        <?php if( wp_is_mobile() ) : ?>
+                            <a class="button is-archive">
+                                <iconify-icon icon="bi:x-lg"></iconify-icon>
+                                <span>Arquivar</span>
+                            </a>
+                        <?php endif; ?>
                     </div>
                 </form>
                 <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
