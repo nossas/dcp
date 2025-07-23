@@ -106,15 +106,12 @@
                         width: 17.5%;
                         min-height: size( 100 );
                         padding: 0;
-                        margin: 0 25px 25px 0;
-
+                        margin: 0;
                         border-color: #FEFBF9;
                         border-radius: size( 20 );
-
                         position: relative;
                         z-index: 1;
                         overflow: hidden;
-
                         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.30);
                         transform: scale( 1 );
                         transition: all 0.5s 0s ease;
@@ -233,15 +230,21 @@
 
                         @include mobile {
                             width: 100%;
+                            padding-top: size( 15 );
+                            padding-bottom: size( 50 );
+                            border-bottom: solid 2px rgba( 0,0,0,0.3 );
+                            margin-bottom: size( 50 );
                         }
                         @include tablet {
                             width: 100%;
+                            padding-top: size( 15 );
+                            padding-bottom: size( 50 );
+                            border-bottom: solid 2px rgba( 0,0,0,0.3 );
+                            margin-bottom: size( 50 );
                         }
 
                         .card {
                             width: 50%;
-                            padding: 0;
-                            margin: 0;
                         }
                     }
 

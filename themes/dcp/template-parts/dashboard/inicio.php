@@ -134,7 +134,7 @@ namespace hacklabr\dashboard;
                                             <div class="post-card__see-more">
                                                 <div></div>
                                                 <div>
-                                                    <a class="is-aprovacao button" href="<?=get_dashboard_url( 'riscos-single', [ 'risco_id' => get_the_ID() ] )?>">
+                                                    <a class="is-aprovacao button" href="<?=get_dashboard_url( 'editar-risco', [ 'post_id' => get_the_ID() ] )?>">
                                                         Avaliar
                                                         <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                                     </a>

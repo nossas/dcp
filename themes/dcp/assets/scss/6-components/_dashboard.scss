@@ -693,8 +693,8 @@
                 }
 
                 .post-card {
-                    background-color: white;
-                    font-weight: 300;
+                    background-color: #FFF;
+                    font-weight: 400;
                     color: $color--secondary-dark;
                     display: inline-block;
                     width: 100%;
@@ -812,16 +812,25 @@
 
 
                     &__title {
-                        font-size: size( 20 );
+                        font-size: size( 21 );
                         font-weight: normal;
                         line-height: size( 22 );
+                        display: block;
                         height: size( 45 );
                         padding: 0 size( 20 );
 
+                        @include mobile {
+                            font-size: size( 19 );
+                        }
+
                         span {
-                            font-size: size( 23 );
-                            padding: 0;
-                            margin: 0;
+                            width: 100%;
+                            height: size( 45 );
+                            display: -webkit-box;
+                            -webkit-line-clamp: 2; /* Número de linhas */
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
                         }
                     }
 
@@ -834,20 +843,31 @@
                             font-size: size( 17 );
                             min-height: size( 110 );
                             line-height: size( 18 );
+
+                            display: -webkit-box;
+                            -webkit-line-clamp: 4; /* Número de linhas */
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+
                             position: relative;
+
+                            @include mobile {
+                                font-size: size( 16 );
+                            }
 
                             .read-more {
                                 background-color: #FFF;
-                                font-size: size( 15 );
+                                font-size: size( 14 );
                                 text-decoration: underline;
                                 text-align: right;
                                 color: $color--secondary-dark;
                                 font-weight: bold;
                                 display: block;
-                                padding: size( 5 );
+                                padding: size( 1 ) size( 5 );
                                 position: absolute;
                                 right: 0;
-                                bottom: 0;
+                                bottom: -5px;
                                 z-index: 2;
 
                                 &:hover {
