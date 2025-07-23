@@ -130,7 +130,7 @@
                 display: block;
                 width: 25px;
                 height: 2px;
-                margin-bottom: 5.5px;
+                margin-bottom: 6px;
                 border-radius: 2px;
                 opacity: 1;
                 position: relative;
@@ -164,7 +164,7 @@
         @include mobile {
             padding-top: 35px;
             width: 90%;
-            height: calc( 100vh - 45px );
+            height: 100vh;
             border-radius: size( 20 ) 0 0 size( 20 );
             position: fixed;
             top: 0;
@@ -188,41 +188,67 @@
 
         ul {
             display: block;
-            width: 260px;
+            width: 225px;
             list-style: none;
             padding: 0;
-            margin: size( 25 ) size( 35 ) size( 15 ) size( 35 );
 
             @include mobile {
                 width: 80%;
+                margin: size( 25 ) size( 35 ) size( 15 ) size( 35 );
+            }
+            @include desktop {
+                width: 235px;
             }
             @include desktop-xxlarge {
+                width: 250px;
+            }
+            @include desktop-xxxlarge {
                 width: 300px;
             }
 
             li {
-                padding: 0;
+                padding: 0 0 0 size( 15 );
 
                 @include mobile {
+                    padding: 0;
                     border-bottom: solid 1px rgba( 255,255,255,0.3 );
                 }
             }
 
         }
 
-
-
         a {
             color: inherit;
             display: block;
-            font-size: $font-size--medium;
+            font-size: size( 18 );
             padding: size(15) size(25);
             text-decoration: none;
             text-underline-offset: size(6);
 
+            @include desktop {
+                font-size: size( 20 );
+            }
+            @include desktop-xxlarge {
+                font-size: size( 22 );
+            }
+
+
             iconify-icon {
                 margin-inline-end: size(10);
             }
+        }
+
+        .button.is-logout {
+            background-color: $color--primary-pure;
+            color: #FFF;
+            text-align: center;
+            width: calc( 100% - 50px );
+            padding: size( 7 );
+            border-radius: size( 25 );
+            position: absolute;
+            left: 25px;
+            bottom: 25px;
+            z-index: 2;
         }
 
         .dashboard-current a, a:hover {
@@ -482,10 +508,10 @@
                     @include tablet {}
                     @include desktop {
                         margin: 0 size( 30 );
+                        overflow: hidden;
                     }
                     @include desktop-xlarge {
                         margin: 0 size( 35 );
-                        overflow: hidden;
                     }
                     @include desktop-xxlarge {
                         margin: 0 size( 40 );
@@ -560,7 +586,6 @@
                         }
                     }
                 }
-
                 .tabs__panels {
                     display: none;
                     padding: 0 !important;
@@ -785,12 +810,12 @@
                         }
                     }
 
-                    &__title {
-                        font-size: size( 23 );
-                        font-weight: normal;
-                        line-height: size( 24 );
 
-                        min-height: size( 45 );
+                    &__title {
+                        font-size: size( 20 );
+                        font-weight: normal;
+                        line-height: size( 22 );
+                        height: size( 45 );
                         padding: 0 size( 20 );
 
                         span {
@@ -801,7 +826,7 @@
                     }
 
                     &__excerpt-wrapped {
-                        min-height: size( 75 );
+                        height: size( 75 );
                         padding: size( 10 ) size( 20 );
                         margin-bottom: size( 10 );
 
@@ -809,14 +834,21 @@
                             font-size: size( 17 );
                             min-height: size( 110 );
                             line-height: size( 18 );
+                            position: relative;
 
                             .read-more {
+                                background-color: #FFF;
+                                font-size: size( 15 );
                                 text-decoration: underline;
                                 text-align: right;
                                 color: $color--secondary-dark;
                                 font-weight: bold;
                                 display: block;
-                                padding: size( 5 ) 0;
+                                padding: size( 5 );
+                                position: absolute;
+                                right: 0;
+                                bottom: 0;
+                                z-index: 2;
 
                                 &:hover {
                                     color: $color--primary-pure;
@@ -937,8 +969,10 @@
                         }
 
                         .button {
-                            font-size: size( 16 );
-                            padding: size( 13 ) size( 23 );
+                            font-size: size( 15 );
+                            text-align: center;
+                            display: inline-block;
+                            padding: size( 10 ) size( 20 ) size( 10 ) size( 25 );
 
                             @include mobile {
                                 display: block;

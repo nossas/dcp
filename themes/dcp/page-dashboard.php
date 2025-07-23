@@ -116,35 +116,30 @@ namespace hacklabr\dashboard;
                                 <span>Indicadores</span>
                             </a>
                         </li>
+
+                        <?php if( wp_is_mobile() ) : ?>
+
+                            <li class="">
+                                <a href="<?= get_dashboard_url('conta') ?>">
+                                    <iconify-icon icon="bi:person-circle"></iconify-icon>
+                                    <span>Conta</span>
+                                </a>
+                            </li>
+
+                            <li class="">
+                                <a href="<?= get_dashboard_url('ajuda') ?>">
+                                    <iconify-icon icon="bi:question-circle"></iconify-icon>
+                                    <span>Ajuda</span>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+
                     </ul>
                 </nav>
-
                 <?php if( wp_is_mobile() ) : ?>
-                <nav>
-                    <ul>
-                        <li class="">
-                            <a href="<?= get_dashboard_url('conta') ?>">
-                                <iconify-icon icon="bi:person-circle"></iconify-icon>
-                                <span>Conta</span>
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a href="<?= get_dashboard_url('ajuda') ?>">
-                                <iconify-icon icon="bi:question-circle"></iconify-icon>
-                                <span>Ajuda</span>
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a href="<?= get_dashboard_url('sair') ?>">
-                                <iconify-icon icon="bi:box-arrow-left"></iconify-icon>
-                                <span>Sair</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </nav>
+                <a class="button is-logout" href="<?= get_dashboard_url('sair') ?>">
+                    <span>Sair</span>
+                </a>
                 <?php endif; ?>
             </aside>
             <main class="dashboard__main">

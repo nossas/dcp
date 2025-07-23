@@ -26,27 +26,27 @@
                 }
                 @include desktop {
                     padding: 0 size( 30 );
-                    margin-bottom: size(30);
+                    margin-bottom: size(10);
                 }
                 @include desktop-large {
                     padding: 0 size( 35 );
-                    margin-bottom: size(35);
+                    margin-bottom: size(15);
                 }
                 @include desktop-xxlarge {
                     padding: 0 size( 40 );
-                    margin-bottom: size(40);
+                    margin-bottom: size(10);
                 }
 
                 h2 {
                     font-size: size( 20 );
                     text-transform: uppercase;
+                    font-weight: 600;
                     line-height: size( 22 );
 
                     @include mobile {
-                        font-size: size( 18 );
-                        font-weight: 400;
+                        font-size: size( 16 );
                         width: 60%;
-                        line-height: size( 20 );
+                        line-height: size( 18 );
                     }
                 }
 
@@ -54,10 +54,10 @@
                     background-color: transparent;
                     color: $color--secondary-dark;
                     text-decoration: none;
-                    padding: size( 13 ) size( 25 );
+                    padding: size( 11 ) size( 20 );
                     border: solid 1.5px $color--secondary-dark;
                     border-radius: size( 50 );
-                    display: inline-block;
+                    display: flex;
                     position: relative;
                     z-index: 2;
 
@@ -65,15 +65,15 @@
                         background-color: $color--secondary-dark;
                         color: $color--secondary-light;
                     }
+
                 }
             }
 
             &-body {
 
-
-
                 .header-cards {
                     display: flex;
+                    justify-content: space-between;
 
                     @include mobile {
                         display: block;
@@ -158,13 +158,34 @@
 
                             figure {
 
-                            }
-                            p {
+                                display: block;
+                                width: size( 50 );
 
-                                strong {
-                                    text-transform: uppercase;
+                                @include mobile {
+
                                 }
 
+                                img {
+                                    display: block;
+                                    width: 100%;
+                                }
+                            }
+                            div {
+                                display: flex;
+                                gap: size( 40 );
+
+                                @include mobile {
+                                    display: block;
+                                }
+
+                                p {
+                                    font-weight: 400;
+                                    strong {
+                                        font-weight: 600;
+                                        text-transform: uppercase;
+                                    }
+
+                                }
                             }
                         }
 
@@ -175,11 +196,10 @@
                             padding: size( 15 ) size( 20 );
 
                             p {
-
+                                strong {
+                                    font-weight: 600;
+                                }
                                 span {
-
-
-
                                     &.is-separator {
                                         font-size: size( 20 );
                                         font-weight: bold;
@@ -205,6 +225,26 @@
 
                     }
 
+                    .card-group {
+                        display: flex;
+                        gap: size( 15 );
+                        justify-content: space-between;
+                        width: 33%;
+
+                        @include mobile {
+                            width: 100%;
+                        }
+                        @include tablet {
+                            width: 100%;
+                        }
+
+                        .card {
+                            width: 50%;
+                            padding: 0;
+                            margin: 0;
+                        }
+                    }
+
                 }
 
             }
@@ -212,11 +252,16 @@
 
     }
 
-
     .dashboard-content-cards {
         .post-card {
             padding-top: size( 10 );
-            padding-bottom: size( 10 );
+            padding-bottom: size( 5 );
+
+            &__risco-meta {
+                font-weight: 500;
+                padding: size( 1 ) size( 18 );
+                opacity: 0.5;
+            }
 
             &__excerpt-wrapped {
 
