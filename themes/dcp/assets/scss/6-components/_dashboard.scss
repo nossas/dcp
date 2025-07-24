@@ -574,8 +574,6 @@
                     }
                     a.is-notification {
                         font-weight: 500;
-                        padding-right: size( 25 );
-
                         &::after {
                             content: '';
                             background-color: $color--warning-dark;
@@ -868,6 +866,7 @@
 
                             i {
                                 display: inline-block;
+                                margin-right: size( 7 );
                             }
                             span {
                                 width: 90%;

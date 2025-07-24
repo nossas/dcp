@@ -11,11 +11,13 @@ function get_acoes_by_status( $status, $page = 1, $limit = 6 ) {
         'order'          => 'DESC'
     ]);
 
+    $total_posts = $query->found_posts;
+
     return [
-        'pagination' => true,
+        'pagination' => ( $total_posts < $limit ) ? false : true,
         'pagination_current' => $page,
         'pagination_total' => $query->max_num_pages,
-        'total_posts' => $query->found_posts,
+        'total_posts' => $total_posts,
         'posts' => $query
     ];
 }
