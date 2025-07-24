@@ -162,7 +162,7 @@ function wpcf7_form_sugestao_acao( $contact_form ) {
             'post_status' => 'draft',
             'meta_input' => [
                 'titulo' => 'WEBSITE / SUGESTÃO DE AÇÃO ' . date('Y-m-d H:i:s'),
-                'endereco' => 'Endereço não informado.',
+                'endereco' => isset($posted_data['endereco']) ? $posted_data['endereco'] : 'ENDEREÇO VAZIO',
                 'nome_completo' => isset($posted_data['nome-completo']) ? $posted_data['nome-completo'] : 'NOME COMPLETO VAZIO',
                 'telefone' => isset($posted_data['telefone']) ? $posted_data['telefone'] : 'TELEFONE VAZIO',
                 'categoria' => isset($posted_data['categoria']) ? $posted_data['categoria'] : 'CATEGORIA VAZIA',
