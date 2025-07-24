@@ -362,7 +362,7 @@ namespace hacklabr\dashboard;
                     <?php
                     //TODO: REFACTORY P/ UI
                     if( wp_is_mobile() ) :
-                        if( $post_status !== 'pending' ) : ?>
+                        if( $post_status === 'draft' ) : ?>
                             <a class="button is-archive">
                                 <iconify-icon icon="bi:x-lg"></iconify-icon>
                                 <span>Arquivar</span>
