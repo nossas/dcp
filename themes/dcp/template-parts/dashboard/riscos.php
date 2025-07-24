@@ -52,7 +52,7 @@ $get_all_riscos = get_dashboard_riscos( $paged, $limit );
                                                     if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
                                                         risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
                                                     } else {
-                                                        risco_badge_category( 'sem-categoria', 'NENHUMA CATEGORIA' );
+                                                        risco_badge_category( 'sem-categoria', 'SEM' );
                                                     }
                                                 ?>
                                             </div>

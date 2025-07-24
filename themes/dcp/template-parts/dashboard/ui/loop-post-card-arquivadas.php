@@ -15,7 +15,7 @@ $pod = pods( 'acao', get_the_ID() );
                     if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
                         risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, 'post-card__taxonomia term-' . $get_terms[0]->slug );
                     } else {
-                        risco_badge_category( 'sem-categoria', 'NENHUMA CATEGORIA ADICIONADA' );
+                        risco_badge_category( 'sem-categoria', 'SEM' );
                     }
                 ?>
                 <style>

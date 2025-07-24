@@ -108,7 +108,6 @@
             }
         }
     }
-
     &__body {
         display: grid;
         grid-template-columns: auto 1fr;
@@ -155,7 +154,6 @@
         }
 
     }
-
     &__sidebar {
         background-color: $color--secondary-dark;
         color: #FFF;
@@ -258,7 +256,6 @@
             }
         }
     }
-
     &__main {
         display: block;
         padding: 0;
@@ -421,10 +418,11 @@
                 }
 
                 h1 {
+                    font-size: size( 20 );
                     font-weight: 400;
 
                     @include mobile {
-                        font-size: size( 20 );
+
                     }
                     @include desktop {
                         font-size: size( 23 );
@@ -432,8 +430,8 @@
                     @include desktop-large {
                         font-size: size( 26 );
                     }
-                    @include desktop-xxlarge {
-                        font-size: size( 31 );
+                    @include desktop-xxxlarge {
+                        //font-size: size( 28 );
                     }
                 }
 
@@ -510,10 +508,10 @@
                     @include tablet {}
                     @include desktop {
                         margin: 0 size( 30 );
-                        overflow: hidden;
                     }
                     @include desktop-xlarge {
                         margin: 0 size( 35 );
+                        overflow: hidden;
                     }
                     @include desktop-xxlarge {
                         margin: 0 size( 40 );
@@ -521,7 +519,7 @@
 
                     a {
                         font-weight: 400;
-                        font-size: size( 15 );
+                        font-size: size( 14 );
                         text-transform: uppercase;
                         text-decoration: none;
                         color: inherit;
@@ -532,11 +530,11 @@
 
                         @include mobile {}
                         @include desktop {
-                            font-size: size( 16 );
+                            font-size: size( 15 );
                         }
-                        @include desktop-xlarge {
-                            font-size: size( 18 );
-                        }
+                        //@include desktop-xxxlarge {
+                        //    font-size: size( 18 );
+                        //}
 
                         &:last-child {
                             margin-right: size( 30 );
@@ -574,7 +572,7 @@
                     }
                     a.is-notification {
                         font-weight: 500;
-                        padding-right: size( 25 );
+                        //padding-right: size( 25 );
 
                         &::after {
                             content: '';
@@ -717,15 +715,23 @@
                     }
 
                     &__term {
+                        display: flex;
                         padding: size( 8 ) size( 18 );
 
+                        iconify-icon {
+                            position: relative;
+                            top: -10px;
+                        }
                         span {
                             font-size: size( 13 );
                             display: inline-block;
                             width: auto;
                             max-width: initial;
-                            padding: size( 2 ) size( 12 );
+                            height: size( 25 );
+                            line-height: size( 20 );
+                            padding: 0 size( 2 );
                             border-radius: size( 50 );
+                            overflow: hidden;
 
                             &::before {
                                 content: none;
@@ -756,20 +762,22 @@
                     }
 
                     &__title {
-                        font-size: size( 21 );
+                        font-size: size( 18 );
                         font-weight: normal;
-                        line-height: size( 22 );
+                        line-height: size( 19 );
                         display: block;
-                        height: size( 45 );
+                        height: size( 38 );
                         padding: 0 size( 20 );
 
-                        @include mobile {
+                        @include desktop-xxlarge {
                             font-size: size( 19 );
+                            line-height: size( 20 );
+                            height: size( 40 );
                         }
 
                         span {
                             width: 100%;
-                            height: size( 45 );
+                            height: size( 40 );
                             display: -webkit-box;
                             -webkit-line-clamp: 2; /* Número de linhas */
                             -webkit-box-orient: vertical;
