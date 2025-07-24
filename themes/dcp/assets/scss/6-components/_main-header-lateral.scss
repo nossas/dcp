@@ -143,6 +143,7 @@
             font-weight: $font-weight--regular;
             line-height: 1.6;
             list-style: none;
+            padding-bottom: 8px;
 
             &:hover,
             &:focus,
@@ -155,11 +156,16 @@
         .sub-menu {
             display: none;
             box-shadow: $box-shadow--default;
-            min-width: 10rem;
-            padding: $padding--medium;
+            min-width: 200px;
+            width: 100%;
             position: absolute;
-            top: size(21);
+            top: 100%;
+            left: 0;
             z-index: 2;
+
+            li {
+                padding: 14px 12px;
+            }
         }
 
         .menu-item-has-children {
