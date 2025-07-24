@@ -2,6 +2,10 @@
 
 namespace hacklabr\dashboard;
 
+$paged = isset($_GET['paginacao']) ? intval($_GET['paginacao']) : 1;
+$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 6;
+$get_all_riscos = get_dashboard_riscos( $paged, $limit );
+
 ?>
 <div id="dashboardRiscos" class="dashboard-content">
     <header class="dashboard-content-header">
@@ -13,13 +17,14 @@ namespace hacklabr\dashboard;
     </header>
     <div class="dashboard-content-tabs tabs">
         <div class="tabs__header">
-            <a href="#aprovacao" class="is-active is-notification">AGUARDANDO APROVAÇÃO <span class="total"></span> </a>
-            <a href="#publicados">PUBLICADOS <span class="total"></span></a>
-            <a href="#arquivados">ARQUIVADOS <span class="total"></span></a>
+            <a href="#aprovacao" class="is-active is-notification">AGUARDANDO APROVAÇÃO <span class="total"> (<?=$get_all_riscos['riscosAprovacao']['total_posts']?>) </span> </a>
+            <a href="#publicados">PUBLICADOS <span class="total"> (<?=$get_all_riscos['riscosPublicados']['total_posts']?>) </span></a>
+            <a href="#arquivados">ARQUIVADOS <span class="total"> (<?=$get_all_riscos['riscosArquivados']['total_posts']?>) </span></a>
         </div>
-        <?php foreach ( get_dashboard_riscos() as $panel_id => $value ) {
+        <?php foreach ( $get_all_riscos as $panel_id => $value ) {
 
-                $is_active = $value['is_active'] ? 'is-active' : ''; ?>
+                //$is_active = $value['is_active'] ? 'is-active' : '';
+                $is_active = ''; ?>
 
                     <div id="<?=$panel_id?>" class="tabs__panels <?=$is_active?>" <?=($is_active) ? 'style="display: block;"' : 'style="display: none;"'?> >
                         <?php
@@ -133,35 +138,28 @@ namespace hacklabr\dashboard;
 
                         </div>
                         <?php if( $value[ 'pagination' ] ) : ?>
-                        <div class="tabs__panel__pagination">
-                            <ol class="">
-                                <li>
-                                    <a href="" class="button is-previous is-disabled">
-                                        <iconify-icon icon="bi:chevron-left"></iconify-icon>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" class="button is-active">
-                                        <span>1</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" class="button">
-                                        <span>3</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" class="button">
-                                        <span>4</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" class="button is-next">
-                                        <iconify-icon icon="bi:chevron-right"></iconify-icon>
-                                    </a>
-                                </li>
-                            </ol>
-                        </div>
+                            <div class="dashboard-content-pagination">
+                                <ol>
+                                    <li>
+                                        <a href="<?php echo ($paged === 1 ) ? '#' : get_dashboard_url( 'riscos', [ 'paginacao' => ($paged-1) ] ); ?>" class="button is-previous <?php echo ($paged === 1 ) ? 'is-disabled' : ''; ?>">
+                                            <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                                        </a>
+                                    </li>
+                                    <?php
+                                    for( $i = 1; $i <= $value[ 'pagination_total' ]; $i++ ) : ?>
+                                        <li>
+                                            <a href="<?=get_dashboard_url( 'riscos', [ 'paginacao' => ($i) ] )?>" class="button <?=( $i === $paged ) ? 'is-active' : '' ?>">
+                                                <span><?=$i?></span>
+                                            </a>
+                                        </li>
+                                    <?php endfor; ?>
+                                    <li>
+                                        <a href="<?php echo ($paged < $value[ 'pagination_total' ] ) ? get_dashboard_url( 'riscos', [ 'paginacao' => ($paged+1) ] ) : '#'; ?>" class="button is-next <?php echo ($paged === $value[ 'pagination_total' ] ) ? 'is-disabled' : ''; ?>">
+                                            <iconify-icon icon="bi:chevron-right"></iconify-icon>
+                                        </a>
+                                    </li>
+                                </ol>
+                            </div>
                         <?php endif; ?>
                     </div>
                 <?php

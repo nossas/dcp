@@ -2,6 +2,10 @@
 
 namespace hacklabr\dashboard;
 
+$paged = isset($_GET['paginacao']) ? intval($_GET['paginacao']) : 1;
+$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 6;
+$get_riscos = get_riscos_by_status( 'draft', $paged, $limit );
+
 ?>
 <div id="dashboardInicio" class="dashboard-content">
     <div class="dashboard-content-home">
@@ -76,7 +80,7 @@ namespace hacklabr\dashboard;
         <div class="dashboard-content-section">
 
             <div class="dashboard-content-section-header">
-                <h2>Relatos de Risco Aguardando Avaliação <span>(0)</span> </h2>
+                <h2>Relatos de Risco Aguardando Avaliação <span>(<?=$get_riscos[ 'total_posts' ]?>)</span> </h2>
                 <a class="button" href="<?=get_dashboard_url( 'riscos' )?>">
                     <span>Gerenciar</span>
                     <iconify-icon icon="bi:chevron-right"></iconify-icon>
@@ -88,7 +92,7 @@ namespace hacklabr\dashboard;
                     <div id="riscosAprovacao" class="tabs__panels" style=" display: block !important; ">
                         <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
                         <div class="tabs__panel__content dashboard-content-cards " style="display: block; padding-top: 0">
-                            <?php $get_riscos = get_riscos_by_status( 'draft' );  if( $get_riscos[ 'riscos' ]->have_posts() ) :
+                            <?php if( $get_riscos[ 'riscos' ]->have_posts() ) :
                                 while( $get_riscos[ 'riscos' ]->have_posts() ) :
                                     $get_riscos[ 'riscos' ]->the_post();
                                     $pod = pods( 'risco', get_the_ID() ); ?>
@@ -156,30 +160,23 @@ namespace hacklabr\dashboard;
 
                         </div>
                         <?php if( $get_riscos[ 'pagination' ] ) : ?>
-                            <div class="tabs__panel__pagination">
-                                <ol class="">
+                            <div class="dashboard-content-pagination">
+                                <ol>
                                     <li>
-                                        <a href="" class="button is-previous is-disabled">
+                                        <a href="<?php echo ($paged === 1 ) ? '#' : get_dashboard_url( 'inicio', [ 'paginacao' => ($paged-1) ] ); ?>" class="button is-previous <?php echo ($paged === 1 ) ? 'is-disabled' : ''; ?>">
                                             <iconify-icon icon="bi:chevron-left"></iconify-icon>
                                         </a>
                                     </li>
+                                    <?php
+                                    for( $i = 1; $i <= $get_riscos[ 'pagination_total' ]; $i++ ) : ?>
                                     <li>
-                                        <a href="" class="button is-active">
-                                            <span>1</span>
+                                        <a href="<?=get_dashboard_url( 'inicio', [ 'paginacao' => ($i) ] )?>" class="button <?=( $i === $paged ) ? 'is-active' : '' ?>">
+                                            <span><?=$i?></span>
                                         </a>
                                     </li>
+                                    <?php endfor; ?>
                                     <li>
-                                        <a href="" class="button">
-                                            <span>3</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="" class="button">
-                                            <span>4</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="" class="button is-next">
+                                        <a href="<?php echo ($paged < $get_riscos[ 'pagination_total' ] ) ? get_dashboard_url( 'inicio', [ 'paginacao' => ($paged+1) ] ) : '#'; ?>" class="button is-next <?php echo ($paged === $get_riscos[ 'pagination_total' ] ) ? 'is-disabled' : ''; ?>">
                                             <iconify-icon icon="bi:chevron-right"></iconify-icon>
                                         </a>
                                     </li>
@@ -187,8 +184,6 @@ namespace hacklabr\dashboard;
                             </div>
                         <?php endif; ?>
                     </div>
-
-
                 </div>
             </div>
         </div>

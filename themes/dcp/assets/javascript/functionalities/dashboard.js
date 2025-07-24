@@ -82,30 +82,20 @@ jQuery(function($) {
             const tab = $this.attr( 'href' );
 
             $( '.tabs__header a, .tabs__panels' ).removeClass( 'is-active' );
-            $( '.tabs__header a .total' ).html( '' );
             $( '.tabs__panels' ).hide();
 
             switch ( tab ) {
                 case '#aprovacao':
-
                     $this.addClass( 'is-active' );
                     $( '#riscosAprovacao' ).show().addClass( 'is-active' );
-                    $this.find( '.total' ).html( '(' + $( '#riscosAprovacao .post-card' ).length + ')' );
-
                     break;
                 case '#publicados':
-
                     $this.addClass( 'is-active' );
                     $( '#riscosPublicados' ).show().addClass( 'is-active' );
-                    $this.find( '.total' ).html( '(' + $( '#riscosPublicados .post-card' ).length + ')' );
-
                     break;
                 case '#arquivados':
-
                     $this.addClass( 'is-active' );
                     $( '#riscosArquivados' ).show().addClass( 'is-active' );
-                    $this.find( '.total' ).html( '(' + $( '#riscosArquivados .post-card' ).length + ')' );
-
                     break;
                 default:
 
@@ -646,6 +636,7 @@ jQuery(function($) {
         console.log( 'JQUERY WINDOW LOADED' );
 
         $( 'body' ).removeClass( 'loading' );
+        $( '.dashboard-content-pagination' ).show();
         $( '.loading-global' ).fadeOut( 400 );
 
         $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();

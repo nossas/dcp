@@ -5,48 +5,58 @@ namespace hacklabr\dashboard;
     $tipo_acao = get_query_var('tipo_acao' );
     if( empty( $tipo_acao ) ) $tipo_acao = 'sugestoes';
 
+    $paged = isset($_GET['paginacao']) ? intval($_GET['paginacao']) : 1;
+    $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 6;
+
     $sectios_tabs = [
-        'sugestoes' => [
-            'name' => 'Sugestões',
-            'link' => '',
-            'icon' => 'lightbulb-fill',
-            'tipo_acao' => 'sugestoes',
-            'post_status' => 'draft',
-            'notification' => false
-        ],
-        'agendadas' => [
-            'name' => 'Agendadas',
-            'link' => '',
-            'icon' => 'calendar3',
-            'tipo_acao' => 'agendadas',
-            'post_status' => 'publish',
-            'notification' => true
-        ],
-        'realizadas' => [
-            'name' => 'Realizadas',
-            'link' => '',
-            'icon' => 'check-square-fill',
-            'tipo_acao' => 'realizadas',
-            'post_status' => 'private',
-            'notification' => false
-        ],
-        'arquivadas' => [
-            'name' => 'Arquivadas',
-            'link' => '',
-            'icon' => 'x-octagon-fill',
-            'tipo_acao' => 'arquivadas',
-            'post_status' => 'pending',
-            'notification' => false
-        ],
-        'relatos-compartilhados' => [
-            'name' => 'Relatos compartilhados',
-            'link' => '',
-            'icon' => 'file-earmark-richtext-fill',
-            'tipo_acao' => 'relatos-compartilhados',
-            'post_status' => 'publish',
-            'notification' => true
-        ]
-    ];
+    'sugestoes' => [
+        'name' => 'Sugestões',
+        'link' => '',
+        'icon' => 'lightbulb-fill',
+        'tipo_acao' => 'sugestoes',
+        'post_status' => 'draft',
+        'notification' => false
+    ],
+    'agendadas' => [
+        'name' => 'Agendadas',
+        'link' => '',
+        'icon' => 'calendar3',
+        'tipo_acao' => 'agendadas',
+        'post_status' => 'publish',
+        'notification' => true
+    ],
+    'realizadas' => [
+        'name' => 'Realizadas',
+        'link' => '',
+        'icon' => 'check-square-fill',
+        'tipo_acao' => 'realizadas',
+        'post_status' => 'private',
+        'notification' => false
+    ],
+    'arquivadas' => [
+        'name' => 'Arquivadas',
+        'link' => '',
+        'icon' => 'x-octagon-fill',
+        'tipo_acao' => 'arquivadas',
+        'post_status' => 'pending',
+        'notification' => false
+    ],
+    'relatos-compartilhados' => [
+        'name' => 'Relatos compartilhados',
+        'link' => '',
+        'icon' => 'file-earmark-richtext-fill',
+        'tipo_acao' => 'relatos-compartilhados',
+        'post_status' => 'publish',
+        'notification' => true
+    ]
+];
+
+    if( $tipo_acao === 'relatos-compartilhados' ) {
+        $get_acoes = get_relatos( $paged, $limit );
+    } else {
+        $get_acoes = get_acoes_by_status( $sectios_tabs[ $tipo_acao ][ 'post_status' ], $paged, $limit );
+    }
+
 ?>
 <div id="dashboardAcoes" class="dashboard-content">
     <div class="dashboard-content-acoes">
@@ -83,12 +93,6 @@ namespace hacklabr\dashboard;
                         get_template_part('template-parts/dashboard/ui/skeleton' );
                     }
 
-                    if( $tipo_acao === 'relatos-compartilhados' ) {
-                        $get_acoes = get_relatos();
-                    } else {
-                        $get_acoes = get_acoes_by_status( $sectios_tabs[ $tipo_acao ][ 'post_status' ] );
-                    }
-
                     if( $get_acoes[ 'posts' ]->have_posts() ) :
                         while( $get_acoes[ 'posts' ]->have_posts() ) {
                             $get_acoes[ 'posts' ]->the_post();
@@ -100,6 +104,30 @@ namespace hacklabr\dashboard;
                     </div>
                 <?php endif;  ?>
             </div>
+            <?php if( $get_acoes[ 'pagination' ] ) : ?>
+                <div class="dashboard-content-pagination">
+                    <ol>
+                        <li>
+                            <a href="<?php echo ($paged === 1 ) ? '#' : get_dashboard_url( 'acoes', [ 'paginacao' => ($paged-1), 'tipo_acao' => $tipo_acao ] ); ?>" class="button is-previous <?php echo ($paged === 1 ) ? 'is-disabled' : ''; ?>">
+                                <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                            </a>
+                        </li>
+                        <?php
+                        for( $i = 1; $i <= $get_acoes[ 'pagination_total' ]; $i++ ) : ?>
+                            <li>
+                                <a href="<?=get_dashboard_url( 'acoes', [ 'paginacao' => ($i), 'tipo_acao' => $tipo_acao ] )?>" class="button <?=( $i === $paged ) ? 'is-active' : '' ?>">
+                                    <span><?=$i?></span>
+                                </a>
+                            </li>
+                        <?php endfor; ?>
+                        <li>
+                            <a href="<?php echo ($paged < $get_acoes[ 'pagination_total' ] ) ? get_dashboard_url( 'acoes', [ 'paginacao' => ($paged+1), 'tipo_acao' => $tipo_acao ] ) : '#'; ?>" class="button is-next <?php echo ($paged === $get_acoes[ 'pagination_total' ] ) ? 'is-disabled' : ''; ?>">
+                                <iconify-icon icon="bi:chevron-right"></iconify-icon>
+                            </a>
+                        </li>
+                    </ol>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>
