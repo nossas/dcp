@@ -29,7 +29,16 @@
         .tabs__header {
             a {
                 &:first-child {
-                    min-width: 300px;
+                    min-width: 200px;
+
+                    @include desktop {
+                        min-width: 230px;
+                        margin-right: size( 20 );
+                    }
+                    @include desktop-xxlarge {
+                        min-width: 315px;
+                        margin-right: size( 30 );
+                    }
                 }
             }
         }

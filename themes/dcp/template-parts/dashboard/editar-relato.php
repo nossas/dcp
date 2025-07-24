@@ -127,10 +127,12 @@ namespace hacklabr\dashboard;
                 <div class="is-group">
                     <div class="input-wrap">
                         <label class="label">Data</label>
+                        <input class="input" type="hidden" name="data" value="<?=date( 'Y-m-d', strtotime( $pod->field('data_e_horario' ) ) )?>">
                         <input class="input" type="text" name="data" placeholder="Digite aqui" value="<?=date( 'Y-m-d', strtotime( $pod->field('data_e_horario' ) ) )?>" required disabled>
                     </div>
                     <div class="input-wrap">
                         <label class="label">Horário</label>
+                        <input class="input" type="hidden" name="horario" value="<?=date( 'H:i', strtotime( $pod->field( 'data_e_horario' ) ) )?>">
                         <input class="input" type="text" name="horario" placeholder="Digite aqui" value="<?=date( 'H:i', strtotime( $pod->field('data_e_horario' ) ) )?>" required disabled>
                     </div>
                 </div>

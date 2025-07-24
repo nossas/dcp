@@ -259,11 +259,11 @@ function form_single_relato_edit() {
     $save_attachment = upload_file_to_attachment_by_ID($_FILES['media_files'], $postID, false );
 
     if ( empty($save_cover['errors']) && empty($save_attachment['errors']) ) {
-        $merge_files = array_merge( $save_cover['uploaded_files'], $save_attachment['uploaded_files'] );
+        //$merge_files = array_merge( $save_cover['uploaded_files'], $save_attachment['uploaded_files'] );
         wp_send_json_success([
             'title' => 'Sucesso',
             'message' => 'Formulário enviado com sucesso!',
-            'uploaded_files' => $merge_files,
+            //'uploaded_files' => $merge_files,
             'post_id' => $postID,
             'url_callback' => get_site_url() . '/dashboard/editar-relato/?post_id=' . $postID
         ]);

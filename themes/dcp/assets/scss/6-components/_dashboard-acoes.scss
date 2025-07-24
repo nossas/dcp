@@ -41,7 +41,7 @@
             a {
                 &:last-child {
                     @include desktop {
-                        min-width: 275px;
+                        min-width: 225px;
                         margin-right: size( 20 );
                     }
                     @include desktop-xxlarge {

@@ -30,11 +30,13 @@ function get_riscos_by_status( $status, $page = 1, $limit = 6 ) {
         'order'          => 'DESC'
     ]);
 
+    $total_posts = $query->found_posts;
+
     return [
-        'pagination' => true,
+        'pagination' => ( $total_posts < $limit ) ? false : true,
         'pagination_current' => $page,
         'pagination_total' => $query->max_num_pages,
-        'total_posts' => $query->found_posts,
+        'total_posts' => $total_posts,
         'riscos' => $query
     ];
 }
@@ -42,9 +44,9 @@ function get_riscos_by_status( $status, $page = 1, $limit = 6 ) {
 function get_dashboard_riscos( $page = 1, $limit = 6 ) {
 
     return [
-        'riscosAprovacao' => get_riscos_by_status( 'draft', $page = 1, $limit = 12 ),
-        'riscosPublicados' => get_riscos_by_status( 'publish', $page = 1, $limit = 12 ),
-        'riscosArquivados' => get_riscos_by_status( 'pending', $page = 1, $limit = 12 )
+        'riscosAprovacao' => get_riscos_by_status( 'draft', $page, $limit ),
+        'riscosPublicados' => get_riscos_by_status( 'publish', $page, $limit ),
+        'riscosArquivados' => get_riscos_by_status( 'pending', $page, $limit )
     ];
 
 }
