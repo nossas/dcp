@@ -2,6 +2,7 @@
     background-color: $color--warning-pure;
     display: flex;
     min-height: size( 60 );
+    display: none  !important; //escondido temporáriamente
 
     &__icon,
     &__content-left,
