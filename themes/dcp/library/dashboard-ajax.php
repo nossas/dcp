@@ -250,14 +250,7 @@ function form_single_relato_edit() {
 
     $save_cover = [];
 
-    if( empty( $_FILES['media_file'] ) ) {
-
-        if ( has_post_thumbnail( $updated_id ) ) {
-            $old_attachment_id = get_post_thumbnail_id( $updated_id );
-            wp_delete_attachment( $old_attachment_id );
-        }
-
-    } else {
+    if( !empty( $_FILES['media_file'] ) ) {
         $save_cover = upload_file_to_attachment_by_ID($_FILES['media_file'], $postID, true );
     }
 
