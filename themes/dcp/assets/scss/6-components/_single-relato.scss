@@ -1,5 +1,5 @@
-.single-relato,
-.single-acao {
+.single-relato
+/* .single-acao */ {
 
     h1{
         margin: 0px;
@@ -7,6 +7,7 @@
     p {
         margin: 0px;
     }
+    background-color: red !important;
     .bread-relato {
         display: flex !important;
         max-width: 100%;
@@ -200,7 +201,7 @@
                 justify-content: flex-start;
                 margin-bottom: $margin--medium;
 
-        }
+            }
         .tag {
             padding: 4px 16px !important;
             display: flex;
@@ -212,6 +213,7 @@
                 font-size: 12px;
             }
         }
+
     }
 }
 .anexos-slider {
@@ -338,14 +340,6 @@
             }
         }
 
-    }
-
-}
-
-.single-acao {
-
-    .bread-relato {
-        justify-content: start;
     }
 
 }
