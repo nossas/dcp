@@ -65,7 +65,7 @@
             </div>
 
             <div class="acao-descricao">
-                <?php the_content(); ?>
+                <?php nl2br( $pods->display( 'descricao' ) ); ?>
             </div>
 
             <ul class="acao-info">

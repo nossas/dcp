@@ -182,7 +182,7 @@
                     <div class="fields">
                         <div class="input-wrap">
                             <label class="label">Descrição</label>
-                            <textarea class="textarea" name="descricao" readonly required><?=$pod->field('descricao')?></textarea>
+                            <textarea class="textarea" name="descricao" readonly required><?=nl2br( $pod->field('descricao') )?></textarea>
                             <a class="button is-edit-input">
                                 <iconify-icon icon="bi:pencil-square"></iconify-icon>
                             </a>

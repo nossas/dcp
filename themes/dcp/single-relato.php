@@ -9,7 +9,7 @@ the_post();
 $termos_tipo_acao = get_the_terms(get_the_ID(), 'tipo_acao');
 $pods = pods( 'relato', get_the_ID() );
 
-$excerpt = !empty( $pods->field( 'descricao' ) ) ? wp_kses_post( $pods->field( 'descricao' ) ) : '';
+$excerpt = !empty( $pods->field( 'descricao' ) ) ? nl2br( $pods->field( 'descricao' ) ) : '';
 
 $base_icon_dir = get_template_directory_uri() . '/assets/images/tipo-acao/';
 $icon_filename = 'default.svg';
