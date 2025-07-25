@@ -97,7 +97,7 @@ namespace hacklabr\dashboard;
 
             ?>
 
-
+<div id="dashboardAcaoSingle" class="dashboard-content">
     <div class="dashboard-content-breadcrumb">
         <ol class="breadcrumb">
             <li>
