@@ -10,18 +10,14 @@ namespace hacklabr\dashboard;
     <div class="dashboard-content-breadcrumb">
         <ol class="breadcrumb">
             <li>
-                <a href="">Ações</a>
+                <a href="<?=get_dashboard_url( 'acoes' )?>">Ações</a>
                 <iconify-icon icon="bi:chevron-right"></iconify-icon>
             </li>
-            <li>
-                <a href="">Adicionar</a>
-                <iconify-icon icon="bi:chevron-right"></iconify-icon>
-            </li>
-            <li><a href="">Criar página relato</a></li>
+            <li><a href="">Criar página de relato`</a></li>
         </ol>
     </div>
     <header class="dashboard-content-header is-single-new">
-        <h1>Novo Relato de ação</h1>
+        <h1>Criar página de relato de ação</h1>
     </header>
     <div class="dashboard-content-single">
         <?php

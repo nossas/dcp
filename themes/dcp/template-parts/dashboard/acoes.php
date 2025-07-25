@@ -9,47 +9,47 @@ namespace hacklabr\dashboard;
     $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 6;
 
     $sectios_tabs = [
-    'sugestoes' => [
-        'name' => 'Sugestões',
-        'link' => '',
-        'icon' => 'lightbulb-fill',
-        'tipo_acao' => 'sugestoes',
-        'post_status' => 'draft',
-        'notification' => false
-    ],
-    'agendadas' => [
-        'name' => 'Agendadas',
-        'link' => '',
-        'icon' => 'calendar3',
-        'tipo_acao' => 'agendadas',
-        'post_status' => 'publish',
-        'notification' => true
-    ],
-    'realizadas' => [
-        'name' => 'Realizadas',
-        'link' => '',
-        'icon' => 'check-square-fill',
-        'tipo_acao' => 'realizadas',
-        'post_status' => 'private',
-        'notification' => false
-    ],
-    'arquivadas' => [
-        'name' => 'Arquivadas',
-        'link' => '',
-        'icon' => 'x-octagon-fill',
-        'tipo_acao' => 'arquivadas',
-        'post_status' => 'pending',
-        'notification' => false
-    ],
-    'relatos-compartilhados' => [
-        'name' => 'Relatos compartilhados',
-        'link' => '',
-        'icon' => 'file-earmark-richtext-fill',
-        'tipo_acao' => 'relatos-compartilhados',
-        'post_status' => 'publish',
-        'notification' => true
-    ]
-];
+        'sugestoes' => [
+            'name' => 'Sugestões',
+            'link' => '',
+            'icon' => 'lightbulb-fill',
+            'tipo_acao' => 'sugestoes',
+            'post_status' => 'draft',
+            'notification' => false
+        ],
+        'agendadas' => [
+            'name' => 'Agendadas',
+            'link' => '',
+            'icon' => 'calendar3',
+            'tipo_acao' => 'agendadas',
+            'post_status' => 'publish',
+            'notification' => true
+        ],
+        'realizadas' => [
+            'name' => 'Realizadas',
+            'link' => '',
+            'icon' => 'check-square-fill',
+            'tipo_acao' => 'realizadas',
+            'post_status' => 'private',
+            'notification' => false
+        ],
+        'arquivadas' => [
+            'name' => 'Arquivadas',
+            'link' => '',
+            'icon' => 'x-octagon-fill',
+            'tipo_acao' => 'arquivadas',
+            'post_status' => 'pending',
+            'notification' => false
+        ],
+        'relatos-compartilhados' => [
+            'name' => 'Ações Relatadas',
+            'link' => '',
+            'icon' => 'file-earmark-richtext-fill',
+            'tipo_acao' => 'relatos-compartilhados',
+            'post_status' => 'publish',
+            'notification' => true
+        ]
+    ];
 
     if( $tipo_acao === 'relatos-compartilhados' ) {
         $get_acoes = get_relatos( $paged, $limit );

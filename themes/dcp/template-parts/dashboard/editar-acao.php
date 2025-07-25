@@ -9,10 +9,40 @@ namespace hacklabr\dashboard;
         'post_type' => 'acao'
     ]);
 
+
+    $tipos_acoes = [
+        'draft' => [
+            'name' => 'Sugestões',
+            'link' => '',
+            'icon' => 'lightbulb-fill',
+            'tipo_acao' => 'sugestoes'
+        ],
+        'publish' => [
+            'name' => 'Agendadas',
+            'link' => '',
+            'icon' => 'calendar3',
+            'tipo_acao' => 'agendadas'
+        ],
+        'private' => [
+            'name' => 'Realizadas',
+            'link' => '',
+            'icon' => 'check-square-fill',
+            'tipo_acao' => 'realizadas'
+        ],
+        'pending' => [
+            'name' => 'Arquivadas',
+            'link' => '',
+            'icon' => 'x-octagon-fill',
+            'tipo_acao' => 'arquivadas'
+        ]
+    ];
+
     if ( $postSingle->have_posts() ) :
 
         while ( $postSingle->have_posts()) :
             $postSingle->the_post();
+
+            $post_status = get_post_status();
 
             $pod = pods( 'acao', get_the_ID());
             $attachments = get_attached_media('', get_the_ID() );
@@ -29,44 +59,53 @@ namespace hacklabr\dashboard;
     <div class="dashboard-content-breadcrumb">
         <ol class="breadcrumb">
             <li>
-                <a href="">Ações</a>
+                <a href="<?=get_dashboard_url( 'acoes' )?>">Ações</a>
                 <iconify-icon icon="bi:chevron-right"></iconify-icon>
             </li>
-            <li><a href="#/">Avaliar / Editar ação</a></li>
+            <li>
+                <a href="<?=get_dashboard_url( 'acoes', [ 'tipo_acao' => $tipos_acoes[ $post_status ][ 'tipo_acao' ] ] )?>"><?=$tipos_acoes[ $post_status ][ 'name' ]?></a>
+                <iconify-icon icon="bi:chevron-right"></iconify-icon>
+            </li>
+            <li><a href="#/">Avalidar</a></li>
         </ol>
     </div>
     <header class="dashboard-content-header is-single">
-        <h2>Avaliar ação sugerida</h2>
         <?php
-            //TODO: REFACTORY P/ COMPONENT
-            $post_status = get_post_status();
-            switch ( $post_status ) {
-                case 'draft':
-                    $class = 'is-draft';
-                    $text = 'Ação Sugerida';
-                    break;
+        //TODO: REFACTORY P/ COMPONENT
 
-                case 'publish':
-                    $class = 'is-publish';
-                    $text = 'Ação Agendada';
-                    break;
+        switch ( $post_status ) {
+            case 'draft':
+                $class = 'is-draft';
+                $text = 'Ação Sugerida';
+                $title = 'Avaliar ação sugerida';
+                break;
 
-                case 'private':
-                    $class = 'is-scheduled';
-                    $text = 'Ação Realizada';
-                    break;
+            case 'publish':
+                $class = 'is-publish';
+                $text = 'Ação Agendada';
+                $title = 'Editar ação agendada';
+                break;
 
-                case 'pending':
-                    $class = 'is-pending';
-                    $text = 'Ação Arquivada';
-                    break;
+            case 'private':
+                $class = 'is-scheduled';
+                $text = 'Ação Realizada';
+                $title = 'Criar relato de ação';
+                break;
 
-                default:
-                    $class = 'is-blocked';
-                    $text = 'BLOQUEADO';
-                    break;
-            }
+            case 'pending':
+                $class = 'is-pending';
+                $text = 'Ação Arquivada';
+                $title = 'Ações Arquivadas';
+                break;
+
+            default:
+                $class = 'is-blocked';
+                $text = 'BLOQUEADO';
+                $title = 'SEM STATUS';
+                break;
+        }
         ?>
+        <h2><?=$title?></h2>
         <a class="button is-status <?=$class?>">
             <span><?=$text?></span>
         </a>
