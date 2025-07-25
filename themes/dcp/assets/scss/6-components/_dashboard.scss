@@ -705,8 +705,8 @@
 
                     &__content {
                         height: auto;
-                        min-height: 270px;
-                        max-height: 400px;
+                        min-height: 300px;
+                        max-height: 450px;
                     }
 
                     &__cover {
@@ -764,7 +764,7 @@
                     }
 
                     &__title {
-                        font-size: size( 18 );
+                        font-size: size( 17 );
                         font-weight: normal;
                         line-height: size( 22 );
                         display: block;
