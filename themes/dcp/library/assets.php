@@ -464,6 +464,11 @@ class Assets
                 'global' => true,
             ],
 
+            'mobile-menu' => [
+                'file'   => 'mobile-menu.js',
+                'global' => true,
+            ],
+
             // DASHBOARD
             'dashboard-media-loader' => [
                 'file' => 'dashboard-media-loader.js',
