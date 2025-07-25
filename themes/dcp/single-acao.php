@@ -31,12 +31,6 @@
             <?php endif; ?>
             <h1 class="acao-titulo"><?= esc_html( $pods->field( 'titulo' ) ); ?></h1>
 
-            <?php if (!wp_is_mobile()) : ?>
-                <nav class="acao-conteudo breadcrumb bread-acao" typeof="BreadcrumbList" vocab="https://schema.org/">
-                    <?php if ( function_exists('bcn_display') ) { bcn_display(); } ?>
-                </nav>
-            <?php endif; ?>
-
             <div class="acao-categoria">
                 <?php
                 $terms = get_the_terms(get_the_ID(), 'tipo_acao');
