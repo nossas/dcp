@@ -244,7 +244,7 @@ function form_single_relato_edit() {
     }
 
     wp_set_object_terms(
-        $updated_id,
+        $postID,
         [sanitize_text_field($_POST['tipo_acao'])],
         'tipo_acao',
         false
