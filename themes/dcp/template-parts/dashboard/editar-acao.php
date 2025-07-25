@@ -94,8 +94,7 @@ namespace hacklabr\dashboard;
                     $current_page = 'Editar Ação';
                     break;
             }
-
-            ?>
+        ?>
 
 <div id="dashboardAcaoSingle" class="dashboard-content">
     <div class="dashboard-content-breadcrumb">
