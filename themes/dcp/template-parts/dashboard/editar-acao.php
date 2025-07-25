@@ -9,10 +9,40 @@ namespace hacklabr\dashboard;
         'post_type' => 'acao'
     ]);
 
+
+    $tipos_acoes = [
+        'draft' => [
+            'name' => 'Sugestões',
+            'link' => '',
+            'icon' => 'lightbulb-fill',
+            'tipo_acao' => 'sugestoes'
+        ],
+        'publish' => [
+            'name' => 'Agendadas',
+            'link' => '',
+            'icon' => 'calendar3',
+            'tipo_acao' => 'agendadas'
+        ],
+        'private' => [
+            'name' => 'Realizadas',
+            'link' => '',
+            'icon' => 'check-square-fill',
+            'tipo_acao' => 'realizadas'
+        ],
+        'pending' => [
+            'name' => 'Arquivadas',
+            'link' => '',
+            'icon' => 'x-octagon-fill',
+            'tipo_acao' => 'arquivadas'
+        ]
+    ];
+
     if ( $postSingle->have_posts() ) :
 
         while ( $postSingle->have_posts()) :
             $postSingle->the_post();
+
+            $post_status = get_post_status();
 
             $pod = pods( 'acao', get_the_ID());
             $attachments = get_attached_media('', get_the_ID() );
@@ -23,51 +53,66 @@ namespace hacklabr\dashboard;
                 'hide_empty' => false,
             ]);
 
-            ?>
 
-<div id="dashboardAcaoSingle" class="dashboard-content">
-    <div class="dashboard-content-breadcrumb">
-        <ol class="breadcrumb">
-            <li>
-                <a href="">Ações</a>
-                <iconify-icon icon="bi:chevron-right"></iconify-icon>
-            </li>
-            <li><a href="#/">Avaliar / Editar ação</a></li>
-        </ol>
-    </div>
-    <header class="dashboard-content-header is-single">
-        <h2>Avaliar ação sugerida</h2>
-        <?php
             //TODO: REFACTORY P/ COMPONENT
-            $post_status = get_post_status();
+
             switch ( $post_status ) {
                 case 'draft':
                     $class = 'is-draft';
                     $text = 'Ação Sugerida';
+                    $title = 'Avaliar ação sugerida';
+                    $current_page = 'Avaliar';
                     break;
 
                 case 'publish':
                     $class = 'is-publish';
                     $text = 'Ação Agendada';
+                    $title = 'Editar ação agendada';
+                    $current_page = 'Editar Ação';
+                    $color = '#AA7700';
                     break;
 
                 case 'private':
                     $class = 'is-scheduled';
                     $text = 'Ação Realizada';
+                    $title = 'Criar relato de ação';
+                    $current_page = 'Editar Ação';
+                    $color = '#000';
                     break;
 
                 case 'pending':
                     $class = 'is-pending';
                     $text = 'Ação Arquivada';
+                    $title = 'Ações Arquivadas';
+                    $current_page = 'Editar Ação';
                     break;
 
                 default:
                     $class = 'is-blocked';
                     $text = 'BLOQUEADO';
+                    $title = 'SEM STATUS';
+                    $current_page = 'Editar Ação';
                     break;
             }
         ?>
-        <a class="button is-status <?=$class?>">
+
+<div id="dashboardAcaoSingle" class="dashboard-content">
+    <div class="dashboard-content-breadcrumb">
+        <ol class="breadcrumb">
+            <li>
+                <a href="<?=get_dashboard_url( 'acoes' )?>">Ações</a>
+                <iconify-icon icon="bi:chevron-right"></iconify-icon>
+            </li>
+            <li>
+                <a href="<?=get_dashboard_url( 'acoes', [ 'tipo_acao' => $tipos_acoes[ $post_status ][ 'tipo_acao' ] ] )?>"><?=$tipos_acoes[ $post_status ][ 'name' ]?></a>
+                <iconify-icon icon="bi:chevron-right"></iconify-icon>
+            </li>
+            <li><a href="#/"><?=$current_page?></a></li>
+        </ol>
+    </div>
+    <header class="dashboard-content-header is-single">
+        <h2><?=$title?></h2>
+        <a class="button is-status <?=$class?>" style="<?=( isset( $color ) ? 'background-color : ' . $color : '' )?>">
             <span><?=$text?></span>
         </a>
     </header>
@@ -132,7 +177,7 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Descrição</label>
-                    <textarea class="textarea" name="descricao" readonly required><?=$pod->field('descricao')?></textarea>
+                    <textarea class="textarea" name="descricao" readonly required><?=nl2br( $pod->field('descricao') )?></textarea>
                     <a class="button is-edit-input">
                         <iconify-icon icon="bi:pencil-square"></iconify-icon>
                     </a>
@@ -295,6 +340,7 @@ namespace hacklabr\dashboard;
                 <input type="hidden" name="action" value="form_single_acao_edit">
                 <input type="hidden" name="post_id" value="<?=get_the_ID()?>">
                 <input type="hidden" name="post_status" value="<?=$post_status?>">
+
                 <?php if( !wp_is_mobile() ) : ?>
                     <div>
                         <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
@@ -303,11 +349,12 @@ namespace hacklabr\dashboard;
                         </a>
                     </div>
                 <?php endif; ?>
+
                 <div>
                     <?php
                         //TODO: REFACTORY P/ UI
                         if( !wp_is_mobile() ) :
-                            if( $post_status !== 'pending' ) : ?>
+                            if( $post_status === 'draft' ) : ?>
                         <a class="button is-archive">
                             <iconify-icon icon="bi:x-lg"></iconify-icon>
                             <span>Arquivar</span>
@@ -347,9 +394,9 @@ namespace hacklabr\dashboard;
                                 <?php break;
 
                             case 'private': ?>
-                                <a class="button is-save">
-                                    <iconify-icon icon="bi:check2"></iconify-icon>
-                                    <span>Publicar Alterações</span>
+                                <a class="button is-archive">
+                                    <iconify-icon icon="bi:x-lg"></iconify-icon>
+                                    <span>Arquivar</span>
                                 </a>
                                 <a class="button is-duplicate" href="<?=get_dashboard_url( 'adicionar-relato' )?>/?post_id=<?=get_the_ID()?>">
                                     <iconify-icon icon="bi:pencil-square"></iconify-icon>
@@ -362,7 +409,7 @@ namespace hacklabr\dashboard;
                     <?php
                     //TODO: REFACTORY P/ UI
                     if( wp_is_mobile() ) :
-                        if( $post_status !== 'pending' ) : ?>
+                        if( $post_status === 'draft' ) : ?>
                             <a class="button is-archive">
                                 <iconify-icon icon="bi:x-lg"></iconify-icon>
                                 <span>Arquivar</span>

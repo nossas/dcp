@@ -41,14 +41,14 @@ namespace hacklabr\dashboard;
     <div class="dashboard-content-breadcrumb">
         <ol class="breadcrumb">
             <li>
-                <a href="">Ações</a>
+                <a href="<?=get_dashboard_url( 'acoes' )?>">Ações</a>
                 <iconify-icon icon="bi:chevron-right"></iconify-icon>
             </li>
             <li>
-                <a href="">Adicionar</a>
+                <a href="">Relato de ação</a>
                 <iconify-icon icon="bi:chevron-right"></iconify-icon>
             </li>
-            <li><a href="">Criar página relato</a></li>
+            <li><a href="">Editar</a></li>
         </ol>
     </div>
     <header class="dashboard-content-header is-single">
@@ -79,6 +79,7 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Categoria</label>
+                    <input type="hidden" name="tipo_acao" value="<?=( !empty( $get_terms[0]->slug ) ) ? $get_terms[0]->slug : ''?>">
                     <select id="selectCategory" class="select" name="tipo_acao" required disabled >
                         <?php if( !empty( $get_terms[0]->slug ) ) : ?>
                             <option value="<?=$get_terms[0]->slug?>" selected ><?=$get_terms[0]->name?></option>
@@ -127,10 +128,12 @@ namespace hacklabr\dashboard;
                 <div class="is-group">
                     <div class="input-wrap">
                         <label class="label">Data</label>
+                        <input class="input" type="hidden" name="data" value="<?=date( 'Y-m-d', strtotime( $pod->field('data_e_horario' ) ) )?>">
                         <input class="input" type="text" name="data" placeholder="Digite aqui" value="<?=date( 'Y-m-d', strtotime( $pod->field('data_e_horario' ) ) )?>" required disabled>
                     </div>
                     <div class="input-wrap">
                         <label class="label">Horário</label>
+                        <input class="input" type="hidden" name="horario" value="<?=date( 'H:i', strtotime( $pod->field( 'data_e_horario' ) ) )?>">
                         <input class="input" type="text" name="horario" placeholder="Digite aqui" value="<?=date( 'H:i', strtotime( $pod->field('data_e_horario' ) ) )?>" required disabled>
                     </div>
                 </div>
@@ -160,7 +163,7 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Descrição</label>
-                    <textarea class="textarea" name="descricao" readonly required><?=(!empty($pod->field( 'descricao' ))) ? $pod->field( 'descricao' ) : '' ?></textarea>
+                    <textarea class="textarea" name="descricao" readonly required><?=(!empty($pod->field( 'descricao' ))) ? nl2br( $pod->field( 'descricao' ) ) : '' ?></textarea>
                     <a class="button is-edit-input">
                         <iconify-icon icon="bi:pencil-square"></iconify-icon>
                     </a>
@@ -265,7 +268,7 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Texto</label>
-                    <textarea id="textoAcaoTinyMCE" class="textarea" name="text_post" required style=" min-height: 80vh; "></textarea>
+                    <textarea id="textoAcaoTinyMCE" class="textarea" name="text_post" required style=" min-height: 80vh; "><?php the_content();?></textarea>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">

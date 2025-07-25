@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * FRONTEND
+ */
 function download_participantes_acao() {
 
     if ( !current_user_can('manage_options' ) ) wp_die('Você não tem permissão para editar posts.' );
@@ -102,6 +105,10 @@ function form_participar_acao() {
 add_action('wp_ajax_form_participar_acao', 'form_participar_acao');
 add_action('wp_ajax_nopriv_form_participar_acao', 'form_participar_acao');
 
+
+/**
+ * RELATOS
+ */
 function form_single_relato_new() {
 
     if (!current_user_can('edit_posts')) {
@@ -129,7 +136,7 @@ function form_single_relato_new() {
         'post_type' => 'relato',
         'post_status' => 'draft',
         'post_title' => sanitize_text_field($_POST['titulo']),
-        'post_content' => wpautop( sanitize_text_field($_POST['text_post']), true ),
+        'post_content' => sanitize_text_field($_POST['text_post']),
         'meta_input' => [
             'titulo' => sanitize_text_field($_POST['titulo']),
             'endereco' => sanitize_text_field($_POST['endereco']),
@@ -172,11 +179,9 @@ function form_single_relato_new() {
     $save_attachment = upload_file_to_attachment_by_ID($_FILES['media_files'], $postID, false );
 
     if ( empty($save_cover['errors']) && empty($save_attachment['errors']) ) {
-        $merge_files = array_merge( $save_cover['uploaded_files'], $save_attachment['uploaded_files'] );
         wp_send_json_success([
             'title' => 'Sucesso',
             'message' => 'Formulário enviado com sucesso!',
-            'uploaded_files' => $merge_files,
             'post_id' => $postID,
             'url_callback' => get_site_url() . '/dashboard/editar-relato/?post_id=' . $postID,
             'is_new' => true,
@@ -186,7 +191,7 @@ function form_single_relato_new() {
     wp_send_json_error([
         'title' => 'Erro',
         'message' => 'Erro ao salvar o formulário / anexos',
-        'error' => array_merge( $save_attachment['errors'], $save_cover['errors'] ),
+        'error' => array_merge( $save_attachment, $save_cover ),
     ], 400);
 
 }
@@ -219,7 +224,7 @@ function form_single_relato_edit() {
         'post_type' => 'relato',
         'post_status' => sanitize_text_field($_POST['post_status'] ?? 'draft'),
         'post_title' => sanitize_text_field($_POST['titulo']),
-        'post_content' => wpautop( sanitize_text_field($_POST['text_post']), true ),
+        'post_content' => wpautop( $_POST['text_post'], true ),
         'meta_input' => [
             'titulo' => sanitize_text_field($_POST['titulo']),
             'endereco' => sanitize_text_field($_POST['endereco']),
@@ -246,24 +251,15 @@ function form_single_relato_edit() {
     $save_cover = [];
 
     if( !empty( $_FILES['media_file'] ) ) {
-
-        if ( has_post_thumbnail( $updated_id ) ) {
-            $old_attachment_id = get_post_thumbnail_id( $updated_id );
-            wp_delete_attachment( $old_attachment_id );
-        }
-
-    } else {
         $save_cover = upload_file_to_attachment_by_ID($_FILES['media_file'], $postID, true );
     }
 
     $save_attachment = upload_file_to_attachment_by_ID($_FILES['media_files'], $postID, false );
 
     if ( empty($save_cover['errors']) && empty($save_attachment['errors']) ) {
-        $merge_files = array_merge( $save_cover['uploaded_files'], $save_attachment['uploaded_files'] );
         wp_send_json_success([
             'title' => 'Sucesso',
             'message' => 'Formulário enviado com sucesso!',
-            'uploaded_files' => $merge_files,
             'post_id' => $postID,
             'url_callback' => get_site_url() . '/dashboard/editar-relato/?post_id=' . $postID
         ]);
@@ -272,12 +268,16 @@ function form_single_relato_edit() {
     wp_send_json_error([
         'title' => 'Erro',
         'message' => 'Erro ao salvar o formulário / anexos',
-        'error' => array_merge( $save_attachment['errors'], $save_cover['errors'] ),
+        'error' => array_merge( $save_attachment, $save_cover ),
     ], 400);
 
 }
 add_action('wp_ajax_form_single_relato_edit', 'form_single_relato_edit');
 
+
+/**
+ * AÇÃO
+ */
 function form_single_acao_new() {
 
     if (is_user_logged_in()) {
@@ -403,7 +403,8 @@ function form_single_acao_edit() {
 
         wp_send_json_error([
             'title' => 'Erro',
-            'message' => 'ID do post inválido ou post não encontrado.',
+            //'message' => 'ID do post inválido ou post não encontrado.',
+            'message' => null,
             'error' => $updated_id->get_error_message(),
         ], 500);
 
@@ -461,6 +462,11 @@ function form_single_acao_edit() {
 }
 add_action('wp_ajax_form_single_acao_edit', 'form_single_acao_edit');
 
+
+
+/**
+ * RISCOS
+ */
 function form_single_risco_new() {
 
     $postID = wp_insert_post(
@@ -506,7 +512,7 @@ function form_single_risco_new() {
 
     $url_callback = '/risco-registrado-sucesso/?utm';
     if (is_user_logged_in()) {
-        $url_callback = get_site_url() . '/dashboard/risco-single/?post_id=' . $postID;
+        $url_callback = get_site_url() . '/dashboard/editar-risco/?post_id=' . $postID;
     }
 
     if( empty( $save_attachment[ 'errors' ] ) ) {
@@ -612,6 +618,10 @@ function form_single_risco_edit() {
 }
 add_action('wp_ajax_form_single_risco_edit', 'form_single_risco_edit');
 
+
+/**
+ * COMUM
+ */
 function form_single_delete_attachment() {
 
     if (!current_user_can('edit_posts')) {

@@ -182,7 +182,7 @@
                     <div class="fields">
                         <div class="input-wrap">
                             <label class="label">Descrição</label>
-                            <textarea class="textarea" name="descricao" readonly required><?=$pod->field('descricao')?></textarea>
+                            <textarea class="textarea" name="descricao" readonly required><?=nl2br( $pod->field('descricao') )?></textarea>
                             <a class="button is-edit-input">
                                 <iconify-icon icon="bi:pencil-square"></iconify-icon>
                             </a>
@@ -228,75 +228,75 @@
                             </div>
                             <div class="input-media-preview">
                                 <?php if( !empty( $videos ) ) : ?>
-                                <div class="input-media-preview-assets is-video">
-                                    <h4>Vídeos</h4>
-                                    <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
-                                    <div class="assets-list">
-                                        <?php foreach ( $videos as $video) : ?>
-                                            <figure class="asset-item-preview">
-                                                <video class="" poster="" playsinline loop muted>
-                                                    <source class="is-load-now" data-media-src="<?=$video->guid?>" type="video/mp4">
-                                                </video>
-                                                <a class="button is-play">
-                                                    <iconify-icon icon="bi:play-fill"></iconify-icon>
-                                                </a>
+                                    <div class="input-media-preview-assets is-video">
+                                        <h4>Vídeos</h4>
+                                        <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
+                                        <div class="assets-list">
+                                            <?php foreach ( $videos as $video) : ?>
+                                                <figure class="asset-item-preview">
+                                                    <video class="" poster="" playsinline loop muted>
+                                                        <source class="is-load-now" data-media-src="<?=$video->guid?>" type="video/mp4">
+                                                    </video>
+                                                    <a class="button is-play">
+                                                        <iconify-icon icon="bi:play-fill"></iconify-icon>
+                                                    </a>
 
-                                                <div class="asset-item-preview-actions">
-                                                    <a class="button is-fullscreen">
-                                                        <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
-                                                    </a>
-                                                    <a class="button is-delete" data-id="<?=$video->ID?>">
-                                                        <iconify-icon icon="bi:trash-fill"></iconify-icon>
-                                                    </a>
-                                                    <a class="button is-download" href="<?=$video->guid?>" target="_blank">
-                                                        <iconify-icon icon="bi:download"></iconify-icon>
-                                                    </a>
-                                                    <a class="button is-show-hide">
-                                                        <iconify-icon icon="bi:eye-slash-fill"></iconify-icon>
-                                                    </a>
-                                                </div>
+                                                    <div class="asset-item-preview-actions">
+                                                        <a class="button is-fullscreen">
+                                                            <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
+                                                        </a>
+                                                        <a class="button is-delete" data-id="<?=$video->ID?>">
+                                                            <iconify-icon icon="bi:trash-fill"></iconify-icon>
+                                                        </a>
+                                                        <a class="button is-download" href="<?=$video->guid?>" target="_blank">
+                                                            <iconify-icon icon="bi:download"></iconify-icon>
+                                                        </a>
+                                                        <a class="button is-show-hide">
+                                                            <iconify-icon icon="bi:eye-slash-fill"></iconify-icon>
+                                                        </a>
+                                                    </div>
 
-                                            </figure>
-                                        <?php endforeach; ?>
+                                                </figure>
+                                            <?php endforeach; ?>
+                                        </div>
                                     </div>
-                                </div>
                                 <?php endif;
 
                                 if( !empty( $images ) ) : ?>
-                                <div class="input-media-preview-assets is-images">
-                                    <h4>Fotos</h4>
-                                    <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
-                                    <div class="assets-list">
-                                        <?php foreach ( $images as $image ) : ?>
-                                            <figure class="asset-item-preview">
-                                                <img class="is-load-now" data-media-src="<?=$image->guid?>">
+                                    <div class="input-media-preview-assets is-images">
+                                        <h4>Fotos</h4>
+                                        <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
+                                        <div class="assets-list">
+                                            <?php foreach ( $images as $image ) : ?>
+                                                <figure class="asset-item-preview">
+                                                    <img class="is-load-now" data-media-src="<?=$image->guid?>">
 
-                                                <div class="asset-item-preview-actions">
+                                                    <div class="asset-item-preview-actions">
 
-                                                    <a class="button is-fullscreen" data-id="<?=$image->ID?>" data-href="<?=$image->guid?>">
-                                                        <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
-                                                    </a>
-                                                    <a class="button is-delete" data-id="<?=$image->ID?>">
-                                                        <iconify-icon icon="bi:trash-fill"></iconify-icon>
-                                                    </a>
-                                                    <a class="button is-download" href="<?=$image->guid?>" target="_blank">
-                                                        <iconify-icon icon="bi:download"></iconify-icon>
-                                                    </a>
-                                                    <a class="button is-show-hide">
-                                                        <iconify-icon icon="bi:eye-slash-fill"></iconify-icon>
-                                                    </a>
-                                                </div>
+                                                        <a class="button is-fullscreen" data-id="<?=$image->ID?>" data-href="<?=$image->guid?>">
+                                                            <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
+                                                        </a>
+                                                        <a class="button is-delete" data-id="<?=$image->ID?>">
+                                                            <iconify-icon icon="bi:trash-fill"></iconify-icon>
+                                                        </a>
+                                                        <a class="button is-download" href="<?=$image->guid?>" target="_blank">
+                                                            <iconify-icon icon="bi:download"></iconify-icon>
+                                                        </a>
+                                                        <a class="button is-show-hide">
+                                                            <iconify-icon icon="bi:eye-slash-fill"></iconify-icon>
+                                                        </a>
+                                                    </div>
 
-                                            </figure>
-                                        <?php endforeach; ?>
+                                                </figure>
+                                            <?php endforeach; ?>
+                                        </div>
                                     </div>
-                                </div>
                                 <?php endif; ?>
 
                                 <?php if( empty( $videos ) && empty( $images ) ) : ?>
-                                <div class="input-media-preview-assets is-empty">
-                                    <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
-                                </div>
+                                    <div class="input-media-preview-assets is-empty">
+                                        <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
+                                    </div>
                                 <?php endif; ?>
                             </div>
                             <?php if( wp_is_mobile() ) : ?>
@@ -310,6 +310,16 @@
                                 </div>
                             <?php endif; ?>
                         </div>
+                        <?php if( !wp_is_mobile() ) : ?>
+                            <div class="input-help">
+                                <a href="#/" class="button">
+                                    <iconify-icon icon="bi:question"></iconify-icon>
+                                </a>
+                                <p>
+                                    Todos os campos devem ter pelo menos 5 caracteres.
+                                </p>
+                            </div>
+                        <?php endif; ?>
                     </div>
                     <div id="formSubmit" class="form-submit">
 

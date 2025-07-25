@@ -181,3 +181,25 @@
         }
     }
 }
+.page-mapa {
+  // Ajuste reforçado para UserWay
+  div#userway .userway_buttons_wrapper,
+  .userway_buttons_wrapper {
+    left: calc(-7px + 100vw) !important;
+    bottom: 122px !important;
+
+    @media (max-width: 820px) {
+      bottom: 187px !important;
+    }
+  }
+
+  // Ajuste reforçado para VLibras
+   div[vw].enabled {
+    top: 75% !important;
+
+
+    @media (max-width: 820px) {
+      top: 67% !important;
+    }
+  }
+}

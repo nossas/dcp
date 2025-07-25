@@ -82,30 +82,20 @@ jQuery(function($) {
             const tab = $this.attr( 'href' );
 
             $( '.tabs__header a, .tabs__panels' ).removeClass( 'is-active' );
-            $( '.tabs__header a .total' ).html( '' );
             $( '.tabs__panels' ).hide();
 
             switch ( tab ) {
                 case '#aprovacao':
-
                     $this.addClass( 'is-active' );
                     $( '#riscosAprovacao' ).show().addClass( 'is-active' );
-                    $this.find( '.total' ).html( '(' + $( '#riscosAprovacao .post-card' ).length + ')' );
-
                     break;
                 case '#publicados':
-
                     $this.addClass( 'is-active' );
                     $( '#riscosPublicados' ).show().addClass( 'is-active' );
-                    $this.find( '.total' ).html( '(' + $( '#riscosPublicados .post-card' ).length + ')' );
-
                     break;
                 case '#arquivados':
-
                     $this.addClass( 'is-active' );
                     $( '#riscosArquivados' ).show().addClass( 'is-active' );
-                    $this.find( '.total' ).html( '(' + $( '#riscosArquivados .post-card' ).length + ')' );
-
                     break;
                 default:
 
@@ -124,6 +114,7 @@ jQuery(function($) {
             const {
                 title,
                 description,
+                error = null,
                 cancelText = 'Cancelar',
                 confirmText = 'Confirmar',
                 customConfirmText,
@@ -140,7 +131,11 @@ jQuery(function($) {
             $modal.find('.is-error').html( '' );
             $modal.find('.is-cancel').text(cancelText);
             $modal.find('.is-confirm span').text(confirmText);
-
+            if( error ) {
+                $modal.find('.is-error').html( error ).show();
+            } else {
+                $modal.find('.is-error').html( '' ).hide();
+            }
             // Configura botão customizado (se fornecido)
             const $customBtn = $modal.find('.is-custom');
             if (customConfirmText) {
@@ -413,7 +408,8 @@ jQuery(function($) {
                                 }
                             });
 
-                        } else {
+                        } else
+                        {
 
                             custom_modal_confirm({
                                 title: response.data.title,
@@ -437,6 +433,7 @@ jQuery(function($) {
                         custom_modal_confirm({
                             title: response.data.title,
                             description: response.data.message,
+                            error: response.data.error,
 
                             cancelText: "CANCELAR",
                             onCancel: function () {},
@@ -639,6 +636,7 @@ jQuery(function($) {
         console.log( 'JQUERY WINDOW LOADED' );
 
         $( 'body' ).removeClass( 'loading' );
+        $( '.dashboard-content-pagination' ).show();
         $( '.loading-global' ).fadeOut( 400 );
 
         $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
@@ -647,25 +645,25 @@ jQuery(function($) {
         $( '#dashboardAcoes .dashboard-content-cards .post-card, #dashboardAcoes .dashboard-content-cards .message-response' ).show();
 
 
-        // if (typeof tinymce !== 'undefined') {
-        //     tinymce.init({
-        //         selector: '#textoAcaoTinyMCE',
-        //         body_class: 'texto-acao-tinymce',
-        //         menubar: false,
-        //         toolbar: 'bold italic underline | bullist numlist | link unlink | undo redo',
-        //         plugins: 'lists link',
-        //         setup: function(editor) {
-        //             editor.on('change', function() {
-        //                 editor.save();
-        //             });
-        //         },
-        //         content_css: _tiny_mce_content_css,
-        //         skin: 'lightgray',
-        //         wpautop: true,
-        //         indent: false,
-        //         paste_as_text: true
-        //     });
-        // }
+        if (typeof tinymce !== 'undefined') {
+            tinymce.init({
+                selector: '#textoAcaoTinyMCE',
+                body_class: 'texto-acao-tinymce',
+                menubar: false,
+                toolbar: 'bold italic underline | bullist numlist | link unlink | undo redo',
+                plugins: 'lists link',
+                setup: function(editor) {
+                    editor.on('change', function() {
+                        editor.save();
+                    });
+                },
+                content_css: _tiny_mce_content_css,
+                skin: 'lightgray',
+                wpautop: true,
+                indent: false,
+                paste_as_text: true
+            });
+        }
 
 
 

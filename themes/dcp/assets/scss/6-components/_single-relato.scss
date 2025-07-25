@@ -1,5 +1,5 @@
-.single-relato,
-.single-acao {
+.single-relato
+/* .single-acao */ {
 
     h1{
         margin: 0px;
@@ -23,6 +23,8 @@
         }
         @include mobile {
             margin-top: 32px;
+            margin-bottom: 16px;
+            justify-content: flex-start;
         }
     }
     .post-content {
@@ -186,8 +188,16 @@
         }
         &__featured-image{
             margin-top: 2rem;
+            height: 455px;
             @include mobile {
-                margin-top: 1rem;
+                margin-top: 2rem;
+                margin-bottom: 0px;
+                height: 192px;
+            }
+            img {
+                @include mobile {
+                    height: 192px !important;
+                }
             }
         }
         &__tags{
@@ -200,7 +210,7 @@
                 justify-content: flex-start;
                 margin-bottom: $margin--medium;
 
-        }
+            }
         .tag {
             padding: 4px 16px !important;
             display: flex;
@@ -212,6 +222,10 @@
                 font-size: 12px;
             }
         }
+        .post-header__date {
+            font-size: 18px;
+        }
+
     }
 }
 .anexos-slider {
@@ -264,88 +278,6 @@
     }
 }
 // Formulário
-.formulario-participar {
-    display: grid;
-    width: 100%;
-    max-width: 793px;
-    float: right;
-    margin-top: 40px;
-    padding-bottom: 58px;
-    padding-left: inherit;
 
-        @include mobile{
-            width: auto;
-        }
-        h2 {
-            color: #281414;
-            font-family: 'gabarito';
-            font-size: var(--Spacing-space-400, 32px);
-            font-style: normal;
-            font-weight: $font-weight--medium;
-            line-height: 120%; /* 38.4px */
-            margin-bottom: 12px;
-        }
-
-        .form-descricao {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-participar {
-            display: flex;
-            flex-direction: column;
-
-            input[type="text"],
-            input[type="email"] {
-                font-size: size( 15 );
-                width: 100%;
-                padding: size( 9 ) size( 18 );
-                margin-bottom: size( 15 );
-                border: 1px solid $color--secondary-dark;
-                border-radius: size( 12 );
-            }
-            p {
-                font-size: size( 13 );
-                font-style: normal;
-                font-weight: 500;
-                line-height: size( 14 );
-                padding: size( 4 ) size( 12 );
-            }
-            .checkbox-aceite {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                font-size: 14px;
-                color: $color--secondary-dark;
-                margin-bottom: 27px;
-            }
-
-            .botao-confirmar {
-                background: $color--primary-pure;
-                color: $color--secondary-light;
-                padding: size( 8 ) size( 20 );
-                border: none;
-                border-radius: size( 50 );
-                font-size: size( 15 );
-                cursor: pointer;
-                transition: background 0.2s ease;
-
-                &:hover {
-                    background: darken(#235514, 5%);
-                }
-                @include mobile{
-                    margin-left: 0px;
-                }
-            }
-        }
-
-    }
-
-}
-
-.single-acao {
-
-    .bread-relato {
-        justify-content: start;
-    }
 
 }

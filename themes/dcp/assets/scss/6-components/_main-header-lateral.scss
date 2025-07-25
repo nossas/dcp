@@ -5,14 +5,33 @@
     &__menu-mobile{
         & > ul{
             list-style: none;
+            padding-left: 16px !important;
+            margin: 0;
         }
 
         & > ul > li{
             background-color: transparent !important;
+            padding: 12px 10px;
 
             & > ul{
                 background-color: transparent !important;
+                padding: 14px 0;
                 list-style: none;
+            }
+
+            & > ul.sub-menu {
+                display: none;
+                list-style: none;
+                background-color: transparent !important;
+
+                li a {
+                    padding: 10px 0;
+                    display: block;
+                }
+            }
+
+            &.menu-item--open > .sub-menu {
+                display: block;
             }
         }
 
@@ -21,25 +40,31 @@
             & > a{
                 display: flex;
                 gap: $gap--small;
+                align-items: center;
 
-                &::after{
-                    bottom: size(2) ;
+                &::after {
                     content: url('/wp-content/themes/dcp/assets/images/arrow-down.svg') !important;
                     display: block;
                     height: size(14);
-                    position: relative;
                     width: size(14);
+                    margin-left: auto;
+                    position: static;
                 }
             }
 
             iconify-icon {
                 display: none;
-                margin-inline-start: $gap--small;
             }
+        }
 
-            &:hover .sub-menu {
-                display: block;
-            }
+        ul li a.is-active {
+            font-weight: $font-weight--bold;
+            text-decoration: underline;
+            line-height: 120%;
+            text-decoration-style: solid;
+            text-underline-position: from-font;
+            text-decoration-thickness: auto;
+            text-underline-offset: auto;
         }
     }
 
@@ -143,6 +168,8 @@
             font-weight: $font-weight--regular;
             line-height: 1.6;
             list-style: none;
+            padding-bottom: 8px;
+
 
             &:hover,
             &:focus,
@@ -155,11 +182,16 @@
         .sub-menu {
             display: none;
             box-shadow: $box-shadow--default;
-            min-width: 10rem;
-            padding: $padding--medium;
             position: absolute;
-            top: size(21);
+            top: 100%;
+            left: 0;
             z-index: 2;
+            min-width: 200px;
+            width: 100%;
+
+            li {
+                padding: 14px 12px;
+            }
         }
 
         .menu-item-has-children {

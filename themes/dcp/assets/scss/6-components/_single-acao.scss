@@ -1,152 +1,308 @@
-.single-acao-agendada{
-    .post-header {
-        padding-left: size(0);
-        padding-right: size(0);
+.single-acao {
+    // Reset local de margin para títulos e parágrafos
+    .acao-titulo h1,
+    .acao-descricao p {
+        margin: 0;
+    }
+    .is-separator{
+        @include mobile{
+            margin-top: 16px;
+            margin-bottom: 16px;
+        }
+    }
+    // 📌 Breadcrumb
+    .bread-acao {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        font-size: 14px;
+        line-height: 1.4;
+        color: $color--secondary-dark;
 
-        .breadcrumb {
-            margin-top: 72px;
+        a,
+        span {
+            white-space: nowrap;
+            word-break: break-word;
+            text-decoration: none;
+            color: $color--secondary-dark;
+            font-weight: 500;
+            display: inline-flex;
             align-items: center;
-            display: flex;
+            max-width: 100%;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .separator {
+            margin: 0 4px;
+            color: #aaa;
+            white-space: nowrap;
+        }
+
+        // Estilo mobile
+        @include mobile {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            white-space: nowrap;
+            margin-top: 32px;
+            scrollbar-width: thin;
+
+            &::-webkit-scrollbar {
+            height: 4px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 2px;
+            }
+
+            a,
+            span {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            }
+        }
+        @include mobile{
+            display: none;
+        }
+    }
+
+
+    // 📌 Grid principal da página
+    .acao-grid {
+        display: flex;
+        gap: 80px;
+        padding: 32px 0;
+
+        @include mobile {
+            flex-direction: column;
+            gap:0px;
+            padding-bottom: 0px;
+        }
+        .bread-acao-mob{
+            display: none;
+            @include mobile{
+                 display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 14px;
+                line-height: 1.4;
+                color: $color--secondary-dark;
+
+                a,
+                span {
+                    white-space: nowrap;
+                    word-break: break-word;
+                    text-decoration: none;
+                    color: $color--secondary-dark;
+                    font-weight: 500;
+                    display: inline-flex;
+                    align-items: center;
+                    max-width: 100%;
+                }
+
+                a:hover {
+                    text-decoration: underline;
+                }
+
+                .separator {
+                    margin: 0 4px;
+                    color: #aaa;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+
+    // 📌 Imagem/Thumb
+    .acao-thumb {
+        width: initial;
+        display: flex;
+        align-items: flex-start;
+        padding-top: size(25);
+
+        @include mobile {
             width: 100%;
-            justify-content: flex-start;
+            min-width: 80%;
+            padding-top: 20px;
+        }
 
+        .acao-thumb-wrapper {
+            display: block;
+            border-radius: 16px;
+            overflow: hidden;
 
-            @include mobile {
-                justify-content: initial;
-                margin-top: 32px;
+            img {
+                display: block;
+                max-width: 503px;
+                height: 367px;
+                object-fit: cover;
+                @include mobile {
+                    width: 100%;
+                    height: 192px;
+                }
+            }
+        }
+    }
+
+    // 📌 Conteúdo do lado direito da ação
+    .acao-conteudo {
+        display: flex;
+        flex-direction: column;
+
+        .acao-categoria {
+            margin-bottom: 8px;
+
+            .badge {
+                display: inline-block;
+                background: #235540;
+                color: white;
+                padding: 0.25rem 0.6rem;
+                font-size: 0.9rem;
+                border-radius: 100px;
+
+                img {
+                    max-width: 1rem;
+                    height: auto;
+                }
             }
         }
 
-        @include mobile {
-            padding-inline: 1rem !important;
-        }
-
-        &__title {
-            color: $color--primary-pure;
-            margin-top: $margin--medium;
-            margin-bottom: $margin--medium;
+        .acao-titulo {
+            color: $color--secondary-dark;
+            font-family: 'gabarito';
+            font-size: 40px;
+            font-weight: $font-weight--medium;
+            line-height: 120%;
+            margin: 24px 0;
 
             @include mobile {
                 font-size: 24px;
-                text-align: center !important;
             }
         }
 
-        &__excerpt {
-            margin-top: $margin--large;
-            margin-bottom: 56px;
+        .acao-descricao {
+            margin: 32px 0;
+            line-height: 1.6;
+
+            @include mobile {
+                margin: 16px 0;
+            }
+
+            p {
+                word-break: normal;
+                hyphens: auto;
+            }
+        }
+
+        .acao-info {
+            list-style: none;
+            padding: 0;
+            font-size: 1rem;
             color: $color--secondary-dark;
-            font-size: 16px !important;
 
-            @include mobile {
-                margin-top: $margin--medium;
-                margin-bottom: 32px;
-                text-align: center;
-            }
-        }
+            li {
+                margin-bottom: 0.5rem;
+                display: flex;
 
-        &__featured-image {
-            @include mobile {
-                margin-bottom: 0px;
-            }
-
-            img {
-                @include mobile {
-                    height: 192px !important;
+                strong {
+                    margin-right: 0.5rem;
                 }
             }
         }
-
-        &__tags {
-            align-items: center;
-            gap: 16px;
-
-            @include mobile {
-                display: flex;
-                justify-content: center;
-            }
-
-            a {
-                display: flex;
-                gap: 8px;
-                background-color: $color--primary-pure;
-                border-color: $color--primary-pure;
-                color: white;
-                align-items: center;
-
-                @include mobile {
-                    font-size: 12px;
-                }
-            }
-
-            &__date {
-                color: $color--secondary-dark;
-                font-size: 1rem;
-            }
-        }
     }
 
-    .post-content {
-        padding-left: size(0);
-        padding-right: size(0);
-        padding-top: 0px;
-
-        @include mobile {
-            padding-inline: 1rem;
-        }
-
-        .wp-block-spacer {
-            @include mobile {
-                margin-top: 16px;
-                margin-bottom: 16px;
-            }
-        }
-        p{
-            @include mobile{
-                padding-top: $padding--medium;
-                padding-bottom: $padding--medium;
-            }
-        }
-        .wp-block-coblocks-gallery-carousel{
-            padding-bottom: 40px !important;
-        }
-    }
-
-    .wp-block-cover {
-        @include mobile {
-            padding: 0px !important;
-            margin-top: 0px !important;
-        }
-
-        &__inner-container {
-            @include mobile {
-                padding-left: 0px;
-                padding-right: 0px;
-            }
-        }
-    }
-
-    .main-footer-subscribe {
-        @include mobile {
-            margin-top: 0px;
-        }
-
-        &__widget {
-            @include mobile {
-                padding-inline: 1rem;
-            }
-        }
-    }
-}
-
-.single-acao {
-    .bread-relato {
-        display: flex !important;
-        flex-direction: row !important;
-        gap: 8px;
-        justify-content: flex-start;
+    // 📌 Formulário de participação
+    .formulario-participar {
+        display: grid;
+        width: 100%;
+        max-width: 793px;
         margin-top: 40px;
-        max-width: 100%;
-        text-align: left !important;
+        padding-bottom: 58px;
+        margin-left: auto;
+
+        @include mobile {
+            width: auto;
+            margin-top: 48px;
+        }
+
+        h2 {
+            color: #281414;
+            font-family: 'gabarito';
+            font-size: 32px;
+            font-weight: $font-weight--medium;
+            line-height: 120%;
+            margin-bottom: 12px;
+        }
+
+        .form-descricao {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-participar {
+            display: flex;
+            flex-direction: column;
+
+            input[type="text"],
+            input[type="email"] {
+                font-size: size(15);
+                width: 100%;
+                padding: size(9) size(18);
+                margin-bottom: size(15);
+                border: 1px solid $color--secondary-dark;
+                border-radius: size(12);
+            }
+
+            p {
+                font-size: size(13);
+                font-weight: 500;
+                line-height: size(14);
+                padding: size(4) size(12);
+            }
+
+            .checkbox-aceite {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 14px;
+                color: $color--secondary-dark;
+                margin-bottom: 27px;
+            }
+
+            .botao-confirmar {
+                background: $color--primary-pure;
+                color: $color--secondary-light;
+                padding: size(8) size(20);
+                border: none;
+                border-radius: size(50);
+                font-size: size(15);
+                cursor: pointer;
+                transition: background 0.2s ease;
+
+                &:hover {
+                    background: darken(#235514, 5%);
+                }
+
+                &:focus {
+                    outline: 2px solid $color--primary-pure;
+                    outline-offset: 2px;
+                }
+
+                @include mobile {
+                   width: 100%;
+                }
+            }
+        }
+    }
+    .proximas-acoes{
+        @include mobile {
+            margin-top: 48px;
+        }
     }
 }

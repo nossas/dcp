@@ -15,6 +15,7 @@
                 padding-bottom: size( 10 );
 
                 h2 {
+                    font-weight: 500;
                     margin-bottom: size( 10 );
                 }
                 a {
@@ -74,6 +75,11 @@
                         display: block;
                         width: 100%;
                     }
+                    @include tablet {
+                        text-align: center;
+                        display: block;
+                        width: 100%;
+                    }
 
                     &:hover {}
 
@@ -89,6 +95,9 @@
                     position: relative;
 
                     @include mobile {
+                        width: 100%;
+                    }
+                    @include tablet {
                         width: 100%;
                     }
 
@@ -267,10 +276,19 @@
                         justify-content: initial;
                         width: 100%;
                     }
+                    @include tablet {
+                        display: block;
+                        flex-wrap: initial;
+                        justify-content: initial;
+                        width: 100%;
+                    }
 
                     .input-wrap {
                         width: 47%;
                         @include mobile {
+                            width: 100%;
+                        }
+                        @include tablet {
                             width: 100%;
                         }
                     }
@@ -292,12 +310,14 @@
                     @include mobile {
                         width: 100%;
                     }
+                    @include tablet {
+                        width: 100%;
+                    }
 
                     .input-media-uploader {
                         display: flex;
                         justify-content: space-between;
                         gap: 10px;
-
                         margin-bottom: size( 25 );
 
                         @include mobile {
@@ -329,6 +349,10 @@
                             @include mobile {
                                 width: 100%;
                             }
+                            @include tablet {
+                                width: 100%;
+                            }
+
 
                             input {
                                 width: 100px;
@@ -336,7 +360,6 @@
                                 top: 0;
                                 left: 0;
                                 z-index: 1;
-
                             }
 
                             .button {
@@ -367,6 +390,7 @@
                     .input-media-uploader-progress {
                         display: none;
                         padding: size( 10 ) 0;
+
                         .progress {
                             background-color: rgba( 0,0,0,0.15 );
                             width: 100%;
@@ -499,7 +523,6 @@
                                     canvas {}
                                     map {}
 
-
                                     .button {
                                         background-color: #FFF;
                                         text-decoration: none;
@@ -520,8 +543,6 @@
                                         transform: translate( -50%, -50% );
                                         z-index: 5;
                                     }
-
-
                                     .asset-item-preview-actions {
                                         background-color: transparent;
 
@@ -580,8 +601,6 @@
                                         }
 
                                     }
-
-
                                 }
                             }
 
@@ -614,7 +633,10 @@
                     position: relative;
 
                     @include mobile {
-                        width: 15%;
+                        width: 75px;
+                    }
+                    @include tablet {
+                        width: 75px;
                     }
 
                     .button {
@@ -650,6 +672,7 @@
                             background-color: $color--secondary-dark;
                             color: $color--secondary-light;
                             width: calc(100vw - 150px);
+                            max-width: 500px;
                             padding: size( 10 );
                             border-radius: size( 5 );
                             position: absolute;
@@ -685,6 +708,10 @@
                     display: block;
                     justify-content: initial;
                 }
+                @include tablet {
+                    display: block;
+                    justify-content: initial;
+                }
 
                 .button {
                     font-size: size( 20 );
@@ -692,10 +719,6 @@
                     padding: size( 15 ) size( 50 );
                     margin-left: size( 15 );
                     border-radius: size( 75 );
-
-                    @include mobile {
-                        padding: size( 15 );
-                    }
 
                     &:first-child {
                         text-align: center;
@@ -706,6 +729,14 @@
                         display: block;
                         text-align: center;
                         width: 100%;
+                        padding: size( 15 );
+                        margin: 0 0 size( 15 ) 0;
+                    }
+                    @include tablet {
+                        display: block;
+                        text-align: center;
+                        width: 100%;
+                        padding: size( 15 );
                         margin: 0 0 size( 15 ) 0;
                     }
 
@@ -783,7 +814,6 @@
             bottom: 0;
             z-index: 100;
         }
-
         .modal-confirm {
             .modal-confirm-content {
                 background-color: $color--secondary-light;
@@ -800,6 +830,9 @@
                 @include mobile {
                     width: 90%;
                     padding: size( 15 ) size( 25 ) size( 1 ) size( 25 );
+                }
+                @include tablet {
+                    width: 75%;
                 }
 
                 .is-title {
@@ -858,6 +891,10 @@
                         display: block;
                         padding: size( 15 ) 0 size( 5 );
                     }
+                    @include tablet {
+                        display: block;
+                        padding: size( 15 ) 0 size( 5 );
+                    }
 
                     .button {
                         border-radius: size( 50 );
@@ -865,6 +902,12 @@
                         height: 45px;
 
                         @include mobile {
+                            text-align: center;
+                            display: block;
+                            width: 100%;
+                            margin-bottom: size( 15 );
+                        }
+                        @include tablet {
                             text-align: center;
                             display: block;
                             width: 100%;
@@ -896,7 +939,6 @@
                 }
             }
         }
-
         .modal-asset-fullscreen {
             .modal-asset-fullscreen-content {
                 background-color: $color--secondary-light;
@@ -1034,7 +1076,5 @@
                 }
             }
         }
-
     }
-
 }

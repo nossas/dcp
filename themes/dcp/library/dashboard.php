@@ -84,6 +84,8 @@ function filter_query_vars(array $query_vars): array {
     $query_vars[] = 'situacao';
     $query_vars[] = 'alterar-risco';
     $query_vars[] = 'post_id';
+    $query_vars[] = 'pagination_current';
+    $query_vars[] = 'pagination_limit';
     $query_vars[] = 'tipo_acao';
     return $query_vars;
 }
