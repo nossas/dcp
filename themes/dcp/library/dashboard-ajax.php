@@ -179,11 +179,9 @@ function form_single_relato_new() {
     $save_attachment = upload_file_to_attachment_by_ID($_FILES['media_files'], $postID, false );
 
     if ( empty($save_cover['errors']) && empty($save_attachment['errors']) ) {
-        $merge_files = array_merge( $save_cover['uploaded_files'], $save_attachment['uploaded_files'] );
         wp_send_json_success([
             'title' => 'Sucesso',
             'message' => 'Formulário enviado com sucesso!',
-            'uploaded_files' => $merge_files,
             'post_id' => $postID,
             'url_callback' => get_site_url() . '/dashboard/editar-relato/?post_id=' . $postID,
             'is_new' => true,
@@ -193,7 +191,7 @@ function form_single_relato_new() {
     wp_send_json_error([
         'title' => 'Erro',
         'message' => 'Erro ao salvar o formulário / anexos',
-        'error' => array_merge( $save_attachment['errors'], $save_cover['errors'] ),
+        'error' => array_merge( $save_attachment, $save_cover ),
     ], 400);
 
 }
@@ -244,7 +242,7 @@ function form_single_relato_edit() {
     }
 
     wp_set_object_terms(
-        $postID,
+        $updated_id,
         [sanitize_text_field($_POST['tipo_acao'])],
         'tipo_acao',
         false
@@ -252,7 +250,7 @@ function form_single_relato_edit() {
 
     $save_cover = [];
 
-    if( !empty( $_FILES['media_file'] ) ) {
+    if( empty( $_FILES['media_file'] ) ) {
 
         if ( has_post_thumbnail( $updated_id ) ) {
             $old_attachment_id = get_post_thumbnail_id( $updated_id );
@@ -266,11 +264,9 @@ function form_single_relato_edit() {
     $save_attachment = upload_file_to_attachment_by_ID($_FILES['media_files'], $postID, false );
 
     if ( empty($save_cover['errors']) && empty($save_attachment['errors']) ) {
-        //$merge_files = array_merge( $save_cover['uploaded_files'], $save_attachment['uploaded_files'] );
         wp_send_json_success([
             'title' => 'Sucesso',
             'message' => 'Formulário enviado com sucesso!',
-            //'uploaded_files' => $merge_files,
             'post_id' => $postID,
             'url_callback' => get_site_url() . '/dashboard/editar-relato/?post_id=' . $postID
         ]);
@@ -279,7 +275,7 @@ function form_single_relato_edit() {
     wp_send_json_error([
         'title' => 'Erro',
         'message' => 'Erro ao salvar o formulário / anexos',
-        'error' => array_merge( $save_attachment['errors'], $save_cover['errors'] ),
+        'error' => array_merge( $save_attachment, $save_cover ),
     ], 400);
 
 }
