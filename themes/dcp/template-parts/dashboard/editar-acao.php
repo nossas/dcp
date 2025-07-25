@@ -53,9 +53,51 @@ namespace hacklabr\dashboard;
                 'hide_empty' => false,
             ]);
 
+
+            //TODO: REFACTORY P/ COMPONENT
+
+            switch ( $post_status ) {
+                case 'draft':
+                    $class = 'is-draft';
+                    $text = 'Ação Sugerida';
+                    $title = 'Avaliar ação sugerida';
+                    $current_page = 'Avaliar';
+                    break;
+
+                case 'publish':
+                    $class = 'is-publish';
+                    $text = 'Ação Agendada';
+                    $title = 'Editar ação agendada';
+                    $current_page = 'Editar Ação';
+                    $color = '#AA7700';
+                    break;
+
+                case 'private':
+                    $class = 'is-scheduled';
+                    $text = 'Ação Realizada';
+                    $title = 'Criar relato de ação';
+                    $current_page = 'Editar Ação';
+                    $color = '#000';
+                    break;
+
+                case 'pending':
+                    $class = 'is-pending';
+                    $text = 'Ação Arquivada';
+                    $title = 'Ações Arquivadas';
+                    $current_page = 'Editar Ação';
+                    break;
+
+                default:
+                    $class = 'is-blocked';
+                    $text = 'BLOQUEADO';
+                    $title = 'SEM STATUS';
+                    $current_page = 'Editar Ação';
+                    break;
+            }
+
             ?>
 
-<div id="dashboardAcaoSingle" class="dashboard-content">
+
     <div class="dashboard-content-breadcrumb">
         <ol class="breadcrumb">
             <li>
@@ -66,47 +108,12 @@ namespace hacklabr\dashboard;
                 <a href="<?=get_dashboard_url( 'acoes', [ 'tipo_acao' => $tipos_acoes[ $post_status ][ 'tipo_acao' ] ] )?>"><?=$tipos_acoes[ $post_status ][ 'name' ]?></a>
                 <iconify-icon icon="bi:chevron-right"></iconify-icon>
             </li>
-            <li><a href="#/">Avalidar</a></li>
+            <li><a href="#/"><?=$current_page?></a></li>
         </ol>
     </div>
     <header class="dashboard-content-header is-single">
-        <?php
-        //TODO: REFACTORY P/ COMPONENT
-
-        switch ( $post_status ) {
-            case 'draft':
-                $class = 'is-draft';
-                $text = 'Ação Sugerida';
-                $title = 'Avaliar ação sugerida';
-                break;
-
-            case 'publish':
-                $class = 'is-publish';
-                $text = 'Ação Agendada';
-                $title = 'Editar ação agendada';
-                break;
-
-            case 'private':
-                $class = 'is-scheduled';
-                $text = 'Ação Realizada';
-                $title = 'Criar relato de ação';
-                break;
-
-            case 'pending':
-                $class = 'is-pending';
-                $text = 'Ação Arquivada';
-                $title = 'Ações Arquivadas';
-                break;
-
-            default:
-                $class = 'is-blocked';
-                $text = 'BLOQUEADO';
-                $title = 'SEM STATUS';
-                break;
-        }
-        ?>
         <h2><?=$title?></h2>
-        <a class="button is-status <?=$class?>">
+        <a class="button is-status <?=$class?>" style="<?=( isset( $color ) ? 'background-color : ' . $color : '' )?>">
             <span><?=$text?></span>
         </a>
     </header>
