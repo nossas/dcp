@@ -68,7 +68,7 @@
                 <?php nl2br( $pods->display( 'descricao' ) ); ?>
             </div>
 
-            <ul class="acao-info">
+            <ul class="acao-info">xw
                 <li>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/wrapper.svg" alt="Ícone de endereço" style="width: 1em; vertical-align: middle; margin-right: 0.5em;">
                     Endereço: <?php echo esc_html( $pods->display( 'endereco' ) ); ?>
