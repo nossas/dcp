@@ -120,10 +120,10 @@
                     <?php
                         if( $post_type == 'acao' ) {
                             $pods = pods('acao', get_the_ID());
-                            echo substr( $pods->field( 'descricao' ), 0, 200 ) . ' ...';
+                            echo substr( $pods->field( 'descricao' ), 0, 150 ) . ' ...';
                         } else if( $post_type == 'relato' ) {
                             $pods = pods('relato', get_the_ID());
-                            echo substr( $pods->field( 'descricao' ), 0, 250 ) . ' ...';
+                            echo substr( $pods->field( 'descricao' ), 0, 200 ) . ' ...';
                         } else {
                             echo get_the_excerpt();
                         }
