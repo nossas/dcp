@@ -340,6 +340,7 @@ namespace hacklabr\dashboard;
                 <input type="hidden" name="action" value="form_single_acao_edit">
                 <input type="hidden" name="post_id" value="<?=get_the_ID()?>">
                 <input type="hidden" name="post_status" value="<?=$post_status?>">
+
                 <?php if( !wp_is_mobile() ) : ?>
                     <div>
                         <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
@@ -348,11 +349,12 @@ namespace hacklabr\dashboard;
                         </a>
                     </div>
                 <?php endif; ?>
+
                 <div>
                     <?php
                         //TODO: REFACTORY P/ UI
                         if( !wp_is_mobile() ) :
-                            if( $post_status === 'pending' ) : ?>
+                            if( $post_status === 'draft' ) : ?>
                         <a class="button is-archive">
                             <iconify-icon icon="bi:x-lg"></iconify-icon>
                             <span>Arquivar</span>
