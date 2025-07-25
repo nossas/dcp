@@ -194,8 +194,9 @@
   }
 
   // Ajuste reforçado para VLibras
-  div.vw.enabled {
+   div[vw].enabled {
     top: 75% !important;
+
 
     @media (max-width: 820px) {
       top: 67% !important;
