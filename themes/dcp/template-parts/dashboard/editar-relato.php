@@ -79,6 +79,7 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Categoria</label>
+                    <input type="hidden" name="tipo_acao" value="<?=( !empty( $get_terms[0]->slug ) ) ? $get_terms[0]->slug : ''?>">
                     <select id="selectCategory" class="select" name="tipo_acao" required disabled >
                         <?php if( !empty( $get_terms[0]->slug ) ) : ?>
                             <option value="<?=$get_terms[0]->slug?>" selected ><?=$get_terms[0]->name?></option>
