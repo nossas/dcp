@@ -80,7 +80,7 @@ $get_riscos = get_riscos_by_status( 'draft', $paged, $limit );
         <div class="dashboard-content-section">
 
             <div class="dashboard-content-section-header">
-                <h2>Relatos de Risco Aguardando Avaliação <span>(<?=$get_riscos[ 'total_posts' ]?>)</span> </h2>
+                <h2>Relatos de Risco Aguardando Avaliação <span>( <?=$get_riscos[ 'total_posts' ]?> )</span> </h2>
                 <a class="button" href="<?=get_dashboard_url( 'riscos' )?>">
                     <span>Gerenciar</span>
                     <iconify-icon icon="bi:chevron-right"></iconify-icon>

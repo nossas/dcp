@@ -125,7 +125,7 @@
                         <div class="input-media-uploader">
                             <h4>Mídias</h4>
                             <div class="input-media-uploader-files">
-                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                                <a id="mediaUploadButton" class="button is-primary is-small is-upload-media is-multiple">
                                     <iconify-icon icon="bi:upload"></iconify-icon>
                                     <span>Adicionar fotos e vídeos</span>
                                 </a>
@@ -157,7 +157,7 @@
                     <?php if( wp_is_mobile() ) : ?>
                         <div class="input-media-uploader">
                             <div class="input-media-uploader-files">
-                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                                <a id="mediaUploadButton" class="button is-primary is-small is-upload-media is-multiple">
                                     <iconify-icon icon="bi:upload"></iconify-icon>
                                     <span>Adicionar fotos e vídeos</span>
                                 </a>
@@ -165,6 +165,16 @@
                         </div>
                     <?php endif; ?>
                 </div>
+                <?php if( !wp_is_mobile() ) : ?>
+                    <div class="input-help">
+                        <a href="#/" class="button">
+                            <iconify-icon icon="bi:question"></iconify-icon>
+                        </a>
+                        <p>
+                            Todos os campos devem ter pelo menos 5 caracteres.
+                        </p>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <div id="formSubmit" class="form-submit">

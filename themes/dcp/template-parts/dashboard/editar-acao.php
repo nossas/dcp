@@ -307,7 +307,7 @@ namespace hacklabr\dashboard;
                     <?php
                         //TODO: REFACTORY P/ UI
                         if( !wp_is_mobile() ) :
-                            if( $post_status !== 'pending' ) : ?>
+                            if( $post_status === 'pending' ) : ?>
                         <a class="button is-archive">
                             <iconify-icon icon="bi:x-lg"></iconify-icon>
                             <span>Arquivar</span>
@@ -347,9 +347,9 @@ namespace hacklabr\dashboard;
                                 <?php break;
 
                             case 'private': ?>
-                                <a class="button is-save">
-                                    <iconify-icon icon="bi:check2"></iconify-icon>
-                                    <span>Publicar Alterações</span>
+                                <a class="button is-archive">
+                                    <iconify-icon icon="bi:x-lg"></iconify-icon>
+                                    <span>Arquivar</span>
                                 </a>
                                 <a class="button is-duplicate" href="<?=get_dashboard_url( 'adicionar-relato' )?>/?post_id=<?=get_the_ID()?>">
                                     <iconify-icon icon="bi:pencil-square"></iconify-icon>

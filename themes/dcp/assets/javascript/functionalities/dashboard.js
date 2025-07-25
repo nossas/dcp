@@ -645,25 +645,25 @@ jQuery(function($) {
         $( '#dashboardAcoes .dashboard-content-cards .post-card, #dashboardAcoes .dashboard-content-cards .message-response' ).show();
 
 
-        // if (typeof tinymce !== 'undefined') {
-        //     tinymce.init({
-        //         selector: '#textoAcaoTinyMCE',
-        //         body_class: 'texto-acao-tinymce',
-        //         menubar: false,
-        //         toolbar: 'bold italic underline | bullist numlist | link unlink | undo redo',
-        //         plugins: 'lists link',
-        //         setup: function(editor) {
-        //             editor.on('change', function() {
-        //                 editor.save();
-        //             });
-        //         },
-        //         content_css: _tiny_mce_content_css,
-        //         skin: 'lightgray',
-        //         wpautop: true,
-        //         indent: false,
-        //         paste_as_text: true
-        //     });
-        // }
+        if (typeof tinymce !== 'undefined') {
+            tinymce.init({
+                selector: '#textoAcaoTinyMCE',
+                body_class: 'texto-acao-tinymce',
+                menubar: false,
+                toolbar: 'bold italic underline | bullist numlist | link unlink | undo redo',
+                plugins: 'lists link',
+                setup: function(editor) {
+                    editor.on('change', function() {
+                        editor.save();
+                    });
+                },
+                content_css: _tiny_mce_content_css,
+                skin: 'lightgray',
+                wpautop: true,
+                indent: false,
+                paste_as_text: true
+            });
+        }
 
 
 

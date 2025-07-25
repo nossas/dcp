@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * FRONTEND
+ */
 function download_participantes_acao() {
 
     if ( !current_user_can('manage_options' ) ) wp_die('Você não tem permissão para editar posts.' );
@@ -102,6 +105,10 @@ function form_participar_acao() {
 add_action('wp_ajax_form_participar_acao', 'form_participar_acao');
 add_action('wp_ajax_nopriv_form_participar_acao', 'form_participar_acao');
 
+
+/**
+ * RELATOS
+ */
 function form_single_relato_new() {
 
     if (!current_user_can('edit_posts')) {
@@ -129,7 +136,7 @@ function form_single_relato_new() {
         'post_type' => 'relato',
         'post_status' => 'draft',
         'post_title' => sanitize_text_field($_POST['titulo']),
-        'post_content' => wpautop( sanitize_text_field($_POST['text_post']), true ),
+        'post_content' => sanitize_text_field($_POST['text_post']),
         'meta_input' => [
             'titulo' => sanitize_text_field($_POST['titulo']),
             'endereco' => sanitize_text_field($_POST['endereco']),
@@ -219,7 +226,7 @@ function form_single_relato_edit() {
         'post_type' => 'relato',
         'post_status' => sanitize_text_field($_POST['post_status'] ?? 'draft'),
         'post_title' => sanitize_text_field($_POST['titulo']),
-        'post_content' => wpautop( sanitize_text_field($_POST['text_post']), true ),
+        'post_content' => wpautop( $_POST['text_post'], true ),
         'meta_input' => [
             'titulo' => sanitize_text_field($_POST['titulo']),
             'endereco' => sanitize_text_field($_POST['endereco']),
@@ -278,6 +285,10 @@ function form_single_relato_edit() {
 }
 add_action('wp_ajax_form_single_relato_edit', 'form_single_relato_edit');
 
+
+/**
+ * AÇÃO
+ */
 function form_single_acao_new() {
 
     if (is_user_logged_in()) {
@@ -462,6 +473,11 @@ function form_single_acao_edit() {
 }
 add_action('wp_ajax_form_single_acao_edit', 'form_single_acao_edit');
 
+
+
+/**
+ * RISCOS
+ */
 function form_single_risco_new() {
 
     $postID = wp_insert_post(
@@ -507,7 +523,7 @@ function form_single_risco_new() {
 
     $url_callback = '/risco-registrado-sucesso/?utm';
     if (is_user_logged_in()) {
-        $url_callback = get_site_url() . '/dashboard/risco-single/?post_id=' . $postID;
+        $url_callback = get_site_url() . '/dashboard/editar-risco/?post_id=' . $postID;
     }
 
     if( empty( $save_attachment[ 'errors' ] ) ) {
@@ -613,6 +629,10 @@ function form_single_risco_edit() {
 }
 add_action('wp_ajax_form_single_risco_edit', 'form_single_risco_edit');
 
+
+/**
+ * COMUM
+ */
 function form_single_delete_attachment() {
 
     if (!current_user_can('edit_posts')) {

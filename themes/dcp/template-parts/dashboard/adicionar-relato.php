@@ -263,7 +263,7 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Texto</label>
-                    <textarea id="textoAcaoTinyMCE" class="textarea" name="text_post" required style=" min-height: 80vh; "></textarea>
+                    <textarea class="textarea" name="text_post" required style=" min-height: 80vh; "></textarea>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
@@ -280,7 +280,7 @@ namespace hacklabr\dashboard;
                         <div class="input-media-uploader">
                             <h4>Mídias</h4>
                             <div class="input-media-uploader-files">
-                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                                <a id="mediaUploadButton" class="button is-primary is-small is-upload-media is-multiple">
                                     <iconify-icon icon="bi:upload"></iconify-icon>
                                     <span>Adicionar fotos e vídeos</span>
                                 </a>
@@ -312,7 +312,7 @@ namespace hacklabr\dashboard;
                     <?php if( wp_is_mobile() ) : ?>
                         <div class="input-media-uploader">
                             <div class="input-media-uploader-files">
-                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                                <a id="mediaUploadButton" class="button is-primary is-small is-upload-media is-multiple">
                                     <iconify-icon icon="bi:upload"></iconify-icon>
                                     <span>Adicionar fotos e vídeos</span>
                                 </a>

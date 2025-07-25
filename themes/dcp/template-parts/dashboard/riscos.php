@@ -17,9 +17,9 @@ $get_all_riscos = get_dashboard_riscos( $paged, $limit );
     </header>
     <div class="dashboard-content-tabs tabs">
         <div class="tabs__header">
-            <a href="#aprovacao" class="is-active is-notification">AGUARDANDO APROVAÇÃO <span class="total"> (<?=$get_all_riscos['riscosAprovacao']['total_posts']?>) </span> </a>
-            <a href="#publicados">PUBLICADOS <span class="total"> (<?=$get_all_riscos['riscosPublicados']['total_posts']?>) </span></a>
-            <a href="#arquivados">ARQUIVADOS <span class="total"> (<?=$get_all_riscos['riscosArquivados']['total_posts']?>) </span></a>
+            <a href="#aprovacao" class="is-active is-notification">AGUARDANDO APROVAÇÃO <span class="total"> ( <?=$get_all_riscos['riscosAprovacao']['total_posts']?> ) </span> </a>
+            <a href="#publicados">PUBLICADOS <span class="total"> ( <?=$get_all_riscos['riscosPublicados']['total_posts']?> ) </span></a>
+            <a href="#arquivados">ARQUIVADOS <span class="total"> ( <?=$get_all_riscos['riscosArquivados']['total_posts']?> ) </span></a>
         </div>
         <?php foreach ( $get_all_riscos as $panel_id => $value ) {
 
