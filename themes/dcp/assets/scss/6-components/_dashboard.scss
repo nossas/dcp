@@ -765,7 +765,7 @@
 
                     &__title {
                         font-size: size( 17 );
-                        font-weight: normal;
+                        font-weight: 600;
                         line-height: size( 22 );
                         display: block;
                         min-height: size( 19 );
@@ -871,11 +871,18 @@
                             }
 
                             i {
-                                display: inline-block;
+                                display: block;
+                                width: 10%;
                             }
                             span {
-                                display: inline-block;
+                                display: block;
+                                width: 90%;
                                 padding: 0 size( 10 );
+                                display: -webkit-box;
+                                -webkit-line-clamp: 1;
+                                -webkit-box-orient: vertical;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
                             }
 
                         }
@@ -1008,7 +1015,8 @@
             }
             .dashboard-content-pagination {
                 display: none;
-                padding: size( 1 ) size( 25 ) size( 85 );
+                padding: size( 1 ) size( 40 ) size( 85 );
+
                 @include mobile {
                     padding: size( 1 ) size( 5 ) size( 85 );
                 }
@@ -1031,8 +1039,12 @@
 
                         a {
                             text-decoration: none;
+                            text-align: center;
                             color: inherit;
-                            padding: size(7) size(15);
+                            display: block;
+                            height: 35px;
+                            line-height: 31px;
+                            padding: size( 1 ) size( 20 );
                             border-radius: size( 50 );
 
                             @include mobile {
@@ -1044,6 +1056,15 @@
                                 color: $color--secondary-light;
                             }
                         }
+                        a.is-previous,
+                        a.is-next {
+                            background-color: $color--secondary-dark;
+                            color: $color--secondary-light;
+                            text-indent: 1px;
+                            width: 35px;
+                            padding: 0;
+                            margin: 0 size( 8 );
+                        }
                         a.is-active {
                             border: solid 1px $color--secondary-dark;
                         }
@@ -1054,7 +1075,6 @@
                     }
                 }
             }
-
             .message-response {
                 background-color: rgba( 0,0,0,0.04 );
                 display: none;
