@@ -787,7 +787,7 @@
                         p {
                             font-size: size( 14 );
                             line-height: size( 15 );
-                            padding-bottom: size( 10 );
+                            padding-bottom: size( 15 );
                             display: -webkit-box;
                             -webkit-line-clamp: 4; /* Número de linhas */
                             -webkit-box-orient: vertical;
@@ -806,12 +806,12 @@
                                 text-decoration: underline;
                                 text-align: right;
                                 color: $color--secondary-dark;
-                                font-weight: bold;
+                                font-weight: 400;
                                 display: block;
                                 padding: size( 1 ) size( 5 );
                                 position: absolute;
                                 right: 0;
-                                bottom: -8px;
+                                bottom: 0;
                                 z-index: 2;
 
                                 @include mobile {
