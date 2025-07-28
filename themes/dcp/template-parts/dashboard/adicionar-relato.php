@@ -13,7 +13,7 @@ namespace hacklabr\dashboard;
                 <a href="<?=get_dashboard_url( 'acoes' )?>">Ações</a>
                 <iconify-icon icon="bi:chevron-right"></iconify-icon>
             </li>
-            <li><a href="">Criar página de relato`</a></li>
+            <li><a href="">Criar página de relato</a></li>
         </ol>
     </div>
     <header class="dashboard-content-header is-single-new">

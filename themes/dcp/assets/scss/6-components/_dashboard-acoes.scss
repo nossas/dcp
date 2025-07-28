@@ -41,11 +41,11 @@
             a {
                 &:last-child {
                     @include desktop {
-                        min-width: 225px;
+                        min-width: 175px;
                         margin-right: size( 20 );
                     }
                     @include desktop-xxlarge {
-                        min-width: 315px;
+                        min-width: 200px;
                         margin-right: size( 30 );
                     }
                 }
@@ -69,10 +69,14 @@
 
             .post-card.is-relatos {
                 .post-card__content {
-                    max-height: 500px;
+                    max-height: 575px;
+                }
+                .post-card__list-infos {
+                    &::before {
+                        display: none;
+                    }
                 }
             }
-
         }
     }
 }
