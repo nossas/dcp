@@ -1,0 +1,33 @@
+#dashboardSituacaoAtual {
+
+    .situacao-atual__container {
+        display: block;
+        width: 100%;
+        max-width: 100vw;
+
+        @include mobile {
+            padding: size( 15 );
+        }
+        @include tablet {
+            padding: size( 15 ) size( 20 );
+        }
+        @include desktop {
+            padding: 0 size( 30 );
+        }
+        @include desktop-xlarge {
+            padding: 0 size( 35 );
+        }
+        @include desktop-xxxlarge {
+            padding: 0 size( 40 );
+        }
+
+        .situacao-atual__grid {
+
+
+            .situacao-atual__card {
+                max-width: initial;
+            }
+
+        }
+    }
+}
