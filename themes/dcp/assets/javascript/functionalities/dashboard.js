@@ -446,7 +446,23 @@ jQuery(function($) {
                     }
 
                 })
-                .catch(error => {});
+                .catch(error => {
+
+                    custom_modal_confirm({
+                        title: 'ERRO INESPERADO',
+                        description: 'Houve um erro inesperado ao enviar os dados do formulário, aguarde um momento e tente novamente.',
+                        error: 'BACKEND ERROR FORM DATA',
+
+                        cancelText: "CANCELAR",
+                        onCancel: function () {},
+
+                        confirmText: "ATUALIZAR",
+                        onConfirm: function () {
+                            window.location.reload();
+                        }
+                    });
+
+                });
 
         });
 
