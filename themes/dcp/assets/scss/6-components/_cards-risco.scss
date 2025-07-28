@@ -129,6 +129,12 @@
                 @include mobile{
                     gap: $gap--small;
                 }
+
+                & > .wp-block-column:nth-child(2){
+                    @include mobile{
+                        text-align: center;
+                    }
+                }
             }
 
             .wp-block-columns > .wp-block-column{

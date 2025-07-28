@@ -9,6 +9,10 @@
         margin: 56px 0;
         position: relative;
 
+        @include mobile {
+            margin: 32px 0;
+        }
+
         input {
             flex: 1;
             padding: 12px 16px 12px 40px; // espaço para o ícone no desktop

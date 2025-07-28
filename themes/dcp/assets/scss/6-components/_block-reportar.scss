@@ -4,8 +4,19 @@
     margin-top: size(100);
     padding-inline: $padding--large;
 
+    @include mobile {
+        margin-top: unset !important;
+    }
+
     & > h2{
         font-size: $font-size--x-large;
+
+        @include mobile {
+            font-size: $font-size--medium !important;
+            line-height: 130%;
+            letter-spacing: 1px;
+            font-weight: $font-weight--regular !important;
+        }
     }
 
     .wp-block-columns{

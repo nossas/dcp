@@ -1,6 +1,10 @@
 .page-header-cover{
     margin-bottom: size(100);
 
+    @include mobile{
+        margin-bottom: unset !important;
+    }
+
     .wp-block-columns > .wp-block-column > .wp-block-group{
         @include mobile{
             display: flex;

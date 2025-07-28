@@ -1,0 +1,31 @@
+body.page-home {
+    @include mobile {
+        .wp-elements-1fe818d5a2fdea8d9b6fafb91e66ac0d {
+            font-size: 24px !important;
+        }
+
+        .wp-elements-3fa23641a060d508b789cc963e8e1a5f {
+            font-size: 16px !important;
+            font-weight: $font-weight--regular !important;
+            line-height: 130% !important;
+        }
+
+        .wp-block-separator {
+            margin: 56px 1rem;
+        }
+
+        .cards-explore {
+            padding-top: unset !important;
+        }
+
+        .mostrar-mais {
+            max-width: 100% !important;
+            width: 100% !important;
+            margin-bottom: unset !important;
+
+            .wp-block-button__link {
+                padding: 9px;
+            }
+        }
+    }
+}
