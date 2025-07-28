@@ -36,10 +36,7 @@
     color: #E6E2E0 !important;
 
     @include mobile{
-        margin-bottom: $margin--large;
-        margin-top: $margin--large;
-        margin-left: 1rem;
-        margin-right: 1rem;
+        margin: 56px 1rem !important;
     }
 }
 
