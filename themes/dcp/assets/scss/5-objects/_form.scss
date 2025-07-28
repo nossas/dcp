@@ -54,7 +54,7 @@
     }
 }
 
-.wpcf7{
+.wpcf7 {
     &-list-item{
         margin-left: 0 !important;
     }
@@ -143,6 +143,13 @@
     .wpcf7-not-valid-tip {
         display: none !important;
     }
+}
+.layout-part--footer-archive-acao .wpcf7 {
+
+    form {
+        gap: size(15);
+    }
+
 }
 
 .form-layout{

@@ -58,26 +58,21 @@
         .dashboard-content-cards {
 
             .post-card {
-
-                &.is-relatos {
-
-                    &__content {
-                        max-height: 500px;
-                    }
-
-                    &__term {
-                        display: flex;
-                        justify-content: space-between;
-                    }
-                    &__excerpt-wrapped {
-
-                    }
+                &__term {
+                    display: flex;
+                    justify-content: space-between;
+                }
+                &__excerpt-wrapped {
 
                 }
+            }
 
+            .post-card.is-relatos {
+                &__content {
+                    max-height: 500px;
+                }
             }
 
         }
-
     }
 }
