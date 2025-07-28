@@ -12,7 +12,7 @@
         font-size: $font-size--x-large;
 
         @include mobile {
-            font-size: $font-size--medium !important;
+            font-size: 24px !important;
             line-height: 130%;
             letter-spacing: 1px;
             font-weight: $font-weight--regular !important;

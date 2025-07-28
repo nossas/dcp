@@ -43,6 +43,10 @@
 
                 & > h2{
                     font-size: $font-size--large;
+
+                    @include mobile {
+                        font-size: 24px !important;
+                    }
                 }
 
                 .p2 {

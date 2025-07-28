@@ -30,7 +30,7 @@
         .wp-block-heading{
             @include mobile{
                 font-size: size(24);
-                letter-spacing: -1px;
+                letter-spacing: 1.2px;
             }
         }
         .wp-block-separator{

@@ -53,7 +53,7 @@
 
         .wp-block-heading{
             @include mobile{
-                font-size: $font-size--large !important;
+                font-size: 24px !important;
             }
         }
 

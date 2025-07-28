@@ -207,9 +207,6 @@
         }
     }
     .wp-block-group{
-        @include mobile{
-            margin-top: 32px;
-        }
         .wp-block-spacer{
             @include mobile{
                 height: 0px !important;

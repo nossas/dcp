@@ -7,13 +7,20 @@
         margin-top: size(40);
     }
 
+    .wp-block-columns{
+        @include mobile{
+            margin-block-start: unset !important;
+        }
+    }
+
     .wp-block-columns > .wp-block-column{
         color: $color--secondary-dark;
 
         .wp-block-heading{
             @include mobile {
-                font-size: $font-size--large;
-                margin-top: $margin--large;
+                font-size: 24px !important;
+                letter-spacing: 1.2px;
+                line-height: 130%;
             }
         }
 
@@ -28,10 +35,19 @@
         }
     }
 
+    .wp-block-buttons {
+        @include mobile{
+            margin-block-start: 32px !important;
+        }
+    }
+
     .wp-block-buttons > .wp-block-button > a{
         align-items: center;
         display: flex;
         font-size: $font-size--xx-small;
+        @include mobile{
+            padding: 9px !important;
+        }
 
         &::after {
             background-size: contain;
