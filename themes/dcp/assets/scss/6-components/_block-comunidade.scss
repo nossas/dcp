@@ -4,7 +4,7 @@
     padding-inline: $padding--large;
 
     @include mobile {
-        margin-top: $margin--large;
+        margin-top: unset !important;
     }
 
     .wp-block-column{
@@ -14,6 +14,9 @@
             @include mobile{
                 font-size: size(24);
                 white-space: nowrap;
+                text-align: left !important;
+                letter-spacing: 1.2px;
+                line-height: 130%;
             }
         }
 
