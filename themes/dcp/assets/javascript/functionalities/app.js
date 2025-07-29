@@ -185,21 +185,20 @@ if (container) {
   }
 }
 
+//ajusta o posicionamento do userway
+document.addEventListener("DOMContentLoaded", function () {
+  const style = document.createElement('style');
+  style.innerHTML = `
+    .page-mapa .uwy.userway_p3 .userway_buttons_wrapper {
+      left: calc(-7px + 100vw) !important;
+      bottom: 122px !important;
+    }
 
-//estiliza scroolbar
-/*
-document.addEventListener('DOMContentLoaded', () => {
-  const blocks = document.querySelectorAll('.risco .hacklabr-posts-grid-block');
-
-  blocks.forEach((el) => {
-    // Exemplo: aplicar um estilo
-    el.style.backgroundColor = 'red';
-
-    // Exemplo: adicionar uma classe
-    el.classList.add('grid-highlight');
-
-    // Exemplo: logar no console
-    console.log('Bloco encontrado:', el);
-  });
+    @media (max-width: 820px) {
+      .page-mapa .uwy.userway_p3 .userway_buttons_wrapper {
+        bottom: 187px !important;
+      }
+    }
+  `;
+  document.head.appendChild(style);
 });
- */
