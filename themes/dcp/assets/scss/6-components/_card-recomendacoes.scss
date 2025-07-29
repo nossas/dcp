@@ -277,13 +277,13 @@
     &__textarea{
         border: size( 1 ) solid $color--secondary-dark;
         border-radius: $border-radius--medium;
-        height: size( 42 );
+        height: size( 35 );
         padding: $padding--small $padding--medium;
         width: 100%;
         resize: none;
 
         @include mobile {
-            height: size( 150 );
+            height: size( 175 );
         }
     }
 

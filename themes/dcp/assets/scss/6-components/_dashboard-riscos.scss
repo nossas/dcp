@@ -28,8 +28,10 @@
     .dashboard-content-tabs {
         .tabs__header {
             a {
+                min-width: 170px;
+
                 &:first-child {
-                    min-width: 150px;
+                    min-width: 260px;
 
                     @include desktop {
                         min-width: 175px;
@@ -49,6 +51,10 @@
         .post-card {
             padding-top: size( 10 );
             padding-bottom: size( 10 );
+
+            &__content {
+                min-height: 250px;
+            }
 
             &__excerpt-wrapped {
 
