@@ -251,7 +251,8 @@
         border-radius: $border-radius--medium;
         cursor: pointer;
         font-size: $font-size--x-small;
-        max-height: size(66);
+        height: size( 45 );
+        line-height: size( 23 );
         -moz-appearance: none;
         padding: 0.5rem 2.5rem 0.5rem 50px;
         -webkit-appearance: none;
@@ -261,7 +262,7 @@
         }
 
         @include mobile{
-            max-width: size( 150 );
+            width: 60%;
         }
     }
 
@@ -277,13 +278,13 @@
     &__textarea{
         border: size( 1 ) solid $color--secondary-dark;
         border-radius: $border-radius--medium;
-        height: size( 35 );
+        height: size( 45 );
         padding: $padding--small $padding--medium;
         width: 100%;
         resize: none;
 
         @include mobile {
-            height: size( 175 );
+            height: size( 105 );
         }
     }
 
@@ -295,7 +296,6 @@
         width: 100%;
 
         textarea {
-            flex: 1;
             padding-right: 2.5rem;
         }
 
@@ -454,8 +454,9 @@
 .editar-recomendacao .situacao-atual__icon {
     display: block;
     position: absolute;
-    bottom: 33px;
+    bottom: 12px;
     left: 10px;
+    transform: scale( 0.9 );
 
     @include mobile {
         bottom: 10px;

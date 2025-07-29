@@ -345,15 +345,21 @@
                     </div>
                 <?php endif; ?>
             </div>
-        <?php }
-         else { ?>
+        <?php } else {
+
+             if ( $post_type != 'relato' || $post_type != 'acao' ) {
+
+             ?>
             <div class="post-card__meta post-card__meta--default" style="text-align: end;">
                 <a href="<?php the_permalink(); ?>" class="saiba-mais-link" style="display: inline-flex; align-items: center; gap: 6px; color: #281414; text-decoration: none;">
                     <span class="saiba-mais-text" style="text-decoration: underline;"><?php echo __("Saiba mais", "dcp"); ?></span>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/seta_card.svg" alt="Seta" class="saiba-mais-icon" style="width: 12px; height: auto;" />
                 </a>
             </div>
-        <?php } ?>
+        <?php
+             }
+
+         } ?>
 
         <?php
             //$status = get_post_meta(get_the_ID(), 'status_da_acao', true);
