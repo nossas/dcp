@@ -26,7 +26,7 @@
         width: 100%;
 
         @include mobile{
-            padding-inline: $padding--small;
+            padding-inline: unset !important;
         }
     }
 }
@@ -73,6 +73,10 @@
         &__inner-container{
             @media (max-width:1366px){
                     padding-inline: 1rem;
+            }
+
+            @include mobile{
+                padding-inline: unset !important;
             }
         }
     }
