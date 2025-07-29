@@ -41,8 +41,6 @@ $recomendacoes_ativas_post = get_posts([
         ]
 ]);
 
-
-
 ?>
 <div id="dashboardSituacaoAtual" class="dashboard-content">
     <div class="situacao-atual__container">
@@ -143,7 +141,7 @@ $recomendacoes_ativas_post = get_posts([
         <?php endforeach;
 
         else : ?>
-            <div class="message-response">
+            <div class="message-response" style="display: block;">
                 <span class="tabs__panel-message">Nenhuma recomendação foi ativa ainda.</span>
             </div>
         <?php endif; ?>

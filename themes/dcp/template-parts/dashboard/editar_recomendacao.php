@@ -18,7 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_id'])) {
         $pod_to_save->save($icone_field, $novo_icone_id);
     }
 
-    $pod_to_save->save( 'is_active', $_POST['is_active'] );
+    if( isset( $_POST['is_active'] ) ) {
+        $pod_to_save->save( 'is_active', $_POST['is_active'] );
+    } else {
+        $pod_to_save->save( 'is_active', null );
+    }
+
 
     if (!headers_sent() && isset($_POST['redirect_to'])) {
         //wp_safe_redirect(esc_url_raw($_POST['redirect_to']));
@@ -111,7 +116,7 @@ function render_svg_preview($id)
 
         <?php endfor; ?>
 
-        <p>
+        <p style="padding-bottom: 25px;">
             <label for="recomendacao_is_active">
                 <input id="recomendacao_is_active" type="checkbox" name="is_active" value="ON" <?=( $pod->field( 'is_active' ) ) ? 'checked' : '' ?>>
                 <span>MARCAR COMO ATIVA (temp)</span>
