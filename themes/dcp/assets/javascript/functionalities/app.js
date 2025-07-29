@@ -185,7 +185,7 @@ if (container) {
   }
 }
 
-//ajusta o posicionamento do userway
+/* //ajusta o posicionamento do userway
 document.addEventListener("DOMContentLoaded", function () {
   const ajustarEstiloBotaoUserWay = () => {
     const wrapper = document.querySelector('.uwy.userway_p3 .userway_buttons_wrapper');
@@ -230,3 +230,4 @@ document.addEventListener("DOMContentLoaded", function () {
   // Aplica também ao redimensionar
   window.addEventListener('resize', ajustarEstiloBotaoUserWay);
 });
+ */
