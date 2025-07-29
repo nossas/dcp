@@ -187,27 +187,21 @@ if (container) {
 
 //ajusta o posicionamento do userway
 document.addEventListener("DOMContentLoaded", function () {
-  function aplicarEstilos() {
-    const wrapper = document.querySelector('.page-mapa .uwy.userway_p3 .userway_buttons_wrapper');
-    if (wrapper) {
+  const ajustarEstiloBotaoUserWay = () => {
+    const wrapper = document.querySelector('.uwy.userway_p3 .userway_buttons_wrapper');
+    if (wrapper && document.body.classList.contains('page-mapa')) {
+      wrapper.removeAttribute('style');
+
       wrapper.style.left = 'calc(-7px + 100vw)';
       wrapper.style.bottom = window.innerWidth <= 820 ? '187px' : '122px';
     }
-  }
+  };
 
-  // Aplica estilos inicialmente
-  aplicarEstilos();
-
-  // Observa mudanças no body (caso o plugin altere depois)
-  const observer = new MutationObserver(() => {
-    aplicarEstilos();
-  });
-
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-  });
-
-  // Aplica também ao redimensionar (responsividade)
-  window.addEventListener('resize', aplicarEstilos);
+  let tentativas = 0;
+  const intervalo = setInterval(() => {
+    ajustarEstiloBotaoUserWay();
+    tentativas++;
+    if (tentativas > 20) clearInterval(intervalo);
+  }, 300);
+  window.addEventListener('resize', ajustarEstiloBotaoUserWay);
 });
