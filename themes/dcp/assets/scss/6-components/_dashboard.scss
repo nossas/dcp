@@ -766,12 +766,12 @@
                         font-weight: 600;
                         line-height: size( 18 );
                         display: block;
-                        min-height: size( 36 );
+                        min-height: size( 15 );
                         padding: 0 size( 20 );
 
                         @include mobile {
                             font-size: size( 15 );
-                            min-height: size( 16 );
+                            min-height: size( 15 );
                             max-height: size( 30 );
                             line-height: size( 16 );
                         }
