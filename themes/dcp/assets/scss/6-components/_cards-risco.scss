@@ -5,6 +5,15 @@
 .risco{
     .dcp-map-block{
         margin-top: 12px;
+        &__tabs {
+            button {
+            cursor: pointer;
+                &:hover {
+                    opacity: 0.9;
+                    transition: opacity 0.2s;
+                }
+            }
+        }
     }
 
     .hacklabr-posts-grid-block{
