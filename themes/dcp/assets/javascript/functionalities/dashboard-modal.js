@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const redirectInput = document.createElement('input');
             redirectInput.type = 'hidden';
             redirectInput.name = 'redirect_to';
-            redirectInput.value = '<?= esc_url(get_dashboard_url("situacao_atual")) ?>';
+            //redirectInput.value = '<?= esc_url(get_dashboard_url("situacao_atual")) ?>';
             form.appendChild(redirectInput);
             form.submit();
         }

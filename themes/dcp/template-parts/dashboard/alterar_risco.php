@@ -4,7 +4,7 @@ namespace hacklabr\dashboard;
 
 ?>
 
-<main class="dashboard dashboard--alterar-risco">
+<main id="dashboardSituacaoAtual" class="dashboard dashboard--alterar-risco">
     <div class="situacao-atual__container">
         <nav class="breadcrumb-dashboard">
             <a href="#">Situação atual</a>
@@ -192,7 +192,6 @@ namespace hacklabr\dashboard;
                         'data' => '15/01/25'
                     ],
                 ];
-
                 foreach ($riscos as $risco): ?>
                     <li class="risco-item">
                         <input type="checkbox" id="risco-<?= $risco['id'] ?>" name="risco_selecionado" value="<?= $risco['id'] ?>" class="risco-checkbox">
