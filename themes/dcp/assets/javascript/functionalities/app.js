@@ -190,18 +190,43 @@ document.addEventListener("DOMContentLoaded", function () {
   const ajustarEstiloBotaoUserWay = () => {
     const wrapper = document.querySelector('.uwy.userway_p3 .userway_buttons_wrapper');
     if (wrapper && document.body.classList.contains('page-mapa')) {
+      // Remove os estilos inline antigos
       wrapper.removeAttribute('style');
 
-      wrapper.style.left = 'calc(-7px + 100vw)';
-      wrapper.style.bottom = window.innerWidth <= 820 ? '187px' : '122px';
+      let left, bottom;
+
+      // 📱 Mobile (até 820px)
+      if (window.innerWidth <= 820) {
+        left = 'calc(-12px + 100vw)';
+        bottom = '187px';
+      }
+
+      // 💻 Telas médias (821px até 1366px)
+      else if (window.innerWidth <= 1366) {
+        left = 'calc(-12px + 100vw)';
+        bottom = '61px';
+      }
+
+      // 🖥️ Telas grandes (acima de 1366px)
+      else {
+        left = 'calc(-7px + 100vw)';
+        bottom = '122px';
+      }
+
+      // Aplica os novos estilos
+      wrapper.style.left = left;
+      wrapper.style.bottom = bottom;
     }
   };
 
+  // Aplica repetidamente por até 6 segundos para garantir sobrescrita
   let tentativas = 0;
   const intervalo = setInterval(() => {
     ajustarEstiloBotaoUserWay();
     tentativas++;
     if (tentativas > 20) clearInterval(intervalo);
   }, 300);
+
+  // Aplica também ao redimensionar
   window.addEventListener('resize', ajustarEstiloBotaoUserWay);
 });
