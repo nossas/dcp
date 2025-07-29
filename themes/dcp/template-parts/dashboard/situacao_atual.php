@@ -24,8 +24,8 @@ $args = [
 ];
 $recomendacoes_post = get_posts($args);
 ?>
-
-<div class="situacao-atual__container">
+<div id="dashboardSituacaoAtual" class="dashboard-content">
+    <div class="situacao-atual__container">
     <div class="situacao-atual__header">
         <h1 class="situacao-atual__title"><?= __('Situação atual') ?></h1>
         <div class="situacao-atual__btn">
@@ -169,4 +169,5 @@ $recomendacoes_post = get_posts($args);
             <?php endforeach; ?>
         </div>
     </div>
+</div>
 </div>

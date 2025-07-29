@@ -114,6 +114,11 @@
         grid-template-columns: auto 1fr;
         min-height: 95vh;
 
+        @include mobile {
+            display: block;
+            width: 100vw;
+        }
+
         #btnOpenMenuMobile {
             display: none;
             position: fixed;

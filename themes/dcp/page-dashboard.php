@@ -25,6 +25,9 @@ namespace hacklabr\dashboard;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?=get_dashboard_title() ?> | <?= get_bloginfo( 'name' )?></title>
     <?php wp_head(); ?>
+    <meta name="theme-color" content="#281414">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 <body <?php body_class( 'loading' ); ?>>
     <?php wp_body_open(); ?>
@@ -78,26 +81,25 @@ namespace hacklabr\dashboard;
 
                 <nav>
                     <ul>
+                        <?php // TODO : REFACTORY is-current ?>
                         <li class="<?= is_dashboard('inicio') ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('inicio') ?>">
                                 <iconify-icon icon="bi:house-fill"></iconify-icon>
                                 <span>Início</span>
                             </a>
                         </li>
-                        <?php // TODO : REFACTORY is-current ?>
                         <li class="<?= ( is_dashboard('riscos') || is_dashboard('adicionar-risco') || is_dashboard('editar-risco')) ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('riscos') ?>">
                                 <iconify-icon icon="bi:geo-alt-fill"></iconify-icon>
                                 <span>Riscos</span>
                             </a>
                         </li>
-                        <li class="<?= is_dashboard('situacao_atual') ? 'dashboard-current' : '' ?>">
+                        <li class="<?= ( is_dashboard('situacao_atual') || is_dashboard( 'alterar_risco' ) || is_dashboard( 'editar_recomendacao' ) ) ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('situacao_atual') ?>">
                                 <iconify-icon icon="bi:exclamation-triangle-fill"></iconify-icon>
                                 <span>Situação Atual</span>
                             </a>
                         </li>
-                        <?php // TODO : REFACTORY is-current ?>
                         <li class="<?= ( is_dashboard('acoes') || is_dashboard('adicionar-acao') || is_dashboard('editar-acao') || is_dashboard('adicionar-relato') ) ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('acoes') ?>">
                                 <iconify-icon icon="bi:calendar2-week-fill"></iconify-icon>

@@ -263,14 +263,22 @@
         color: $color--secondary-dark;
         display: flex;
         gap: $gap--small;
-        padding: size(10) $gap--medium;
+
         text-decoration: none;
+
+        padding: 0 size( 18 ) 0 size( 15 );
+        height: size( 38 );
+        line-height: size( 38 );
     }
 
     &__btn-publicar{
         background-color: $color--warning-dark;
         color: $color--high-light !important;
         cursor: pointer;
+
+        padding: 0 size( 33 ) 0 size( 30 );
+        height: size( 38 );
+        line-height: size( 38 );
 
         @include mobile{
             justify-content: center;
@@ -280,7 +288,7 @@
     &__btn-publicar,
     &__btn-arquivar{
         align-items: center;
-        background-color: transparent;
+        //background-color: transparent;
         border: size(1) solid $color--warning-dark;
         border-radius: size(100);
         color: $color--warning-dark;

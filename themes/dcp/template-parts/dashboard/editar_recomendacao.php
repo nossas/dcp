@@ -19,8 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_id'])) {
     }
 
     if (!headers_sent() && isset($_POST['redirect_to'])) {
-        wp_safe_redirect(esc_url_raw($_POST['redirect_to']));
-        exit;
+        //wp_safe_redirect(esc_url_raw($_POST['redirect_to']));
+        //wp_safe_redirect($_POST['redirect_to']);
+        //exit;
     }
 }
 
@@ -66,7 +67,7 @@ function render_svg_preview($id)
         </h2>
 
         <input type="hidden" name="post_id" value="<?= esc_attr($post_obj->ID) ?>">
-        <input type="hidden" name="redirect_to" value="<?= esc_url(get_dashboard_url('situacao_atual')) ?>">
+        <input type="hidden" name="redirect_to" value="<?=get_dashboard_url('situacao_atual')?>">
 
         <?php for ($i = 0; $i < 3; $i++):
             $reco_field = $recomendacoes[$i];
