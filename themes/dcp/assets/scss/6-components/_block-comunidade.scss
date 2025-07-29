@@ -106,7 +106,9 @@
                 font-family: $font-family--primary !important;
                 font-size: $font-size--medium;
                 font-weight: $font-weight--medium;
-                margin-top: size(5);
+                /* margin-top: size(5); */
+                margin-top: 20px;
+
             }
 
             &__excerpt {
@@ -129,7 +131,7 @@
                 color: $color--high-dark;
                 display: flex;
                 font-size: $font-size--xx-small;
-                gap: $gap--x-small;
+                gap: 0.60rem;
 
                 &::before {
                     background-size: contain;
@@ -139,8 +141,16 @@
                     height: 1em;
                     width: 1em;
                 }
+
             }
 
+            .post-card__meta,
+            .post-card__datetime {
+            display: inline-flex;
+            align-items: center;
+            vertical-align: middle;
+            gap: size(4); // espaçamento entre ícone e texto
+            }
             &__address {
                 &::before {
                     content: url('/wp-content/themes/dcp/assets/images/wrapper6.png') !important;
@@ -148,18 +158,23 @@
             }
         }
     }
+
 }
 
 //card ação
 .hacklabr-posts-grid-block{
     .post-card{
+         &__meta--default {
+            display: none !important;
+        }
         &__title,
         &__excerpt-wrapped{
-            height: size(50);
-
+/*             height: size(50);
+ */            color: $color--secondary-dark !important;
             @include mobile{
                 height: inherit;
             }
+
         }
 
         &__cta {

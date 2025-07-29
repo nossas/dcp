@@ -1,17 +1,26 @@
+.wp-block-columns:has(.recomendacoes) {
+    display: flex;
+    justify-content: space-between !important;
+}
 .risco{
+    .dcp-map-block{
+        margin-top: 12px;
+    }
+
     .hacklabr-posts-grid-block{
         display: flex;
         flex-direction: column;
-        height: size(402);
+        height: 27rem;
         overflow: hidden;
         overflow-y: scroll;
-        padding-right: $padding--small;
+        margin-top: 20px;
 
         .post-card{
             background-color: $color--high-light;
             border-radius: $border-radius--large;
             max-width: size(517);
             padding: $padding--medium;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.30);
 
             &__address,
             &__divisor{

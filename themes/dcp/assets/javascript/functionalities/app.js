@@ -155,3 +155,32 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 });
+
+//adiciona classe no card da home
+// Só se esse script for executado após os elementos estarem no HTML
+const container = document.getElementById("acontece-na-comunidade");
+
+if (container) {
+  const meta = container.querySelector(".post-card__meta");
+  const datetime = container.querySelector(".post-card__datetime");
+
+  if (meta && datetime) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "post-card__meta-group";
+
+    wrapper.style.display = "flex";
+    wrapper.style.alignItems = "center";
+    wrapper.style.gap = "8px";
+    wrapper.style.color = "#605E5D";
+    wrapper.style.fontSize = "14px";
+
+    meta.style.color = "#605E5D";
+    meta.style.fontSize = "14px";
+    datetime.style.color = "#605E5D";
+    datetime.style.fontSize = "14px";
+
+    meta.parentNode.insertBefore(wrapper, meta);
+    wrapper.appendChild(meta);
+    wrapper.appendChild(datetime);
+  }
+}
