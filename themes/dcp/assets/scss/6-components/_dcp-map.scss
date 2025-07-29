@@ -39,12 +39,22 @@
             border-bottom-left-radius: $border-radius--large;
             border-top-left-radius: $border-radius--large;
             --tab-color: #{$color--warning-dark};
+             cursor: pointer;
+              &:hover {
+                opacity: 0.9;
+                transition: opacity 0.2s;
+            }
         }
 
         &[data-cpt="apoio"] {
             border-bottom-right-radius: $border-radius--large;
             border-top-right-radius: $border-radius--large;
             --tab-color: #{$color--primary-pure};
+             cursor: pointer;
+              &:hover {
+                opacity: 0.9;
+                transition: opacity 0.2s;
+            }
         }
     }
 
@@ -69,6 +79,11 @@
             border: 1px solid $color--low-pure;
             min-height: size(42);
             padding: $padding--small $padding--medium;
+             cursor: pointer;
+              &:hover {
+                opacity: 0.9;
+                transition: opacity 0.2s;
+            }
         }
 
         input {
@@ -85,6 +100,11 @@
             border-top-right-radius: $border-radius--large;
             display: flex;
             gap: $gap--small;
+             cursor: pointer;
+              &:hover {
+                opacity: 0.9;
+                transition: opacity 0.2s;
+            }
 
             @include mobile {
 
@@ -92,6 +112,7 @@
                     display: none;
                 }
             }
+
         }
     }
 
@@ -126,17 +147,26 @@
             justify-content: center;
             padding: $padding--small 9px;
             text-decoration: none;
+            cursor: pointer;
+              &:hover {
+                opacity: 0.9;
+                transition: opacity 0.2s;
+            }
         }
     }
 
     &__add-risk {
         background-color: $color--warning-dark;
         color: white;
+        opacity: 0.9;
+        transition: opacity 0.2s;
     }
 
     &__show-recommendations {
         background-color: $color--primary-pure;
         color: white;
+        opacity: 0.9;
+        transition: opacity 0.2s;
     }
 
     .jeomap {
