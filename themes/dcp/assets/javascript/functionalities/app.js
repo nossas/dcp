@@ -187,18 +187,27 @@ if (container) {
 
 //ajusta o posicionamento do userway
 document.addEventListener("DOMContentLoaded", function () {
-  const style = document.createElement('style');
-  style.innerHTML = `
-    .page-mapa .uwy.userway_p3 .userway_buttons_wrapper {
-      left: calc(-7px + 100vw) !important;
-      bottom: 122px !important;
+  function aplicarEstilos() {
+    const wrapper = document.querySelector('.page-mapa .uwy.userway_p3 .userway_buttons_wrapper');
+    if (wrapper) {
+      wrapper.style.left = 'calc(-7px + 100vw)';
+      wrapper.style.bottom = window.innerWidth <= 820 ? '187px' : '122px';
     }
+  }
 
-    @media (max-width: 820px) {
-      .page-mapa .uwy.userway_p3 .userway_buttons_wrapper {
-        bottom: 187px !important;
-      }
-    }
-  `;
-  document.head.appendChild(style);
+  // Aplica estilos inicialmente
+  aplicarEstilos();
+
+  // Observa mudanças no body (caso o plugin altere depois)
+  const observer = new MutationObserver(() => {
+    aplicarEstilos();
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+
+  // Aplica também ao redimensionar (responsividade)
+  window.addEventListener('resize', aplicarEstilos);
 });
