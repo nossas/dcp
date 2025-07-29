@@ -81,39 +81,30 @@
         }
 
         .custom-submit-button {
-            align-items: flex-end;
             background-color: $color--primary-pure;
             color: $color--high-light;
             border: none;
             border-radius: size(100);
             cursor: pointer;
-            display: flex;
             font-size: $font-size--x-small;
-            gap: size(5);
-            height: size(40);
-            padding: size( 5 ) size( 20 ) size( 5 ) size( 10 );
             transition: background-color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: size(8);
+            height: size(48);
+            padding: size(8) size(24) size(8) size(16);
 
             span {
                 display: inline-block;
-                font-size: size( 15 );
-                margin-top: -5px;
+                font-size: size(15);
+                margin-top: 0;
             }
 
-            @include mobile{
-                justify-content: center;
-                align-items: center;
+            @include mobile {
                 max-width: 100%;
                 width: 100%;
             }
-        }
-
-        .custom-submit-button .icon {
-            width: size(16);
-            height: size(16);
-            position: relative;
-            bottom: size(3);
-            stroke: $color--high-light;
         }
 
         label{
