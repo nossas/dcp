@@ -184,3 +184,22 @@ if (container) {
     wrapper.appendChild(datetime);
   }
 }
+
+
+//estiliza scroolbar
+/*
+document.addEventListener('DOMContentLoaded', () => {
+  const blocks = document.querySelectorAll('.risco .hacklabr-posts-grid-block');
+
+  blocks.forEach((el) => {
+    // Exemplo: aplicar um estilo
+    el.style.backgroundColor = 'red';
+
+    // Exemplo: adicionar uma classe
+    el.classList.add('grid-highlight');
+
+    // Exemplo: logar no console
+    console.log('Bloco encontrado:', el);
+  });
+});
+ */

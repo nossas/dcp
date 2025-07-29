@@ -3,6 +3,15 @@
     justify-content: space-between !important;
 }
 .risco{
+    .wp-block-column:nth-child(2){
+        p {
+            font-size: size(16) !important;
+
+            @include mobile {
+                font-size: size(14) !important;
+            }
+        }
+    }
     .dcp-map-block{
         margin-top: 12px;
         &__tabs {
@@ -23,6 +32,11 @@
         overflow: hidden;
         overflow-y: scroll;
         margin-top: 20px;
+
+        @include mobile {
+            min-height: 200px !important;
+            height: 100% !important;
+        }
 
         .post-card{
             background-color: $color--high-light;
