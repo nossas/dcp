@@ -66,6 +66,19 @@
                     }
                 }
 
+                // Segundo bloco de colunas
+                .wp-block-columns:nth-child(2) {
+                    .wp-block-column {
+                        .wp-block-columns {
+                            .wp-block-column {
+                                .wp-block-columns:nth-child(2) {
+                                    margin-top: 20px !important;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 // Último bloco de colunas
                 .wp-block-columns:last-child {
                     .wp-block-separator {
