@@ -500,6 +500,14 @@
             gap: size(24);
             margin-bottom: $margin--medium;
             padding-bottom: $margin--medium;
+
+            span {
+
+                svg {
+                    width: 25px;
+                    height: 27px;
+                }
+            }
         }
 
         & > li:last-child{
