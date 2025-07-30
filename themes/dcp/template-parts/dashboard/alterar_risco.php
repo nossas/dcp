@@ -5,13 +5,13 @@ namespace hacklabr\dashboard;
 if ( isset( $_POST['risco_selecionado'] ) ) {
     $post_id = intval( $_POST['risco_selecionado'] );
 
-    $all_posts = get_posts([
+    $situacoes_ids = get_posts([
         'post_type' => 'situacao_atual',
         'posts_per_page' => -1,
         'fields' => 'ids'
     ]);
 
-    foreach ($all_posts as $id) {
+    foreach ( $situacoes_ids as $id ) {
         $pods = \pods( 'situacao_atual', $id );
         $pods->save( 'is_active', false );
     }
@@ -19,10 +19,26 @@ if ( isset( $_POST['risco_selecionado'] ) ) {
     $pod_ativar = \pods( 'situacao_atual', $post_id );
     $pod_ativar->save( 'is_active', true );
 
+
+
+    $recomendacoes_ids = get_posts([
+        'post_type' => 'recomendacao',
+        'posts_per_page' => -1,
+        'fields' => 'ids'
+    ]);
+
+    foreach ( $recomendacoes_ids as $id ) {
+        $pods = \pods( 'recomendacao', $id );
+        $pods->save( 'is_active', false );
+    }
+
+    $pod_recomendacao = \pods( 'recomendacao', $pod_ativar->field( 'recomendacao_id' ) );
+    $pod_recomendacao->save( 'is_active', true );
+
+
+
+
 }
-
-
-
 
 //TODO: REFACTORY TO LIBRARY
 if (!function_exists(__NAMESPACE__ . '\render_svg')) {
