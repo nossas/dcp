@@ -1,5 +1,10 @@
 .page-quem-acionar {
     main {
+        .background {
+            position: relative;
+            overflow: hidden;
+        }
+
         .background > .breadcrumb{
             max-width: size(1330);
             width: 100%;
@@ -14,7 +19,7 @@
         .background > img{
             z-index: 0;
             position: absolute;
-            left: 66%;
+            right: 0;
             @include mobile{
                 display: none;
             }
