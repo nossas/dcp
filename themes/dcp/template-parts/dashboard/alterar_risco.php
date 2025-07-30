@@ -127,7 +127,7 @@ $pod_ativo = \pods('situacao_atual', $situacao_ativa_post[0]->ID);
                         <span><?=$pod_ativo->field( 'temperatura' )?>º</span> • <?=$pod_ativo->field( 'clima' )?>
                     </div>
                     <div class="alerta-faixa__data">
-                        <?= __('Última atualização:') ?> <span><?=date( 'H:m', strtotime( $situacao_ativa_post[0]->post_modified ) )?></span> • <span><?=date( 'd/m/a', strtotime( $situacao_ativa_post[0]->post_modified ) )?></span>
+                        <?= __('Última atualização:') ?> <span><?=date( 'H:m', strtotime( $situacao_ativa_post[0]->post_modified ) )?></span> • <span><?=date( 'd/m/y', strtotime( $situacao_ativa_post[0]->post_modified ) )?></span>
                     </div>
                 </div>
             </div>
@@ -168,7 +168,7 @@ $pod_ativo = \pods('situacao_atual', $situacao_ativa_post[0]->ID);
                                     <span><?=$pod->field( 'temperatura' )?>º</span> • <?=$pod->field( 'clima' )?>
                                 </div>
                                 <div class="alerta-faixa__data">
-                                    <?= __('Última atualização:') ?> <span><?=date( 'H:m', strtotime( $risco->post_modified ) )?></span> • <span><?=date( 'd/m/a', strtotime( $risco->post_modified ) )?></span>
+                                    <?= __('Última atualização:') ?> <span><?=date( 'H:m', strtotime( $risco->post_modified ) )?></span> • <span><?=date( 'd/m/y', strtotime( $risco->post_modified ) )?></span>
                                 </div>
                             </div>
                         </label>

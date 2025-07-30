@@ -105,7 +105,7 @@ $pod_situacao_ativa = pods( 'situacao_atual', $situacao_ativa_post[ 0 ]->ID );
                     <span><?=$pod_situacao_ativa->field( 'temperatura' )?>º</span> • <?=$pod_situacao_ativa->field( 'clima' )?>
                 </div>
                 <div class="alerta-faixa__data">
-                    Última atualização: <span><?=date( 'H:m', strtotime( $situacao_ativa_post[0]->post_modified ) ) ?> </span> • <span><?=date( 'd/m/a', strtotime( $situacao_ativa_post[0]->post_modified ) )?></span>
+                    Última atualização: <span><?=date( 'H:m', strtotime( $situacao_ativa_post[0]->post_modified ) ) ?> </span> • <span><?=date( 'd/m/y', strtotime( $situacao_ativa_post[0]->post_modified ) )?></span>
                 </div>
             </div>
         </div>

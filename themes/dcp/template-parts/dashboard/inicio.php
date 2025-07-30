@@ -87,7 +87,9 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                                     <span class="is-separator">・</span>
                                     <?=$pod_ativo->field( 'clima' )?>
                                 </p>
-                                <p>Última atualização: <?=date( 'H:m', strtotime( $situacao_ativa_post[0]->post_modified ) )?> <span class="is-separator">・</span> <?=date( 'd/m/a', strtotime( $situacao_ativa_post[0]->post_modified ) )?></p>
+                                <p>Última atualização: <?=date( 'H:m', strtotime( $situacao_ativa_post[0]->post_modified ) )?>
+                                    <span class="is-separator">・</span> <?=date( 'd/m/y', strtotime( $situacao_ativa_post[0]->post_modified ) )?>
+                                </p>
                             <?php endif; ?>
                         </article>
                     </div>
