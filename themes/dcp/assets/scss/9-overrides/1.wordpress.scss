@@ -173,13 +173,26 @@
             height: 32px !important;
         }
     }
-    .custom-submit-button{
-        height: 2.1rem !important;
-        @include mobile {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
+    .btn-submit-2 {
+    display: flex;
+    justify-content: flex-end;
+    }
+   .submit-button-2 {
+    display: flex;
+    align-items: center;
+    background-color: var(--wp--preset--color--primary-pure);
+    color: var(--wp--preset--color--high-light);
+    gap: 8px; /* Espaçamento entre o ícone e o texto */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 6.25rem;
+    }
+
+    .submit-button .icon {
+    display: inline-block;
     }
 }
 .page-mapa {
