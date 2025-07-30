@@ -366,32 +366,45 @@
         align-items: center;
 
         &__content {
-            background-color: white;
-            padding: 2rem;
+            background-color: $color--secondary-light;
+            padding: $padding--large;
             border-radius: 16px;
-            max-width: 90%;
-            width: 320px;
+            max-width: 600px;
+            width: 100%;
             text-align: center;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+
+            #modal-text {
+                font-family: $font-family--primary;
+                font-size: 24px;
+                font-weight: 500;
+                color: $color--warning-dark;
+            }
         }
 
         &__close {
-            margin-top: 1rem;
-            background-color: #333;
-            color: white;
-            padding: 0.5rem 1rem;
+            margin-top: 1.5rem;
+            background-color: #281414;
+            color: $color--high-light;
+            padding: 10px 24px;
             border: none;
-            border-radius: 8px;
+            border-radius: 100px;
             cursor: pointer;
+            font-family: $font-family--primary;
+            font-weight: 500;
+            font-size: 16px;
+            transition: background-color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: $gap--small;
 
             &:hover {
-            background-color: #555;
+                background-color: lighten(#281414, 10%);
             }
         }
-        }
+    }
 
     .call-modal--visible {
-    display: flex;
+        display: flex;
     }
 
 }

@@ -43,7 +43,10 @@ get_header();
 <div id="call-modal" class="call-modal">
     <div class="call-modal__content">
         <p id="modal-text"></p>
-        <button class="call-modal__close">Fechar</button>
+        <button class="call-modal__close">
+            <span>Fechar</span>
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icon-close.svg" alt="Fechar" />
+        </button>
     </div>
 </div>
 
