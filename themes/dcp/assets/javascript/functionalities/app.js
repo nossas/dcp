@@ -185,49 +185,37 @@ if (container) {
   }
 }
 
-/* //ajusta o posicionamento do userway
+ //ajusta o posicionamento do userway
 document.addEventListener("DOMContentLoaded", function () {
+  const isMobile = () => window.innerWidth <= 820;
+
   const ajustarEstiloBotaoUserWay = () => {
+    if (!isMobile()) return; // só executa no mobile
+
     const wrapper = document.querySelector('.uwy.userway_p3 .userway_buttons_wrapper');
     if (wrapper && document.body.classList.contains('page-mapa')) {
-      // Remove os estilos inline antigos
       wrapper.removeAttribute('style');
 
-      let left, bottom;
+      const left = 'calc(-12px + 100vw)';
+      const bottom = '115px';
 
-      // 📱 Mobile (até 820px)
-      if (window.innerWidth <= 820) {
-        left = 'calc(-12px + 100vw)';
-        bottom = '187px';
-      }
-
-      // 💻 Telas médias (821px até 1366px)
-      else if (window.innerWidth <= 1366) {
-        left = 'calc(-12px + 100vw)';
-        bottom = '61px';
-      }
-
-      // 🖥️ Telas grandes (acima de 1366px)
-      else {
-        left = 'calc(-7px + 100vw)';
-        bottom = '122px';
-      }
-
-      // Aplica os novos estilos
       wrapper.style.left = left;
       wrapper.style.bottom = bottom;
     }
   };
 
-  // Aplica repetidamente por até 6 segundos para garantir sobrescrita
-  let tentativas = 0;
-  const intervalo = setInterval(() => {
-    ajustarEstiloBotaoUserWay();
-    tentativas++;
-    if (tentativas > 20) clearInterval(intervalo);
-  }, 300);
+  if (isMobile()) {
+    // Aplica repetidamente por até 6 segundos
+    let tentativas = 0;
+    const intervalo = setInterval(() => {
+      ajustarEstiloBotaoUserWay();
+      tentativas++;
+      if (tentativas > 20) clearInterval(intervalo);
+    }, 300);
+  }
 
-  // Aplica também ao redimensionar
-  window.addEventListener('resize', ajustarEstiloBotaoUserWay);
+  // Aplica também ao redimensionar (só se for mobile)
+  window.addEventListener('resize', () => {
+    if (isMobile()) ajustarEstiloBotaoUserWay();
+  });
 });
- */

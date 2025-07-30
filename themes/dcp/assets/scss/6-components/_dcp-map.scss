@@ -76,7 +76,7 @@
         width: size(720);
 
         input, button {
-            border: 1px solid $color--low-pure;
+            border: 1px solid #281414;
             min-height: size(42);
             padding: $padding--small $padding--medium;
              cursor: pointer;
@@ -90,11 +90,20 @@
             border-bottom-left-radius: $border-radius--large;
             border-top-left-radius: $border-radius--large;
             flex: 1;
+            padding-left: 40px;
         }
+        input::placeholder {
+            color: #281414; /* Altere para a cor desejada */
+        }
+        #icon-input{
 
+                position: relative;
+                left: 29px;
+
+        }
         button {
             align-items: center;
-            background-color: $color--low-pure;
+            background-color: #281414;
             color: $color--high-pure;
             border-bottom-right-radius: $border-radius--large;
             border-top-right-radius: $border-radius--large;
