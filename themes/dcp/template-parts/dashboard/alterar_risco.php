@@ -2,6 +2,27 @@
 
 namespace hacklabr\dashboard;
 
+if ( isset( $_POST['risco_selecionado'] ) ) {
+    $post_id = intval( $_POST['risco_selecionado'] );
+
+    $all_posts = get_posts([
+        'post_type' => 'situacao_atual',
+        'posts_per_page' => -1,
+        'fields' => 'ids'
+    ]);
+
+    foreach ($all_posts as $id) {
+        $pods = \pods( 'situacao_atual', $id );
+        $pods->save( 'is_active', false );
+    }
+
+    $pod_ativar = \pods( 'situacao_atual', $post_id );
+    $pod_ativar->save( 'is_active', true );
+
+}
+
+
+
 
 //TODO: REFACTORY TO LIBRARY
 if (!function_exists(__NAMESPACE__ . '\render_svg')) {
@@ -111,7 +132,7 @@ $pod_ativo = \pods('situacao_atual', $situacao_ativa_post[0]->ID);
                                     <span class="alerta-faixa__icone">
                                         <img src="<?=$pod->field( 'icone.guid' )?>">
                                     </span>
-                                    <div class="alerta-faixa__warning"><strong><?=get_cor_by_name( $pod->field( 'tipo_de_alerta' ) )?></strong> <?=$pod->field( 'descricao' )?></div>
+                                    <div class="alerta-faixa__warning"><strong><?=$pod->field( 'tipo_de_alerta' )?></strong> <?=$pod->field( 'descricao' )?></div>
                                 </div>
 
                                 <div class="alerta-faixa__topo-acoes">
