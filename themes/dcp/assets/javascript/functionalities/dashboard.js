@@ -115,7 +115,7 @@ jQuery(function($) {
                 title,
                 description,
                 error = null,
-                cancelText = 'Cancelar',
+                cancelText = 'Fechar',
                 confirmText = 'Confirmar',
                 customConfirmText,
                 onCancel,
@@ -129,13 +129,20 @@ jQuery(function($) {
             $modal.find('h3').text(title);
             $modal.find('.is-body p').html(description);
             $modal.find('.is-error').html( '' );
-            $modal.find('.is-cancel').text(cancelText);
             $modal.find('.is-confirm span').text(confirmText);
+
+            if( cancelText ) {
+                $modal.find('.is-cancel').text(cancelText).show();
+            } else {
+                $modal.find('.is-cancel').text('').hide();
+            }
+
             if( error ) {
                 $modal.find('.is-error').html( error ).show();
             } else {
                 $modal.find('.is-error').html( '' ).hide();
             }
+
             // Configura botão customizado (se fornecido)
             const $customBtn = $modal.find('.is-custom');
             if (customConfirmText) {
@@ -371,7 +378,6 @@ jQuery(function($) {
 
         $( '#riscoSingleForm, #acaoSingleForm' ).on( 'submit', function ( e ) {
             const $this = $( this );
-
             const form = e.target;
             const formData = new FormData( form );
 
@@ -435,7 +441,7 @@ jQuery(function($) {
                             description: response.data.message,
                             error: response.data.error,
 
-                            cancelText: "CANCELAR",
+                            cancelText: "FECHAR",
                             onCancel: function () {},
 
                             confirmText: "ATUALIZAR",
@@ -453,7 +459,7 @@ jQuery(function($) {
                         description: 'Houve um erro inesperado ao enviar os dados do formulário, aguarde um momento e tente novamente.',
                         error: 'BACKEND ERROR FORM DATA',
 
-                        cancelText: "CANCELAR",
+                        cancelText: "FECHAR",
                         onCancel: function () {},
 
                         confirmText: "ATUALIZAR",

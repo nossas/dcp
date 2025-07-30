@@ -587,6 +587,7 @@
     &__icone {
         align-items: center;
         display: flex;
+        padding: size( 5 );
 
         @include mobile {
             flex-shrink: 0;
@@ -597,6 +598,15 @@
             svg {
                 width: 100%;
                 height: 100%;
+            }
+        }
+
+        img {
+            width: auto;
+            height: 38px;
+
+            @include mobile {
+                height: 28px;
             }
         }
     }
