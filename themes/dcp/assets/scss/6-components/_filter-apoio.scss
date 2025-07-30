@@ -113,7 +113,7 @@
                 text-decoration: none;
                 padding: 0.4rem 1rem;
                 border: 1px solid #3c2a1e;
-                background: transparent;
+                background: $color--high-light;
                 color: #3c2a1e;
                 border-radius: 999px;
                 font-weight: 500;
@@ -123,11 +123,8 @@
                 position: relative;
 
                     &.active {
-                    background: #3c2a1e;
-                    color: #fff;
-                    border-color: #3c2a1e;
-                        @include mobile {
                         background-color: #235540;
+                        color: $color--secondary-light;
                         display: inline-flex;
                         align-items: center;
                         &::before {
@@ -140,7 +137,6 @@
                         background-size: contain;
                         background-repeat: no-repeat;
                         background-position: center;
-                        }
                     }
 
                 }

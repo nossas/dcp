@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     link.setAttribute("href", `tel:${number}`);
                 } else {
                     e.preventDefault();
-                    modalText.textContent = `Em caso de emergência, ligue para o número ${number}.`;
+                    modalText.innerHTML = `Em caso de emergência, ligue para o número <strong>${number}</strong>.`;
                     modal.classList.add("call-modal--visible");
                 }
             });
