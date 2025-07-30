@@ -1,12 +1,71 @@
-<!-- Lista de Apoios -->
+<?php
+
+$active_tag_name = '';
+$active_slug = '';
+$term_object = null;
+
+if (isset($_GET['tag_selecionada']) && !empty($_GET['tag_selecionada'])) {
+    $active_slug = sanitize_key($_GET['tag_selecionada']);
+    $term_object = get_term_by('slug', $active_slug, 'tipo_apoio');
+
+} else {
+
+    $parent_term = get_term_by('name', 'QUEM ACIONAR', 'tipo_apoio');
+    if ($parent_term) {
+        $first_term_array = get_terms([
+            'taxonomy' => 'tipo_apoio',
+            'parent' => $parent_term->term_id,
+            'hide_empty' => false,
+            'number' => 1
+        ]);
+        if (!empty($first_term_array)) {
+            $term_object = $first_term_array[0];
+            $active_slug = $term_object->slug;
+        }
+    }
+}
+
+
+if ($term_object) {
+    $active_tag_name = $term_object->name;
+}
+?>
+
+<?php
+if (!empty($active_tag_name)) :
+?>
+    <div class="title-card container container--wide">
+        <span>
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/arrow-green.svg" alt="Seta verde" style="height: 25px; vertical-align: middle;" />
+            Serviços de <?php echo esc_html($active_tag_name); ?>
+        </span>
+    </div>
+<?php endif; ?>
+
+
 <section class="apoio-lista container container--wide" id="apoio-lista">
     <?php
-    $apoios = get_posts([
+
+    $query_args = [
         'post_type' => 'apoio',
-        'posts_per_page' => 2,
+        'posts_per_page' => -1,
         'orderby' => 'menu_order',
         'order' => 'ASC',
-    ]);
+    ];
+
+    if (!empty($active_slug)) {
+        $query_args['tax_query'] = [
+            [
+                'taxonomy' => 'tipo_apoio',
+                'field'    => 'slug',
+                'terms'    => $active_slug,
+            ],
+        ];
+    } else {
+        $query_args['posts_per_page'] = 2;
+    }
+
+    $apoios = get_posts($query_args);
 
     foreach ( $apoios as $apoio ) {
         $endereco = get_post_meta( $apoio->ID, 'endereco', true );
@@ -48,7 +107,7 @@
             <?php endif; ?>
             <hr class="separator">
             <?php if ( $observacoes ) : ?>
-                <span><?php echo esc_html( $observacoes ); ?></p>
+                <span><?php echo esc_html( $observacoes ); ?></span>
             <?php endif; ?>
         </article>
         <hr>
