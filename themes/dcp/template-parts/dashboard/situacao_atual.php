@@ -2,6 +2,7 @@
 
 namespace hacklabr\dashboard;
 
+//TODO: REFACTORY TO LIBRARY
 if (!function_exists(__NAMESPACE__ . '\render_svg')) {
     function render_svg($id)
     {
@@ -16,16 +17,13 @@ if (!function_exists(__NAMESPACE__ . '\render_svg')) {
     }
 }
 
-$args = [
+//TODO: REFACTORY TO LIBRARY
+$recomendacoes_post = get_posts([
     'post_type' => 'recomendacao',
     'posts_per_page' => -1,
     'orderby'        => 'date',
     'order'          => 'ASC',
-];
-$recomendacoes_post = get_posts($args);
-
-
-
+]);
 
 $recomendacoes_ativas_post = get_posts([
     'post_type' => 'recomendacao',
@@ -35,7 +33,7 @@ $recomendacoes_ativas_post = get_posts([
         'meta_query' => [
             [
                 'key' => 'is_active',
-                'value' => 'ON',
+                'value' => true,
                 'compare' => '='
             ]
         ]

@@ -2,9 +2,41 @@
 
 namespace hacklabr\dashboard;
 
+function get_cor_by_name( $name = 'NORMAL' ) {
+    $cor = '';
+    switch ($name) {
+        case 'NORMAL';
+            $cor = 'normal';
+            break;
+        case 'ATENÇÃO';
+            $cor = 'atencao';
+            break;
+        case 'PERIGO';
+            $cor = 'perigo';
+            break;
+    }
+    return $cor;
+}
+
 $paged = isset($_GET['paginacao']) ? intval($_GET['paginacao']) : 1;
 $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 6;
 $get_riscos = get_riscos_by_status( 'draft', $paged, $limit );
+
+$situacao_ativa_post = get_posts([
+    'post_type' => 'situacao_atual',
+    'posts_per_page' => -1,
+    'orderby'        => 'date',
+    'order'          => 'ASC',
+    'meta_query' => [
+        [
+            'key' => 'is_active',
+            'value' => true,
+            'compare' => '='
+        ]
+    ]
+]);
+
+$pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
 
 ?>
 <div id="dashboardInicio" class="dashboard-content">
@@ -27,35 +59,35 @@ $get_riscos = get_riscos_by_status( 'draft', $paged, $limit );
             <div class="dashboard-content-section-body">
                 <div class="header-cards">
                     <div class="card">
-                        <header>
+                        <header class="<?=get_cor_by_name( $pod_ativo->field( 'tipo_de_alerta' ) )?>">
                             <figure>
-                                <img src="<?=get_template_directory_uri()?>/assets/images/icones/marrom-sofa.svg">
+                                <img src="<?=$pod_ativo->field( 'icone.guid' )?>">
                             </figure>
                             <div>
-                                <p> <strong>ATENÇÃO</strong> </p>
-                                <p>Alagamento em algumas áreas do Jacarezinho. Evite locais de risco.</p>
+                                <p> <strong><?=$pod_ativo->field( 'tipo_de_alerta' )?></strong> </p>
+                                <p><?=$pod_ativo->field( 'descricao' )?></p>
                             </div>
                         </header>
                         <article>
                             <?php if( wp_is_mobile() ) : ?>
                                 <p>
                                     RJ:
-                                    <strong>ESTÁGIO 3</strong>
+                                    <strong>ESTÁGIO <?=$pod_ativo->field( 'estagio' )?></strong>
                                     <br>
-                                    <strong>32º</strong>
+                                    <strong><?=$pod_ativo->field( 'temperatura' )?>º</strong>
                                     <span class="is-separator">・</span>
-                                    Chuvas medianas
+                                    <?=$pod_ativo->field( 'clima' )?>
                                 </p>
                             <?php else : ?>
                                 <p>
                                     Rio de Janeiro:
-                                    <strong>ESTÁGIO 3</strong>
+                                    <strong>ESTÁGIO <?=$pod_ativo->field( 'estagio' )?></strong>
                                     <span class="is-separator">|</span>
-                                    <strong>32º</strong>
+                                    <strong><?=$pod_ativo->field( 'temperatura' )?>º</strong>
                                     <span class="is-separator">・</span>
-                                    Chuvas medianas
+                                    <?=$pod_ativo->field( 'clima' )?>
                                 </p>
-                                <p>Última atualização: 15:30 <span class="is-separator">・</span> 15/01/25</p>
+                                <p>Última atualização: <?=date( 'H:m', strtotime( $situacao_ativa_post[0]->post_modified ) )?> <span class="is-separator">・</span> <?=date( 'd/m/a', strtotime( $situacao_ativa_post[0]->post_modified ) )?></p>
                             <?php endif; ?>
                         </article>
                     </div>
