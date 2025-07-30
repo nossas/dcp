@@ -109,8 +109,11 @@ document.addEventListener("DOMContentLoaded", () => {
     btnVoltar.addEventListener("click", fecharModal);
 
     btnConfirmar.addEventListener("click", () => {
+
         const selected = Array.from(checkboxes).find(cb => cb.checked);
         if (!selected) return;
+
+        console.log( 'CONFIRM FORM SITUACAO ATUAL' );
 
         const label = selected.nextElementSibling;
         if (!label || !label.classList.contains("alerta-faixa")) {
@@ -118,11 +121,16 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const clone = label.cloneNode(true);
-        clone.querySelectorAll('input, .alerta-faixa__remover').forEach(el => el.remove());
+        const form = document.querySelector('#form-risco' );
+        if ( form ) {
+            form.submit();
+        }
 
-        situacaoAtual.innerHTML = "";
-        situacaoAtual.appendChild(clone);
+        // const clone = label.cloneNode(true);
+        // clone.querySelectorAll('input, .alerta-faixa__remover').forEach(el => el.remove());
+        //
+        // situacaoAtual.innerHTML = "";
+        // situacaoAtual.appendChild(clone);
 
         fecharModal();
     });
