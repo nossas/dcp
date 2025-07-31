@@ -99,7 +99,6 @@
 
                 @include mobile{
                     min-height: inherit;
-                    gap: 0;
                 }
             }
 
@@ -109,9 +108,13 @@
 
             &__title {
                 font-family: $font-family--primary !important;
-                font-size: $font-size--small;
+                font-size: $font-size--medium;
                 font-weight: $font-weight--medium;
                 margin-top: size(5);
+
+                @include mobile {
+                    font-size: 16px;
+                }
             }
 
             &__excerpt {
