@@ -22,43 +22,48 @@
 
     .wp-block-columns {
         justify-content: center;
-        margin-bottom: 0;
-        margin-block-start: 0;
+        gap: 24px;
 
         @include mobile {
-            gap: size(100) !important;
-        }
-    }
-
-    .wp-block-columns > .wp-block-column > .wp-block-image{
-        @include mobile{
-            display: flex;
-            height: size(48);
-            margin-inline: auto;
-            max-width: size(48);
-            width: 100%;
-        }
-
-        & > img{
-            @include mobile{
-                height: size(48) !important;
-                object-fit: cover;
-                width: size(48) !important;
-            }
+            flex-direction: column;
+            align-items: center !important;
+            gap: 32px;
         }
     }
 
     &__content {
+
         .wp-block-column {
+            p {
+                margin: unset !important;
+            }
+
+            p:nth-child(2) {
+                padding: 20px 20px 0;
+            }
+
+            p:nth-child(3) {
+                padding: 20px;
+            }
+
             .wp-block-image {
                 img {
-                    padding: 20px;
+                    padding-top: 20px;
                 }
             }
         }
     }
 
+    .wp-block-columns > .wp-block-column > .wp-block-buttons {
+        margin-top: auto;
+    }
+
     .wp-block-columns > .wp-block-column {
+        border-radius: 20px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+
         @include mobile{
             max-width: size(288);
             width: 100%;
@@ -89,33 +94,6 @@
     }
 
     .wp-block-columns:last-child {
-        @include mobile {
-            gap: 0 !important;
-        }
-
-        .wp-block-column {
-            padding-left: 0;
-            padding-right: 0;
-            position: relative;
-        }
-
-        .wp-block-column:first-child {
-            @include mobile {
-                top: size(-537);
-            }
-        }
-
-        .wp-block-column:nth-child(2) {
-            @include mobile {
-                top: size(-339);
-            }
-        }
-
-        .wp-block-column:last-child {
-            @include mobile {
-                top: size(-105);
-            }
-        }
 
         .wp-block-column > .wp-block-buttons > .wp-block-button {
 
