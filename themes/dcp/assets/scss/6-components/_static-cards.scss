@@ -48,10 +48,17 @@
         }
     }
 
-    .wp-block-columns > .wp-block-column {
-        padding-left: size(20);
-        padding-right: size(20);
+    &__content {
+        .wp-block-column {
+            .wp-block-image {
+                img {
+                    padding: 20px;
+                }
+            }
+        }
+    }
 
+    .wp-block-columns > .wp-block-column {
         @include mobile{
             max-width: size(288);
             width: 100%;
@@ -116,7 +123,7 @@
                 display: flex;
                 font-size: 16px !important;
                 gap: size(8);
-                padding: $padding--medium size(20);
+                padding: 26px;
                 text-decoration: underline;
 
                 & > img {
