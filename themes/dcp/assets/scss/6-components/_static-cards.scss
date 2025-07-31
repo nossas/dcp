@@ -126,6 +126,11 @@
                 padding: 26px;
                 text-decoration: underline;
 
+                @include mobile {
+                    font-size: 14px !important;
+                    justify-content: flex-end;
+                }
+
                 & > img {
                     object-fit: contain;
                 }
