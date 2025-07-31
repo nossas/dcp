@@ -328,6 +328,45 @@ jQuery(function($) {
             $( '.input-chips .chips-wrap').html( '' );
             $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
         });
+        $( '#selectTipoApoio' ).on( 'change', function () {
+
+            console.log( 'TIPO DE ACAO', $( this ).val() );
+
+            $( '#apoioSingleForm input').prop( 'disabled', false );
+
+            switch ( $( this ).val() ) {
+
+                case 'cacambas' :
+
+                    $( '#apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
+                    $( '#apoioSingleForm .is-media-attachments' ).hide();
+
+                    break;
+                case 'iniciativas-locais' :
+
+                    $( '#apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
+                    $( '#apoioSingleForm .is-media-attachments' ).show();
+
+                    break;
+                case 'locais-seguros' :
+
+                    $( '#apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
+                    $( '#apoioSingleForm .is-media-attachments' ).show();
+
+                    break;
+                case 'quem-acionar' :
+
+                    $( '#apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).show();
+                    $( '#apoioSingleForm .is-media-attachments' ).hide();
+
+                    break;
+                default :
+
+                    break;
+            }
+
+        });
+
         $( '.input-chips input[type="checkbox"]' ).on( 'change', function () {
             if( $( this ).is( ':checked' ) ) {
                 $( '.input-chips .chips-wrap').append( '<span id="chips_' + $( this ).val() + '" class="chips"><iconify-icon icon="bi:check2"></iconify-icon>' + $( this ).attr( 'data-label' ) + '</span>' );
@@ -376,7 +415,7 @@ jQuery(function($) {
             }).trigger( 'click' );
         });
 
-        $( '#riscoSingleForm, #acaoSingleForm' ).on( 'submit', function ( e ) {
+        $( '#riscoSingleForm, #acaoSingleForm, #apoioSingleForm' ).on( 'submit', function ( e ) {
             const $this = $( this );
             const form = e.target;
             const formData = new FormData( form );
@@ -600,6 +639,20 @@ jQuery(function($) {
                 }
             });
         });
+
+        $( '#apoioSingleForm .is-new' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Criar apoio?',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
+                cancelText: "Voltar",
+                onCancel: function () {},
+                confirmText: "Criar Apoio",
+                onConfirm: function () {
+                    $( '#apoioSingleForm' ).submit();
+                }
+            });
+        });
+
 
         $( '#acaoSingleForm .is-new.relato' ).on( 'click', function () {
             custom_modal_confirm({

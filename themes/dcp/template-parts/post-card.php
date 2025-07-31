@@ -290,7 +290,7 @@
                         <?= __('Editar') ?>
                     </a>
                 <?php else: ?>
-                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_apoio', ['id' => $post->ID]); ?>">
+                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar-apoio', ['id' => $post->ID]); ?>">
                         <?= __('Editar') ?>
                     </a>
                 <?php endif; ?>

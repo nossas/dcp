@@ -794,6 +794,7 @@
                             line-height: size( 15 );
                             padding-bottom: size( 15 );
                             display: -webkit-box;
+                            min-height: 70px;
                             -webkit-line-clamp: 4; /* Número de linhas */
                             -webkit-box-orient: vertical;
                             overflow: hidden;
