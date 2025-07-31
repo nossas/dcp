@@ -77,13 +77,19 @@
         }
     }
 
-    .wp-block-buttons:last-child > .wp-block-button > a {
+    .apoio-btn {
+        .wp-block-button {
+            &__link {
+                color: $color--primary-pure !important;
 
-        &:hover {
-            border-color: $color--secondary-dark !important;
-            background-color: #93908F !important;
-            color: $color--secondary-dark !important;
+                &:hover {
+                    transform: translateY(-1px);
+                    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+                    color: #103B2B !important;
+                }
+            }
         }
+
     }
 }
 

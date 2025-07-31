@@ -1,5 +1,10 @@
 .page-quem-acionar {
     main {
+        .background {
+            position: relative;
+            overflow: hidden;
+        }
+
         .background > .breadcrumb{
             max-width: size(1330);
             width: 100%;
@@ -14,7 +19,7 @@
         .background > img{
             z-index: 0;
             position: absolute;
-            left: 66%;
+            right: 0;
             @include mobile{
                 display: none;
             }
@@ -22,12 +27,20 @@
 
         .container{
             padding-inline: 2rem;
+
+            @include mobile{
+                padding-inline: 1rem !important;
+            }
         }
         .wp-block-cover {
             .wp-block-cover__inner-container{
                 padding-inline: 2rem;
                 @media( max-width:1366px ){
                     padding-inline: 1rem;
+                }
+
+                @include mobile{
+                    padding-inline: unset !important;
                 }
             }
             .wp-block-columns {
@@ -50,6 +63,19 @@
                     font-size: 16px !important;
                     margin: 0;
 
+                    }
+                }
+
+                // Segundo bloco de colunas
+                .wp-block-columns:nth-child(2) {
+                    .wp-block-column {
+                        .wp-block-columns {
+                            .wp-block-column {
+                                .wp-block-columns:nth-child(2) {
+                                    margin-top: 20px !important;
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -195,8 +221,10 @@
             }
         }
         .title-card {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 500;
+            line-height: 120%;
+            font-family: $font-family--primary;
             color:#281414;
             margin-bottom: 32px;
             span{
@@ -207,9 +235,6 @@
         }
     }
     .wp-block-group{
-        @include mobile{
-            margin-top: 32px;
-        }
         .wp-block-spacer{
             @include mobile{
                 height: 0px !important;
@@ -341,32 +366,45 @@
         align-items: center;
 
         &__content {
-            background-color: white;
-            padding: 2rem;
+            background-color: $color--secondary-light;
+            padding: $padding--large;
             border-radius: 16px;
-            max-width: 90%;
-            width: 320px;
+            max-width: 600px;
+            width: 100%;
             text-align: center;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+
+            #modal-text {
+                font-family: $font-family--primary;
+                font-size: 24px;
+                font-weight: 500;
+                color: $color--warning-dark;
+            }
         }
 
         &__close {
-            margin-top: 1rem;
-            background-color: #333;
-            color: white;
-            padding: 0.5rem 1rem;
+            margin-top: 1.5rem;
+            background-color: #281414;
+            color: $color--high-light;
+            padding: 10px 24px;
             border: none;
-            border-radius: 8px;
+            border-radius: 100px;
             cursor: pointer;
+            font-family: $font-family--primary;
+            font-weight: 500;
+            font-size: 16px;
+            transition: background-color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: $gap--small;
 
             &:hover {
-            background-color: #555;
+                background-color: lighten(#281414, 10%);
             }
         }
-        }
+    }
 
     .call-modal--visible {
-    display: flex;
+        display: flex;
     }
 
 }

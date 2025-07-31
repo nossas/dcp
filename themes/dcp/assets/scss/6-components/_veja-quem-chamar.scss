@@ -61,11 +61,11 @@
         background-color: $color--high-light;
         border-radius: $border-radius--large;
         padding: $padding--medium;
-
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.30);
         > summary {
             cursor: pointer;
             list-style: none;
-            margin-bottom: $margin--medium;
+            /* margin-bottom: $margin--medium; */
             padding-right: size(24);
             position: relative;
 

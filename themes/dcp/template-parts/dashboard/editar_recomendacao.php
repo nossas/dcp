@@ -18,9 +18,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_id'])) {
         $pod_to_save->save($icone_field, $novo_icone_id);
     }
 
+//    if( isset( $_POST['is_active'] ) ) {
+//        $pod_to_save->save( 'is_active', $_POST['is_active'] );
+//    } else {
+//        $pod_to_save->save( 'is_active', null );
+//    }
+
     if (!headers_sent() && isset($_POST['redirect_to'])) {
-        wp_safe_redirect(esc_url_raw($_POST['redirect_to']));
-        exit;
+        //wp_safe_redirect(esc_url_raw($_POST['redirect_to']));
+        //wp_safe_redirect($_POST['redirect_to']);
+        //exit;
     }
 }
 
@@ -60,13 +67,13 @@ function render_svg_preview($id)
         <?= esc_html($post_obj->post_title) ?>
     </h2>
 
-    <form method="post" action="">
+    <form method="post" action="" style="padding: 0 15px 0 0;">
         <h2 class="editar-recomendacao__card-title-small">
             <?= esc_html($post_obj->post_title) ?>
         </h2>
 
         <input type="hidden" name="post_id" value="<?= esc_attr($post_obj->ID) ?>">
-        <input type="hidden" name="redirect_to" value="<?= esc_url(get_dashboard_url('situacao_atual')) ?>">
+        <input type="hidden" name="redirect_to" value="<?=get_dashboard_url('situacao_atual')?>">
 
         <?php for ($i = 0; $i < 3; $i++):
             $reco_field = $recomendacoes[$i];
@@ -107,6 +114,12 @@ function render_svg_preview($id)
             </div>
 
         <?php endfor; ?>
+
+        <p style="padding-bottom: 25px;">
+            <?php if( $pod->field( 'is_active' ) ) : ?>
+            <span style=" font-size: 15px; font-weight: bold; opacity: 0.5;">RECOMENDAÇÃO ATIVA</span>
+            <?php endif; ?>
+        </p>
 
         <div class="situacao-atual__buttons">
             <a href="<?= get_dashboard_url('situacao_atual') ?>" class="multistepform__button back">

@@ -41,11 +41,11 @@
             a {
                 &:last-child {
                     @include desktop {
-                        min-width: 225px;
+                        min-width: 175px;
                         margin-right: size( 20 );
                     }
                     @include desktop-xxlarge {
-                        min-width: 315px;
+                        min-width: 200px;
                         margin-right: size( 30 );
                     }
                 }
@@ -58,28 +58,25 @@
         .dashboard-content-cards {
 
             .post-card {
-
                 &__term {
                     display: flex;
                     justify-content: space-between;
-
-                    //span {
-                    //    font-size: size( 14 );
-                    //    display: inline-block;
-                    //    width: auto;
-                    //    max-width: initial;
-                    //    padding: size( 2 ) size( 15 ) ;
-                    //    border-radius: size( 50 );
-                    //}
                 }
                 &__excerpt-wrapped {
-                    //p {
-                    //    min-height: size(25);
-                    //}
+
                 }
             }
 
+            .post-card.is-relatos {
+                .post-card__content {
+                    max-height: 575px;
+                }
+                .post-card__list-infos {
+                    &::before {
+                        display: none;
+                    }
+                }
+            }
         }
-
     }
 }

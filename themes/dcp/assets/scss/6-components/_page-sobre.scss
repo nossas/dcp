@@ -9,6 +9,12 @@
         position: relative;
         left: 0;
         right: 0;
+
+        &__inner-container{
+            @include mobile{
+                padding-inline: unset !important;
+            }
+        }
     }
     .has-secondary-light-color {
         color: #E6E2E0 !important
@@ -24,11 +30,19 @@
         }
 
     }
+
+    .wp-block-spacer {
+        @include mobile {
+            height: unset !important;
+        }
+    }
+
     .wp-block-columns {
         padding: 0;
     }
     .wp-block-group {
         @include mobile{
+
             .wp-block-spacer {
                 height: 16px !important;
             }
@@ -36,9 +50,12 @@
          .wp-block-columns {
                 padding-inline: 0rem;
                 @include mobile {
-                    padding-inline: 1rem;
                     .wp-block-spacer {
                         height: 16px !important;
+                    }
+
+                    .wp-block-column:first-child {
+                        order: 2;
                     }
                 }
             }
@@ -85,6 +102,18 @@
             }
         }
 
+    }
+
+    &__faq {
+        .wp-block-columns {
+            @include mobile {
+                padding: unset !important;
+
+                .wp-block-column:first-child {
+                    display: none !important;
+                }
+            }
+        }
     }
 
 }

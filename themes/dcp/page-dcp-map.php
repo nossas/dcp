@@ -44,10 +44,11 @@ get_header();
     </div>
     <div class="dcp-map__form-container">
         <form class="dcp-map__form">
-            <input type="text" name="address" autocomplete="address-line1" placeholder="Busque sua localização">
+            <iconify-icon id="icon-input" icon="bi:search"></iconify-icon> <input type="text" name="address" autocomplete="address-line1" placeholder="Busque sua localização">
             <button type="submit" aria-label="Buscar">
-                <span>Buscar</span>
                 <iconify-icon icon="bi:search"></iconify-icon>
+                <span>Buscar</span>
+
             </button>
         </form>
     </div>

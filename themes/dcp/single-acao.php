@@ -104,7 +104,7 @@
                         Aceito receber confirmações e informações sobre esta ação via e-mail e WhatsApp
                     </label>
                     <label class="checkbox-aceite">
-                        <input type="radio" name="aceite_termos">
+                        <input type="checkbox" name="aceite_termos">
                         Aceito termos de uso e política de privacidade.
                     </label>
                     <input type="hidden" name="post_id" value="<?= get_the_ID(); ?>">

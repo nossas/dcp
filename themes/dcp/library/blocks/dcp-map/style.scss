@@ -18,7 +18,7 @@
         flex: 1;
         font-weight: 500;
         justify-content: center;
-        padding: 5px;
+        padding: 8px 32px;
 
         &--selected {
             background-color: var(--tab-color);
@@ -38,22 +38,26 @@
 
     &__buttons {
         align-items: center;
-        bottom: size(0);
+        bottom: 0;
         display: flex;
         gap: $gap--medium;
         justify-content: flex-end;
-        padding: $padding--medium;
+        padding: $padding--medium 0;
         position: absolute;
-        right: size(32);
+        right: 16px;
         z-index: 1;
 
         a {
             align-items: center;
-            border-radius: $border-radius--large;
+            border-radius: 100px;
             display: flex;
             gap: $gap--small;
-            padding: $padding--small $padding--medium;
+            padding: 8px 32px 8px 40px;
             text-decoration: none;
+
+            @include mobile {
+                padding: 10px 8px 10px 16px;
+            }
         }
     }
 
@@ -63,8 +67,8 @@
     }
 
     &__open-map {
-        background-color: white;
-        color: black;
+        background-color: $color--secondary-light;
+        color: $color--secondary-dark;
         outline: 1px solid black;
     }
 
@@ -84,6 +88,51 @@
 
         .mapboxgl-ctrl-logo {
             display: none;
+        }
+
+        .mapboxgl-ctrl-group {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: $gap--small;
+
+            box-shadow: none !important;
+            background-color: transparent !important;
+
+            button {
+                border-radius: 8px !important;
+            }
+
+            button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon {
+                background-color: $color--secondary-dark !important;
+                background-image: url('/wp-content/themes/dcp/assets/images/zoom-in.svg') !important;
+            }
+
+            button.mapboxgl-ctrl-zoom-out .mapboxgl-ctrl-icon {
+                background-color: $color--secondary-dark !important;
+                background-image: url('/wp-content/themes/dcp/assets/images/zoom-out.svg') !important;
+            }
+        }
+
+        .mapboxgl-ctrl-top-left {
+            left: unset !important;
+            top: unset !important;
+            pointer-events: none;
+            position: absolute;
+            z-index: 2;
+            bottom: 20%;
+            right: $padding--medium;
+        }
+
+        // Map zoom controls
+        .mapboxgl-ctrl-top-left {
+/*             bottom: size(16);
+ */         left: unset;
+            right: size(16);
+            top: unset;
+
+            @media screen and (max-width: size(820)) {
+                bottom: size(80);
+            }
         }
     }
 }

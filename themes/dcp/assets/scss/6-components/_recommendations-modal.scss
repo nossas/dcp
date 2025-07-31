@@ -6,6 +6,13 @@
         gap: .5rem;
         align-items: center;
     }
+
+    .recommendations-item {
+        svg {
+            flex-shrink: 0;
+        }
+    }
+
     .recommendations-content{
         padding-bottom: 2rem;
     }

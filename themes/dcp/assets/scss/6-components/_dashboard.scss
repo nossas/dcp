@@ -114,6 +114,11 @@
         grid-template-columns: auto 1fr;
         min-height: 95vh;
 
+        @include mobile {
+            display: block;
+            width: 100vw;
+        }
+
         #btnOpenMenuMobile {
             display: none;
             position: fixed;
@@ -680,20 +685,12 @@
                     @include desktop-xxxlarge {
                         max-width: calc( 25% - 20px );
                     }
-
-                    &.is-sugestao {}
-                    &.is-agendadas {}
-                    &.is-realizadas {}
-                    &.is-arquivadas {}
-                    &.is-relatos {}
-
                     .is-edit-post-hover {
                         display: none;
                         position: absolute;
                         top: size( 10 );
                         right: size( 10 );
                     }
-
                     &:hover {
                         transform: scale(1.05);
                         z-index: 2;
@@ -702,13 +699,11 @@
                             display: block;
                         }
                     }
-
                     &__content {
                         height: auto;
                         min-height: 300px;
                         max-height: 450px;
                     }
-
                     &__cover {
                         background-color: $color--secondary-dark;
                         height: size( 175 );
@@ -723,7 +718,6 @@
                             transform: translate( -50%, -50% );
                         }
                     }
-
                     &__term {
                         padding: size( 8 ) size( 18 );
 
@@ -761,21 +755,25 @@
                         div {
                             padding: size( 10 ) 0;
                         }
-                    }
 
+                        .post-card__risco-meta {
+                            font-size: size( 18 );
+                            color: #777;
+                        }
+                    }
                     &__title {
                         font-size: size( 17 );
-                        font-weight: normal;
-                        line-height: size( 22 );
+                        font-weight: 600;
+                        line-height: size( 18 );
                         display: block;
-                        min-height: size( 19 );
-                        max-height: size( 38 );
+                        min-height: size( 15 );
                         padding: 0 size( 20 );
 
                         @include mobile {
                             font-size: size( 15 );
-                            min-height: size( 16 );
+                            min-height: size( 15 );
                             max-height: size( 30 );
+                            line-height: size( 16 );
                         }
 
                         span {
@@ -787,7 +785,6 @@
                             text-overflow: ellipsis;
                         }
                     }
-
                     &__excerpt-wrapped {
                         padding: size( 10 ) size( 20 );
                         margin-bottom: size( 10 );
@@ -795,13 +792,12 @@
                         p {
                             font-size: size( 14 );
                             line-height: size( 15 );
-
+                            padding-bottom: size( 15 );
                             display: -webkit-box;
                             -webkit-line-clamp: 4; /* Número de linhas */
                             -webkit-box-orient: vertical;
                             overflow: hidden;
                             text-overflow: ellipsis;
-
                             position: relative;
 
                             @include mobile {
@@ -815,12 +811,12 @@
                                 text-decoration: underline;
                                 text-align: right;
                                 color: $color--secondary-dark;
-                                font-weight: bold;
+                                font-weight: 400;
                                 display: block;
                                 padding: size( 1 ) size( 5 );
                                 position: absolute;
                                 right: 0;
-                                bottom: -5px;
+                                bottom: 0;
                                 z-index: 2;
 
                                 @include mobile {
@@ -840,10 +836,9 @@
                             }
                         }
                     }
-
                     &__list-infos {
                         list-style: none;
-                        padding: size( 20 );
+                        padding: size( 5 ) size( 20 );
                         margin: 0;
                         position: relative;
 
@@ -855,7 +850,7 @@
                             height: 2px;
                             position: absolute;
                             top: 0;
-                            left: size( 25 );
+                            left: 20px;
                         }
 
                         li {
@@ -872,17 +867,23 @@
                             }
 
                             i {
-                                display: inline-block;
+                                display: block;
+                                width: 20px;
                             }
                             span {
-                                display: inline-block;
+                                display: block;
+                                width: calc( 100% - 30px );
                                 padding: 0 size( 10 );
+                                display: -webkit-box;
+                                -webkit-line-clamp: 2;
+                                -webkit-box-orient: vertical;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
                             }
 
                         }
 
                     }
-
                     &__assets {
                         background-color: rgba( 0,0,0,0.05 );
                         width: 90%;
@@ -923,7 +924,6 @@
                         }
 
                     }
-
                     &__see-more {
                         display: flex;
                         justify-content: space-between;
@@ -1003,13 +1003,12 @@
 
 
                     }
-
                 }
-
             }
             .dashboard-content-pagination {
                 display: none;
-                padding: size( 1 ) size( 25 ) size( 85 );
+                padding: size( 1 ) size( 40 ) size( 85 );
+
                 @include mobile {
                     padding: size( 1 ) size( 5 ) size( 85 );
                 }
@@ -1032,18 +1031,29 @@
 
                         a {
                             text-decoration: none;
+                            text-align: center;
                             color: inherit;
-                            padding: size(7) size(15);
+                            display: block;
+                            height: 35px;
+                            line-height: 31px;
+                            padding: size( 1 ) size( 20 );
                             border-radius: size( 50 );
 
-                            @include mobile {
-                                padding: size(5) size(12);
-                            }
+                            @include mobile {}
 
                             &:hover {
                                 background-color: $color--secondary-dark;
                                 color: $color--secondary-light;
                             }
+                        }
+                        a.is-previous,
+                        a.is-next {
+                            background-color: $color--secondary-dark;
+                            color: $color--secondary-light;
+                            text-indent: 1px;
+                            width: 35px;
+                            padding: 0;
+                            margin: 0 size( 8 );
                         }
                         a.is-active {
                             border: solid 1px $color--secondary-dark;
@@ -1055,7 +1065,6 @@
                     }
                 }
             }
-
             .message-response {
                 background-color: rgba( 0,0,0,0.04 );
                 display: none;

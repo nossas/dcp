@@ -30,7 +30,7 @@
         .wp-block-heading{
             @include mobile{
                 font-size: size(24);
-                letter-spacing: -1px;
+                letter-spacing: 1.2px;
             }
         }
         .wp-block-separator{
@@ -278,11 +278,14 @@
             border-bottom-right-radius: size(16);
             border-bottom-left-radius: size(16);
             padding: size(20);
-            height: size(305);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
 
             @include mobile{
                 gap: 0;
                 min-height: inherit;
+                height: auto;
             }
         }
 
@@ -295,12 +298,16 @@
         &__excerpt {
             font-weight: $font-weight--regular;
 
+            flex-grow: 1;
+
             @include mobile{
                 display: -webkit-box;
                 -webkit-box-orient: vertical;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 -webkit-line-clamp: 2;
+
+                flex-grow: 0;
             }
         }
 

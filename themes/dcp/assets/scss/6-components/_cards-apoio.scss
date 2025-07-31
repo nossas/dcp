@@ -7,13 +7,20 @@
         margin-top: size(40);
     }
 
+    .wp-block-columns{
+        @include mobile{
+            margin-block-start: unset !important;
+        }
+    }
+
     .wp-block-columns > .wp-block-column{
         color: $color--secondary-dark;
 
         .wp-block-heading{
             @include mobile {
-                font-size: $font-size--large;
-                margin-top: $margin--large;
+                font-size: 24px !important;
+                letter-spacing: 1.2px;
+                line-height: 130%;
             }
         }
 
@@ -28,10 +35,19 @@
         }
     }
 
+    .wp-block-buttons {
+        @include mobile{
+            margin-block-start: 32px !important;
+        }
+    }
+
     .wp-block-buttons > .wp-block-button > a{
         align-items: center;
         display: flex;
         font-size: $font-size--xx-small;
+        @include mobile{
+            padding: 9px !important;
+        }
 
         &::after {
             background-size: contain;
@@ -83,7 +99,6 @@
 
                 @include mobile{
                     min-height: inherit;
-                    gap: 0;
                 }
             }
 
@@ -93,9 +108,13 @@
 
             &__title {
                 font-family: $font-family--primary !important;
-                font-size: $font-size--small;
+                font-size: $font-size--medium;
                 font-weight: $font-weight--medium;
                 margin-top: size(5);
+
+                @include mobile {
+                    font-size: 16px;
+                }
             }
 
             &__excerpt {
@@ -247,14 +266,22 @@
         color: $color--secondary-dark;
         display: flex;
         gap: $gap--small;
-        padding: size(10) $gap--medium;
+
         text-decoration: none;
+
+        padding: 0 size( 18 ) 0 size( 15 );
+        height: size( 38 );
+        line-height: size( 38 );
     }
 
     &__btn-publicar{
         background-color: $color--warning-dark;
         color: $color--high-light !important;
         cursor: pointer;
+
+        padding: 0 size( 33 ) 0 size( 30 );
+        height: size( 38 );
+        line-height: size( 38 );
 
         @include mobile{
             justify-content: center;
@@ -264,7 +291,7 @@
     &__btn-publicar,
     &__btn-arquivar{
         align-items: center;
-        background-color: transparent;
+        //background-color: transparent;
         border: size(1) solid $color--warning-dark;
         border-radius: size(100);
         color: $color--warning-dark;

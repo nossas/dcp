@@ -20,7 +20,7 @@ $pod = pods( 'relato', get_the_ID() );
         <div class="post-card__term">
             <div>
                 <?php
-                    $get_terms = get_the_terms( get_the_ID(), 'tipo_relato' );
+                    $get_terms = get_the_terms( get_the_ID(), 'tipo_acao' );
                     if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
                         risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, 'post-card__taxonomia term-' . $get_terms[0]->slug );
                     } else {

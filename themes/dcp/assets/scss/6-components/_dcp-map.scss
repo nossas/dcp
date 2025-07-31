@@ -39,12 +39,22 @@
             border-bottom-left-radius: $border-radius--large;
             border-top-left-radius: $border-radius--large;
             --tab-color: #{$color--warning-dark};
+             cursor: pointer;
+              &:hover {
+                opacity: 0.9;
+                transition: opacity 0.2s;
+            }
         }
 
         &[data-cpt="apoio"] {
             border-bottom-right-radius: $border-radius--large;
             border-top-right-radius: $border-radius--large;
             --tab-color: #{$color--primary-pure};
+             cursor: pointer;
+              &:hover {
+                opacity: 0.9;
+                transition: opacity 0.2s;
+            }
         }
     }
 
@@ -66,25 +76,44 @@
         width: size(720);
 
         input, button {
-            border: 1px solid $color--low-pure;
+            border: 1px solid #281414;
             min-height: size(42);
             padding: $padding--small $padding--medium;
+             cursor: pointer;
+              &:hover {
+                opacity: 0.9;
+                transition: opacity 0.2s;
+            }
         }
 
         input {
             border-bottom-left-radius: $border-radius--large;
             border-top-left-radius: $border-radius--large;
             flex: 1;
+            padding-left: 40px;
         }
+        input::placeholder {
+            color: #281414; /* Altere para a cor desejada */
+        }
+        #icon-input{
 
+                position: relative;
+                left: 29px;
+
+        }
         button {
             align-items: center;
-            background-color: $color--low-pure;
+            background-color: #281414;
             color: $color--high-pure;
             border-bottom-right-radius: $border-radius--large;
             border-top-right-radius: $border-radius--large;
             display: flex;
             gap: $gap--small;
+             cursor: pointer;
+              &:hover {
+                opacity: 0.9;
+                transition: opacity 0.2s;
+            }
 
             @include mobile {
 
@@ -92,6 +121,7 @@
                     display: none;
                 }
             }
+
         }
     }
 
@@ -124,19 +154,28 @@
             flex: 1;
             gap: $gap--small;
             justify-content: center;
-            padding: $padding--small $padding--medium;
+            padding: $padding--small 9px;
             text-decoration: none;
+            cursor: pointer;
+              &:hover {
+                opacity: 0.9;
+                transition: opacity 0.2s;
+            }
         }
     }
 
     &__add-risk {
         background-color: $color--warning-dark;
         color: white;
+        opacity: 0.9;
+        transition: opacity 0.2s;
     }
 
     &__show-recommendations {
         background-color: $color--primary-pure;
         color: white;
+        opacity: 0.9;
+        transition: opacity 0.2s;
     }
 
     .jeomap {
@@ -153,13 +192,32 @@
 
         // Map zoom controls
         .mapboxgl-ctrl-top-left {
-            bottom: size(16);
-            left: unset;
-            right: size(16);
+            bottom: 6rem;
             top: unset;
-
             @media screen and (max-width: size(820)) {
                 bottom: size(80);
+            }
+        }
+        .mapboxgl-ctrl-group {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: $gap--small;
+
+            box-shadow: none !important;
+            background-color: transparent !important;
+
+            button {
+                border-radius: 8px !important;
+            }
+
+            button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon {
+                background-color: $color--secondary-dark !important;
+                background-image: url('/wp-content/themes/dcp/assets/images/zoom-in.svg') !important;
+            }
+
+            button.mapboxgl-ctrl-zoom-out .mapboxgl-ctrl-icon {
+                background-color: $color--secondary-dark !important;
+                background-image: url('/wp-content/themes/dcp/assets/images/zoom-out.svg') !important;
             }
         }
     }
