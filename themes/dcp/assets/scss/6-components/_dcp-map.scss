@@ -9,14 +9,18 @@
         top: size(16);
         width: 100%;
         z-index: 1;
+        @include mobile {
+            padding: 0px 12px;
+        }
     }
 
     &__tabs {
         align-items: center;
         display: flex;
         justify-content: center;
-        max-width: calc(100% - #{size(32)});
-        width: size(720);
+        width: 100%;
+        max-width: 676px;
+
     }
 
     &__tab {
@@ -28,7 +32,8 @@
         flex: 1;
         font-weight: 500;
         justify-content: center;
-        padding: 5px;
+        padding-top: 12px;
+        padding-bottom: 12px;
 
         &--selected {
             background-color: var(--tab-color);
@@ -38,7 +43,7 @@
         &[data-cpt="risco"] {
             border-bottom-left-radius: $border-radius--large;
             border-top-left-radius: $border-radius--large;
-            --tab-color: #{$color--warning-dark};
+            --tab-color: #281414;
              cursor: pointer;
               &:hover {
                 opacity: 0.9;
@@ -72,17 +77,20 @@
         align-items: center;
         display: flex;
         justify-content: center;
-        max-width: calc(100% - #{size(32)});
-        width: size(720);
+        max-width: calc(100% - 2rem);
+        width: 43.6rem;
+        margin-top: 16px;
+        @include mobile {
 
+        }
         input, button {
             border: 1px solid #281414;
-            min-height: size(42);
+            height: 100%;
             padding: $padding--small $padding--medium;
              cursor: pointer;
               &:hover {
-                opacity: 0.9;
-                transition: opacity 0.2s;
+               /*  opacity: 0.9;
+                transition: opacity 0.2s; */
             }
         }
 
@@ -91,15 +99,22 @@
             border-top-left-radius: $border-radius--large;
             flex: 1;
             padding-left: 40px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+
+            @include mobile {
+                padding-left: 1rem;
+            }
         }
         input::placeholder {
             color: #281414; /* Altere para a cor desejada */
         }
         #icon-input{
-
-                position: relative;
-                left: 29px;
-
+            position: relative;
+            left: 29px;
+            @include mobile {
+                display: none;
+            }
         }
         button {
             align-items: center;
@@ -109,6 +124,8 @@
             border-top-right-radius: $border-radius--large;
             display: flex;
             gap: $gap--small;
+            padding-top: 12px;
+            padding-bottom: 12px;
              cursor: pointer;
               &:hover {
                 opacity: 0.9;
