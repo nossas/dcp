@@ -35,7 +35,8 @@ namespace hacklabr\dashboard;
                         <?php foreach ( $all_terms as $key => $term ) :
                             if( !$term->parent ) : ?>
                                 <option value="<?=$term->slug?>"><?=$term->name?></option>
-                            <?php endif; endforeach; ?>
+                            <?php endif;
+                        endforeach; ?>
                     </select>
                     <a class="button is-category">
                         <?php risco_badge_category( 'sem-categoria', 'SEM CATEGORIA ADICIONADA', '' ); ?>
@@ -53,7 +54,33 @@ namespace hacklabr\dashboard;
                     </p>
                 </div>
             </div>
-
+            <div class="fields is-subcategory" style="display: none">
+                <div class="input-wrap">
+                    <label class="label">Subcategoria</label>
+                    <select id="selectTipoApoioSubcategory" class="select" name="tipo_apoio_subcategory" required>
+                        <option value="">SELECIONE UMA SUBCATEGORIA</option>
+                        <?php foreach ( $all_terms as $key => $term ) :
+                            if( $term->parent ) : ?>
+                                <option value="<?=$term->slug?>"><?=$term->name?></option>
+                            <?php endif;
+                        endforeach; ?>
+                    </select>
+                    <a class="button is-category">
+                        <?php risco_badge_category( 'sem-categoria', 'SEM CATEGORIA ADICIONADA', '' ); ?>
+                    </a>
+                    <a class="button is-select-input">
+                        <iconify-icon icon="bi:chevron-down"></iconify-icon>
+                    </a>
+                </div>
+                <div class="input-help">
+                    <a href="#/" class="button">
+                        <iconify-icon icon="bi:question"></iconify-icon>
+                    </a>
+                    <p>
+                        Todos os campos devem ter pelo menos 5 caracteres.
+                    </p>
+                </div>
+            </div>
             <div class="fields is-nome">
                 <div class="input-wrap">
                     <label class="label">Nome</label>
@@ -116,7 +143,6 @@ namespace hacklabr\dashboard;
                     </p>
                 </div>
             </div>
-
             <div class="fields is-website" style="display: none;">
                 <div class="input-wrap">
                     <label class="label">Website</label>
@@ -202,7 +228,6 @@ namespace hacklabr\dashboard;
                     </div>
                 <?php endif; ?>
             </div>
-
             <div class="form-submit">
                 <input type="hidden" name="action" value="form_single_apoio_new">
                 <div></div>
@@ -218,6 +243,7 @@ namespace hacklabr\dashboard;
                 </div>
             </div>
         </form>
+
         <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
     </div>
 </div>

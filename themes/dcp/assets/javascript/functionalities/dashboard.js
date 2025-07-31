@@ -4,7 +4,6 @@ import 'iconify-icon';
 window.Alpine = Alpine;
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-
 //TODO: CRIAR UTILS
 function formatFileSize(bytes) {
     if (bytes === 0) return '0 Bytes';
@@ -16,7 +15,6 @@ function formatFileSize(bytes) {
 
 // TODO: COMPORTAMENTO MOCK jQUERY
 jQuery(function($) {
-
     function _ajax_dele_media_by_id( post_id, attachment_id, success, error ) {
         $.ajax({
             url: $( '.dashboard-content-single form' ).attr( 'data-action' ),
@@ -330,38 +328,33 @@ jQuery(function($) {
         });
         $( '#selectTipoApoio' ).on( 'change', function () {
 
-            console.log( 'TIPO DE ACAO', $( this ).val() );
-
-            $( '#apoioSingleForm input').prop( 'disabled', false );
+            $( '#apoioSingleForm input, #apoioSingleForm textarea' ).prop( 'disabled', false );
 
             switch ( $( this ).val() ) {
 
-                case 'cacambas' :
-
-                    $( '#apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
-                    $( '#apoioSingleForm .is-media-attachments' ).hide();
-
-                    break;
-                case 'iniciativas-locais' :
-
-                    $( '#apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
-                    $( '#apoioSingleForm .is-media-attachments' ).show();
-
-                    break;
                 case 'locais-seguros' :
-
-                    $( '#apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
+                    $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
                     $( '#apoioSingleForm .is-media-attachments' ).show();
-
                     break;
-                case 'quem-acionar' :
 
-                    $( '#apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).show();
+                case 'iniciativas-locais' :
+                    $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
+                    $( '#apoioSingleForm .is-media-attachments' ).show();
+                    break;
+
+                case 'cacambas' :
+                    $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
                     $( '#apoioSingleForm .is-media-attachments' ).hide();
-
                     break;
-                default :
 
+                case 'quem-acionar' :
+                    $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).show();
+                    $( '#apoioSingleForm .is-media-attachments' ).hide();
+                    break;
+
+                default :
+                    $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra, #apoioSingleForm .is-media-attachments' ).hide();
+                    $( '#apoioSingleForm input, #apoioSingleForm textarea' ).prop( 'disabled', true );
                     break;
             }
 
@@ -653,7 +646,6 @@ jQuery(function($) {
             });
         });
 
-
         $( '#acaoSingleForm .is-new.relato' ).on( 'click', function () {
             custom_modal_confirm({
                 title: 'Criar Relato?',
@@ -769,20 +761,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-
 window.addEventListener('DOMContentLoaded', () => {
     Alpine.start();
     console.log( 'WINDOW LOADED' );
 });
-
 window.addEventListener('resize', function () {
     console.log( 'WINDOW RESIZE' );
 });
-
 window.addEventListener('beforeunload', function(event) {
 
 });
-
 window.addEventListener('unload', function(event) {
     //console.log('I am the 4th and last one…');
 });
