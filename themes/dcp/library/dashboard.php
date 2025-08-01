@@ -87,6 +87,7 @@ function filter_query_vars(array $query_vars): array {
     $query_vars[] = 'pagination_current';
     $query_vars[] = 'pagination_limit';
     $query_vars[] = 'tipo_acao';
+    $query_vars[] = 'tipo_risco';
     return $query_vars;
 }
 add_filter('query_vars', 'hacklabr\\dashboard\\filter_query_vars');

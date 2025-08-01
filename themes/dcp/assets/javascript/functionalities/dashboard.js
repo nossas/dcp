@@ -74,36 +74,36 @@ jQuery(function($) {
         });
 
         // TODO: COMPORTAMENTO MOCK TAB PANELS ( componentizar / usar Alpine já existente )
-        $( '#dashboardRiscos .tabs__header a' ).on('click', function() {
-
-            const $this = $( this );
-            const tab = $this.attr( 'href' );
-
-            $( '.tabs__header a, .tabs__panels' ).removeClass( 'is-active' );
-            $( '.tabs__panels' ).hide();
-
-            switch ( tab ) {
-                case '#aprovacao':
-                    $this.addClass( 'is-active' );
-                    $( '#riscosAprovacao' ).show().addClass( 'is-active' );
-                    break;
-                case '#publicados':
-                    $this.addClass( 'is-active' );
-                    $( '#riscosPublicados' ).show().addClass( 'is-active' );
-                    break;
-                case '#arquivados':
-                    $this.addClass( 'is-active' );
-                    $( '#riscosArquivados' ).show().addClass( 'is-active' );
-                    break;
-                default:
-
-                    break;
-            }
-
-            $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
-            $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
-
-        });
+        // $( '#dashboardRiscos .tabs__header a' ).on('click', function() {
+        //
+        //     const $this = $( this );
+        //     const tab = $this.attr( 'href' );
+        //
+        //     $( '.tabs__header a, .tabs__panels' ).removeClass( 'is-active' );
+        //     $( '.tabs__panels' ).hide();
+        //
+        //     switch ( tab ) {
+        //         case '#aprovacao':
+        //             $this.addClass( 'is-active' );
+        //             $( '#riscosAprovacao' ).show().addClass( 'is-active' );
+        //             break;
+        //         case '#publicados':
+        //             $this.addClass( 'is-active' );
+        //             $( '#riscosPublicados' ).show().addClass( 'is-active' );
+        //             break;
+        //         case '#arquivados':
+        //             $this.addClass( 'is-active' );
+        //             $( '#riscosArquivados' ).show().addClass( 'is-active' );
+        //             break;
+        //         default:
+        //
+        //             break;
+        //     }
+        //
+        //     $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
+        //     $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
+        //
+        // });
         $( '.tabs__header a.is-active' ).trigger( 'click' );
         // TODO: COMPORTAMENTO MOCK TAB PANELS ( componentizar / usar Alpine já existente )
 
@@ -225,7 +225,7 @@ jQuery(function($) {
                     height : 'auto',
                     opacity : 1
                 });
-                $this.parent().find( '.input, .textarea, .select' ).removeAttr( 'readonly disabled' ).focus();
+                $this.parent().find( '.input, .textarea, .select' ).removeAttr( 'readonly disabled' ).addClass( 'is-editing' ).focus();
             });
 
         });
@@ -296,13 +296,9 @@ jQuery(function($) {
                             custom_modal_confirm({
                                 title: response.data.title,
                                 description: response.data.message,
-
-                                cancelText: "VOLTAR",
-                                onCancel: function () {},
-
-                                confirmText: "ATUALIZAR PÁGINA",
+                                confirmText: "OK",
                                 onConfirm: function () {
-                                    window.location.reload();
+                                    //window.location.reload();
                                 }
                             });
                             $this.parent().parent().remove();
@@ -411,6 +407,9 @@ jQuery(function($) {
 
             $this.addClass( 'is-sending' );
             $( '.loading-global' ).fadeIn( 400 );
+            $( '.is-editing' ).each( function () {
+                $(this).removeClass( 'is-editing' );
+            });
 
             fetch( $this.attr( 'data-action' ), {
                 method: 'POST',
@@ -420,7 +419,6 @@ jQuery(function($) {
                 .then( response => {
                     $this.removeClass( 'is-sending' );
                     $( '.loading-global' ).fadeOut( 400 );
-
                     if( response.success ) {
 
                         if( response.data.is_new !== undefined ) {
@@ -481,7 +479,6 @@ jQuery(function($) {
 
                 })
                 .catch(error => {
-
                     custom_modal_confirm({
                         title: 'ERRO INESPERADO',
                         description: 'Houve um erro inesperado ao enviar os dados do formulário, aguarde um momento e tente novamente.',
@@ -497,7 +494,6 @@ jQuery(function($) {
                     });
 
                 });
-
         });
 
         $( '#riscoSingleForm .is-archive' ).on( 'click', function () {
@@ -703,6 +699,7 @@ jQuery(function($) {
 
         $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
         $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
+        $( '#dashboardRiscos .dashboard-content-cards .post-card, #dashboardRiscos .dashboard-content-cards .message-response' ).show();
         $( '#dashboardInicio .dashboard-content-cards .post-card, #dashboardInicio .dashboard-content-cards .message-response' ).show();
         $( '#dashboardAcoes .dashboard-content-cards .post-card, #dashboardAcoes .dashboard-content-cards .message-response' ).show();
 
@@ -738,14 +735,11 @@ jQuery(function($) {
     });
     $( window ).on( 'beforeunload', function () {
         $( '.loading-global' ).fadeIn( 400 );
-        $( 'body' ).addClass( 'loading' );
     });
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-
     console.log( 'DOCUMENT LOADED' );
-
     document.body.addEventListener("wheel", function(event) {
         if (event.deltaY < 0) {
             document.body.classList.add( 'is-scrolling-up' );
@@ -764,7 +758,11 @@ window.addEventListener('resize', function () {
     console.log( 'WINDOW RESIZE' );
 });
 window.addEventListener('beforeunload', function(event) {
-
+    if ( document.querySelectorAll('input.is-editing, select.is-editing, textarea.is-editing').length > 0 ) {
+        event.preventDefault();
+        document.body.classList.remove( 'loading' );
+        return 'Você tem alterações não salvas. Tem certeza que deseja atualizar a página?';
+    }
 });
 window.addEventListener('unload', function(event) {
     //console.log('I am the 4th and last one…');

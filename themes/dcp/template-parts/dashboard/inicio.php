@@ -124,9 +124,9 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                     <div id="riscosAprovacao" class="tabs__panels" style=" display: block !important; ">
                         <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
                         <div class="tabs__panel__content dashboard-content-cards " style="display: block; padding-top: 0">
-                            <?php if( $get_riscos[ 'riscos' ]->have_posts() ) :
-                                while( $get_riscos[ 'riscos' ]->have_posts() ) :
-                                    $get_riscos[ 'riscos' ]->the_post();
+                            <?php if( $get_riscos[ 'posts' ]->have_posts() ) :
+                                while( $get_riscos[ 'posts' ]->have_posts() ) :
+                                    $get_riscos[ 'posts' ]->the_post();
                                     $pod = pods( 'risco', get_the_ID() ); ?>
 
                                     <article class="post-card is-draft" style="display: none;">
