@@ -23,3 +23,4 @@ require __DIR__ . '/library/dashboard-riscos.php';
 require __DIR__ . '/library/dashboard-acoes.php';
 require __DIR__ . '/library/dashboard-relatos.php';
 require __DIR__ . '/library/dashboard-ajax.php';
+require __DIR__ . '/library/ajax.php';

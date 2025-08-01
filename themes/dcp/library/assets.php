@@ -362,6 +362,16 @@ class Assets
                 'global' => true,
             ],
 
+            'posts-grid-load-more' => [
+                'file' => 'posts-grid-load-more.js',
+                'global' => true,
+                'localize_callback' => function () {
+                    return [
+                        'ajax_url' => admin_url('admin-ajax.php'),
+                    ];
+                },
+            ],
+
             'dcp-map' => [
                 'file' => 'dcp-map.js',
                 'preload_callback' => function () {
