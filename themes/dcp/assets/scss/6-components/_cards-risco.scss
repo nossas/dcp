@@ -144,8 +144,8 @@
 
         .wp-block-columns > .wp-block-column:last-child{
             .wp-block-group{
-                max-width: size(448);
-                width: 100%;
+/*                 max-width: size(448);
+ */                width: 100%;
 
                 .wp-block-heading {
                     font-family: $font-family--secondary;

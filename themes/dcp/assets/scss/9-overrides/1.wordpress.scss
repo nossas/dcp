@@ -64,6 +64,7 @@
     .cards-apoio {
         @include mobile{
             margin-top: unset !important;
+            margin-bottom: unset !important;
         }
     }
 
