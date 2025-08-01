@@ -208,6 +208,7 @@ _
                         <div class="multistepform__label"><?php _e('Fotos/vídeos:'); ?></div>
                         <div class="multistepform__carousel swiper" id="reviewMidias">
                             <?php get_template_part('template-parts/splide') ?>
+                            <p></p>
                         </div>
                         </div>
                     </div>

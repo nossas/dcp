@@ -111,68 +111,24 @@ document.addEventListener('DOMContentLoaded', () => {
         if (descricao) descricao.textContent = riskDraft.descricao || '';
 
         const midiasContainer = document.getElementById('reviewMidias');
-        buildGallery(midiasContainer, riskDraft.midias);
         if (midiasContainer) {
-/*             midiasContainer.innerHTML = '';
- */
+            buildGallery(midiasContainer, riskDraft.midias, editandoResumo);
+            const midiaMessage = midiasContainer.querySelector('p');
+
             if (riskDraft.midias && riskDraft.midias.length > 0) {
-                riskDraft.midias.forEach((file, index) => {
-                    const url = URL.createObjectURL(file);
-                    const item = document.createElement('div');
-                    item.classList.add('multistepform__carousel-item');
-                    item.style.position = 'relative';
-                    let mediaElement;
-                    if (file.type.startsWith('image')) {
-                        mediaElement = document.createElement('img');
-                        mediaElement.src = url;
-                        mediaElement.alt = 'Imagem enviada';
-                        mediaElement.style.maxWidth = '100px';
-                        mediaElement.style.borderRadius = '8px';
-                    } else if (file.type.startsWith('video')) {
-                        mediaElement = document.createElement('video');
-                        mediaElement.src = url;
-                        mediaElement.controls = true;
-                        mediaElement.style.maxWidth = '100px';
-                        mediaElement.style.borderRadius = '8px';
-                    }
-
-                    item.appendChild(mediaElement);
-
-                    if (editandoResumo) {
-                        const removeBtn = document.createElement('button');
-                        removeBtn.type = 'button';
-                        removeBtn.classList.add('remove-media-btn');
-                        removeBtn.innerHTML = `
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none">
-                            <path d="M5 5L15 15M15 5L5 15" stroke="#B83D13" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    `;
-                        removeBtn.style.position = 'absolute';
-                        removeBtn.style.top = '0';
-                        removeBtn.style.right = '0';
-                        removeBtn.style.background = 'transparent';
-                        removeBtn.style.border = 'none';
-                        removeBtn.style.cursor = 'pointer';
-                        removeBtn.style.padding = '4px';
-
-                        removeBtn.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            riskDraft.midias.splice(index, 1);
-                            preencherResumo();
-                        });
-
-                        item.appendChild(removeBtn);
-                    }
-
-                    midiasContainer.appendChild(item);
-                });
+                midiaMessage.innerHTML = '';
             } else {
-                midiasContainer.innerHTML = '<p>Nenhuma mídia enviada.</p>';
+                midiaMessage.innerHTML = 'Nenhuma mídia enviada.';
             }
 
             // Exibe input para adicionar mídias só se estiver em modo edição
             if (editandoResumo) {
+                if (document.querySelector('.add-media-btn')) {
+                    return;
+                }
+
                 const addMediaWrapper = document.createElement('div');
+
                 addMediaWrapper.style.marginTop = '10px';
 
                 const addMediaLabel = document.createElement('label');
@@ -212,7 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 addMediaWrapper.appendChild(addMediaInput);
                 midiasContainer.appendChild(addMediaWrapper);
             }
-            console.log(riskDraft.midias);
         }
     };
 
@@ -349,9 +304,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     wrapper.appendChild(deleteBtn);
                     previewContainer.appendChild(wrapper);
-
-                    riskDraft.midias.push(file);
-                    console.log(riskDraft.midias);
                 };
 
                 reader.readAsDataURL(file);
