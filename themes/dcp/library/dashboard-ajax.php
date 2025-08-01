@@ -111,17 +111,35 @@ add_action('wp_ajax_nopriv_form_participar_acao', 'form_participar_acao');
  */
 function form_single_apoio_new() {
 
+    if( empty( $_POST['tipo_apoio'] ) ) {
+        wp_send_json_error([
+            'status' => false,
+            'title' => 'Erro',
+            'message' => 'Selecione o tipo de Apoio.',
+            'error' => [ 'Nenhum tipo de apoio foi selecionado no campo, corrija e tente novamente.' ],
+        ], 200);
+    }
+
+    $horario_de_atendimento = sanitize_text_field( $_POST[ 'dias_funcionamento' ] ) . ' - ' . sanitize_text_field( $_POST[ 'horario' ] );
+
     $postID = wp_insert_post([
         'post_type' => 'apoio',
-        'post_status' => 'draft',
+        'post_status' => 'publish',
         'post_title' => sanitize_text_field($_POST['titulo']),
         'post_content' => sanitize_text_field($_POST['descricao']),
         'meta_input' => [
             'titulo' => sanitize_text_field($_POST['titulo']),
             'descricao' => sanitize_text_field($_POST['descricao']),
             'endereco' => sanitize_text_field($_POST['endereco']),
+            //'latitude' => sanitize_text_field($_POST['latitude']),
+            //'longitude' => sanitize_text_field($_POST['longitude']),
+            'horario_de_atendimento' => $horario_de_atendimento,
+            //'telefone' => sanitize_text_field($_POST['telefone']),
+            'website' => sanitize_text_field($_POST['site']),
+            'info_extra' => sanitize_text_field($_POST['observacoes']),
+            'data_e_horario' => date( 'Y-m-d H:i:s' ),
         ]
-    ], true);
+    ], true );
 
     if (is_wp_error($postID)) {
         wp_send_json_error([
@@ -138,7 +156,7 @@ function form_single_apoio_new() {
         false
     );
 
-    $save_attachment = upload_file_to_attachment_by_ID($_FILES['media_file'], $postID, true );
+    $save_attachment = upload_file_to_attachment_by_ID( $_FILES[ 'media_file' ], $postID, true );
 
     if (empty($save_attachment['errors'])) {
 
@@ -147,7 +165,7 @@ function form_single_apoio_new() {
             'message' => 'Formulário enviado com sucesso!',
             'uploaded_files' => $save_attachment['uploaded_files'],
             'post_id' => $postID,
-            'url_callback' => get_site_url() . '/dashboard/editar-acao/?post_id=' . $postID,
+            'url_callback' => get_site_url() . '/dashboard/editar-apoio/?id=' . $postID,
             'is_new' => true,
         ]);
     }
@@ -157,7 +175,6 @@ function form_single_apoio_new() {
         'message' => 'Erro ao salvar o formulário / anexos',
         'error' => $save_attachment['errors'],
     ], 400);
-
 }
 add_action('wp_ajax_form_single_apoio_new', 'form_single_apoio_new');
 
@@ -547,13 +564,11 @@ function form_single_risco_new() {
     );
 
     if ( is_wp_error( $postID ) ) {
-
         wp_send_json_error([
             'title' => 'Erro',
             'message' => 'Erro ao cadastrar o risco.',
             'error' => $postID->get_error_message()
         ], 500 );
-
     }
 
     $new_terms = array(
