@@ -9,6 +9,7 @@
             @include mobile{
                 display: flex;
                 flex-direction: column;
+                margin-bottom: unset !important;
                 .wp-block-column:nth-of-type(1){
                     order: 2;
                     .wp-block-buttons{
@@ -44,6 +45,24 @@
                 margin-bottom: $margin--large !important;
                 max-width: size(350);
                 padding-inline: $padding--medium !important;
+            }
+        }
+
+        .wp-block-columns > .wp-block-column:nth-of-type(1){
+            .mostrar-mais {
+                .wp-block-button > a{
+                    @include mobile{
+                        padding: 8px 16px !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .archive-acao {
+        .proximas-acoes{
+            @include mobile{
+                padding: unset !important;
             }
         }
     }
@@ -434,7 +453,7 @@
                     @include mobile{
                         display: grid;
                         grid-template-columns: 0.3fr 0.3fr 0.3fr;
-                        gap: $gap--small;
+                        gap: 0.75rem;
                     }
 
                     .wpcf7-list-item{
