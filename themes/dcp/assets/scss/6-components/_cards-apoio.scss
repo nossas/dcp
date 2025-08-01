@@ -10,6 +10,7 @@
     .wp-block-columns{
         @include mobile{
             margin-block-start: unset !important;
+            gap: unset !important;
         }
     }
 
@@ -64,6 +65,10 @@
 
     .hacklabr-posts-grid-block {
         margin-block-start: size(56);
+
+        @include mobile {
+            margin-block-start: size(32);
+        }
 
         .post-card {
             max-width: size(443);

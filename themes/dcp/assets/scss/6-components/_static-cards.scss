@@ -3,6 +3,10 @@
     margin-top: size(80);
 
     @include mobile {
+        margin-bottom: unset !important;
+    }
+
+    @include mobile {
         margin-bottom: $margin--large;
         margin-top: $margin--large;
         padding-inline: $padding--medium;
@@ -117,6 +121,10 @@
     }
 
     &__no-color {
+        p {
+            margin-bottom: unset !important;
+        }
+
         .wp-block-columns {
             margin-bottom: size(24);
             margin-block-start: size(24);
@@ -127,7 +135,18 @@
             padding: size(20);
 
             @include mobile {
+                padding: size(12) !important;
                 top: 0 !important;
+
+                & > .title {
+                    font-size: $font-size--medium !important;
+                    font-weight: var(--Spacing-space-100, 8) !important;
+                    line-height: 120%;
+                }
+
+                & > .excerpt {
+                    line-height: 130%;
+                }
             }
         }
 
