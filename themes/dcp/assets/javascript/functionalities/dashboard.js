@@ -327,9 +327,7 @@ jQuery(function($) {
             $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
         });
         $( '#selectTipoApoio' ).on( 'change', function () {
-
-            $( '#apoioSingleForm input, #apoioSingleForm textarea' ).prop( 'disabled', false );
-
+            $( 'input[type="text"], input[type="date"], input[type="time"], textarea' ).val( '' ).prop( 'disabled', false );
             switch ( $( this ).val() ) {
 
                 case 'locais-seguros' :
@@ -357,7 +355,6 @@ jQuery(function($) {
                     $( '#apoioSingleForm input, #apoioSingleForm textarea' ).prop( 'disabled', true );
                     break;
             }
-
         });
 
         $( '.input-chips input[type="checkbox"]' ).on( 'change', function () {
