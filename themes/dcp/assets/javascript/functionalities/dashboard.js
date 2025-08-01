@@ -225,7 +225,7 @@ jQuery(function($) {
                     height : 'auto',
                     opacity : 1
                 });
-                $this.parent().find( '.input, .textarea, .select' ).removeAttr( 'readonly disabled' ).focus();
+                $this.parent().find( '.input, .textarea, .select' ).removeAttr( 'readonly disabled' ).addClass( 'is-editing' ).focus();
             });
 
         });
@@ -411,6 +411,9 @@ jQuery(function($) {
 
             $this.addClass( 'is-sending' );
             $( '.loading-global' ).fadeIn( 400 );
+            $( '.is-editing' ).each( function () {
+                $(this).removeClass( 'is-editing' );
+            });
 
             fetch( $this.attr( 'data-action' ), {
                 method: 'POST',
@@ -420,7 +423,6 @@ jQuery(function($) {
                 .then( response => {
                     $this.removeClass( 'is-sending' );
                     $( '.loading-global' ).fadeOut( 400 );
-
                     if( response.success ) {
 
                         if( response.data.is_new !== undefined ) {
@@ -481,7 +483,6 @@ jQuery(function($) {
 
                 })
                 .catch(error => {
-
                     custom_modal_confirm({
                         title: 'ERRO INESPERADO',
                         description: 'Houve um erro inesperado ao enviar os dados do formulário, aguarde um momento e tente novamente.',
@@ -497,7 +498,6 @@ jQuery(function($) {
                     });
 
                 });
-
         });
 
         $( '#riscoSingleForm .is-archive' ).on( 'click', function () {
@@ -738,14 +738,11 @@ jQuery(function($) {
     });
     $( window ).on( 'beforeunload', function () {
         $( '.loading-global' ).fadeIn( 400 );
-        $( 'body' ).addClass( 'loading' );
     });
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-
     console.log( 'DOCUMENT LOADED' );
-
     document.body.addEventListener("wheel", function(event) {
         if (event.deltaY < 0) {
             document.body.classList.add( 'is-scrolling-up' );
@@ -764,7 +761,11 @@ window.addEventListener('resize', function () {
     console.log( 'WINDOW RESIZE' );
 });
 window.addEventListener('beforeunload', function(event) {
-
+    if ( document.querySelectorAll('input.is-editing, select.is-editing, textarea.is-editing').length > 0 ) {
+        event.preventDefault();
+        document.body.classList.remove( 'loading' );
+        return 'Você tem alterações não salvas. Tem certeza que deseja atualizar a página?';
+    }
 });
 window.addEventListener('unload', function(event) {
     //console.log('I am the 4th and last one…');
