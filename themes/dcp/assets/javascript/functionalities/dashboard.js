@@ -74,36 +74,36 @@ jQuery(function($) {
         });
 
         // TODO: COMPORTAMENTO MOCK TAB PANELS ( componentizar / usar Alpine já existente )
-        $( '#dashboardRiscos .tabs__header a' ).on('click', function() {
-
-            const $this = $( this );
-            const tab = $this.attr( 'href' );
-
-            $( '.tabs__header a, .tabs__panels' ).removeClass( 'is-active' );
-            $( '.tabs__panels' ).hide();
-
-            switch ( tab ) {
-                case '#aprovacao':
-                    $this.addClass( 'is-active' );
-                    $( '#riscosAprovacao' ).show().addClass( 'is-active' );
-                    break;
-                case '#publicados':
-                    $this.addClass( 'is-active' );
-                    $( '#riscosPublicados' ).show().addClass( 'is-active' );
-                    break;
-                case '#arquivados':
-                    $this.addClass( 'is-active' );
-                    $( '#riscosArquivados' ).show().addClass( 'is-active' );
-                    break;
-                default:
-
-                    break;
-            }
-
-            $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
-            $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
-
-        });
+        // $( '#dashboardRiscos .tabs__header a' ).on('click', function() {
+        //
+        //     const $this = $( this );
+        //     const tab = $this.attr( 'href' );
+        //
+        //     $( '.tabs__header a, .tabs__panels' ).removeClass( 'is-active' );
+        //     $( '.tabs__panels' ).hide();
+        //
+        //     switch ( tab ) {
+        //         case '#aprovacao':
+        //             $this.addClass( 'is-active' );
+        //             $( '#riscosAprovacao' ).show().addClass( 'is-active' );
+        //             break;
+        //         case '#publicados':
+        //             $this.addClass( 'is-active' );
+        //             $( '#riscosPublicados' ).show().addClass( 'is-active' );
+        //             break;
+        //         case '#arquivados':
+        //             $this.addClass( 'is-active' );
+        //             $( '#riscosArquivados' ).show().addClass( 'is-active' );
+        //             break;
+        //         default:
+        //
+        //             break;
+        //     }
+        //
+        //     $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
+        //     $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
+        //
+        // });
         $( '.tabs__header a.is-active' ).trigger( 'click' );
         // TODO: COMPORTAMENTO MOCK TAB PANELS ( componentizar / usar Alpine já existente )
 
@@ -296,13 +296,9 @@ jQuery(function($) {
                             custom_modal_confirm({
                                 title: response.data.title,
                                 description: response.data.message,
-
-                                cancelText: "VOLTAR",
-                                onCancel: function () {},
-
-                                confirmText: "ATUALIZAR PÁGINA",
+                                confirmText: "OK",
                                 onConfirm: function () {
-                                    window.location.reload();
+                                    //window.location.reload();
                                 }
                             });
                             $this.parent().parent().remove();
