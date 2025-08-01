@@ -112,7 +112,7 @@ add_action('wp_ajax_nopriv_form_participar_acao', 'form_participar_acao');
 function form_single_apoio_new() {
 
     $postID = wp_insert_post([
-        'post_type' => 'tipo_apoio',
+        'post_type' => 'apoio',
         'post_status' => 'draft',
         'post_title' => sanitize_text_field($_POST['titulo']),
         'post_content' => sanitize_text_field($_POST['descricao']),
