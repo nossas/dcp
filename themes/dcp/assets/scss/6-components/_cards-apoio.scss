@@ -248,10 +248,18 @@
             gap: 0.5rem;
             border-radius: 100px;
             padding: 10px 24px;
-            background-color: $color--high-light;
+            background-color: $color--secondary-dark;
+
+            span {
+                color: $color--high-light;
+            }
 
             &:disabled {
                 background-color: #C9C6C5;
+
+                span {
+                    color: #93908F;
+                }
             }
 
             @include mobile{
