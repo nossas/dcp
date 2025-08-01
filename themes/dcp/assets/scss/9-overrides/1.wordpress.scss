@@ -61,6 +61,12 @@
     }
 }
 .page-rede-de-apoio {
+    .cards-apoio {
+        @include mobile{
+            margin-top: unset !important;
+        }
+    }
+
     hr{
         margin-left: 2rem !important;
         margin-right: 2rem !important;
