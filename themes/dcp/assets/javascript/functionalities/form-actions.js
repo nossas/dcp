@@ -363,6 +363,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+
+    // GEOLOCALIZAÇÃO P/ ENDEREÇO
     document.querySelector('input[name="endereco"]').addEventListener('change', async (event) => {
         const {
             address_suffix,

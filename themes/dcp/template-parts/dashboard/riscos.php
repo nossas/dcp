@@ -39,10 +39,11 @@ namespace hacklabr\dashboard;
         ]
     ];
 
-    $get_riscos = get_acoes_by_status( $sectios_tabs[ $tipo_risco ][ 'post_status' ], $paged, $limit );
+    $get_riscos = get_riscos_by_status( $sectios_tabs[ $tipo_risco ][ 'post_status' ], $paged, $limit );
 
-
-
+    //echo '<pre>';
+    //print_r( $get_riscos );
+    //echo '</pre>';
 ?>
 <div id="dashboardRiscos" class="dashboard-content">
     <header class="dashboard-content-header">
