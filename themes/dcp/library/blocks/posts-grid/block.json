@@ -23,6 +23,10 @@
             "type": "string",
             "default": "OR"
         },
+        "enableLoadMore": {
+            "type": "boolean",
+            "default": false
+        },
         "gridGap": {
             "type": "string",
             "default": "medium"

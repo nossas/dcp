@@ -228,8 +228,41 @@
                 text-decoration: underline;
             }
         }
+
+    }
+
+    .hacklabr-posts-grid {
+        &__load-more-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 24px;
+
+            @include mobile{
+                margin-top: 32px;
+            }
+        }
+
+        &__load-more-button {
+            display: flex;
+            gap: 0.5rem;
+            border-radius: 100px;
+            padding: 10px 24px;
+            background-color: $color--high-light;
+
+            &:disabled {
+                background-color: #C9C6C5;
+            }
+
+            @include mobile{
+                max-width: 100%;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+            }
+        }
     }
 }
+
 
 .apoio{
     &__container{

@@ -13,13 +13,26 @@ import { SelectSize } from '../shared/SelectSize';
 import metadata from './block.json';
 
 function Edit ({ attributes, setAttributes }) {
-    const { cardModel, cardModifiers, gridGap, hideAuthor, hideCategories, hideDate, hideExcerpt, postsPerColumn, postsPerRow } = attributes;
+    const { cardModel, cardModifiers, gridGap, hideAuthor, hideCategories, hideDate, hideExcerpt, postsPerColumn, postsPerRow, enableLoadMore } = attributes;
 
     const blockProps = useBlockProps();
 
     return <>
         <InspectorControls>
             <PanelBody className="hacklabr-gutenberg-panel__panel-body" title={__('Layout', 'hacklabr')}>
+                <PanelRow>
+                    <ToggleControl
+                        label={__("Ativar 'Ver mais'?", 'hacklabr')}
+                        help={
+                            enableLoadMore
+                                ? __('Exibirá 6 posts e um botão para carregar mais.', 'hacklabr')
+                                : __('Exibirá os posts de acordo com as configurações de linha/coluna.', 'hacklabr')
+                        }
+                        checked={enableLoadMore}
+                        onChange={(value) => setAttributes({ enableLoadMore: value })}
+                    />
+                </PanelRow>
+
                 <PanelRow>
                     <SelectCardModel
                         value={cardModel}
@@ -43,14 +56,17 @@ function Edit ({ attributes, setAttributes }) {
                     />
                 </PanelRow>
 
-                <PanelRow>
-                    <NumberControl
-                        label={__('Grid rows', 'hacklabr')}
-                        min={1}
-                        value={postsPerColumn}
-                        onChange={(raw) => setAttributes({ postsPerColumn: parseInt(raw) })}
-                    />
-                </PanelRow>
+                {!enableLoadMore && (
+                    <PanelRow>
+                        <NumberControl
+                            label={__('Grid rows', 'hacklabr')}
+                            min={1}
+                            value={postsPerColumn}
+                            onChange={(raw) => setAttributes({ postsPerColumn: parseInt(raw) })}
+                        />
+                    </PanelRow>
+                )}
+
 
                 <PanelRow>
                     <SelectSize
