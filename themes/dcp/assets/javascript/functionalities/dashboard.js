@@ -297,10 +297,10 @@ jQuery(function($) {
                                 title: response.data.title,
                                 description: response.data.message,
 
-                                cancelText: "CANCELAR",
+                                cancelText: "VOLTAR",
                                 onCancel: function () {},
 
-                                confirmText: "ATUALIZAR",
+                                confirmText: "ATUALIZAR PÁGINA",
                                 onConfirm: function () {
                                     window.location.reload();
                                 }
@@ -314,7 +314,6 @@ jQuery(function($) {
                 }
             });
         });
-
         $( '#selectAcaoRealizada' ).on( 'change', function () {
             const _location = window.location;
             if( $( this ).val().length ) {
@@ -450,10 +449,10 @@ jQuery(function($) {
                                 title: response.data.title,
                                 description: response.data.message,
 
-                                cancelText: "CANCELAR",
+                                cancelText: "FECHAR",
                                 onCancel: function () {},
 
-                                confirmText: "ATUALIZAR",
+                                confirmText: "ATUALIZAR PÁGINA",
                                 onConfirm: function () {
 
                                     window.location.reload();
@@ -473,7 +472,7 @@ jQuery(function($) {
                             cancelText: "FECHAR",
                             onCancel: function () {},
 
-                            confirmText: "ATUALIZAR",
+                            confirmText: "ATUALIZAR PÁGINA",
                             onConfirm: function () {
                                 window.location.reload();
                             }
@@ -563,7 +562,7 @@ jQuery(function($) {
             custom_modal_confirm({
                 title: 'Criar ação?',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
-                cancelText: "Voltar",
+                cancelText: "Cancelar",
                 onCancel: function () {},
                 confirmText: "Criar Ação",
                 onConfirm: function () {
@@ -576,7 +575,7 @@ jQuery(function($) {
             custom_modal_confirm({
                 title: 'Agendar ação?',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
-                cancelText: "Voltar",
+                cancelText: "Cancelar",
                 onCancel: function () {},
                 confirmText: "Agendar Ação",
                 onConfirm: function () {
@@ -634,7 +633,7 @@ jQuery(function($) {
             custom_modal_confirm({
                 title: 'Criar apoio?',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
-                cancelText: "Voltar",
+                cancelText: "Cancelar",
                 onCancel: function () {},
                 confirmText: "Criar Apoio",
                 onConfirm: function () {
@@ -642,12 +641,11 @@ jQuery(function($) {
                 }
             });
         });
-
         $( '#acaoSingleForm .is-new.relato' ).on( 'click', function () {
             custom_modal_confirm({
                 title: 'Criar Relato?',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
-                cancelText: "Voltar",
+                cancelText: "Cancelar",
                 onCancel: function () {},
                 confirmText: "Criar Relato",
                 onConfirm: function () {
@@ -659,7 +657,7 @@ jQuery(function($) {
             custom_modal_confirm({
                 title: 'Publicar Relato?',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
-                cancelText: "Voltar",
+                cancelText: "Cancelar",
                 onCancel: function () {},
                 confirmText: "Publicar Relato",
                 onConfirm: function () {
