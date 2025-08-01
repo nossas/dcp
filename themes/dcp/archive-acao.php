@@ -38,6 +38,7 @@
     <div class="container container--wide proximas-acoes">
         <h2><?= __('O que já rolou') ?></h2>
         <p><?php _e('Quer saber o que já aconteceu? Veja outras atividades que já rolaram na comunidade!') ?></p>
+        <p>&nbsp;</p>
     </div>
 
     <div class="posts-grid__content">
@@ -49,7 +50,7 @@
             'posts_per_page' => 3
         ]);
         if ( $concluir_query->have_posts() ) : ?>
-            <p class="posts-grid__excerpt"><?= __('Quer saber o que já aconteceu? Veja outras atividades que já rolaram no território!') ?></p>
+            <!--<p class="posts-grid__excerpt">--><?php //= __('Quer saber o que já aconteceu? Veja outras atividades que já rolaram no território!') ?><!--</p>-->
             <div class="posts-grid__content-cards-concluidas">
                 <?php while ( $concluir_query->have_posts() ) {
                     $concluir_query->the_post();
