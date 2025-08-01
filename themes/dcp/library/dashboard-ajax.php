@@ -149,12 +149,14 @@ function form_single_apoio_new() {
         ], 500);
     }
 
-    wp_set_object_terms(
-        $postID,
-        [sanitize_text_field($_POST['tipo_apoio'])],
-        'tipo_apoio',
-        false
+    $new_terms = array(
+        sanitize_text_field( $_POST[ 'tipo_apoio' ] )
     );
+    if( sanitize_text_field( $_POST[ 'tipo_apoio_subcategory' ] ) ) {
+        $new_terms[] = sanitize_text_field( $_POST[ 'tipo_apoio_subcategory' ] );
+    }
+
+    wp_set_object_terms( $postID, $new_terms, 'tipo_apoio', false );
 
     $save_attachment = upload_file_to_attachment_by_ID( $_FILES[ 'media_file' ], $postID, true );
 

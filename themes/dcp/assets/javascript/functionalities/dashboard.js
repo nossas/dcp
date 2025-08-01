@@ -327,7 +327,7 @@ jQuery(function($) {
             $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
         });
         $( '#selectTipoApoio' ).on( 'change', function () {
-            $( '#apoioSingleForm input[type="text"], #apoioSingleForm input[type="time"], #apoioSingleForm textarea' ).prop( 'disabled', false );
+            $( 'input[type="text"], input[type="date"], input[type="time"], textarea' ).val( '' ).prop( 'disabled', false );
             switch ( $( this ).val() ) {
 
                 case 'locais-seguros' :
