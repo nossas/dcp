@@ -1,3 +1,5 @@
+import { buildGallery } from "./action-review-gallery";
+
 document.addEventListener('DOMContentLoaded', () => {
     const steps = document.querySelectorAll('.step');
     const stageText = document.getElementById('formStepsStage');
@@ -109,16 +111,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (descricao) descricao.textContent = riskDraft.descricao || '';
 
         const midiasContainer = document.getElementById('reviewMidias');
+        buildGallery(midiasContainer, riskDraft.midias);
         if (midiasContainer) {
-            midiasContainer.innerHTML = '';
-
+/*             midiasContainer.innerHTML = '';
+ */
             if (riskDraft.midias && riskDraft.midias.length > 0) {
                 riskDraft.midias.forEach((file, index) => {
                     const url = URL.createObjectURL(file);
                     const item = document.createElement('div');
                     item.classList.add('multistepform__carousel-item');
                     item.style.position = 'relative';
-
                     let mediaElement;
                     if (file.type.startsWith('image')) {
                         mediaElement = document.createElement('img');
@@ -210,6 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 addMediaWrapper.appendChild(addMediaInput);
                 midiasContainer.appendChild(addMediaWrapper);
             }
+            console.log(riskDraft.midias);
         }
     };
 
@@ -300,10 +303,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewContainer = document.getElementById('mediaPreview');
 
     if (midiaInput && previewContainer) {
+        previewContainer.innerHTML = '';
+        riskDraft.midias = [];
+
         midiaInput.addEventListener('change', (event) => {
             const files = Array.from(event.target.files);
-            previewContainer.innerHTML = '';
-            riskDraft.midias = [];
 
             files.forEach((file, index) => {
                 const fileType = file.type;
@@ -347,6 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     previewContainer.appendChild(wrapper);
 
                     riskDraft.midias.push(file);
+                    console.log(riskDraft.midias);
                 };
 
                 reader.readAsDataURL(file);
