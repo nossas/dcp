@@ -233,14 +233,15 @@
                     <?php endif;
                 }
                 ?>
+                  <?php if ($post_type == 'acao') : $pods = pods('acao', get_the_ID()); ?>
+                    <time class="post-card__datetime">
+                        Dia: <?=date( 'd/m/Y, H:i', strtotime( $pods->field( 'data_e_horario' ) ) )?>
+                    </time>
+                <?php endif; ?>
             </div>
         <?php endif; ?>
 
-        <?php if ($post_type == 'acao') : $pods = pods('acao', get_the_ID()); ?>
-            <time class="post-card__datetime">
-                Dia: <?=date( 'd/m/Y, H:i', strtotime( $pods->field( 'data_e_horario' ) ) )?>
-            </time>
-        <?php endif; ?>
+
 
         <?php if ($post_type == 'relato') : $pods = pods('relato', get_the_ID()); ?>
             <time class="post-card__datetime">
