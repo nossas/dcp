@@ -72,7 +72,8 @@
             color: $color--secondary-dark;
         }
 
-        &-limpeza{
+        &-limpeza,
+        &-educacao{
             background-color: $color--primary-light;
 
             &::before {
