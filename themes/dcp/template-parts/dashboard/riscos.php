@@ -109,8 +109,7 @@ namespace hacklabr\dashboard;
                                 <div class="post-card__assets is-slider-thumb">
                                     <?php $get_attachments = get_attached_media('', get_the_ID() );
                                     if( !empty( $get_attachments ) ) :
-                                        foreach ( get_attached_media('', get_the_ID() ) as $key => $attachment ) :
-                                            if( $key === 0 ) : ?>
+                                        foreach ( get_attached_media('', get_the_ID() ) as $attachment ) : ?>
                                             <div class="slider-thumb-item">
                                                 <?php if( $attachment->post_mime_type == 'image/jpeg' || $attachment->post_mime_type == 'image/png' ) : ?>
                                                     <img class="is-load-now" data-media-src="<?=$attachment->guid?>" />
@@ -122,7 +121,7 @@ namespace hacklabr\dashboard;
                                                     </video>
                                                 <?php endif; ?>
                                             </div>
-                                            <?php endif;
+                                            <?php
                                         endforeach;
                                     else : ?>
                                         <div class="slider-thumb-empty">
@@ -160,7 +159,6 @@ namespace hacklabr\dashboard;
                                 </div>
 
                             </div>
-
                         </main>
                     </article>
 
