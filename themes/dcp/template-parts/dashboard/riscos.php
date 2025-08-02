@@ -66,7 +66,7 @@ namespace hacklabr\dashboard;
         </div>
 
         <div class="dashboard-content-cards">
-            <?php
+        <?php
             get_template_part('template-parts/dashboard/ui/skeleton' );
 
             if( wp_is_mobile() ) {
@@ -84,14 +84,14 @@ namespace hacklabr\dashboard;
                         <main class="post-card__content">
 
                             <div class="post-card__term">
-                                <?php
+                            <?php
                                 $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
                                 if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
                                     risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
                                 } else {
                                     risco_badge_category( 'sem-categoria', 'SEM' );
                                 }
-                                ?>
+                            ?>
                             </div>
                             <div class="post-card__risco-meta"><?=wp_date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
 
@@ -172,7 +172,7 @@ namespace hacklabr\dashboard;
                     <span class="tabs__panel-message">Nenhum risco foi publicado ainda.</span>
                 </div>
 
-            <?php endif; ?>
+        <?php endif; ?>
 
         </div>
         <?php if( $get_riscos[ 'pagination' ] ) : ?>

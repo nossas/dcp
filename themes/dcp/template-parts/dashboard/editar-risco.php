@@ -1,9 +1,11 @@
 <?php
 
+namespace hacklabr\dashboard;
+
     //TODO: REFACTORY P/ METHOD/FUNCTIONS
     $risco_id = get_query_var('post_id' );
 
-    $riscoSingle = new WP_Query([
+    $riscoSingle = new \WP_Query([
         'p' => $risco_id,
         'post_type' => 'risco'
     ]);
@@ -64,17 +66,14 @@
                             $class = 'is-publish';
                             $text = 'Risco Publicado';
                             break;
-
                         case 'draft':
                             $class = 'is-draft';
                             $text = 'Risco ainda não publicado';
                             break;
-
                         case 'pending':
                             $class = 'is-pending';
                             $text = 'Risco Arquivado';
                             break;
-
                         default:
                             $class = 'is-blocked';
                             $text = 'BLOQUEADO';
@@ -94,6 +93,9 @@
                             <a class="button is-edit-input">
                                 <iconify-icon icon="bi:pencil-square"></iconify-icon>
                             </a>
+                            <?php if( empty( $pod->field( 'latitude' ) ) || empty( $pod->field( 'longitude' ) ) ) : ?>
+                            <p style="font-size: 12px; color: #c10202; padding-left: 10px; ">Não foi possível encontrar este endereço, aguarde atualizações do mapa.</p>
+                            <?php endif; ?>
                         </div>
                         <div class="input-help">
                             <a href="#/" class="button">
@@ -322,58 +324,82 @@
                         <?php endif; ?>
                     </div>
                     <div id="formSubmit" class="form-submit">
-
                         <input type="hidden" name="action" value="form_single_risco_edit">
                         <input type="hidden" name="post_id" value="<?=get_the_ID()?>">
                         <input type="hidden" name="post_status" value="<?=$post_status?>">
                         <input type="hidden" name="post_status_current" value="<?=$post_status?>">
                         <input type="hidden" name="post_status_new" value="">
 
-                        <?php if( !wp_is_mobile() ) : ?>
-                            <a class="button is-archive">
-                                <iconify-icon icon="bi:x-lg"></iconify-icon>
-                                <span>Arquivar</span>
-                            </a>
+                        <?php if( !wp_is_mobile() ) :
+                            if ( !empty($pod->field('latitude')) || !empty($pod->field('longitude'))) : ?>
+                                <a class="button is-archive">
+                                    <iconify-icon icon="bi:x-lg"></iconify-icon>
+                                    <span>Arquivar</span>
+                                </a>
+                            <?php else : ?>
+                                <a href="<?=get_dashboard_url( 'riscos' )?>" class="button is-goback">
+                                    <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                                    <span>Voltar</span>
+                                </a>
+                            <?php endif; ?>
+
                         <?php endif; ?>
 
                         <?php
+                            if ( !empty($pod->field('latitude')) || !empty($pod->field('longitude'))) {
 
-                            //TODO: REFACTORY P/ MELHOR LOGICA
-                            switch ( $post_status ) {
+                                //TODO: REFACTORY P/ MELHOR LOGICA
+                                switch ( $post_status ) {
 
-                                case 'draft':
+                                    case 'draft':
 
-                                    ?>
-                                    <a class="button is-publish">
-                                        <iconify-icon icon="bi:check2"></iconify-icon>
-                                        <span>Publicar</span>
-                                    </a>
+                                        ?>
+                                        <a class="button is-publish">
+                                            <iconify-icon icon="bi:check2"></iconify-icon>
+                                            <span>Publicar</span>
+                                        </a>
 
-                                    <?php
+                                        <?php
 
-                                    break;
-                                case 'publish':
-                                case 'pending':
+                                        break;
+                                    case 'publish':
+                                    case 'pending':
 
-                                    ?>
+                                        ?>
 
-                                    <a class="button is-save">
-                                        <iconify-icon icon="bi:check2"></iconify-icon>
-                                        <span>Publicar Alterações</span>
-                                    </a>
+                                        <a class="button is-save">
+                                            <iconify-icon icon="bi:check2"></iconify-icon>
+                                            <span>Publicar Alterações</span>
+                                        </a>
 
-                                    <?php
+                                        <?php
 
-                                    break;
+                                        break;
+                                }
+
                             }
-
+                            else {
+                                ?>
+                                <a class="button is-goback" disabled>
+                                    <iconify-icon icon="bi:check2"></iconify-icon>
+                                    <span>Bloqueado para publicação</span>
+                                </a>
+                                <?php
+                            }
                         ?>
 
-                        <?php if( wp_is_mobile() ) : ?>
+                        <?php if( wp_is_mobile() ) :
+                            if ( !empty($pod->field('latitude')) || !empty($pod->field('longitude'))) : ?>
                             <a class="button is-archive">
                                 <iconify-icon icon="bi:x-lg"></iconify-icon>
                                 <span>Arquivar</span>
                             </a>
+                            <?php else : ?>
+                                <a href="<?=get_dashboard_url( 'riscos' )?>" class="button is-goback">
+                                    <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                                    <span>Voltar</span>
+                                </a>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 </form>
