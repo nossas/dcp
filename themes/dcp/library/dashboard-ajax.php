@@ -374,6 +374,9 @@ function form_single_acao_new() {
             'titulo' => sanitize_text_field($_POST['titulo']),
             'descricao' => sanitize_text_field($_POST['descricao']),
             'endereco' => sanitize_text_field($_POST['endereco']),
+            'latitude' => sanitize_text_field( $_POST[ 'latitude' ] ),
+            'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
+            'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
             'nome_completo' => $nome_completo,
             'email' => $email,
             'telefone' => sanitize_text_field($_POST['telefone']),
@@ -445,26 +448,19 @@ function form_single_acao_edit() {
         ], 400);
     }
 
-//    $publish_date = null;
-//    $publish_date_gmt = null;
-//
-//    if( $_POST['post_status'] === 'future' ) {
-//        $publish_date = date('Y-m-d H:i:s', strtotime('+90 days'));
-//        $publish_date_gmt = get_gmt_from_date( $publish_date );
-//    }
-
     $data_e_horario = sanitize_text_field($_POST['date']) . ' ' . sanitize_text_field($_POST['horario']) . ':00';
 
     $updated_id = wp_update_post([
             'ID' => $postID,
             'post_type' => 'acao',
             'post_status' => sanitize_text_field($_POST['post_status'] ?? 'draft'),
-//            'post_date' => $publish_date,
-//            'post_date_gmt' => $publish_date_gmt,
             'post_title' => sanitize_text_field( $_POST[ 'endereco' ] ),
             'post_content' => sanitize_text_field( $_POST[ 'descricao' ] ),
             'meta_input' => [
                 'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
+                'latitude' => sanitize_text_field( $_POST[ 'latitude' ] ),
+                'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
+                'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
                 'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
                 'titulo' => sanitize_text_field( $_POST[ 'titulo' ] ),
                 'data_e_horario' => $data_e_horario
@@ -641,6 +637,7 @@ function form_single_risco_edit() {
             'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
             'latitude' => sanitize_text_field( $_POST[ 'latitude' ] ),
             'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
+            'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
         ],
     ];
 
