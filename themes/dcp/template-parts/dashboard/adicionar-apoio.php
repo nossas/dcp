@@ -8,7 +8,7 @@ namespace hacklabr\dashboard;
     ]);
 
 ?>
-<div id="dashboardApoioSingle" class="dashboard-content">
+<div id="dashboardApoioNew" class="dashboard-content">
     <div class="dashboard-content-breadcrumb">
         <ol class="breadcrumb">
             <li>

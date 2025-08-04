@@ -43,6 +43,7 @@ jQuery(function($) {
         });
     }
     function selectTipoApoio( tipo_apoio ) {
+        console.log( 'tipo_apoio', tipo_apoio );
         switch ( tipo_apoio ) {
 
             case 'locais-seguros' :

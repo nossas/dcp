@@ -283,15 +283,15 @@
                 ?>
 
                 <?php if ($tem_quem_acionar): ?>
-                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_quem_acionar', ['id' => $post->ID]); ?>">
+                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar-apoio-novo', ['post_id' => $post->ID]); ?>">
                         <?= __('Editar') ?>
                     </a>
                 <?php elseif ($tem_cacambas): ?>
-                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_cacambas', ['id' => $post->ID]); ?>">
+                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar-apoio-novo', ['post_id' => $post->ID]); ?>">
                         <?= __('Editar') ?>
                     </a>
                 <?php else: ?>
-                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar-apoio', ['id' => $post->ID]); ?>">
+                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar-apoio-novo', ['post_id' => $post->ID]); ?>">
                         <?= __('Editar') ?>
                     </a>
                 <?php endif; ?>

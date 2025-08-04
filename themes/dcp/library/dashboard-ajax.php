@@ -166,7 +166,7 @@ function form_single_apoio_new() {
             'message' => 'Formulário enviado com sucesso!',
             'uploaded_files' => $save_attachment['uploaded_files'],
             'post_id' => $postID,
-            'url_callback' => get_site_url() . '/dashboard/editar-apoio/?id=' . $postID,
+            'url_callback' => get_site_url() . '/dashboard/editar-apoio-novo/?post_id=' . $postID,
             'is_new' => true,
         ]);
     }
