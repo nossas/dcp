@@ -217,20 +217,25 @@ jQuery(function($) {
 
         });
         $( '.asset-item-preview .is-blur' ).on( 'click', function() {});
-        $( '.is-edit-input' ).each( function () {
-
+        $( '.is-edit-input, input[readonly], textarea[readonly], select[readonly]' ).each( function () {
             const $this = $( this );
-
             $this.on( 'click', function() {
-                $this.hide();
-                $this.parent().find( '.chips-checkbox' ).css({
-                    height : 'auto',
-                    opacity : 1
-                });
-                $this.parent().find( '.input, .textarea, .select' ).removeAttr( 'readonly disabled' ).addClass( 'is-editing' ).focus();
-            });
 
+                if( $this.hasClass( 'is-edit-input' ) ) {
+                    $this.hide();
+                    $this.parent().find( '.chips-checkbox' ).css({
+                        height : 'auto',
+                        opacity : 1
+                    });
+                    $this.parent().find( '.input, .textarea, .select' ).removeAttr( 'readonly disabled' ).addClass( 'is-editing' ).focus();
+                } else {
+                    $this.parent().find( '.is-edit-input' ).hide();
+                    $this.removeAttr( 'readonly disabled' ).addClass( 'is-editing' ).focus();
+                }
+
+            });
         });
+
         $( '.input-help .button' ).each( function () {
             const $this = $( this );
             $this.on( 'click', function() {

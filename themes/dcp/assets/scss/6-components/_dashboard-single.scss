@@ -128,7 +128,7 @@
                     textarea[readonly],
                     select[readonly] {
                         opacity: 0.8;
-                        cursor: not-allowed;
+                        cursor: pointer;
                     }
                     input[disabled],
                     textarea[disabled],

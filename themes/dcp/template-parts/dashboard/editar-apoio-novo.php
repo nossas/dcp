@@ -8,6 +8,7 @@ namespace hacklabr\dashboard;
     $get_terms = get_the_terms( $postSingle->ID, 'tipo_apoio' );
 
 ?>
+<script type="application/javascript"> const _current_apoio_edit = '<?=$get_terms[0]->slug?>'; </script>
 <div id="dashboardApoioSingle" class="dashboard-content">
     <div class="dashboard-content-breadcrumb">
         <ol class="breadcrumb">
@@ -16,14 +17,14 @@ namespace hacklabr\dashboard;
                 <iconify-icon icon="bi:chevron-right"></iconify-icon>
             </li>
             <li>
-                <a href="">Adicionar</a>
+                <a href=""><?=$get_terms[0]->name?></a>
                 <iconify-icon icon="bi:chevron-right"></iconify-icon>
             </li>
-            <li><a href="#/">Novo apoio</a></li>
+            <li><a href="#/">Editar <?=strtolower( $get_terms[0]->name )?></a></li>
         </ol>
     </div>
     <header class="dashboard-content-header is-single-new">
-        <h1>Adicionar Apoio</h1>
+        <h1><?=$get_terms[0]->name?></h1>
     </header>
     <div class="dashboard-content-single">
         <?php if( !empty( $postSingle ) ) : ?>
@@ -31,7 +32,10 @@ namespace hacklabr\dashboard;
             <div class="fields is-nome">
                 <div class="input-wrap">
                     <label class="label">Nome</label>
-                    <input class="input" type="text" name="titulo" placeholder="Digite aqui" value="<?=$postSingle->post_title?>" required>
+                    <input class="input" type="text" name="titulo" placeholder="Digite aqui" value="<?=$postSingle->post_title?>" readonly required>
+                    <a class="button is-edit-input">
+                        <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                    </a>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
@@ -45,7 +49,10 @@ namespace hacklabr\dashboard;
             <div class="fields is-descricao">
                 <div class="input-wrap">
                     <label class="label">Descrição</label>
-                    <textarea class="textarea" name="descricao" required><?=$postSingle->post_content?></textarea>
+                    <textarea class="textarea" name="descricao" required readonly><?=$postSingle->post_content?></textarea>
+                    <a class="button is-edit-input">
+                        <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                    </a>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
@@ -59,7 +66,10 @@ namespace hacklabr\dashboard;
             <div class="fields is-funcionamento">
                 <div class="input-wrap">
                     <label class="label">Horário de atendimento</label>
-                    <input class="input" type="text" name="horario_de_atendimento" placeholder="Digite aqui" value="<?=$pod->field( 'horario_de_atendimento' )?>" required>
+                    <input class="input" type="text" name="horario_de_atendimento" placeholder="Digite aqui" value="<?=$pod->field( 'horario_de_atendimento' )?>" readonly required>
+                    <a class="button is-edit-input">
+                        <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                    </a>
                 </div>
                 <!--
                     <div class="is-group">
@@ -85,10 +95,13 @@ namespace hacklabr\dashboard;
             <div class="fields is-endereco">
                 <div class="input-wrap">
                     <label class="label">Endereço</label>
-                    <input class="input" type="text" name="endereco" placeholder="Digite o local ou endereço aqui" value="<?=$pod->field( 'endereco' )?>" required>
+                    <input class="input" type="text" name="endereco" placeholder="Digite o local ou endereço aqui" value="<?=$pod->field( 'endereco' )?>" readonly required>
                     <input type="hidden" name="full_address" value="<?=$pod->field( 'full_address' )?>">
                     <input type="hidden" name="latitude" value="<?=$pod->field( 'latitude' )?>">
                     <input type="hidden" name="longitude" value="<?=$pod->field( 'longitude' )?>">
+                    <a class="button is-edit-input">
+                        <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                    </a>
                     <a class="button is-loading" style="display: none">
                         <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
                     </a>
@@ -109,7 +122,10 @@ namespace hacklabr\dashboard;
             <div class="fields is-website" style="display: none;">
                 <div class="input-wrap">
                     <label class="label">Website</label>
-                    <input class="input" type="text" name="website" placeholder="Digite o local ou endereço aqui" value="<?=$pod->field( 'website' )?>" required>
+                    <input class="input" type="text" name="website" placeholder="Digite o local ou endereço aqui" value="<?=$pod->field( 'website' )?>" readonly required>
+                    <a class="button is-edit-input">
+                        <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                    </a>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
@@ -123,7 +139,10 @@ namespace hacklabr\dashboard;
             <div class="fields is-info-extra" style="display: none;">
                 <div class="input-wrap">
                     <label class="label">Informações extras</label>
-                    <textarea class="textarea" name="info_extra" required><?=$pod->field( 'info_extra' )?></textarea>
+                    <textarea class="textarea" name="info_extra" required readonly><?=$pod->field( 'info_extra' )?></textarea>
+                    <a class="button is-edit-input">
+                        <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                    </a>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
@@ -195,9 +214,13 @@ namespace hacklabr\dashboard;
                 <input type="hidden" name="action" value="form_single_apoio_new">
                 <div></div>
                 <div>
-                    <a class="button is-goback" href="<?=get_dashboard_url( 'apoio' )?>/">
+                    <a class="button is-goback" href="<?=get_dashboard_url( 'apoio', [ 'tipo' => $get_terms[0]->slug ] )?>/">
                         <iconify-icon icon="bi:chevron-left"></iconify-icon>
                         <span>Voltar</span>
+                    </a>
+                    <a class="button is-archive">
+                        <iconify-icon icon="bi:x-lg"></iconify-icon>
+                        <span>Arquivar</span>
                     </a>
                     <a class="button is-save">
                         <iconify-icon icon="bi:check2"></iconify-icon>
@@ -210,7 +233,4 @@ namespace hacklabr\dashboard;
         <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
     </div>
 </div>
-<script>
-    const _current_apoio_edit = '<?=$get_terms[0]->slug?>';
-</script>
 
