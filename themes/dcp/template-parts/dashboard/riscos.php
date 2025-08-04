@@ -99,9 +99,9 @@ $get_riscos = get_riscos_by_status( $sectios_tabs[ $tipo_risco ][ 'post_status' 
                             <?php if( $sectios_tabs[ $tipo_risco ][ 'tipo_risco' ] == 'publicados' ) : ?>
                                 <div class="post-card__assets is-slider-thumb">
                                     <?php $get_attachments = get_attached_media('', get_the_ID() );
-                                    echo '<pre>';
-                                    print_r( count( $get_attachments ) );
-                                    echo '</pre>';
+//                                    echo '<pre>';
+//                                    print_r( count( $get_attachments ) );
+//                                    echo '</pre>';
                                     if( !empty( $get_attachments ) ) :
                                         foreach ( get_attached_media('', get_the_ID() ) as $attachment ) : ?>
                                             <div class="slider-thumb-item">

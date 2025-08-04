@@ -108,7 +108,7 @@ namespace hacklabr\dashboard;
                         Todos os campos devem ter pelo menos 5 caracteres.
                     </p>
                 </div>
-            </div
+            </div>
             <div class="fields is-funcionamento">
                 <div class="input-wrap">
                     <label class="label">Horário de atendimento</label>
