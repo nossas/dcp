@@ -245,6 +245,13 @@
 
                         opacity: 0.5;
                     }
+                    a.button.is-success {
+                        background-color: transparent;
+                        color: $color--primary-pure;
+                        padding: size( 7 );
+                        top: 27px;
+                        opacity: 1;
+                    }
                     a.button.is-category {
                         background-color: transparent;
                         line-height: size( 20 );
