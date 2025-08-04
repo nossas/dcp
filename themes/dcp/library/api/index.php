@@ -107,10 +107,10 @@ class API {
 
         $params = [
             'q' => $address,
-            'format' => 'json',
+            'format' => 'jsonv2',
             'addressdetails' => 1,
             'countrycodes' => 'br',
-            'viewbox' => '-43.27,-22.87,-43.23,-22.91',
+            'viewbox' => apply_filters('dcp_geocoding_viewbox', '-43.27,-22.87,-43.23,-22.91'),
             'bounded' => '1',
         ];
 
@@ -126,8 +126,7 @@ class API {
                 return [
                     'lat' => floatval($match->lat),
                     'lon' => floatval($match->lon),
-                    'address' => $match->address,
-                    'display_name' => $match->display_name,
+                    'address' => $match->display_name,
                 ];
             }
 
