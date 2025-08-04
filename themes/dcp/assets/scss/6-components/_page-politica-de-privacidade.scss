@@ -6,7 +6,7 @@
         font-size: 40px !important;
         @include mobile{
             margin-top: 2rem;
-            font-size: 24px;
+            font-size: 24px !important;
         }
     }
     h3{
@@ -76,6 +76,7 @@
     margin-top: 120px;
     @include mobile{
         margin-top: 16px;
+        padding: unset !important;
     }
     h1{
         font-size: 40px !important;
@@ -84,10 +85,6 @@
         }
     }
     form {
-        @include mobile{
-            padding-inline: 1rem;
-        }
-
         textarea{
             height:136px !important
         }
@@ -104,4 +101,30 @@
     }
 
 
+}
+
+.page-politica-de-privacidade {
+    .post-content {
+        @include mobile {
+            padding-inline: 1rem;
+        }
+    }
+
+    .wp-block-columns {
+        @include mobile {
+            padding-inline: unset !important;
+        }
+    }
+
+    .col-1 {
+        @include mobile {
+            max-width: 100% !important;
+        }
+    }
+
+    .wp-block-heading {
+        @include mobile {
+            padding-inline: unset !important;
+        }
+    }
 }
