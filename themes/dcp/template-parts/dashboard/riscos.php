@@ -2,49 +2,49 @@
 
 namespace hacklabr\dashboard;
 
-    $tipo_risco = get_query_var('tipo_risco' );
-    if( empty( $tipo_risco ) ) $tipo_risco = 'aprovacao';
+$tipo_risco = get_query_var('tipo_risco' );
+if( empty( $tipo_risco ) ) $tipo_risco = 'aprovacao';
 
-    $paged = isset($_GET['paginacao']) ? intval($_GET['paginacao']) : 1;
-    $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 6;
-    $get_all_riscos = get_dashboard_riscos( $paged, $limit );
+$paged = isset($_GET['paginacao']) ? intval($_GET['paginacao']) : 1;
+$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 6;
+$get_all_riscos = get_dashboard_riscos( $paged, $limit );
 
-    $sectios_tabs = [
-        'aprovacao' => [
-            'name' => 'Aguardando Aprovação',
-            'link' => '',
-            'total' => $get_all_riscos['riscosAprovacao']['total_posts'],
-            //'icon' => 'lightbulb-fill',
-            'tipo_risco' => 'aprovacao',
-            'post_status' => 'draft',
-            'notification' => false
-        ],
-        'publicados' => [
-            'name' => 'Publicados',
-            'link' => '',
-            'total' => $get_all_riscos['riscosPublicados']['total_posts'],
-            //'icon' => 'calendar3',
-            'tipo_risco' => 'publicados',
-            'post_status' => 'publish',
-            'notification' => true
-        ],
-        'arquivados' => [
-            'name' => 'Arquivados',
-            'link' => '',
-            'total' => $get_all_riscos['riscosArquivados']['total_posts'],
-            //'icon' => 'check-square-fill',
-            'tipo_risco' => 'arquivados',
-            'post_status' => 'pending',
-            'notification' => false
-        ]
-    ];
+$sectios_tabs = [
+    'aprovacao' => [
+        'name' => 'Aguardando Aprovação',
+        'link' => '',
+        'total' => $get_all_riscos['riscosAprovacao']['total_posts'],
+        //'icon' => 'lightbulb-fill',
+        'tipo_risco' => 'aprovacao',
+        'post_status' => 'draft',
+        'notification' => false
+    ],
+    'publicados' => [
+        'name' => 'Publicados',
+        'link' => '',
+        'total' => $get_all_riscos['riscosPublicados']['total_posts'],
+        //'icon' => 'calendar3',
+        'tipo_risco' => 'publicados',
+        'post_status' => 'publish',
+        'notification' => true
+    ],
+    'arquivados' => [
+        'name' => 'Arquivados',
+        'link' => '',
+        'total' => $get_all_riscos['riscosArquivados']['total_posts'],
+        //'icon' => 'check-square-fill',
+        'tipo_risco' => 'arquivados',
+        'post_status' => 'pending',
+        'notification' => false
+    ]
+];
 
-    $get_riscos = get_riscos_by_status( $sectios_tabs[ $tipo_risco ][ 'post_status' ], $paged, $limit );
+$get_riscos = get_riscos_by_status( $sectios_tabs[ $tipo_risco ][ 'post_status' ], $paged, $limit );
 
-    //echo '<pre>';
-    //print_r( $get_riscos );
-    //echo '</pre>';
 ?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
 <div id="dashboardRiscos" class="dashboard-content">
     <header class="dashboard-content-header">
         <h1>RISCOS MAPEADOS</h1>
@@ -64,25 +64,19 @@ namespace hacklabr\dashboard;
                 </a>
             <?php endforeach; ?>
         </div>
-
         <div class="dashboard-content-cards">
-        <?php
-            get_template_part('template-parts/dashboard/ui/skeleton' );
-
+        <?php get_template_part('template-parts/dashboard/ui/skeleton' );
             if( wp_is_mobile() ) {
                 get_template_part('template-parts/dashboard/ui/skeleton' );
                 get_template_part('template-parts/dashboard/ui/skeleton' );
             }
-
             if( $get_riscos[ 'posts' ]->have_posts() ) :
                 while( $get_riscos[ 'posts' ]->have_posts() ) :
                     $get_riscos[ 'posts' ]->the_post();
                     $pod = pods( 'risco', get_the_ID() );
                     $post_status = get_post_status(); ?>
-
                     <article class="post-card is-<?=$post_status?>" style="display: none;">
                         <main class="post-card__content">
-
                             <div class="post-card__term">
                             <?php
                                 $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
@@ -94,20 +88,20 @@ namespace hacklabr\dashboard;
                             ?>
                             </div>
                             <div class="post-card__risco-meta"><?=wp_date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
-
                             <h3 class="post-card__title">
                                 <span><?=$pod->field( 'endereco' )?></span>
                             </h3>
-
                             <div class="post-card__excerpt-wrapped">
                                 <p class="text-excerpt">
                                     <?php dashboard_excerpt( $pod->field( 'descricao' ) ); ?>
                                 </p>
                             </div>
-
                             <?php if( $sectios_tabs[ $tipo_risco ][ 'tipo_risco' ] == 'publicados' ) : ?>
                                 <div class="post-card__assets is-slider-thumb">
                                     <?php $get_attachments = get_attached_media('', get_the_ID() );
+                                    echo '<pre>';
+                                    print_r( count( $get_attachments ) );
+                                    echo '</pre>';
                                     if( !empty( $get_attachments ) ) :
                                         foreach ( get_attached_media('', get_the_ID() ) as $attachment ) : ?>
                                             <div class="slider-thumb-item">
@@ -121,19 +115,33 @@ namespace hacklabr\dashboard;
                                                     </video>
                                                 <?php endif; ?>
                                             </div>
-                                            <?php
-                                        endforeach;
-                                    else : ?>
+                                    <?php endforeach; ?>
+
+                                    <!--
+                                        <div class="swiper">
+                                            <div class="swiper-wrapper">
+                                                <div class="swiper-slide">Slide 1</div>
+                                                <div class="swiper-slide">Slide 2</div>
+                                                <div class="swiper-slide">Slide 3</div>
+                                            </div>
+
+                                            <div class="swiper-pagination"></div>
+
+                                            <div class="swiper-button-prev"></div>
+                                            <div class="swiper-button-next"></div>
+
+                                            <div class="swiper-scrollbar"></div>
+                                        </div>
+                                    -->
+
+                                    <?php else : ?>
                                         <div class="slider-thumb-empty">
                                             Nenhuma Mídia adicionada ainda.
                                         </div>
-
                                     <?php endif; ?>
                                 </div>
                             <?php endif; ?>
-
                             <div class="post-card__see-more">
-
                                 <div></div>
                                 <div>
                                     <?php if( $sectios_tabs[ $tipo_risco ][ 'tipo_risco' ] == 'aprovacao' ) : ?>
@@ -157,21 +165,15 @@ namespace hacklabr\dashboard;
                                         </a>
                                     <?php endif; ?>
                                 </div>
-
                             </div>
                         </main>
                     </article>
-
                 <?php endwhile;
-
             else : ?>
-
                 <div class="message-response">
                     <span class="tabs__panel-message">Nenhum risco foi publicado ainda.</span>
                 </div>
-
         <?php endif; ?>
-
         </div>
         <?php if( $get_riscos[ 'pagination' ] ) : ?>
             <div class="dashboard-content-pagination">
@@ -197,7 +199,6 @@ namespace hacklabr\dashboard;
                 </ol>
             </div>
         <?php endif; ?>
-
     </div>
 </div>
 
