@@ -132,7 +132,7 @@ function form_single_apoio_new() {
             'latitude' => sanitize_text_field( $_POST[ 'latitude' ] ),
             'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
             'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
-            'horario_de_atendimento' => sanitize_text_field( $_POST[ 'dias_funcionamento' ] ),
+            'horario_de_atendimento' => sanitize_text_field( $_POST[ 'horario_de_atendimento' ] ),
             'telefone' => sanitize_text_field($_POST['telefone']),
             'website' => sanitize_text_field($_POST['site']),
             'info_extra' => sanitize_text_field($_POST['observacoes']),

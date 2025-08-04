@@ -108,6 +108,16 @@ namespace hacklabr\dashboard;
                 <div class="input-wrap">
                     <label class="label">Localização</label>
                     <input class="input" type="text" name="endereco" placeholder="Digite o local ou endereço aqui" value="" required>
+                    <input type="hidden" name="full_address" value="">
+                    <input type="hidden" name="latitude" value="">
+                    <input type="hidden" name="longitude" value="">
+                    <a class="button is-loading" style="display: none">
+                        <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
+                    </a>
+                    <a class="button is-success" style="display: none">
+                        <iconify-icon icon="bi:check-circle"></iconify-icon>
+                    </a>
+                    <p class="is-error-geolocation" style="font-size: 12px; color: #c10202; display: none; padding-left: 10px; ">Não foi possível encontrar este endereço, aguarde atualizações do mapa.</p>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">

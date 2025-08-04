@@ -221,8 +221,18 @@ namespace hacklabr\dashboard;
                 <div class="input-wrap">
                     <label class="label">Localização</label>
                     <input class="input" type="text" name="endereco" placeholder="Digite o local ou endereço aqui" value="<?=$pod->field('endereco')?>" required readonly>
+                    <input type="hidden" name="full_address" value="<?=$pod->field( 'full_address' )?>">
+                    <input type="hidden" name="latitude" value="<?=$pod->field( 'latitude' )?>">
+                    <input type="hidden" name="longitude" value="<?=$pod->field( 'longitude' )?>">
                     <a class="button is-edit-input">
                         <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                    </a>
+                    <a class="button is-success" style="display: none">
+                        <iconify-icon icon="bi:check-circle"></iconify-icon>
+                    </a>
+                    <p class="is-error-geolocation" style="font-size: 12px; color: #c10202; padding-left: 10px; display: none; ">Não foi possível encontrar este endereço, aguarde atualizações do mapa.</p>
+                    <a class="button is-loading" style="display: none">
+                        <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
                     </a>
                 </div>
                 <div class="input-help">

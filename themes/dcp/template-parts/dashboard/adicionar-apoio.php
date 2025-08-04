@@ -110,6 +110,11 @@ namespace hacklabr\dashboard;
                 </div>
             </div>
             <div class="fields is-funcionamento">
+                <div class="input-wrap">
+                    <label class="label">Horário de atendimento</label>
+                    <input class="input" type="text" name="horario_de_atendimento" placeholder="Digite aqui" value="" disabled required>
+                </div>
+                <!--
                 <div class="is-group">
                     <div class="input-wrap">
                         <label class="label">Dias de funcionamento</label>
@@ -120,6 +125,7 @@ namespace hacklabr\dashboard;
                         <input class="input" type="time" name="horario" placeholder="Digite aqui" value="" disabled required>
                     </div>
                 </div>
+                -->
                 <div class="input-help">
                     <a href="#/" class="button">
                         <iconify-icon icon="bi:question"></iconify-icon>
