@@ -90,6 +90,7 @@ namespace hacklabr\dashboard;
                         <div class="input-wrap">
                             <label class="label">Localização</label>
                             <input class="input" type="text" name="endereco" placeholder="Digite o local ou endereço aqui" value="<?=$pod->field('endereco')?>" readonly required>
+                            <input type="hidden" name="full_address" value="<?=$pod->field( 'full_address' )?>">
                             <input type="hidden" name="latitude" value="<?=$pod->field( 'latitude' )?>">
                             <input type="hidden" name="longitude" value="<?=$pod->field( 'longitude' )?>">
                             <a class="button is-edit-input">
@@ -98,9 +99,7 @@ namespace hacklabr\dashboard;
                             <a class="button is-success" style="display: none">
                                 <iconify-icon icon="bi:check-circle"></iconify-icon>
                             </a>
-                            <?php if( empty( $pod->field( 'latitude' ) ) || empty( $pod->field( 'longitude' ) ) ) : ?>
-                            <p class="is-error-geolocation" style="font-size: 12px; color: #c10202; padding-left: 10px; ">Não foi possível encontrar este endereço, aguarde atualizações do mapa.</p>
-                            <?php endif; ?>
+                            <p class="is-error-geolocation" style="font-size: 12px; color: #c10202; padding-left: 10px; <?=( empty( $pod->field( 'latitude' ) ) || empty( $pod->field( 'longitude' ) ) ) ? 'display : block;' : '' ?> ">Não foi possível encontrar este endereço, aguarde atualizações do mapa.</p>
                             <a class="button is-loading" style="display: none">
                                 <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
                             </a>

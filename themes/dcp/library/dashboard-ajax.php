@@ -120,8 +120,6 @@ function form_single_apoio_new() {
         ], 200);
     }
 
-    $horario_de_atendimento = sanitize_text_field( $_POST[ 'dias_funcionamento' ] ) . ' - ' . sanitize_text_field( $_POST[ 'horario' ] );
-
     $postID = wp_insert_post([
         'post_type' => 'apoio',
         'post_status' => 'publish',
@@ -131,10 +129,11 @@ function form_single_apoio_new() {
             'titulo' => sanitize_text_field($_POST['titulo']),
             'descricao' => sanitize_text_field($_POST['descricao']),
             'endereco' => sanitize_text_field($_POST['endereco']),
-            //'latitude' => sanitize_text_field($_POST['latitude']),
-            //'longitude' => sanitize_text_field($_POST['longitude']),
-            'horario_de_atendimento' => $horario_de_atendimento,
-            //'telefone' => sanitize_text_field($_POST['telefone']),
+            'latitude' => sanitize_text_field( $_POST[ 'latitude' ] ),
+            'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
+            'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
+            'horario_de_atendimento' => sanitize_text_field( $_POST[ 'dias_funcionamento' ] ),
+            'telefone' => sanitize_text_field($_POST['telefone']),
             'website' => sanitize_text_field($_POST['site']),
             'info_extra' => sanitize_text_field($_POST['observacoes']),
             'data_e_horario' => date( 'Y-m-d H:i:s' ),
@@ -554,6 +553,7 @@ function form_single_risco_new() {
                 'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
                 'latitude' => sanitize_text_field( $_POST[ 'latitude' ] ),
                 'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
+                'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
                 'nome_completo' => sanitize_text_field( $_POST[ 'nome_completo' ] ),
                 'email' => sanitize_text_field( $_POST[ 'email' ] ),
                 'telefone' => sanitize_text_field( $_POST[ 'telefone' ] ),
