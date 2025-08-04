@@ -372,6 +372,7 @@ jQuery(function($) {
                 },
                 success: function( response ) {
                     if( response.lat || response.lon ) {
+                        $this.val( response.address )
                         $( '.dashboard-content-single input[name="latitude"]' ).val( response.lat );
                         $( '.dashboard-content-single input[name="longitude"]' ).val( response.lon );
                         $this.parent().find( '.is-success' ).show();
