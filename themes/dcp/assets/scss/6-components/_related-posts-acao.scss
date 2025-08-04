@@ -54,6 +54,22 @@
             background-color: #B83D13 !important;
         }
     }
+    .card-style--educacao{
+        .acao-rodape {
+            background-color: #50B15C !important;
+        }
+    }
+    .card-style--solidariedade{
+        .acao-rodape {
+            background-color: #50B15C !important;
+        }
+    }
+     .card-style--incidencia{
+        .acao-rodape {
+            background-color: #50B15C !important;
+        }
+    }
+
   }
     .acao-card--cultura{
         border-radius: 16px;
@@ -96,6 +112,22 @@
             background-position: center;
         }
     }
+    .acao-card--educacao{
+        border-radius: 16px;
+        padding: 4px 17px;
+        background-color: #50B15C !important;
+
+    }
+    .acao-card--solidariedade{
+        border-radius: 16px;
+        padding: 4px 17px;
+        background-color: #50B15C !important;
+    }
+    .acao-card--incidencia{
+        border-radius: 16px;
+        padding: 4px 17px;
+        background-color: #50B15C !important;
+    }
   .acao-card {
     background: white;
     border-radius: 16px;
@@ -109,7 +141,7 @@
     max-width: 443px;
 
     .acao-topo {
-        padding: 0.5rem 1rem;
+        padding: 20px 1rem;
         color:$color--secondary-dark !important;
         display: flex;
         align-items: center;
@@ -128,28 +160,40 @@
     }
 
     .acao-conteudo {
-      padding: 1rem;
+      padding: 20px;
+      padding-top: 0px;
       flex-grow: 1;
 
       .acao-titulo {
         font-size: 1.5rem;
         color:$color--secondary-dark !important;
-        font-weight: bold;
         font-family: 'gabarito';
-        margin-bottom: 0.5rem;
+        margin: 0px;
         text-align: left;
+        margin-bottom: 8px;
       }
-
+      hr {
+        border: 1px solid #C9C6C5;
+        width: 24px;
+        border-radius: 2px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+      }
       .acao-descricao {
-        font-size: 0.9rem;
-        color: #333;
-        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-family: 'gabarito';
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%;
+        margin: 0px;
       }
 
       .acao-infos {
         list-style: none;
         padding: 0;
-        margin-top: 1rem;
+        margin-top: 8px;
         font-size: 0.875rem;
         color: #555;
         text-align: left;
@@ -172,10 +216,10 @@
 
       .acao-botao {
         background: white;
-        color: black;
+        color: #281414;
         padding: 0.5rem 1.2rem;
         border-radius: 25px;
-        font-weight: $font-weight--medium;
+        font-weight: 500;
         text-decoration: none;
         display: inline-block;
         transition: background 0.3s ease;
