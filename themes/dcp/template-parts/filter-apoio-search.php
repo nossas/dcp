@@ -10,14 +10,29 @@
         <?php
 
         $parent_term = get_term_by('name', 'QUEM ACIONAR', 'tipo_apoio');
-        $child_terms = [];
+        $child_terms_raw = [];
 
         if ($parent_term && !is_wp_error($parent_term)) {
-            $child_terms = get_terms([
+            $child_terms_raw = get_terms([
                 'taxonomy'   => 'tipo_apoio',
                 'parent'     => $parent_term->term_id,
                 'hide_empty' => false,
             ]);
+        }
+
+        $outros_term = null;
+        $child_terms = [];
+
+        foreach ($child_terms_raw as $term) {
+            if (strtolower($term->name) === 'outros') {
+                $outros_term = $term;
+            } else {
+                $child_terms[] = $term;
+            }
+        }
+
+        if ($outros_term) {
+            $child_terms[] = $outros_term;
         }
 
         if (isset($_GET['tag_selecionada'])) {
