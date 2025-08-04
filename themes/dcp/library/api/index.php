@@ -121,7 +121,6 @@ class API {
         $data = \json_decode($data);
 
         if (\is_array($data)) {
-
             foreach ($data as $match) {
                 return [
                     'lat' => floatval($match->lat),
@@ -129,7 +128,6 @@ class API {
                     'address' => $match->display_name,
                 ];
             }
-
         }
 
         return null;

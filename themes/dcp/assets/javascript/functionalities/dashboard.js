@@ -352,6 +352,45 @@ jQuery(function($) {
             }
         });
 
+        $( '.dashboard-content-single input[name="endereco"]' ).on( 'change', function () {
+            const $this = $( this );
+
+            $.ajax({
+                url: window.location.origin + '/wp-json/hacklabr/v2/geocoding/',
+                type: 'GET',
+                data: {
+                    address : $this.val(),
+                },
+                beforeSend: function() {
+                    $( '.loading-global' ).fadeIn( 400 );
+                    $this.prop( 'disabled', true );
+                    $this.parent().find( '.is-loading' ).show();
+                    $this.parent().find( '.is-success' ).hide();
+                    $this.parent().find( '.is-error-geolocation' ).hide();
+                    $( '.dashboard-content-single input[name="latitude"]' ).val( '' );
+                    $( '.dashboard-content-single input[name="longitude"]' ).val( '' );
+                },
+                success: function( response ) {
+                    if( response.lat || response.lon ) {
+                        $( '.dashboard-content-single input[name="latitude"]' ).val( response.lat );
+                        $( '.dashboard-content-single input[name="longitude"]' ).val( response.lon );
+                        $this.parent().find( '.is-success' ).show();
+                    } else {
+                        $this.parent().find( '.is-error-geolocation' ).show();
+                    }
+                },
+                error: function ( response ) {
+                    $this.parent().find( '.is-error-geolocation' ).show();
+                },
+                complete: function() {
+                    $( '.loading-global' ).fadeOut( 400 );
+                    $this.parent().find( '.is-loading' ).hide();
+                    $this.prop( 'disabled', false );
+                }
+            });
+
+        });
+
         $( '.input-chips input[type="checkbox"]' ).on( 'change', function () {
             if( $( this ).is( ':checked' ) ) {
                 $( '.input-chips .chips-wrap').append( '<span id="chips_' + $( this ).val() + '" class="chips"><iconify-icon icon="bi:check2"></iconify-icon>' + $( this ).attr( 'data-label' ) + '</span>' );
