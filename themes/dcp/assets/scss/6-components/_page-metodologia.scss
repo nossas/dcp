@@ -82,4 +82,12 @@
             margin-top: unset !important;
         }
     }
+
+    &__monitoramento{
+        .wp-block-cover__inner-container {
+            @include mobile {
+                margin-top: 56px;
+            }
+        }
+    }
 }
