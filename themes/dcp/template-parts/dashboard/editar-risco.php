@@ -99,7 +99,7 @@ namespace hacklabr\dashboard;
                             <a class="button is-success" style="display: none">
                                 <iconify-icon icon="bi:check-circle"></iconify-icon>
                             </a>
-                            <p class="is-error-geolocation" style="font-size: 12px; color: #c10202; padding-left: 10px; <?=( empty( $pod->field( 'latitude' ) ) || empty( $pod->field( 'longitude' ) ) ) ? 'display : block;' : '' ?> ">Não foi possível encontrar este endereço, aguarde atualizações do mapa.</p>
+                            <p class="is-error-geolocation" style="font-size: 12px; color: #c10202; padding-left: 10px; display: none; ">Não foi possível encontrar este endereço, aguarde atualizações do mapa.</p>
                             <a class="button is-loading" style="display: none">
                                 <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
                             </a>
