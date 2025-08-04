@@ -367,10 +367,13 @@ jQuery(function($) {
                     $this.parent().find( '.is-loading' ).show();
                     $this.parent().find( '.is-success' ).hide();
                     $this.parent().find( '.is-error-geolocation' ).hide();
+                    $( '.dashboard-content-single input[name="latitude"]' ).val( '' );
+                    $( '.dashboard-content-single input[name="longitude"]' ).val( '' );
                 },
                 success: function( response ) {
                     if( response.lat || response.lon ) {
                         $( '.dashboard-content-single input[name="latitude"]' ).val( response.lat );
+                        $( '.dashboard-content-single input[name="longitude"]' ).val( response.lon );
                         $this.parent().find( '.is-success' ).show();
                     } else {
                         $this.parent().find( '.is-error-geolocation' ).show();
