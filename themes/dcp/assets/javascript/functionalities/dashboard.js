@@ -42,6 +42,41 @@ jQuery(function($) {
             }
         });
     }
+    function selectTipoApoio( tipo_apoio ) {
+        switch ( tipo_apoio ) {
+
+            case 'locais-seguros' :
+                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
+                $( '#apoioSingleForm .is-media-attachments' ).show();
+                break;
+
+            case 'iniciativas-locais' :
+                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
+                $( '#apoioSingleForm .is-media-attachments' ).show();
+                break;
+
+            case 'cacambas' :
+                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
+                $( '#apoioSingleForm .is-media-attachments' ).hide();
+                break;
+
+            case 'quem-acionar' :
+            case 'agua' :
+            case 'assistencia-social' :
+            case 'energia-eletrica' :
+            case 'lixo' :
+            case 'outros' :
+            case 'saude' :
+                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).show();
+                $( '#apoioSingleForm .is-media-attachments' ).hide();
+                break;
+
+            default :
+                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra, #apoioSingleForm .is-media-attachments' ).hide();
+                $( '#apoioSingleForm input, #apoioSingleForm textarea' ).prop( 'disabled', true );
+                break;
+        }
+    }
 
     $( document ).ready( function() {
 
@@ -72,40 +107,6 @@ jQuery(function($) {
                 $( this ).addClass( 'is-active' );
             });
         });
-
-        // TODO: COMPORTAMENTO MOCK TAB PANELS ( componentizar / usar Alpine já existente )
-        // $( '#dashboardRiscos .tabs__header a' ).on('click', function() {
-        //
-        //     const $this = $( this );
-        //     const tab = $this.attr( 'href' );
-        //
-        //     $( '.tabs__header a, .tabs__panels' ).removeClass( 'is-active' );
-        //     $( '.tabs__panels' ).hide();
-        //
-        //     switch ( tab ) {
-        //         case '#aprovacao':
-        //             $this.addClass( 'is-active' );
-        //             $( '#riscosAprovacao' ).show().addClass( 'is-active' );
-        //             break;
-        //         case '#publicados':
-        //             $this.addClass( 'is-active' );
-        //             $( '#riscosPublicados' ).show().addClass( 'is-active' );
-        //             break;
-        //         case '#arquivados':
-        //             $this.addClass( 'is-active' );
-        //             $( '#riscosArquivados' ).show().addClass( 'is-active' );
-        //             break;
-        //         default:
-        //
-        //             break;
-        //     }
-        //
-        //     $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
-        //     $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
-        //
-        // });
-        $( '.tabs__header a.is-active' ).trigger( 'click' );
-        // TODO: COMPORTAMENTO MOCK TAB PANELS ( componentizar / usar Alpine já existente )
 
         // TODO: COMPONENT
         function custom_modal_confirm(options) {
@@ -321,35 +322,13 @@ jQuery(function($) {
             $( '.input-chips .chips-wrap').html( '' );
             $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
         });
+
+        if( $( '#dashboardApoioSingle' ).length ) {
+            selectTipoApoio( _current_apoio_edit );
+        }
         $( '#selectTipoApoio' ).on( 'change', function () {
             $( 'input[type="text"], input[type="date"], input[type="time"], textarea' ).val( '' ).prop( 'disabled', false );
-            switch ( $( this ).val() ) {
-
-                case 'locais-seguros' :
-                    $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
-                    $( '#apoioSingleForm .is-media-attachments' ).show();
-                    break;
-
-                case 'iniciativas-locais' :
-                    $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
-                    $( '#apoioSingleForm .is-media-attachments' ).show();
-                    break;
-
-                case 'cacambas' :
-                    $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
-                    $( '#apoioSingleForm .is-media-attachments' ).hide();
-                    break;
-
-                case 'quem-acionar' :
-                    $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).show();
-                    $( '#apoioSingleForm .is-media-attachments' ).hide();
-                    break;
-
-                default :
-                    $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra, #apoioSingleForm .is-media-attachments' ).hide();
-                    $( '#apoioSingleForm input, #apoioSingleForm textarea' ).prop( 'disabled', true );
-                    break;
-            }
+            selectTipoApoio( $( this ).val() );
         });
 
         $( '.dashboard-content-single input[name="endereco"]' ).on( 'change', function () {
@@ -440,7 +419,6 @@ jQuery(function($) {
 
             }).trigger( 'click' );
         });
-
         $( '#riscoSingleForm, #acaoSingleForm, #apoioSingleForm' ).on( 'submit', function ( e ) {
             const $this = $( this );
             const form = e.target;

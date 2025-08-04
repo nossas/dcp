@@ -2,10 +2,10 @@
 
 namespace hacklabr\dashboard;
 
-    $all_terms = get_terms([
-        'taxonomy' => 'tipo_apoio',
-        'hide_empty' => false,
-    ]);
+    $post_id = get_query_var('post_id' );
+    $postSingle = get_post( $post_id );
+    $pod = pods( $postSingle->post_type, $postSingle->ID );
+    $get_terms = get_the_terms( $postSingle->ID, 'tipo_apoio' );
 
 ?>
 <div id="dashboardApoioSingle" class="dashboard-content">
@@ -26,65 +26,12 @@ namespace hacklabr\dashboard;
         <h1>Adicionar Apoio</h1>
     </header>
     <div class="dashboard-content-single">
+        <?php if( !empty( $postSingle ) ) : ?>
         <form id="apoioSingleForm" class="" method="post" enctype="multipart/form-data" action="javascript:void(0);" data-action="<?php bloginfo( 'url' );?>/wp-admin/admin-ajax.php">
-            <div class="fields is-tipo-apoio">
-                <div class="input-wrap">
-                    <label class="label">Tipo de Apoio</label>
-                    <select id="selectTipoApoio" class="select" name="tipo_apoio" required>
-                        <option value="">SELECIONE UM TIPO DE APOIO</option>
-                        <?php foreach ( $all_terms as $key => $term ) :
-                            if( !$term->parent ) : ?>
-                                <option value="<?=$term->slug?>"><?=$term->name?></option>
-                            <?php endif;
-                        endforeach; ?>
-                    </select>
-                    <a class="button is-category">
-                        <?php risco_badge_category( 'sem-categoria', 'SEM CATEGORIA ADICIONADA', '' ); ?>
-                    </a>
-                    <a class="button is-select-input">
-                        <iconify-icon icon="bi:chevron-down"></iconify-icon>
-                    </a>
-                </div>
-                <div class="input-help">
-                    <a href="#/" class="button">
-                        <iconify-icon icon="bi:question"></iconify-icon>
-                    </a>
-                    <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
-                    </p>
-                </div>
-            </div>
-            <div class="fields is-subcategory" style="display: none">
-                <div class="input-wrap">
-                    <label class="label">Subcategoria</label>
-                    <select id="selectTipoApoioSubcategory" class="select" name="tipo_apoio_subcategory" required>
-                        <option value="">SELECIONE UMA SUBCATEGORIA</option>
-                        <?php foreach ( $all_terms as $key => $term ) :
-                            if( $term->parent ) : ?>
-                                <option value="<?=$term->slug?>"><?=$term->name?></option>
-                            <?php endif;
-                        endforeach; ?>
-                    </select>
-                    <a class="button is-category">
-                        <?php risco_badge_category( 'sem-categoria', 'SEM CATEGORIA ADICIONADA', '' ); ?>
-                    </a>
-                    <a class="button is-select-input">
-                        <iconify-icon icon="bi:chevron-down"></iconify-icon>
-                    </a>
-                </div>
-                <div class="input-help">
-                    <a href="#/" class="button">
-                        <iconify-icon icon="bi:question"></iconify-icon>
-                    </a>
-                    <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
-                    </p>
-                </div>
-            </div>
             <div class="fields is-nome">
                 <div class="input-wrap">
                     <label class="label">Nome</label>
-                    <input class="input" type="text" name="titulo" placeholder="Digite aqui" value="" disabled required>
+                    <input class="input" type="text" name="titulo" placeholder="Digite aqui" value="<?=$postSingle->post_title?>" required>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
@@ -98,7 +45,7 @@ namespace hacklabr\dashboard;
             <div class="fields is-descricao">
                 <div class="input-wrap">
                     <label class="label">Descrição</label>
-                    <textarea class="textarea" name="descricao" disabled required></textarea>
+                    <textarea class="textarea" name="descricao" required><?=$postSingle->post_content?></textarea>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
@@ -112,7 +59,7 @@ namespace hacklabr\dashboard;
             <div class="fields is-funcionamento">
                 <div class="input-wrap">
                     <label class="label">Horário de atendimento</label>
-                    <input class="input" type="text" name="horario_de_atendimento" placeholder="Digite aqui" value="" disabled required>
+                    <input class="input" type="text" name="horario_de_atendimento" placeholder="Digite aqui" value="<?=$pod->field( 'horario_de_atendimento' )?>" required>
                 </div>
                 <!--
                     <div class="is-group">
@@ -138,10 +85,10 @@ namespace hacklabr\dashboard;
             <div class="fields is-endereco">
                 <div class="input-wrap">
                     <label class="label">Endereço</label>
-                    <input class="input" type="text" name="endereco" placeholder="Digite o local ou endereço aqui" value="" disabled required>
-                    <input type="hidden" name="full_address" value="">
-                    <input type="hidden" name="latitude" value="">
-                    <input type="hidden" name="longitude" value="">
+                    <input class="input" type="text" name="endereco" placeholder="Digite o local ou endereço aqui" value="<?=$pod->field( 'endereco' )?>" required>
+                    <input type="hidden" name="full_address" value="<?=$pod->field( 'full_address' )?>">
+                    <input type="hidden" name="latitude" value="<?=$pod->field( 'latitude' )?>">
+                    <input type="hidden" name="longitude" value="<?=$pod->field( 'longitude' )?>">
                     <a class="button is-loading" style="display: none">
                         <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
                     </a>
@@ -162,7 +109,7 @@ namespace hacklabr\dashboard;
             <div class="fields is-website" style="display: none;">
                 <div class="input-wrap">
                     <label class="label">Website</label>
-                    <input class="input" type="text" name="website" placeholder="Digite o local ou endereço aqui" value="" required>
+                    <input class="input" type="text" name="website" placeholder="Digite o local ou endereço aqui" value="<?=$pod->field( 'website' )?>" required>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
@@ -176,7 +123,7 @@ namespace hacklabr\dashboard;
             <div class="fields is-info-extra" style="display: none;">
                 <div class="input-wrap">
                     <label class="label">Informações extras</label>
-                    <textarea class="textarea" name="info_extra" required></textarea>
+                    <textarea class="textarea" name="info_extra" required><?=$pod->field( 'info_extra' )?></textarea>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
@@ -252,15 +199,18 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:chevron-left"></iconify-icon>
                         <span>Voltar</span>
                     </a>
-                    <a class="button is-new">
+                    <a class="button is-save">
                         <iconify-icon icon="bi:check2"></iconify-icon>
-                        <span>Criar Apoio</span>
+                        <span>Salvar alterações</span>
                     </a>
                 </div>
             </div>
         </form>
-
+        <?php endif; ?>
         <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
     </div>
 </div>
+<script>
+    const _current_apoio_edit = '<?=$get_terms[0]->slug?>';
+</script>
 
