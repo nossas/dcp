@@ -219,7 +219,7 @@ namespace hacklabr\dashboard;
                 <input type="hidden" name="post_id" value="<?=$postSingle->ID?>">
                 <input type="hidden" name="post_status" value="<?=$postSingle->post_status?>">
                 <div>
-                    <a class="button is-goback" href="<?=get_dashboard_url( 'apoio', [ 'tipo' => $get_terms[0]->slug ] )?>/">
+                    <a class="button is-goback" href="<?=get_dashboard_url( 'apoio', [ 'tipo' => $get_terms[0]->slug ] )?>">
                         <iconify-icon icon="bi:chevron-left"></iconify-icon>
                         <span>Voltar</span>
                     </a>
