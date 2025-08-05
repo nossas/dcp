@@ -303,6 +303,7 @@
                 .input-media {
                     font-size: size( 17 );
                     color: $color--secondary-dark;
+                    display: block;
                     width: 61%;
                     padding: size( 15 ) size( 20 );
                     margin:  size( 25 ) 0  size( 25 );
@@ -629,6 +630,32 @@
                             border-radius: size( 15 );
                         }
 
+                    }
+
+
+                    &.is-cover-view {
+                        border: none;
+                        padding: 0;
+
+                        .is-cover-image {
+                            display: block;
+                            width: 100%;
+                            border-radius: size( 10 );
+                            overflow: hidden;
+                        }
+
+                        .input-media-uploader {
+                            background-color: rgba(0,0,0,0.05);
+                            padding: size( 15 ) size( 20 );
+                            margin:  size( 25 ) 0  size( 25 );
+                            border-radius: size( 15 );
+                            border: solid 2px $color--secondary-dark;
+                            overflow: hidden;
+                            position: relative;
+                            z-index: 1;
+                            transition: all 0.2s 0s ease;
+
+                        }
                     }
                 }
                 .input-help {

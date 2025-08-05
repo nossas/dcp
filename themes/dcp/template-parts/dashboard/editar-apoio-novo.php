@@ -6,10 +6,11 @@ namespace hacklabr\dashboard;
     $postSingle = get_post( $post_id );
     $pod = pods( $postSingle->post_type, $postSingle->ID );
     $get_terms = get_the_terms( $postSingle->ID, 'tipo_apoio' );
+    $attachments = get_attached_media('', $postSingle->ID );
 
-    // echo '<pre>';
-    // print_r( $get_terms );
-    // echo '</pre>';
+//     echo '<pre>';
+//     print_r( $attachments );
+//     echo '</pre>';
 
 ?>
 <script type="application/javascript"> const _current_apoio_edit = '<?=$get_terms[0]->slug?>'; </script>
@@ -158,20 +159,21 @@ namespace hacklabr\dashboard;
                 </div>
             </div>
             <div class="fields is-media-attachments" style="display: none;">
-                <div id="mediaUploadCover" class="input-media">
-                    <?php if( !wp_is_mobile() ) : ?>
-                        <div class="input-media-uploader">
-                            <h4>Foto de capa</h4>
-                            <div class="input-media-uploader-files">
-                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
-                                    <iconify-icon icon="bi:upload"></iconify-icon>
-                                    <span>Adicionar foto</span>
-                                </a>
-                            </div>
-                        </div>
-                    <?php else : ?>
+                <div id="mediaUploadCover" class="input-media is-cover-view">
+                    <div class="is-cover-image">
+                        <h3>Foto de capa</h3>
+                        <?php if( !empty( $attachments ) ) : ?>
+                            <?php foreach ( $attachments as $image ) : ?>
+                                <input type="hidden" name="attatchment_cover_id" value="<?=$image->ID?>">
+                                <figure class="asset-item-preview">
+                                    <img class="is-load-now" data-media-src="<?=$image->guid?>">
+                                </figure>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                    <?php if( wp_is_mobile() ) : ?>
                         <div class="input-media-uploader is-mobile-only">
-                            <h4 style="margin-top: 15px">Foto (opcional)</h4>
+
                             <div class="input-help">
                                 <a href="#/" class="button" style="top: 0 !important;">
                                     <iconify-icon icon="bi:question"></iconify-icon>
@@ -187,17 +189,12 @@ namespace hacklabr\dashboard;
                             <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
                         </div>
                     </div>
-                    <div class="input-media-preview">
-                        <div class="input-media-preview-assets is-empty">
-                            <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
-                        </div>
-                    </div>
-                    <?php if( wp_is_mobile() ) : ?>
+                    <?php if( !wp_is_mobile() ) : ?>
                         <div class="input-media-uploader">
                             <div class="input-media-uploader-files">
                                 <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
                                     <iconify-icon icon="bi:upload"></iconify-icon>
-                                    <span>Adicionar foto</span>
+                                    <span>Escolher arquivo</span>
                                 </a>
                             </div>
                         </div>
@@ -238,6 +235,7 @@ namespace hacklabr\dashboard;
         </form>
         <?php endif; ?>
         <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
+        <?php echo get_template_part('template-parts/dashboard/ui/modal-assetset-fullscreen' ); ?>
     </div>
 </div>
 
