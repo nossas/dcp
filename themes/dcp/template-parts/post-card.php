@@ -274,7 +274,7 @@
         <?php if ($post_type == 'apoio'): ?>
             <div class="post-card__see-in-map">
                 <button class="post-card__map-button">
-                    <a href="/mapa"><?= __("Veja no mapa", "dcp"); ?></a>
+                    <a href="/mapa"><?= __("Conheça a iniciativa", "dcp"); ?></a>
                 </button>
 
                 <?php
