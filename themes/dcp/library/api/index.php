@@ -155,6 +155,8 @@ class API {
                 if ($r) $response[] = $r;
             }
 
+        } else {
+            $response = [ 'message' => 'Coordenadas não encontrada para este endereço.' ];
         }
 
         return $response;

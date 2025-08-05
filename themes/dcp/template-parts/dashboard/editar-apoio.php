@@ -61,9 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && current_user_can('edit_post', $post
             </nav>
 
             <?php
-            $taxonomia = 'tipo_apoio';
-            $termos = get_the_terms($post_id, $taxonomia);
-            $nome_termo = $termos && !is_wp_error($termos) ? $termos[0]->name : 'Tipo de apoio';
+                $taxonomia = 'tipo_apoio';
+                $termos = get_the_terms($post_id, $taxonomia);
+                $nome_termo = $termos && !is_wp_error($termos) ? $termos[0]->name : 'Tipo de apoio';
             ?>
             <h2 class="apoio__header--edit-title"><?= esc_html($nome_termo); ?></h2>
 

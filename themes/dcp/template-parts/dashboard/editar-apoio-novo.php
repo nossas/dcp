@@ -7,6 +7,10 @@ namespace hacklabr\dashboard;
     $pod = pods( $postSingle->post_type, $postSingle->ID );
     $get_terms = get_the_terms( $postSingle->ID, 'tipo_apoio' );
 
+    echo '<pre>';
+    print_r( $get_terms );
+    echo '</pre>';
+
 ?>
 <script type="application/javascript"> const _current_apoio_edit = '<?=$get_terms[0]->slug?>'; </script>
 <div id="dashboardApoioSingle" class="dashboard-content">
@@ -42,7 +46,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -59,7 +63,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -88,7 +92,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -115,7 +119,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -132,7 +136,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -149,7 +153,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -173,7 +177,7 @@ namespace hacklabr\dashboard;
                                     <iconify-icon icon="bi:question"></iconify-icon>
                                 </a>
                                 <p>
-                                    Todos os campos devem ter pelo menos 5 caracteres.
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                                 </p>
                             </div>
                         </div>
@@ -205,7 +209,7 @@ namespace hacklabr\dashboard;
                             <iconify-icon icon="bi:question"></iconify-icon>
                         </a>
                         <p>
-                            Todos os campos devem ter pelo menos 5 caracteres.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                         </p>
                     </div>
                 <?php endif; ?>

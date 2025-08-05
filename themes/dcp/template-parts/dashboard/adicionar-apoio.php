@@ -50,7 +50,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -77,7 +77,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -91,7 +91,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -105,7 +105,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -131,7 +131,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -155,7 +155,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -169,7 +169,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -183,7 +183,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -207,7 +207,7 @@ namespace hacklabr\dashboard;
                                     <iconify-icon icon="bi:question"></iconify-icon>
                                 </a>
                                 <p>
-                                    Todos os campos devem ter pelo menos 5 caracteres.
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                                 </p>
                             </div>
                         </div>
@@ -239,7 +239,7 @@ namespace hacklabr\dashboard;
                             <iconify-icon icon="bi:question"></iconify-icon>
                         </a>
                         <p>
-                            Todos os campos devem ter pelo menos 5 caracteres.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                         </p>
                     </div>
                 <?php endif; ?>

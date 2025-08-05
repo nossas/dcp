@@ -109,7 +109,7 @@ namespace hacklabr\dashboard;
                                 <iconify-icon icon="bi:question"></iconify-icon>
                             </a>
                             <p>
-                                Todos os campos devem ter pelo menos 5 caracteres.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                             </p>
                         </div>
                     </div>
@@ -141,7 +141,7 @@ namespace hacklabr\dashboard;
                                 <iconify-icon icon="bi:question"></iconify-icon>
                             </a>
                             <p>
-                                Todos os campos devem ter pelo menos 5 caracteres.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                             </p>
                         </div>
                     </div>
@@ -184,7 +184,7 @@ namespace hacklabr\dashboard;
                                 <iconify-icon icon="bi:question"></iconify-icon>
                             </a>
                             <p>
-                                Todos os campos devem ter pelo menos 5 caracteres.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                             </p>
                         </div>
                     </div>
@@ -201,7 +201,7 @@ namespace hacklabr\dashboard;
                                 <iconify-icon icon="bi:question"></iconify-icon>
                             </a>
                             <p>
-                                Todos os campos devem ter pelo menos 5 caracteres.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                             </p>
                         </div>
                     </div>
@@ -225,7 +225,7 @@ namespace hacklabr\dashboard;
                                             <iconify-icon icon="bi:question"></iconify-icon>
                                         </a>
                                         <p>
-                                            Todos os campos devem ter pelo menos 5 caracteres.
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                                         </p>
                                     </div>
                                 </div>
@@ -325,7 +325,7 @@ namespace hacklabr\dashboard;
                                     <iconify-icon icon="bi:question"></iconify-icon>
                                 </a>
                                 <p>
-                                    Todos os campos devem ter pelo menos 5 caracteres.
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                                 </p>
                             </div>
                         <?php endif; ?>
@@ -337,23 +337,15 @@ namespace hacklabr\dashboard;
                         <input type="hidden" name="post_status_current" value="<?=$post_status?>">
                         <input type="hidden" name="post_status_new" value="">
 
-                        <?php if( !wp_is_mobile() ) :
-                            if ( !empty($pod->field('latitude')) || !empty($pod->field('longitude'))) : ?>
-                                <a class="button is-archive">
-                                    <iconify-icon icon="bi:x-lg"></iconify-icon>
-                                    <span>Arquivar</span>
-                                </a>
-                            <?php else : ?>
-                                <a href="<?=get_dashboard_url( 'riscos' )?>" class="button is-goback">
-                                    <iconify-icon icon="bi:chevron-left"></iconify-icon>
-                                    <span>Voltar</span>
-                                </a>
-                            <?php endif; ?>
-
+                        <?php if( !wp_is_mobile() ) : ?>
+                            <a class="button is-archive">
+                                <iconify-icon icon="bi:x-lg"></iconify-icon>
+                                <span>Arquivar</span>
+                            </a>
                         <?php endif; ?>
 
                         <?php
-                            if ( !empty($pod->field('latitude')) || !empty($pod->field('longitude'))) {
+                            //if ( !empty($pod->field('latitude')) || !empty($pod->field('longitude'))) {
 
                                 //TODO: REFACTORY P/ MELHOR LOGICA
                                 switch ( $post_status ) {
@@ -384,29 +376,29 @@ namespace hacklabr\dashboard;
                                         break;
                                 }
 
-                            }
-                            else {
-                                ?>
-                                <a class="button is-goback" disabled>
-                                    <iconify-icon icon="bi:check2"></iconify-icon>
-                                    <span>Bloqueado para publicação</span>
-                                </a>
-                                <?php
-                            }
+//                            }
+//                            else {
+//                                ?>
+<!--                                <a class="button is-goback" disabled>-->
+<!--                                    <iconify-icon icon="bi:check2"></iconify-icon>-->
+<!--                                    <span>Bloqueado para publicação</span>-->
+<!--                                </a>-->
+<!--                                --><?php
+//                            }
                         ?>
 
-                        <?php if( wp_is_mobile() ) :
-                            if ( !empty($pod->field('latitude')) || !empty($pod->field('longitude'))) : ?>
+                        <?php if( wp_is_mobile() ) : ?>
                             <a class="button is-archive">
                                 <iconify-icon icon="bi:x-lg"></iconify-icon>
                                 <span>Arquivar</span>
                             </a>
-                            <?php else : ?>
-                                <a href="<?=get_dashboard_url( 'riscos' )?>" class="button is-goback">
-                                    <iconify-icon icon="bi:chevron-left"></iconify-icon>
-                                    <span>Voltar</span>
-                                </a>
-                            <?php endif; ?>
+
+                            <!--
+                            <a href="<?=get_dashboard_url( 'riscos' )?>" class="button is-goback">
+                                <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                                <span>Voltar</span>
+                            </a>
+                            -->
                         <?php endif; ?>
                     </div>
                 </form>
