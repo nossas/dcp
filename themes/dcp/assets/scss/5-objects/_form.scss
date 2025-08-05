@@ -278,6 +278,7 @@
 }
 
 .multistepform{
+    position: relative;
     margin-top: size(40);
     width: size(752);
 
@@ -563,6 +564,41 @@
     &__input{
         display: flex;
         flex-direction: column;
+        position: relative;
+
+        .error-message {
+            display: none;
+            color: $color--warning-dark;
+            font-size: 12px;
+            padding-left: 12px;
+            margin-top: 4px;
+        }
+
+        // Estilo para o estado de erro
+        &.has-error {
+            input {
+                border-color: $color--warning-dark;
+                padding-right: 40px;
+            }
+
+            .error-icon {
+                display: block;
+            }
+
+            .error-message {
+                display: block;
+            }
+        }
+
+        .error-icon {
+            display: none;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: $color--warning-dark;
+            pointer-events: none;
+        }
     }
 
     &__pipe{
@@ -688,6 +724,63 @@
     &__upload-or {
         font-weight: $font-weight--medium;
         color: $color--secondary-dark;
+    }
+
+   .snackbar-overlay {
+        display: none;
+        z-index: 9998;
+
+        &.show {
+            display: block;
+
+            @include mobile {
+                position: fixed;
+                inset: 0;
+                background-color: rgba(0, 0, 0, 0.4);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: $padding--medium;
+            }
+        }
+    }
+
+    .form-snackbar {
+        background-color: $color--warning-dark;
+        color: $color--secondary-light;
+        padding: 14px 16px;
+        border-radius: 12px;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+        font-size: $font-size--xx-small;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        position: absolute;
+        bottom: 85px;
+        right: 0;
+        margin-bottom: 10px;
+        max-width: 344px;
+        width: auto;
+        box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.30);
+
+        @include mobile {
+            position: relative;
+            bottom: auto;
+            right: auto;
+            width: 100%;
+        }
+
+        &.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        svg {
+            flex-shrink: 0;
+        }
     }
 }
 
