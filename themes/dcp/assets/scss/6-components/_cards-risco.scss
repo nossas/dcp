@@ -199,7 +199,7 @@
                 gap: $gap--small;
 
                 @include mobile{
-                    align-items: center;
+                    align-items: flex-start;
                     font-size: $font-size--xx-small;
                 }
 
@@ -208,6 +208,26 @@
                 }
             }
         }
+    }
+
+    .wp-block-group.is-content-justification-center {
+        @include mobile{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+    }
+
+    .wp-block-buttons > .wp-block-button > a{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: $gap--small;
+    }
+
+    .wp-block-buttons {
+        max-width: 100%;
     }
 }
 
