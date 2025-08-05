@@ -650,18 +650,6 @@ jQuery(function($) {
             });
         });
 
-        $( '#apoioSingleForm .is-new' ).on( 'click', function () {
-            custom_modal_confirm({
-                title: 'Criar apoio?',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
-                cancelText: "Cancelar",
-                onCancel: function () {},
-                confirmText: "Criar Apoio",
-                onConfirm: function () {
-                    $( '#apoioSingleForm' ).submit();
-                }
-            });
-        });
         $( '#acaoSingleForm .is-new.relato' ).on( 'click', function () {
             custom_modal_confirm({
                 title: 'Criar Relato?',
@@ -683,6 +671,48 @@ jQuery(function($) {
                 confirmText: "Publicar Relato",
                 onConfirm: function () {
                     $( '#acaoSingleForm' ).submit();
+                }
+            });
+        });
+
+        $( '#apoioSingleForm .is-new' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Criar apoio?',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
+                cancelText: "Cancelar",
+                onCancel: function () {},
+                confirmText: "Criar Apoio",
+                onConfirm: function () {
+                    $( '#apoioSingleForm' ).submit();
+                }
+            });
+        });
+        $( '#apoioSingleForm .is-archive' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Arquivar esse apoio?',
+                description: 'As informações não serão publicadas e poderão ser acessadas novamente na aba “Arquivados”',
+
+                cancelText: "Cancelar",
+                onCancel: function () {},
+
+                confirmText: "Arquivar",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'pending' );
+                    $( '#apoioSingleForm' ).submit();
+                }
+            });
+        });
+        $( '#apoioSingleForm .is-save' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Publicar alterações esse apoio?',
+                description: 'As informações não serão publicadas e poderão ser acessadas novamente na aba “Arquivados”',
+
+                cancelText: "Cancelar",
+                onCancel: function () {},
+
+                confirmText: "Publicar alterações",
+                onConfirm: function () {
+                    $( '#apoioSingleForm' ).submit();
                 }
             });
         });
@@ -712,7 +742,6 @@ jQuery(function($) {
                 opacity : 1
             });
         });
-
     });
     $( window ).on( 'load', function() {
 

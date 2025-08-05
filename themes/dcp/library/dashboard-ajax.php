@@ -179,6 +179,85 @@ function form_single_apoio_new() {
 }
 add_action('wp_ajax_form_single_apoio_new', 'form_single_apoio_new');
 
+function form_single_apoio_edit() {
+
+    if (!current_user_can('edit_posts')) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'Você não tem permissão para editar posts.',
+            'error' => [],
+        ], 403);
+    }
+
+    $postID = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
+
+    if ( !$postID || !get_post( $postID ) ) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'ID do post inválido ou post não encontrado.',
+            'error' => [],
+        ], 400);
+    }
+
+    $updated_id = wp_update_post([
+        'ID' => $postID,
+        'post_type' => 'apoio',
+        'post_status' => sanitize_text_field($_POST['post_status'] ?? 'draft'),
+        'post_title' => sanitize_text_field($_POST['titulo']),
+        'post_content' => sanitize_text_field($_POST['descricao']),
+        'meta_input' => [
+            'titulo' => sanitize_text_field($_POST['titulo']),
+            'descricao' => sanitize_text_field($_POST['descricao']),
+            'endereco' => sanitize_text_field($_POST['endereco']),
+            'latitude' => sanitize_text_field( $_POST[ 'latitude' ] ),
+            'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
+            'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
+            'horario_de_atendimento' => sanitize_text_field( $_POST[ 'horario_de_atendimento' ] ),
+            'telefone' => sanitize_text_field($_POST['telefone']),
+            'website' => sanitize_text_field($_POST['site']),
+            'info_extra' => sanitize_text_field($_POST['observacoes']),
+            'data_e_horario' => date( 'Y-m-d H:i:s' ),
+        ]
+    ], true);
+
+    if ( is_wp_error( $updated_id ) ) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'Erro ao editar Apoio.',
+            'error' => $updated_id->get_error_message()
+        ], 500);
+    }
+
+
+    $save_cover = [];
+
+    if( !empty( $_FILES['media_file'] ) ) {
+        $save_cover = upload_file_to_attachment_by_ID($_FILES['media_file'], $postID, true );
+    }
+
+    if (empty($save_cover['errors'])) {
+
+        wp_send_json_success([
+            'title' => 'Sucesso',
+            'message' => 'Formulário enviado com sucesso!',
+            'uploaded_files' => $save_cover,
+            'post_id' => $postID,
+            'url_callback' => get_site_url() . '/dashboard/editar-apoio-novo/?post_id=' . $postID,
+            'is_new' => true,
+        ]);
+    }
+
+    wp_send_json_error([
+        'title' => 'Erro',
+        'message' => 'Erro ao salvar o formulário / anexos',
+        'error' => $save_cover['errors'],
+    ], 400);
+}
+add_action('wp_ajax_form_single_apoio_edit', 'form_single_apoio_edit');
+
+
+
+
 
 /**
  * RELATOS

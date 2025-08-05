@@ -7,9 +7,9 @@ namespace hacklabr\dashboard;
     $pod = pods( $postSingle->post_type, $postSingle->ID );
     $get_terms = get_the_terms( $postSingle->ID, 'tipo_apoio' );
 
-    echo '<pre>';
-    print_r( $get_terms );
-    echo '</pre>';
+    // echo '<pre>';
+    // print_r( $get_terms );
+    // echo '</pre>';
 
 ?>
 <script type="application/javascript"> const _current_apoio_edit = '<?=$get_terms[0]->slug?>'; </script>
@@ -215,13 +215,16 @@ namespace hacklabr\dashboard;
                 <?php endif; ?>
             </div>
             <div class="form-submit">
-                <input type="hidden" name="action" value="form_single_apoio_new">
-                <div></div>
+                <input type="hidden" name="action" value="form_single_apoio_edit">
+                <input type="hidden" name="post_id" value="<?=$postSingle->ID?>">
+                <input type="hidden" name="post_status" value="<?=$postSingle->post_status?>">
                 <div>
                     <a class="button is-goback" href="<?=get_dashboard_url( 'apoio', [ 'tipo' => $get_terms[0]->slug ] )?>/">
                         <iconify-icon icon="bi:chevron-left"></iconify-icon>
                         <span>Voltar</span>
                     </a>
+                </div>
+                <div>
                     <a class="button is-archive">
                         <iconify-icon icon="bi:x-lg"></iconify-icon>
                         <span>Arquivar</span>
