@@ -116,6 +116,11 @@ class API {
 
         $r = wp_remote_get( add_query_arg($params, 'https://nominatim.openstreetmap.org/search') );
 
+        if( is_wp_error( $r )) {
+            do_action( 'logger', $r->get_error_message(), 'warning' );
+        }
+        do_action( 'logger', $r );
+
         $data = wp_remote_retrieve_body( $r );
 
         $data = \json_decode($data);
@@ -131,35 +136,6 @@ class API {
         }
 
         return null;
-    }
-
-    public function geocode($search_string) {
-
-        $params = [
-            'q' => $search_string,
-            'format' => 'json',
-            'addressdetails' => 1
-        ];
-
-        $r = wp_remote_get( add_query_arg($params, 'https://nominatim.openstreetmap.org/search') );
-
-        $data = wp_remote_retrieve_body( $r );
-
-        $data = \json_decode($data);
-        $response = [];
-
-        if (\is_array($data)) {
-
-            foreach ($data as $match) {
-                $r = $this->format_response_item( (array) $match );
-                if ($r) $response[] = $r;
-            }
-
-        } else {
-            $response = [ 'message' => 'Coordenadas não encontrada para este endereço.' ];
-        }
-
-        return $response;
     }
 
     static function rest_options_callback () {
