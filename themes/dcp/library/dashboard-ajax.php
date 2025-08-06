@@ -199,18 +199,31 @@ function form_single_apoio_edit() {
         ], 400);
     }
 
+    //TODO: REFACTORY
+    $post_status = sanitize_text_field($_POST['post_status'] ?? 'draft');
+
+    $latitude = sanitize_text_field( $_POST[ 'latitude' ] );
+    $longitude = sanitize_text_field( $_POST[ 'longitude' ] );
+
+    $message_return = null;
+    if( empty( $latitude ) || empty( $longitude ) ) {
+        $post_status = 'draft';
+        $message_return = 'O risco foi salvo em "Aguardando Aprovação" pois não foi possível geolocalizar no mapa este endereço.';
+    }
+    //TODO: REFACTORY
+
     $updated_id = wp_update_post([
         'ID' => $postID,
         'post_type' => 'apoio',
-        'post_status' => sanitize_text_field($_POST['post_status'] ?? 'draft'),
+        'post_status' => $post_status,
         'post_title' => sanitize_text_field($_POST['titulo']),
         'post_content' => sanitize_text_field($_POST['descricao']),
         'meta_input' => [
             'titulo' => sanitize_text_field($_POST['titulo']),
             'descricao' => sanitize_text_field($_POST['descricao']),
             'endereco' => sanitize_text_field($_POST['endereco']),
-            'latitude' => sanitize_text_field( $_POST[ 'latitude' ] ),
-            'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
+            'latitude' => $latitude,
+            'longitude' => $longitude,
             'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
             'horario_de_atendimento' => sanitize_text_field( $_POST[ 'horario_de_atendimento' ] ),
             'telefone' => sanitize_text_field($_POST['telefone']),
@@ -228,18 +241,32 @@ function form_single_apoio_edit() {
         ], 500);
     }
 
-
-    $save_cover = [];
-
+    //TODO: REFACTORY
     if( !empty( $_FILES['media_file'] ) ) {
-        $save_cover = upload_file_to_attachment_by_ID($_FILES['media_file'], $postID, true );
+
+        if ( has_post_thumbnail( $updated_id ) ) {
+            $old_attachment_id = get_post_thumbnail_id( $updated_id );
+            wp_delete_attachment( $old_attachment_id );
+        }
+
+        $get_attachments = get_posts([
+            'post_type'      => 'attachment',
+            'posts_per_page' => -1,
+            'post_status'    => 'any',
+            'post_parent'    => $updated_id,
+        ]);
+
+        foreach ( $get_attachments as $attachment ) {
+            wp_delete_attachment( $attachment->ID );
+        }
     }
+    //TODO: REFACTORY
 
+    $save_cover = upload_file_to_attachment_by_ID($_FILES['media_file'], $postID, true );
     if (empty($save_cover['errors'])) {
-
         wp_send_json_success([
             'title' => 'Sucesso',
-            'message' => 'Formulário enviado com sucesso!',
+            'message' => 'Formulário enviado com sucesso! ' . $message_return,
             'uploaded_files' => $save_cover,
             'post_id' => $postID,
             'url_callback' => get_site_url() . '/dashboard/editar-apoio-novo/?post_id=' . $postID,
@@ -529,16 +556,29 @@ function form_single_acao_edit() {
 
     $data_e_horario = sanitize_text_field($_POST['date']) . ' ' . sanitize_text_field($_POST['horario']) . ':00';
 
+    //TODO: REFACTORY
+    $post_status = sanitize_text_field($_POST['post_status'] ?? 'draft');
+
+    $latitude = sanitize_text_field( $_POST[ 'latitude' ] );
+    $longitude = sanitize_text_field( $_POST[ 'longitude' ] );
+
+    $message_return = null;
+    if( empty( $latitude ) || empty( $longitude ) ) {
+        $post_status = 'draft';
+        $message_return = 'O risco foi salvo em "Aguardando Aprovação" pois não foi possível geolocalizar no mapa este endereço.';
+    }
+    //TODO: REFACTORY
+
     $updated_id = wp_update_post([
             'ID' => $postID,
             'post_type' => 'acao',
-            'post_status' => sanitize_text_field($_POST['post_status'] ?? 'draft'),
+            'post_status' => $post_status,
             'post_title' => sanitize_text_field( $_POST[ 'endereco' ] ),
             'post_content' => sanitize_text_field( $_POST[ 'descricao' ] ),
             'meta_input' => [
                 'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
-                'latitude' => sanitize_text_field( $_POST[ 'latitude' ] ),
-                'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
+                'latitude' => $latitude,
+                'longitude' => $longitude,
                 'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
                 'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
                 'titulo' => sanitize_text_field( $_POST[ 'titulo' ] ),
@@ -595,7 +635,7 @@ function form_single_acao_edit() {
 
         wp_send_json_success([
             'title' => 'Sucesso',
-            'message' => 'Formulário enviado com sucesso!',
+            'message' => 'Formulário enviado com sucesso! ' . $message_return,
             'uploaded_files' => $save_post[ 'uploaded_files' ],
             'post_id' => $postID,
         ]);
@@ -703,6 +743,7 @@ function form_single_risco_edit() {
         ], 400);
     }
 
+    //TODO: REFACTORY
     $post_status = sanitize_text_field($_POST['post_status'] ?? 'draft');
 
     $latitude = sanitize_text_field( $_POST[ 'latitude' ] );
@@ -713,6 +754,7 @@ function form_single_risco_edit() {
         $post_status = 'draft';
         $message_return = 'O risco foi salvo em "Aguardando Aprovação" pois não foi possível geolocalizar no mapa este endereço.';
     }
+    //TODO: REFACTORY
 
     $data = [
         'ID' => $postID,

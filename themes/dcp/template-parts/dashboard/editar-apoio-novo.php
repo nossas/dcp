@@ -173,7 +173,6 @@ namespace hacklabr\dashboard;
                     </div>
                     <?php if( wp_is_mobile() ) : ?>
                         <div class="input-media-uploader is-mobile-only">
-
                             <div class="input-help">
                                 <a href="#/" class="button" style="top: 0 !important;">
                                     <iconify-icon icon="bi:question"></iconify-icon>
@@ -196,6 +195,17 @@ namespace hacklabr\dashboard;
                                     <iconify-icon icon="bi:upload"></iconify-icon>
                                     <span>Escolher arquivo</span>
                                 </a>
+                                <p class="is-name-file">...</p>
+                            </div>
+                            <div>
+                                <?php if( !empty( $attachments ) ) : ?>
+                                    <?php foreach ( $attachments as $image ) : ?>
+                                        <a class="button is-delete" data-id="<?=$image->ID?>">
+                                            <iconify-icon icon="bi:trash-fill"></iconify-icon>
+                                            <span>Excluir</span>
+                                        </a>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                     <?php endif; ?>
