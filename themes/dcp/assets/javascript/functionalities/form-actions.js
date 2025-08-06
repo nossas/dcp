@@ -228,7 +228,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 autorizaWrapper.classList.remove('has-error');
 
                 const isNomeValid = riskDraft.nome_completo.trim() !== '';
-                const isTelefoneValid = riskDraft.telefone.trim() !== '';
+                const telefoneLimpo = riskDraft.telefone.replace(/\D/g, '');
+                const isTelefoneValid = telefoneLimpo.length >= 10;
                 const isAutorizaValid = autorizaInput.checked;
 
                 if (!isNomeValid) {
