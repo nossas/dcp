@@ -229,3 +229,59 @@
         display: none;
     }
 }
+
+.wpcf7 {
+    .wpcf7-form {
+        .cf7-snackbar {
+            background-color: $color--primary-light;
+            color: $color--secondary-light;
+            padding: 14px 16px;
+            border-radius: 12px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            font-size: $font-size--xx-small;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            position: absolute;
+            bottom: 170px;
+            right: 0;
+            margin-bottom: 10px;
+            max-width: 344px;
+            width: auto;
+            box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.30);
+
+            &.show {
+                opacity: 1;
+                visibility: visible;
+                max-height: 100px;
+            }
+        }
+
+
+        .wpcf7-form-control.wpcf7-checkbox,
+        .wpcf7-form-control.wpcf7-acceptance {
+            .wpcf7-list-item:nth-of-type(1) {
+                margin-bottom: 14px;
+            }
+
+            label {
+                display: flex;
+                align-items: center;
+                gap: 13px;
+            }
+
+            input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+                flex-shrink: 0;
+            }
+        }
+    }
+}
+
+.wpcf7 form.sent .wpcf7-response-output {
+    display: none !important;
+}
