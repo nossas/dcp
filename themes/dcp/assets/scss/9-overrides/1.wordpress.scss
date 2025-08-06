@@ -285,3 +285,7 @@
 .wpcf7 form.sent .wpcf7-response-output {
     display: none !important;
 }
+
+.required {
+    color: $color--warning-dark;
+}
