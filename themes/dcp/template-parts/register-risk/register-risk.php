@@ -33,7 +33,7 @@
                     </div>
                     <div class="multistepform__fields">
                         <div class="multistepform__input">
-                            <span class="multistepform__label"><?php _e('Localização'); ?></span>
+                            <span class="multistepform__label"><?php _e('Localização*'); ?></span>
                             <input type="text" name="endereco" placeholder="<?php _e('Digite o local ou endereço aqui'); ?>">
                             <span class="error-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -118,7 +118,6 @@
                         <h2 class="multistepform__title"><?php _e('Gostaria de enviar uma foto ou vídeo?'); ?></h2>
                         <span class="multistepform__excerpt"><?php _e('Isso pode ajudar a entender melhor a situação, mas não é obrigatório.'); ?></span>
                     </div>
-_
                     <div class="multistepform__upload-area">
                         <label class="multistepform__upload-button">
                             <input type="file" name="media_files[]" id="inputMidias" accept="image/*,video/*" multiple hidden>
@@ -220,7 +219,7 @@ _
                         </div>
                     </div>
                         <div class="multistepform__accept-terms">
-                            <img src="/caminho/para/information.svg" alt="Informação" class="icon-info" />
+                             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/information.svg" alt="Ícone de horário">
                             “Ao enviar este relato, você concorda com o uso das informações e mídias no site da Defesa Climática Popular e em outras ações do projeto, sem exibição dos seus dados pessoais.”
                         </div>
                         <div class="multistepform__buttons">

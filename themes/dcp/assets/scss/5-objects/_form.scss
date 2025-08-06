@@ -743,6 +743,7 @@
                 padding: $padding--medium;
             }
         }
+
     }
 
     .form-snackbar {
@@ -782,8 +783,43 @@
             flex-shrink: 0;
         }
     }
-}
+    [data-step="1"] {
+        .multistepform__header {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .multistepform__excerpt {
 
+        }
+        .multistepform__label {
+            color: #B83D13;
+        }
+        .multistepform__fields input {
+            border-color: #B83D13;
+        }
+
+    }
+    [data-step="5"] {
+        .multistepform__accept-terms {
+            display: flex;
+            color: var(--Color-Theme-Dark, #281414);
+            font-size: 14px;
+            gap:8px;
+            align-items: flex-start;
+        }
+        .multistepform__carousel {
+            .splide {
+                width: 400px;
+                max-width: 400px !important;
+                display: flex;
+                height: 224.691px;
+            }
+        }
+    }
+
+
+}
 .multistepform__checkbox-option input[type="checkbox"]:checked + .multistepform__checkbox-label {
     background-color: $color--high-light ;
 }
