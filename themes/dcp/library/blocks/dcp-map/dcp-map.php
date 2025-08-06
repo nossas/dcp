@@ -46,9 +46,20 @@ function format_risk_pin(\WP_Post $post): array {
     ];
 }
 function format_support_pin(\WP_Post $post): array {
+    $types = wp_get_post_terms($post->ID, 'tipo_apoio', [
+        'fields' => 'slugs',
+        'parent' => 0,
+    ]);
+    if (is_array($types) && in_array('cacambas', $types)) {
+        $type = 'cacamba';
+    } else {
+        $type = 'apoio';
+    }
+
     return [
         'ID' => $post->ID,
         'title' => $post->post_title,
+        'type' => $type,
         'excerpt' => get_the_excerpt($post),
         'endereco' => get_post_meta($post->ID, 'endereco', true),
         'horario' => implode('; ', get_post_meta($post->ID, 'horario_de_atendimento')),
