@@ -325,11 +325,10 @@
     }
 
     &__accept{
-        align-items: center;
+        align-items: flex-start;
         display: flex;
         font-size: $font-size--xx-small;
-        gap: $gap--x-small;
-        padding-left: $padding--small;
+        gap: 14px;
 
         @include mobile{
             align-items: flex-start;
@@ -340,6 +339,36 @@
             @include mobile{
                 margin-top: size(3);
             }
+        }
+    }
+
+    &__accept-wrapper {
+         margin-top: 1rem;
+
+        .error-message {
+            display: none;
+            color: $color--warning-dark;
+            font-size: 12px;
+            font-weight: 400;
+            margin-top: 8px;
+            padding-left: 5px;
+        }
+
+        &.has-error {
+            .error-message {
+                display: block;
+            }
+
+            input[type="checkbox"] {
+                outline: 2px solid $color--warning-dark;
+                outline-offset: -1px;
+            }
+        }
+
+        input[type="checkbox"] {
+           width: 18px;
+           height: 18px;
+           flex-shrink: 0;
         }
     }
 
@@ -576,6 +605,10 @@
 
         // Estilo para o estado de erro
         &.has-error {
+            .multistepform__label {
+                color: $color--warning-dark;
+            }
+
             input {
                 border-color: $color--warning-dark;
                 padding-right: 40px;
