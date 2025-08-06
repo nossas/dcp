@@ -1,7 +1,13 @@
+import { buildGallery } from "./action-review-gallery";
+
 document.addEventListener('DOMContentLoaded', () => {
     const steps = document.querySelectorAll('.step');
     const stageText = document.getElementById('formStepsStage');
     const header = document.getElementById('formStepsHeader');
+
+    const form = document.getElementById('multiStepForm');
+    const inputEndereco = form.querySelector('input[name="endereco"]');
+    const inputEnderecoWrapper = inputEndereco.closest('.multistepform__input');
 
     const stepLabels = [
         '1. Localização',
@@ -24,6 +30,26 @@ document.addEventListener('DOMContentLoaded', () => {
         data_e_horario: '',
         descricao: '',
         situacao_de_risco: '',
+    }
+
+    function showSnackbar(message) {
+        const overlay = document.getElementById('snackbar-overlay');
+        const snackbar = document.getElementById('formSnackbar');
+        if (!overlay || !snackbar) return;
+
+        snackbar.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M9 0.000976562C11.3869 0.000976563 13.6764 0.949868 15.3643 2.6377C17.052 4.32541 17.9999 6.6142 18 9.00098C18 11.3879 17.0521 13.6774 15.3643 15.3652C13.6764 17.0531 11.3869 18.001 9 18.001C6.61323 18.0008 4.32443 17.0529 2.63672 15.3652C0.948891 13.6774 0 11.3879 0 9.00098C0.000128218 6.6142 0.949006 4.32541 2.63672 2.6377C4.32443 0.949982 6.61323 0.00110478 9 0.000976562ZM9.00293 11.251C8.70456 11.251 8.41801 11.3701 8.20703 11.5811C7.99626 11.7919 7.87806 12.0779 7.87793 12.376C7.87793 12.6743 7.99614 12.9609 8.20703 13.1719C8.41801 13.3829 8.70456 13.501 9.00293 13.501C9.30116 13.5009 9.58693 13.3827 9.79785 13.1719C10.0088 12.9609 10.1279 12.6743 10.1279 12.376C10.1278 12.0778 10.0087 11.7919 9.79785 11.5811C9.58693 11.3702 9.30116 11.251 9.00293 11.251ZM9 4.50098C8.85805 4.50112 8.71763 4.53127 8.58789 4.58887C8.45794 4.64659 8.34148 4.73146 8.24609 4.83691C8.15083 4.94227 8.07861 5.06626 8.03418 5.20117C7.98974 5.33624 7.97414 5.47961 7.98828 5.62109L8.38184 9.56641C8.3951 9.72121 8.4657 9.86556 8.58008 9.9707C8.69454 10.0758 8.84462 10.1346 9 10.1348C9.15556 10.1348 9.30632 10.0759 9.4209 9.9707C9.53527 9.86556 9.60588 9.72121 9.61914 9.56641L10.0127 5.62109C10.0268 5.47961 10.0112 5.33624 9.9668 5.20117C9.92237 5.06626 9.85015 4.94227 9.75488 4.83691C9.6595 4.73146 9.54303 4.64659 9.41309 4.58887C9.2832 4.5312 9.14211 4.50106 9 4.50098Z" fill="#F9F3EA"/>
+            </svg>
+            <span>${message}</span>
+        `;
+        overlay.classList.add('show');
+        snackbar.classList.add('show');
+
+        // Esconde o snackbar após 3 segundos
+        setTimeout(() => {
+            overlay.classList.remove('show');
+        }, 3000);
     }
 
     const injectCheckIcon = (circle) => {
@@ -110,67 +136,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const midiasContainer = document.getElementById('reviewMidias');
         if (midiasContainer) {
-            midiasContainer.innerHTML = '';
+            buildGallery(midiasContainer, riskDraft.midias, editandoResumo);
+            const midiaMessage = midiasContainer.querySelector('p');
 
             if (riskDraft.midias && riskDraft.midias.length > 0) {
-                riskDraft.midias.forEach((file, index) => {
-                    const url = URL.createObjectURL(file);
-                    const item = document.createElement('div');
-                    item.classList.add('multistepform__carousel-item');
-                    item.style.position = 'relative';
-
-                    let mediaElement;
-                    if (file.type.startsWith('image')) {
-                        mediaElement = document.createElement('img');
-                        mediaElement.src = url;
-                        mediaElement.alt = 'Imagem enviada';
-                        mediaElement.style.maxWidth = '100px';
-                        mediaElement.style.borderRadius = '8px';
-                    } else if (file.type.startsWith('video')) {
-                        mediaElement = document.createElement('video');
-                        mediaElement.src = url;
-                        mediaElement.controls = true;
-                        mediaElement.style.maxWidth = '100px';
-                        mediaElement.style.borderRadius = '8px';
-                    }
-
-                    item.appendChild(mediaElement);
-
-                    if (editandoResumo) {
-                        const removeBtn = document.createElement('button');
-                        removeBtn.type = 'button';
-                        removeBtn.classList.add('remove-media-btn');
-                        removeBtn.innerHTML = `
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none">
-                            <path d="M5 5L15 15M15 5L5 15" stroke="#B83D13" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    `;
-                        removeBtn.style.position = 'absolute';
-                        removeBtn.style.top = '0';
-                        removeBtn.style.right = '0';
-                        removeBtn.style.background = 'transparent';
-                        removeBtn.style.border = 'none';
-                        removeBtn.style.cursor = 'pointer';
-                        removeBtn.style.padding = '4px';
-
-                        removeBtn.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            riskDraft.midias.splice(index, 1);
-                            preencherResumo();
-                        });
-
-                        item.appendChild(removeBtn);
-                    }
-
-                    midiasContainer.appendChild(item);
-                });
+                midiaMessage.innerHTML = '';
             } else {
-                midiasContainer.innerHTML = '<p>Nenhuma mídia enviada.</p>';
+                midiaMessage.innerHTML = 'Nenhuma mídia enviada.';
             }
 
             // Exibe input para adicionar mídias só se estiver em modo edição
             if (editandoResumo) {
+                if (document.querySelector('.add-media-btn')) {
+                    return;
+                }
+
                 const addMediaWrapper = document.createElement('div');
+
                 addMediaWrapper.style.marginTop = '10px';
 
                 const addMediaLabel = document.createElement('label');
@@ -214,19 +196,53 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function validateStep(stepIndex) {
+        if (inputEnderecoWrapper) {
+            inputEnderecoWrapper.classList.remove('has-error');
+        }
+
         switch (stepIndex) {
             case 0:
-                return riskDraft.endereco.trim() !== '';
+                const isEnderecoValid = riskDraft.endereco.trim() !== '';
+                if (!isEnderecoValid) {
+                    inputEnderecoWrapper.classList.add('has-error');
+                }
+                return isEnderecoValid;
             case 1:
-                return riskDraft.descricao.trim() !== '';
+                const isTipoRiscoValid = riskDraft.situacao_de_risco.trim() !== '';
+                const isDescricaoValid = riskDraft.descricao.trim() !== '';
+
+                if (!isTipoRiscoValid) {
+                    return false;
+                }
+                return true;
             case 2:
                 return true;
             case 3:
-                return (
-                    riskDraft.nome_completo.trim() !== '' &&
-                    riskDraft.email.trim() !== '' &&
-                    riskDraft.telefone.trim() !== ''
-                );
+                const nomeInput = document.querySelector('input[name="nome_completo"]');
+                const telefoneInput = document.querySelector('input[name="telefone"]');
+                const autorizaInput = document.querySelector('input[name="autoriza_contato"]');
+                const autorizaWrapper = autorizaInput.closest('.multistepform__accept-wrapper');
+
+                nomeInput.closest('.multistepform__input').classList.remove('has-error');
+                telefoneInput.closest('.multistepform__input').classList.remove('has-error');
+                autorizaWrapper.classList.remove('has-error');
+
+                const isNomeValid = riskDraft.nome_completo.trim() !== '';
+                const telefoneLimpo = riskDraft.telefone.replace(/\D/g, '');
+                const isTelefoneValid = telefoneLimpo.length >= 10;
+                const isAutorizaValid = autorizaInput.checked;
+
+                if (!isNomeValid) {
+                    nomeInput.closest('.multistepform__input').classList.add('has-error');
+                }
+                if (!isTelefoneValid) {
+                    telefoneInput.closest('.multistepform__input').classList.add('has-error');
+                }
+                if (!isAutorizaValid) {
+                    autorizaWrapper.classList.add('has-error');
+                }
+
+                return isNomeValid && isTelefoneValid && isAutorizaValid;
             case 4:
                 return true;
             default:
@@ -235,14 +251,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.querySelectorAll('.multistepform__button-next').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            if (btn.type === 'submit') {
+                return;
+            }
+
+            e.preventDefault();
+
             if (validateStep(currentStep)) {
                 if (currentStep < steps.length - 2) {
                     currentStep++;
                     handleShowStep(currentStep);
                 }
             } else {
-                alert('Por favor, preencha os campos obrigatórios antes de continuar.');
+                switch (currentStep) {
+                    case 0:
+                        showSnackbar('Para continuar, informe um endereço ou marque no mapa.');
+                        break;
+
+                    case 1:
+                        if (riskDraft.situacao_de_risco.trim() === '') {
+                            showSnackbar('Escolha um tipo de risco (alagamento, lixo ou outros) para continuar.');
+                        }
+                        break;
+
+                    case 3:
+                        const autorizaInput = document.querySelector('input[name="autoriza_contato"]');
+                        if (!autorizaInput.checked) {
+                            showSnackbar('Marque a caixa de autorização para seguir.');
+                        } else {
+                            showSnackbar('Preencha nome e telefone para continuar.');
+                        }
+                        break;
+
+                    default:
+                        showSnackbar('Por favor, preencha os campos obrigatórios.');
+                        break;
+                }
             }
         });
     });
@@ -256,7 +301,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const form = document.getElementById('multiStepForm');
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         riskDraft.data_e_horario = new Date().toISOString();
@@ -300,10 +344,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewContainer = document.getElementById('mediaPreview');
 
     if (midiaInput && previewContainer) {
+        previewContainer.innerHTML = '';
+        riskDraft.midias = [];
+
         midiaInput.addEventListener('change', (event) => {
             const files = Array.from(event.target.files);
-            previewContainer.innerHTML = '';
-            riskDraft.midias = [];
 
             files.forEach((file, index) => {
                 const fileType = file.type;
@@ -345,8 +390,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     wrapper.appendChild(deleteBtn);
                     previewContainer.appendChild(wrapper);
-
-                    riskDraft.midias.push(file);
                 };
 
                 reader.readAsDataURL(file);
@@ -363,14 +406,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+
+    // GEOLOCALIZAÇÃO P/ ENDEREÇO
     document.querySelector('input[name="endereco"]').addEventListener('change', async (event) => {
-        const {
-            address_suffix,
-            rest_url
-        } = globalThis.hl_form_actions_data
-        const address = event.target.value;
-        const fullAddress = address + address_suffix
-        const res = await fetch(`${rest_url}?address=${encodeURIComponent(fullAddress)}`, {
+        const { rest_url } = globalThis.hl_form_actions_data
+        const address = event.target.value
+        const res = await fetch(`${rest_url}?address=${encodeURIComponent(address)}`, {
             method: 'POST',
         })
         if (res.ok) {
@@ -489,4 +530,39 @@ document.addEventListener('DOMContentLoaded', () => {
             preencherResumo(); // Atualiza mídia com botões ocultos
         }
     });
+
+    if (inputEndereco) {
+        inputEndereco.addEventListener('input', () => {
+            if (inputEndereco.value.trim() !== '') {
+                inputEnderecoWrapper.classList.remove('has-error');
+            }
+        });
+    }
+
+    const phoneInput = document.querySelector('input[name="telefone"]');
+
+    if (phoneInput) {
+        phoneInput.addEventListener('input', handlePhoneInput);
+    }
+
+    function handlePhoneInput(event) {
+        const input = event.target;
+        let value = input.value.replace(/\D/g, '');
+
+        value = value.substring(0, 11);
+
+        if (value.length > 10) {
+            value = value.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        } else if (value.length > 6) {
+            value = value.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+        } else if (value.length > 2) {
+            value = value.replace(/^(\d{2})(\d*)/, '($1) $2');
+        } else {
+            if (value.length > 0) {
+                value = value.replace(/^(\d*)/, '($1');
+            }
+        }
+
+        input.value = value;
+    }
 });

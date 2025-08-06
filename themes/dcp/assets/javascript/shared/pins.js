@@ -53,9 +53,9 @@ function createFeature (coordinates, properties) {
 }
 
 function createApoioFeature (apoio) {
-    const { lat, lon, ...data } = apoio
+    const { lat, lon, type, ...data } = apoio
     return createFeature([lon, lat], {
-        icon: 'apoio',
+        icon: type,
         ...data,
     })
 }
@@ -207,6 +207,7 @@ export function setupMap (jeoMap, container, riscos, apoios, initialSource) {
     map.on('load', async () => {
         await Promise.all([
             loadImage(map, 'apoio'),
+            loadImage(map, 'cacamba'),
             loadImage(map, 'risco-alagamento'),
             loadImage(map, 'risco-lixo'),
             loadImage(map, 'risco-outros'),

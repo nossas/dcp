@@ -66,7 +66,6 @@ namespace hacklabr\dashboard;
                 </i>
 
             </nav>
-
         </header>
         <div class="dashboard__body">
             <a id="btnOpenMenuMobile" class="button">
@@ -106,7 +105,7 @@ namespace hacklabr\dashboard;
                                 <span>Ações</span>
                             </a>
                         </li>
-                        <li class="<?= is_dashboard('apoio') ? 'dashboard-current' : '' ?>">
+                        <li class="<?= ( is_dashboard('apoio') || is_dashboard('editar_apoio') || is_dashboard('adicionar-apoio') ) ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('apoio') ?>">
                                 <iconify-icon icon="bi:people-fill"></iconify-icon>
                                 <span>Apoio</span>

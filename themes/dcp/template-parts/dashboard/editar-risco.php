@@ -1,9 +1,11 @@
 <?php
 
+namespace hacklabr\dashboard;
+
     //TODO: REFACTORY P/ METHOD/FUNCTIONS
     $risco_id = get_query_var('post_id' );
 
-    $riscoSingle = new WP_Query([
+    $riscoSingle = new \WP_Query([
         'p' => $risco_id,
         'post_type' => 'risco'
     ]);
@@ -64,17 +66,14 @@
                             $class = 'is-publish';
                             $text = 'Risco Publicado';
                             break;
-
                         case 'draft':
                             $class = 'is-draft';
                             $text = 'Risco ainda não publicado';
                             break;
-
                         case 'pending':
                             $class = 'is-pending';
                             $text = 'Risco Arquivado';
                             break;
-
                         default:
                             $class = 'is-blocked';
                             $text = 'BLOQUEADO';
@@ -91,8 +90,18 @@
                         <div class="input-wrap">
                             <label class="label">Localização</label>
                             <input class="input" type="text" name="endereco" placeholder="Digite o local ou endereço aqui" value="<?=$pod->field('endereco')?>" readonly required>
+                            <input type="hidden" name="full_address" value="<?=$pod->field( 'full_address' )?>">
+                            <input type="hidden" name="latitude" value="<?=$pod->field( 'latitude' )?>">
+                            <input type="hidden" name="longitude" value="<?=$pod->field( 'longitude' )?>">
                             <a class="button is-edit-input">
                                 <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                            </a>
+                            <a class="button is-success" style="display: none">
+                                <iconify-icon icon="bi:check-circle"></iconify-icon>
+                            </a>
+                            <p class="is-error-geolocation" style="font-size: 12px; color: #c10202; padding-left: 10px; display: none; ">Não foi possível encontrar este endereço, aguarde atualizações do mapa.</p>
+                            <a class="button is-loading" style="display: none">
+                                <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
                             </a>
                         </div>
                         <div class="input-help">
@@ -100,7 +109,7 @@
                                 <iconify-icon icon="bi:question"></iconify-icon>
                             </a>
                             <p>
-                                Todos os campos devem ter pelo menos 5 caracteres.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                             </p>
                         </div>
                     </div>
@@ -132,7 +141,7 @@
                                 <iconify-icon icon="bi:question"></iconify-icon>
                             </a>
                             <p>
-                                Todos os campos devem ter pelo menos 5 caracteres.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                             </p>
                         </div>
                     </div>
@@ -175,7 +184,7 @@
                                 <iconify-icon icon="bi:question"></iconify-icon>
                             </a>
                             <p>
-                                Todos os campos devem ter pelo menos 5 caracteres.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                             </p>
                         </div>
                     </div>
@@ -192,7 +201,7 @@
                                 <iconify-icon icon="bi:question"></iconify-icon>
                             </a>
                             <p>
-                                Todos os campos devem ter pelo menos 5 caracteres.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                             </p>
                         </div>
                     </div>
@@ -216,7 +225,7 @@
                                             <iconify-icon icon="bi:question"></iconify-icon>
                                         </a>
                                         <p>
-                                            Todos os campos devem ter pelo menos 5 caracteres.
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                                         </p>
                                     </div>
                                 </div>
@@ -316,13 +325,12 @@
                                     <iconify-icon icon="bi:question"></iconify-icon>
                                 </a>
                                 <p>
-                                    Todos os campos devem ter pelo menos 5 caracteres.
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                                 </p>
                             </div>
                         <?php endif; ?>
                     </div>
                     <div id="formSubmit" class="form-submit">
-
                         <input type="hidden" name="action" value="form_single_risco_edit">
                         <input type="hidden" name="post_id" value="<?=get_the_ID()?>">
                         <input type="hidden" name="post_status" value="<?=$post_status?>">
@@ -337,36 +345,46 @@
                         <?php endif; ?>
 
                         <?php
+                            //if ( !empty($pod->field('latitude')) || !empty($pod->field('longitude'))) {
 
-                            //TODO: REFACTORY P/ MELHOR LOGICA
-                            switch ( $post_status ) {
+                                //TODO: REFACTORY P/ MELHOR LOGICA
+                                switch ( $post_status ) {
 
-                                case 'draft':
+                                    case 'draft':
 
-                                    ?>
-                                    <a class="button is-publish">
-                                        <iconify-icon icon="bi:check2"></iconify-icon>
-                                        <span>Publicar</span>
-                                    </a>
+                                        ?>
+                                        <a class="button is-publish">
+                                            <iconify-icon icon="bi:check2"></iconify-icon>
+                                            <span>Publicar</span>
+                                        </a>
 
-                                    <?php
+                                        <?php
 
-                                    break;
-                                case 'publish':
-                                case 'pending':
+                                        break;
+                                    case 'publish':
+                                    case 'pending':
 
-                                    ?>
+                                        ?>
 
-                                    <a class="button is-save">
-                                        <iconify-icon icon="bi:check2"></iconify-icon>
-                                        <span>Publicar Alterações</span>
-                                    </a>
+                                        <a class="button is-save">
+                                            <iconify-icon icon="bi:check2"></iconify-icon>
+                                            <span>Publicar Alterações</span>
+                                        </a>
 
-                                    <?php
+                                        <?php
 
-                                    break;
-                            }
+                                        break;
+                                }
 
+//                            }
+//                            else {
+//                                ?>
+<!--                                <a class="button is-goback" disabled>-->
+<!--                                    <iconify-icon icon="bi:check2"></iconify-icon>-->
+<!--                                    <span>Bloqueado para publicação</span>-->
+<!--                                </a>-->
+<!--                                --><?php
+//                            }
                         ?>
 
                         <?php if( wp_is_mobile() ) : ?>
@@ -374,6 +392,13 @@
                                 <iconify-icon icon="bi:x-lg"></iconify-icon>
                                 <span>Arquivar</span>
                             </a>
+
+                            <!--
+                            <a href="<?=get_dashboard_url( 'riscos' )?>" class="button is-goback">
+                                <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                                <span>Voltar</span>
+                            </a>
+                            -->
                         <?php endif; ?>
                     </div>
                 </form>

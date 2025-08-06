@@ -354,12 +354,20 @@ class Assets
             return $this->js_files;
         }
 
-        $default_suffix = ', Jacarezinho, Rio de Janeiro, Rio de Janeiro, Brasil';
-
         $js_files = [
             'app' => [
                 'file' => 'app.js',
                 'global' => true,
+            ],
+
+            'posts-grid-load-more' => [
+                'file' => 'posts-grid-load-more.js',
+                'global' => true,
+                'localize_callback' => function () {
+                    return [
+                        'ajax_url' => admin_url('admin-ajax.php'),
+                    ];
+                },
             ],
 
             'dcp-map' => [
@@ -367,10 +375,9 @@ class Assets
                 'preload_callback' => function () {
                     return is_page_template('page-dcp-map.php');
                 },
-                'localize_callback' => function () use ($default_suffix) {
+                'localize_callback' => function () {
 
                     return [
-                        'addressSuffix' => apply_filters('dcp_address_suffix', $default_suffix),
                         'restUrl' => rest_url('hacklabr/v2/geocoding'),
                         'themeAssets' => get_stylesheet_directory_uri(),
                     ];
@@ -387,12 +394,16 @@ class Assets
                 'preload_callback' => function () {
                     return is_page_template('template-parts/page-register-risk.php');
                 },
-                'localize_callback' => function () use($default_suffix) {
+                'localize_callback' => function () {
                     return [
                         'rest_url' => rest_url('hacklabr/v2/geocoding'),
-                        'address_suffix' => apply_filters('dcp_address_suffix', $default_suffix),
                     ];
                 },
+            ],
+
+            'cf7-form-actions' => [
+                'file' => 'cf7-form-actions.js',
+                'global' => true,
             ],
 
             'gutenberg' => [
@@ -409,11 +420,8 @@ class Assets
                     return $screen->base === 'post' && in_array($screen->post_type, ['apoio', 'risco']);
                 },
                 'localize_callback' => function () {
-                    $default_suffix = ', Jacarezinho, Rio de Janeiro, Rio de Janeiro, Brasil';
-
                     return [
                         'rest_url' => rest_url('hacklabr/v2/geocoding'),
-                        'address_suffix' => apply_filters('dcp_address_suffix', $default_suffix),
                     ];
                 },
             ],

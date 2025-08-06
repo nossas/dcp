@@ -107,6 +107,186 @@ add_action('wp_ajax_nopriv_form_participar_acao', 'form_participar_acao');
 
 
 /**
+ * APOIOS
+ */
+function form_single_apoio_new() {
+
+    if( empty( $_POST['tipo_apoio'] ) ) {
+        wp_send_json_error([
+            'status' => false,
+            'title' => 'Erro',
+            'message' => 'Selecione o tipo de Apoio.',
+            'error' => [ 'Nenhum tipo de apoio foi selecionado no campo, corrija e tente novamente.' ],
+        ], 200);
+    }
+
+    $postID = wp_insert_post([
+        'post_type' => 'apoio',
+        'post_status' => 'publish',
+        'post_title' => sanitize_text_field($_POST['titulo']),
+        'post_content' => sanitize_text_field($_POST['descricao']),
+        'meta_input' => [
+            'titulo' => sanitize_text_field($_POST['titulo']),
+            'descricao' => sanitize_text_field($_POST['descricao']),
+            'endereco' => sanitize_text_field($_POST['endereco']),
+            'latitude' => sanitize_text_field( $_POST[ 'latitude' ] ),
+            'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
+            'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
+            'horario_de_atendimento' => sanitize_text_field( $_POST[ 'horario_de_atendimento' ] ),
+            'telefone' => sanitize_text_field($_POST['telefone']),
+            'website' => sanitize_text_field($_POST['site']),
+            'info_extra' => sanitize_text_field($_POST['observacoes']),
+            'data_e_horario' => date( 'Y-m-d H:i:s' ),
+        ]
+    ], true );
+
+    if (is_wp_error($postID)) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'Erro ao cadastrar o Ação.',
+            'error' => $postID->get_error_message()
+        ], 500);
+    }
+
+    $new_terms = array(
+        sanitize_text_field( $_POST[ 'tipo_apoio' ] )
+    );
+    if( sanitize_text_field( $_POST[ 'tipo_apoio_subcategory' ] ) ) {
+        $new_terms[] = sanitize_text_field( $_POST[ 'tipo_apoio_subcategory' ] );
+    }
+
+    wp_set_object_terms( $postID, $new_terms, 'tipo_apoio', false );
+
+    $save_attachment = upload_file_to_attachment_by_ID( $_FILES[ 'media_file' ], $postID, true );
+
+    if (empty($save_attachment['errors'])) {
+
+        wp_send_json_success([
+            'title' => 'Sucesso',
+            'message' => 'Formulário enviado com sucesso!',
+            'uploaded_files' => $save_attachment['uploaded_files'],
+            'post_id' => $postID,
+            'url_callback' => get_site_url() . '/dashboard/editar-apoio-novo/?post_id=' . $postID,
+            'is_new' => true,
+        ]);
+    }
+
+    wp_send_json_error([
+        'title' => 'Erro',
+        'message' => 'Erro ao salvar o formulário / anexos',
+        'error' => $save_attachment['errors'],
+    ], 400);
+}
+add_action('wp_ajax_form_single_apoio_new', 'form_single_apoio_new');
+
+function form_single_apoio_edit() {
+
+    if (!current_user_can('edit_posts')) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'Você não tem permissão para editar posts.',
+            'error' => [],
+        ], 403);
+    }
+
+    $postID = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
+
+    if ( !$postID || !get_post( $postID ) ) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'ID do post inválido ou post não encontrado.',
+            'error' => [],
+        ], 400);
+    }
+
+    //TODO: REFACTORY
+    $post_status = sanitize_text_field($_POST['post_status'] ?? 'draft');
+
+    $latitude = sanitize_text_field( $_POST[ 'latitude' ] );
+    $longitude = sanitize_text_field( $_POST[ 'longitude' ] );
+
+    $message_return = null;
+    if( empty( $latitude ) || empty( $longitude ) ) {
+        $post_status = 'draft';
+        $message_return = 'O apoio foi salvo em modo "Rascunho" pois não foi possível geolocalizar no mapa este endereço.';
+    }
+    //TODO: REFACTORY
+
+    $updated_id = wp_update_post([
+        'ID' => $postID,
+        'post_type' => 'apoio',
+        'post_status' => $post_status,
+        'post_title' => sanitize_text_field($_POST['titulo']),
+        'post_content' => sanitize_text_field($_POST['descricao']),
+        'meta_input' => [
+            'titulo' => sanitize_text_field($_POST['titulo']),
+            'descricao' => sanitize_text_field($_POST['descricao']),
+            'endereco' => sanitize_text_field($_POST['endereco']),
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+            'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
+            'horario_de_atendimento' => sanitize_text_field( $_POST[ 'horario_de_atendimento' ] ),
+            'telefone' => sanitize_text_field($_POST['telefone']),
+            'website' => sanitize_text_field($_POST['site']),
+            'info_extra' => sanitize_text_field($_POST['observacoes']),
+            'data_e_horario' => date( 'Y-m-d H:i:s' ),
+        ]
+    ], true);
+
+    if ( is_wp_error( $updated_id ) ) {
+        wp_send_json_error([
+            'title' => 'Erro',
+            'message' => 'Erro ao editar Apoio.',
+            'error' => $updated_id->get_error_message()
+        ], 500);
+    }
+
+    //TODO: REFACTORY
+    if( !empty( $_FILES['media_file'] ) ) {
+
+        if ( has_post_thumbnail( $updated_id ) ) {
+            $old_attachment_id = get_post_thumbnail_id( $updated_id );
+            wp_delete_attachment( $old_attachment_id );
+        }
+
+        $get_attachments = get_posts([
+            'post_type'      => 'attachment',
+            'posts_per_page' => -1,
+            'post_status'    => 'any',
+            'post_parent'    => $updated_id,
+        ]);
+
+        foreach ( $get_attachments as $attachment ) {
+            wp_delete_attachment( $attachment->ID );
+        }
+    }
+    //TODO: REFACTORY
+
+    $save_cover = upload_file_to_attachment_by_ID($_FILES['media_file'], $postID, true );
+    if (empty($save_cover['errors'])) {
+        wp_send_json_success([
+            'title' => 'Sucesso',
+            'message' => 'Formulário enviado com sucesso! ' . $message_return,
+            'uploaded_files' => $save_cover,
+            'post_id' => $postID,
+            'url_callback' => get_site_url() . '/dashboard/editar-apoio-novo/?post_id=' . $postID,
+            'is_new' => true,
+        ]);
+    }
+
+    wp_send_json_error([
+        'title' => 'Erro',
+        'message' => 'Erro ao salvar o formulário / anexos',
+        'error' => $save_cover['errors'],
+    ], 400);
+}
+add_action('wp_ajax_form_single_apoio_edit', 'form_single_apoio_edit');
+
+
+
+
+
+/**
  * RELATOS
  */
 function form_single_relato_new() {
@@ -300,6 +480,9 @@ function form_single_acao_new() {
             'titulo' => sanitize_text_field($_POST['titulo']),
             'descricao' => sanitize_text_field($_POST['descricao']),
             'endereco' => sanitize_text_field($_POST['endereco']),
+            'latitude' => sanitize_text_field( $_POST[ 'latitude' ] ),
+            'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
+            'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
             'nome_completo' => $nome_completo,
             'email' => $email,
             'telefone' => sanitize_text_field($_POST['telefone']),
@@ -371,26 +554,31 @@ function form_single_acao_edit() {
         ], 400);
     }
 
-//    $publish_date = null;
-//    $publish_date_gmt = null;
-//
-//    if( $_POST['post_status'] === 'future' ) {
-//        $publish_date = date('Y-m-d H:i:s', strtotime('+90 days'));
-//        $publish_date_gmt = get_gmt_from_date( $publish_date );
-//    }
-
     $data_e_horario = sanitize_text_field($_POST['date']) . ' ' . sanitize_text_field($_POST['horario']) . ':00';
+
+    //TODO: REFACTORY
+    $post_status = sanitize_text_field($_POST['post_status'] ?? 'draft');
+    $latitude = sanitize_text_field( $_POST[ 'latitude' ] );
+    $longitude = sanitize_text_field( $_POST[ 'longitude' ] );
+
+    $message_return = null;
+//    if( empty( $latitude ) || empty( $longitude ) ) {
+//        $post_status = 'draft';
+//        $message_return = 'O risco foi salvo em "Aguardando Aprovação" pois não foi possível geolocalizar no mapa este endereço.';
+//    }
+    //TODO: REFACTORY
 
     $updated_id = wp_update_post([
             'ID' => $postID,
             'post_type' => 'acao',
-            'post_status' => sanitize_text_field($_POST['post_status'] ?? 'draft'),
-//            'post_date' => $publish_date,
-//            'post_date_gmt' => $publish_date_gmt,
+            'post_status' => $post_status,
             'post_title' => sanitize_text_field( $_POST[ 'endereco' ] ),
             'post_content' => sanitize_text_field( $_POST[ 'descricao' ] ),
             'meta_input' => [
                 'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
+                'latitude' => $latitude,
+                'longitude' => $longitude,
+                'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
                 'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
                 'titulo' => sanitize_text_field( $_POST[ 'titulo' ] ),
                 'data_e_horario' => $data_e_horario
@@ -446,7 +634,7 @@ function form_single_acao_edit() {
 
         wp_send_json_success([
             'title' => 'Sucesso',
-            'message' => 'Formulário enviado com sucesso!',
+            'message' => 'Formulário enviado com sucesso! ' . $message_return,
             'uploaded_files' => $save_post[ 'uploaded_files' ],
             'post_id' => $postID,
         ]);
@@ -479,6 +667,7 @@ function form_single_risco_new() {
                 'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
                 'latitude' => sanitize_text_field( $_POST[ 'latitude' ] ),
                 'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
+                'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
                 'nome_completo' => sanitize_text_field( $_POST[ 'nome_completo' ] ),
                 'email' => sanitize_text_field( $_POST[ 'email' ] ),
                 'telefone' => sanitize_text_field( $_POST[ 'telefone' ] ),
@@ -491,13 +680,11 @@ function form_single_risco_new() {
     );
 
     if ( is_wp_error( $postID ) ) {
-
         wp_send_json_error([
             'title' => 'Erro',
             'message' => 'Erro ao cadastrar o risco.',
             'error' => $postID->get_error_message()
         ], 500 );
-
     }
 
     $new_terms = array(
@@ -555,10 +742,23 @@ function form_single_risco_edit() {
         ], 400);
     }
 
+    //TODO: REFACTORY
+    $post_status = sanitize_text_field($_POST['post_status'] ?? 'draft');
+
+    $latitude = sanitize_text_field( $_POST[ 'latitude' ] );
+    $longitude = sanitize_text_field( $_POST[ 'longitude' ] );
+
+    $message_return = null;
+    if( empty( $latitude ) || empty( $longitude ) ) {
+        $post_status = 'draft';
+        $message_return = 'O risco foi salvo em "Aguardando Aprovação" pois não foi possível geolocalizar no mapa este endereço.';
+    }
+    //TODO: REFACTORY
+
     $data = [
         'ID' => $postID,
         'post_type' => 'risco',
-        'post_status' => sanitize_text_field($_POST['post_status'] ?? 'draft'),
+        'post_status' => $post_status,
         'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
         'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
         'post_title' => sanitize_text_field( $_POST[ 'endereco' ] ),
@@ -566,6 +766,9 @@ function form_single_risco_edit() {
         'meta_input' => [
             'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
             'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+            'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
         ],
     ];
 
@@ -602,7 +805,7 @@ function form_single_risco_edit() {
 
         wp_send_json_success([
             'title' => 'Sucesso',
-            'message' => 'Formulário enviado com sucesso!',
+            'message' => 'Formulário enviado com sucesso! ' . $message_return,
             'uploaded_files' => $save_post[ 'uploaded_files' ],
             'post_id' => $postID,
         ]);

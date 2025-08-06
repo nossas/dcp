@@ -31,13 +31,23 @@
                 <div class="input-wrap">
                     <label class="label">Localização</label>
                     <input class="input" type="text" name="endereco" placeholder="Digite o local ou endereço aqui" value="" required>
+                    <input type="hidden" name="full_address" value="">
+                    <input type="hidden" name="latitude" value="">
+                    <input type="hidden" name="longitude" value="">
+                    <a class="button is-loading" style="display: none">
+                        <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
+                    </a>
+                    <a class="button is-success" style="display: none">
+                        <iconify-icon icon="bi:check-circle"></iconify-icon>
+                    </a>
+                    <p class="is-error-geolocation" style="font-size: 12px; color: #c10202; display: none; padding-left: 10px; ">Não foi possível encontrar este endereço, aguarde atualizações do mapa.</p>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -63,7 +73,7 @@
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -98,24 +108,21 @@
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Descrição</label>
-                    <textarea class="textarea" name="descricao" readonly required></textarea>
-                    <a class="button is-edit-input">
-                        <iconify-icon icon="bi:pencil-square"></iconify-icon>
-                    </a>
+                    <textarea class="textarea" name="descricao" required></textarea>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -139,7 +146,7 @@
                                     <iconify-icon icon="bi:question"></iconify-icon>
                                 </a>
                                 <p>
-                                    Todos os campos devem ter pelo menos 5 caracteres.
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                                 </p>
                             </div>
                         </div>
@@ -171,7 +178,7 @@
                             <iconify-icon icon="bi:question"></iconify-icon>
                         </a>
                         <p>
-                            Todos os campos devem ter pelo menos 5 caracteres.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                         </p>
                     </div>
                 <?php endif; ?>

@@ -51,7 +51,6 @@ function risco_badge_category( $slug = 'default', $label = 'CATEGORIA GERAL', $c
     echo '<span>' . $label . '</span>' . '</span>';
 
 }
-
 function risco_convert_terms( $terms = [] )
 {
     $all_terms_new = [];
@@ -76,14 +75,12 @@ function risco_convert_terms( $terms = [] )
 
     return $all_terms_new;
 }
-
 function upload_file_to_attachment_by_ID( $files = null, $postID = null, $is_featured = false ) {
 
     $errors = [];
     $uploaded_files = [];
 
     if( !empty( $files ) ) {
-
         foreach ( $files['name'] as $key => $item ) {
 
             if ( $files['error'][$key] === UPLOAD_ERR_OK ) {
@@ -97,10 +94,10 @@ function upload_file_to_attachment_by_ID( $files = null, $postID = null, $is_fea
             }
 
             $file_type = wp_check_filetype( $file['name'] );
-            $allowed_types = array('jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov' );
+            $allowed_types = array( 'jpg', 'jpeg', 'png', 'mp4' ); // 'mov', 'gif'
 
             if ( !in_array( strtolower( $file_type[ 'ext' ] ), $allowed_types ) ) {
-                $errors[] = 'Arquivo "%s" não permitido. Apenas imagens e vídeos são aceitos.';
+                $errors[] = 'Arquivo <strong>".' . $file_type[ 'ext' ] . '"</strong> não permitido. Apenas arquivos <strong>' . implode( ', ', $allowed_types ) . '</strong> são aceitos.';
             }
 
             $attachment_id = media_handle_sideload( $file, $postID, $file[ 'name' ] );
@@ -116,6 +113,7 @@ function upload_file_to_attachment_by_ID( $files = null, $postID = null, $is_fea
                     $attachment_id->get_error_message()
                 );
             } else {
+                //update_post_meta( $postID, '_video_attachment_id', $attachment_id );
                 $uploaded_files[] = array(
                     'id'  => $attachment_id,
                     'name'  => $file['name'],
@@ -125,15 +123,12 @@ function upload_file_to_attachment_by_ID( $files = null, $postID = null, $is_fea
             }
 
         }
-
     }
-
     return [
         'errors' => $errors,
         'uploaded_files' => $uploaded_files
     ];
 }
-
 function dashboard_excerpt( $descricao = null ) {
     if( !empty( $descricao ) ) {
         if ( strlen( $descricao ) <= 125 ) {
@@ -144,7 +139,6 @@ function dashboard_excerpt( $descricao = null ) {
         }
     }
 }
-
 function wpcf7_form_sugestao_acao( $contact_form ) {
 
     $form_id = 712;

@@ -2,10 +2,25 @@
     margin-top: size(80);
     margin-bottom: size(80);
 
+    @include mobile {
+        margin-top: unset !important;
+    }
+
     &__widget{
         .wp-block-cover{
 
             .wp-block-columns > .wp-block-column:first-child{
+                .wp-block-image.hide-on-mobile {
+                    @media (max-width: 782px) {
+                        display: none !important;
+                    }
+                }
+
+                .wp-block-image.hide-on-desktop {
+                    @media (min-width: 783px) {
+                        display: none !important;
+                    }
+                }
 
                 .wp-block-image > img{
                     @include mobile{

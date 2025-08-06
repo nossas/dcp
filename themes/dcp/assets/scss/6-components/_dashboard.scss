@@ -653,7 +653,7 @@
                     display: inline-block;
                     width: 100%;
                     max-width: calc( 100% - 25px );
-                    min-height: size( 250 );
+                    min-height: size( 325 );
                     padding: 0;
                     margin: 0 25px 25px 0;
                     border-color: #FEFBF9;
@@ -794,6 +794,7 @@
                             line-height: size( 15 );
                             padding-bottom: size( 15 );
                             display: -webkit-box;
+                            min-height: 70px;
                             -webkit-line-clamp: 4; /* Número de linhas */
                             -webkit-box-orient: vertical;
                             overflow: hidden;

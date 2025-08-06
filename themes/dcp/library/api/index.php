@@ -102,19 +102,40 @@ class API {
     }
 
     static function rest_geocoding_callback (\WP_REST_Request $request) {
+
         $address = $request->get_param('address');
 
-        $result = \Jeo\Geocode_Handler::get_instance()->get_active_geocoder()->geocode( $address );
+        $params = [
+            'q' => $address,
+            'format' => 'jsonv2',
+            'addressdetails' => 1,
+            'countrycodes' => 'br',
+            'viewbox' => apply_filters('dcp_geocoding_viewbox', '-43.27,-22.87,-43.23,-22.91'),
+            'bounded' => '1',
+        ];
 
-        if ( empty( $result[0] ) ) {
-            return null;
+        $r = wp_remote_get( add_query_arg($params, 'https://nominatim.openstreetmap.org/search') );
+
+        if( is_wp_error( $r )) {
+            do_action( 'logger', $r->get_error_message(), 'warning' );
+        }
+        do_action( 'logger', $r );
+
+        $data = wp_remote_retrieve_body( $r );
+
+        $data = \json_decode($data);
+
+        if (\is_array($data)) {
+            foreach ($data as $match) {
+                return [
+                    'lat' => floatval($match->lat),
+                    'lon' => floatval($match->lon),
+                    'address' => $match->display_name,
+                ];
+            }
         }
 
-        return [
-            'lat' => floatval($result[0]['lat']),
-            'lon' => floatval($result[0]['lon']),
-            'address' => $result[0]['raw']['address'],
-        ];
+        return null;
     }
 
     static function rest_options_callback () {

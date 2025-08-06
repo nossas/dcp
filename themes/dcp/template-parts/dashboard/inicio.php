@@ -43,9 +43,7 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
     <div class="dashboard-content-home">
         <header class="dashboard-content-header">
             <h1>Olá, <?=wp_get_current_user()->display_name?></h1>
-            <p>Lorem ipsum dolor sit amet. Curabitur ornare enim justo, at tristique.
-                <?php //get_user_meta( wp_get_current_user()->ID, 'description', true ) ?>
-            </p>
+            <p>Lorem ipsum dolor sit amet. Curabitur ornare enim justo, at tristique.</p>
         </header>
 
         <div class="dashboard-content-section">
@@ -96,7 +94,7 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                     <div class="card-group">
                         <div class="card">
                             <div class="is-counter">
-                                <h3>0</h3>
+                                <h3><?=$get_riscos[ 'total_posts' ]?></h3>
                                 <p>Novos Relatos</p>
                             </div>
                         </div>
@@ -126,9 +124,9 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                     <div id="riscosAprovacao" class="tabs__panels" style=" display: block !important; ">
                         <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
                         <div class="tabs__panel__content dashboard-content-cards " style="display: block; padding-top: 0">
-                            <?php if( $get_riscos[ 'riscos' ]->have_posts() ) :
-                                while( $get_riscos[ 'riscos' ]->have_posts() ) :
-                                    $get_riscos[ 'riscos' ]->the_post();
+                            <?php if( $get_riscos[ 'posts' ]->have_posts() ) :
+                                while( $get_riscos[ 'posts' ]->have_posts() ) :
+                                    $get_riscos[ 'posts' ]->the_post();
                                     $pod = pods( 'risco', get_the_ID() ); ?>
 
                                     <article class="post-card is-draft" style="display: none;">

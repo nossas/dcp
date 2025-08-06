@@ -10,6 +10,7 @@
     .wp-block-columns{
         @include mobile{
             margin-block-start: unset !important;
+            gap: unset !important;
         }
     }
 
@@ -64,6 +65,11 @@
 
     .hacklabr-posts-grid-block {
         margin-block-start: size(56);
+
+        @include mobile {
+            margin-block-start: size(32);
+            grid-template-columns: 1fr;
+        }
 
         .post-card {
             max-width: size(443);
@@ -223,8 +229,49 @@
                 text-decoration: underline;
             }
         }
+
+    }
+
+    .hacklabr-posts-grid {
+        &__load-more-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 24px;
+
+            @include mobile{
+                margin-top: 32px;
+            }
+        }
+
+        &__load-more-button {
+            display: flex;
+            gap: 0.5rem;
+            border-radius: 100px;
+            padding: 10px 24px;
+            background-color: $color--secondary-dark;
+
+            span {
+                color: $color--high-light;
+            }
+
+            &:disabled {
+                background-color: #C9C6C5;
+
+                span {
+                    color: #93908F;
+                }
+            }
+
+            @include mobile{
+                max-width: 100%;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+            }
+        }
     }
 }
+
 
 .apoio{
     &__container{

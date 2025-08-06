@@ -56,7 +56,7 @@ get_header();
         <div class="dcp-map__buttons">
             <a class="dcp-map__add-risk" href="<?= get_permalink($risks_page) ?>">
                 <iconify-icon icon="bi:geo-alt-fill"></iconify-icon>
-                <span>Adicionar risco</span>
+                <span>Informar risco</span>
             </a>
             <button type="button" class="dcp-map__show-recommendations" @click="$refs.recommendations.showModal()">
                 <span>O que fazer</span>

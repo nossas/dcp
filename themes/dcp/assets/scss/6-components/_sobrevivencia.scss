@@ -149,6 +149,14 @@
                         }
                     }
 
+                    &__meta {
+                        @include mobile{
+                            hr {
+                                margin: 14px 0px !important;
+                            }
+                        }
+                    }
+
                 }
 
             }

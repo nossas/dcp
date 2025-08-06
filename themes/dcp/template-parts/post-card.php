@@ -233,14 +233,15 @@
                     <?php endif;
                 }
                 ?>
+                  <?php if ($post_type == 'acao') : $pods = pods('acao', get_the_ID()); ?>
+                    <time class="post-card__datetime">
+                        Dia: <?=date( 'd/m/Y, H:i', strtotime( $pods->field( 'data_e_horario' ) ) )?>
+                    </time>
+                <?php endif; ?>
             </div>
         <?php endif; ?>
 
-        <?php if ($post_type == 'acao') : $pods = pods('acao', get_the_ID()); ?>
-            <time class="post-card__datetime">
-                Dia: <?=date( 'd/m/Y, H:i', strtotime( $pods->field( 'data_e_horario' ) ) )?>
-            </time>
-        <?php endif; ?>
+
 
         <?php if ($post_type == 'relato') : $pods = pods('relato', get_the_ID()); ?>
             <time class="post-card__datetime">
@@ -273,28 +274,31 @@
         <?php if ($post_type == 'apoio'): ?>
             <div class="post-card__see-in-map">
                 <button class="post-card__map-button">
-                    <a href="/mapa"><?= __("Veja no mapa", "dcp"); ?></a>
+                    <a href="/mapa"><?= __("Conheça a iniciativa", "dcp"); ?></a>
                 </button>
 
                 <?php
-                $tem_quem_acionar = has_term('quem-acionar', 'tipo_apoio', $post);
-                $tem_cacambas = has_term('cacambas', 'tipo_apoio', $post);
+                    $tem_quem_acionar = has_term('quem-acionar', 'tipo_apoio', $post);
+                    $tem_cacambas = has_term('cacambas', 'tipo_apoio', $post);
                 ?>
 
                 <?php if ($tem_quem_acionar): ?>
-                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_quem_acionar', ['id' => $post->ID]); ?>">
+                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar-apoio-novo', ['post_id' => $post->ID]); ?>">
                         <?= __('Editar') ?>
                     </a>
                 <?php elseif ($tem_cacambas): ?>
-                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_cacambas', ['id' => $post->ID]); ?>">
+                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar-apoio-novo', ['post_id' => $post->ID]); ?>">
                         <?= __('Editar') ?>
                     </a>
                 <?php else: ?>
-                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar_apoio', ['id' => $post->ID]); ?>">
+                    <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar-apoio-novo', ['post_id' => $post->ID]); ?>">
                         <?= __('Editar') ?>
                     </a>
                 <?php endif; ?>
             </div>
+            <?php if( get_post_status() === 'draft' ) : ?>
+                <h3 style="font-size: 12px; font-weight: 700; opacity: 0.5; text-align: center; ">MODO RASCUNHO</h3>
+            <?php endif; ?>
         <?php endif; ?>
 
         <?php if ($post_type == 'risco'): ?>

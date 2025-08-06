@@ -50,13 +50,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.querySelector('.dcp-map__form').addEventListener('submit', async (event) => {
         event.preventDefault()
 
-        const { addressSuffix, restUrl } = globalThis.hl_dcp_map_data
+        const { restUrl } = globalThis.hl_dcp_map_data
         const input = event.target.querySelector('input[name="address"]')
         if (input.value.length > 2) {
             const address = input.value
-            const fullAddress = address.includes('Rio de Janeiro') ? address : (address + addressSuffix)
-
-            const res = await fetch(`${restUrl}?address=${encodeURIComponent(fullAddress)}`, {
+            const res = await fetch(`${restUrl}?address=${encodeURIComponent(address)}`, {
                 method: 'POST',
             })
             if (res.ok) {

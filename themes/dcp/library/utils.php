@@ -290,14 +290,7 @@ function load_more_acoes_callback() {
         'post_type' => 'acao',
         'post_status' => 'publish',
         'posts_per_page' => 3,
-        'paged' => $paged,
-//        'meta_query' => [
-//            [
-//                'key' => 'status_da_acao',
-//                'value' => $status,
-//                'compare' => '='
-//            ]
-//        ]
+        'paged' => $paged
     ]);
 
     ob_start();
@@ -330,14 +323,7 @@ function load_more_relatos_callback() {
         'post_type' => 'relato',
         'post_status' => 'publish',
         'posts_per_page' => 3,
-        'paged' => $paged,
-//        'meta_query' => [
-//            [
-//                'key' => 'status_da_acao',
-//                'value' => $status,
-//                'compare' => '='
-//            ]
-//        ]
+        'paged' => $paged
     ]);
 
     ob_start();

@@ -4,7 +4,6 @@ import 'iconify-icon';
 window.Alpine = Alpine;
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-
 //TODO: CRIAR UTILS
 function formatFileSize(bytes) {
     if (bytes === 0) return '0 Bytes';
@@ -16,7 +15,6 @@ function formatFileSize(bytes) {
 
 // TODO: COMPORTAMENTO MOCK jQUERY
 jQuery(function($) {
-
     function _ajax_dele_media_by_id( post_id, attachment_id, success, error ) {
         $.ajax({
             url: $( '.dashboard-content-single form' ).attr( 'data-action' ),
@@ -43,6 +41,42 @@ jQuery(function($) {
                 $( '.loading-global' ).fadeOut( 400 );
             }
         });
+    }
+    function selectTipoApoio( tipo_apoio ) {
+        console.log( 'tipo_apoio', tipo_apoio );
+        switch ( tipo_apoio ) {
+
+            case 'locais-seguros' :
+                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
+                $( '#apoioSingleForm .is-media-attachments' ).show();
+                break;
+
+            case 'iniciativas-locais' :
+                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
+                $( '#apoioSingleForm .is-media-attachments' ).show();
+                break;
+
+            case 'cacambas' :
+                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
+                $( '#apoioSingleForm .is-media-attachments' ).hide();
+                break;
+
+            case 'quem-acionar' :
+            case 'agua' :
+            case 'assistencia-social' :
+            case 'energia-eletrica' :
+            case 'lixo' :
+            case 'outros' :
+            case 'saude' :
+                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).show();
+                $( '#apoioSingleForm .is-media-attachments' ).hide();
+                break;
+
+            default :
+                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra, #apoioSingleForm .is-media-attachments' ).hide();
+                $( '#apoioSingleForm input, #apoioSingleForm textarea' ).prop( 'disabled', true );
+                break;
+        }
     }
 
     $( document ).ready( function() {
@@ -74,40 +108,6 @@ jQuery(function($) {
                 $( this ).addClass( 'is-active' );
             });
         });
-
-        // TODO: COMPORTAMENTO MOCK TAB PANELS ( componentizar / usar Alpine já existente )
-        $( '#dashboardRiscos .tabs__header a' ).on('click', function() {
-
-            const $this = $( this );
-            const tab = $this.attr( 'href' );
-
-            $( '.tabs__header a, .tabs__panels' ).removeClass( 'is-active' );
-            $( '.tabs__panels' ).hide();
-
-            switch ( tab ) {
-                case '#aprovacao':
-                    $this.addClass( 'is-active' );
-                    $( '#riscosAprovacao' ).show().addClass( 'is-active' );
-                    break;
-                case '#publicados':
-                    $this.addClass( 'is-active' );
-                    $( '#riscosPublicados' ).show().addClass( 'is-active' );
-                    break;
-                case '#arquivados':
-                    $this.addClass( 'is-active' );
-                    $( '#riscosArquivados' ).show().addClass( 'is-active' );
-                    break;
-                default:
-
-                    break;
-            }
-
-            $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
-            $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
-
-        });
-        $( '.tabs__header a.is-active' ).trigger( 'click' );
-        // TODO: COMPORTAMENTO MOCK TAB PANELS ( componentizar / usar Alpine já existente )
 
         // TODO: COMPONENT
         function custom_modal_confirm(options) {
@@ -217,20 +217,25 @@ jQuery(function($) {
 
         });
         $( '.asset-item-preview .is-blur' ).on( 'click', function() {});
-        $( '.is-edit-input' ).each( function () {
-
+        $( '.is-edit-input, input[readonly], textarea[readonly], select[readonly]' ).each( function () {
             const $this = $( this );
-
             $this.on( 'click', function() {
-                $this.hide();
-                $this.parent().find( '.chips-checkbox' ).css({
-                    height : 'auto',
-                    opacity : 1
-                });
-                $this.parent().find( '.input, .textarea, .select' ).removeAttr( 'readonly disabled' ).focus();
-            });
 
+                if( $this.hasClass( 'is-edit-input' ) ) {
+                    $this.hide();
+                    $this.parent().find( '.chips-checkbox' ).css({
+                        height : 'auto',
+                        opacity : 1
+                    });
+                    $this.parent().find( '.input, .textarea, .select' ).removeAttr( 'readonly disabled' ).addClass( 'is-editing' ).focus();
+                } else {
+                    $this.parent().find( '.is-edit-input' ).hide();
+                    $this.removeAttr( 'readonly disabled' ).addClass( 'is-editing' ).focus();
+                }
+
+            });
         });
+
         $( '.input-help .button' ).each( function () {
             const $this = $( this );
             $this.on( 'click', function() {
@@ -298,13 +303,9 @@ jQuery(function($) {
                             custom_modal_confirm({
                                 title: response.data.title,
                                 description: response.data.message,
-
-                                cancelText: "CANCELAR",
-                                onCancel: function () {},
-
-                                confirmText: "ATUALIZAR",
+                                confirmText: "OK",
                                 onConfirm: function () {
-                                    window.location.reload();
+                                    //window.location.reload();
                                 }
                             });
                             $this.parent().parent().remove();
@@ -316,7 +317,6 @@ jQuery(function($) {
                 }
             });
         });
-
         $( '#selectAcaoRealizada' ).on( 'change', function () {
             const _location = window.location;
             if( $( this ).val().length ) {
@@ -328,6 +328,56 @@ jQuery(function($) {
             $( '.input-chips .chips-wrap').html( '' );
             $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
         });
+
+        if( $( '#dashboardApoioSingle' ).length ) {
+            selectTipoApoio( _current_apoio_edit );
+        }
+        $( '#selectTipoApoio' ).on( 'change', function () {
+            $( 'input[type="text"], input[type="date"], input[type="time"], textarea' ).val( '' ).prop( 'disabled', false );
+            selectTipoApoio( $( this ).val() );
+        });
+
+        $( '.dashboard-content-single input[name="endereco"]' ).on( 'change', function () {
+            const $this = $( this );
+
+            $.ajax({
+                url: window.location.origin + '/wp-json/hacklabr/v2/geocoding/',
+                type: 'GET',
+                data: {
+                    address : $this.val(),
+                },
+                beforeSend: function() {
+                    $( '.loading-global' ).fadeIn( 400 );
+                    $this.prop( 'disabled', true );
+                    $this.parent().find( '.is-loading' ).show();
+                    $this.parent().find( '.is-success' ).hide();
+                    $this.parent().find( '.is-error-geolocation' ).hide();
+                    $( '.dashboard-content-single input[name="latitude"]' ).val( '' );
+                    $( '.dashboard-content-single input[name="longitude"]' ).val( '' );
+                },
+                success: function( response ) {
+                    if( response.lat || response.lon ) {
+                        //$this.val( response.address )
+                        $( '.dashboard-content-single input[name="full_address"]' ).val( response.address );
+                        $( '.dashboard-content-single input[name="latitude"]' ).val( response.lat );
+                        $( '.dashboard-content-single input[name="longitude"]' ).val( response.lon );
+                        $this.parent().find( '.is-success' ).show();
+                    } else {
+                        $this.parent().find( '.is-error-geolocation' ).show();
+                    }
+                },
+                error: function ( response ) {
+                    $this.parent().find( '.is-error-geolocation' ).show();
+                },
+                complete: function() {
+                    $( '.loading-global' ).fadeOut( 400 );
+                    $this.parent().find( '.is-loading' ).hide();
+                    $this.prop( 'disabled', false );
+                }
+            });
+
+        });
+
         $( '.input-chips input[type="checkbox"]' ).on( 'change', function () {
             if( $( this ).is( ':checked' ) ) {
                 $( '.input-chips .chips-wrap').append( '<span id="chips_' + $( this ).val() + '" class="chips"><iconify-icon icon="bi:check2"></iconify-icon>' + $( this ).attr( 'data-label' ) + '</span>' );
@@ -375,14 +425,16 @@ jQuery(function($) {
 
             }).trigger( 'click' );
         });
-
-        $( '#riscoSingleForm, #acaoSingleForm' ).on( 'submit', function ( e ) {
+        $( '#riscoSingleForm, #acaoSingleForm, #apoioSingleForm' ).on( 'submit', function ( e ) {
             const $this = $( this );
             const form = e.target;
             const formData = new FormData( form );
 
             $this.addClass( 'is-sending' );
             $( '.loading-global' ).fadeIn( 400 );
+            $( '.is-editing' ).each( function () {
+                $(this).removeClass( 'is-editing' );
+            });
 
             fetch( $this.attr( 'data-action' ), {
                 method: 'POST',
@@ -392,7 +444,6 @@ jQuery(function($) {
                 .then( response => {
                     $this.removeClass( 'is-sending' );
                     $( '.loading-global' ).fadeOut( 400 );
-
                     if( response.success ) {
 
                         if( response.data.is_new !== undefined ) {
@@ -421,10 +472,10 @@ jQuery(function($) {
                                 title: response.data.title,
                                 description: response.data.message,
 
-                                cancelText: "CANCELAR",
+                                cancelText: "FECHAR",
                                 onCancel: function () {},
 
-                                confirmText: "ATUALIZAR",
+                                confirmText: "ATUALIZAR PÁGINA",
                                 onConfirm: function () {
 
                                     window.location.reload();
@@ -444,7 +495,7 @@ jQuery(function($) {
                             cancelText: "FECHAR",
                             onCancel: function () {},
 
-                            confirmText: "ATUALIZAR",
+                            confirmText: "ATUALIZAR PÁGINA",
                             onConfirm: function () {
                                 window.location.reload();
                             }
@@ -453,7 +504,6 @@ jQuery(function($) {
 
                 })
                 .catch(error => {
-
                     custom_modal_confirm({
                         title: 'ERRO INESPERADO',
                         description: 'Houve um erro inesperado ao enviar os dados do formulário, aguarde um momento e tente novamente.',
@@ -469,7 +519,6 @@ jQuery(function($) {
                     });
 
                 });
-
         });
 
         $( '#riscoSingleForm .is-archive' ).on( 'click', function () {
@@ -534,7 +583,7 @@ jQuery(function($) {
             custom_modal_confirm({
                 title: 'Criar ação?',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
-                cancelText: "Voltar",
+                cancelText: "Cancelar",
                 onCancel: function () {},
                 confirmText: "Criar Ação",
                 onConfirm: function () {
@@ -547,7 +596,7 @@ jQuery(function($) {
             custom_modal_confirm({
                 title: 'Agendar ação?',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
-                cancelText: "Voltar",
+                cancelText: "Cancelar",
                 onCancel: function () {},
                 confirmText: "Agendar Ação",
                 onConfirm: function () {
@@ -605,7 +654,7 @@ jQuery(function($) {
             custom_modal_confirm({
                 title: 'Criar Relato?',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
-                cancelText: "Voltar",
+                cancelText: "Cancelar",
                 onCancel: function () {},
                 confirmText: "Criar Relato",
                 onConfirm: function () {
@@ -617,11 +666,54 @@ jQuery(function($) {
             custom_modal_confirm({
                 title: 'Publicar Relato?',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
-                cancelText: "Voltar",
+                cancelText: "Cancelar",
                 onCancel: function () {},
                 confirmText: "Publicar Relato",
                 onConfirm: function () {
                     $( '#acaoSingleForm' ).submit();
+                }
+            });
+        });
+
+        $( '#apoioSingleForm .is-new' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Criar apoio?',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
+                cancelText: "Cancelar",
+                onCancel: function () {},
+                confirmText: "Criar Apoio",
+                onConfirm: function () {
+                    $( '#apoioSingleForm' ).submit();
+                }
+            });
+        });
+        $( '#apoioSingleForm .is-archive' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Arquivar esse apoio?',
+                description: 'As informações não serão publicadas e poderão ser acessadas novamente na aba “Arquivados”',
+
+                cancelText: "Cancelar",
+                onCancel: function () {},
+
+                confirmText: "Arquivar",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'pending' );
+                    $( '#apoioSingleForm' ).submit();
+                }
+            });
+        });
+        $( '#apoioSingleForm .is-save' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Publicar alterações esse apoio?',
+                description: 'As informações não serão publicadas e poderão ser acessadas novamente na aba “Arquivados”',
+
+                cancelText: "Cancelar",
+                onCancel: function () {},
+
+                confirmText: "Publicar alterações",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'publish' );
+                    $( '#apoioSingleForm' ).submit();
                 }
             });
         });
@@ -651,7 +743,6 @@ jQuery(function($) {
                 opacity : 1
             });
         });
-
     });
     $( window ).on( 'load', function() {
 
@@ -663,6 +754,7 @@ jQuery(function($) {
 
         $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
         $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
+        $( '#dashboardRiscos .dashboard-content-cards .post-card, #dashboardRiscos .dashboard-content-cards .message-response' ).show();
         $( '#dashboardInicio .dashboard-content-cards .post-card, #dashboardInicio .dashboard-content-cards .message-response' ).show();
         $( '#dashboardAcoes .dashboard-content-cards .post-card, #dashboardAcoes .dashboard-content-cards .message-response' ).show();
 
@@ -698,14 +790,11 @@ jQuery(function($) {
     });
     $( window ).on( 'beforeunload', function () {
         $( '.loading-global' ).fadeIn( 400 );
-        $( 'body' ).addClass( 'loading' );
     });
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-
     console.log( 'DOCUMENT LOADED' );
-
     document.body.addEventListener("wheel", function(event) {
         if (event.deltaY < 0) {
             document.body.classList.add( 'is-scrolling-up' );
@@ -716,20 +805,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-
 window.addEventListener('DOMContentLoaded', () => {
     Alpine.start();
     console.log( 'WINDOW LOADED' );
 });
-
 window.addEventListener('resize', function () {
     console.log( 'WINDOW RESIZE' );
 });
-
 window.addEventListener('beforeunload', function(event) {
-
+    if ( document.querySelectorAll('input.is-editing, select.is-editing, textarea.is-editing').length > 0 ) {
+        event.preventDefault();
+        document.body.classList.remove( 'loading' );
+        return 'Você tem alterações não salvas. Tem certeza que deseja atualizar a página?';
+    }
 });
-
 window.addEventListener('unload', function(event) {
     //console.log('I am the 4th and last one…');
 });
