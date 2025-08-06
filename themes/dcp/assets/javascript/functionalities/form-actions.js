@@ -218,11 +218,30 @@ document.addEventListener('DOMContentLoaded', () => {
             case 2:
                 return true;
             case 3:
-                return (
-                    riskDraft.nome_completo.trim() !== '' &&
-                    riskDraft.email.trim() !== '' &&
-                    riskDraft.telefone.trim() !== ''
-                );
+                const nomeInput = document.querySelector('input[name="nome_completo"]');
+                const telefoneInput = document.querySelector('input[name="telefone"]');
+                const autorizaInput = document.querySelector('input[name="autoriza_contato"]');
+                const autorizaWrapper = autorizaInput.closest('.multistepform__accept-wrapper');
+
+                nomeInput.closest('.multistepform__input').classList.remove('has-error');
+                telefoneInput.closest('.multistepform__input').classList.remove('has-error');
+                autorizaWrapper.classList.remove('has-error');
+
+                const isNomeValid = riskDraft.nome_completo.trim() !== '';
+                const isTelefoneValid = riskDraft.telefone.trim() !== '';
+                const isAutorizaValid = autorizaInput.checked;
+
+                if (!isNomeValid) {
+                    nomeInput.closest('.multistepform__input').classList.add('has-error');
+                }
+                if (!isTelefoneValid) {
+                    telefoneInput.closest('.multistepform__input').classList.add('has-error');
+                }
+                if (!isAutorizaValid) {
+                    autorizaWrapper.classList.add('has-error');
+                }
+
+                return isNomeValid && isTelefoneValid && isAutorizaValid;
             case 4:
                 return true;
             default:
@@ -244,14 +263,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     handleShowStep(currentStep);
                 }
             } else {
-                if (currentStep === 0) {
-                    showSnackbar('Para continuar, informe um endereço ou marque no mapa.');
-                } else if (currentStep === 1) {
-                    if (riskDraft.situacao_de_risco.trim() === '') {
-                        showSnackbar('Escolha um tipo de risco (alagamento, lixo ou outros) para continuar.');
-                    }
-                } else {
-                    showSnackbar('Por favor, preencha os campos obrigatórios.');
+                switch (currentStep) {
+                    case 0:
+                        showSnackbar('Para continuar, informe um endereço ou marque no mapa.');
+                        break;
+
+                    case 1:
+                        if (riskDraft.situacao_de_risco.trim() === '') {
+                            showSnackbar('Escolha um tipo de risco (alagamento, lixo ou outros) para continuar.');
+                        }
+                        break;
+
+                    case 3:
+                        const autorizaInput = document.querySelector('input[name="autoriza_contato"]');
+                        if (!autorizaInput.checked) {
+                            showSnackbar('Marque a caixa de autorização para seguir.');
+                        } else {
+                            showSnackbar('Preencha nome e telefone para continuar.');
+                        }
+                        break;
+
+                    default:
+                        showSnackbar('Por favor, preencha os campos obrigatórios.');
+                        break;
                 }
             }
         });
@@ -502,5 +536,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 inputEnderecoWrapper.classList.remove('has-error');
             }
         });
+    }
+
+    const phoneInput = document.querySelector('input[name="telefone"]');
+
+    if (phoneInput) {
+        phoneInput.addEventListener('input', handlePhoneInput);
+    }
+
+    function handlePhoneInput(event) {
+        const input = event.target;
+        let value = input.value.replace(/\D/g, '');
+
+        value = value.substring(0, 11);
+
+        if (value.length > 10) {
+            value = value.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        } else if (value.length > 6) {
+            value = value.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+        } else if (value.length > 2) {
+            value = value.replace(/^(\d{2})(\d*)/, '($1) $2');
+        } else {
+            if (value.length > 0) {
+                value = value.replace(/^(\d*)/, '($1');
+            }
+        }
+
+        input.value = value;
     }
 });

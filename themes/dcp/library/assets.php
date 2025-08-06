@@ -401,6 +401,11 @@ class Assets
                 },
             ],
 
+            'cf7-form-actions' => [
+                'file' => 'cf7-form-actions.js',
+                'global' => true,
+            ],
+
             'gutenberg' => [
                 'file'   => 'gutenberg.js',
                 'admin'  => true,

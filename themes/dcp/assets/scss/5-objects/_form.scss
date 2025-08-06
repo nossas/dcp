@@ -133,7 +133,7 @@
         }
     }
 
-    .wpcf7-response-output,
+    // .wpcf7-response-output,
     .wpcf7-not-valid-tip {
         display: none !important;
     }
@@ -325,11 +325,10 @@
     }
 
     &__accept{
-        align-items: center;
+        align-items: flex-start;
         display: flex;
         font-size: $font-size--xx-small;
-        gap: $gap--x-small;
-        padding-left: $padding--small;
+        gap: 14px;
 
         @include mobile{
             align-items: flex-start;
@@ -340,6 +339,36 @@
             @include mobile{
                 margin-top: size(3);
             }
+        }
+    }
+
+    &__accept-wrapper {
+         margin-top: 1rem;
+
+        .error-message {
+            display: none;
+            color: $color--warning-dark;
+            font-size: 12px;
+            font-weight: 400;
+            margin-top: 8px;
+            padding-left: 5px;
+        }
+
+        &.has-error {
+            .error-message {
+                display: block;
+            }
+
+            input[type="checkbox"] {
+                outline: 2px solid $color--warning-dark;
+                outline-offset: -1px;
+            }
+        }
+
+        input[type="checkbox"] {
+           width: 18px;
+           height: 18px;
+           flex-shrink: 0;
         }
     }
 
@@ -576,6 +605,10 @@
 
         // Estilo para o estado de erro
         &.has-error {
+            .multistepform__label {
+                color: $color--warning-dark;
+            }
+
             input {
                 border-color: $color--warning-dark;
                 padding-right: 40px;
@@ -743,6 +776,7 @@
                 padding: $padding--medium;
             }
         }
+
     }
 
     .form-snackbar {
@@ -782,8 +816,33 @@
             flex-shrink: 0;
         }
     }
-}
+    [data-step="1"] {
+        .multistepform__header {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+    }
+    [data-step="5"] {
+        .multistepform__accept-terms {
+            display: flex;
+            color: var(--Color-Theme-Dark, #281414);
+            font-size: 14px;
+            gap:8px;
+            align-items: flex-start;
+        }
+        .multistepform__carousel {
+            .splide {
+                width: 400px;
+                max-width: 400px !important;
+                display: flex;
+                height: 224.691px;
+            }
+        }
+    }
 
+
+}
 .multistepform__checkbox-option input[type="checkbox"]:checked + .multistepform__checkbox-label {
     background-color: $color--high-light ;
 }
