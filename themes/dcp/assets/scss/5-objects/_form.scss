@@ -159,7 +159,7 @@
     }
     .form-image{
         display: none;
-        @include mobile{
+        /* @include mobile{
             display: flex;
             flex-direction: column;
         }
@@ -167,7 +167,7 @@
             @include mobile {
                 max-width: 50%;
             }
-        }
+        } */
     }
 }
 
