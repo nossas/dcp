@@ -100,15 +100,17 @@
                     <input type="email" name="email" placeholder="exemplo@email.com">
 
                     <label class="checkbox-aceite">
-                        <input type="checkbox" name="aceite_whatsapp" value="ACEITE">
-                        Aceito receber confirmações e informações sobre esta ação via e-mail e WhatsApp
-                    </label>
-                    <label class="checkbox-aceite">
                         <input type="checkbox" name="aceite_termos">
-                        Aceito termos de uso e política de privacidade.
+                        <?php _e('Aceito receber confirmações e informações sobre esta ação via e-mail e WhatsApp.', 'dcp'); ?>
+                    </label>
+                    <label class="checkbox-aceite checkbox-aceite-whatsapp">
+                        <input type="checkbox" name="aceite_whatsapp" value="ACEITE">
+                        <?php _e('Quero receber o link para entrar no grupo da Defesa Climática Popular no WhatsApp.', 'dcp'); ?>
                     </label>
                     <input type="hidden" name="post_id" value="<?= get_the_ID(); ?>">
                     <input type="hidden" name="action" value="form_participar_acao">
+
+                    <div id="cf7-snackbar" class="cf7-snackbar"></div>
 
                     <div style="display: flex; justify-content: space-between">
                         <div></div>
