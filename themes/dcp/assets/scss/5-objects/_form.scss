@@ -153,9 +153,19 @@
     margin-inline: auto;
     max-width: $grid--wide;
 
+    @include mobile {
+        display: flex;
+        flex-direction: column;
+    }
     .form-image{
         @include mobile{
-            display: none;
+            display: flex;
+            flex-direction: column;
+        }
+        img {
+            @include mobile {
+                max-width: 50%;
+            }
         }
     }
 }
@@ -814,10 +824,35 @@
                 max-width: 400px !important;
                 display: flex;
                 height: 224.691px;
+                @include mobile {
+                    width: auto !important;
+                    height: auto !important;
+                }
+            }
+        }
+
+    }
+    [data-step="6"] {
+        @include mobile {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .multistepform__button-backmapa {
+            @include mobile {
+                display: flex;
+                justify-content: center;
+            }
+        }
+        .multistepform__button-more-risk {
+            @include mobile {
+                display: flex;
+                justify-content: center;
             }
         }
     }
-
 
 }
 .multistepform__checkbox-option input[type="checkbox"]:checked + .multistepform__checkbox-label {
