@@ -30,6 +30,9 @@ namespace hacklabr\dashboard;
     </div>
     <header class="dashboard-content-header is-single-new">
         <h1><?=$get_terms[0]->name?></h1>
+        <?php if( $postSingle->post_status === 'draft' ) : ?>
+            <h3 style="font-size: 12px; font-weight: 700; opacity: 0.5; text-align: center; ">MODO RASCUNHO</h3>
+        <?php endif; ?>
     </header>
     <div class="dashboard-content-single">
         <?php if( !empty( $postSingle ) ) : ?>

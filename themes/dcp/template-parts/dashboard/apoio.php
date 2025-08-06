@@ -84,6 +84,7 @@ namespace hacklabr\dashboard;
 
                                 $query_args = [
                                     'post_type'      => 'apoio',
+                                    'post_status'    => [ 'draft', 'publish' ],
                                     'posts_per_page' => -1,
                                     'tax_query'      => [[
                                         'taxonomy' => 'tipo_apoio',
@@ -117,6 +118,7 @@ namespace hacklabr\dashboard;
                     else :
                         $query_args = [
                             'post_type'      => 'apoio',
+                            'post_status'    => [ 'draft', 'publish' ],
                             'posts_per_page' => -1,
                         ];
 
@@ -156,4 +158,9 @@ namespace hacklabr\dashboard;
             </div>
         </div>
     </div>
+    <style>
+        .apoio__cards .post-card__meta--default {
+            display: none !important;
+        }
+    </style>
 </div>

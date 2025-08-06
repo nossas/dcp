@@ -208,7 +208,7 @@ function form_single_apoio_edit() {
     $message_return = null;
     if( empty( $latitude ) || empty( $longitude ) ) {
         $post_status = 'draft';
-        $message_return = 'O risco foi salvo em "Aguardando Aprovação" pois não foi possível geolocalizar no mapa este endereço.';
+        $message_return = 'O apoio foi salvo em modo "Rascunho" pois não foi possível geolocalizar no mapa este endereço.';
     }
     //TODO: REFACTORY
 
@@ -558,15 +558,14 @@ function form_single_acao_edit() {
 
     //TODO: REFACTORY
     $post_status = sanitize_text_field($_POST['post_status'] ?? 'draft');
-
     $latitude = sanitize_text_field( $_POST[ 'latitude' ] );
     $longitude = sanitize_text_field( $_POST[ 'longitude' ] );
 
     $message_return = null;
-    if( empty( $latitude ) || empty( $longitude ) ) {
-        $post_status = 'draft';
-        $message_return = 'O risco foi salvo em "Aguardando Aprovação" pois não foi possível geolocalizar no mapa este endereço.';
-    }
+//    if( empty( $latitude ) || empty( $longitude ) ) {
+//        $post_status = 'draft';
+//        $message_return = 'O risco foi salvo em "Aguardando Aprovação" pois não foi possível geolocalizar no mapa este endereço.';
+//    }
     //TODO: REFACTORY
 
     $updated_id = wp_update_post([

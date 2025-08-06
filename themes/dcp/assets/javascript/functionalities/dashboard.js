@@ -712,6 +712,7 @@ jQuery(function($) {
 
                 confirmText: "Publicar alterações",
                 onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'publish' );
                     $( '#apoioSingleForm' ).submit();
                 }
             });

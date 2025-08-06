@@ -278,8 +278,8 @@
                 </button>
 
                 <?php
-                $tem_quem_acionar = has_term('quem-acionar', 'tipo_apoio', $post);
-                $tem_cacambas = has_term('cacambas', 'tipo_apoio', $post);
+                    $tem_quem_acionar = has_term('quem-acionar', 'tipo_apoio', $post);
+                    $tem_cacambas = has_term('cacambas', 'tipo_apoio', $post);
                 ?>
 
                 <?php if ($tem_quem_acionar): ?>
@@ -296,6 +296,9 @@
                     </a>
                 <?php endif; ?>
             </div>
+            <?php if( get_post_status() === 'draft' ) : ?>
+                <h3 style="font-size: 12px; font-weight: 700; opacity: 0.5; text-align: center; ">MODO RASCUNHO</h3>
+            <?php endif; ?>
         <?php endif; ?>
 
         <?php if ($post_type == 'risco'): ?>
