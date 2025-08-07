@@ -474,12 +474,16 @@
         &-success{
             gap: 32px;
             justify-content: flex-start !important;
+            border-top: unset !important;
+            padding-top: 8px;
 
             @include mobile {
+                border-top: unset !important;
                 flex-direction: column;
                 gap: 12px;
                 max-width: 100%;
                 width: 100%;
+                padding-top: unset !important;
             }
 
             .multistepform__button{
