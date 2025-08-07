@@ -1,6 +1,6 @@
 import { Splide } from '@splidejs/splide'
 
-function buildGallery (container, feature) {
+function buildGallery(container, feature) {
     const gallery = container.querySelector('.splide')
     const slidesList = gallery.querySelector('.splide__list')
 
@@ -41,7 +41,7 @@ function buildGallery (container, feature) {
     }
 }
 
-function createFeature (coordinates, properties) {
+function createFeature(coordinates, properties) {
     return {
         type: 'Feature',
         geometry: {
@@ -52,7 +52,7 @@ function createFeature (coordinates, properties) {
     }
 }
 
-function createApoioFeature (apoio) {
+function createApoioFeature(apoio) {
     const { lat, lon, type, ...data } = apoio
     return createFeature([lon, lat], {
         icon: type,
@@ -60,7 +60,7 @@ function createApoioFeature (apoio) {
     })
 }
 
-function createRiscoFeature (risco) {
+function createRiscoFeature(risco) {
     const { lat, lon, type, ...data } = risco
     return createFeature([lon, lat], {
         icon: `risco-${type}`,
@@ -69,12 +69,29 @@ function createRiscoFeature (risco) {
     })
 }
 
-function insertFeatureCollection (map, container, slug, features) {
-    const sourceSlug = slug
-    const pinsSlug = `${slug}-pins`
+function getColors(slug) {
+    if (slug === 'apoio') {
+        return { backgroundColor: '#235540', textColor: '#ffffff' }
+    } else {
+        return { backgroundColor: '#ffb300', textColor: '#281414' }
+    }
+}
 
-    map.addSource(sourceSlug, {
+function insertFeatureCollection(map, container, slug, features) {
+    const pinsLayer = `${slug}-pins`
+    const clustersLayer = `${slug}-clusters`
+    const countLayer = `${slug}-count`
+
+    const SPIDERIFIER_FROM_ZOOM = 18
+    let lastZoom = map.getZoom()
+
+    const { backgroundColor, textColor } = getColors(slug)
+
+    map.addSource(slug, {
         type: 'geojson',
+        cluster: true,
+        clusterRadius: 30,
+        clusterMaxZoom: 25,
         data: {
             type: 'FeatureCollection',
             features: features,
@@ -82,33 +99,103 @@ function insertFeatureCollection (map, container, slug, features) {
     })
 
     map.addLayer({
-        id: pinsSlug,
+        id: pinsLayer,
         type: 'symbol',
-        source: sourceSlug,
+        source: slug,
+        filter: ['all', ['!has', 'point_count']],
         layout: {
             'icon-allow-overlap': true,
             'icon-image': ['get', 'icon'],
         },
     })
 
-    map.on('click', pinsSlug, (event) => {
-		const feature = event.features[0]
-        displayModal(container, slug, feature.properties)
-	})
+    map.addLayer({
+        id: clustersLayer,
+        type: 'circle',
+        source: slug,
+        filter: ['all', ['has', 'point_count']],
+        paint: {
+            'circle-color': backgroundColor,
+            'circle-radius': 14,
+        },
+    })
 
-	map.on('mousemove', (event) => {
-		const features = map.queryRenderedFeatures(event.point, { layers: [pinsSlug] })
-		map.getCanvas().style.cursor = (features.length > 0) ? 'pointer' : ''
-	})
+    map.addLayer({
+        id: countLayer,
+        type: 'symbol',
+        source: slug,
+        layout: {
+            'text-field': '{point_count}',
+            'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+            'text-size': 12,
+        },
+        paint: {
+            'text-color': textColor,
+        },
+    })
+
+    const spiderifier = new MapboxglSpiderifier(map, {
+        animate: true,
+        animateSpeed: 200,
+        customPin: true,
+        initializeLeg (leg) {
+            const type = leg.feature.type
+            leg.elements.pin.style.backgroundImage = `url("${getImageUrl(slug === 'risco' ? `risco-${type}` : type)}")`
+            leg.elements.container.addEventListener('click', () => {
+                displayModal(container, slug, leg.feature)
+            })
+        },
+    })
+
+    map.on('click', pinsLayer, (event) => {
+        const feature = event.features[0]
+        displayModal(container, slug, feature.properties)
+    })
+
+    map.on('click', clustersLayer, (event) => {
+        const features = map.queryRenderedFeatures(event.point, { layers: [clustersLayer] })
+
+        spiderifier.unspiderfy()
+        if (!features.length) {
+            return
+        } else if (map.getZoom() < SPIDERIFIER_FROM_ZOOM) {
+            map.easeTo({ center: event.lngLat, zoom: map.getZoom() + 2 })
+        } else {
+            map.getSource(slug).getClusterLeaves(features[0].properties.cluster_id, 100, 0, (err, leafFeatures) => {
+                if (err) {
+                    console.error('Error getting leaves from cluster', err)
+                } else {
+                    const markers = leafFeatures.map((feature) => feature.properties)
+                    spiderifier.spiderfy(features[0].geometry.coordinates, markers)
+                }
+            })
+        }
+    })
+
+    map.on('mousemove', (event) => {
+        const features = map.queryRenderedFeatures(event.point, { layers: [clustersLayer, pinsLayer] })
+        map.getCanvas().style.cursor = (features.length > 0) ? 'pointer' : ''
+    })
+
+    map.on('zoom', () => {
+        const currentZoom = map.getZoom()
+        if (Math.abs(currentZoom - lastZoom) < 0.1) {
+            if (currentZoom < lastZoom) {
+                spiderifier.unspiderfy()
+            }
+        }
+
+        lastZoom = currentZoom
+    })
 }
 
-function closeModals (container) {
+function closeModals(container) {
     container.querySelectorAll('dialog').forEach((dialog) => {
         dialog.close()
     })
 }
 
-function displayModal (container, type, feature) {
+function displayModal(container, type, feature) {
     closeModals(container)
     if (type === 'apoio') {
         displayApoioModal(container, feature)
@@ -117,7 +204,7 @@ function displayModal (container, type, feature) {
     }
 }
 
-function displayApoioModal (container, apoio) {
+function displayApoioModal(container, apoio) {
     const dialog = container.querySelector('.support-modal')
 
     dialog.querySelector('.dcp-map-modal__title').innerHTML = apoio.title
@@ -134,7 +221,7 @@ function displayApoioModal (container, apoio) {
     dialog.showModal()
 }
 
-function displayRiscoModal (container, risco) {
+function displayRiscoModal(container, risco) {
     const dialog = container.querySelector('.risk-modal')
     dialog.classList.toggle('risk-modal--alagamento', risco.type === 'alagamento')
     dialog.classList.toggle('risk-modal--lixo', risco.type === 'lixo')
@@ -169,30 +256,30 @@ function displayRiscoModal (container, risco) {
     dialog.showModal()
 }
 
-function getImageUrl (slug) {
+function getImageUrl(slug) {
     return `${globalThis.hl_dcp_map_data.themeAssets}/assets/images/pin-${slug}.svg`
 }
 
-async function loadImage (map, slug, height = 54, width = 44) {
+async function loadImage(map, slug, height = 54, width = 44) {
     const src = getImageUrl(slug)
 
-	return new Promise((resolve) => {
-		const img = new globalThis.Image(width, height)
-		img.onload = () => {
-			map.addImage(slug, img)
-			resolve(slug)
-		}
-		img.src = src
-	})
+    return new Promise((resolve) => {
+        const img = new globalThis.Image(width, height)
+        img.onload = () => {
+            map.addImage(slug, img)
+            resolve(slug)
+        }
+        img.src = src
+    })
 }
 
-export function setupMap (jeoMap, container, riscos, apoios, initialSource) {
+export function setupMap(jeoMap, container, riscos, apoios, initialSource) {
     const map = jeoMap.map
 
     const riscoFeatures = riscos.map(createRiscoFeature)
     const apoioFeatures = apoios.map(createApoioFeature)
 
-    function toggleLayer (cpt) {
+    function toggleLayer(cpt) {
         closeModals(container)
 
         for (const [source, features] of [['apoio', apoioFeatures], ['risco', riscoFeatures]]) {
