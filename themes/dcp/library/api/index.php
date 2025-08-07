@@ -102,9 +102,12 @@ class API {
     }
 
     static function rest_geocoding_callback (\WP_REST_Request $request) {
-
+        /*
+         * ALTERNATIVA P/ CORREÇÃO
+         * DAS REQUISIÇÕES P/ NOMINATIM OPEN STREET MAP
+         * COM CURL DIRETO AO INVÉS wp_remote_get()
+         * */
         $address = $request->get_param('address');
-
         $params = [
             'q' => $address,
             'format' => 'jsonv2',
@@ -114,18 +117,35 @@ class API {
             'bounded' => '1',
         ];
 
-        $r = wp_remote_get( add_query_arg($params, 'https://nominatim.openstreetmap.org/search') );
+        $url = 'https://nominatim.openstreetmap.org/search?' . http_build_query($params);
+        $ch = curl_init();
+        curl_setopt_array($ch, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (compatible; YourApp/1.0)',
+            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_TIMEOUT => 30,
+        ]);
 
-        if( is_wp_error( $r )) {
-            do_action( 'logger', $r->get_error_message(), 'warning' );
+        $response = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $curl_error = curl_error($ch);
+        curl_close($ch);
+
+        if ($response === false || $http_code !== 200) {
+            $error_message = $curl_error ?: "HTTP Error: {$http_code}";
+            do_action('logger', $error_message, 'warning');
+            return null;
         }
-        do_action( 'logger', $r );
 
-        $data = wp_remote_retrieve_body( $r );
+        do_action('logger', [
+            'response' => $response,
+            'http_code' => $http_code
+        ]);
 
-        $data = \json_decode($data);
+        $data = json_decode($response);
 
-        if (\is_array($data)) {
+        if (is_array($data)) {
             foreach ($data as $match) {
                 return [
                     'lat' => floatval($match->lat),
