@@ -102,7 +102,11 @@ class API {
     }
 
     static function rest_geocoding_callback (\WP_REST_Request $request) {
-
+        /*
+         * ALTERNATIVA P/ CORREÇÃO
+         * DAS REQUISIÇÕES P/ NOMINATIM OPEN STREET MAP
+         * COM CURL DIRETO AO INVÉS wp_remote_get()
+         * */
         $address = $request->get_param('address');
         $params = [
             'q' => $address,
