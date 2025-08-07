@@ -14,6 +14,8 @@
                     order: 2;
                     .wp-block-buttons{
                         display: flex;
+                        flex-wrap: nowrap !important;
+                        gap: 12px;
                         .wp-block-button{
                             width: fit-content;
                         }
@@ -53,6 +55,25 @@
                 .wp-block-button > a{
                     @include mobile{
                         padding: 8px 16px !important;
+                        width: 100% !important;
+                    }
+                }
+
+                .wp-block-button {
+                    @include mobile{
+                        width: 100% !important;
+                    }
+                }
+
+                .wp-block-button:nth-of-type(1){
+                    @include mobile{
+                        flex-basis: 33% !important;
+                    }
+                }
+
+                .wp-block-button:nth-of-type(2){
+                    @include mobile{
+                        flex-basis: 67% !important;
                     }
                 }
             }
