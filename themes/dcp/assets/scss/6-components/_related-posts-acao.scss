@@ -171,6 +171,7 @@
         margin: 0px;
         text-align: left;
         margin-bottom: 8px;
+        font-weight: $font-weight--light;
       }
       hr {
         border: 1px solid #C9C6C5;
@@ -190,23 +191,34 @@
         margin: 0px;
       }
 
-      .acao-infos {
-        list-style: none;
-        padding: 0;
-        margin-top: 8px;
-        font-size: 0.875rem;
-        color: #555;
-        text-align: left;
+        .acao-infos {
+            list-style: none;
+            padding: 0;
+            margin-top: 8px;
+            font-size: 0.875rem;
+            color: #555;
+            text-align: left;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            flex-direction: column;
 
-        li {
-            display:flex;
-            gap:8px;
-            margin-bottom: 0.3rem;
+            li {
+                display: flex;
+                align-items: center;
+                gap: 6px;
 
-          strong {
-          }
+                img {
+                    width: 16px;
+                    height: 16px;
+                    flex-shrink: 0;
+                }
+            }
+            @media (max-width: 768px) {
+                flex-direction: column;
+                gap: 8px;
+            }
         }
-      }
     }
 
     .acao-rodape {
