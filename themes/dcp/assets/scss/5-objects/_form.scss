@@ -474,6 +474,16 @@
         &-success{
             gap: $gap--medium;
             justify-content: flex-start !important;
+
+            @include mobile {
+                flex-direction: column;
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .multistepform__button{
+                padding: 8px 16px;
+            }
         }
     }
 
