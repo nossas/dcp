@@ -97,9 +97,16 @@
             padding-bottom: 0;
             max-width: size(443);
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
 
             &__image {
                 display: none;
+            }
+
+            &__content {
+                height: 100%;
             }
 
             &__title {
@@ -117,6 +124,7 @@
             }
 
             &__divisor {
+                flex-grow: 1;
                 &-line {
                     border-bottom: size(2) solid #C9C6C5;
                     margin-bottom: $margin--medium;
@@ -169,6 +177,7 @@
         }
         &__title,
         &__excerpt-wrapped{
+            display: flex;
 /*             height: size(50);
  */            color: $color--secondary-dark !important;
             @include mobile{
