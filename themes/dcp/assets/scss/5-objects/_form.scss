@@ -668,6 +668,15 @@
         }
     }
 
+    & &__map-wrapper {
+
+        .jeomap {
+            height: 300px;
+            max-width: 100%;
+            width: 400px;
+        }
+    }
+
     &__location,
     &__risk,
     &__review-item{

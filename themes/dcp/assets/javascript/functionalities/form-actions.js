@@ -1,4 +1,6 @@
 import { buildGallery } from "./action-review-gallery";
+import { showDraggableMap } from "./geolocate-map";
+import { until } from "../shared/wait";
 
 document.addEventListener('DOMContentLoaded', () => {
     const steps = document.querySelectorAll('.step');
@@ -8,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('multiStepForm');
     const inputEndereco = form.querySelector('input[name="endereco"]');
     const inputEnderecoWrapper = inputEndereco.closest('.multistepform__input');
+    const mapWrapper = document.querySelector('.multistepform__map-wrapper');
 
     const stepLabels = [
         '1. Localização',
@@ -31,6 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
         descricao: '',
         situacao_de_risco: '',
     }
+
+    let updateMarker = null;
 
     function showSnackbar(message) {
         const overlay = document.getElementById('snackbar-overlay');
@@ -203,18 +208,16 @@ document.addEventListener('DOMContentLoaded', () => {
         switch (stepIndex) {
             case 0:
                 const isEnderecoValid = riskDraft.endereco.trim() !== '';
-                if (!isEnderecoValid) {
-                    inputEnderecoWrapper.classList.add('has-error');
-                }
-                return isEnderecoValid;
+                inputEnderecoWrapper.classList.toggle('has-error', !isEnderecoValid);
+
+                const areCoordsValid = riskDraft.latitude && riskDraft.longitude;
+                mapWrapper.querySelector('.multistepform__input').classList.toggle('has-error', !areCoordsValid);
+
+                return isEnderecoValid && areCoordsValid;
             case 1:
                 const isTipoRiscoValid = riskDraft.situacao_de_risco.trim() !== '';
                 const isDescricaoValid = riskDraft.descricao.trim() !== '';
-
-                if (!isTipoRiscoValid) {
-                    return false;
-                }
-                return true;
+                return isTipoRiscoValid;
             case 2:
                 return true;
             case 3:
@@ -428,6 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data) {
                     riskDraft.latitude = data.lat
                     riskDraft.longitude = data.lon
+                    updateMarker?.(data.lat, data.lon)
                 }
             } catch (error) {
                 console.error(error)
@@ -575,4 +579,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         input.value = value;
     }
+
+    async function loadDraggableMap () {
+        const map = document.querySelector('.jeomap');
+
+        await until(() => map.dataset.map_id);
+        const jeoMap = globalThis.jeomaps[map.dataset.uui_id];
+
+        await until(() => jeoMap.map);
+        updateMarker = await showDraggableMap(jeoMap, riskDraft);
+    }
+
+    const toggleMapButton = document.querySelector('.multistepform__button-map');
+    let mapActivated = false;
+    toggleMapButton.addEventListener('click', () => {
+        if (mapActivated) {
+            return;
+        }
+        mapActivated = true;
+
+        mapWrapper.querySelector('.jeomap').style.display = '';
+        loadDraggableMap();
+    })
 });
