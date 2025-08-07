@@ -135,7 +135,7 @@ class API {
             }
         }
 
-        return null;
+        return new \WP_REST_Response(null, 404);
     }
 
     static function rest_options_callback () {
