@@ -90,8 +90,8 @@ function insertFeatureCollection(map, container, slug, features) {
     map.addSource(slug, {
         type: 'geojson',
         cluster: true,
-        clusterRadius: 30,
-        clusterMaxZoom: 25,
+        clusterRadius: 54,
+        clusterMaxZoom: SPIDERIFIER_FROM_ZOOM,
         data: {
             type: 'FeatureCollection',
             features: features,
