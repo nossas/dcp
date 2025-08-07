@@ -124,7 +124,7 @@
             }
 
             &__divisor {
-                flex-grow: 1;
+                margin-top: auto;
                 &-line {
                     border-bottom: size(2) solid #C9C6C5;
                     margin-bottom: $margin--medium;
