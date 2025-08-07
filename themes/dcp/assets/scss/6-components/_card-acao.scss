@@ -152,6 +152,8 @@
     .posts-grid__content-cards-concluidas{
 
         .post-card{
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.30);
+            border-radius: 15px;
             &__title {
                 font-size: $font-size--medium;
                 color: $color--secondary-dark;
@@ -176,6 +178,10 @@
             &__meta--default {
                 align-items: flex-end;
                 padding-top: 29px;
+
+                @include mobile {
+                    padding-top: $padding--medium;
+                }
             }
         }
 
