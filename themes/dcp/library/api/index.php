@@ -114,16 +114,40 @@ class API {
             'bounded' => '1',
         ];
 
-        $r = wp_remote_get( add_query_arg($params, 'https://nominatim.openstreetmap.org/search') );
+        // $r = wp_remote_get( add_query_arg($params, 'https://nominatim.openstreetmap.org/search') );
+        // $data = wp_remote_retrieve_body( $r );
 
-        if( is_wp_error( $r )) {
-            do_action( 'logger', $r->get_error_message(), 'warning' );
+        /*
+         * ALTERNATIVA CURL NATIVO P/ CONSULTA
+         * */
+        $url = 'https://nominatim.openstreetmap.org/search?' . http_build_query( $params );
+        $ch = curl_init();
+        curl_setopt_array($ch, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (compatible; YourApp/1.0)',
+            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_TIMEOUT => 30,
+        ]);
+
+        $response = curl_exec($ch);
+        if (curl_errno($ch)) {
+            $error_msg = curl_error($ch);
         }
+
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($http_code === 200 && !empty($response)) {
+            $data = \json_decode($response, true);
+            $r = $response;
+        } else {
+            do_action( 'logger', $response, 'warning' );
+            $r = false;
+        }
+
         do_action( 'logger', $r );
 
-        $data = wp_remote_retrieve_body( $r );
-
-        $data = \json_decode($data);
 
         if (\is_array($data)) {
             foreach ($data as $match) {
