@@ -342,6 +342,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const previewContainer = document.getElementById('mediaPreview');
+    const skipMediaButton = document.querySelector('.multistepform__no-media-button');
+
+    skipMediaButton.addEventListener('click', (e) => {
+
+        currentStep = 3
+        handleShowStep(currentStep)
+    })
 
     if (midiaInput && previewContainer) {
         previewContainer.innerHTML = '';
@@ -458,6 +465,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     editarBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        currentStep = 0
+        handleShowStep(currentStep)
+        return
 
         const reviewEndereco = document.getElementById('reviewEndereco');
         const reviewTipo = document.getElementById('reviewTipoRiscoTexto');

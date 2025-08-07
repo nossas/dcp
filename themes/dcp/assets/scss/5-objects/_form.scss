@@ -857,12 +857,13 @@
 
     }
     [data-step="6"] {
-        @include mobile {
+      /*   @include mobile {
+            display: none;
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
             text-align: center;
-        }
+        } */
 
         .multistepform__button-backmapa {
             @include mobile {
