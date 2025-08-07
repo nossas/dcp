@@ -286,11 +286,39 @@
             </div>
         <?php endif; ?>
 
-        <?php if ($post_type == 'apoio'): ?>
-            <div class="post-card__see-in-map">
-                <button class="post-card__map-button">
-                    <a href="/mapa"><?= __("Conheça a iniciativa", "dcp"); ?></a>
-                </button>
+        <?php if ($post_type == 'apoio'):
+
+            $link_text = '';
+            $link_url = get_permalink();
+
+            if ( has_term('locais-seguros', 'tipo_apoio', $post) ) {
+                $link_text = __('Veja no mapa', 'dcp');
+                $link_url = '/mapa';
+            } elseif ( has_term('iniciativas-locais', 'tipo_apoio', $post) ) {
+                $link_text = __('Conheça a iniciativa', 'dcp');
+            }
+
+            if ( !empty($link_text) ) :
+        ?>
+            <div class="post-card__see-in-map" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0;">
+                <?php
+                if ( has_term('iniciativas-locais', 'tipo_apoio', $post) ) :
+                ?>
+                    <a href="<?php the_permalink(); ?>" class="saiba-mais-link" style="display: inline-flex; align-items: center; gap: 6px; color: #281414; text-decoration: none;">
+                        <span class="saiba-mais-text" style="text-decoration: underline;"><?= __('Conheça a iniciativa', 'dcp') ?></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+                            <path d="M15.8516 2.25098C16.0007 2.25098 16.1445 2.31053 16.25 2.41602C16.3554 2.52139 16.4139 2.66447 16.4141 2.81348V9.56348C16.4141 9.71266 16.3555 9.85642 16.25 9.96191C16.1445 10.0674 16.0007 10.126 15.8516 10.126C15.7026 10.1258 15.5595 10.0673 15.4541 9.96191C15.3486 9.85642 15.2891 9.71266 15.2891 9.56348V4.17188L3.875 15.5869C3.8227 15.6392 3.76071 15.6807 3.69238 15.709C3.62407 15.7373 3.5505 15.752 3.47656 15.752C3.40279 15.7519 3.32988 15.7372 3.26172 15.709C3.19339 15.6807 3.1314 15.6392 3.0791 15.5869C3.0268 15.5346 2.98534 15.4726 2.95703 15.4043C2.92874 15.336 2.91406 15.2624 2.91406 15.1885C2.91413 15.1147 2.92881 15.0418 2.95703 14.9736C2.98534 14.9053 3.0268 14.8433 3.0791 14.791L14.4941 3.37598H9.10156C8.95255 3.37585 8.80948 3.31729 8.7041 3.21191C8.59861 3.10642 8.53906 2.96266 8.53906 2.81348C8.53919 2.66447 8.59873 2.52139 8.7041 2.41602C8.80948 2.31064 8.95255 2.2511 9.10156 2.25098H15.8516Z" fill="#281414"/>
+                        </svg>
+                    </a>
+
+                <?php elseif ( has_term('locais-seguros', 'tipo_apoio', $post) ) : ?>
+                    <a href="/mapa" class="saiba-mais-link" style="display: inline-flex; align-items: center; gap: 6px; color: #281414; text-decoration: none;">
+                        <span class="saiba-mais-text" style="text-decoration: underline;"><?= __('Veja no mapa', 'dcp') ?></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.31096 1.64689C5.3574 1.60033 5.41258 1.56339 5.47332 1.53818C5.53407 1.51297 5.59919 1.5 5.66496 1.5C5.73072 1.5 5.79584 1.51297 5.85659 1.53818C5.91733 1.56339 5.97251 1.60033 6.01896 1.64689L12.019 7.64689C12.0655 7.69334 12.1025 7.74852 12.1277 7.80926C12.1529 7.87001 12.1658 7.93513 12.1658 8.00089C12.1658 8.06666 12.1529 8.13178 12.1277 8.19253C12.1025 8.25327 12.0655 8.30845 12.019 8.35489L6.01896 14.3549C5.92507 14.4488 5.79773 14.5015 5.66496 14.5015C5.53218 14.5015 5.40484 14.4488 5.31096 14.3549C5.21707 14.261 5.16432 14.1337 5.16432 14.0009C5.16432 13.8681 5.21707 13.7408 5.31096 13.6469L10.958 8.00089L5.31096 2.35489C5.26439 2.30845 5.22745 2.25327 5.20224 2.19253C5.17704 2.13178 5.16406 2.06666 5.16406 2.00089C5.16406 1.93513 5.17704 1.87001 5.20224 1.80926C5.22745 1.74852 5.26439 1.69334 5.31096 1.64689Z" fill="#281414"/>
+                        </svg>
+                    </a>
+                <?php endif; ?>
 
                 <?php
                     $tem_quem_acionar = has_term('quem-acionar', 'tipo_apoio', $post);
@@ -311,7 +339,10 @@
                     </a>
                 <?php endif; ?>
             </div>
-            <?php if( get_post_status() === 'draft' ) : ?>
+            <?php
+            endif;
+            if( get_post_status() === 'draft' ) :
+            ?>
                 <h3 style="font-size: 12px; font-weight: 700; opacity: 0.5; text-align: center; ">MODO RASCUNHO</h3>
             <?php endif; ?>
         <?php endif; ?>
