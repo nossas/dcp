@@ -65,6 +65,7 @@
                 padding: unset !important;
             }
         }
+
     }
     .posts-grid__content{
         display: grid;
@@ -133,6 +134,10 @@
         .post-card__acao-buttons, .post-card__author{
             display: none;
         }
+
+        .post-card__meta--default {
+            display: none !important;
+        }
     }
     .posts-grid{
         &__title {
@@ -162,6 +167,15 @@
                     height: auto;
                     justify-content: inherit;
                 }
+            }
+
+            &__divisor {
+                display: none;
+            }
+
+            &__meta--default {
+                align-items: flex-end;
+                padding-top: 29px;
             }
         }
 
@@ -206,6 +220,13 @@
             background-color: $color--high-dark !important;
         }
 
+        &:disabled {
+            background-color: #C9C6C5;
+            border-color: #C9C6C5;
+            color: #93908F;
+            cursor: not-allowed;
+        }
+
         @include mobile{
             justify-content: center;
             margin-inline: 0;
@@ -217,6 +238,9 @@
     .post-card {
         max-width: size(443);
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
 
         &__cta {
             border-radius: 0 0 $border-radius--large $border-radius--large;
@@ -300,6 +324,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
+            flex-grow: 1;
 
             @include mobile{
                 gap: 0;
@@ -316,8 +341,6 @@
 
         &__excerpt {
             font-weight: $font-weight--regular;
-
-            flex-grow: 1;
 
             @include mobile{
                 display: -webkit-box;
@@ -352,6 +375,7 @@
         }
 
         &__divisor {
+            margin-top: auto;
             &-line {
                 border-bottom: size(2) solid $color--high-dark;
                 margin-bottom: $margin--medium;
@@ -372,7 +396,9 @@
         .post-card__datetime{
             display: flex;
             align-items: center;
-            gap: .3rem;
+            gap: 6px;
+            color: $color--high-dark;
+            font-size: 16px;
             &::before {
                 background-size: contain;
                 background-repeat: no-repeat;
@@ -403,6 +429,9 @@
 
         &__address {
             flex-direction: row !important;
+            color: $color--high-dark;
+            font-size: 16px;
+            gap: 6px;
 
             &::before {
                 content: url('/wp-content/themes/dcp/assets/images/wrapper6.png') !important;
@@ -437,6 +466,17 @@
             font-size: $font-size--xx-small;
             font-weight: $font-weight--medium;
             text-decoration: underline;
+        }
+
+        &__top-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        &__top-date {
+            color: $color--high-dark;
         }
     }
 

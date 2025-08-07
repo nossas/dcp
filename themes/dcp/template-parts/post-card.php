@@ -11,6 +11,7 @@
     $hide_hour = (bool) ($args['hide_hour'] ?? false);
     $hide_date = (bool) ($args['hide_date'] ?? false);
     $hide_address = (bool) ($args['hide_address'] ?? false);
+    $show_top_date = (bool) ($args['show_top_date'] ?? false);
 
     $modifiers = (array) ($args['modifiers'] ?? []);
     $modifiers = array_map(fn($modifier) => "post-card--{$modifier}", $modifiers);
@@ -68,36 +69,50 @@
         <?php endif; ?>
     </div>
 <?php endif; ?>
-
-        <div class="post-card__term">
-            <?php
-            $post_type = get_post_type(get_the_ID());
-            $taxonomia = ($post_type === 'risco') ? 'situacao_de_risco' : 'tipo_acao';
-
-            $terms = get_the_terms(get_the_ID(), $taxonomia);
-
-            if (!empty($terms) && !is_wp_error($terms)) {
-                $term = $terms[0];
-                $term_slug = esc_attr($term->slug);
-                $term_name = esc_html($term->name);
-                echo '<span class="post-card__taxonomia term-' . $term_slug . '">' . $term_name . '</span>';
-            }
-            ?>
-
-            <div class="post-card__risco-meta">
+        <div class="post-card__top-meta">
+            <div class="post-card__term">
                 <?php
-                if (get_post_type() === 'risco') {
-                    $data_bruta = get_post_meta(get_the_ID(), 'data_e_horario', true);
+                $post_type = get_post_type(get_the_ID());
+                $taxonomia = ($post_type === 'risco') ? 'situacao_de_risco' : 'tipo_acao';
 
-                    if (!empty($data_bruta)) {
-                        $timestamp = strtotime($data_bruta);
-                        $data_formatada = wp_date('H:i | d/m/Y', $timestamp);
-                        echo ' ' . esc_html($data_formatada);
-                    }
+                $terms = get_the_terms(get_the_ID(), $taxonomia);
+
+                if (!empty($terms) && !is_wp_error($terms)) {
+                    $term = $terms[0];
+                    $term_slug = esc_attr($term->slug);
+                    $term_name = esc_html($term->name);
+                    echo '<span class="post-card__taxonomia term-' . $term_slug . '">' . $term_name . '</span>';
                 }
                 ?>
+
+                <div class="post-card__risco-meta">
+                    <?php
+                    if (get_post_type() === 'risco') {
+                        $data_bruta = get_post_meta(get_the_ID(), 'data_e_horario', true);
+
+                        if (!empty($data_bruta)) {
+                            $timestamp = strtotime($data_bruta);
+                            $data_formatada = wp_date('H:i | d/m/Y', $timestamp);
+                            echo ' ' . esc_html($data_formatada);
+                        }
+                    }
+                    ?>
+                </div>
             </div>
 
+            <?php
+            if ($show_top_date) :
+                $pods_relato = pods('relato', get_the_ID());
+                $data_do_relato = $pods_relato->field('data_e_horario');
+                if (!empty($data_do_relato)) :
+            ?>
+                <span class="post-card__top-date">
+                    <?= date('d/m/Y', strtotime($data_do_relato)); ?>
+                </span>
+            <?php
+                endif;
+            endif;
+            ?>
         </div>
 
         <h3 class="post-card__title">
@@ -153,7 +168,7 @@
                         return;
                     }
 
-                    if ($post_type === 'apoio' && has_term(['locais-seguros', 'quem-acionar', 'cacambas'], 'tipo_apoio', $post_id)) {
+                    if ($post_type === 'apoio' && has_term(['locais-seguros', 'quem-acionar', 'cacambas', 'iniciativas-locais'], 'tipo_apoio', $post_id)) {
                         $hora_atendimento = $pod->field('horario_de_atendimento');
                         $telefone = $pod->field('telefone');
                         $site = $pod->field('site');
@@ -252,21 +267,21 @@
         <?php if (!$hide_address): ?>
             <div class="post-card__address">
                 <?php
-                    $pod = pods('acao', get_the_ID());
-                    $endereco_raw = $pod->field('endereco');
+                $post_type = get_post_type(get_the_ID());
+                $endereco_final = '';
 
-                    if (!empty($endereco_raw)) {
-                        echo esc_html($endereco_raw);
+                $post_types_com_endereco = ['acao', 'apoio', 'relato'];
+
+                if (in_array($post_type, $post_types_com_endereco)) {
+                    $pod = pods($post_type, get_the_ID());
+                    if ($pod->exists()) {
+                        $endereco_final = $pod->field('endereco');
                     }
-                ?>
+                }
 
-                <?php
-                    $pod = pods('apoio', get_the_ID());
-                    $endereco_raw = $pod->field('endereco');
-
-                    if (!empty($endereco_raw)) {
-                        echo esc_html($endereco_raw);
-                    }
+                if (!empty($endereco_final)) {
+                    echo esc_html($endereco_final);
+                }
                 ?>
             </div>
         <?php endif; ?>
@@ -351,19 +366,24 @@
             </div>
         <?php } else {
 
-             if ( $post_type != 'relato' || $post_type != 'acao' ) {
+             if ($post_type === 'relato') : ?>
+                <div class="post-card__meta post-card__meta--default" style="text-align: end;">
+                    <a href="<?php the_permalink(); ?>" class="saiba-mais-link" style="display: inline-flex; align-items: center; gap: 6px; color: #281414; text-decoration: none;">
+                        <span class="saiba-mais-text" style="text-decoration: underline;"><?php echo __("Ver como foi", "dcp"); ?></span>
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/seta_card.svg" alt="Seta" class="saiba-mais-icon" style="width: 12px; height: auto;" />
+                    </a>
+                </div>
+             <?php elseif ($post_type !== 'acao') : ?>
+                <div class="post-card__meta post-card__meta--default" style="text-align: end;">
+                    <a href="<?php the_permalink(); ?>" class="saiba-mais-link" style="display: inline-flex; align-items: center; gap: 6px; color: #281414; text-decoration: none;">
+                        <span class="saiba-mais-text" style="text-decoration: underline;"><?php echo __("Saiba mais", "dcp"); ?></span>
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/seta_card.svg" alt="Seta" class="saiba-mais-icon" style="width: 12px; height: auto;" />
+                    </a>
+                </div>
+            <?php
+             endif;
 
-             ?>
-            <div class="post-card__meta post-card__meta--default" style="text-align: end;">
-                <a href="<?php the_permalink(); ?>" class="saiba-mais-link" style="display: inline-flex; align-items: center; gap: 6px; color: #281414; text-decoration: none;">
-                    <span class="saiba-mais-text" style="text-decoration: underline;"><?php echo __("Saiba mais", "dcp"); ?></span>
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/seta_card.svg" alt="Seta" class="saiba-mais-icon" style="width: 12px; height: auto;" />
-                </a>
-            </div>
-        <?php
-             }
-
-         } ?>
+        } ?>
 
         <?php
             //$status = get_post_meta(get_the_ID(), 'status_da_acao', true);

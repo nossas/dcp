@@ -23,9 +23,12 @@
                     endwhile;
                 ?>
             </div>
-            <?php if( $agendar_query->post_count > 2 ) : ?>
-                <button class="load-more-agendar ver-mais-acoes" data-status="Agendar" data-page="1">Ver mais</button>
-            <?php endif; wp_reset_postdata();
+            <?php
+            $disabled_agendar = ($agendar_query->found_posts <= 3) ? 'disabled' : '';
+            ?>
+            <button class="load-more-agendar ver-mais-acoes" data-status="Agendar" data-page="1" <?php echo $disabled_agendar; ?>>Ver mais</button>
+            <?php
+            wp_reset_postdata();
         else : ?>
         <div style="background-color: rgba(0,0,0,0.03); padding: 25px; margin: 25px 0; border-radius: 25px;">
             <p>Não existe ações agendadas.</p>
@@ -54,12 +57,17 @@
             <div class="posts-grid__content-cards-concluidas">
                 <?php while ( $concluir_query->have_posts() ) {
                     $concluir_query->the_post();
-                    get_template_part( 'template-parts/post-card', 'vertical' );
+                    get_template_part( 'template-parts/post-card', 'vertical', [
+                        'show_top_date' => true
+                    ] );
                 } ?>
             </div>
-            <?php if( $concluir_query->post_count > 2 ) : ?>
-                <button class="load-more-concluir ver-mais-acoes" data-status="Concluir" data-page="1"><?= __('Ver mais') ?></button>
-            <?php endif; wp_reset_postdata();
+            <?php
+            $disabled_concluir = ($concluir_query->found_posts <= 3) ? 'disabled' : '';
+            ?>
+            <button class="load-more-concluir ver-mais-acoes" data-status="Concluir" data-page="1" <?php echo $disabled_concluir; ?>><?= __('Ver mais') ?></button>
+            <?php
+            wp_reset_postdata();
         else : ?>
             <div style="background-color: rgba(0,0,0,0.03); padding: 25px; margin: 25px 0; border-radius: 25px;">
                 <p>Não existe relatos agendados.</p>
