@@ -82,6 +82,9 @@ function insertFeatureCollection(map, container, slug, features) {
     const clustersLayer = `${slug}-clusters`
     const countLayer = `${slug}-count`
 
+    const SPIDERIFIER_FROM_ZOOM = 18
+    let lastZoom = map.getZoom()
+
     const { backgroundColor, textColor } = getColors(slug)
 
     map.addSource(slug, {
@@ -132,11 +135,14 @@ function insertFeatureCollection(map, container, slug, features) {
     })
 
     const spiderifier = new MapboxglSpiderifier(map, {
+        animate: true,
+        animateSpeed: 200,
+        customPin: true,
         initializeLeg (leg) {
             const type = leg.feature.type
             leg.elements.pin.style.backgroundImage = `url("${getImageUrl(slug === 'risco' ? `risco-${type}` : type)}")`
             leg.elements.container.addEventListener('click', () => {
-                displayModal(container, slug, leg.feature.properties)
+                displayModal(container, slug, leg.feature)
             })
         },
     })
@@ -152,7 +158,7 @@ function insertFeatureCollection(map, container, slug, features) {
         spiderifier.unspiderfy()
         if (!features.length) {
             return
-        } else if (map.getZoom() < 24) {
+        } else if (map.getZoom() < SPIDERIFIER_FROM_ZOOM) {
             map.easeTo({ center: event.lngLat, zoom: map.getZoom() + 2 })
         } else {
             map.getSource(slug).getClusterLeaves(features[0].properties.cluster_id, 100, 0, (err, leafFeatures) => {
@@ -169,6 +175,17 @@ function insertFeatureCollection(map, container, slug, features) {
     map.on('mousemove', (event) => {
         const features = map.queryRenderedFeatures(event.point, { layers: [clustersLayer, pinsLayer] })
         map.getCanvas().style.cursor = (features.length > 0) ? 'pointer' : ''
+    })
+
+    map.on('zoom', () => {
+        const currentZoom = map.getZoom()
+        if (Math.abs(currentZoom - lastZoom) < 0.1) {
+            if (currentZoom < lastZoom) {
+                spiderifier.unspiderfy()
+            }
+        }
+
+        lastZoom = currentZoom
     })
 }
 
