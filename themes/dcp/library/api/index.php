@@ -107,6 +107,7 @@ class API {
          * DA REQUISIÇÃO P/ NOMINATIM OPEN STREET MAP
          * COM CURL DIRETO AO INVÉS wp_remote_get()
          * */
+        //TODO: REFACTORY QUANDO HOUVER OUTRA NECESSIDADE DE USO DIRETO CURL
         $address = $request->get_param('address');
         $params = [
             'q' => $address,
