@@ -12,24 +12,31 @@
     );
     $query = new WP_Query($args);
 
-    if ($query->have_posts()) :
-      while ($query->have_posts()) : $query->the_post();
+   if ($query->have_posts()) :
+    while ($query->have_posts()) : $query->the_post();
         $categorias = get_the_terms(get_the_ID(), 'tipo_acao');
         $categoria_nome = $categorias ? $categorias[0]->name : '';
         $categoria_slug = $categorias ? $categorias[0]->slug : '';
 
+        // Mapeamento de cores por categoria
         $cores = [
-          'limpeza' => '#2EAF4F',
-          'reparos' => '#51B2AF',
-          'cultural' => '#B83D13'
+            'limpeza'       => '#235540',
+            'educacao'      => '#50B15C',
+            'solidariedade' => '#FC7753',
+            'reparos'       => '#51B2AF',
+            'cultural'      => '#B83D13',
+            'incidencia'      => '#FFB300'
         ];
-        $cor = $cores[$categoria_slug] ?? '#888';
 
-        $pod   = pods('acao', get_the_ID());
-        $data  = $pod->display('data');
-        $hora  = $pod->display('horario');
-        $local = $pod->display('endereco');
-    ?>
+                // Cor final baseada no slug, ou cinza padrão
+                $cor = $cores[$categoria_slug] ?? '#888';
+
+                $pod   = pods('acao', get_the_ID());
+                $data  = $pod->display('data');
+                $hora  = $pod->display('horario');
+                $local = $pod->display('endereco');
+        ?>
+
       <div class="acao-card card-style--<?= $categoria_slug ?>">
         <div class="acao-topo " style="background: <?= esc_attr($cor) ?>;">
           <span class="acao-categoria acao-card--<?= $categoria_slug ?>">
