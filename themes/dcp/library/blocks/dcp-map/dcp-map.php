@@ -70,7 +70,7 @@ function format_support_pin(\WP_Post $post): array {
 }
 
 function dcp_map_should_load_jeo(bool $should_load): bool {
-    if (is_page_template('page-dcp-map.php')) {
+    if (is_page_template('page-dcp-map.php') || is_page_template('template-parts/page-register-risk.php')) {
         return true;
     } elseif (is_singular() && has_block('hacklabr/dcp-map')) {
         return true;

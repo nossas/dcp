@@ -395,7 +395,9 @@ class Assets
                     return is_page_template('template-parts/page-register-risk.php');
                 },
                 'localize_callback' => function () {
+                    $jacarezinho = [-43.2578789, -22.8875068];
                     return [
+                        'default_coords' => apply_filters('dcp_default_coords', $jacarezinho),
                         'rest_url' => rest_url('hacklabr/v2/geocoding'),
                     ];
                 },
@@ -474,6 +476,11 @@ class Assets
 
             'mobile-menu' => [
                 'file'   => 'mobile-menu.js',
+                'global' => true,
+            ],
+
+            'mobile-accordion' => [
+                'file'   => 'mobile-accordion.js',
                 'global' => true,
             ],
 

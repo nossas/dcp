@@ -93,14 +93,14 @@
         .post-card {
             background-color: $color--high-light;
             border-radius: $border-radius--large;
-            padding: size(20);
+            padding: 1.25rem 1.0rem 0;
             padding-bottom: 0;
             max-width: size(443);
             width: 100%;
             display: flex;
             flex-direction: column;
             height: 100%;
-
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.30);
             &__image {
                 display: none;
             }
@@ -197,29 +197,29 @@
             padding: size(20);
 
             &--limpeza {
-                background-color: $color--primary-light;
+                background-color: #235540;
             }
 
             &--reparos {
-                background-color: $color--primary-dark;
+                background-color: #51B2AF;
             }
 
             &--cultura,
             &--cultural {
-                background-color: $color--warning-dark;
+                background-color: #B83D13;
             }
 
             &--outros {
                 background-color: $color--warning-pure;
             }
             &--educacao {
-                background-color: #50b15c !important;
+                background-color: #50B15C !important;
             }
             &--incidencia {
-                background-color: #50b15c !important;
+                background-color: #FFB300 !important;
             }
             &--solidariedade {
-                background-color: #50b15c !important;
+                background-color: #FC7753 !important;
             }
         }
 
