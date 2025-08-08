@@ -126,7 +126,7 @@ function insertFeatureCollection(map, container, slug, features) {
         source: slug,
         layout: {
             'text-field': '{point_count}',
-            'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+            'text-font': ['Noto Sans Bold'],
             'text-size': 12,
         },
         paint: {
