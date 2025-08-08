@@ -158,16 +158,18 @@
         flex-direction: column;
     }
     .form-image{
-        display: none;
-        /* @include mobile{
-            display: flex;
-            flex-direction: column;
+
+        @include mobile{
+            display: none;
         }
-        img {
-            @include mobile {
-                max-width: 50%;
-            }
-        } */
+        //    display: flex;
+        //    flex-direction: column;
+        //}
+        //img {
+        //    @include mobile {
+        //        max-width: 50%;
+        //    }
+        //}
     }
 }
 

@@ -396,6 +396,26 @@
                             }
                         }
                     }
+
+                    &.is-cover-view {
+                        margin: size( 5 ) 0;
+                        .input-media-uploader {
+                            @include mobile {
+                                display: flex;
+                                justify-content: space-between;
+                                gap: 2px;
+                            }
+                            .input-media-uploader-files {
+                                .button {
+                                    width: 75%;
+                                }
+                            }
+                            #mediaUploadButtonCover {
+                                margin-top: 0;
+                            }
+                        }
+                    }
+
                     .input-media-uploader-progress {
                         display: none;
                         padding: size( 10 ) 0;

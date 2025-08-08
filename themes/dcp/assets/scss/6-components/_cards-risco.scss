@@ -31,7 +31,8 @@
         height: 27rem;
         overflow: hidden;
         overflow-y: scroll;
-        margin-top: 20px;
+        margin-top: 12px;
+        padding: 2px;
 
         @include mobile {
             min-height: 200px !important;

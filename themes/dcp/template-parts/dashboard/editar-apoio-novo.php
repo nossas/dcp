@@ -161,89 +161,135 @@ namespace hacklabr\dashboard;
                     </p>
                 </div>
             </div>
-            <div class="fields is-media-attachments" style="display: none;">
+            <div class="fields is-media-attachments" style="display: none; margin-bottom: 0">
                 <div id="mediaUploadCover" class="input-media is-cover-view">
                     <div class="is-cover-image">
                         <h3>Foto de capa</h3>
                         <?php if( !empty( $attachments ) ) : ?>
                             <?php foreach ( $attachments as $image ) : ?>
-                                <input type="hidden" name="attatchment_cover_id" value="<?=$image->ID?>">
-                                <figure class="asset-item-preview">
-                                    <img class="is-load-now" data-media-src="<?=$image->guid?>">
-                                </figure>
+                                <div class="cover-wrap">
+                                    <input type="hidden" name="attatchment_cover_id" value="<?=$image->ID?>">
+                                    <figure class="asset-item-preview">
+                                        <img class="is-load-now" data-media-src="<?=$image->guid?>">
+                                    </figure>
+                                </div>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </div>
-                    <?php if( wp_is_mobile() ) : ?>
-                        <div class="input-media-uploader is-mobile-only">
-                            <div class="input-help">
-                                <a href="#/" class="button" style="top: 0 !important;">
-                                    <iconify-icon icon="bi:question"></iconify-icon>
-                                </a>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
-                                </p>
-                            </div>
-                        </div>
-                    <?php endif; ?>
                     <div class="input-media-uploader-progress">
                         <div class="progress is-empty">
                             <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
                         </div>
                     </div>
                     <?php if( !wp_is_mobile() ) : ?>
-                        <div class="input-media-uploader">
-                            <div class="input-media-uploader-files">
-                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
-                                    <iconify-icon icon="bi:upload"></iconify-icon>
-                                    <span>Escolher arquivo</span>
-                                </a>
-                                <p class="is-name-file">...</p>
-                            </div>
-                            <div>
-                                <?php if( !empty( $attachments ) ) : ?>
-                                    <?php foreach ( $attachments as $image ) : ?>
-                                        <a class="button is-delete" data-id="<?=$image->ID?>">
-                                            <iconify-icon icon="bi:trash-fill"></iconify-icon>
-                                            <span>Excluir</span>
-                                        </a>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </div>
+                    <div class="input-media-uploader">
+                        <div class="input-media-uploader-files">
+                            <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                                <iconify-icon icon="bi:upload"></iconify-icon>
+                                <span>Escolher arquivo</span>
+                            </a>
+                            <p class="is-name-file">...</p>
                         </div>
+                        <div class="input-media-uploader-options">
+                            <?php if( !empty( $attachments ) ) : ?>
+                                <?php foreach ( $attachments as $image ) : ?>
+                                    <a class="button is-delete is-cover-picture" data-id="<?=$image->ID?>">
+                                        <iconify-icon icon="bi:trash-fill"></iconify-icon>
+                                        <span>Excluir</span>
+                                    </a>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                     <?php endif; ?>
                 </div>
-                <?php if( !wp_is_mobile() ) : ?>
-                    <div class="input-help">
-                        <a href="#/" class="button">
-                            <iconify-icon icon="bi:question"></iconify-icon>
-                        </a>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
-                        </p>
-                    </div>
-                <?php endif; ?>
+                <div class="input-help">
+                    <a href="#/" class="button">
+                        <iconify-icon icon="bi:question"></iconify-icon>
+                    </a>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                    </p>
+                </div>
             </div>
+            <?php if( wp_is_mobile() ) : ?>
+            <div class="fields is-media-attachments" style="display: none; margin: 0;">
+                <div class="input-media is-cover-view" style="margin: 0;">
+                    <div class="input-media-uploader">
+                        <div class="input-media-uploader-files">
+                            <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                                <iconify-icon icon="bi:upload"></iconify-icon>
+                                <span>Escolher arquivo</span>
+                            </a>
+                            <p class="is-name-file">...</p>
+                        </div>
+                        <div class="input-media-uploader-options">
+                            <?php if( !empty( $attachments ) ) : ?>
+                                <?php foreach ( $attachments as $image ) : ?>
+                                    <a class="button is-delete is-cover-picture" data-id="<?=$image->ID?>">
+                                        <iconify-icon icon="bi:trash-fill"></iconify-icon>
+                                    </a>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
             <div class="form-submit">
                 <input type="hidden" name="action" value="form_single_apoio_edit">
                 <input type="hidden" name="post_id" value="<?=$postSingle->ID?>">
                 <input type="hidden" name="post_status" value="<?=$postSingle->post_status?>">
+
+                <?php if( !wp_is_mobile() ) : ?>
                 <div>
                     <a class="button is-goback" href="<?=get_dashboard_url( 'apoio', [ 'tipo' => $get_terms[0]->slug ] )?>">
                         <iconify-icon icon="bi:chevron-left"></iconify-icon>
                         <span>Voltar</span>
                     </a>
                 </div>
+                <?php endif; ?>
+
                 <div>
-                    <a class="button is-archive">
-                        <iconify-icon icon="bi:x-lg"></iconify-icon>
-                        <span>Arquivar</span>
-                    </a>
+                    <?php
+                    //TODO: REFACTORY P/ UI
+                    if( !wp_is_mobile() ) :
+                        if( $postSingle->post_status === 'draft' ) : ?>
+                            <a class="button is-archive">
+                                <iconify-icon icon="bi:x-lg"></iconify-icon>
+                                <span>Arquivar</span>
+                            </a>
+                        <?php endif; endif; ?>
+
+
                     <a class="button is-save">
                         <iconify-icon icon="bi:check2"></iconify-icon>
                         <span>Salvar alterações</span>
                     </a>
                 </div>
+
+                <?php
+                //TODO: REFACTORY P/ UI
+                if( !wp_is_mobile() ) :
+                    if( $postSingle->post_status === 'draft' ) : ?>
+                        <a class="button is-archive">
+                            <iconify-icon icon="bi:x-lg"></iconify-icon>
+                            <span>Arquivar</span>
+                        </a>
+                    <?php endif; endif;
+
+                if( wp_is_mobile() ) : ?>
+                    <div>
+                        <a class="button is-archive">
+                            <iconify-icon icon="bi:x-lg"></iconify-icon>
+                            <span>Arquivar</span>
+                        </a>
+                        <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
+                            <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                            <span>Voltar</span>
+                        </a>
+                    </div>
+                <?php endif; ?>
             </div>
         </form>
         <?php endif; ?>
