@@ -55,6 +55,10 @@
             }
         }
 
+        p:last-child {
+            padding-bottom: unset !important;
+        }
+
         > summary {
             cursor: pointer;
             list-style: none;

@@ -47,7 +47,7 @@
             justify-content: space-between;
 
             .wp-block-group {
-                gap: $gap--small;
+                gap: 12px;
                 .wp-block-group {
                     .has-secondary-dark-color:last-child {
                         margin-top: unset !important;
