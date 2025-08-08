@@ -59,55 +59,51 @@
 
         &-cultural,
         &-cultura{
-            background-color: $color--warning-dark;
+            background-color: #B83D13 !important;
             color: $color--high-light;
 
             &::before{
-                background-image: url('/wp-content/themes/dcp/assets/images/wrapper8.png');
+                background-image: url('/wp-content/themes/dcp/assets/images/microfone.svg');
             }
         }
 
-        &-limpeza,
+        &-limpeza{
+            background-color: #235540 !important;
+            color: $color--high-light;
+
+            &::before{
+                background-image: url('/wp-content/themes/dcp/assets/images/limpeza.png');
+            }
+        }
         &-reparos{
-            color: $color--secondary-dark;
+            background-color: #51B2AF !important;
+            color: $color--high-light;
+
+            &::before{
+                background-image: url('/wp-content/themes/dcp/assets/images/martelo.png');
+            }
         }
 
-        &-limpeza,
         &-educacao{
-            background-color: $color--primary-light;
+            background-color: #50B15C;
 
             &::before {
-                background-image: url('/wp-content/themes/dcp/assets/images/wrapper4.png');
+                background-image: url('/wp-content/themes/dcp/assets/images/educacao.svg');
             }
         }
 
-        &-reparos{
-           background-color: $color--primary-dark;
-
-            &::before{
-                background-image: url('/wp-content/themes/dcp/assets/images/wrapper7.png');
-            }
-        }
-
-        &-educacao {
-            background-color: #50b15c;
-
-            &::before{
-                background-image: url('/wp-content/themes/dcp/assets/images/wrapper7.png');
-            }
-        }
         &-incidencia {
-            background-color: #50b15c;
+            background-color: #FFB300;
 
             &::before{
-                background-image: url('/wp-content/themes/dcp/assets/images/wrapper7.png');
+                background-image: url('/wp-content/themes/dcp/assets/images/incidencia.svg');
             }
         }
         &-solidariedade {
-            background-color: #50b15c;
+            background-color: #FC7753;
             max-width: 8rem;
             &::before{
-                background-image: url('/wp-content/themes/dcp/assets/images/wrapper7.png');
+                background-image: url('/wp-content/themes/dcp/assets/images/solidarie.svg');
             }
         }
     }
