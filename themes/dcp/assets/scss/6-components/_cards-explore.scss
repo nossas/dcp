@@ -20,15 +20,17 @@
     .wp-block-columns > .wp-block-column > .wp-block-cover{
         border-radius: $border-radius--medium;
 
-        @media (max-width: size(1400)) {
-            max-height: size(166);
+        @include mobile {
+            padding: $padding--medium;
         }
 
         .wp-block-columns {
             @include mobile {
                 display: grid;
-                gap: 0;
-                grid-template-columns: 1fr 2fr;
+                gap: $gap--small;
+                grid-template-columns: auto 1fr;
+                align-items: center;
+                width: 100%;
             }
         }
 
@@ -52,7 +54,6 @@
 
             @include mobile{
                 font-size: size(22) !important;
-                white-space: nowrap;
             }
         }
 

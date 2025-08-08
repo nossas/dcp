@@ -479,6 +479,11 @@ class Assets
                 'global' => true,
             ],
 
+            'mobile-accordion' => [
+                'file'   => 'mobile-accordion.js',
+                'global' => true,
+            ],
+
             // DASHBOARD
             'dashboard-media-loader' => [
                 'file' => 'dashboard-media-loader.js',
