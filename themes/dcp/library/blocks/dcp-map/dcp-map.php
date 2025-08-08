@@ -137,7 +137,7 @@ function render_dcp_map_callback(array $attributes) {
         <div class="dcp-map-block__buttons">
             <a class="dcp-map-block__add-risk" href="<?= get_permalink($risks_page) ?>">
                 <iconify-icon icon="bi:geo-alt-fill"></iconify-icon>
-                <span>Adicionar risco</span>
+                <span>Informar risco</span>
             </a>
             <a class="dcp-map-block__open-map" href="<?= get_permalink($maps_page) ?>">
                 <span>Abrir</span>
