@@ -314,7 +314,7 @@ function form_single_relato_new() {
 
     $postID = wp_insert_post([
         'post_type' => 'relato',
-        'post_status' => 'draft',
+        'post_status' => 'publish',
         'post_title' => sanitize_text_field($_POST['titulo']),
         'post_content' => sanitize_text_field($_POST['text_post']),
         'meta_input' => [
