@@ -81,34 +81,6 @@ jQuery(function($) {
 
     $( document ).ready( function() {
 
-        $( '#btnOpenMenuMobile' ).on( 'click', function () {
-            if( $( '#dashboardSidebar' ).hasClass( 'is-show' ) ) {
-                //$( '#dashboardSidebar' ).hide();
-                $( '#dashboardSidebar' ).removeClass( 'is-show' );
-                $( this ).removeClass( 'is-opened' );
-            } else {
-                //$( '#dashboardSidebar' ).show();
-                $( '#dashboardSidebar' ).addClass( 'is-show' );
-                $( this ).addClass( 'is-opened' );
-            }
-        });
-        $( '#dashboardSidebar a' ).each(function () {
-            $( this ).on( 'click', function () {
-                if( isMobile ) {
-                    $( '#dashboardSidebar' ).hide();
-                    $( '#dashboardSidebar' ).removeClass( 'is-show' );
-                    $( '#btnOpenMenuMobile' ).removeClass( 'is-opened' );
-                }
-            });
-        });
-        $( '.dashboard .tabs__header a' ).each(function () {
-            $( this ).on( 'click', function () {
-                $( this ).removeClass( 'is-notification' );
-                $( '.tabs__header a, .tabs__panels' ).removeClass( 'is-active' );
-                $( this ).addClass( 'is-active' );
-            });
-        });
-
         // TODO: COMPONENT
         function custom_modal_confirm(options) {
             const {
@@ -194,12 +166,12 @@ jQuery(function($) {
         }
         // TODO: COMPONENT
 
+        // DASHBOARD GERAL
         $( '.dashboard-content-cards .post-card__excerpt-wrapped .read-more' ).on('click', function() {
             const $this = $( this );
             $this.hide();
             $this.parent().find( '.read-more-full' ).show();
         })
-
         $( 'img' ).each( function () {
 
             this.ondragstart = function() {
@@ -207,52 +179,36 @@ jQuery(function($) {
             };
 
         });
-
-        $( '.asset-item-preview .is-play' ).each( function () {
-
-            $( this ).on( 'click', function() {
-                $( this ).css( 'opacity', '0.3' );
-                $( this ).parent().find( 'video' ).get(0).play();
-            });
-
+        $( '#btnOpenMenuMobile' ).on( 'click', function () {
+            if( $( '#dashboardSidebar' ).hasClass( 'is-show' ) ) {
+                //$( '#dashboardSidebar' ).hide();
+                $( '#dashboardSidebar' ).removeClass( 'is-show' );
+                $( this ).removeClass( 'is-opened' );
+            } else {
+                //$( '#dashboardSidebar' ).show();
+                $( '#dashboardSidebar' ).addClass( 'is-show' );
+                $( this ).addClass( 'is-opened' );
+            }
         });
-        $( '.asset-item-preview .is-blur' ).on( 'click', function() {});
-        $( '.is-edit-input, input[readonly], textarea[readonly], select[readonly]' ).each( function () {
-            const $this = $( this );
-            $this.on( 'click', function() {
-
-                if( $this.hasClass( 'is-edit-input' ) ) {
-                    $this.hide();
-                    $this.parent().find( '.chips-checkbox' ).css({
-                        height : 'auto',
-                        opacity : 1
-                    });
-                    $this.parent().find( '.input, .textarea, .select' ).removeAttr( 'readonly disabled' ).addClass( 'is-editing' ).focus();
-                } else {
-                    $this.parent().find( '.is-edit-input' ).hide();
-                    $this.removeAttr( 'readonly disabled' ).addClass( 'is-editing' ).focus();
-                }
-
-            });
-        });
-
-        $( '.input-help .button' ).each( function () {
-            const $this = $( this );
-            $this.on( 'click', function() {
-                const $currentTip = $this.parent().find( 'p' );
-                if( $currentTip.hasClass( 'is-show' ) ) {
-                    $currentTip.removeClass( 'is-show' );
-                } else {
-                    $currentTip.addClass( 'is-show' );
+        $( '#dashboardSidebar a' ).each(function () {
+            $( this ).on( 'click', function () {
+                if( isMobile ) {
+                    $( '#dashboardSidebar' ).hide();
+                    $( '#dashboardSidebar' ).removeClass( 'is-show' );
+                    $( '#btnOpenMenuMobile' ).removeClass( 'is-opened' );
                 }
             });
         });
-        $( '.input-help p' ).each( function () {
-            $( this ).on( 'click', function() {
-                $( this ).removeClass( 'is-show' );
+        $( '.dashboard .tabs__header a' ).each(function () {
+            $( this ).on( 'click', function () {
+                $( this ).removeClass( 'is-notification' );
+                $( '.tabs__header a, .tabs__panels' ).removeClass( 'is-active' );
+                $( this ).addClass( 'is-active' );
             });
         });
 
+
+        // MODAL FULLSCREEN
         $( '.modal-asset-fullscreen' ).each( function () {
             const $this = $( this );
             $this.find( '.is-close, .is-delete' ).on( 'click', function() {
@@ -281,40 +237,22 @@ jQuery(function($) {
             $modalFullscreen.fadeIn( 200, function() {});
         });
 
-        $( '.asset-item-preview-actions .is-delete, .modal-asset-fullscreen .is-delete' ).on( 'click', function() {
-            const $this = $( this );
-            custom_modal_confirm({
-                title: "Confirmar Exclusão",
-                description: "Deseja realmente excluir este item?",
-                cancelText: "Voltar",
-                onCancel: function () {
-                    console.log("Ação cancelada");
-                },
-                confirmText: "Excluir",
-                onConfirm: function () {
-                    $this.parent().parent().css({
-                        opacity : 0.5,
-                        cursor : 'wait'
-                    });
-                    _ajax_dele_media_by_id(
-                        $( '.dashboard-content-single form' ).find( 'input[name="post_id"]' ).val(),
-                        $this.attr( 'data-id' ),
-                        function ( response ) {
-                            custom_modal_confirm({
-                                title: response.data.title,
-                                description: response.data.message,
-                                confirmText: "OK",
-                                onConfirm: function () {
-                                    //window.location.reload();
-                                }
-                            });
-                            $this.parent().parent().remove();
-                        },
-                        function () {
 
-                        }
-                    );
+        // COMPORTAMENTO FORMULARIO
+        $( '.input-help .button' ).each( function () {
+            const $this = $( this );
+            $this.on( 'click', function() {
+                const $currentTip = $this.parent().find( 'p' );
+                if( $currentTip.hasClass( 'is-show' ) ) {
+                    $currentTip.removeClass( 'is-show' );
+                } else {
+                    $currentTip.addClass( 'is-show' );
                 }
+            });
+        });
+        $( '.input-help p' ).each( function () {
+            $( this ).on( 'click', function() {
+                $( this ).removeClass( 'is-show' );
             });
         });
         $( '#selectAcaoRealizada' ).on( 'change', function () {
@@ -323,12 +261,10 @@ jQuery(function($) {
                 _location.href = _location.origin + _location.pathname + '?post_id=' + $( this ).val();
             }
         });
-
         $( '#selectCategory' ).on( 'change', function () {
             $( '.input-chips .chips-wrap').html( '' );
             $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
         });
-
         if( $( '#dashboardApoioSingle' ).length ) {
             selectTipoApoio( _current_apoio_edit );
         }
@@ -336,7 +272,6 @@ jQuery(function($) {
             $( 'input[type="text"], input[type="date"], input[type="time"], textarea' ).val( '' ).prop( 'disabled', false );
             selectTipoApoio( $( this ).val() );
         });
-
         $( '.dashboard-content-single input[name="endereco"]' ).on( 'change', function () {
             const $this = $( this );
 
@@ -377,7 +312,6 @@ jQuery(function($) {
             });
 
         });
-
         $( '.input-chips input[type="checkbox"]' ).on( 'change', function () {
             if( $( this ).is( ':checked' ) ) {
                 $( '.input-chips .chips-wrap').append( '<span id="chips_' + $( this ).val() + '" class="chips"><iconify-icon icon="bi:check2"></iconify-icon>' + $( this ).attr( 'data-label' ) + '</span>' );
@@ -389,6 +323,7 @@ jQuery(function($) {
             $( '#input_' + $( this ).attr( 'data-slug' ) ).prop( 'checked', true );
         });
 
+        // BOTÃO MEDIA UPLOAD
         $( '#mediaUploadButton, #mediaUploadButtonCover' ).on( 'click', function () {
             const $this = $( this );
 
@@ -425,6 +360,83 @@ jQuery(function($) {
 
             }).trigger( 'click' );
         });
+        // COMPORTAMENTO MEDIA UPLOAD
+        $( '.asset-item-preview-actions .is-delete, .modal-asset-fullscreen .is-delete, .input-media-uploader-options .is-delete' ).on( 'click', function() {
+            const $this = $( this );
+            custom_modal_confirm({
+                title: "Confirmar Exclusão",
+                description: "Deseja realmente excluir este item?",
+                cancelText: "Voltar",
+                onCancel: function () {
+                    console.log("Ação cancelada");
+                },
+                confirmText: "Excluir",
+                onConfirm: function () {
+                    $this.parent().parent().css({
+                        opacity : 0.5,
+                        cursor : 'wait'
+                    });
+                    _ajax_dele_media_by_id(
+                        $( '.dashboard-content-single form' ).find( 'input[name="post_id"]' ).val(),
+                        $this.attr( 'data-id' ),
+                        function ( response ) {
+                            custom_modal_confirm({
+                                title: response.data.title,
+                                description: response.data.message,
+                                confirmText: "OK",
+                                onConfirm: function () {
+                                    //window.location.reload();
+                                }
+                            });
+
+                            if( $this.hasClass( 'is-cover-picture' ) ) {
+                                $this.parent().parent().css({
+                                    opacity : 1,
+                                    cursor : 'default'
+                                });
+                                $( '#mediaUploadCover .is-cover-image .cover-wrap' ).remove();
+                                $this.remove();
+                            } else {
+                                $this.parent().parent().remove();
+                            }
+
+                        },
+                        function () {
+
+                        }
+                    );
+                }
+            });
+        });
+        $( '.asset-item-preview .is-play' ).each( function () {
+
+            $( this ).on( 'click', function() {
+                $( this ).css( 'opacity', '0.3' );
+                $( this ).parent().find( 'video' ).get(0).play();
+            });
+
+        });
+        $( '.asset-item-preview .is-blur' ).on( 'click', function() {});
+        $( '.is-edit-input, input[readonly], textarea[readonly], select[readonly]' ).each( function () {
+            const $this = $( this );
+            $this.on( 'click', function() {
+
+                if( $this.hasClass( 'is-edit-input' ) ) {
+                    $this.hide();
+                    $this.parent().find( '.chips-checkbox' ).css({
+                        height : 'auto',
+                        opacity : 1
+                    });
+                    $this.parent().find( '.input, .textarea, .select' ).removeAttr( 'readonly disabled' ).addClass( 'is-editing' ).focus();
+                } else {
+                    $this.parent().find( '.is-edit-input' ).hide();
+                    $this.removeAttr( 'readonly disabled' ).addClass( 'is-editing' ).focus();
+                }
+
+            });
+        });
+
+        //SUBMIT FORM ADICIONAR + EDITAR
         $( '#riscoSingleForm, #acaoSingleForm, #apoioSingleForm' ).on( 'submit', function ( e ) {
             const $this = $( this );
             const form = e.target;
@@ -521,6 +533,7 @@ jQuery(function($) {
                 });
         });
 
+        //RISCOS
         $( '#riscoSingleForm .is-archive' ).on( 'click', function () {
             custom_modal_confirm({
                 title: 'Arquivar esse registro de risco?',
@@ -579,6 +592,7 @@ jQuery(function($) {
             });
         });
 
+        //AÇÕES
         $( '#acaoSingleForm .is-new' ).on( 'click', function () {
             custom_modal_confirm({
                 title: 'Criar ação?',
@@ -650,6 +664,7 @@ jQuery(function($) {
             });
         });
 
+        //RELATOS
         $( '#acaoSingleForm .is-new.relato' ).on( 'click', function () {
             custom_modal_confirm({
                 title: 'Criar Relato?',
@@ -675,6 +690,7 @@ jQuery(function($) {
             });
         });
 
+        //APOIOS
         $( '#apoioSingleForm .is-new' ).on( 'click', function () {
             custom_modal_confirm({
                 title: 'Criar apoio?',

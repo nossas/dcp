@@ -427,6 +427,7 @@ namespace hacklabr\dashboard;
                         <?php endif; endif; ?>
 
                 </div>
+
                 <?php if( wp_is_mobile() ) : ?>
                     <div>
                         <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
