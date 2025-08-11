@@ -97,6 +97,22 @@
                 }
             }
         }
+
+        .separar-lixo,
+        .conscientizacao {
+            @include mobile {
+                margin-bottom: unset !important;
+            }
+
+            .wp-block-column:first-child {
+                .wp-block-spacer:nth-child(3) {
+                    @include mobile {
+                        height: 40px !important;
+                        margin-top: unset !important;
+                    }
+                }
+            }
+        }
     }
 
 
@@ -122,6 +138,7 @@
             scroll-snap-type: x mandatory;
             width: 100%;
             -webkit-overflow-scrolling: touch;
+            margin-bottom: unset !important;
 
             >.wp-block-column {
                 box-sizing: border-box;
