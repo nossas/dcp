@@ -386,6 +386,7 @@
     }
 
     &__button{
+        background-color: transparent;
         text-decoration: none;
         padding-inline: $padding--medium;
         padding-bottom: size(10);
