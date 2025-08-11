@@ -34,6 +34,16 @@ async function getInitialCoords (risk) {
     }
 }
 
+export async function makeReverseGeocoding (latitude, longitude) {
+    const { rest_url } = globalThis.hl_form_actions_data
+    const res = await fetch(`${rest_url}/reverse_geocoding?lat=${latitude}&lon=${longitude}`, {
+        method: 'POST',
+    })
+    if (res.ok) {
+        console.log(await res.json())
+    }
+}
+
 export async function showDraggableMap (jeoMap, risk) {
     const map = jeoMap.map
 
@@ -46,10 +56,11 @@ export async function showDraggableMap (jeoMap, risk) {
         .setLngLat(initialCoords)
         .addTo(map)
 
-    marker.on('dragend', () => {
+    marker.on('dragend', async () => {
         const coords = marker.getLngLat()
         risk.latitude = coords.lat
         risk.longitude = coords.lng
+        await makeReverseGeocoding(coords.lat, coords.lng)
     })
 
     const updateMarker = (latitude, longitude) => {

@@ -398,7 +398,7 @@ class Assets
                     $jacarezinho = [-43.2578789, -22.8875068];
                     return [
                         'default_coords' => apply_filters('dcp_default_coords', $jacarezinho),
-                        'rest_url' => rest_url('hacklabr/v2/geocoding'),
+                        'rest_url' => rest_url('hacklabr/v2'),
                     ];
                 },
             ],

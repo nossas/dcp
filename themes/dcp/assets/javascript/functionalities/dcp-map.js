@@ -58,23 +58,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 method: 'POST',
             })
             if (res.ok) {
-                try {
-                    const json = await res.text()
-                    if (!json) {
-                        input.value = ''
-                        return
-                    }
-                    const { lat, lon } = JSON.parse(json)
+                const { lat, lon } = await res.json()
 
-                    const jeoMap = globalThis.jeomaps[map.dataset.uui_id]
-                    const mapbox = await until(() => jeoMap.map)
-                    mapbox.flyTo({
-                        center: [lon, lat],
-                        zoom: 19,
-                    })
-                } catch (error) {
-                    console.error(error)
-                }
+                const jeoMap = globalThis.jeomaps[map.dataset.uui_id]
+                const mapbox = await until(() => jeoMap.map)
+                mapbox.flyTo({
+                    center: [lon, lat],
+                    zoom: 19,
+                })
+            } else if (res.status === 404) {
+                input.value = ''
             }
         }
     })

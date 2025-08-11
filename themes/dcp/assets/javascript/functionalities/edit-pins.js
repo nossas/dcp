@@ -6,13 +6,9 @@ async function fetchCoordinates (address) {
         method: 'POST',
     })
     if (res.ok) {
-        try {
-            const json = await res.text()
-            return JSON.parse(json)
-        } catch (error) {
-            console.error(error)
-            return null
-        }
+        return res.json()
+    } else {
+        return null
     }
 }
 

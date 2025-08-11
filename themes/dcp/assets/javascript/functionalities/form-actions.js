@@ -421,20 +421,15 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('input[name="endereco"]').addEventListener('change', async (event) => {
         const { rest_url } = globalThis.hl_form_actions_data
         const address = event.target.value
-        const res = await fetch(`${rest_url}?address=${encodeURIComponent(address)}`, {
+        const res = await fetch(`${rest_url}/geocoding?address=${encodeURIComponent(address)}`, {
             method: 'POST',
         })
         if (res.ok) {
-            try {
-                const json = await res.text()
-                const data = JSON.parse(json)
-                if (data) {
-                    riskDraft.latitude = data.lat
-                    riskDraft.longitude = data.lon
-                    updateMarker?.(data.lat, data.lon)
-                }
-            } catch (error) {
-                console.error(error)
+            const data = await res.json()
+            if (data) {
+                riskDraft.latitude = data.lat
+                riskDraft.longitude = data.lon
+                updateMarker?.(data.lat, data.lon)
             }
         }
     })
