@@ -208,6 +208,20 @@ jQuery(function($) {
         }
         // TODO: COMPONENT
 
+        // TABS
+        if( $( '.tabs__header' ).length ) {
+            let total_width = 0
+            $( '.tabs__header .tabs__header-wrap a' ).each(function () {
+                total_width += ( $( this ).innerWidth() + 5 );
+            });
+            $( '.tabs__header .tabs__header-wrap' ).css({
+                width : total_width
+            });
+
+            $( '.tabs__header' ).scrollLeft( $( '.tabs__header .tabs__header-wrap a.is-active' ).position().left );
+        }
+
+
         // DASHBOARD GERAL
         $( '.dashboard-content-cards .post-card__excerpt-wrapped .read-more' ).on('click', function() {
             const $this = $( this );
@@ -773,10 +787,11 @@ jQuery(function($) {
         $( 'body' ).removeClass( 'loading' );
         $( '.dashboard-content-pagination' ).show();
         $( '.loading-global' ).fadeOut( 400 );
-
         $( '.dashboard-content-single input[name="endereco"]' ).each( function () {
             const $this = $( this );
-            gelocation_onblur_address( $this );
+            if( $this.val().length ) {
+                gelocation_onblur_address( $this );
+            }
         });
 
         //TODO: VERIFICAR E REMOVER
@@ -785,7 +800,6 @@ jQuery(function($) {
         $( '#dashboardRiscos .dashboard-content-cards .post-card, #dashboardRiscos .dashboard-content-cards .message-response' ).show();
         $( '#dashboardInicio .dashboard-content-cards .post-card, #dashboardInicio .dashboard-content-cards .message-response' ).show();
         $( '#dashboardAcoes .dashboard-content-cards .post-card, #dashboardAcoes .dashboard-content-cards .message-response' ).show();
-
 
         if (typeof tinymce !== 'undefined') {
             tinymce.init({
@@ -806,8 +820,6 @@ jQuery(function($) {
                 paste_as_text: true
             });
         }
-
-
 
         // TODO: REFECTORY P/ COMPONENTE DE LOADING TIPO SKELETON
         $( '.dashboard-content-skeleton' ).hide();

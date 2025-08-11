@@ -24,28 +24,6 @@
         }
 
     }
-
-    .dashboard-content-tabs {
-        .tabs__header {
-            a {
-                min-width: 170px;
-
-                &:first-child {
-                    min-width: 260px;
-
-                    @include desktop {
-                        min-width: 175px;
-                        margin-right: size( 20 );
-                    }
-                    @include desktop-xxlarge {
-                        min-width: 200px;
-                        margin-right: size( 30 );
-                    }
-                }
-            }
-        }
-    }
-
     .dashboard-content-cards {
 
         .post-card {
@@ -59,11 +37,6 @@
             &__excerpt-wrapped {
 
                 margin-bottom: 0;
-
-                //p {
-                //    min-height: size(50);
-                //}
-
             }
 
             &__term {

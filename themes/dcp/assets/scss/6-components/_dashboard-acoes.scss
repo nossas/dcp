@@ -1,5 +1,4 @@
 #dashboardAcoes {
-
     .dashboard-content-header {
 
         .is-actions {
@@ -35,24 +34,6 @@
             }
         }
     }
-
-    .dashboard-content-tabs {
-        .tabs__header {
-            a {
-                &:last-child {
-                    @include desktop {
-                        min-width: 175px;
-                        margin-right: size( 20 );
-                    }
-                    @include desktop-xxlarge {
-                        min-width: 200px;
-                        margin-right: size( 30 );
-                    }
-                }
-            }
-        }
-    }
-
     .dashboard-content-acoes {
 
         .dashboard-content-cards {

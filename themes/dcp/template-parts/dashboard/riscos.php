@@ -55,14 +55,15 @@ namespace hacklabr\dashboard;
     </header>
     <div class="dashboard-content-tabs tabs">
         <div class="tabs__header">
-            <?php foreach ( $sectios_tabs as $tab ) : ?>
-                <a href="<?=get_dashboard_url( 'riscos', [ 'tipo_risco' => $tab[ 'tipo_risco' ] ] )?>"
-                   class="<?=( $tipo_risco == $tab[ 'tipo_risco' ] ) ? 'is-active' : ''?> <?=( $tab[ 'notification' ] ) ? 'is-notification' : ''?>">
-                    <iconify-icon icon="bi:<?=$tab[ 'icon' ]?>"></iconify-icon>
-                    <?=$tab[ 'name' ]?>
-                    <span class="total">( <?=$tab[ 'total' ]?> )</span>
-                </a>
-            <?php endforeach; ?>
+            <div class="tabs__header-wrap">
+                <?php foreach ( $sectios_tabs as $tab ) : ?>
+                    <a href="<?=get_dashboard_url( 'riscos', [ 'tipo_risco' => $tab[ 'tipo_risco' ] ] )?>"
+                       class="<?=( $tipo_risco == $tab[ 'tipo_risco' ] ) ? 'is-active' : ''?> <?=( $tab[ 'notification' ] ) ? 'is-notification' : ''?>">
+                        <?=$tab[ 'name' ]?>
+                        <span class="total">( <?=$tab[ 'total' ]?> )</span>
+                    </a>
+                <?php endforeach; ?>
+            </div>
         </div>
         <div class="dashboard-content-cards">
         <?php get_template_part('template-parts/dashboard/ui/skeleton' );
@@ -150,12 +151,12 @@ namespace hacklabr\dashboard;
                                         </span>
                                     </li>
                                 <?php endif; ?>
-                                <?php if( !empty( $pod->field( 'email' ) ) ) : ?>
+                                <?php /* if( !empty( $pod->field( 'email' ) ) ) : ?>
                                     <li>
                                         <i><iconify-icon icon="bi:envelope-fill"></iconify-icon></i>
                                         <span>E-mail: <?=$pod->field( 'email' )?></span>
                                     </li>
-                                <?php endif; ?>
+                                <?php endif; */ ?>
                             </ul>
 
                             <div class="post-card__see-more">

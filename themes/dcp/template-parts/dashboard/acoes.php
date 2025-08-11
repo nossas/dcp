@@ -75,14 +75,16 @@ namespace hacklabr\dashboard;
         </header>
         <div class="dashboard-content-tabs tabs">
             <div class="tabs__header">
-                <?php foreach ( $sectios_tabs as $tab ) : ?>
-                    <a href="<?=get_dashboard_url( 'acoes', [ 'tipo_acao' => $tab[ 'tipo_acao' ] ] )?>"
-                       class="<?=( $tipo_acao == $tab[ 'tipo_acao' ] ) ? 'is-active' : ''?> <?=( $tab[ 'notification' ] ) ? 'is-notification' : ''?>">
-                        <iconify-icon icon="bi:<?=$tab[ 'icon' ]?>"></iconify-icon>
-                        <?=$tab[ 'name' ]?>
-                        <span class="total"></span>
-                    </a>
-                <?php endforeach; ?>
+                <div class="tabs__header-wrap">
+                    <?php foreach ( $sectios_tabs as $tab ) : ?>
+                        <a href="<?=get_dashboard_url( 'acoes', [ 'tipo_acao' => $tab[ 'tipo_acao' ] ] )?>"
+                           class="<?=( $tipo_acao == $tab[ 'tipo_acao' ] ) ? 'is-active' : ''?> <?=( $tab[ 'notification' ] ) ? 'is-notification' : ''?>">
+                            <iconify-icon icon="bi:<?=$tab[ 'icon' ]?>"></iconify-icon>
+                            <?=$tab[ 'name' ]?>
+                            <span class="total"></span>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
             </div>
             <div class="dashboard-content-cards">
                 <?php

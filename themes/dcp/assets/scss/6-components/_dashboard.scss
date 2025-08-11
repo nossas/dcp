@@ -283,11 +283,11 @@
         transition: all 0.5s 0s ease;
 
         @include mobile {
-            padding-top: size( 125 );
+            padding-top: size( 145 );
             padding-bottom: size( 125 );
         }
         @include tablet {
-            padding-top: size( 75 );
+            padding-top: size( 95 );
             padding-bottom: size( 75 );
         }
         @include desktop {
@@ -517,19 +517,30 @@
 
                 .tabs__header {
                     border-bottom: 1px solid rgba(0,0,0,0.3);
-                    display: flex;
-                    justify-content: start;
+                    display: block;
+                    width: auto;
+                    height: 42px;
                     padding: 0;
                     margin: 0;
-                    overflow-x: scroll;
-                    overflow-y: hidden;
+                    overflow: hidden;
                     position: relative;
 
-                    @include mobile {}
-                    @include tablet {}
+                    @include mobile {
+                        width: 100%;
+                        height: 38px;
+                        overflow-x: scroll;
+                        overflow-y: hidden;
+
+                    }
+                    @include tablet {
+                        width: 100%;
+                        height: 38px;
+                        overflow-x: scroll;
+                        overflow-y: hidden;
+
+                    }
                     @include desktop {
                         margin: 0 size( 30 );
-                        overflow: hidden;
                     }
                     @include desktop-xlarge {
                         margin: 0 size( 35 );
@@ -537,6 +548,16 @@
                     @include desktop-xxlarge {
                         margin: 0 size( 40 );
                     }
+
+                    &-wrap {
+                        display: block;
+                        width: auto;
+                        @include mobile {
+                            width: 200%;
+                        }
+                    }
+
+
 
                     a {
                         font-weight: 400;
@@ -546,7 +567,8 @@
                         color: inherit;
                         letter-spacing: 0.3px;
                         display: flex;
-                        padding: size(7) size(15);
+                        float: left;
+                        padding: size( 7 ) size( 25 );
                         position: relative;
 
                         @include mobile {}
@@ -555,13 +577,6 @@
                         }
                         @include desktop-xlarge {
                             font-size: size( 18 );
-                        }
-
-                        &:last-child {
-                            margin-right: size( 30 );
-                            @include mobile {
-                                padding-left: size( 20 );
-                            }
                         }
 
                         iconify-icon {
@@ -577,7 +592,6 @@
                         }
                     }
                     a.is-active {
-                        font-weight: 400;
 
                         &::before {
                             content: '';
@@ -592,8 +606,6 @@
 
                     }
                     a.is-notification {
-                        font-weight: 500;
-                        padding-right: size( 25 );
 
                         &::after {
                             content: '';
@@ -604,7 +616,7 @@
                             border-radius: 10px;
                             position: absolute;
                             top: calc( 50% - 5px );
-                            right: 8px;
+                            right: 1px;
                         }
                     }
                 }
@@ -665,7 +677,7 @@
                     display: inline-block;
                     width: 100%;
                     max-width: calc( 100% - 25px );
-                    min-height: size( 325 );
+                    min-height: size( 225 );
                     padding: 0;
                     margin: 0 25px 25px 0;
                     border-color: #FEFBF9;
@@ -713,7 +725,7 @@
                     }
                     &__content {
                         height: auto;
-                        min-height: 300px;
+                        min-height: 200px;
                         max-height: 450px;
                     }
                     &__cover {
@@ -775,7 +787,7 @@
                     }
                     &__title {
                         font-size: size( 17 );
-                        font-weight: 600;
+                        font-weight: 500;
                         line-height: size( 18 );
                         display: block;
                         min-height: size( 15 );
@@ -806,7 +818,6 @@
                             line-height: size( 15 );
                             padding-bottom: size( 15 );
                             display: -webkit-box;
-                            min-height: 70px;
                             -webkit-line-clamp: 4; /* Número de linhas */
                             -webkit-box-orient: vertical;
                             overflow: hidden;
@@ -820,17 +831,13 @@
 
                             .read-more {
                                 background-color: #FFF;
-                                font-size: size( 14 );
+                                font-size: inherit;
                                 text-decoration: underline;
                                 text-align: right;
                                 color: $color--secondary-dark;
                                 font-weight: 400;
-                                display: block;
-                                padding: size( 1 ) size( 5 );
-                                position: absolute;
-                                right: 0;
-                                bottom: 0;
-                                z-index: 2;
+                                display: inline-block;
+                                padding: size( 1 ) size( 2 );
 
                                 @include mobile {
                                     font-size: size( 12 );

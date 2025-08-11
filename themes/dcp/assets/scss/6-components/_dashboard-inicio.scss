@@ -283,28 +283,6 @@
 
                 margin-bottom: 0;
 
-                p {
-                    min-height: size(50);
-                }
-
-            }
-
-            &__see-more {
-
-                @include mobile {
-                    display: block;
-                    justify-content: initial;
-                    align-items: initial;
-                }
-
-                .button {
-
-                    @include mobile {
-                        text-align: center;
-                        display: block;
-                    }
-                }
-
             }
 
         }
