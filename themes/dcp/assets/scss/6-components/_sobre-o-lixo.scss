@@ -105,6 +105,14 @@
         gap: 1rem;
         overflow: visible;
 
+        .wp-block-column{
+            p:last-child{
+                @include mobile {
+                    margin-top: 8px !important;
+                }
+            }
+        }
+
         @include mobile {
             flex-wrap: nowrap !important;
             margin-inline: auto;
@@ -144,9 +152,9 @@
             border: none;
             border-radius: 50%;
             cursor: pointer;
-            padding: 0.75rem;
+            padding: 7px;
             position: absolute;
-            top: 50%;
+            top: 30%;
             transform: translateY(-50%);
             z-index: 10;
 
