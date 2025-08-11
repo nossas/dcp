@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let updateMarker = null;
-    let updateAddress = null;
-    let editedEndereco = '';
+    let hasDraggedMarker = false;
+    let hasEditedAddress = false;
 
     function showSnackbar(message) {
         const overlay = document.getElementById('snackbar-overlay');
@@ -421,24 +421,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // GEOLOCALIZAÇÃO P/ ENDEREÇO
     document.querySelector('input[name="endereco"]').addEventListener('change', async (event) => {
+        hasEditedAddress = true
+
         const nextButton = document.querySelector('.multistepform__1 .multistepform__button-next')
-        nextButton.disabled = true
-
-        const { rest_url } = globalThis.hl_form_actions_data
         const address = event.target.value
-        const res = await fetch(`${rest_url}/geocoding?address=${encodeURIComponent(address)}`, {
-            method: 'POST',
-        })
-        if (res.ok) {
-            const data = await res.json()
-            if (data) {
-                riskDraft.latitude = data.lat
-                riskDraft.longitude = data.lon
-                updateMarker?.(data.lat, data.lon)
-            }
-        }
 
-        nextButton.disabled = false
+        if (!hasDraggedMarker) {
+            nextButton.disabled = true
+
+            const { rest_url } = globalThis.hl_form_actions_data
+            const res = await fetch(`${rest_url}/geocoding?address=${encodeURIComponent(address)}`, {
+                method: 'POST',
+            })
+            if (res.ok) {
+                const data = await res.json()
+                if (data) {
+                    riskDraft.latitude = data.lat
+                    riskDraft.longitude = data.lon
+                    updateMarker?.(data.lat, data.lon)
+                }
+            }
+
+            nextButton.disabled = false
+        }
     })
 
     async function submitData(data) {
@@ -582,6 +587,24 @@ document.addEventListener('DOMContentLoaded', () => {
         input.value = value;
     }
 
+    async function updateAddress (latitude, longitude) {
+        hasDraggedMarker = true
+        riskDraft.latitude = latitude
+        riskDraft.longitude = longitude
+
+        if (!hasEditedAddress) {
+            const { rest_url } = globalThis.hl_form_actions_data
+            const res = await fetch(`${rest_url}/reverse_geocoding?lat=${latitude}&lon=${longitude}`, {
+                method: 'POST',
+            })
+            if (res.ok) {
+                const { address } = await res.json()
+                inputEndereco.value = address
+                riskDraft.endereco = address
+            }
+        }
+    }
+
     async function loadDraggableMap () {
         const map = document.querySelector('.jeomap');
 
@@ -589,7 +612,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const jeoMap = globalThis.jeomaps[map.dataset.uui_id];
 
         await until(() => jeoMap.map);
-        updateMarker = await showDraggableMap(jeoMap, riskDraft);
+        updateMarker = await showDraggableMap(jeoMap, riskDraft, updateAddress);
     }
 
     const toggleMapButton = document.querySelector('.multistepform__button-map');
