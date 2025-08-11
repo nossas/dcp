@@ -193,7 +193,7 @@
 
         ul {
             display: block;
-            width: 225px;
+            width: 300px;
             list-style: none;
             padding: 0;
 
@@ -202,10 +202,10 @@
                 margin: size( 25 ) size( 35 ) size( 15 ) size( 35 );
             }
             @include desktop {
-                width: 235px;
+                width: 275px;
             }
             @include desktop-xxlarge {
-                width: 250px;
+                width: 280px;
             }
             @include desktop-xxxlarge {
                 width: 300px;
@@ -240,6 +240,18 @@
 
             iconify-icon {
                 margin-inline-end: size(10);
+            }
+
+            i {
+                display: inline-block;
+                height: 1em;
+                vertical-align: -0.125em;
+                width: 1em;
+                margin-inline-end: size(10);
+
+                img {
+                    width: 19px;
+                }
             }
         }
 

@@ -42,15 +42,25 @@ namespace hacklabr\dashboard;
             <div class="apoio__tabs">
                 <?php foreach ($termos as $termo):
                     $ativo = ($termo_selecionado === $termo->slug || (!$termo_selecionado && $termo === reset($termos))) ? 'ativo' : ''; ?>
-                    <a
-                        href="?tipo=<?= esc_attr($termo->slug) ?>"
+                    <a href="?tipo=<?= esc_attr($termo->slug) ?>"
                         class="apoio__tab <?= $ativo ?>">
+                        <?php switch ( $termo->slug ) {
+                            case 'locais-seguros':
+                            case 'cacambas':
+                                echo '<iconify-icon icon="bi:geo-alt-fill"></iconify-icon>';
+                                break;
+                            case 'iniciativas-locais':
+                            case 'quem-acionar':
+                                echo '<iconify-icon icon="bi:text-left"></iconify-icon>';
+                                break;
+                        } ?>
                         <?= esc_html($termo->name) ?>
                     </a>
                 <?php endforeach; ?>
 
                 <?php $ativo_arquivados = ($termo_selecionado === 'arquivados') ? 'ativo' : ''; ?>
                 <a href="?tipo=arquivados" class="apoio__tab <?= $ativo_arquivados ?>">
+                    <iconify-icon icon="bi:x-octagon-fill"></iconify-icon>
                     Arquivados
                 </a>
             </div>
