@@ -46,11 +46,11 @@ namespace hacklabr\dashboard;
                         class="apoio__tab <?= $ativo ?>">
                         <?php switch ( $termo->slug ) {
                             case 'locais-seguros':
-                            case 'cacamba':
+                            case 'cacambas':
                                 echo '<iconify-icon icon="bi:geo-alt-fill"></iconify-icon>';
                                 break;
-                            case 'quem-adicionar':
                             case 'iniciativas-locais':
+                            case 'quem-acionar':
                                 echo '<iconify-icon icon="bi:text-left"></iconify-icon>';
                                 break;
                         } ?>
