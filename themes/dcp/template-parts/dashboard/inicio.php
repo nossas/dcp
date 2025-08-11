@@ -142,11 +142,9 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                                                 ?>
                                             </div>
                                             <div class="post-card__risco-meta"><?=wp_date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
-
                                             <h3 class="post-card__title">
                                                 <span><?=$pod->field( 'endereco' )?></span>
                                             </h3>
-
                                             <div class="post-card__excerpt-wrapped">
                                                 <p class="text-excerpt">
                                                     <?php
@@ -166,7 +164,24 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
 
                                                 </p>
                                             </div>
-
+                                            <ul class="post-card__list-infos">
+                                                <?php if( !empty( $pod->field( 'nome_completo' ) ) ) : ?>
+                                                    <li>
+                                                        <i><iconify-icon icon="bi:person-fill"></iconify-icon></i>
+                                                        <span>Nome: <?=$pod->field( 'nome_completo' )?>
+                                                            <?php if( !empty( $pod->field( 'telefone' ) ) ) : ?>
+                                                                | <?=$pod->field( 'telefone' )?>
+                                                            <?php endif; ?>
+                                                        </span>
+                                                    </li>
+                                                <?php endif; ?>
+                                                <?php if( !empty( $pod->field( 'email' ) ) ) : ?>
+                                                    <li>
+                                                        <i><iconify-icon icon="bi:envelope-fill"></iconify-icon></i>
+                                                        <span>E-mail: <?=$pod->field( 'email' )?></span>
+                                                    </li>
+                                                <?php endif; ?>
+                                            </ul>
                                             <div class="post-card__see-more">
                                                 <div></div>
                                                 <div>
@@ -176,7 +191,6 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                                                     </a>
                                                 </div>
                                             </div>
-
                                         </main>
                                     </article>
 
