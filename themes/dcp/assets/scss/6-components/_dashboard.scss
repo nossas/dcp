@@ -225,16 +225,16 @@
         a {
             color: inherit;
             display: block;
-            font-size: size( 18 );
+            font-size: size( 16 );
             padding: size(15) size(25);
             text-decoration: none;
             text-underline-offset: size(6);
 
             @include desktop {
-                font-size: size( 20 );
+                //font-size: size( 20 );
             }
             @include desktop-xxlarge {
-                font-size: size( 22 );
+                //font-size: size( 22 );
             }
 
 
@@ -770,7 +770,7 @@
 
                         .post-card__risco-meta {
                             font-size: size( 18 );
-                            color: #777;
+                            color: #484646;
                         }
                     }
                     &__title {

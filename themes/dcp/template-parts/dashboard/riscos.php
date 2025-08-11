@@ -2,44 +2,44 @@
 
 namespace hacklabr\dashboard;
 
-$tipo_risco = get_query_var('tipo_risco' );
-if( empty( $tipo_risco ) ) $tipo_risco = 'aprovacao';
+    $tipo_risco = get_query_var('tipo_risco' );
+    if( empty( $tipo_risco ) ) $tipo_risco = 'aprovacao';
 
-$paged = isset($_GET['paginacao']) ? intval($_GET['paginacao']) : 1;
-$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 6;
-$get_all_riscos = get_dashboard_riscos( $paged, $limit );
+    $paged = isset($_GET['paginacao']) ? intval($_GET['paginacao']) : 1;
+    $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 6;
+    $get_all_riscos = get_dashboard_riscos( $paged, $limit );
 
-$sectios_tabs = [
-    'aprovacao' => [
-        'name' => 'Aguardando Aprovação',
-        'link' => '',
-        'total' => $get_all_riscos['riscosAprovacao']['total_posts'],
-        //'icon' => 'lightbulb-fill',
-        'tipo_risco' => 'aprovacao',
-        'post_status' => 'draft',
-        'notification' => false
-    ],
-    'publicados' => [
-        'name' => 'Publicados',
-        'link' => '',
-        'total' => $get_all_riscos['riscosPublicados']['total_posts'],
-        //'icon' => 'calendar3',
-        'tipo_risco' => 'publicados',
-        'post_status' => 'publish',
-        'notification' => true
-    ],
-    'arquivados' => [
-        'name' => 'Arquivados',
-        'link' => '',
-        'total' => $get_all_riscos['riscosArquivados']['total_posts'],
-        //'icon' => 'check-square-fill',
-        'tipo_risco' => 'arquivados',
-        'post_status' => 'pending',
-        'notification' => false
-    ]
-];
+    $sectios_tabs = [
+        'aprovacao' => [
+            'name' => 'Aguardando Aprovação',
+            'link' => '',
+            'total' => $get_all_riscos['riscosAprovacao']['total_posts'],
+            //'icon' => 'lightbulb-fill',
+            'tipo_risco' => 'aprovacao',
+            'post_status' => 'draft',
+            'notification' => false
+        ],
+        'publicados' => [
+            'name' => 'Publicados',
+            'link' => '',
+            'total' => $get_all_riscos['riscosPublicados']['total_posts'],
+            //'icon' => 'calendar3',
+            'tipo_risco' => 'publicados',
+            'post_status' => 'publish',
+            'notification' => true
+        ],
+        'arquivados' => [
+            'name' => 'Arquivados',
+            'link' => '',
+            'total' => $get_all_riscos['riscosArquivados']['total_posts'],
+            //'icon' => 'check-square-fill',
+            'tipo_risco' => 'arquivados',
+            'post_status' => 'pending',
+            'notification' => false
+        ]
+    ];
 
-$get_riscos = get_riscos_by_status( $sectios_tabs[ $tipo_risco ][ 'post_status' ], $paged, $limit );
+    $get_riscos = get_riscos_by_status( $sectios_tabs[ $tipo_risco ][ 'post_status' ], $paged, $limit );
 
 ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
@@ -78,14 +78,14 @@ $get_riscos = get_riscos_by_status( $sectios_tabs[ $tipo_risco ][ 'post_status' 
                     <article class="post-card is-<?=$post_status?>" style="display: none;">
                         <main class="post-card__content">
                             <div class="post-card__term">
-                            <?php
-                                $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
-                                if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
-                                    risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
-                                } else {
-                                    risco_badge_category( 'sem-categoria', 'SEM' );
-                                }
-                            ?>
+                                <?php
+                                    $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
+                                    if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                                        risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
+                                    } else {
+                                        risco_badge_category( 'sem-categoria', 'SEM' );
+                                    }
+                                ?>
                             </div>
                             <div class="post-card__risco-meta"><?=wp_date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
                             <h3 class="post-card__title">
@@ -99,9 +99,6 @@ $get_riscos = get_riscos_by_status( $sectios_tabs[ $tipo_risco ][ 'post_status' 
                             <?php if( $sectios_tabs[ $tipo_risco ][ 'tipo_risco' ] == 'publicados' ) : ?>
                                 <div class="post-card__assets is-slider-thumb">
                                     <?php $get_attachments = get_attached_media('', get_the_ID() );
-//                                    echo '<pre>';
-//                                    print_r( count( $get_attachments ) );
-//                                    echo '</pre>';
                                     if( !empty( $get_attachments ) ) :
                                         foreach ( get_attached_media('', get_the_ID() ) as $attachment ) : ?>
                                             <div class="slider-thumb-item">
@@ -141,6 +138,26 @@ $get_riscos = get_riscos_by_status( $sectios_tabs[ $tipo_risco ][ 'post_status' 
                                     <?php endif; ?>
                                 </div>
                             <?php endif; ?>
+
+                            <ul class="post-card__list-infos">
+                                <?php if( !empty( $pod->field( 'nome_completo' ) ) ) : ?>
+                                    <li>
+                                        <i><iconify-icon icon="bi:person-fill"></iconify-icon></i>
+                                        <span>Nome: <?=$pod->field( 'nome_completo' )?>
+                                        <?php if( !empty( $pod->field( 'telefone' ) ) ) : ?>
+                                            | <?=$pod->field( 'telefone' )?>
+                                        <?php endif; ?>
+                                        </span>
+                                    </li>
+                                <?php endif; ?>
+                                <?php if( !empty( $pod->field( 'email' ) ) ) : ?>
+                                    <li>
+                                        <i><iconify-icon icon="bi:envelope-fill"></iconify-icon></i>
+                                        <span>E-mail: <?=$pod->field( 'email' )?></span>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+
                             <div class="post-card__see-more">
                                 <div></div>
                                 <div>
