@@ -36,6 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let updateMarker = null;
+    let updateAddress = null;
+    let editedEndereco = '';
 
     function showSnackbar(message) {
         const overlay = document.getElementById('snackbar-overlay');
@@ -419,6 +421,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // GEOLOCALIZAÇÃO P/ ENDEREÇO
     document.querySelector('input[name="endereco"]').addEventListener('change', async (event) => {
+        const nextButton = document.querySelector('.multistepform__1 .multistepform__button-next')
+        nextButton.disabled = true
+
         const { rest_url } = globalThis.hl_form_actions_data
         const address = event.target.value
         const res = await fetch(`${rest_url}/geocoding?address=${encodeURIComponent(address)}`, {
@@ -432,6 +437,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateMarker?.(data.lat, data.lon)
             }
         }
+
+        nextButton.disabled = false
     })
 
     async function submitData(data) {
