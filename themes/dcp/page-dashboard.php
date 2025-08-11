@@ -121,16 +121,14 @@ namespace hacklabr\dashboard;
 
                         <?php if( wp_is_mobile() ) : ?>
 
-                            <li class="">
-                                <a href="<?= get_dashboard_url('conta') ?>">
-                                    <iconify-icon icon="bi:person-circle"></iconify-icon>
+                            <li style="border: none;">
+                                <a href="<?= get_dashboard_url('conta') ?>" style="padding-top: 36px; padding-bottom: 5px;">
                                     <span>Conta</span>
                                 </a>
                             </li>
 
-                            <li class="">
+                            <li style="border: none;">
                                 <a href="<?= get_dashboard_url('ajuda') ?>">
-                                    <iconify-icon icon="bi:question-circle"></iconify-icon>
                                     <span>Ajuda</span>
                                 </a>
                             </li>

@@ -2,6 +2,49 @@
 
 namespace hacklabr\dashboard;
 
+$taxonomia = 'tipo_apoio';
+$termo_selecionado = $_GET['tipo'] ?? '';
+if( empty( $termo_selecionado ) ) $termo_selecionado = 'locais-seguros';
+$termos = get_terms([
+    'taxonomy'   => $taxonomia,
+    'hide_empty' => false,
+    'parent'     => 0,
+]);
+
+usort($termos, function ($a, $b) {
+    if ($a->slug === 'locais-seguros') return -1;
+    if ($b->slug === 'locais-seguros') return 1;
+    return 0;
+});
+
+$sectios_tabs = [
+    'locais-seguros' => [
+        'name' => 'Locais seguros',
+        'tipo' => 'locais-seguros',
+        'notification' => false
+    ],
+    'cacambas' => [
+        'name' => 'Caçambas',
+        'tipo' => 'cacambas',
+        'notification' => false
+    ],
+    'iniciativas-locais' => [
+        'name' => 'Iniciativas Locais',
+        'tipo' => 'iniciativas-locais',
+        'notification' => false
+    ],
+    'quem-acionar' => [
+        'name' => 'Quem Acionar',
+        'tipo' => 'quem-acionar',
+        'notification' => false
+    ],
+    'arquivados' => [
+        'name' => 'Arquivados',
+        'tipo' => 'arquivados',
+        'notification' => false
+    ]
+];
+
 ?>
 <div id="dashboardApoio" class="dashboard-content">
     <div class="apoio__container">
@@ -21,50 +64,33 @@ namespace hacklabr\dashboard;
                 </a>
             </div>
         </div>
+        <div class="dashboard-content-tabs tabs">
+            <div class="tabs__header" style="margin: 0 0 20px 0;">
+                <div class="tabs__header-wrap">
+                    <?php foreach ( $sectios_tabs as $tab ) : ?>
+                        <a href="<?=get_dashboard_url( 'apoio', [ 'tipo' => $tab[ 'tipo' ] ] )?>"
+                           class="<?=( $termo_selecionado == $tab[ 'tipo' ] ) ? 'is-active' : ''?> <?=( $tab[ 'notification' ] ) ? 'is-notification' : ''?>">
+                            <?php switch ( $tab[ 'tipo' ] ) {
+                                case 'locais-seguros':
+                                case 'cacambas':
+                                    echo '<iconify-icon icon="bi:geo-alt-fill"></iconify-icon>';
+                                    break;
+                                case 'iniciativas-locais':
+                                case 'quem-acionar':
+                                    echo '<iconify-icon icon="bi:text-left"></iconify-icon>';
+                                    break;
+                                case 'arquivados':
+                                    echo '<iconify-icon icon="bi:x-octagon-fill"></iconify-icon>';
+                                    break;
+                            } ?>
+                            <?=$tab[ 'name' ]?>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
 
         <div class="apoio__content">
-            <?php
-            $taxonomia = 'tipo_apoio';
-            $termo_selecionado = $_GET['tipo'] ?? '';
-            $termos = get_terms([
-                'taxonomy'   => $taxonomia,
-                'hide_empty' => false,
-                'parent'     => 0,
-            ]);
-
-            usort($termos, function ($a, $b) {
-                if ($a->slug === 'locais-seguros') return -1;
-                if ($b->slug === 'locais-seguros') return 1;
-                return 0;
-            });
-            ?>
-
-            <div class="apoio__tabs">
-                <?php foreach ($termos as $termo):
-                    $ativo = ($termo_selecionado === $termo->slug || (!$termo_selecionado && $termo === reset($termos))) ? 'ativo' : ''; ?>
-                    <a href="?tipo=<?= esc_attr($termo->slug) ?>"
-                        class="apoio__tab <?= $ativo ?>">
-                        <?php switch ( $termo->slug ) {
-                            case 'locais-seguros':
-                            case 'cacambas':
-                                echo '<iconify-icon icon="bi:geo-alt-fill"></iconify-icon>';
-                                break;
-                            case 'iniciativas-locais':
-                            case 'quem-acionar':
-                                echo '<iconify-icon icon="bi:text-left"></iconify-icon>';
-                                break;
-                        } ?>
-                        <?= esc_html($termo->name) ?>
-                    </a>
-                <?php endforeach; ?>
-
-                <?php $ativo_arquivados = ($termo_selecionado === 'arquivados') ? 'ativo' : ''; ?>
-                <a href="?tipo=arquivados" class="apoio__tab <?= $ativo_arquivados ?>">
-                    <iconify-icon icon="bi:x-octagon-fill"></iconify-icon>
-                    Arquivados
-                </a>
-            </div>
-
             <div class="apoio__grid">
                 <?php
                 $classes_cards = 'apoio__cards';

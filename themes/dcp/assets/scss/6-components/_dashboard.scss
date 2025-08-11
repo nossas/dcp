@@ -524,6 +524,12 @@
                     margin: 0;
                     overflow: hidden;
                     position: relative;
+                    scrollbar-width: none;
+                    -ms-overflow-style: none;
+
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
 
                     @include mobile {
                         width: 100%;
@@ -616,7 +622,7 @@
                             border-radius: 10px;
                             position: absolute;
                             top: calc( 50% - 5px );
-                            right: 1px;
+                            right: 8px;
                         }
                     }
                 }

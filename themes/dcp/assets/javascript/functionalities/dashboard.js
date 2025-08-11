@@ -78,7 +78,6 @@ jQuery(function($) {
                 break;
         }
     }
-
     function gelocation_onblur_address( $this ) {
 
         $.ajax({
@@ -120,107 +119,119 @@ jQuery(function($) {
         });
 
     }
+    // TODO: COMPONENT
+    function custom_modal_confirm(options) {
+        const {
+            title,
+            description,
+            error = null,
+            cancelText = 'Fechar',
+            confirmText = 'Confirmar',
+            customConfirmText,
+            onCancel,
+            onConfirm,
+            onCustomConfirm
+        } = options;
+
+        const $modal = $('.modal-confirm');
+
+        // Preenche os conteúdos dinâmicos
+        $modal.find('h3').text(title);
+        $modal.find('.is-body p').html(description);
+        $modal.find('.is-error').html( '' );
+        $modal.find('.is-confirm span').text(confirmText);
+
+        if( cancelText ) {
+            $modal.find('.is-cancel').text(cancelText).show();
+        } else {
+            $modal.find('.is-cancel').text('').hide();
+        }
+
+        if( error ) {
+            $modal.find('.is-error').html( error ).show();
+        } else {
+            $modal.find('.is-error').html( '' ).hide();
+        }
+
+        // Configura botão customizado (se fornecido)
+        const $customBtn = $modal.find('.is-custom');
+        if (customConfirmText) {
+            $customBtn.text(customConfirmText).show();
+        } else {
+            $customBtn.hide();
+        }
+
+        // Remove eventos anteriores
+        $modal.off('click', '.is-close, .is-cancel');
+        $modal.off('click', '.is-confirm');
+        $modal.off('click', '.is-custom');
+        $(document).off('keyup.modal');
+
+        // Evento de fechamento (cancelar)
+        $modal.on('click', '.is-close, .is-cancel', function() {
+            _modal_confirm_close();
+            if (typeof onCancel === 'function') onCancel();
+        });
+
+        // Evento de confirmação principal
+        $modal.on('click', '.is-confirm', function() {
+            _modal_confirm_close();
+            if (typeof onConfirm === 'function') onConfirm();
+        });
+
+        // Evento de confirmação customizada
+        if (customConfirmText) {
+            $modal.on('click', '.is-custom', function() {
+                _modal_confirm_close();
+                if (typeof onCustomConfirm === 'function') onCustomConfirm();
+            });
+        }
+
+        // Fechar com ESC
+        $(document).on('keyup.modal', function(e) {
+            if (e.key === 'Escape') {
+                _modal_confirm_close();
+                if (typeof onCancel === 'function') onCancel();
+            }
+        });
+
+        // Mostrar modal
+        $modal.fadeIn(200);
+    }
+    function _modal_confirm_close() {
+        $('.modal-confirm').fadeOut(200);
+    }
+    // TODO: COMPONENT
+    function ajustarTabs() {
+        const $tabsHeader = $('.tabs__header');
+        if (!$tabsHeader.length) return;
+
+        const $wrap = $tabsHeader.find('.tabs__header-wrap');
+        const $links = $wrap.find('a');
+
+        let totalWidth = 0;
+        $links.each(function () {
+            totalWidth += ( $(this).outerWidth(true) + 5 );
+        });
+
+        $wrap.css('width', totalWidth);
+
+        const $active = $links.filter('.is-active');
+        if ($active.length) {
+            $tabsHeader.scrollLeft($active.position().left);
+        }
+    }
+    function debounce(func, delay) {
+        let timeout;
+        return function () {
+            clearTimeout(timeout);
+            timeout = setTimeout(func, delay);
+        };
+    }
 
     $( document ).ready( function() {
 
-        // TODO: COMPONENT
-        function custom_modal_confirm(options) {
-            const {
-                title,
-                description,
-                error = null,
-                cancelText = 'Fechar',
-                confirmText = 'Confirmar',
-                customConfirmText,
-                onCancel,
-                onConfirm,
-                onCustomConfirm
-            } = options;
-
-            const $modal = $('.modal-confirm');
-
-            // Preenche os conteúdos dinâmicos
-            $modal.find('h3').text(title);
-            $modal.find('.is-body p').html(description);
-            $modal.find('.is-error').html( '' );
-            $modal.find('.is-confirm span').text(confirmText);
-
-            if( cancelText ) {
-                $modal.find('.is-cancel').text(cancelText).show();
-            } else {
-                $modal.find('.is-cancel').text('').hide();
-            }
-
-            if( error ) {
-                $modal.find('.is-error').html( error ).show();
-            } else {
-                $modal.find('.is-error').html( '' ).hide();
-            }
-
-            // Configura botão customizado (se fornecido)
-            const $customBtn = $modal.find('.is-custom');
-            if (customConfirmText) {
-                $customBtn.text(customConfirmText).show();
-            } else {
-                $customBtn.hide();
-            }
-
-            // Remove eventos anteriores
-            $modal.off('click', '.is-close, .is-cancel');
-            $modal.off('click', '.is-confirm');
-            $modal.off('click', '.is-custom');
-            $(document).off('keyup.modal');
-
-            // Evento de fechamento (cancelar)
-            $modal.on('click', '.is-close, .is-cancel', function() {
-                _modal_confirm_close();
-                if (typeof onCancel === 'function') onCancel();
-            });
-
-            // Evento de confirmação principal
-            $modal.on('click', '.is-confirm', function() {
-                _modal_confirm_close();
-                if (typeof onConfirm === 'function') onConfirm();
-            });
-
-            // Evento de confirmação customizada
-            if (customConfirmText) {
-                $modal.on('click', '.is-custom', function() {
-                    _modal_confirm_close();
-                    if (typeof onCustomConfirm === 'function') onCustomConfirm();
-                });
-            }
-
-            // Fechar com ESC
-            $(document).on('keyup.modal', function(e) {
-                if (e.key === 'Escape') {
-                    _modal_confirm_close();
-                    if (typeof onCancel === 'function') onCancel();
-                }
-            });
-
-            // Mostrar modal
-            $modal.fadeIn(200);
-        }
-
-        function _modal_confirm_close() {
-            $('.modal-confirm').fadeOut(200);
-        }
-        // TODO: COMPONENT
-
-        // TABS
-        if( $( '.tabs__header' ).length ) {
-            let total_width = 0
-            $( '.tabs__header .tabs__header-wrap a' ).each(function () {
-                total_width += ( $( this ).innerWidth() + 5 );
-            });
-            $( '.tabs__header .tabs__header-wrap' ).css({
-                width : total_width
-            });
-
-            $( '.tabs__header' ).scrollLeft( $( '.tabs__header .tabs__header-wrap a.is-active' ).position().left );
-        }
-
+        ajustarTabs();
 
         // DASHBOARD GERAL
         $( '.dashboard-content-cards .post-card__excerpt-wrapped .read-more' ).on('click', function() {
@@ -831,6 +842,7 @@ jQuery(function($) {
     $( window ).on( 'beforeunload', function () {
         $( '.loading-global' ).fadeIn( 400 );
     });
+    $(window).on( 'resize', debounce( ajustarTabs, 100 ));
 });
 
 document.addEventListener('DOMContentLoaded', function () {
