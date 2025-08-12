@@ -257,6 +257,7 @@ jQuery(function($) {
         $( '.dashboard-content-cards .post-card__excerpt-wrapped .read-more' ).on('click', function() {
             const $this = $( this );
             $this.hide();
+            $this.parent().find( '.read-more-etc' ).hide();
             $this.parent().find( '.read-more-full' ).show();
         })
         $( 'img' ).each( function () {
