@@ -823,11 +823,11 @@
                             font-size: size( 14 );
                             line-height: size( 15 );
                             padding-bottom: size( 15 );
-                            display: -webkit-box;
-                            -webkit-line-clamp: 4; /* Número de linhas */
-                            -webkit-box-orient: vertical;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
+                            //display: -webkit-box;
+                            //-webkit-line-clamp: 4;
+                            //-webkit-box-orient: vertical;
+                            //overflow: hidden;
+                            //text-overflow: ellipsis;
                             position: relative;
 
                             @include mobile {
