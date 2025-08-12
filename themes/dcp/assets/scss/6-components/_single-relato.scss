@@ -200,33 +200,69 @@
                 }
             }
         }
-        &__tags{
+        &__tags {
             align-items: center;
             margin-top: $margin--medium;
             margin-bottom: 34px;
             gap: $gap--medium;
             color: $color--secondary-light;
-            @include mobile{
+
+            // Ajuste para pegar a classe .tag--educacao e similares
+            .tag {
+               margin-bottom: 8px;
+                background-repeat: no-repeat;
+                background-position: 8px center; // Ícone 8px da esquerda
+                background-size: 16px;
+                padding: 2px 14px 0px 34px;
+                border-radius: 16px;
+                border-color: unset;
+                font-size: 14px;
+                @include mobile {
+                    font-size: 12px;
+                }
+
+                &.tag--educacao {
+                    background-image: url('/wp-content/themes/dcp/assets/images/educacao.svg');
+                    background-color: #50B15C;
+                }
+
+                &.tag--limpeza {
+                    background-image: url('/wp-content/themes/dcp/assets/images/limpeza.png');
+                    background-color: #235540;
+                    color: #F9F3EA;
+                }
+
+                &.tag--reparos {
+                    background-image: url('/wp-content/themes/dcp/assets/images/hammer-thor.svg');
+                    background-color: #51B2AF;
+                }
+
+                &.tag--cultura {
+                    background-image: url('/wp-content/themes/dcp/assets/images/microfone.svg');
+                    background-color: #B83D13;
+                    color: #F9F3EA;
+                }
+
+                &.tag--incidencia {
+                    background-image: url('/wp-content/themes/dcp/assets/images/incidencia.svg');
+                    background-color: #FFB300;
+                }
+
+                &.tag--solidariedade {
+                    background-image: url('/wp-content/themes/dcp/assets/images/solidarie.svg');
+                    background-color: #FC7753;
+                }
+            }
+
+            @include mobile {
                 justify-content: flex-start;
                 margin-bottom: $margin--medium;
-
             }
-        .tag {
-            padding: 4px 16px !important;
-            display: flex;
-            font-size: 14px;
-            border: solid 1px $color--primary-pure;
-            background-color: $color--primary-pure;
-            align-items: center;
-            @include mobile {
-                font-size: 12px;
+
+            .post-header__date {
+                font-size: 18px;
             }
         }
-        .post-header__date {
-            font-size: 18px;
-        }
-
-    }
 }
 .anexos-slider {
     width: 100%;

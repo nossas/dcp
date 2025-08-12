@@ -44,15 +44,14 @@ if (!empty($termos_tipo_acao) && !is_wp_error($termos_tipo_acao)) {
     <?php if (!empty($termo)) : ?>
         <div class="post-header__tags">
             <a class="tag tag--<?= esc_attr($termo->slug) ?>" href="<?= esc_url(get_term_link($termo)) ?>">
-                <iconify-icon icon="bi:mic-fill"></iconify-icon>
                 <?= esc_html($termo->name) ?>
             </a>
             <p class="post-header__date">
-                <?=date( 'd', strtotime( $pods->field( 'data_e_horario' ) ) )?>
+                <?= date('d', strtotime($pods->field('data_e_horario'))) ?>
                 de
-                <?=date( 'F', strtotime( $pods->field( 'data_e_horario' ) ) )?>
+                <?= date('F', strtotime($pods->field('data_e_horario'))) ?>
                 de
-                <?=date( 'Y', strtotime( $pods->field( 'data_e_horario' ) ) )?>
+                <?= date('Y', strtotime($pods->field('data_e_horario'))) ?>
             </p>
         </div>
     <?php endif; ?>
