@@ -503,6 +503,12 @@ class Assets
                     return dashboard\is_dashboard();
                 },
             ],
+            'dashboard-form' => [
+                'file' => 'dashboard-form.js',
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
+            ],
             'dashboard-single' => [
                 'file' => 'dashboard-single.js',
                 'preload_callback' => function () {
