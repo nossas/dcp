@@ -39,6 +39,18 @@
         .dashboard-content-cards {
 
             .post-card {
+
+                &.is-sugestao,
+                &.is-agendadas,
+                &.is-realizadas,
+                &.is-arquivadas {
+                    height: size( 340 ) !important;
+                }
+
+                &.is-relatos {
+                    height: size( 530 ) !important;
+                }
+
                 &__term {
                     display: flex;
                     justify-content: space-between;
@@ -48,10 +60,25 @@
                 }
             }
 
-            .post-card.is-relatos {
-                .post-card__content {
-                    max-height: 575px;
+            &__see-more {
+                position: absolute;
+                width: 100%;
+                bottom: 6px;
+                @include mobile {
+                    display: block;
+                    justify-content: initial;
+                    align-items: initial;
                 }
+
+                .button {
+                    @include mobile {
+                        text-align: center;
+                        display: block;
+                    }
+                }
+            }
+
+            .post-card.is-relatos {
                 .post-card__list-infos {
                     &::before {
                         display: none;

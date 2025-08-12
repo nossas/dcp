@@ -140,7 +140,7 @@ namespace hacklabr\dashboard;
                                         <i><iconify-icon icon="bi:person-fill"></iconify-icon></i>
                                         <span>Nome: <?=$pod->field( 'nome_completo' )?>
                                         <?php if( !empty( $pod->field( 'telefone' ) ) ) : ?>
-                                            | <?=$pod->field( 'telefone' )?>
+                                            | <?=formatarTelefoneBR( $pod->field( 'telefone' ) )?>
                                         <?php endif; ?>
                                         </span>
                                     </li>

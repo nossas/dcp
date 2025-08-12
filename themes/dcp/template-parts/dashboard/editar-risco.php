@@ -191,7 +191,7 @@ namespace hacklabr\dashboard;
                     <div class="fields">
                         <div class="input-wrap">
                             <label class="label">Telefone</label>
-                            <input class="input" type="text" name="telefone" placeholder="Digite o telefone aqui" value="<?=$pod->field('telefone')?>" readonly required>
+                            <input class="input" type="text" name="telefone" placeholder="Digite o telefone aqui" value="<?=formatarTelefoneBR( $pod->field( 'telefone' ) )?>" readonly required>
                             <a class="button is-edit-input">
                                 <iconify-icon icon="bi:pencil-square"></iconify-icon>
                             </a>

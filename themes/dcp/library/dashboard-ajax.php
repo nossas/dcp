@@ -31,7 +31,7 @@ function download_participantes_acao() {
         fputcsv($output, [
             $item->ID,
             $pod->field( 'nome_completo' ),
-            $pod->field( 'telefone' ),
+            formatarTelefoneBR( $pod->field( 'telefone' ) ),
             $pod->field( 'email' ),
             $pod->field( 'data_e_horario' )
         ]);
@@ -62,7 +62,7 @@ function form_participar_acao() {
         'meta_input' => [
             'nome_completo' => sanitize_text_field($_POST['nome_completo']),
             'email' => sanitize_text_field($_POST['email']),
-            'telefone' => sanitize_text_field($_POST['telefone']),
+            'telefone' => sanitize_text_field( limparTelefone( $_POST[ 'telefone' ] ) ),
             'aceite_termos' => sanitize_text_field($_POST['aceite_termos']),
             'data_e_horario' => date('Y-m-d H:i:s'),
             'ip_address' => $_SERVER[ 'REMOTE_ADDR' ],
@@ -133,7 +133,7 @@ function form_single_apoio_new() {
             'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
             'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
             'horario_de_atendimento' => sanitize_text_field( $_POST[ 'horario_de_atendimento' ] ),
-            'telefone' => sanitize_text_field($_POST['telefone']),
+            'telefone' => sanitize_text_field( limparTelefone( $_POST[ 'telefone' ] ) ),
             'website' => sanitize_text_field($_POST['site']),
             'info_extra' => sanitize_text_field($_POST['observacoes']),
             'data_e_horario' => date( 'Y-m-d H:i:s' ),
@@ -226,7 +226,7 @@ function form_single_apoio_edit() {
             'longitude' => $longitude,
             'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
             'horario_de_atendimento' => sanitize_text_field( $_POST[ 'horario_de_atendimento' ] ),
-            'telefone' => sanitize_text_field($_POST['telefone']),
+            'telefone' => sanitize_text_field( limparTelefone( $_POST[ 'telefone' ] ) ),
             'website' => sanitize_text_field($_POST['site']),
             'info_extra' => sanitize_text_field($_POST['observacoes']),
             'data_e_horario' => date( 'Y-m-d H:i:s' ),
@@ -485,7 +485,7 @@ function form_single_acao_new() {
             'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
             'nome_completo' => $nome_completo,
             'email' => $email,
-            'telefone' => sanitize_text_field($_POST['telefone']),
+            'telefone' => sanitize_text_field( limparTelefone( $_POST[ 'telefone' ] ) ),
             'autoriza_contato' => sanitize_text_field($_POST['autoriza_contato']),
             'data_e_horario' => $data_e_horario,
         ]
@@ -679,7 +679,7 @@ function form_single_risco_new() {
                 'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
                 'nome_completo' => $nome_completo,
                 'email' => $email,
-                'telefone' => sanitize_text_field( $_POST[ 'telefone' ] ),
+                'telefone' => sanitize_text_field( limparTelefone( $_POST[ 'telefone' ] ) ),
                 'autoriza_contato' => sanitize_text_field( $_POST[ 'autoriza_contato' ] ),
                 'data_e_horario' => date('Y-m-d H:i:s'),
                 'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
@@ -775,7 +775,7 @@ function form_single_risco_edit() {
         'meta_input' => [
             'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
             'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
-            'telefone' => sanitize_text_field( $_POST[ 'telefone' ] ),
+            'telefone' => sanitize_text_field( limparTelefone( $_POST[ 'telefone' ] ) ),
             'latitude' => $latitude,
             'longitude' => $longitude,
             'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),

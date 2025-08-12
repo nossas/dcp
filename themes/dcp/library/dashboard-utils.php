@@ -1,5 +1,18 @@
 <?php
 
+function formatarTelefoneBR($telefone) {
+    $telefone = preg_replace('/\D/', '', $telefone);
+    if (strlen($telefone) === 11) {
+        return preg_replace('/(\d{2})(\d{5})(\d{4})/', '($1) $2-$3', $telefone);
+    }
+    elseif (strlen($telefone) === 10) {
+        return preg_replace('/(\d{2})(\d{4})(\d{4})/', '($1) $2-$3', $telefone);
+    }
+    return $telefone;
+}
+function limparTelefone($telefone) {
+    return preg_replace('/\D/', '', $telefone);
+}
 function risco_badge_category( $slug = 'default', $label = 'CATEGORIA GERAL', $class = 'post-card__taxonomia term-alagamento' ) {
 
     //TODO:  REFATORY P/ COMPONENTE (MELHOR LÓGICA)
@@ -158,7 +171,7 @@ function wpcf7_form_sugestao_acao( $contact_form ) {
                 'titulo' => 'WEBSITE / SUGESTÃO DE AÇÃO ' . date('Y-m-d H:i:s'),
                 'endereco' => isset($posted_data['endereco']) ? $posted_data['endereco'] : 'ENDEREÇO VAZIO',
                 'nome_completo' => isset($posted_data['nome-completo']) ? $posted_data['nome-completo'] : 'NOME COMPLETO VAZIO',
-                'telefone' => isset($posted_data['telefone']) ? $posted_data['telefone'] : 'TELEFONE VAZIO',
+                'telefone' => isset($posted_data['telefone']) ? limparTelefone( $posted_data['telefone'] ) : 'TELEFONE VAZIO',
                 'categoria' => isset($posted_data['categoria']) ? $posted_data['categoria'] : 'CATEGORIA VAZIA',
                 'descricao' => 'SUGESTÃO / IDÉIA : '. isset($posted_data['descricao']) ? $posted_data['descricao'] : 'DESCRIÇÃO VAZIA',
                 'data_e_horario' => date('Y-m-d H:i:s')

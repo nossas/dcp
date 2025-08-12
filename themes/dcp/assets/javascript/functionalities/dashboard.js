@@ -12,6 +12,26 @@ function formatFileSize(bytes) {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
+function handlePhoneInput(event) {
+    const input = event.target;
+    let value = input.value.replace(/\D/g, '');
+
+    value = value.substring(0, 11);
+
+    if (value.length > 10) {
+        value = value.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    } else if (value.length > 6) {
+        value = value.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+    } else if (value.length > 2) {
+        value = value.replace(/^(\d{2})(\d*)/, '($1) $2');
+    } else {
+        if (value.length > 0) {
+            value = value.replace(/^(\d*)/, '($1');
+        }
+    }
+
+    input.value = value;
+}
 
 // TODO: COMPORTAMENTO MOCK jQUERY
 jQuery(function($) {
@@ -510,7 +530,6 @@ jQuery(function($) {
 
                         } else
                         {
-
                             custom_modal_confirm({
                                 title: response.data.title,
                                 description: response.data.message,
@@ -525,9 +544,7 @@ jQuery(function($) {
 
                                 }
                             });
-
                         }
-
 
                     } else {
                         custom_modal_confirm({
@@ -560,7 +577,6 @@ jQuery(function($) {
                             window.location.reload();
                         }
                     });
-
                 });
         });
 
@@ -847,6 +863,12 @@ jQuery(function($) {
 
 document.addEventListener('DOMContentLoaded', function () {
     console.log( 'DOCUMENT LOADED' );
+
+    const phoneInput = document.querySelector('input[name="telefone"]');
+    if (phoneInput) {
+        phoneInput.addEventListener('input', handlePhoneInput);
+    }
+
     document.body.addEventListener("wheel", function(event) {
         if (event.deltaY < 0) {
             document.body.classList.add( 'is-scrolling-up' );
