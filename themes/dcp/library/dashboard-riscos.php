@@ -1,23 +1,5 @@
 <?php
 
-function get_posts_riscos( $args = [ 'post_status' => 'publish' ] ) {
-
-//    $args['post_type'] = 'risco';
-//    $args['posts_per_page'] = -1;
-//    //$args['posts_per_page'] = 10;
-//    $args['orderby'] = 'date';
-//    $args['order'] = 'DESC';
-
-    //$args['post_status'] = 'publish';
-    //$args['post_status'] = 'draft';
-    //$args['post_status'] = 'pending';
-    //$args['post_status'] = 'future';
-    //$args['post_status'] = 'private';
-
-    wp_die( 'get_posts_riscos : DIE TO DEPRECATED' );
-    //return new WP_Query( $args );
-}
-
 function get_riscos_by_status( $status, $page = 1, $limit = 6 ) {
 
     $query = new WP_Query([

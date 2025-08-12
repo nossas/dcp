@@ -105,6 +105,12 @@ namespace hacklabr\dashboard;
                 </div>
             </div>
         </div>
+
+        <pre>
+            <?php print_r( indicadores_riscos( ) ); ?>
+            <?php print_r( indicadores_acoes( ) ); ?>
+            <?php print_r( indicadores_apoio( ) ); ?>
+        </pre>
     </div>
 </div>
 
