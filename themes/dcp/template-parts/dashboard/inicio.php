@@ -128,7 +128,6 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                                 while( $get_riscos[ 'posts' ]->have_posts() ) :
                                     $get_riscos[ 'posts' ]->the_post();
                                     $pod = pods( 'risco', get_the_ID() ); ?>
-
                                     <article class="post-card is-draft" style="display: none;">
                                         <main class="post-card__content">
                                             <div class="post-card__term">
@@ -147,21 +146,7 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                                             </h3>
                                             <div class="post-card__excerpt-wrapped">
                                                 <p class="text-excerpt">
-                                                    <?php
-
-                                                    //TODO: REFACTORY P/ UTILS
-                                                    $descricao = $pod->field( 'descricao' );
-
-                                                    if ( strlen( $descricao ) <= 125 ) {
-                                                        echo $descricao;
-                                                    } else {
-                                                        echo substr( $descricao, 0, 125 ) . '<a class="read-more" href="#/">Ver mais</a>';
-                                                        echo '<span class="read-more-full">' . substr( $descricao, 125 ) . '</span>';
-                                                    }
-                                                    //TODO: REFACTORY P/ UTILS
-
-                                                    ?>
-
+                                                    <?php dashboard_excerpt( wp_unslash($pod->field( 'descricao' )) ); ?>
                                                 </p>
                                             </div>
                                             <div class="post-card__see-more">
@@ -175,15 +160,12 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                                             </div>
                                         </main>
                                     </article>
-
                                 <?php endwhile;
 
                             else : ?>
-
                                 <div class="message-response">
                                     <span class="tabs__panel-message">Nenhum risco foi publicado ainda.</span>
                                 </div>
-
                             <?php endif; ?>
 
                         </div>

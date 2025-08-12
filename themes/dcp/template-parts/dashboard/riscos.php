@@ -97,7 +97,7 @@ namespace hacklabr\dashboard;
                             </h3>
                             <div class="post-card__excerpt-wrapped">
                                 <p class="text-excerpt">
-                                    <?php dashboard_excerpt( $pod->field( 'descricao' ) ); ?>
+                                    <?php dashboard_excerpt( wp_unslash($pod->field( 'descricao' )) ); ?>
                                 </p>
                             </div>
                             <?php if( $sectios_tabs[ $tipo_risco ][ 'tipo_risco' ] == 'publicados' ) : ?>

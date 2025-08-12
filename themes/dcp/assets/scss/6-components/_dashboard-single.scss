@@ -29,13 +29,10 @@
     .dashboard-content-single {
         position: relative;
 
-        @include mobile {
-            padding: 0 size( 15 );
-            margin-bottom: size(20);
-        }
+        @include mobile {}
         @include tablet {
             padding: 0 size( 20 );
-            margin-bottom: size(23);
+            margin-bottom: size(5);
         }
         @include desktop {
             padding: 0 size( 30 );
@@ -61,6 +58,13 @@
                 justify-content: space-between;
                 gap: 25px;
                 margin-bottom: size( 30 );
+
+                @include mobile {
+                    margin-bottom: size( 20 );
+                }
+                @include tablet {
+                    margin-bottom: size( 20 );
+                }
 
                 a.button.is-download {
                     background-color: transparent;
@@ -177,7 +181,7 @@
 
                             .chips {
                                 font-size: size( 13 );
-                                color: $color--secondary-light;
+                                color: $color--secondary-dark;
                                 background-color: $color--secondary-dark;
                                 padding: size( 5 ) size( 10 );
                                 border-radius: size( 10 );
@@ -305,7 +309,7 @@
                     color: $color--secondary-dark;
                     display: block;
                     width: 61%;
-                    padding: size( 15 ) size( 20 );
+                    padding: size( 15 ) size( 15 );
                     margin:  size( 25 ) 0  size( 25 );
                     border-radius: size( 15 );
                     border: dotted 2px #C9C6C5;
@@ -316,9 +320,11 @@
 
                     @include mobile {
                         width: 100%;
+                        margin: 0;
                     }
                     @include tablet {
                         width: 100%;
+                        margin: 0;
                     }
 
                     .input-media-uploader {
@@ -337,6 +343,11 @@
                             display: flex !important;
                             justify-content: space-between !important;
                             gap: 10px !important;
+                            margin-bottom: size( 10 );
+
+                            .input-help {
+                                width: 50px !important;
+                            }
                         }
 
                         h3 {
@@ -346,6 +357,10 @@
                             font-size: size( 12 );
                             padding: size( 7 ) size( 15 );
                             opacity: 0.7;
+
+                            @include mobile {
+                                padding: size( 7 ) size( 10 );
+                            }
                         }
 
                         .input-media-uploader-files {
@@ -374,21 +389,19 @@
                                 color: $color--secondary-dark;
                                 text-decoration: none;
                                 height: size( 45 );
-                                line-height: size( 30 );
+                                line-height: size( 35 );
                                 padding: size( 5 ) size( 20 );
                                 border: solid 1.5px $color--secondary-dark;
                                 border-radius: size( 50 );
                                 display: inline-block;
                                 position: relative;
                                 z-index: 2;
-
                                 @include mobile {
                                     text-align: center;
                                     display: block;
                                     width: 100%;
                                     margin-top: size( 25 );
                                 }
-
                                 &:hover {
                                     background-color: $color--secondary-dark;
                                     color: $color--secondary-light;
@@ -483,7 +496,7 @@
 
                             h4 {
                                 font-size: size( 11 );
-                                padding: size( 5 ) size( 25 );
+                                padding: size( 5 ) size( 10 );
                             }
 
                             .dashboard-content-skeleton {
@@ -524,33 +537,22 @@
                                     transition: all 0.4s 0s ease;
 
                                     @include mobile {
-                                        width: 45%;
-                                        height: size( 125 );
+                                        width: calc( 50% - 13px );
+                                        height: size( 155 );
+                                        margin: 8px 5px;
                                     }
 
-                                    video {
-                                        display: block;
-                                        width: auto;
-                                        max-width: initial;
-                                        height: size( 175 );
-                                    }
+                                    video,
                                     img {
                                         display: block;
                                         width: auto;
+                                        max-width: initial;
+                                        height: size( 185 );
                                         position: absolute;
                                         top: 50%;
                                         left: 50%;
                                         transform: scale( 1.4 ) translate( -50%, -50% );
                                     }
-
-                                    iframe {}
-                                    audio {}
-                                    object {}
-                                    embed {}
-                                    source {}
-                                    track {}
-                                    canvas {}
-                                    map {}
 
                                     .button {
                                         background-color: #FFF;
@@ -583,13 +585,14 @@
                                         position: absolute;
                                         top: 0;
                                         left: 0;
-                                        opacity: 0;
+                                        opacity: 1;
                                         transition: all 0.6s 0.1s ease;
                                         z-index: 2;
 
                                         .button {
                                             font-size: size( 13 );
                                             z-index: 1;
+                                            opacity: 0;
                                         }
 
                                         .button.is-fullscreen {
@@ -597,6 +600,7 @@
                                             color: #FFF;
                                             top: size( 10 );
                                             right: size( 10 );
+                                            opacity: 1;
                                         }
                                         .button.is-delete {
                                             background-color: $color--warning-dark;
@@ -612,7 +616,6 @@
                                             bottom: size( 10 );
                                             left: size( 110 );
                                             cursor: not-allowed;
-                                            opacity: 0.5 !important;
                                         }
                                     }
 

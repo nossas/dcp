@@ -282,13 +282,10 @@
         position: relative;
         transition: all 0.5s 0s ease;
 
-        @include mobile {
-            padding-top: size( 145 );
-            padding-bottom: size( 125 );
-        }
+        @include mobile { }
         @include tablet {
             padding-top: size( 95 );
-            padding-bottom: size( 75 );
+            padding-bottom: size( 5 );
         }
         @include desktop {
             padding-top: size( 50 );
@@ -748,8 +745,12 @@
                     &__term {
                         padding: size( 10 ) size( 20 );
 
+                        iconify-icon {
+                            font-size: size( 14 );
+                        }
+
                         span {
-                            font-size: size( 13 );
+                            font-size: size( 14 );
                             display: inline-block;
                             width: auto;
                             max-width: initial;
@@ -771,18 +772,15 @@
                         span.is-outros {
                             background-color: $color--high-dark;
                         }
-
                         span.is-default,
                         span.is-sem-categoria {
                             background-color: $color--secondary-dark;
                             opacity: 0.5;
                             cursor: not-allowed;
                         }
-
                         div {
                             padding: size( 10 ) 0;
                         }
-
                         .post-card__risco-meta {
                             font-size: size( 18 );
                             color: #484646;
@@ -892,6 +890,7 @@
                                 height: 30px;
                                 color: #333;
                                 border-radius: 25px;
+                                top: 55%;
                                 &::after {
                                     font-size: 15px;
                                 }

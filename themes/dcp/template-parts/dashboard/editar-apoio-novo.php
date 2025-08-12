@@ -147,7 +147,7 @@ namespace hacklabr\dashboard;
             <div class="fields is-info-extra" style="display: none;">
                 <div class="input-wrap">
                     <label class="label">Informações extras</label>
-                    <textarea class="textarea" name="info_extra" required readonly><?=$pod->field( 'info_extra' )?></textarea>
+                    <textarea class="textarea" name="info_extra" required readonly><?=wp_unslash($pod->field( 'info_extra' ))?></textarea>
                     <a class="button is-edit-input">
                         <iconify-icon icon="bi:pencil-square"></iconify-icon>
                     </a>
