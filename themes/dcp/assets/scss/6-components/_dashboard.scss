@@ -790,7 +790,7 @@
                     }
                     &__risco-meta {
                         font-weight: 500;
-                        padding: size( 1 ) size( 18 );
+                        padding: size( 8 ) size( 20 ) size( 15 ) size( 20 );
                         opacity: 0.5;
                     }
                     &__title {
@@ -851,9 +851,7 @@
                                     font-size: size( 12 );
                                 }
 
-                                &:hover {
-                                    color: $color--primary-pure;
-                                }
+                                &:hover {}
                             }
 
                             .read-more-full {
@@ -864,61 +862,13 @@
                             }
                         }
                     }
-                    &__list-infos {
-                        list-style: none;
-                        padding: size( 5 ) size( 20 );
-                        margin: 0;
-                        position: relative;
-
-                        &::before {
-                            content: '';
-                            background-color: rgba( 0,0,0,0.2 );
-                            display: block;
-                            width: size( 25 );
-                            height: 2px;
-                            position: absolute;
-                            top: 0;
-                            left: 20px;
-                        }
-
-                        li {
-                            font-size: size( 14 );
-                            color: $color--high-dark;
-                            display: flex;
-                            padding: size( 2 ) 0;
-                            opacity: 0.8;
-                            transition: all 0.4s 0s ease;
-
-                            &:hover {
-                                color: $color--secondary-dark;
-                                opacity: 1;
-                            }
-
-                            i {
-                                display: block;
-                                width: 20px;
-                            }
-                            span {
-                                display: block;
-                                width: calc( 100% - 30px );
-                                padding: 0 size( 10 );
-                                display: -webkit-box;
-                                -webkit-line-clamp: 2;
-                                -webkit-box-orient: vertical;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                            }
-
-                        }
-
-                    }
                     &__assets {
                         background-color: rgba( 0,0,0,0.05 );
                         width: 90%;
                         height: size( 200 );
                         border-radius: size( 15 );
                         padding: 0;
-                        margin: 0 size( 20 ) size( 10 ) size( 20 );
+                        margin: 0 size( 20 ) size( 20 ) size( 20 );
                         overflow: hidden;
                         position: relative;
                         z-index: 1;
@@ -985,14 +935,61 @@
                         }
 
                     }
+                    &__list-infos {
+                        list-style: none;
+                        padding: size( 5 ) size( 20 );
+                        margin: 0;
+                        position: relative;
+
+                        &::before {
+                            content: '';
+                            background-color: rgba( 0,0,0,0.2 );
+                            display: block;
+                            width: size( 25 );
+                            height: 2px;
+                            position: absolute;
+                            top: -5px;
+                            left: 20px;
+                        }
+
+                        li {
+                            font-size: size( 14 );
+                            color: $color--high-dark;
+                            display: flex;
+                            padding: size( 2 ) 0;
+                            opacity: 0.8;
+                            transition: all 0.4s 0s ease;
+
+                            &:hover {
+                                color: $color--secondary-dark;
+                                opacity: 1;
+                            }
+
+                            i {
+                                display: block;
+                                width: 20px;
+                            }
+                            span {
+                                display: block;
+                                width: calc( 100% - 30px );
+                                padding: 0 size( 5 );
+                                display: -webkit-box;
+                                -webkit-line-clamp: 2;
+                                -webkit-box-orient: vertical;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+
+                        }
+
+                    }
                     &__see-more {
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
-                        padding: size( 10 ) size( 20 );
+                        padding: size( 20 );
 
                         div {
-
                             span {
                                 font-size: size( 17 );
                                 font-weight: bold;

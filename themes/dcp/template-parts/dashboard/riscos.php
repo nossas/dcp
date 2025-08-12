@@ -152,7 +152,6 @@ namespace hacklabr\dashboard;
                                     </li>
                                 <?php endif; */ ?>
                             </ul>
-
                             <div class="post-card__see-more">
                                 <div></div>
                                 <div>

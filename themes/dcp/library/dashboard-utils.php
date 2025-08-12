@@ -147,7 +147,7 @@ function dashboard_excerpt( $descricao = null ) {
         if ( strlen( $descricao ) <= 125 ) {
             echo $descricao;
         } else {
-            echo substr( $descricao, 0, 125 ) . '<a class="read-more" href="#/">Ver mais</a>';
+            echo substr( $descricao, 0, 125 ) . '... <a class="read-more" href="#/">Ver mais</a>';
             echo '<span class="read-more-full">' . substr( $descricao, 125 ) . '</span>';
         }
     }

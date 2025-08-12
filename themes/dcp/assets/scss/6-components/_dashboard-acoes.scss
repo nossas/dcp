@@ -44,7 +44,7 @@
                 &.is-agendadas,
                 &.is-realizadas,
                 &.is-arquivadas {
-                    height: size( 340 ) !important;
+                    height: size( 360 ) !important;
                 }
 
                 &.is-relatos {
@@ -58,22 +58,22 @@
                 &__excerpt-wrapped {
 
                 }
-            }
 
-            &__see-more {
-                position: absolute;
-                width: 100%;
-                bottom: 6px;
-                @include mobile {
-                    display: block;
-                    justify-content: initial;
-                    align-items: initial;
-                }
+                &__see-more {
+                    position: absolute;
+                    width: 100%;
+                    bottom: 0;
 
-                .button {
                     @include mobile {
-                        text-align: center;
                         display: block;
+                        justify-content: initial;
+                        align-items: initial;
+                    }
+                    .button {
+                        @include mobile {
+                            text-align: center;
+                            display: block;
+                        }
                     }
                 }
             }
