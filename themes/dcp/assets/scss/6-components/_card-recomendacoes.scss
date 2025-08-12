@@ -535,6 +535,7 @@
         display: flex;
         gap: $gap--small;
         padding: 0 size( 18 ) 0 size( 15 );
+        min-height: 40px;
         height: size( 38 );
         line-height: size( 38 );
 
@@ -553,8 +554,8 @@
         display: flex;
         gap: $gap--small;
         padding: 0 size( 33 ) 0 size( 30 );
-        height: size( 38 );
         line-height: size( 38 );
+        min-height: 40px;
 
         @include mobile {
             justify-content: center;
