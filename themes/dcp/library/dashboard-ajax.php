@@ -657,6 +657,15 @@ add_action('wp_ajax_form_single_acao_edit', 'form_single_acao_edit');
  */
 function form_single_risco_new() {
 
+    if (is_user_logged_in()) {
+        $current_user = wp_get_current_user();
+        $nome_completo = $current_user->display_name;
+        $email = $current_user->user_email;
+    } else {
+        $nome_completo = sanitize_text_field($_POST['nome_completo']);
+        $email = sanitize_text_field($_POST['email']);
+    }
+
     $postID = wp_insert_post(
         [
             'post_type' => 'risco',
@@ -668,8 +677,8 @@ function form_single_risco_new() {
                 'latitude' => sanitize_text_field( $_POST[ 'latitude' ] ),
                 'longitude' => sanitize_text_field( $_POST[ 'longitude' ] ),
                 'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),
-                'nome_completo' => sanitize_text_field( $_POST[ 'nome_completo' ] ),
-                'email' => sanitize_text_field( $_POST[ 'email' ] ),
+                'nome_completo' => $nome_completo,
+                'email' => $email,
                 'telefone' => sanitize_text_field( $_POST[ 'telefone' ] ),
                 'autoriza_contato' => sanitize_text_field( $_POST[ 'autoriza_contato' ] ),
                 'data_e_horario' => date('Y-m-d H:i:s'),
