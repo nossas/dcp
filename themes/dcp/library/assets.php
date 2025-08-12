@@ -373,7 +373,7 @@ class Assets
             'dcp-map' => [
                 'file' => 'dcp-map.js',
                 'preload_callback' => function () {
-                    return is_page_template('page-dcp-map.php');
+                    return is_page_template('page-dcp-map.php') || is_page('conteudo-sobre-o-lixo');
                 },
                 'localize_callback' => function () {
 
