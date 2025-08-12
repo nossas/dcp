@@ -218,7 +218,7 @@ jQuery(function($) {
 
         const $active = $links.filter('.is-active');
         if ($active.length) {
-            $tabsHeader.scrollLeft($active.position().left);
+            $tabsHeader.animate({ scrollLeft : $active.position().left }, 200 );
         }
     }
     function debounce(func, delay) {

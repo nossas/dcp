@@ -119,7 +119,7 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                 </a>
             </div>
 
-            <div class="dashboard-content-section-body">
+            <div class="dashboard-content-section-body dashboard-content-riscos">
                 <div class="dashboard-content-tabs tabs">
                     <div id="riscosAprovacao" class="tabs__panels" style=" display: block !important; ">
                         <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>

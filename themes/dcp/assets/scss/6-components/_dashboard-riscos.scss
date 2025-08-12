@@ -2,6 +2,10 @@
     min-height: 75vh;
     position: relative;
 
+
+}
+
+.dashboard-content-riscos {
     .dashboard-content-header {
 
         .button {
@@ -27,29 +31,21 @@
     .dashboard-content-cards {
 
         .post-card {
-            padding-top: size( 10 );
-            padding-bottom: size( 10 );
+            padding-top: size( 10 ) !important;
 
-            &__content {
-                min-height: 250px;
+            &.is-draft,
+            &.is-pending {
+                height: size( 320 ) !important;
             }
 
-            &__excerpt-wrapped {
-
-                margin-bottom: 0;
-            }
-
-            &__term {
-                padding: size(8) size(18) size(5);
-            }
-
-            &__risco-meta {
-                font-weight: 500;
-                padding: size( 1 ) size( 18 );
-                opacity: 0.5;
+            &.is-publish {
+                height: size( 600 ) !important;
             }
 
             &__see-more {
+                position: absolute;
+                width: 100%;
+                bottom: 6px;
 
                 @include mobile {
                     display: block;
@@ -58,7 +54,6 @@
                 }
 
                 .button {
-
                     @include mobile {
                         text-align: center;
                         display: block;

@@ -46,14 +46,15 @@ namespace hacklabr\dashboard;
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 <div id="dashboardRiscos" class="dashboard-content">
-    <header class="dashboard-content-header">
+    <div class="dashboard-content-riscos">
+        <header class="dashboard-content-header">
         <h1>RISCOS MAPEADOS</h1>
         <a href="<?=get_dashboard_url( 'adicionar-risco' )?>" class="button">
             <iconify-icon icon="bi:plus-lg"></iconify-icon>
             <span>Adicionar Risco</span>
         </a>
     </header>
-    <div class="dashboard-content-tabs tabs">
+        <div class="dashboard-content-tabs tabs">
         <div class="tabs__header">
             <div class="tabs__header-wrap">
                 <?php foreach ( $sectios_tabs as $tab ) : ?>
@@ -88,7 +89,9 @@ namespace hacklabr\dashboard;
                                     }
                                 ?>
                             </div>
-                            <div class="post-card__risco-meta"><?=wp_date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
+                            <div class="post-card__risco-meta">
+                                <?=wp_date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?>
+                            </div>
                             <h3 class="post-card__title">
                                 <span><?=$pod->field( 'endereco' )?></span>
                             </h3>
@@ -208,6 +211,7 @@ namespace hacklabr\dashboard;
                 </ol>
             </div>
         <?php endif; ?>
+    </div>
     </div>
     <script>
         window.addEventListener('DOMContentLoaded', () => {
