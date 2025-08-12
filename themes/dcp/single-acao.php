@@ -31,38 +31,17 @@
             <?php endif; ?>
             <h1 class="acao-titulo"><?= esc_html( $pods->field( 'titulo' ) ); ?></h1>
 
-            <div class="acao-categoria">
-                <?php
+                <div class="acao-categorias">
+                    <?php
                     $terms = get_the_terms(get_the_ID(), 'tipo_acao');
                     if ($terms && !is_wp_error($terms)) {
-                        $term = $terms[0];
-                        $slug = $term->slug;
-                        $nome = $term->name;
-
-                        $template_dir = get_template_directory();
-                        $template_uri = get_template_directory_uri();
-
-                        $svg_path = $template_dir . '/assets/images/tipo-acao/' . $slug . '.svg';
-                        $svg_uri = $template_uri . '/assets/images/tipo-acao/' . $slug . '.svg';
-
-                        $png_path = $template_dir . '/assets/images/tipo-acao/' . $slug . '.png';
-                        $png_uri = $template_uri . '/assets/images/tipo-acao/' . $slug . '.png';
-
-                        if (file_exists($svg_path)) {
-                            $img_path = $svg_uri;
-                        } elseif (file_exists($png_path)) {
-                            $img_path = $png_uri;
-                        } else {
-                            $img_path = $template_uri . '/assets/images/tipo-acao/default.png';
+                        foreach ($terms as $term) {
+                            $slug = sanitize_title($term->slug);
+                            echo '<span class="acao-categoria acao-categoria--' . esc_attr($slug) . '">' . esc_html($term->name) . '</span>';
                         }
-
-                        echo '<span class="badge" style="display: inline-flex; align-items: center; gap: 0.5em;">';
-                        echo '<iconify-icon icon="bi:mic-fill"></iconify-icon>';
-                        echo esc_html($nome);
-                        echo '</span>';
                     }
-                ?>
-            </div>
+                    ?>
+                </div>
 
             <div class="acao-descricao">
                 <?php echo nl2br( $pods->field( 'descricao' ) ); ?>
