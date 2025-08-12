@@ -1,6 +1,5 @@
 <?php
 
-
 function get_posts_riscos( $args = [ 'post_status' => 'publish' ] ) {
 
 //    $args['post_type'] = 'risco';
