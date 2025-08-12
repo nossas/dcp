@@ -309,7 +309,7 @@
                     color: $color--secondary-dark;
                     display: block;
                     width: 61%;
-                    padding: size( 15 ) size( 15 );
+                    padding: size( 25 );
                     margin:  size( 25 ) 0  size( 25 );
                     border-radius: size( 15 );
                     border: dotted 2px #C9C6C5;
@@ -318,12 +318,10 @@
                     z-index: 1;
                     transition: all 0.2s 0s ease;
 
-                    @include mobile {
-                        width: 100%;
-                        margin: 0;
-                    }
+                    @include mobile {}
                     @include tablet {
                         width: 100%;
+                        padding: size( 15 );
                         margin: 0;
                     }
 
