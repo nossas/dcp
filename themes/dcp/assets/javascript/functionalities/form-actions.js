@@ -421,12 +421,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // GEOLOCALIZAÇÃO P/ ENDEREÇO
     document.querySelector('input[name="endereco"]').addEventListener('change', async (event) => {
-        hasEditedAddress = true
-
         const nextButton = document.querySelector('.multistepform__1 .multistepform__button-next')
         const address = event.target.value
 
-        if (!hasDraggedMarker) {
+        hasEditedAddress = address.length > 0
+
+        if (hasEditedAddress && !hasDraggedMarker) {
             nextButton.disabled = true
 
             const { rest_url } = globalThis.hl_form_actions_data
