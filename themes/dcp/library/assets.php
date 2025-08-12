@@ -516,6 +516,13 @@ class Assets
                 },
             ],
 
+            'dashboard-recomendacoes' => [
+                'file'  => 'dashboard-recomendacoes.js',
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
+            ],
+
         ];
 
         $js_files = apply_filters('js_files_before_output', $js_files);

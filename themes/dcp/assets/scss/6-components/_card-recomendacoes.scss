@@ -406,6 +406,105 @@
             margin-bottom: $margin--small;
         }
     }
+
+    .situacao-atual__card-text-icon {
+        .situacao-atual__icon {
+            margin-bottom: $margin--small;
+
+            span {
+                font-size: $font-size--x-small;
+                color: $color--high-dark;
+            }
+        }
+    }
+
+    .custom-select-wrapper {
+        position: relative;
+        width: 100%;
+    }
+
+    .custom-select-trigger {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        width: size(104);
+        height: 45px;
+        padding: $padding--small $padding--medium;
+        border: size(1) solid $color--secondary-dark;
+        border-radius: $border-radius--medium;
+        background-color: $color--high-light;
+        transition: border-color 0.2s ease;
+
+        &:hover {
+            border-color: $color--primary-pure;
+        }
+
+        .selected-icon-preview {
+            display: flex;
+            align-items: center;
+
+            svg {
+                width: size(24);
+                height: size(24);
+            }
+            span {
+                font-size: $font-size--x-small;
+                color: $color--high-dark;
+            }
+        }
+    }
+
+    .custom-select-arrow {
+        display: flex;
+        align-items: center;
+        transition: transform 0.3s ease;
+
+        svg {
+            width: size(16);
+            height: size(16);
+            stroke: $color--secondary-dark;
+        }
+    }
+
+    &.active .custom-select-arrow {
+        transform: rotate(180deg);
+    }
+
+    .custom-select-options.active {
+        display: block;
+    }
+    .custom-select-trigger.active .custom-select-arrow {
+        transform: rotate(180deg);
+    }
+
+    .custom-select-options {
+        display: none;
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 0;
+        right: 0;
+        background-color: $color--high-light;
+        border: size(1) solid #E6E2E0;
+        box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+        max-height: 200px;
+        overflow-y: auto;
+        z-index: 1000;
+        padding: $padding--small / 2;
+    }
+
+    .custom-select-option {
+        padding: $padding--small;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        border-radius: $border-radius--small;
+
+        svg {
+            width: size(24);
+            height: size(24);
+        }
+    }
 }
 .editar-recomendacao{
     padding-top: 0;
@@ -436,6 +535,7 @@
         display: flex;
         gap: $gap--small;
         padding: 0 size( 18 ) 0 size( 15 );
+        min-height: 40px;
         height: size( 38 );
         line-height: size( 38 );
 
@@ -454,8 +554,8 @@
         display: flex;
         gap: $gap--small;
         padding: 0 size( 33 ) 0 size( 30 );
-        height: size( 38 );
         line-height: size( 38 );
+        min-height: 40px;
 
         @include mobile {
             justify-content: center;
