@@ -190,6 +190,23 @@ namespace hacklabr\dashboard;
                     </div>
                     <div class="fields">
                         <div class="input-wrap">
+                            <label class="label">Telefone</label>
+                            <input class="input" type="text" name="telefone" placeholder="Digite o telefone aqui" value="<?=$pod->field('telefone')?>" readonly required>
+                            <a class="button is-edit-input">
+                                <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                            </a>
+                        </div>
+                        <div class="input-help">
+                            <a href="#/" class="button">
+                                <iconify-icon icon="bi:question"></iconify-icon>
+                            </a>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="input-wrap">
                             <label class="label">Descrição</label>
                             <textarea class="textarea" name="descricao" readonly required><?=nl2br( $pod->field('descricao') )?></textarea>
                             <a class="button is-edit-input">

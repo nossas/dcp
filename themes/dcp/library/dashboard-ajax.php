@@ -766,6 +766,7 @@ function form_single_risco_edit() {
         'meta_input' => [
             'endereco' => sanitize_text_field( $_POST[ 'endereco' ] ),
             'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
+            'telefone' => sanitize_text_field( $_POST[ 'telefone' ] ),
             'latitude' => $latitude,
             'longitude' => $longitude,
             'full_address' => sanitize_text_field( $_POST[ 'full_address' ] ),

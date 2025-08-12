@@ -695,13 +695,9 @@
                     transform: scale( 1 );
                     transition: all 0.5s 0s ease;
 
-                    @include mobile {
-                        max-width: 100%;
-                        margin: 0 0 25px 0;
-                    }
                     @include tablet {
                         max-width: 100%;
-                        margin: 0 0 25px 0;
+                        margin: 0 0 15px 0;
                     }
                     @include desktop {
                         max-width: calc( 49% - 20px );
@@ -749,7 +745,7 @@
                         }
                     }
                     &__term {
-                        padding: size( 8 ) size( 18 );
+                        padding: size( 10 ) size( 20 );
 
                         span {
                             font-size: size( 13 );
@@ -792,7 +788,7 @@
                         }
                     }
                     &__title {
-                        font-size: size( 17 );
+                        font-size: size( 20 );
                         font-weight: 500;
                         line-height: size( 18 );
                         display: block;
@@ -800,7 +796,7 @@
                         padding: 0 size( 20 );
 
                         @include mobile {
-                            font-size: size( 15 );
+                            font-size: size( 18 );
                             min-height: size( 15 );
                             max-height: size( 30 );
                             line-height: size( 16 );
@@ -915,29 +911,52 @@
                         width: 90%;
                         height: size( 200 );
                         border-radius: size( 15 );
-                        padding: size( 10 ) size( 25 ) size( 10 ) size( 25 );
+                        padding: 0;
                         margin: 0 size( 20 );
                         overflow: hidden;
                         position: relative;
                         z-index: 1;
 
-                        .slider-thumb-item {
+                        .swiper {
+                            .swiper-pagination {
+                                .swiper-pagination-bullet {
+                                    background-color: rgba(255,255,255,0.5);
+                                    &.swiper-pagination-bullet-active {
+                                        background-color: #FFF;
+                                    }
+                                }
+                            }
+                            .swiper-button-prev,
+                            .swiper-button-next {
+                                background-color: #FFF;
+                                width: 30px;
+                                height: 30px;
+                                color: #333;
+                                border-radius: 25px;
+                                &::after {
+                                    font-size: 15px;
+                                }
+                            }
 
+                        }
+
+                        .slider-thumb-item {
+                            background-color: #EEE;
                             width: 100%;
-                            height: auto;
+                            height: size( 200 );
                             padding: 0;
                             margin: 0;
-
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            z-index: 1;
+                            position: relative;
 
                             img {
                                 display: block;
+                                width: auto;
+                                height: size( 200 );
                             }
                             video {
                                 display: block;
+                                width: auto;
+                                height: size( 200 );
                             }
                         }
                         .slider-thumb-empty {
@@ -954,7 +973,6 @@
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
-                        min-height: size( 75 );
                         padding: size( 10 ) size( 20 );
 
                         div {
@@ -972,10 +990,10 @@
                         }
 
                         .button {
-                            font-size: size( 15 );
+                            font-size: size( 16 );
                             text-align: center;
                             display: inline-block;
-                            padding: size( 10 ) size( 20 ) size( 10 ) size( 25 );
+                            padding: size( 8 ) size( 18 ) size( 8 ) size( 22 );
 
                             @include mobile {
                                 display: block;

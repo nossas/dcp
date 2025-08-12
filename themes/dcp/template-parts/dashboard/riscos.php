@@ -100,38 +100,29 @@ namespace hacklabr\dashboard;
                             <?php if( $sectios_tabs[ $tipo_risco ][ 'tipo_risco' ] == 'publicados' ) : ?>
                                 <div class="post-card__assets is-slider-thumb">
                                     <?php $get_attachments = get_attached_media('', get_the_ID() );
-                                    if( !empty( $get_attachments ) ) :
-                                        foreach ( get_attached_media('', get_the_ID() ) as $attachment ) : ?>
-                                            <div class="slider-thumb-item">
-                                                <?php if( $attachment->post_mime_type == 'image/jpeg' || $attachment->post_mime_type == 'image/png' ) : ?>
-                                                    <img class="is-load-now" data-media-src="<?=$attachment->guid?>" />
-                                                <?php endif; ?>
-
-                                                <?php if( $attachment->post_mime_type == 'video/mp4' ) : ?>
-                                                    <video class="" poster="" playsinline controls>
-                                                        <source class="is-load-now" data-media-src="<?=$attachment->guid?>" type="video/mp4">
-                                                    </video>
-                                                <?php endif; ?>
-                                            </div>
-                                    <?php endforeach; ?>
-
-                                    <!--
+                                    if( !empty( $get_attachments ) ) : ?>
                                         <div class="swiper">
                                             <div class="swiper-wrapper">
-                                                <div class="swiper-slide">Slide 1</div>
-                                                <div class="swiper-slide">Slide 2</div>
-                                                <div class="swiper-slide">Slide 3</div>
+                                                <?php foreach ( get_attached_media('', get_the_ID() ) as $attachment ) : ?>
+                                                    <div class="swiper-slide">
+                                                        <div class="slider-thumb-item">
+                                                            <?php if( $attachment->post_mime_type == 'image/jpeg' || $attachment->post_mime_type == 'image/png' ) : ?>
+                                                                <img class="is-load-now" data-media-src="<?=$attachment->guid?>" />
+                                                            <?php endif; ?>
+
+                                                            <?php if( $attachment->post_mime_type == 'video/mp4' ) : ?>
+                                                                <video class="" poster="" playsinline controls>
+                                                                    <source class="is-load-now" data-media-src="<?=$attachment->guid?>" type="video/mp4">
+                                                                </video>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                    </div>
+                                                <?php endforeach; ?>
                                             </div>
-
                                             <div class="swiper-pagination"></div>
-
                                             <div class="swiper-button-prev"></div>
                                             <div class="swiper-button-next"></div>
-
-                                            <div class="swiper-scrollbar"></div>
                                         </div>
-                                    -->
-
                                     <?php else : ?>
                                         <div class="slider-thumb-empty">
                                             Nenhuma Mídia adicionada ainda.
@@ -218,5 +209,34 @@ namespace hacklabr\dashboard;
             </div>
         <?php endif; ?>
     </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // Seleciona todos os containers .swiper
+            document.querySelectorAll('.swiper').forEach((swiperEl) => {
+                // Pega os elementos internos específicos desse slider
+                const pagination = swiperEl.querySelector('.swiper-pagination');
+                const nextBtn = swiperEl.querySelector('.swiper-button-next');
+                const prevBtn = swiperEl.querySelector('.swiper-button-prev');
+                const scrollbar = swiperEl.querySelector('.swiper-scrollbar');
+
+                // Cria uma instância para cada slider
+                new Swiper(swiperEl, {
+                    direction: 'horizontal',
+                    loop: true,
+                    pagination: {
+                        el: pagination,
+                        clickable: true
+                    },
+                    navigation: {
+                        nextEl: nextBtn,
+                        prevEl: prevBtn
+                    },
+                    scrollbar: {
+                        el: scrollbar
+                    }
+                });
+            });
+        });
+    </script>
 </div>
 
