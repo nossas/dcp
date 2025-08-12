@@ -89,14 +89,28 @@ function render_svg_preview($id)
                         <?= $icone_atual_id ? render_svg_preview($icone_atual_id) : ''; ?>
                     </div>
 
-                    <select name="<?= $icone_field ?>" class="situacao-atual__icon-select" data-preview-id="preview-icon-<?= $i ?>">
-                        <option value=""><?= __('Escolha um ícone') ?></option>
-                        <?php foreach ($opcoes_icones as $icon): ?>
-                            <option value="<?= $icon->ID ?>" <?= selected($icone_atual_id, $icon->ID) ?>>
-                                <?= esc_html($icon->post_title) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+                    <div class="custom-select-wrapper">
+                        <input type="hidden" name="<?= esc_attr($icone_field) ?>" id="hidden-input-<?= $i ?>" value="<?= esc_attr($icone_atual_id) ?>">
+
+                        <div class="custom-select-trigger" data-target="options-<?= $i ?>">
+                            <div class="selected-icon-preview" id="selected-icon-preview-<?= $i ?>">
+                                <?= $icone_atual_id ? render_svg_preview($icone_atual_id) : '<span>Escolha o ícone</span>'; ?>
+                            </div>
+                            <div class="custom-select-arrow">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                    <path d="M2.25098 5.0625C2.32483 5.0625 2.39856 5.07721 2.4668 5.10547C2.53514 5.13383 2.59716 5.17613 2.64941 5.22852L9.00098 11.5811L15.3535 5.22852C15.4058 5.17622 15.4678 5.13475 15.5361 5.10645C15.6043 5.07822 15.6772 5.06354 15.751 5.06348C15.8249 5.06348 15.8985 5.07816 15.9668 5.10645C16.0351 5.13475 16.0971 5.17622 16.1494 5.22852C16.2017 5.28081 16.2432 5.3428 16.2715 5.41113C16.2997 5.4793 16.3144 5.5522 16.3145 5.62598C16.3145 5.69992 16.2998 5.77348 16.2715 5.8418C16.2432 5.91013 16.2017 5.97212 16.1494 6.02441L9.39941 12.7744C9.34716 12.8268 9.28514 12.8691 9.2168 12.8975C9.14856 12.9257 9.07483 12.9404 9.00098 12.9404C8.92729 12.9404 8.85421 12.9257 8.78613 12.8975C8.7178 12.8691 8.65577 12.8268 8.60352 12.7744L1.85352 6.02441C1.80113 5.97216 1.75883 5.91014 1.73047 5.8418C1.70221 5.77356 1.6875 5.69983 1.6875 5.62598C1.68756 5.55229 1.70228 5.47921 1.73047 5.41113C1.75883 5.34279 1.80113 5.28077 1.85352 5.22852C1.90577 5.17613 1.96779 5.13383 2.03613 5.10547C2.10421 5.07728 2.17729 5.06256 2.25098 5.0625Z" fill="#605E5D"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="custom-select-options" id="options-<?= $i ?>">
+                            <?php foreach ($opcoes_icones as $icon): ?>
+                                <div class="custom-select-option" data-value="<?= esc_attr($icon->ID) ?>" data-preview-target="preview-icon-<?= $i ?>" data-hidden-input="hidden-input-<?= $i ?>" data-selected-preview="selected-icon-preview-<?= $i ?>">
+                                    <?= render_svg_preview($icon->ID) ?>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="situacao-atual__textarea-wrapper">
