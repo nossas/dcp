@@ -420,31 +420,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // GEOLOCALIZAÇÃO P/ ENDEREÇO
-    document.querySelector('input[name="endereco"]').addEventListener('change', async (event) => {
-        const nextButton = document.querySelector('.multistepform__1 .multistepform__button-next')
+    document.querySelector('input[name="endereco"]').addEventListener('change', (event) => {
         const address = event.target.value
 
         hasEditedAddress = address.length > 0
 
         if (hasEditedAddress && !hasDraggedMarker) {
-            nextButton.disabled = true
-
-            const { rest_url } = globalThis.hl_form_actions_data
-            const res = await fetch(`${rest_url}/geocoding?address=${encodeURIComponent(address)}`, {
-                method: 'POST',
-            })
-            if (res.ok) {
-                const data = await res.json()
-                if (data) {
-                    riskDraft.latitude = data.lat
-                    riskDraft.longitude = data.lon
-                    updateMarker?.(data.lat, data.lon)
-                }
-            }
-
-            nextButton.disabled = false
+            updateCoordinates(address)
         }
     })
+
+    async function updateCoordinates (address) {
+        const nextButton = document.querySelector('.multistepform__1 .multistepform__button-next')
+        nextButton.disabled = true
+
+        const { rest_url } = globalThis.hl_form_actions_data
+        const res = await fetch(`${rest_url}/geocoding?address=${encodeURIComponent(address)}`, {
+            method: 'POST',
+            cache: 'force-cache',
+        })
+        if (res.ok) {
+            const data = await res.json()
+            if (data) {
+                riskDraft.latitude = data.lat
+                riskDraft.longitude = data.lon
+                updateMarker?.(data.lat, data.lon)
+            }
+        }
+
+        nextButton.disabled = false
+    }
+
+    async function updateAddress (latitude, longitude) {
+        hasDraggedMarker = true
+        riskDraft.latitude = latitude
+        riskDraft.longitude = longitude
+
+        if (!hasEditedAddress) {
+            const { rest_url } = globalThis.hl_form_actions_data
+            const res = await fetch(`${rest_url}/reverse_geocoding?lat=${latitude}&lon=${longitude}`, {
+                method: 'POST',
+                cache: 'force-cache',
+            })
+            if (res.ok) {
+                const { address } = await res.json()
+                inputEndereco.value = address
+                riskDraft.endereco = address
+            }
+        }
+    }
 
     async function submitData(data) {
         const formData = new FormData();
@@ -461,7 +485,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const res = await fetch(new URL('/wp-admin/admin-ajax.php', location.href), {
             method: 'POST',
             body: formData,
-
         })
         if (res.ok) {
             return true;
@@ -587,24 +610,6 @@ document.addEventListener('DOMContentLoaded', () => {
         input.value = value;
     }
 
-    async function updateAddress (latitude, longitude) {
-        hasDraggedMarker = true
-        riskDraft.latitude = latitude
-        riskDraft.longitude = longitude
-
-        if (!hasEditedAddress) {
-            const { rest_url } = globalThis.hl_form_actions_data
-            const res = await fetch(`${rest_url}/reverse_geocoding?lat=${latitude}&lon=${longitude}`, {
-                method: 'POST',
-            })
-            if (res.ok) {
-                const { address } = await res.json()
-                inputEndereco.value = address
-                riskDraft.endereco = address
-            }
-        }
-    }
-
     async function loadDraggableMap () {
         const map = document.querySelector('.jeomap');
 
@@ -612,18 +617,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const jeoMap = globalThis.jeomaps[map.dataset.uui_id];
 
         await until(() => jeoMap.map);
-        updateMarker = await showDraggableMap(jeoMap, riskDraft, updateAddress);
+        return showDraggableMap(jeoMap, riskDraft, updateAddress);
     }
 
     const toggleMapButton = document.querySelector('.multistepform__button-map');
     let mapActivated = false;
-    toggleMapButton.addEventListener('click', () => {
-        if (mapActivated) {
-            return;
+    toggleMapButton.addEventListener('click', async () => {
+        if (updateMarker) {
+            await updateCoordinates(riskDraft.endereco)
+        } else if (!mapActivated) {
+            mapActivated = true;
+            mapWrapper.querySelector('.jeomap').style.display = '';
+            updateMarker = await loadDraggableMap();
         }
-        mapActivated = true;
-
-        mapWrapper.querySelector('.jeomap').style.display = '';
-        loadDraggableMap();
     })
 });
