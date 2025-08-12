@@ -1,20 +1,19 @@
 <?php
 
 function dashboard_get_post_type_by_status_between_date(
-    $post_type = 'risco',
+    $post_type,
     $status,
-    $page = 1,
-    $limit = 6,
     $date_init = '',
     $date_end = '',
     $use_custom_field = false
 ) {
+    if( empty( $post_type ) ) return [ 'não encontrado' ];
 
     $args = [
         'post_type'      => $post_type,
         'post_status'    => $status,
-        'posts_per_page' => $limit,
-        'paged'          => $page,
+        'posts_per_page' => -1,
+        //'paged'          => $page,
         //'orderby'        => 'date',
         //'order'          => 'DESC'
     ];
@@ -45,90 +44,90 @@ function dashboard_get_post_type_by_status_between_date(
     $total_posts = $query->found_posts;
 
     return [
-        //'pagination' => ($total_posts > $limit),
-        //'pagination_current' => $page,
-        //'pagination_total' => $query->max_num_pages,
         'date_init' => $date_init,
         'date_end' => $date_end,
         'total_posts' => $total_posts,
+    ];
+}
+
+function dashboard_get_all_post_type_by_status(
+    $post_type,
+    $status,
+    $use_custom_field = false
+) {
+    if( empty( $post_type ) ) return false;
+
+
+    return [
+        //'pagination' => ($total_posts > $limit),
+        //'pagination_current' => $page,
+        //'pagination_total' => $query->max_num_pages,
+
         //'posts' => $query->posts
     ];
 }
 
-function indicadores_riscos( $page = 1, $limit = 5 )
+
+function indicadores_riscos( $date_init = '2025-01-01', $date_end = '2025-12-31' )
 {
     return [
         'aprovacao' => dashboard_get_post_type_by_status_between_date(
             'risco',
             'draft',
-            $page,
-            $limit,
-            '2025-07-01',
-            '2025-08-01'
+            $date_init,
+            $date_end
         ),
         'publicados' => dashboard_get_post_type_by_status_between_date(
             'risco',
             'publish',
-            $page, $limit,
-            '2025-07-01',
-            '2025-08-01'
+            $date_init,
+            $date_end
         ),
         'arquivados' => dashboard_get_post_type_by_status_between_date(
             'risco',
             'pending',
-            $page, $limit,
-            '2025-07-01',
-            '2025-08-01'
+            $date_init,
+            $date_end
         )
     ];
 }
-
-
-function indicadores_acoes( $page = 1, $limit = 5 )
+function indicadores_acoes( $date_init = '2025-01-01', $date_end = '2025-12-31' )
 {
     return [
         'sugestoes' => dashboard_get_post_type_by_status_between_date(
             'acao',
             'draft',
-            $page,
-            $limit,
-            '2025-07-01',
-            '2025-08-01'
+            $date_init,
+            $date_end
         ),
         'agendadas' => dashboard_get_post_type_by_status_between_date(
             'acao',
             'publish',
-            $page, $limit,
-            '2025-07-01',
-            '2025-08-01'
+            $date_init,
+            $date_end
         ),
         'realizadas' => dashboard_get_post_type_by_status_between_date(
             'acao',
             'private',
-            $page, $limit,
-            '2025-07-01',
-            '2025-08-01'
+            $date_init,
+            $date_end
         ),
         'arquivadas' => dashboard_get_post_type_by_status_between_date(
             'acao',
             'pending',
-            $page, $limit,
-            '2025-07-01',
-            '2025-08-01'
+            $date_init,
+            $date_end
         )
     ];
 }
-
-function indicadores_apoio( $page = 1, $limit = 5 )
+function indicadores_apoio( $date_init = '2025-01-01', $date_end = '2025-12-31' )
 {
     return [
-        'sugestoes' => dashboard_get_post_type_by_status_between_date(
+        'publicados' => dashboard_get_post_type_by_status_between_date(
             'apoio',
             'publish',
-            $page,
-            $limit,
-            '2025-07-01',
-            '2025-08-01'
+            $date_init,
+            $date_end
         )
     ];
 }
