@@ -7,27 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const categoryIconContainer = form.querySelector('.category-icon-container');
     const categoryToggleBtn = form.querySelector('.is-categoria-toggle');
 
-    function updateCategoryState() {
-        if (!categorySelect || !categoryIconContainer) return;
-        const hasValue = categorySelect.value !== '';
-        categoryIconContainer.style.display = hasValue ? 'block' : 'none';
-        categorySelect.style.paddingLeft = hasValue ? '50px' : '20px';
-        categorySelect.style.color = hasValue ? '#281414' : '#484646';
-    }
-
-    if (categorySelect) {
-        categorySelect.addEventListener('change', updateCategoryState);
-
-        if (categoryToggleBtn) {
-            categoryToggleBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (typeof categorySelect.showPicker === 'function') {
-                    categorySelect.showPicker();
-                }
-            });
-        }
-    }
-
     // --- Subcategoria ---
     const subCategoryInput = document.getElementById('subCategoryInput');
     const subCategoryChipsWrap = subCategoryInput.querySelector('.chips-wrap');
@@ -35,6 +14,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const subCategoryToggleBtn = form.querySelector('.is-subcategoria-toggle');
     const subCategoryCheckboxContainer = subCategoryInput.querySelector('.chips-checkbox');
     const subCategoryCheckboxes = subCategoryCheckboxContainer.querySelectorAll('input[type="checkbox"]');
+
+    //----- Categoria -----
+    let savedSubCategoryValues = [];
+
+    function updateCategoryState() {
+        if (!categorySelect || !categoryIconContainer) return;
+        const hasValue = categorySelect.value !== '';
+        categoryIconContainer.style.display = hasValue ? 'block' : 'none';
+        categorySelect.style.paddingLeft = hasValue ? '50px' : '20px';
+        categorySelect.style.color = hasValue ? '#281414' : '#484646';
+    }
 
     function renderSubCategoryChips() {
         subCategoryChipsWrap.innerHTML = '';
@@ -54,10 +44,40 @@ document.addEventListener('DOMContentLoaded', function() {
         subCategoryPlaceholder.style.display = checkedCheckboxes.length > 0 ? 'none' : 'block';
     }
 
+    if (categorySelect) {
+        categorySelect.addEventListener('mousedown', () => {
+            savedSubCategoryValues = Array.from(subCategoryCheckboxes)
+                                          .filter(cb => cb.checked)
+                                          .map(cb => cb.value);
+        });
+
+        categorySelect.addEventListener('change', () => {
+            updateCategoryState();
+
+            subCategoryCheckboxes.forEach(cb => {
+                cb.checked = false;
+                if (savedSubCategoryValues.includes(cb.value)) {
+                    cb.checked = true;
+                }
+            });
+
+            setTimeout(renderSubCategoryChips, 0);
+        });
+
+        if (categoryToggleBtn) {
+            categoryToggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (typeof categorySelect.showPicker === 'function') {
+                    categorySelect.showPicker();
+                }
+            });
+        }
+    }
+
+    //----- Subcategoria -----
     function toggleSubCategoryDropdown(e) {
         if (e.target.closest('.chip')) return;
         if (subCategoryCheckboxContainer.contains(e.target)) return;
-
         e.preventDefault();
         subCategoryCheckboxContainer.classList.toggle('is-open');
         subCategoryInput.closest('.input-wrap').classList.toggle('is-active', subCategoryCheckboxContainer.classList.contains('is-open'));
