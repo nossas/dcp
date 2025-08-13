@@ -110,6 +110,20 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                             </div>
                             <div>
                                 <canvas id="myChart"></canvas>
+                                <div style=" justify-content: start; ">
+                                    <h2 style=" font-size: 35px; color: #235540; ">
+                                        <?=$indicadores_riscos_alagamento[ 'term' ]->count?>
+                                        <?=$indicadores_riscos_alagamento[ 'term' ]->name?>
+                                    </h2>
+                                    <h2 style=" font-size: 35px; color: #51B2AF; ">
+                                        <?=$indicadores_riscos_lixo[ 'term' ]->count?>
+                                        <?=$indicadores_riscos_lixo[ 'term' ]->name?>
+                                    </h2>
+                                    <h2 style=" font-size: 35px; color: #EE7653; ">
+                                        <?=$indicadores_riscos_outros[ 'term' ]->count?>
+                                        <?=$indicadores_riscos_outros[ 'term' ]->name?>
+                                    </h2>
+                                </div>
                             </div>
 
                         </div>
