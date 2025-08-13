@@ -493,24 +493,28 @@ class Assets
             ],
             'dashboard-modal' => [
                 'file' => 'dashboard-modal.js',
+                'deps' => ['snackbar-module'],
                 'preload_callback' => function () {
                     return dashboard\is_dashboard();
                 },
             ],
             'dcp-dashboard' => [
                 'file' => 'dashboard.js',
+                'deps' => ['snackbar-module'],
                 'preload_callback' => function () {
                     return dashboard\is_dashboard();
                 },
             ],
             'dashboard-form' => [
                 'file' => 'dashboard-form.js',
+                'deps' => ['snackbar-module'],
                 'preload_callback' => function () {
                     return dashboard\is_dashboard();
                 },
             ],
             'dashboard-single' => [
                 'file' => 'dashboard-single.js',
+                'deps' => ['snackbar-module'],
                 'preload_callback' => function () {
                     return dashboard\is_dashboard();
                 },
@@ -518,6 +522,13 @@ class Assets
 
             'dashboard-recomendacoes' => [
                 'file'  => 'dashboard-recomendacoes.js',
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
+            ],
+
+            'snackbar-module' => [
+                'file' => 'snackbar.js',
                 'preload_callback' => function () {
                     return dashboard\is_dashboard();
                 },

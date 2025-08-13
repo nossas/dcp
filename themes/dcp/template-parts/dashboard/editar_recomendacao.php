@@ -176,4 +176,6 @@ function render_svg_preview($id)
             </div>
         </div>
     </div>
+    <div id="dashboard-snackbar" class="dashboard-snackbar">
+    </div>
 </div>

@@ -203,6 +203,9 @@ namespace hacklabr\dashboard;
         </form>
 
         <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
+
+        <div id="dashboard-snackbar" class="dashboard-snackbar">
+        </div>
     </div>
 
 

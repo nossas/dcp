@@ -212,6 +212,7 @@
         <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
     </div>
 
-
+    <div id="dashboard-snackbar" class="dashboard-snackbar">
+    </div>
 </div>
 
