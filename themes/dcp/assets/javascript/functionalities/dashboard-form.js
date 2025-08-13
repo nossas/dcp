@@ -1,5 +1,6 @@
-jQuery(function($) {
+import { showDashboardSnackbar } from "./snackbar";
 
+jQuery(function($) {
     //SUBMIT FORM ADICIONAR + EDITAR
     $( '#riscoSingleForm, #acaoSingleForm, #apoioSingleForm' ).on( 'submit', function ( e ) {
         const $this = $( this );
@@ -43,53 +44,20 @@ jQuery(function($) {
 
                     } else
                     {
-                        custom_modal_confirm({
-                            title: response.data.title,
-                            description: response.data.message,
-
-                            cancelText: "FECHAR",
-                            onCancel: function () {},
-
-                            confirmText: "ATUALIZAR PÁGINA",
-                            onConfirm: function () {
-
-                                window.location.reload();
-
-                            }
-                        });
+                        showDashboardSnackbar(response.data.message || 'Alteração publicada com sucesso!', 'success');
+                        setTimeout(() => window.location.reload(), 3000);
                     }
 
                 } else {
-                    custom_modal_confirm({
-                        title: response.data.title,
-                        description: response.data.message,
-                        error: response.data.error,
-
-                        cancelText: "FECHAR",
-                        onCancel: function () {},
-
-                        confirmText: "ATUALIZAR PÁGINA",
-                        onConfirm: function () {
-                            window.location.reload();
-                        }
-                    });
+                    showDashboardSnackbar(response.data.message || 'Ocorreu um erro.', 'error', 3000);
                 }
 
             })
             .catch(error => {
-                custom_modal_confirm({
-                    title: 'ERRO INESPERADO',
-                    description: 'Houve um erro inesperado ao enviar os dados do formulário, aguarde um momento e tente novamente.',
-                    error: 'BACKEND ERROR FORM DATA',
-
-                    cancelText: "FECHAR",
-                    onCancel: function () {},
-
-                    confirmText: "ATUALIZAR",
-                    onConfirm: function () {
-                        window.location.reload();
-                    }
-                });
+                $('.loading-global').fadeOut(400);
+                $this.removeClass('is-sending');
+                showDashboardSnackbar('Houve um erro inesperado. Tente novamente.', 'error', 3000);
+                console.error('Erro no fetch:', error);
             });
     });
 
