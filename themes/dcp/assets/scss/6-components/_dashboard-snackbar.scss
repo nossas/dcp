@@ -1,0 +1,45 @@
+// Estilos para o Snackbar do Dashboard
+.dashboard-snackbar {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translate(-50%, 150%);
+    padding: 14px 16px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    z-index: 10000;
+    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    background-color: $color--secondary-light;
+    box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.30);
+    max-width: 100%;
+    width: auto;
+
+    svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+    }
+
+    span {
+        font-size: 16px;
+        font-weight: $font-weight--regular;
+        line-height: 130%;
+        color: $color--secondary-dark;
+    }
+
+    // Classe para mostrar o snackbar
+    &.show {
+        transform: translate(-50%, 0);
+        opacity: 1;
+        visibility: visible;
+
+        @include mobile {
+            width: 85%;
+        }
+    }
+}
