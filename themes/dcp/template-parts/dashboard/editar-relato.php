@@ -84,7 +84,7 @@ namespace hacklabr\dashboard;
                         <?php if( !empty( $get_terms[0]->slug ) ) : ?>
                             <option value="<?=$get_terms[0]->slug?>" selected ><?=$get_terms[0]->name?></option>
                         <?php else : ?>
-                            <option value="">SELECIONE UMA CATEGORIA</option>
+                            <option value="">Selecione uma categoria</option>
                         <?php endif; ?>
                     </select>
                     <a class="button is-category">

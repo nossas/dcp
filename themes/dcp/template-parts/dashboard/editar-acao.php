@@ -122,7 +122,7 @@ namespace hacklabr\dashboard;
                 <div class="input-wrap">
                     <label class="label">Categoria</label>
                     <select id="selectCategory" class="select" name="tipo_acao" required >
-                        <option value="">SELECIONE UMA CATEGORIA</option>
+                        <option value="">Selecione uma categoria</option>
                         <?php foreach ( $all_terms as $key => $term ) :
                             if( !$term->parent ) : ?>
                                 <option value="<?=$term->slug?>" <?=( $term->slug == $get_terms[0]->slug ) ? 'selected' : '' ?>><?=$term->name?></option>

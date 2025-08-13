@@ -23,15 +23,12 @@ namespace hacklabr\dashboard;
             $images = [];
 
             foreach ( get_attached_media('', get_the_ID() ) as $key => $value ) {
-
-                if( $value->post_mime_type == 'image/jpeg' || $value->post_mime_type == 'image/png' ) {
+                if( in_array($value->post_mime_type, ['image/jpeg', 'image/png']) ) {
                     $images[] = $value;
                 }
-
                 if( $value->post_mime_type == 'video/mp4' ) {
                     $videos[] = $value;
                 }
-
             }
 
             $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
@@ -113,26 +110,25 @@ namespace hacklabr\dashboard;
                             </p>
                         </div>
                     </div>
+
                     <div class="fields">
                         <div class="input-wrap">
                             <label class="label">Categoria</label>
-                            <select id="selectCategory" class="select" name="situacao_de_risco" required >
-                                <option value="">SELECIONE UMA CATEGORIA</option>
+                            <select id="selectCategory" class="select" name="situacao_de_risco" required>
+                                <option class="placeholder-text" value="">Selecione uma categoria</option>
                                 <?php foreach ( $all_terms as $key => $term ) :
                                     if( !$term->parent ) : ?>
-                                    <option value="<?=$term->slug?>" <?=( $term->slug == $get_terms[0]->slug ) ? 'selected' : '' ?> ><?=$term->name?></option>
+                                    <option value="<?=$term->slug?>" <?=( !empty($get_terms) && $term->slug == $get_terms[0]->slug ) ? 'selected' : '' ?> ><?=$term->name?></option>
                                 <?php endif; endforeach; ?>
                             </select>
-                            <a class="button is-category">
-                                <?php
-                                    if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
-                                        risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, '' );
-                                    } else {
-                                        risco_badge_category( 'sem-categoria', 'SEM CATEGORIA ADICIONADA', '' );
-                                    }
-                                ?>
-                            </a>
-                            <a class="button is-select-input">
+
+                            <div class="category-icon-container" style="display: none;">
+                                <a class="button is-category">
+                                    <?php if( !empty($get_terms) ) risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, '' ); ?>
+                                </a>
+                            </div>
+
+                            <a class="button is-select-input is-categoria-toggle">
                                 <iconify-icon icon="bi:chevron-down"></iconify-icon>
                             </a>
                         </div>
@@ -145,38 +141,49 @@ namespace hacklabr\dashboard;
                             </p>
                         </div>
                     </div>
+
                     <div class="fields">
                         <div class="input-wrap">
                             <label class="label">Subcategoria</label>
-                            <div class="input-chips">
-                                <div class="chips-wrap">
-                                    <?php if( !empty( $get_terms ) ) : foreach ( $get_terms as $key => $term ) : if( $term->parent ) : ?>
-                                        <span id="chips_<?=$term->slug?>" class="chips" data-id="<?=$term->term_id?>" data-name="<?=$term->name?>" data-slug="<?=$term->slug?>">
-                                            <iconify-icon icon="bi:check2"></iconify-icon>
-                                            <?=$term->name?>
-                                        </span>
-                                    <?php endif; endforeach; endif; ?>
-                                </div>
+
+                            <div class="subcategory-list-icon">
+                                <iconify-icon icon="bi:list"></iconify-icon>
+                            </div>
+
+                            <div id="subCategoryInput" class="input-chips">
+                                <div class="chips-wrap"></div>
+
+                                <span class="placeholder-text">Selecione uma subcategoria</span>
+
                                 <div class="chips-checkbox">
-                                    <?php foreach ( risco_convert_terms( $all_terms ) as $term ) : ?>
-                                        <div class="is-<?=$term[ 'slug' ]?>">
-                                            <h4><?=$term[ 'name' ]?></h4>
-                                            <?php foreach ( $term[ 'children' ] as $subterm ) : ?>
-                                            <label for="input_<?=$subterm[ 'slug' ]?>">
-                                                    <input id="input_<?=$subterm[ 'slug' ]?>" type="checkbox" value="<?=$subterm[ 'slug' ]?>" data-label="<?=$subterm[ 'name' ]?>" name="subcategories[]">
-                                                    <?=$subterm[ 'name' ]?>
-                                                </label>
-                                            <?php endforeach; ?>
-                                        </div>
+                                    <?php
+                                    $sub_terms_selecionados = [];
+                                    if (!empty($get_terms)) {
+                                        $sub_terms_selecionados = array_filter($get_terms, function($term) {
+                                            return $term->parent != 0;
+                                        });
+                                    }
+                                    $all_sub_terms = array_filter($all_terms, function($term) {
+                                        return $term->parent != 0;
+                                    });
+
+                                    foreach ( $all_sub_terms as $subterm ) : ?>
+                                        <label for="input_<?=$subterm->slug?>">
+                                            <input
+                                                id="input_<?=$subterm->slug?>"
+                                                type="checkbox"
+                                                value="<?=$subterm->slug?>"
+                                                data-label="<?=$subterm->name?>"
+                                                name="subcategories[]"
+                                                <?= in_array($subterm->slug, array_column($sub_terms_selecionados, 'slug')) ? 'checked' : '' ?>>
+                                            <?=$subterm->name?>
+                                        </label>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
 
-                            <a class="button is-category" style=" font-size: 21px; top: 34px; ">
-                                <iconify-icon icon="bi:list"></iconify-icon>
-                            </a>
-                            <a class="button is-edit-input">
-                                <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                            <a class="button is-select-input is-subcategoria-toggle">
+                                <iconify-icon icon="bi:chevron-down"></iconify-icon>
                             </a>
                         </div>
                         <div class="input-help">
@@ -188,6 +195,7 @@ namespace hacklabr\dashboard;
                             </p>
                         </div>
                     </div>
+
                     <div class="fields">
                         <div class="input-wrap">
                             <label class="label">Telefone</label>
@@ -266,29 +274,17 @@ namespace hacklabr\dashboard;
                                                     <a class="button is-play">
                                                         <iconify-icon icon="bi:play-fill"></iconify-icon>
                                                     </a>
-
                                                     <div class="asset-item-preview-actions">
-                                                        <a class="button is-fullscreen">
-                                                            <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
-                                                        </a>
-                                                        <a class="button is-delete" data-id="<?=$video->ID?>">
-                                                            <iconify-icon icon="bi:trash-fill"></iconify-icon>
-                                                        </a>
-                                                        <a class="button is-download" href="<?=$video->guid?>" target="_blank">
-                                                            <iconify-icon icon="bi:download"></iconify-icon>
-                                                        </a>
-                                                        <a class="button is-show-hide">
-                                                            <iconify-icon icon="bi:eye-slash-fill"></iconify-icon>
-                                                        </a>
+                                                        <a class="button is-fullscreen"><iconify-icon icon="bi:arrows-fullscreen"></iconify-icon></a>
+                                                        <a class="button is-delete" data-id="<?=$video->ID?>"><iconify-icon icon="bi:trash-fill"></iconify-icon></a>
+                                                        <a class="button is-download" href="<?=$video->guid?>" target="_blank"><iconify-icon icon="bi:download"></iconify-icon></a>
+                                                        <a class="button is-show-hide"><iconify-icon icon="bi:eye-slash-fill"></iconify-icon></a>
                                                     </div>
-
                                                 </figure>
                                             <?php endforeach; ?>
                                         </div>
                                     </div>
-                                <?php endif;
-
-                                if( !empty( $images ) ) : ?>
+                                <?php endif; if( !empty( $images ) ) : ?>
                                     <div class="input-media-preview-assets is-images">
                                         <h4>Fotos</h4>
                                         <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
@@ -296,30 +292,17 @@ namespace hacklabr\dashboard;
                                             <?php foreach ( $images as $image ) : ?>
                                                 <figure class="asset-item-preview">
                                                     <img class="is-load-now" data-media-src="<?=$image->guid?>">
-
                                                     <div class="asset-item-preview-actions">
-
-                                                        <a class="button is-fullscreen" data-id="<?=$image->ID?>" data-href="<?=$image->guid?>">
-                                                            <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
-                                                        </a>
-                                                        <a class="button is-delete" data-id="<?=$image->ID?>">
-                                                            <iconify-icon icon="bi:trash-fill"></iconify-icon>
-                                                        </a>
-                                                        <a class="button is-download" href="<?=$image->guid?>" target="_blank">
-                                                            <iconify-icon icon="bi:download"></iconify-icon>
-                                                        </a>
-                                                        <a class="button is-show-hide">
-                                                            <iconify-icon icon="bi:eye-slash-fill"></iconify-icon>
-                                                        </a>
+                                                        <a class="button is-fullscreen" data-id="<?=$image->ID?>" data-href="<?=$image->guid?>"><iconify-icon icon="bi:arrows-fullscreen"></iconify-icon></a>
+                                                        <a class="button is-delete" data-id="<?=$image->ID?>"><iconify-icon icon="bi:trash-fill"></iconify-icon></a>
+                                                        <a class="button is-download" href="<?=$image->guid?>" target="_blank"><iconify-icon icon="bi:download"></iconify-icon></a>
+                                                        <a class="button is-show-hide"><iconify-icon icon="bi:eye-slash-fill"></iconify-icon></a>
                                                     </div>
-
                                                 </figure>
                                             <?php endforeach; ?>
                                         </div>
                                     </div>
-                                <?php endif; ?>
-
-                                <?php if( empty( $videos ) && empty( $images ) ) : ?>
+                                <?php endif; if( empty( $videos ) && empty( $images ) ) : ?>
                                     <div class="input-media-preview-assets is-empty">
                                         <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
                                     </div>
