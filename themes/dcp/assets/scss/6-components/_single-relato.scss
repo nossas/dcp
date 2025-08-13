@@ -207,11 +207,9 @@
             gap: $gap--medium;
             color: $color--secondary-light;
 
-            // Ajuste para pegar a classe .tag--educacao e similares
             .tag {
-               margin-bottom: 8px;
                 background-repeat: no-repeat;
-                background-position: 8px center; // Ícone 8px da esquerda
+                background-position: 8px center;
                 background-size: 16px;
                 padding: 2px 14px 0px 34px;
                 border-radius: 16px;
@@ -224,6 +222,8 @@
                 &.tag--educacao {
                     background-image: url('/wp-content/themes/dcp/assets/images/educacao.svg');
                     background-color: #50B15C;
+                    color: var(--wp--preset--color--secondary-dark);
+                     border: var(--wp--preset--color--secondary-dark);
                 }
 
                 &.tag--limpeza {

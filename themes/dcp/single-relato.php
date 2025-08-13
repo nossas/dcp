@@ -47,12 +47,13 @@ if (!empty($termos_tipo_acao) && !is_wp_error($termos_tipo_acao)) {
                 <?= esc_html($termo->name) ?>
             </a>
             <p class="post-header__date">
-                <?= date('d', strtotime($pods->field('data_e_horario'))) ?>
+                <?= date_i18n( 'd', strtotime( $pods->field('data_e_horario') ) ) ?>
                 de
-                <?= date('F', strtotime($pods->field('data_e_horario'))) ?>
+                <?= date_i18n( 'F', strtotime( $pods->field('data_e_horario') ) ) ?>
                 de
-                <?= date('Y', strtotime($pods->field('data_e_horario'))) ?>
+                <?= date_i18n( 'Y', strtotime( $pods->field('data_e_horario') ) ) ?>
             </p>
+
         </div>
     <?php endif; ?>
 
