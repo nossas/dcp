@@ -352,5 +352,8 @@ namespace hacklabr\dashboard;
             const _tiny_mce_content_css = '<?php echo includes_url("css/dashicons.css"); ?>,<?php echo includes_url("js/tinymce/skins/wordpress/wp-content.css"); ?>';
         </script>
     </div>
+
+    <div id="dashboard-snackbar" class="dashboard-snackbar">
+    </div>
 </div>
 

@@ -423,6 +423,8 @@ namespace hacklabr\dashboard;
                 <?php echo get_template_part('template-parts/dashboard/ui/modal-assetset-fullscreen' ); ?>
 
             </div>
+            <div id="dashboard-snackbar" class="dashboard-snackbar">
+            </div>
         </div>
     <?php endwhile; ?>
 <?php endif; ?>
