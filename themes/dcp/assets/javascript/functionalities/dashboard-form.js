@@ -44,8 +44,15 @@ jQuery(function($) {
 
                     } else
                     {
-                        showDashboardSnackbar(response.data.message || 'Alteração publicada com sucesso!', 'success');
-                        setTimeout(() => window.location.reload(), 3000);
+                        showDashboardSnackbar(response.data.message || 'Ação concluída com sucesso!', response.data.type || 'success');
+
+                        if (response.data.redirect_url) {
+                            setTimeout(() => {
+                                window.location.href = response.data.redirect_url;
+                            }, 2000);
+                        } else {
+                            setTimeout(() => window.location.reload(), 2000);
+                        }
                     }
 
                 } else {
@@ -60,6 +67,4 @@ jQuery(function($) {
                 console.error('Erro no fetch:', error);
             });
     });
-
-
 });

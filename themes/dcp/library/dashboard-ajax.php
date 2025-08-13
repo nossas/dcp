@@ -812,11 +812,22 @@ function form_single_risco_edit() {
     $save_post = upload_file_to_attachment_by_ID( $_FILES['media_files'], $postID );
 
     if( empty( $save_post[ 'errors' ] ) ) {
+        $response_message = 'Registro publicado com sucesso! ' . $message_return;
+        $response_type = 'success';
+        $redirect_url = get_site_url() . '/dashboard/riscos/?tipo_risco=publicados';
+
+        if (isset($_POST['post_status']) && $_POST['post_status'] === 'pending') {
+            $response_message = 'Registro arquivado. Você pode acessá-lo na aba "Arquivados".';
+            $response_type = 'archive';
+            $redirect_url = get_site_url() . '/dashboard/riscos/?tipo_risco=arquivados';
+        }
 
         wp_send_json_success([
-            'title' => 'Sucesso',
-            'message' => 'Formulário enviado com sucesso! ' . $message_return,
+            'title'   => 'Sucesso',
+            'message' => $response_message,
+            'type'    => $response_type,
             'uploaded_files' => $save_post[ 'uploaded_files' ],
+            'redirect_url' => $redirect_url,
             'post_id' => $postID,
         ]);
 
