@@ -375,6 +375,27 @@ jQuery(function($) {
             $( '#input_' + $( this ).attr( 'data-slug' ) ).prop( 'checked', true );
         });
 
+        // INDICADORES
+        $( '#selectFilter' ).on( 'change', function () {
+            const _location = window.location;
+            if( $( this ).val().length ) {
+                $( '#optionsFilter' ).hide();
+                switch ( $( this ).val() ) {
+                    case 'current_month':
+                        _location.href = _location.origin + _location.pathname + '/';
+                        break;
+
+                    case 'filter_by_dates':
+                        $( '#optionsFilter' ).show();
+                        break;
+
+                    default:
+                        _location.href = _location.origin + _location.pathname + '?filtro_indicadores=' + $( this ).val();
+                        break;
+                }
+            }
+        });
+
         // BOTÃO MEDIA UPLOAD
         $( '#mediaUploadButton, #mediaUploadButtonCover' ).on( 'click', function () {
             const $this = $( this );

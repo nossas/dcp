@@ -17,6 +17,29 @@ $indicadores_riscos_gerais = indicadores_riscos( '2025-01-01', date( 'Y-m-d' ) )
 $indicadores_acoes_gerais = indicadores_acoes( '2025-01-01', date( 'Y-m-d' ) );
 $indicadores_apoios_gerais = indicadores_apoio( '2025-01-01', date( 'Y-m-d' ) );
 
+$indicadores_riscos_alagamento = dashboard_get_riscos_count_by_term(
+    'alagamento',
+    'situacao_de_risco',
+    $data_inicio,
+    $data_termino
+);
+
+$indicadores_riscos_lixo = dashboard_get_riscos_count_by_term(
+    'lixo',
+    'situacao_de_risco',
+    $data_inicio,
+    $data_termino
+);
+
+$indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
+    'outros',
+    'situacao_de_risco',
+    $data_inicio,
+    $data_termino
+);
+
+
+
 ?>
 
 <div id="dashboardIndicadores" class="dashboard-content">
@@ -24,6 +47,24 @@ $indicadores_apoios_gerais = indicadores_apoio( '2025-01-01', date( 'Y-m-d' ) );
         <header class="dashboard-content-header">
             <h1>Indicadores</h1>
         </header>
+
+        <pre style="display: none;">
+            <?php
+
+            print_r(
+                dashboard_get_riscos_count_by_taxonomy(
+                    'situacao_de_risco',
+                    $data_inicio,
+                    $data_termino
+                )
+            );
+
+            print_r( $indicadores_riscos_alagamento );
+            print_r( $indicadores_riscos_lixo );
+            print_r( $indicadores_riscos_outros );
+
+            ?>
+        </pre>
 
         <div class="dashboard-content-section">
             <header class="dashboard-content-section-header">
@@ -36,16 +77,16 @@ $indicadores_apoios_gerais = indicadores_apoio( '2025-01-01', date( 'Y-m-d' ) );
                             <header>
                                 <h3>Riscos mapeados</h3>
                                 <p>
-                                    <select>
-                                        <option>Nesse mês</option>
+                                    <select id="selectFilter">
+                                        <option value="current_month" <?=( empty( get_query_var('data_inicio' ) ) ) ? 'selected' : ''?>>Nesse mês</option>
+                                        <option value="filter_by_dates" <?=( !empty( get_query_var('data_inicio' ) ) ) ? 'selected' : ''?> >Filtrar por datas</option>
                                     </select>
                                 </p>
                             </header>
-                            <div>
+                            <div id="optionsFilter">
                                 <form id="formFilterBetweenDates" method="get" action="<?=get_dashboard_url( 'indicadores' )?>/">
                                     <p>
                                         <label for="start">Data início:</label>
-
                                         <input type="date"
                                                id="data_inicio"
                                                name="data_inicio"
@@ -55,9 +96,7 @@ $indicadores_apoios_gerais = indicadores_apoio( '2025-01-01', date( 'Y-m-d' ) );
                                     </p>
                                     <p>
                                         <label for="start">Data término:</label>
-
-                                        <input
-                                            type="date"
+                                        <input type="date"
                                             id="data_termino"
                                             name="data_termino"
                                             value="<?=$data_termino?>"
@@ -174,8 +213,16 @@ $indicadores_apoios_gerais = indicadores_apoio( '2025-01-01', date( 'Y-m-d' ) );
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const ctx = document.getElementById('myChart').getContext('2d');
-        const dados = [30, 50, 20]; // Valores absolutos
-        const labels = ['Alagamento', 'Lixo', 'Outros'];
+        const dados = [
+            <?=$indicadores_riscos_alagamento[ 'term' ]->count?>,
+            <?=$indicadores_riscos_lixo[ 'term' ]->count?>,
+            <?=$indicadores_riscos_outros[ 'term' ]->count?>
+        ];
+        const labels = [ 'Alagamento', 'Lixo', 'Outros' ];
+
+        //$indicadores_riscos_alagamento
+        //$indicadores_riscos_lixo
+        //$indicadores_riscos_outros
 
         // Calcula o total para conversão em percentual
         const total = dados.reduce((acc, valor) => acc + valor, 0);
