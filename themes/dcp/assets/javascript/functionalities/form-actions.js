@@ -439,20 +439,24 @@ document.addEventListener('DOMContentLoaded', () => {
             method: 'POST',
             cache: 'force-cache',
         })
-        if (res.ok) {
-            const data = await res.json()
-            if (data) {
-                riskDraft.latitude = data.lat
-                riskDraft.longitude = data.lon
-                updateMarker?.(data.lat, data.lon)
-            }
-        }
 
-        nextButton.disabled = false
+        try {
+            if (res.ok) {
+                const data = await res.json()
+                if (data) {
+                    riskDraft.latitude = data.lat
+                    riskDraft.longitude = data.lon
+                    updateMarker?.(data.lon, data.lat)
+                    return [data.lon, data.lat]
+                }
+            }
+        } finally {
+            nextButton.disabled = false
+        }
     }
 
-    async function updateAddress (latitude, longitude) {
-        hasDraggedMarker = true
+    async function updateAddress (longitude, latitude, isDrag = false) {
+        hasDraggedMarker ||= isDrag
         riskDraft.latitude = latitude
         riskDraft.longitude = longitude
 
@@ -610,25 +614,28 @@ document.addEventListener('DOMContentLoaded', () => {
         input.value = value;
     }
 
-    async function loadDraggableMap () {
-        const map = document.querySelector('.jeomap');
+    async function getMap () {
+        const mapEl = document.querySelector('.jeomap');
 
-        await until(() => map.dataset.map_id);
-        const jeoMap = globalThis.jeomaps[map.dataset.uui_id];
+        await until(() => mapEl.dataset.map_id);
+        const jeoMap = globalThis.jeomaps[mapEl.dataset.uui_id];
 
-        await until(() => jeoMap.map);
-        return showDraggableMap(jeoMap, riskDraft, updateAddress);
+        return until(() => jeoMap.map);
     }
 
     const toggleMapButton = document.querySelector('.multistepform__button-map');
     let mapActivated = false;
     toggleMapButton.addEventListener('click', async () => {
+        const map = await getMap();
         if (updateMarker) {
-            await updateCoordinates(riskDraft.endereco)
+            const center = await updateCoordinates(riskDraft.endereco);
+            if (center) {
+                map.easeTo({ center, zoom: map.getZoom() });
+            }
         } else if (!mapActivated) {
             mapActivated = true;
             mapWrapper.querySelector('.jeomap').style.display = '';
-            updateMarker = await loadDraggableMap();
+            updateMarker = await showDraggableMap(map, riskDraft, updateAddress);
         }
     })
 });

@@ -34,13 +34,16 @@ async function getInitialCoords (risk) {
     }
 }
 
-export async function showDraggableMap (jeoMap, risk, updateAddress) {
-    const map = jeoMap.map
+function changedCoords (risk, coords) {
+    return coords[0] !== risk.longitude || coords[1] !== risk.latitude
+}
 
+export async function showDraggableMap (map, risk, updateAddress) {
     const initialCoords = await getInitialCoords(risk)
-    risk.longitude = initialCoords[0]
-    risk.latitude = initialCoords[1]
     map.easeTo({ center: initialCoords, zoom: map.getZoom() })
+    if (changedCoords(risk, initialCoords)) {
+        updateAddress(...initialCoords, false)
+    }
 
     const marker = new mapboxgl.Marker({ draggable: true })
         .setLngLat(initialCoords)
@@ -48,10 +51,10 @@ export async function showDraggableMap (jeoMap, risk, updateAddress) {
 
     marker.on('dragend', async () => {
         const coords = marker.getLngLat()
-        updateAddress(coords.lat, coords.lng)
+        updateAddress(coords.lng, coords.lat, true)
     })
 
-    const updateMarker = (latitude, longitude) => {
+    const updateMarker = (longitude, latitude) => {
         marker.setLngLat([longitude, latitude])
     }
 

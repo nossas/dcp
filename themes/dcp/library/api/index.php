@@ -155,7 +155,7 @@ class API {
                 return [
                     'lat' => floatval($match->lat),
                     'lon' => floatval($match->lon),
-                    'address' => $match->address->road,
+                    'address' => $match->address->road ?? '',
                     'full_address' => $match->display_name,
                 ];
             }
@@ -180,7 +180,7 @@ class API {
         $match = self::make_nominatim_request($url);
 
         if (!empty($match) && empty($match->error)) {
-            $pretty_address = $match->address->road;
+            $pretty_address = $match->address->road ?? '';
             if (!empty($match->address->house_number)) {
                 $pretty_address .= ', ' . $match->address->house_number;
             }
