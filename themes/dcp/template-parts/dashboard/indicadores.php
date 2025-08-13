@@ -71,7 +71,7 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                 <h2>Nesse Mês</h2>
             </header>
             <div class="dashboard-content-section-body">
-                <div class="cards">
+                <div class="cards cards--3">
                     <div class="card">
                         <div class="is-chart-filter">
                             <header>
@@ -135,7 +135,7 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                 <h2>Indicadores Gerais</h2>
             </header>
             <div class="dashboard-content-section-body">
-                <div class="cards">
+                <div class="cards cards--4">
                     <div class="card">
                         <div class="is-counter">
                             <h3><?=( $indicadores_riscos_gerais[ 'publicados' ][ 'total_posts' ] + $indicadores_riscos_gerais[ 'aprovacao' ][ 'total_posts' ] + $indicadores_riscos_gerais[ 'arquivados' ][ 'total_posts' ] )?></h3>
@@ -170,7 +170,7 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                 <h2>Indicadores Whatsapp</h2>
             </header>
             <div class="dashboard-content-section-body">
-                <div class="cards">
+                <div class="cards cards--4">
                     <div class="card">
                         <div class="is-counter">
                             <h3>00</h3>
