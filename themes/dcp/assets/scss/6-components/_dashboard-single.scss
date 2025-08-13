@@ -403,7 +403,7 @@
                     color: $color--secondary-dark;
                     display: block;
                     width: 61%;
-                    padding: size( 25 );
+                    padding: size( 20 );
                     margin:  size( 25 ) 0  size( 25 );
                     border-radius: size( 15 );
                     border: dotted 2px #C9C6C5;
@@ -878,7 +878,8 @@
             .form-submit {
                 background-color: $color--secondary-light;
                 display: flex;
-                justify-content: space-between;
+                justify-content: flex-end;
+                gap: 24px;
                 padding: size( 30 ) 0;
                 z-index: 5;
                 opacity: 1;
@@ -886,20 +887,27 @@
                 transition: all 0.4s 0s ease;
 
                 @include mobile {
-                    display: block;
-                    justify-content: initial;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
                 }
                 @include tablet {
-                    display: block;
-                    justify-content: initial;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
                 }
 
                 .button {
-                    font-size: size( 20 );
+                    font-size: size( 16 );
                     text-decoration: none;
-                    padding: size( 15 ) size( 50 );
-                    margin-left: size( 15 );
+                    padding: size( 11 ) size( 50 );
                     border-radius: size( 75 );
+                    display: flex;
+                    gap: $gap--small;
+                    width: 209px;
+                    justify-content: center;
+                    align-items: center;
+                    height: 40px;
 
                     &:first-child {
                         text-align: center;
@@ -907,29 +915,36 @@
                     }
 
                     @include mobile {
-                        display: block;
                         text-align: center;
-                        width: 100%;
-                        padding: size( 15 );
-                        margin: 0 0 size( 15 ) 0;
+                        width: 100% !important;
+                        padding: size( 8 );
                     }
                     @include tablet {
-                        display: block;
                         text-align: center;
-                        width: 100%;
+                        width: 100% !important;
                         padding: size( 15 );
-                        margin: 0 0 size( 15 ) 0;
                     }
 
                     span {
                         display: inline-block;
                     }
+
+                    &.is-archive {
+                        background-color: transparent;
+                        color: $color--warning-dark;
+                        border: solid 1px $color--warning-dark;
+                        width: 125px;
+
+                        @include mobile {
+                            order: 2;
+                        }
+
+                        @include tablet {
+                            order: 2;
+                        }
+                    }
                 }
-                .button.is-archive {
-                    background-color: transparent;
-                    color: $color--warning-dark;
-                    border: solid 1px $color--warning-dark;
-                }
+
                 .button.is-goback {
                     background-color: transparent;
                     color: $color--secondary-dark;
@@ -1036,13 +1051,14 @@
                         background-color: transparent;
                         font-size: size( 30 );
                         color: $color--secondary-dark;
-                        padding: size( 10 ) size( 20 );
+                        padding: unset !important;
                         border: none;
                         position: relative;
 
                         @include mobile {
                             top: -5px;
                             right: -25px;
+                            padding: 10px 20px 0 0 !important;
                         }
                     }
                 }
@@ -1079,8 +1095,12 @@
 
                     .button {
                         border-radius: size( 50 );
-                        font-size: size( 20 );
-                        height: 45px;
+                        font-size: size( 16 );
+                        height: 40px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: $gap--small;
 
                         @include mobile {
                             text-align: center;
@@ -1110,11 +1130,15 @@
                         padding: size( 10 ) size( 25 );
                     }
                     .button.is-confirm {
-                        background-color: $color--warning-dark;
+                        background-color: $color--primary-pure;
                         color: $color--secondary-light;
                         padding: size( 10 ) size( 75 );
                         @include mobile {
                             padding: size( 10 );
+                        }
+
+                        .iconify-icon {
+                            font-size: size(24);
                         }
                     }
                 }

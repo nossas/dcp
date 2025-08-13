@@ -344,6 +344,20 @@ namespace hacklabr\dashboard;
                             </a>
                         <?php endif; ?>
 
+                        <?php if( wp_is_mobile() ) : ?>
+                            <a class="button is-archive">
+                                <iconify-icon icon="bi:x-lg"></iconify-icon>
+                                <span>Arquivar</span>
+                            </a>
+
+                            <!--
+                            <a href="<?=get_dashboard_url( 'riscos' )?>" class="button is-goback">
+                                <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                                <span>Voltar</span>
+                            </a>
+                            -->
+                        <?php endif; ?>
+
                         <?php
                             //if ( !empty($pod->field('latitude')) || !empty($pod->field('longitude'))) {
 
@@ -368,7 +382,7 @@ namespace hacklabr\dashboard;
 
                                         <a class="button is-save">
                                             <iconify-icon icon="bi:check2"></iconify-icon>
-                                            <span>Publicar Alterações</span>
+                                            <span>Publicar</span>
                                         </a>
 
                                         <?php
@@ -387,19 +401,6 @@ namespace hacklabr\dashboard;
 //                            }
                         ?>
 
-                        <?php if( wp_is_mobile() ) : ?>
-                            <a class="button is-archive">
-                                <iconify-icon icon="bi:x-lg"></iconify-icon>
-                                <span>Arquivar</span>
-                            </a>
-
-                            <!--
-                            <a href="<?=get_dashboard_url( 'riscos' )?>" class="button is-goback">
-                                <iconify-icon icon="bi:chevron-left"></iconify-icon>
-                                <span>Voltar</span>
-                            </a>
-                            -->
-                        <?php endif; ?>
                     </div>
                 </form>
                 <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
