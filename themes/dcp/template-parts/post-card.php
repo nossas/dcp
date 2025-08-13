@@ -37,6 +37,8 @@
 
     $data_post = get_the_date('d/m/Y', $post->ID);
     $show_info_between = !$hide_date;
+
+    if ( get_post_status() === 'publish' ) :
 ?>
 <article id="post-ID-<?php the_ID(); ?>" class="post-card <?= $modifiers ?>" data-post-id="<?php the_ID() ?>">
     <header class="post-card__image">
@@ -434,4 +436,6 @@
     <?php endif; ?>
 </article>
 <?php
+    endif;
+
 $post = $original_post;
