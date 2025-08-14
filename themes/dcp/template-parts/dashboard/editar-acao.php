@@ -53,9 +53,6 @@ namespace hacklabr\dashboard;
                 'hide_empty' => false,
             ]);
 
-
-            //TODO: REFACTORY P/ COMPONENT
-
             switch ( $post_status ) {
                 case 'draft':
                     $class = 'is-draft';
@@ -246,92 +243,60 @@ namespace hacklabr\dashboard;
             </div>
             <div class="fields is-media-attachments">
                 <div id="mediaUploadCover" class="input-media">
-                    <?php if( !wp_is_mobile() ) : ?>
+                    <?php
+                    $has_cover_photo = has_post_thumbnail();
+                    ?>
                     <div class="input-media-uploader">
-                        <h4>Foto de capa</h4>
+                        <h4>Foto</h4>
                         <div class="input-media-uploader-files">
-                            <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                            <a id="mediaUploadButtonCover"
+                               class="button is-primary is-small is-upload-media"
+                               <?= $has_cover_photo ? 'disabled' : '' ?> >
                                 <iconify-icon icon="bi:upload"></iconify-icon>
                                 <span>Adicionar foto</span>
                             </a>
+                            <input type="file" name="media_file" id="cover-photo-input" accept="image/*" style="display: none;">
                         </div>
                     </div>
-                    <?php else : ?>
-                        <div class="input-media-uploader is-mobile-only">
-                            <h4 style="margin-top: 15px">Foto (opcional)</h4>
-                            <div class="input-help">
-                                <a href="#/" class="button" style="top: 0 !important;">
-                                    <iconify-icon icon="bi:question"></iconify-icon>
-                                </a>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
-                                </p>
-                            </div>
-                        </div>
-                    <?php endif; ?>
 
-                    <div class="input-media-uploader-progress">
-                        <div class="progress is-empty">
-                            <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
-                        </div>
+                    <div id="mediaPreviewContainer" class="media-preview-container">
+                        <h4 class="media-preview-title" style="display: none;">Nova foto adicionada</h4>
+                        <div class="media-preview-list"></div>
                     </div>
+
                     <div class="input-media-preview">
-                        <div class="input-media-preview-assets is-images">
-                            <?php if( !empty( $attachments ) ) : ?>
-                                <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
+                        <?php if ( $has_cover_photo ) :
+                            $attachment_id = get_post_thumbnail_id();
+                            $image_url = wp_get_attachment_url($attachment_id);
+                        ?>
+                            <div class="input-media-preview-assets is-images">
                                 <div class="assets-list">
-                                    <?php foreach ( $attachments as $image ) : ?>
-                                        <input type="hidden" name="attatchment_cover_id" value="<?=$image->ID?>">
-                                        <figure class="asset-item-preview">
-                                            <img class="is-load-now" data-media-src="<?=$image->guid?>">
-                                            <div class="asset-item-preview-actions">
-                                                <a class="button is-fullscreen" data-id="<?=$image->ID?>" data-href="<?=$image->guid?>">
-                                                    <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
-                                                </a>
-                                                <a class="button is-delete" data-id="<?=$image->ID?>">
-                                                    <iconify-icon icon="bi:trash-fill"></iconify-icon>
-                                                </a>
-                                                <a class="button is-download" href="<?=$image->guid?>" target="_blank">
-                                                    <iconify-icon icon="bi:download"></iconify-icon>
-                                                </a>
-                                                <a class="button is-show-hide">
-                                                    <iconify-icon icon="bi:eye-slash-fill"></iconify-icon>
-                                                </a>
-                                            </div>
-                                        </figure>
-                                    <?php endforeach; ?>
+                                    <figure class="asset-item-preview" id="saved-media-item-<?= $attachment_id ?>">
+                                        <img src="<?= $image_url ?>">
+                                        <div class="asset-item-preview-actions">
+                                            <a class="button is-fullscreen" data-id="<?= $attachment_id ?>" data-href="<?= $image_url ?>"><iconify-icon icon="bi:arrows-fullscreen"></iconify-icon></a>
+                                            <a class="button is-delete" data-id="<?= $attachment_id ?>"><iconify-icon icon="bi:trash-fill"></iconify-icon></a>
+                                            <a class="button is-download" href="<?= $image_url ?>" target="_blank"><iconify-icon icon="bi:download"></iconify-icon></a>
+                                        </div>
+                                    </figure>
                                 </div>
-                            <?php else : ?>
-                                <div class="input-media-preview">
-                                    <div class="input-media-preview-assets is-empty">
-                                        <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-
-                    <?php if( wp_is_mobile() ) : ?>
-                        <div class="input-media-uploader">
-                            <div class="input-media-uploader-files">
-                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
-                                    <iconify-icon icon="bi:upload"></iconify-icon>
-                                    <span>Adicionar foto</span>
-                                </a>
                             </div>
-                        </div>
-                    <?php endif; ?>
-                </div>
-                <?php if( !wp_is_mobile() ) : ?>
-                    <div class="input-help">
-                        <a href="#/" class="button">
-                            <iconify-icon icon="bi:question"></iconify-icon>
-                        </a>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
-                        </p>
+                        <?php else : ?>
+                            <div class="input-media-preview-assets is-empty">
+                                <p class="is-empty-text">Nenhuma foto adicionada ainda.</p>
+                            </div>
+                        <?php endif; ?>
                     </div>
-                <?php endif; ?>
+                </div>
+
+                <div class="input-help">
+                    <a href="#/" class="button">
+                        <iconify-icon icon="bi:question"></iconify-icon>
+                    </a>
+                    <p>
+                        O usuário poderá adicionar uma foto, então se já houver uma foto adicionada (seja por ele ou pela que fez a sugestão), o botão fica desabilitado.
+                    </p>
+                </div>
             </div>
             <div class="fields">
                 <?php if( !empty( $pod->field( 'total_participantes' ) ) ) : ?>
@@ -362,7 +327,6 @@ namespace hacklabr\dashboard;
 
                 <div>
                     <?php
-                        //TODO: REFACTORY P/ UI
                         if( !wp_is_mobile() ) :
                             if( $post_status === 'draft' ) : ?>
                         <a class="button is-archive">
@@ -372,7 +336,6 @@ namespace hacklabr\dashboard;
                     <?php endif; endif; ?>
 
                     <?php
-                        //TODO: REFACTORY P/ MELHOR LOGICA
                         switch ( $post_status ) {
 
                             case 'draft': ?>
@@ -417,7 +380,6 @@ namespace hacklabr\dashboard;
                     ?>
 
                     <?php
-                    //TODO: REFACTORY P/ UI
                     if( wp_is_mobile() ) :
                         if( $post_status === 'draft' ) : ?>
                             <a class="button is-archive">
@@ -425,7 +387,6 @@ namespace hacklabr\dashboard;
                                 <span>Arquivar</span>
                             </a>
                         <?php endif; endif; ?>
-
                 </div>
 
                 <?php if( wp_is_mobile() ) : ?>
@@ -437,6 +398,8 @@ namespace hacklabr\dashboard;
                     </div>
                 <?php endif; ?>
             </div>
+
+            <div id="file-input-storage" style="display: none;"></div>
         </form>
 
         <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
@@ -448,4 +411,3 @@ namespace hacklabr\dashboard;
 </div>
         <?php endwhile; ?>
     <?php endif; ?>
-

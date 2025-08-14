@@ -304,88 +304,64 @@ namespace hacklabr\dashboard;
                             </div>
                         </div>
                     <?php endif; ?>
-                    <div class="input-media-uploader-progress">
-                        <div class="progress is-empty">
-                            <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
-                        </div>
+
+                    <div id="mediaPreviewContainer" class="media-preview-container">
+                        <h4 class="media-preview-title" style="display: none;">Mídias adicionadas</h4>
+                        <div class="media-preview-list">
+                            </div>
                     </div>
+                    <div class=input-media-divider></div>
                     <div class="input-media-preview">
                         <?php if( !empty( $videos ) ) : ?>
                             <div class="input-media-preview-assets is-video">
                                 <h4>Vídeos</h4>
-                                <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
                                 <div class="assets-list">
                                     <?php foreach ( $videos as $video) : ?>
                                         <figure class="asset-item-preview">
                                             <video class="" poster="" playsinline loop muted>
-                                                <source class="is-load-now" data-media-src="<?=$video->guid?>" type="video/mp4">
+                                                <source src="<?=$video->guid?>" type="video/mp4">
                                             </video>
                                             <a class="button is-play">
                                                 <iconify-icon icon="bi:play-fill"></iconify-icon>
                                             </a>
-
                                             <div class="asset-item-preview-actions">
-                                                <a class="button is-fullscreen">
-                                                    <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
-                                                </a>
-                                                <a class="button is-delete" data-id="<?=$video->ID?>">
-                                                    <iconify-icon icon="bi:trash-fill"></iconify-icon>
-                                                </a>
-                                                <a class="button is-download" href="<?=$video->guid?>" target="_blank">
-                                                    <iconify-icon icon="bi:download"></iconify-icon>
-                                                </a>
-                                                <a class="button is-show-hide">
-                                                    <iconify-icon icon="bi:eye-slash-fill"></iconify-icon>
-                                                </a>
+                                                <a class="button is-fullscreen"><iconify-icon icon="bi:arrows-fullscreen"></iconify-icon></a>
+                                                <a class="button is-delete" data-id="<?=$video->ID?>"><iconify-icon icon="bi:trash-fill"></iconify-icon></a>
+                                                <a class="button is-download" href="<?=$video->guid?>" target="_blank"><iconify-icon icon="bi:download"></iconify-icon></a>
+                                                <a class="button is-show-hide"><iconify-icon icon="bi:eye-slash-fill"></iconify-icon></a>
                                             </div>
-
                                         </figure>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
-                        <?php endif;
-
-                        if( !empty( $images ) ) : ?>
+                        <?php endif; if( !empty( $images ) ) : ?>
                             <div class="input-media-preview-assets is-images">
                                 <h4>Fotos</h4>
-                                <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
                                 <div class="assets-list">
                                     <?php foreach ( $images as $image ) : ?>
                                         <figure class="asset-item-preview">
-                                            <img class="is-load-now" data-media-src="<?=$image->guid?>">
-
+                                            <img src="<?=$image->guid?>">
                                             <div class="asset-item-preview-actions">
-
-                                                <a class="button is-fullscreen" data-id="<?=$image->ID?>" data-href="<?=$image->guid?>">
-                                                    <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
-                                                </a>
-                                                <a class="button is-delete" data-id="<?=$image->ID?>">
-                                                    <iconify-icon icon="bi:trash-fill"></iconify-icon>
-                                                </a>
-                                                <a class="button is-download" href="<?=$image->guid?>" target="_blank">
-                                                    <iconify-icon icon="bi:download"></iconify-icon>
-                                                </a>
-                                                <a class="button is-show-hide">
-                                                    <iconify-icon icon="bi:eye-slash-fill"></iconify-icon>
-                                                </a>
+                                                <a class="button is-fullscreen" data-id="<?=$image->ID?>" data-href="<?=$image->guid?>"><iconify-icon icon="bi:arrows-fullscreen"></iconify-icon></a>
+                                                <a class="button is-delete" data-id="<?=$image->ID?>"><iconify-icon icon="bi:trash-fill"></iconify-icon></a>
+                                                <a class="button is-download" href="<?=$image->guid?>" target="_blank"><iconify-icon icon="bi:download"></iconify-icon></a>
+                                                <a class="button is-show-hide"><iconify-icon icon="bi:eye-slash-fill"></iconify-icon></a>
                                             </div>
-
                                         </figure>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
-                        <?php endif; ?>
-
-                        <?php if( empty( $videos ) && empty( $images ) ) : ?>
+                        <?php endif; if( empty( $videos ) && empty( $images ) ) : ?>
                             <div class="input-media-preview-assets is-empty">
                                 <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
                             </div>
                         <?php endif; ?>
                     </div>
+
                     <?php if( wp_is_mobile() ) : ?>
                         <div class="input-media-uploader">
                             <div class="input-media-uploader-files">
-                                <a id="mediaUploadButton" class="button is-primary is-small is-upload-media is-multiple">
+                                <a id="mediaUploadButtonMobile" class="button is-primary is-small is-upload-media is-multiple">
                                     <iconify-icon icon="bi:upload"></iconify-icon>
                                     <span>Adicionar fotos e vídeos</span>
                                 </a>
@@ -430,6 +406,7 @@ namespace hacklabr\dashboard;
                     </a>
                 <?php endif; ?>
             </div>
+            <div id="file-input-storage" style="display: none;"></div>
         </form>
         <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
         <?php echo get_template_part('template-parts/dashboard/ui/modal-assetset-fullscreen' ); ?>

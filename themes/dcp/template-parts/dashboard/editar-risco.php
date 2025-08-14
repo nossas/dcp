@@ -114,7 +114,7 @@ namespace hacklabr\dashboard;
                     <div class="fields">
                         <div class="input-wrap">
                             <label class="label">Categoria</label>
-                            <select id="selectCategory" class="select" name="situacao_de_risco" required>
+                            <select id="selectCategory" class="select" name="situacao_de_risco" required >
                                 <option class="placeholder-text" value="">Selecione uma categoria</option>
                                 <?php foreach ( $all_terms as $key => $term ) :
                                     if( !$term->parent ) : ?>
@@ -230,6 +230,7 @@ namespace hacklabr\dashboard;
                             </p>
                         </div>
                     </div>
+
                     <div class="fields is-media-attachments">
                         <div id="mediaUpload" class="input-media">
                             <?php if( !wp_is_mobile() ) : ?>
@@ -255,21 +256,25 @@ namespace hacklabr\dashboard;
                                     </div>
                                 </div>
                             <?php endif; ?>
-                            <div class="input-media-uploader-progress">
-                                <div class="progress is-empty">
-                                    <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
-                                </div>
+
+                            <div id="mediaPreviewContainer" class="media-preview-container">
+                                <h4 class="media-preview-title" style="display: none;">Mídias adicionadas</h4>
+                                <div class="media-preview-list">
+                                    </div>
                             </div>
+
+                            <div id="file-input-storage" style="display: none;"></div>
+
+                            <div class=input-media-divider></div>
                             <div class="input-media-preview">
                                 <?php if( !empty( $videos ) ) : ?>
                                     <div class="input-media-preview-assets is-video">
                                         <h4>Vídeos</h4>
-                                        <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
                                         <div class="assets-list">
                                             <?php foreach ( $videos as $video) : ?>
                                                 <figure class="asset-item-preview">
                                                     <video class="" poster="" playsinline loop muted>
-                                                        <source class="is-load-now" data-media-src="<?=$video->guid?>" type="video/mp4">
+                                                        <source src="<?=$video->guid?>" type="video/mp4">
                                                     </video>
                                                     <a class="button is-play">
                                                         <iconify-icon icon="bi:play-fill"></iconify-icon>
@@ -287,11 +292,10 @@ namespace hacklabr\dashboard;
                                 <?php endif; if( !empty( $images ) ) : ?>
                                     <div class="input-media-preview-assets is-images">
                                         <h4>Fotos</h4>
-                                        <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
                                         <div class="assets-list">
                                             <?php foreach ( $images as $image ) : ?>
                                                 <figure class="asset-item-preview">
-                                                    <img class="is-load-now" data-media-src="<?=$image->guid?>">
+                                                    <img src="<?=$image->guid?>">
                                                     <div class="asset-item-preview-actions">
                                                         <a class="button is-fullscreen" data-id="<?=$image->ID?>" data-href="<?=$image->guid?>"><iconify-icon icon="bi:arrows-fullscreen"></iconify-icon></a>
                                                         <a class="button is-delete" data-id="<?=$image->ID?>"><iconify-icon icon="bi:trash-fill"></iconify-icon></a>
@@ -308,10 +312,11 @@ namespace hacklabr\dashboard;
                                     </div>
                                 <?php endif; ?>
                             </div>
+
                             <?php if( wp_is_mobile() ) : ?>
                                 <div class="input-media-uploader">
                                     <div class="input-media-uploader-files">
-                                        <a id="mediaUploadButton" class="button is-primary is-small is-upload-media is-multiple">
+                                        <a id="mediaUploadButtonMobile" class="button is-primary is-small is-upload-media is-multiple">
                                             <iconify-icon icon="bi:upload"></iconify-icon>
                                             <span>Adicionar fotos e vídeos</span>
                                         </a>
@@ -349,19 +354,9 @@ namespace hacklabr\dashboard;
                                 <iconify-icon icon="bi:x-lg"></iconify-icon>
                                 <span>Arquivar</span>
                             </a>
-
-                            <!--
-                            <a href="<?=get_dashboard_url( 'riscos' )?>" class="button is-goback">
-                                <iconify-icon icon="bi:chevron-left"></iconify-icon>
-                                <span>Voltar</span>
-                            </a>
-                            -->
                         <?php endif; ?>
 
                         <?php
-                            //if ( !empty($pod->field('latitude')) || !empty($pod->field('longitude'))) {
-
-                                //TODO: REFACTORY P/ MELHOR LOGICA
                                 switch ( $post_status ) {
 
                                     case 'draft':
@@ -389,19 +384,10 @@ namespace hacklabr\dashboard;
 
                                         break;
                                 }
-
-//                            }
-//                            else {
-//                                ?>
-<!--                                <a class="button is-goback" disabled>-->
-<!--                                    <iconify-icon icon="bi:check2"></iconify-icon>-->
-<!--                                    <span>Bloqueado para publicação</span>-->
-<!--                                </a>-->
-<!--                                --><?php
-//                            }
                         ?>
 
                     </div>
+                    <div id="file-input-storage" style="display: none;"></div>
                 </form>
                 <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
                 <?php echo get_template_part('template-parts/dashboard/ui/modal-assetset-fullscreen' ); ?>
@@ -412,4 +398,3 @@ namespace hacklabr\dashboard;
         </div>
     <?php endwhile; ?>
 <?php endif; ?>
-

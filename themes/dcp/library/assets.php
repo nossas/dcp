@@ -535,6 +535,14 @@ class Assets
                 },
             ],
 
+            'dashboard-media-preview' => [
+                'file' => 'dashboard-media-preview.js',
+                'deps' => ['snackbar-module'],
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
+            ],
+
             'snackbar-module' => [
                 'file' => 'snackbar.js',
                 'preload_callback' => function () {

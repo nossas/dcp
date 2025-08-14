@@ -446,9 +446,12 @@
                             font-size: size( 25 );
                         }
                         h4 {
-                            font-size: size( 14 );
+                            font-size: size( 20 );
                             padding: size( 7 ) size( 15 );
-                            opacity: 0.7;
+                            font-family: $font-family--primary;
+                            font-weight: 500;
+                            color: $color--low-light;
+                            line-height: 120%;
 
                             @include mobile {
                                 padding: size( 7 ) size( 10 );
@@ -497,6 +500,10 @@
                                 &:hover {
                                     background-color: $color--secondary-dark;
                                     color: $color--secondary-light;
+                                }
+
+                                &[disabled] {
+                                    pointer-events: none;
                                 }
                             }
                         }
@@ -587,8 +594,12 @@
                             position: relative;
 
                             h4 {
-                                font-size: size( 11 );
+                                font-size: size( 14 );
                                 padding: size( 5 ) size( 10 );
+                                color: $color--low-light;
+                                font-family: $font-family--primary;
+                                font-weight: 500;
+                                line-height: 120%;
                             }
 
                             .dashboard-content-skeleton {
@@ -636,14 +647,9 @@
 
                                     video,
                                     img {
-                                        display: block;
-                                        width: auto;
-                                        max-width: initial;
-                                        height: size( 185 );
-                                        position: absolute;
-                                        top: 50%;
-                                        left: 50%;
-                                        transform: scale( 1.4 ) translate( -50%, -50% );
+                                        width: 100%;
+                                        height: 100%;
+                                        object-fit: cover;
                                     }
 
                                     .button {
@@ -682,7 +688,7 @@
                                         z-index: 2;
 
                                         .button {
-                                            font-size: size( 13 );
+                                            font-size: size( 18 );
                                             z-index: 1;
                                             opacity: 0;
                                         }
@@ -730,9 +736,9 @@
 
                         }
                         .input-media-preview-assets.is-video {
-                            padding-bottom: size( 25 );
-                            margin-bottom: size( 25 );
-                            border-bottom: dotted 2px $color--warning-dark;
+                            padding-bottom: size( 16 );
+                            margin-bottom: size( 16 );
+                            border-bottom: dotted 2px #C9C6C5;
                         }
 
                         .input-media-preview-assets.is-video {}
@@ -804,6 +810,86 @@
                                 }
                             }
                         }
+                    }
+
+                    .media-preview-container {
+                        margin-top: 25px;
+
+                        .media-preview-title {
+                            font-family: $font-family--primary;
+                            font-size: 14px;
+                            font-weight: 500;
+                            margin-bottom: size(4);
+                            color: $color--low-light;
+                            line-height: 120%;
+                            padding: size(5) size(10);
+                        }
+
+                        .media-preview-list {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+                            border: 1px solid $color--secondary-dark;
+                            border-radius: 12px;
+                            padding: 12px;
+                            background: var(--color-transparency-dark-5, rgba(40, 20, 20, 0.05));
+                        }
+
+                        .media-preview-delete-new {
+                            background: transparent;
+                        }
+
+                        .media-preview-item {
+                            display: flex;
+                            align-items: center;
+
+                            .media-preview-thumb {
+                                width: 50px;
+                                height: 50px;
+                                border-radius: 8px;
+                                object-fit: cover;
+                                margin-right: 15px;
+                                background-color: #EAE8E7;
+                            }
+
+                            .media-preview-info {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 4px;
+                                flex-grow: 1;
+
+                                .media-preview-size {
+                                    font-size: 12px;
+                                    color: $color--secondary-dark;
+                                }
+                                .media-preview-name {
+                                    font-size: 14px;
+                                    color: $color--secondary-dark;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                }
+                            }
+
+                            .media-preview-delete {
+                                background: none;
+                                border: none;
+                                font-size: 24px;
+                                color: #aaa;
+                                cursor: pointer;
+                                padding: 0 10px;
+
+                                &:hover {
+                                    color: #333;
+                                }
+                            }
+                        }
+                    }
+
+                    .input-media-divider {
+                        margin-top: size( 16 );
+                        margin-bottom: size( 16 );
+                        border-bottom: dotted 2px #C9C6C5;
                     }
                 }
                 .input-help {
@@ -1163,11 +1249,11 @@
                 }
 
                 .is-title {
-                    padding: size( 25 );
                     position: absolute;
-                    top: 0;
-                    right: 0;
+                    top: 15px;
+                    right: 15px;
                     z-index: 5;
+                    padding: 0;
 
                     .button {
                         background-color: rgba( 255,255,255,0.8 );
@@ -1177,11 +1263,17 @@
                         height: size( 35 );
                         padding: size( 10 );
                         border: none;
+                        border-radius: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
                     }
                 }
                 .is-body {
                     background-color: #000;
-                    display: block;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     width: 100%;
                     height: auto;
                     min-height: 300px;
@@ -1189,6 +1281,8 @@
 
                     .is-image {
                         width: auto;
+                        max-width: 100%;
+                        height: auto;
                         max-height: 85vh;
                     }
                     .is-video {
