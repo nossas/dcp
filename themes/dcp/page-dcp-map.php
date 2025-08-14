@@ -46,7 +46,7 @@ get_header();
         <form class="dcp-map__form">
             <iconify-icon id="icon-input" icon="bi:search"></iconify-icon> <input type="text" name="address" autocomplete="address-line1" placeholder="Busque sua localização">
             <button type="submit" aria-label="Buscar">
-                <iconify-icon icon="bi:search"></iconify-icon>
+<iconify-icon icon="bi:plus" width="16"></iconify-icon>
                 <span>Buscar</span>
 
             </button>

@@ -19,7 +19,11 @@
         display: flex;
         justify-content: center;
         width: 100%;
-        max-width: 676px;
+        max-width: 682px;
+        margin-left: 13px;
+        @include mobile {
+            margin-left: 2px;
+        }
 
     }
 
@@ -43,7 +47,7 @@
         &[data-cpt="risco"] {
             border-bottom-left-radius: $border-radius--large;
             border-top-left-radius: $border-radius--large;
-            --tab-color: #281414;
+            --tab-color: #B83D13;
              cursor: pointer;
               &:hover {
                 opacity: 0.9;
