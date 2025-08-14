@@ -255,19 +255,22 @@ function indicadores_riscos(
             'risco',
             'draft',
             $date_init,
-            $date_end
+            $date_end,
+            true
         ),
         'publicados' => dashboard_get_post_type_by_status_between_date(
             'risco',
             'publish',
             $date_init,
-            $date_end
+            $date_end,
+            true
         ),
         'arquivados' => dashboard_get_post_type_by_status_between_date(
             'risco',
             'pending',
             $date_init,
-            $date_end
+            $date_end,
+            true
         )
     ];
 }
@@ -278,25 +281,29 @@ function indicadores_acoes( $date_init = '2025-01-01', $date_end = '2025-12-31' 
             'acao',
             'draft',
             $date_init,
-            $date_end
+            $date_end,
+            true
         ),
         'agendadas' => dashboard_get_post_type_by_status_between_date(
             'acao',
             'publish',
             $date_init,
-            $date_end
+            $date_end,
+            true
         ),
         'realizadas' => dashboard_get_post_type_by_status_between_date(
             'acao',
             'private',
             $date_init,
-            $date_end
+            $date_end,
+            true
         ),
         'arquivadas' => dashboard_get_post_type_by_status_between_date(
             'acao',
             'pending',
             $date_init,
-            $date_end
+            $date_end,
+            true
         )
     ];
 }

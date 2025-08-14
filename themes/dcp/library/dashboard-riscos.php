@@ -7,8 +7,8 @@ function get_riscos_by_status( $status, $page = 1, $limit = 6 ) {
         'post_status'    => $status,
         'posts_per_page' => $limit,
         'paged'          => $page,
-        'orderby'        => 'date',
-        'order'          => 'DESC'
+        'orderby'        => 'meta_value',
+        'meta_key'       => 'data_e_horario',
     ]);
 
     $total_posts = $query->found_posts;

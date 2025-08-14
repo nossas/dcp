@@ -48,25 +48,6 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
         <header class="dashboard-content-header">
             <h1>Indicadores</h1>
         </header>
-
-        <pre style="display: none;">
-            <?php
-
-                $get_riscos_cout_terms = dashboard_get_riscos_count_by_taxonomy(
-                    'situacao_de_risco',
-                    $data_inicio,
-                    $data_termino
-                );
-                print_r( $get_riscos_cout_terms );
-
-            echo '<h5>RISCOS</h5>';
-            print_r( $indicadores_riscos_alagamento );
-            print_r( $indicadores_riscos_lixo );
-            print_r( $indicadores_riscos_outros );
-
-            ?>
-        </pre>
-
         <div class="dashboard-content-section">
             <header class="dashboard-content-section-header">
                 <h2>Nesse Mês</h2>
