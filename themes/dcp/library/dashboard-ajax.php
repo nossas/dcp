@@ -751,7 +751,6 @@ function form_single_risco_edit() {
         ], 400);
     }
 
-    //TODO: REFACTORY
     $post_status = sanitize_text_field($_POST['post_status'] ?? 'draft');
 
     $latitude = sanitize_text_field( $_POST[ 'latitude' ] );
@@ -762,7 +761,6 @@ function form_single_risco_edit() {
         $post_status = 'draft';
         $message_return = 'O risco foi salvo em "Aguardando Aprovação" pois não foi possível geolocalizar no mapa este endereço.';
     }
-    //TODO: REFACTORY
 
     $data = [
         'ID' => $postID,
@@ -785,25 +783,24 @@ function form_single_risco_edit() {
     $updated_id = wp_update_post( $data, true );
 
     if ( is_wp_error( $updated_id ) ) {
-
         wp_send_json_error([
             'title' => 'Erro',
             'message' => 'ID do post inválido ou post não encontrado.',
             'error' => $updated_id->get_error_message(),
         ], 500);
-
     }
 
     $new_terms = array(
         sanitize_text_field( $_POST[ 'situacao_de_risco' ] )
     );
 
-    foreach ( $_POST[ 'subcategories' ] as $term ) {
-        $new_terms[] = sanitize_text_field( $term );
+    if (isset($_POST['subcategories']) && is_array($_POST['subcategories'])) {
+        foreach ( $_POST[ 'subcategories' ] as $term ) {
+            $new_terms[] = sanitize_text_field( $term );
+        }
     }
 
     wp_set_object_terms( $postID, $new_terms, 'situacao_de_risco', false );
-
 
     $pod = pods( 'risco', $postID );
     $pod->save( 'endereco', sanitize_text_field( $data[ 'endereco' ] ) );
@@ -812,25 +809,28 @@ function form_single_risco_edit() {
     $save_post = upload_file_to_attachment_by_ID( $_FILES['media_files'], $postID );
 
     if( empty( $save_post[ 'errors' ] ) ) {
-        $response_message = 'Registro publicado com sucesso! ' . $message_return;
-        $response_type = 'success';
-        $redirect_url = get_site_url() . '/dashboard/riscos/?tipo_risco=publicados';
-
-        if (isset($_POST['post_status']) && $_POST['post_status'] === 'pending') {
+        if ( !empty($message_return) ) {
+            $response_message = $message_return;
+            $response_type    = 'archive'; // Usando o tipo 'archive' para a cor laranja/vermelha
+            $redirect_url     = get_site_url() . '/dashboard/riscos/?tipo_risco=aprovacao';
+        } elseif (isset($_POST['post_status']) && $_POST['post_status'] === 'pending') {
             $response_message = 'Registro arquivado. Você pode acessá-lo na aba "Arquivados".';
-            $response_type = 'archive';
-            $redirect_url = get_site_url() . '/dashboard/riscos/?tipo_risco=arquivados';
+            $response_type    = 'archive';
+            $redirect_url     = get_site_url() . '/dashboard/riscos/?tipo_risco=arquivados';
+        } else {
+            $response_message = 'Registro publicado com sucesso!';
+            $response_type    = 'success';
+            $redirect_url     = get_site_url() . '/dashboard/riscos/?tipo_risco=publicados';
         }
 
         wp_send_json_success([
-            'title'   => 'Sucesso',
-            'message' => $response_message,
-            'type'    => $response_type,
-            'uploaded_files' => $save_post[ 'uploaded_files' ],
-            'redirect_url' => $redirect_url,
-            'post_id' => $postID,
+            'title'          => 'Sucesso',
+            'message'        => $response_message,
+            'type'           => $response_type,
+            'redirect_url'   => $redirect_url,
+            'uploaded_files' => $save_post['uploaded_files'],
+            'post_id'        => $postID,
         ]);
-
     }
 
     wp_send_json_error([
@@ -838,7 +838,6 @@ function form_single_risco_edit() {
         'message' => 'Erro ao salvar o formulário',
         'error' => $save_post[ 'errors' ],
     ], 400 );
-
 }
 add_action('wp_ajax_form_single_risco_edit', 'form_single_risco_edit');
 
