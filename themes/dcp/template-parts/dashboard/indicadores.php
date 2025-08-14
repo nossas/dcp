@@ -12,11 +12,12 @@ $indicadores_riscos = indicadores_riscos( $data_inicio, $data_termino );
 $indicadores_acoes = indicadores_acoes( $data_inicio, $data_termino );
 $indicadores_apoios = indicadores_apoio( $data_inicio, $data_termino );
 
-
+// INICIO DO ANO ATÉ DATA ATUAL
 $indicadores_riscos_gerais = indicadores_riscos( '2025-01-01', date( 'Y-m-d' ) );
 $indicadores_acoes_gerais = indicadores_acoes( '2025-01-01', date( 'Y-m-d' ) );
 $indicadores_apoios_gerais = indicadores_apoio( '2025-01-01', date( 'Y-m-d' ) );
 
+//
 $indicadores_riscos_alagamento = dashboard_get_riscos_count_by_term(
     'alagamento',
     'situacao_de_risco',
@@ -51,14 +52,14 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
         <pre style="display: none;">
             <?php
 
-            print_r(
-                dashboard_get_riscos_count_by_taxonomy(
+                $get_riscos_cout_terms = dashboard_get_riscos_count_by_taxonomy(
                     'situacao_de_risco',
                     $data_inicio,
                     $data_termino
-                )
-            );
+                );
+                print_r( $get_riscos_cout_terms );
 
+            echo '<h5>RISCOS</h5>';
             print_r( $indicadores_riscos_alagamento );
             print_r( $indicadores_riscos_lixo );
             print_r( $indicadores_riscos_outros );
@@ -84,9 +85,10 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                                 </p>
                             </header>
                             <div id="optionsFilter">
-                                <form id="formFilterBetweenDates" method="get" action="<?=get_dashboard_url( 'indicadores' )?>/">
+                                <form id="formFilterBetweenDates" method="get" action="<?=get_dashboard_url( 'indicadores' )?>/" style="display: flex; justify-content: space-between">
                                     <p>
                                         <label for="start">Data início:</label>
+                                        <br>
                                         <input type="date"
                                                id="data_inicio"
                                                name="data_inicio"
@@ -96,6 +98,7 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                                     </p>
                                     <p>
                                         <label for="start">Data término:</label>
+                                        <br>
                                         <input type="date"
                                             id="data_termino"
                                             name="data_termino"
@@ -112,15 +115,15 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                                 <canvas id="myChart"></canvas>
                                 <div style=" justify-content: start; ">
                                     <h2 style=" font-size: 35px; color: #235540; ">
-                                        <?=$indicadores_riscos_alagamento[ 'term' ]->count?>
+                                        <?=$indicadores_riscos_alagamento[ 'total_posts' ]?>
                                         <?=$indicadores_riscos_alagamento[ 'term' ]->name?>
                                     </h2>
                                     <h2 style=" font-size: 35px; color: #51B2AF; ">
-                                        <?=$indicadores_riscos_lixo[ 'term' ]->count?>
+                                        <?=$indicadores_riscos_lixo[ 'total_posts' ]?>
                                         <?=$indicadores_riscos_lixo[ 'term' ]->name?>
                                     </h2>
                                     <h2 style=" font-size: 35px; color: #EE7653; ">
-                                        <?=$indicadores_riscos_outros[ 'term' ]->count?>
+                                        <?=$indicadores_riscos_outros[ 'total_posts' ]?>
                                         <?=$indicadores_riscos_outros[ 'term' ]->name?>
                                     </h2>
                                 </div>
@@ -212,25 +215,14 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                 </div>
             </div>
         </div>
-
-        <pre style="display: none;">
-            <?php
-            echo '<h5>RISCOS</h5>';
-            print_r( $indicadores_riscos );
-            echo '<h5>AÇÕES</h5>';
-            print_r( $indicadores_acoes );
-            echo '<h5>APOIOS</h5>';
-            print_r( $indicadores_apoios );
-            ?>
-        </pre>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const ctx = document.getElementById('myChart').getContext('2d');
         const dados = [
-            <?=$indicadores_riscos_alagamento[ 'term' ]->count?>,
-            <?=$indicadores_riscos_lixo[ 'term' ]->count?>,
-            <?=$indicadores_riscos_outros[ 'term' ]->count?>
+            <?=$indicadores_riscos_alagamento[ 'total_posts' ]?>,
+            <?=$indicadores_riscos_lixo[ 'total_posts' ]?>,
+            <?=$indicadores_riscos_outros[ 'total_posts' ]?>
         ];
         const labels = [ 'Alagamento', 'Lixo', 'Outros' ];
 
