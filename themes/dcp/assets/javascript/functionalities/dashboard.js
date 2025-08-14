@@ -746,7 +746,7 @@ jQuery(function($) {
         $( '.dashboard-content-single input[name="endereco"]' ).each( function () {
             const $this = $( this );
             if( $this.val().length ) {
-                gelocation_onblur_address( $this );
+                //gelocation_onblur_address( $this );
             }
         });
 
