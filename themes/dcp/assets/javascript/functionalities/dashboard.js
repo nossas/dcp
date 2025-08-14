@@ -397,42 +397,42 @@ jQuery(function($) {
         });
 
         // BOTÃO MEDIA UPLOAD
-        $( '#mediaUploadButton, #mediaUploadButtonCover' ).on( 'click', function () {
-            const $this = $( this );
+        // $( '#mediaUploadButton, #mediaUploadButtonCover' ).on( 'click', function () {
+        //     const $this = $( this );
 
-            let isMultiple = '';
-            let isAccept = 'image/*';
-            let inputName = 'media_file[]';
+        //     let isMultiple = '';
+        //     let isAccept = 'image/*';
+        //     let inputName = 'media_file[]';
 
-            if( $this.hasClass( 'is-multiple' ) ) {
-                isMultiple = 'multiple';
-                isAccept = 'image/*,video/*';
-                inputName = 'media_files[]';
-            }
+        //     if( $this.hasClass( 'is-multiple' ) ) {
+        //         isMultiple = 'multiple';
+        //         isAccept = 'image/*,video/*';
+        //         inputName = 'media_files[]';
+        //     }
 
-            if( !$this.parent().find( 'input[type="file"]' ).length ) {
-                $this.parent().append( '<input type="file" name="' + inputName + '" style="display:none;" accept="' + isAccept + '" ' + isMultiple + ' >');
-            }
-            $this.parent().find( 'input[type="file"]' ).on( 'change', function ( e ) {
-                const files = Array.from( e.target.files );
-                const $preview = $this.parent().parent().parent().find( '.input-media-preview' );
-                const $progress = $this.parent().parent().parent().find( '.input-media-uploader-progress' );
+        //     if( !$this.parent().find( 'input[type="file"]' ).length ) {
+        //         $this.parent().append( '<input type="file" name="' + inputName + '" style="display:none;" accept="' + isAccept + '" ' + isMultiple + ' >');
+        //     }
+        //     $this.parent().find( 'input[type="file"]' ).on( 'change', function ( e ) {
+        //         const files = Array.from( e.target.files );
+        //         const $preview = $this.parent().parent().parent().find( '.input-media-preview' );
+        //         const $progress = $this.parent().parent().parent().find( '.input-media-uploader-progress' );
 
-                $progress.show().html( '' );
-                $preview.find( '.is-empty' ).remove();
-                if( !$this.hasClass( 'is-multiple' ) ) {
-                    $preview.html( '' );
-                }
+        //         $progress.show().html( '' );
+        //         $preview.find( '.is-empty' ).remove();
+        //         if( !$this.hasClass( 'is-multiple' ) ) {
+        //             $preview.html( '' );
+        //         }
 
-                files.forEach( function ( file ) {
-                    $progress.append( '<div class="progress is-small">' +
-                        '<div class="progress-bar"><span>' +
-                        formatFileSize( file.size ) + '</span><span>' +
-                        file.name + '</span></div> </div>' );
-                });
+        //         files.forEach( function ( file ) {
+        //             $progress.append( '<div class="progress is-small">' +
+        //                 '<div class="progress-bar"><span>' +
+        //                 formatFileSize( file.size ) + '</span><span>' +
+        //                 file.name + '</span></div> </div>' );
+        //         });
 
-            }).trigger( 'click' );
-        });
+        //     }).trigger( 'click' );
+        // });
         // COMPORTAMENTO MEDIA UPLOAD
         $( '.asset-item-preview-actions .is-delete, .modal-asset-fullscreen .is-delete, .input-media-uploader-options .is-delete' ).on( 'click', function() {
             const $this = $( this );
@@ -453,14 +453,7 @@ jQuery(function($) {
                         $( '.dashboard-content-single form' ).find( 'input[name="post_id"]' ).val(),
                         $this.attr( 'data-id' ),
                         function ( response ) {
-                            custom_modal_confirm({
-                                title: response.data.title,
-                                description: response.data.message,
-                                confirmText: "OK",
-                                onConfirm: function () {
-                                    //window.location.reload();
-                                }
-                            });
+                            showDashboardSnackbar(response.data.message, 'success');
 
                             if( $this.hasClass( 'is-cover-picture' ) ) {
                                 $this.parent().parent().css({
@@ -470,7 +463,13 @@ jQuery(function($) {
                                 $( '#mediaUploadCover .is-cover-image .cover-wrap' ).remove();
                                 $this.remove();
                             } else {
-                                $this.parent().parent().remove();
+                                const $mediaSection = $this.closest('.input-media-preview-assets');
+
+                                $this.closest('.asset-item-preview').remove();
+
+                                if ( $mediaSection.find('.asset-item-preview').length === 0 ) {
+                                    $mediaSection.hide();
+                                }
                             }
 
                         },
