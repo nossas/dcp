@@ -10,6 +10,10 @@
       'orderby' => 'date',
       'order' => 'DESC'
     );
+
+    // filtrar por custom field data_e_horario
+    // não exibir datas anteriores ao dia atual, apenas datas futuras
+
     $query = new WP_Query($args);
 
    if ($query->have_posts()) :

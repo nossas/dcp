@@ -665,6 +665,19 @@ jQuery(function($) {
                 }
             });
         });
+        $( '#acaoSingleForm .is-delete.relato' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Publicar Relato?',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
+                cancelText: "Cancelar",
+                onCancel: function () {},
+                confirmText: "Publicar Relato",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'pending' );
+                    $( '#acaoSingleForm' ).submit();
+                }
+            });
+        });
 
         //APOIOS
         $( '#apoioSingleForm .is-new' ).on( 'click', function () {
