@@ -48,3 +48,5 @@ export function showDashboardSnackbar(message, type = 'success', duration = 3000
         snackbar.classList.remove('show');
     }, duration);
 }
+
+window.showDashboardSnackbar = showDashboardSnackbar;
