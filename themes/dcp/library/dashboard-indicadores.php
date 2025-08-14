@@ -7,24 +7,35 @@ function dashboard_get_post_type_by_status_between_date(
     $date_end = '',
     $use_custom_field = false
 ) {
-    if( empty( $post_type ) ) return [ 'não encontrado' ];
+    if (empty($post_type)) {
+        return ['error' => 'Post type não especificado'];
+    }
 
     $args = [
         'post_type'      => $post_type,
         'post_status'    => $status,
         'posts_per_page' => -1,
-        //'paged'          => $page,
-        //'orderby'        => 'date',
-        //'order'          => 'DESC'
+        'fields'         => 'ids', // Otimização de performance
     ];
 
     if (!empty($date_init) && !empty($date_end)) {
         if ($use_custom_field) {
+            // CONVERSÃO PARA DATETIME CORRETO
+            $start_date = date('Y-m-d H:i:s', strtotime($date_init));
+            $end_date = date('Y-m-d H:i:s', strtotime($date_end . ' 23:59:59'));
+
             $args['meta_query'] = [
+                'relation' => 'AND',
                 [
                     'key'     => 'data_e_horario',
-                    'value'   => [$date_init, $date_end],
-                    'compare' => 'BETWEEN',
+                    'value'   => $start_date,
+                    'compare' => '>=',
+                    'type'    => 'DATETIME'
+                ],
+                [
+                    'key'     => 'data_e_horario',
+                    'value'   => $end_date,
+                    'compare' => '<=',
                     'type'    => 'DATETIME'
                 ]
             ];
@@ -34,7 +45,6 @@ function dashboard_get_post_type_by_status_between_date(
                     'after'     => $date_init,
                     'before'    => $date_end,
                     'inclusive' => true,
-                    'column'    => 'post_date'
                 ]
             ];
         }
@@ -44,22 +54,18 @@ function dashboard_get_post_type_by_status_between_date(
     $total_posts = $query->found_posts;
 
     return [
-        'date_init' => $date_init,
-        'date_end' => $date_end,
+        'date_init'   => $date_init,
+        'date_end'    => $date_end,
         'total_posts' => $total_posts,
     ];
 }
 
 function dashboard_get_riscos_count_by_taxonomy(
     $taxonomy,
-    $data_init = '',
-    $date_end = ''
+    $date_init = '',
+    $date_end = '',
+    $use_custom_field = false
 ) {
-    // Valores padrão para datas
-    $data_init = !empty($data_init) ? $data_init : date('Y-m-01');
-    $date_end = !empty($date_end) ? $date_end : date('Y-m-d');
-
-    // Configuração base da query
     $args = [
         'post_type'      => 'risco',
         //'post_status'    => ['draft', 'publish', 'pending'],
@@ -74,27 +80,47 @@ function dashboard_get_riscos_count_by_taxonomy(
         ]
     ];
 
-    //return $args;
+    if (!empty($date_init) && !empty($date_end)) {
+        if ($use_custom_field) {
+            // CONVERSÃO PARA DATETIME CORRETO
+            $start_date = date('Y-m-d H:i:s', strtotime($date_init));
+            $end_date = date('Y-m-d H:i:s', strtotime($date_end . ' 23:59:59'));
 
-    $args['date_query'] = [
-        [
-            'after'     => $data_init,
-            'before'    => $date_end,
-            'inclusive' => true
-        ]
-    ];
+            $args['meta_query'] = [
+                'relation' => 'AND',
+                [
+                    'key'     => 'data_e_horario',
+                    'value'   => $start_date,
+                    'compare' => '>=',
+                    'type'    => 'DATETIME'
+                ],
+                [
+                    'key'     => 'data_e_horario',
+                    'value'   => $end_date,
+                    'compare' => '<=',
+                    'type'    => 'DATETIME'
+                ]
+            ];
+        } else {
+            $args['date_query'] = [
+                [
+                    'after'     => $date_init,
+                    'before'    => $date_end,
+                    'inclusive' => true,
+                ]
+            ];
+        }
+    }
 
-    // Obtém todos os posts IDs que atendem aos critérios
     $query = new WP_Query($args);
     $post_ids = $query->posts;
 
-    // Se não houver posts, retorna vazio
     if (empty($post_ids)) {
         return [
             'totais' => [],
             'termos' => [],
             'filtro_data' => [
-                'inicio' => $data_init,
+                'inicio' => $date_init,
                 'termino' => $date_end
             ]
         ];
@@ -128,8 +154,9 @@ function dashboard_get_riscos_count_by_taxonomy(
     return [
         'totais' => $result,
         'termos' => $terms,
+        'counts' => $counts,
         'filtro_data' => [
-            'inicio' => $data_init,
+            'inicio' => $date_init,
             'termino' => $date_end
         ]
     ];
@@ -138,17 +165,14 @@ function dashboard_get_riscos_count_by_taxonomy(
 function dashboard_get_riscos_count_by_term(
     $term_slug,
     $taxonomy,
-    $data_init = '',
-    $date_end = ''
+    $date_init = '',
+    $date_end = '',
+    $use_custom_field = false
 ) {
     // Validação do slug
     if (empty($term_slug) || !is_string($term_slug)) {
         return new WP_Error('invalid_term_slug', 'Slug do termo inválido');
     }
-
-    // Valores padrão para datas
-    $data_init = !empty($data_init) ? $data_init : date('Y-m-01');
-    $date_end = !empty($date_end) ? $date_end : date('Y-m-d');
 
     // Configuração base da query
     $args = [
@@ -166,13 +190,37 @@ function dashboard_get_riscos_count_by_term(
         ]
     ];
 
-    $args['date_query'] = [
-        [
-            'after'     => $data_init,
-            'before'    => $date_end,
-            'inclusive' => true
-        ]
-    ];
+    if (!empty($date_init) && !empty($date_end)) {
+        if ($use_custom_field) {
+            // CONVERSÃO PARA DATETIME CORRETO
+            $start_date = date('Y-m-d H:i:s', strtotime($date_init));
+            $end_date = date('Y-m-d H:i:s', strtotime($date_end . ' 23:59:59'));
+
+            $args['meta_query'] = [
+                'relation' => 'AND',
+                [
+                    'key'     => 'data_e_horario',
+                    'value'   => $start_date,
+                    'compare' => '>=',
+                    'type'    => 'DATETIME'
+                ],
+                [
+                    'key'     => 'data_e_horario',
+                    'value'   => $end_date,
+                    'compare' => '<=',
+                    'type'    => 'DATETIME'
+                ]
+            ];
+        } else {
+            $args['date_query'] = [
+                [
+                    'after'     => $date_init,
+                    'before'    => $date_end,
+                    'inclusive' => true,
+                ]
+            ];
+        }
+    }
 
     $query = new WP_Query($args);
     $total_posts = $query->found_posts;
@@ -184,7 +232,7 @@ function dashboard_get_riscos_count_by_term(
         'term' => $term,
         'total_posts' => $total_posts,
         'filtro_data' => [
-            'inicio' => $data_init,
+            'inicio' => $date_init,
             'termino' => $date_end
         ]
     ];
@@ -197,7 +245,10 @@ function dashboard_get_riscos_count_by_term(
 
 
 
-function indicadores_riscos( $date_init = '2025-01-01', $date_end = '2025-12-31' )
+function indicadores_riscos(
+    $date_init = '2025-01-01',
+    $date_end = '2025-12-31'
+)
 {
     return [
         'aprovacao' => dashboard_get_post_type_by_status_between_date(

@@ -391,6 +391,10 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:chevron-left"></iconify-icon>
                         <span>Voltar</span>
                     </a>
+                    <a class="button is-delete relato">
+                        <iconify-icon icon="bi:check2"></iconify-icon>
+                        <span>Excluir Relato</span>
+                    </a>
                     <a class="button is-save relato">
                         <iconify-icon icon="bi:check2"></iconify-icon>
                         <span>Publicar Relato</span>
@@ -399,6 +403,10 @@ namespace hacklabr\dashboard;
                     <a class="button is-save relato">
                         <iconify-icon icon="bi:check2"></iconify-icon>
                         <span>Publicar Relato</span>
+                    </a>
+                    <a class="button is-delete relato">
+                        <iconify-icon icon="bi:check2"></iconify-icon>
+                        <span>Excluir Relato</span>
                     </a>
                     <a class="button is-goback">
                         <iconify-icon icon="bi:chevron-left"></iconify-icon>

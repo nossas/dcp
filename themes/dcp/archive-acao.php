@@ -13,7 +13,9 @@
         $agendar_query = new WP_Query([
             'post_type' => 'acao',
             'post_status' => 'publish',
-            'posts_per_page' => 3
+            'posts_per_page' => 3,
+            'orderby' => 'meta_value',
+            'meta_key' => 'data_e_horario',
         ]);
         if ( $agendar_query->have_posts() ) : ?>
             <div class="posts-grid__content-cards-agendada">
