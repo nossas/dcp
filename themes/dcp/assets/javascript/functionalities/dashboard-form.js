@@ -24,23 +24,10 @@ jQuery(function($) {
                 if( response.success ) {
 
                     if( response.data.is_new !== undefined ) {
-
-                        custom_modal_confirm({
-                            title: response.data.title,
-                            description: response.data.message,
-
-                            cancelText: "Criar novo",
-                            onCancel: function () {
-                                $this.find( 'input[type="text"], input[type="date"], input[type="time"], textarea, select' ).val( '' );
-                                $( '.input-chips .chips-wrap').html( '' );
-                                $( '#mediaUpload .input-media-uploader-progress').html( '' );
-                                $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
-                            },
-                            confirmText: "Visualizar",
-                            onConfirm: function () {
-                                window.location.href = response.data.url_callback;
-                            }
-                        });
+                        showDashboardSnackbar(response.data.message || 'Criado com sucesso!', 'success');
+                        setTimeout(() => {
+                            window.location.href = response.data.url_callback;
+                        }, 3000);
 
                     } else
                     {
