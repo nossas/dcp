@@ -81,11 +81,10 @@
         .wp-block-button {
             &__link {
                 color: $color--primary-pure !important;
+                border-width: 1px;
 
                 &:hover {
-                    transform: translateY(-1px);
-                    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-                    color: #103B2B !important;
+                    box-shadow: 0 0 5px rgba( 0,0,0,0.5 );
                 }
             }
         }
