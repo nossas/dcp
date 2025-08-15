@@ -166,7 +166,8 @@
         margin: auto;
         position: absolute;
         max-width: calc(100% - #{size(32)});
-        width: 40rem;
+        width: 42.5rem;
+        margin-left: 13px;
         z-index: 1;
 
         a, button {
