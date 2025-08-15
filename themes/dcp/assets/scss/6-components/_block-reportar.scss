@@ -88,16 +88,19 @@
     .wp-block-columns:last-child > .wp-block-column:first-child{
         .wp-block-buttons > .wp-block-button > a{
             &:hover{
-                background-color: #3d1406 !important;
+                filter: brightness(0.8);
+                transition: all 0.2s ease-in-out;
             }
         }
     }
 
     .wp-block-columns:last-child > .wp-block-column:last-child{
         .wp-block-buttons > .wp-block-button > a{
+            padding: 6px 10px;
+            border-width: 1px;
+
             &:hover{
-                border: size(2) solid $color--high-dark;
-                color: $color--high-dark !important;
+                box-shadow: 0 0 5px rgba( 0,0,0,0.5 );
             }
         }
     }

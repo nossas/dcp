@@ -91,15 +91,22 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: size(8);
+            max-width: size(134);
+            width: 100%;
 /*             height: size(48);
  */
-            padding: size(8) size(24) size(8) size(16);
+            padding: size(8) size(20);
+
+            &:hover {
+               background-color: #19382A;
+               transition: all 0.2s ease-in-out;
+            }
 
             span {
                 display: inline-block;
                 font-size: size(15);
                 margin-top: 0;
+                padding-left: size(8);
             }
 
             @include mobile {
