@@ -14,28 +14,28 @@ namespace hacklabr\dashboard;
         while ( $postSingle->have_posts()) :
             $postSingle->the_post();
             $pod = pods( 'relato', get_the_ID() );
-            $attachments = get_attached_media('', get_the_ID() );
             $get_terms = get_the_terms( get_the_ID(), 'tipo_acao' );
             $attachment_cover_id = get_post_thumbnail_id( get_the_ID() );
-            $get_attachment = wp_get_attachment_url( $attachment_cover_id );
+            $get_attachment = get_the_post_thumbnail_url( get_the_ID(), 'large' );
+            $attachments = get_attached_media('', get_the_ID() );
 
             $videos = [];
             $images = [];
 
-            foreach ( $attachments as $key => $value ) {
-
-                if( $value->post_mime_type == 'image/jpeg' || $value->post_mime_type == 'image/png' ) {
-                    $images[] = $value;
+            foreach ( $attachments as $attachment ) {
+                if ($attachment->ID == $attachment_cover_id) {
+                    continue;
                 }
 
-                if( $value->post_mime_type == 'video/mp4' ) {
-                    $videos[] = $value;
+                if( in_array($attachment->post_mime_type, ['image/jpeg', 'image/png']) ) {
+                    $images[] = $attachment;
                 }
-
+                if( $attachment->post_mime_type == 'video/mp4' ) {
+                    $videos[] = $attachment;
+                }
             }
 
             $get_acoes = get_acoes_by_status( 'private' );
-            $get_acao = get_post( $post_id );
 ?>
 <div id="dashboardAcaoSingle" class="dashboard-content">
     <div class="dashboard-content-breadcrumb">
@@ -179,91 +179,46 @@ namespace hacklabr\dashboard;
             </div>
             <div class="fields is-media-attachments">
                 <div id="mediaUploadCover" class="input-media">
-                    <?php if( !wp_is_mobile() ) : ?>
-                        <div class="input-media-uploader">
-                            <h4>Foto de capa</h4>
-                            <div class="input-media-uploader-files">
-                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
-                                    <iconify-icon icon="bi:upload"></iconify-icon>
-                                    <span>Adicionar foto</span>
-                                </a>
-                            </div>
-                        </div>
-                    <?php else : ?>
-                        <div class="input-media-uploader is-mobile-only">
-                            <h4 style="margin-top: 15px">Foto (opcional)</h4>
-                            <div class="input-help">
-                                <a href="#/" class="button" style="top: 0 !important;">
-                                    <iconify-icon icon="bi:question"></iconify-icon>
-                                </a>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
-                                </p>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-
-                    <div class="input-media-uploader-progress">
-                        <div class="progress is-empty">
-                            <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
+                    <div class="input-media-uploader">
+                        <h4>Foto de capa</h4>
+                        <div class="input-media-uploader-files">
+                            <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media" <?= !empty($get_attachment) ? 'disabled' : '' ?>>
+                                <iconify-icon icon="bi:upload"></iconify-icon>
+                                <span>Adicionar foto</span>
+                            </a>
                         </div>
                     </div>
+
+                    <div class="media-preview-container">
+                        <div class="media-preview-list"></div>
+                    </div>
+
                     <div class="input-media-preview">
                         <div class="input-media-preview-assets is-images">
                             <?php if( !empty( $get_attachment ) ) : ?>
-                                <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
                                 <div class="assets-list">
-                                    <input type="hidden" name="attatchment_cover_id" value="<?=$attachment_cover_id?>">
                                     <figure class="asset-item-preview">
-                                        <img class="is-load-now" data-media-src="<?=$get_attachment?>">
+                                        <img src="<?=$get_attachment?>">
+
                                         <div class="asset-item-preview-actions">
-                                            <a class="button is-fullscreen" data-id="<?=$attachment_cover_id?>" data-href="<?=$get_attachment?>">
-                                                <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
-                                            </a>
-                                            <a class="button is-delete" data-id="<?=$attachment_cover_id?>">
-                                                <iconify-icon icon="bi:trash-fill"></iconify-icon>
-                                            </a>
-                                            <a class="button is-download" href="<?=$get_attachment?>" target="_blank">
-                                                <iconify-icon icon="bi:download"></iconify-icon>
-                                            </a>
-                                            <a class="button is-show-hide">
-                                                <iconify-icon icon="bi:eye-slash-fill"></iconify-icon>
-                                            </a>
+                                            <a class="button is-fullscreen" data-id="<?=$attachment_cover_id?>" data-href="<?=$get_attachment?>"><iconify-icon icon="bi:arrows-fullscreen"></iconify-icon></a>
+                                            <a class="button is-delete" data-id="<?=$attachment_cover_id?>"><iconify-icon icon="bi:trash-fill"></iconify-icon></a>
+                                            <a class="button is-download" href="<?=$get_attachment?>" target="_blank"><iconify-icon icon="bi:download"></iconify-icon></a>
                                         </div>
                                     </figure>
                                 </div>
                             <?php else : ?>
-                                <div class="input-media-preview">
-                                    <div class="input-media-preview-assets is-empty">
-                                        <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
-                                    </div>
+                                <div class="input-media-preview-assets is-empty">
+                                    <p class="is-empty-text">Nenhuma foto de capa adicionada ainda.</p>
                                 </div>
                             <?php endif; ?>
                         </div>
                     </div>
-
-                    <?php if( wp_is_mobile() ) : ?>
-                        <div class="input-media-uploader">
-                            <div class="input-media-uploader-files">
-                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
-                                    <iconify-icon icon="bi:upload"></iconify-icon>
-                                    <span>Adicionar foto</span>
-                                </a>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-
                 </div>
-                <?php if( !wp_is_mobile() ) : ?>
-                    <div class="input-help">
-                        <a href="#/" class="button">
-                            <iconify-icon icon="bi:question"></iconify-icon>
-                        </a>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
-                        </p>
-                    </div>
-                <?php endif; ?>
+                <div class="input-help">
+                    <a href="#/" class="button"><iconify-icon icon="bi:question"></iconify-icon></a>
+                    <p>Esta será a imagem principal da sua página de relato. Apenas uma imagem é permitida.</p>
+                </div>
             </div>
             <div class="fields">
                 <div class="input-wrap">

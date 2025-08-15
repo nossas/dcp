@@ -292,88 +292,92 @@ add_action('wp_ajax_form_single_apoio_edit', 'form_single_apoio_edit');
 function form_single_relato_new() {
 
     if (!current_user_can('edit_posts')) {
-        wp_send_json_error([
-            'title' => 'Erro',
-            'message' => 'Você não tem permissão para editar posts.',
-            'error' => [],
-        ], 403);
+        wp_send_json_error(['message' => 'Você não tem permissão para editar posts.'], 403);
     }
 
-    $acao_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
-
-    if( empty( $_POST['tipo_acao'] ) ) {
-        wp_send_json_error([
-            'title' => 'Erro',
-            'message' => 'Selecione uma ação.',
-            'error' => []
-        ], 400);
+    if (empty($_POST['post_id'])) {
+        wp_send_json_error(['message' => 'Nenhuma ação de base foi selecionada.'], 400);
     }
 
+    $acao_id = intval($_POST['post_id']);
     $current_user = wp_get_current_user();
     $data_e_horario = sanitize_text_field($_POST['data']) . ' ' . sanitize_text_field($_POST['horario']) . ':00';
 
     $postID = wp_insert_post([
-        'post_type' => 'relato',
-        'post_status' => 'publish',
-        'post_title' => sanitize_text_field($_POST['titulo']),
-        'post_content' => sanitize_text_field($_POST['text_post']),
-        'meta_input' => [
-            'titulo' => sanitize_text_field($_POST['titulo']),
-            'endereco' => sanitize_text_field($_POST['endereco']),
-            'descricao' => sanitize_text_field($_POST['descricao']),
-            'data_e_horario' => date( 'Y-m-d H:i:s', strtotime( $data_e_horario ) ),
-            'nome_completo' => $current_user->display_name,
-            'email' => $current_user->user_email,
-            'post_id' => $acao_id,
-            'acao_titulo' => sanitize_text_field($_POST['acao_titulo']),
-        ]
+        'post_type'    => 'relato',
+        'post_status'  => 'publish',
+        'post_title'   => sanitize_text_field($_POST['titulo']),
+        'post_content' => wp_kses_post($_POST['text_post']),
+        'meta_input'   => [
+            'titulo'       => sanitize_text_field($_POST['titulo']),
+            'data_e_horario' => date('Y-m-d H:i:s', strtotime($data_e_horario)),
+            'nome_completo'  => $current_user->display_name,
+            'email'          => $current_user->user_email,
+            'post_id'        => $acao_id,
+            'acao_titulo'    => sanitize_text_field($_POST['acao_titulo']),
+        ],
     ], true);
 
     if (is_wp_error($postID)) {
-        wp_send_json_error([
-            'title' => 'Erro',
-            'message' => 'Erro ao cadastrar o Ação.',
-            'error' => $postID->get_error_message()
-        ], 500);
+        wp_send_json_error(['message' => 'Erro ao cadastrar o Relato.'], 500);
     }
 
-    wp_set_object_terms(
-        $postID,
-        [sanitize_text_field($_POST['tipo_acao'])],
-        'tipo_acao',
-        false
-    );
+    wp_set_object_terms($postID, [sanitize_text_field($_POST['tipo_acao'])], 'tipo_acao', false);
 
-    $save_cover = [];
+    $save_cover = ['errors' => []];
 
-    if( empty( $_FILES['media_file'] ) ) {
-        $attachment_id = isset($_POST['attatchment_cover_id']) ? intval($_POST['attatchment_cover_id']) : 0;
-        $save_cover = [
-            'errors' => [],
-            'uploaded_files' => [ [ 'id' => set_post_thumbnail( $postID, $attachment_id ) ] ],
-        ];
-    } else {
-        $save_cover = upload_file_to_attachment_by_ID($_FILES['media_file'], $postID, true );
+    if (isset($_FILES['media_file']) && $_FILES['media_file']['error'] == 0) {
+        if (!function_exists('wp_handle_upload')) {
+            require_once(ABSPATH . 'wp-admin/includes/file.php');
+        }
+        if (!function_exists('wp_generate_attachment_metadata')) {
+            require_once(ABSPATH . 'wp-admin/includes/image.php');
+        }
+
+        $upload_overrides = ['test_form' => false];
+        $movefile = wp_handle_upload($_FILES['media_file'], $upload_overrides);
+
+        if ($movefile && !isset($movefile['error'])) {
+            $filename = $movefile['file'];
+            $attachment = [
+                'guid'           => $movefile['url'],
+                'post_mime_type' => $movefile['type'],
+                'post_title'     => preg_replace('/\.[^.]+$/', '', basename($filename)),
+                'post_content'   => '',
+                'post_status'    => 'inherit',
+            ];
+
+            $attach_id = wp_insert_attachment($attachment, $filename, $postID);
+
+            $attach_data = wp_generate_attachment_metadata($attach_id, $filename);
+            wp_update_attachment_metadata($attach_id, $attach_data);
+
+            set_post_thumbnail($postID, $attach_id);
+
+        } else {
+            $save_cover['errors'] = [$movefile['error']];
+        }
     }
 
-    $save_attachment = upload_file_to_attachment_by_ID($_FILES['media_files'], $postID, false );
 
-    if ( empty($save_cover['errors']) && empty($save_attachment['errors']) ) {
+    $save_attachment = upload_file_to_attachment_by_ID($_FILES['media_files'], $postID, false);
+
+
+    if (empty($save_cover['errors']) && empty($save_attachment['errors'])) {
         wp_send_json_success([
-            'title' => 'Sucesso',
-            'message' => 'Formulário enviado com sucesso!',
-            'post_id' => $postID,
+            'title'        => 'Sucesso',
+            'message'      => 'Relato criado com sucesso!',
+            'post_id'      => $postID,
             'url_callback' => get_site_url() . '/dashboard/editar-relato/?post_id=' . $postID,
-            'is_new' => true,
+            'is_new'       => true,
         ]);
     }
 
     wp_send_json_error([
-        'title' => 'Erro',
-        'message' => 'Erro ao salvar o formulário / anexos',
-        'error' => array_merge( $save_attachment, $save_cover ),
+        'title'   => 'Erro',
+        'message' => 'Erro ao salvar os anexos',
+        'error'   => array_merge($save_attachment['errors'] ?? [], $save_cover['errors'] ?? []),
     ], 400);
-
 }
 add_action('wp_ajax_form_single_relato_new', 'form_single_relato_new');
 
