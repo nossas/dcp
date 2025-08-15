@@ -88,8 +88,9 @@
     .wp-block-columns:last-child > .wp-block-column:first-child{
         .wp-block-buttons > .wp-block-button > a{
             &:hover{
-                filter: brightness(0.8);
-                transition: all 0.2s ease-in-out;
+                background-color: #7a280c !important;
+                color: $color--high-light !important;
+                transition: all .2s ease-in-out;
             }
         }
     }
