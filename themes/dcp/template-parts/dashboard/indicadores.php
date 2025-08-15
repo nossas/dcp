@@ -24,14 +24,12 @@ $indicadores_riscos_alagamento = dashboard_get_riscos_count_by_term(
     $data_inicio,
     $data_termino
 );
-
 $indicadores_riscos_lixo = dashboard_get_riscos_count_by_term(
     'lixo',
     'situacao_de_risco',
     $data_inicio,
     $data_termino
 );
-
 $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
     'outros',
     'situacao_de_risco',
@@ -39,7 +37,9 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
     $data_termino
 );
 
-
+//echo '<pre>';
+//print_r( $indicadores_acoes );
+//echo '</pre>';
 
 ?>
 
@@ -93,35 +93,40 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                                 </form>
                             </div>
                             <div>
-                                <canvas id="myChart"></canvas>
-                                <div style=" justify-content: start; ">
+                                <div style=" display: flex; justify-content: start; ">
                                     <h2 style=" font-size: 35px; color: #235540; ">
                                         <?=$indicadores_riscos_alagamento[ 'total_posts' ]?>
-                                        <?=$indicadores_riscos_alagamento[ 'term' ]->name?>
                                     </h2>
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                                     <h2 style=" font-size: 35px; color: #51B2AF; ">
                                         <?=$indicadores_riscos_lixo[ 'total_posts' ]?>
-                                        <?=$indicadores_riscos_lixo[ 'term' ]->name?>
                                     </h2>
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                                     <h2 style=" font-size: 35px; color: #EE7653; ">
                                         <?=$indicadores_riscos_outros[ 'total_posts' ]?>
-                                        <?=$indicadores_riscos_outros[ 'term' ]->name?>
                                     </h2>
                                 </div>
+                                <canvas id="chartRiscosCategorias"></canvas>
                             </div>
-
                         </div>
                     </div>
+
                     <div class="card">
                         <div class="is-counter">
                             <h3><?=$indicadores_acoes[ 'agendadas' ][ 'total_posts' ]?></h3>
                             <p>Novas ações</p>
+                        </div>
+                        <div class="is-chart-filter">
+                            <canvas id="chartAcoesAgendadas"></canvas>
                         </div>
                     </div>
                     <div class="card">
                         <div class="is-counter">
                             <h3><?=$indicadores_acoes[ 'realizadas' ][ 'total_posts' ]?></h3>
                             <p>Ações realizadas</p>
+                        </div>
+                        <div class="is-chart-filter">
+                            <canvas id="chartAcoesRealizadas"></canvas>
                         </div>
                     </div>
                 </div>
@@ -199,28 +204,20 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const ctx = document.getElementById('myChart').getContext('2d');
-        const dados = [
+        const ctxCategorias = document.getElementById( 'chartRiscosCategorias' ).getContext( '2d' );
+        const dadosCategorias = [
             <?=$indicadores_riscos_alagamento[ 'total_posts' ]?>,
             <?=$indicadores_riscos_lixo[ 'total_posts' ]?>,
             <?=$indicadores_riscos_outros[ 'total_posts' ]?>
         ];
-        const labels = [ 'Alagamento', 'Lixo', 'Outros' ];
-
-        //$indicadores_riscos_alagamento
-        //$indicadores_riscos_lixo
-        //$indicadores_riscos_outros
-
-        // Calcula o total para conversão em percentual
-        const total = dados.reduce((acc, valor) => acc + valor, 0);
-
-        // Configuração do gráfico
-        const myChart = new Chart(ctx, {
+        const labelsCategorias = [ 'Alagamento', 'Lixo', 'Outros' ];
+        const total = dadosCategorias.reduce((acc, valor) => acc + valor, 0);
+        const chartRiscosCategorias = new Chart(ctxCategorias, {
             type: 'doughnut',
             data: {
-                labels: labels,
+                labels: labelsCategorias,
                 datasets: [{
-                    data: dados,
+                    data: dadosCategorias,
                     backgroundColor: ['#235540', '#51B2AF', '#EE7653'],
                     hoverOffset: 4
                 }]
@@ -247,6 +244,110 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                                 return chart.data.labels.map((label, i) => {
                                     const valor = chart.data.datasets[0].data[i];
                                     const percentual = ((valor / total) * 100).toFixed(1) + '%';
+                                    return {
+                                        text: `${label}: ${percentual}`,
+                                        fillStyle: chart.data.datasets[0].backgroundColor[i],
+                                        hidden: false
+                                    };
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        //
+        const ctxAcoesAgend = document.getElementById( 'chartAcoesAgendadas' ).getContext( '2d' );
+        const dadosAcoesAgend = [
+            <?=$indicadores_acoes[ 'sugestoes' ][ 'total_posts' ]?>,
+            <?=$indicadores_acoes[ 'agendadas' ][ 'total_posts' ]?>,
+        ];
+        const labelsAcoesAgend = [ 'Sugestões', 'Agendadas' ];
+        const totalAcoesAgend = dadosAcoesAgend.reduce((acc, valor) => acc + valor, 0);
+        const chartAcoesAgendadas = new Chart(ctxAcoesAgend, {
+            type: 'pie',
+            data: {
+                labels: labelsAcoesAgend,
+                datasets: [{
+                    data: dadosAcoesAgend,
+                    backgroundColor: ['#777777', '#333333'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    // Plugin para customizar tooltips (pop-up)
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => {
+                                const valor = context.raw;
+                                const percentual = ((valor / totalAcoesAgend) * 100).toFixed(1);
+                                return `${context.label}: ${percentual}%`;
+                            }
+                        }
+                    },
+                    // Plugin para mostrar percentuais no centro ou nas legendas
+                    legend: {
+                        position: 'right', // Legenda à direita
+                        align: 'center',   // Centraliza verticalmente
+                        labels: {
+                            generateLabels: (chart) => {
+                                return chart.data.labels.map((label, i) => {
+                                    const valor = chart.data.datasets[0].data[i];
+                                    const percentual = ((valor / totalAcoesAgend) * 100).toFixed(1) + '%';
+                                    return {
+                                        text: `${label}: ${percentual}`,
+                                        fillStyle: chart.data.datasets[0].backgroundColor[i],
+                                        hidden: false
+                                    };
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        //
+        const ctxAcoesRealiz = document.getElementById( 'chartAcoesRealizadas' ).getContext( '2d' );
+        const dadosAcoesRealiz = [
+            <?=$indicadores_acoes[ 'realizadas' ][ 'total_posts' ]?>,
+            <?=$indicadores_acoes[ 'arquivadas' ][ 'total_posts' ]?>,
+        ];
+        const labelsAcoesRealiz = [ 'Realizadas', 'Arquivadas' ];
+        const totalAcoesRealiz = dadosAcoesRealiz.reduce((acc, valor) => acc + valor, 0);
+        const chartAcoesAcoesRealiz = new Chart(ctxAcoesRealiz, {
+            type: 'pie',
+            data: {
+                labels: labelsAcoesRealiz,
+                datasets: [{
+                    data: dadosAcoesRealiz,
+                    backgroundColor: ['#111111', '#999999'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    // Plugin para customizar tooltips (pop-up)
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => {
+                                const valor = context.raw;
+                                const percentual = ((valor / totalAcoesRealiz) * 100).toFixed(1);
+                                return `${context.label}: ${percentual}%`;
+                            }
+                        }
+                    },
+                    // Plugin para mostrar percentuais no centro ou nas legendas
+                    legend: {
+                        position: 'right', // Legenda à direita
+                        align: 'center',   // Centraliza verticalmente
+                        labels: {
+                            generateLabels: (chart) => {
+                                return chart.data.labels.map((label, i) => {
+                                    const valor = chart.data.datasets[0].data[i];
+                                    const percentual = ((valor / totalAcoesRealiz) * 100).toFixed(1) + '%';
                                     return {
                                         text: `${label}: ${percentual}`,
                                         fillStyle: chart.data.datasets[0].backgroundColor[i],
