@@ -176,6 +176,12 @@
 
                             }
 
+                            canvas {
+                                width: auto;
+                                height: 300px;
+                                max-height: 300px;
+                            }
+
                         }
                         .is-counter {
                             padding: size( 30 );
@@ -192,9 +198,9 @@
 
                         .is-chart-filter {
                             .is-counter {
-                                padding: size( 20 ) size( 30 ) size( 5 );
+                                padding: size( 5 ) size( 10 );
                                 @include tablet {
-                                    padding: size( 20 ) size( 5 ) size( 5 );
+                                    padding: size( 5 );
                                 }
                                 h3 {
                                     color: #235540;

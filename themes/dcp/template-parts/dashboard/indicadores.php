@@ -98,8 +98,8 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                                         <?=( $indicadores_riscos_alagamento[ 'total_posts' ] + $indicadores_riscos_lixo[ 'total_posts' ] + $indicadores_riscos_outros[ 'total_posts' ] )?>
                                     </h3>
                                 </div>
-                                <canvas id="chartRiscosCategorias"></canvas>
                             </div>
+                            <canvas id="chartRiscosCategorias"></canvas>
                         </div>
                     </div>
 
