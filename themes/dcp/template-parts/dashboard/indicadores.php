@@ -229,7 +229,7 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                             label: (context) => {
                                 const valor = context.raw;
                                 const percentual = ((valor / totalCategorias) * 100).toFixed(1);
-                                return `${totalCategorias} - ${context.label}: ${percentual}%`;
+                                return `${valor} - ${context.label}: ${percentual}%`;
                             }
                         }
                     },
@@ -243,7 +243,7 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                                     const valor = chart.data.datasets[0].data[i];
                                     const percentual = ((valor / totalCategorias) * 100).toFixed(1) + '%';
                                     return {
-                                        text: `${totalCategorias} - ${label}: ${percentual}`,
+                                        text: `${valor} - ${label}: ${percentual}`,
                                         fillStyle: chart.data.datasets[0].backgroundColor[i],
                                         hidden: false
                                     };
@@ -281,7 +281,7 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                             label: (context) => {
                                 const valor = context.raw;
                                 const percentual = ((valor / totalAcoesAgend) * 100).toFixed(1);
-                                return `${totalAcoesAgend} - ${context.label}: ${percentual}%`;
+                                return `${valor} - ${context.label}: ${percentual}%`;
                             }
                         }
                     },
@@ -295,7 +295,7 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                                     const valor = chart.data.datasets[0].data[i];
                                     const percentual = ((valor / totalAcoesAgend) * 100).toFixed(1) + '%';
                                     return {
-                                        text: `${totalAcoesAgend} - ${label}: ${percentual}`,
+                                        text: `${valor} - ${label}: ${percentual}`,
                                         fillStyle: chart.data.datasets[0].backgroundColor[i],
                                         hidden: false
                                     };
@@ -333,7 +333,7 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                             label: (context) => {
                                 const valor = context.raw;
                                 const percentual = ((valor / totalAcoesRealiz) * 100).toFixed(1);
-                                return `${totalAcoesRealiz} - ${context.label}: ${percentual}%`;
+                                return `${valor} - ${context.label}: ${percentual}%`;
                             }
                         }
                     },
@@ -347,7 +347,7 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                                     const valor = chart.data.datasets[0].data[i];
                                     const percentual = ((valor / totalAcoesRealiz) * 100).toFixed(1) + '%';
                                     return {
-                                        text: `${totalAcoesRealiz} - ${label}: ${percentual}`,
+                                        text: `${valor} - ${label}: ${percentual}`,
                                         fillStyle: chart.data.datasets[0].backgroundColor[i],
                                         hidden: false
                                     };
