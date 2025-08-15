@@ -233,6 +233,7 @@
                         gap: size( 15 );
                         justify-content: space-between;
                         width: 33%;
+                        border: none;
 
                         @include mobile {
                             width: 100%;
