@@ -1,5 +1,6 @@
 import { showDashboardSnackbar } from "./snackbar";
 
+//---------RISCO E ACOES---------
 function initializeMediaPreview() {
     const mediaUploadButtons = document.querySelectorAll('#mediaUploadButton, #mediaUploadButtonCover');
     const form = document.querySelector('#riscoSingleForm, #acaoSingleForm');
@@ -120,4 +121,46 @@ function initializeMediaPreview() {
     updateMediaContainerState();
 }
 
-document.addEventListener('DOMContentLoaded', initializeMediaPreview);
+//---------APOIO---------
+function initializeApoioUploader() {
+    const uploaderContainer = document.getElementById('apoio-uploader-container');
+
+    if (!uploaderContainer) return;
+
+    const fileInput = document.getElementById('apoio-cover-input');
+    const imagePreviewWrapper = document.getElementById('apoio-image-preview-wrapper');
+    const imagePreview = document.getElementById('apoio-image-preview');
+    const fileNameSpan = document.getElementById('apoio-file-name');
+    const deleteButton = document.getElementById('apoio-delete-button');
+    const chooseButtonLabel = fileInput.nextElementSibling.querySelector('span');
+
+    fileInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                imagePreviewWrapper.style.display = 'block';
+                fileNameSpan.textContent = file.name;
+                deleteButton.style.display = 'inline-flex';
+                chooseButtonLabel.textContent = 'Trocar arquivo';
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    deleteButton.addEventListener('click', function() {
+        fileInput.value = null;
+        imagePreview.src = '#';
+        imagePreviewWrapper.style.display = 'none';
+        fileNameSpan.textContent = 'Nenhum arquivo selecionado';
+        deleteButton.style.display = 'none';
+        chooseButtonLabel.textContent = 'Escolher arquivo';
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    initializeMediaPreview();
+    initializeApoioUploader();
+});
+

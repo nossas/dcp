@@ -1376,4 +1376,34 @@
             }
         }
     }
+
+    .apoio-uploader {
+        .apoio-input-wrap {
+            border-radius: size(16) !important;
+            border: 1px solid $color--secondary-dark !important;
+            background: var(--color-transparency-dark-5, rgba(40, 20, 20, 0.05));
+
+            @include mobile {
+                display: none !important;
+            }
+        }
+
+        .apoio-cover-input {
+            border-radius: 100px;
+            border: 1px solid $color--secondary-dark;
+            background: $color--secondary-light;
+        }
+
+        .button {
+            &.is-delete {
+                border-radius: 100px;
+                background-color: $color--warning-dark;
+                color: $color--secondary-light;
+                gap: size(4);
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 120%;
+            }
+        }
+    }
 }
