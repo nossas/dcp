@@ -197,10 +197,14 @@
         }
 
         .logo-icon {
-            display: block;
+            display: none;
             width: 40px;
             height: auto;
             margin: -5px size( 25 ) size( 10 ) size( 30 );
+
+            @include mobile {
+                display: block;
+            }
         }
 
         ul {
@@ -271,13 +275,23 @@
             background-color: $color--primary-pure;
             color: #FFF;
             text-align: center;
-            width: calc( 100% - 50px );
+            width: 50%;
             padding: size( 7 );
+            margin-left: size( 40 );
             border-radius: size( 25 );
-            position: absolute;
-            left: 25px;
-            bottom: 25px;
+            position: relative;
             z-index: 2;
+
+            @include mobile {
+                width: calc( 100% - 50px );
+                margin-left: 0;
+                position: absolute;
+                left: 25px;
+                bottom: 25px;
+            }
+            @include tablet {
+
+            }
         }
 
         .dashboard-current a, a:hover {

@@ -36,7 +36,7 @@ namespace hacklabr\dashboard;
             <div class="dashboard__header__logo">
                 <a href="<?= get_dashboard_url() ?>">
                     <?php if ( wp_is_mobile() ) : ?>
-                        <img src="<?= get_template_directory_uri() ?>/assets/images/logo-defesa-climatica-popular-icon.svg" alt="<?= get_bloginfo( 'name' ) ?>">
+                        <img src="<?= get_template_directory_uri() ?>/assets/images/logo-defesa-climatica-popular-icon.svg" alt="<?= get_bloginfo( 'name' ) ?>" style="max-height: 40px;">
                     <?php else : ?>
                         <img src="<?= get_template_directory_uri() ?>/assets/images/logo-defesa-climatica-popular-full.svg" alt="<?= get_bloginfo( 'name' ) ?>">
                     <?php endif; ?>
