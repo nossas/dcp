@@ -239,12 +239,6 @@ function dashboard_get_riscos_count_by_term(
 }
 
 
-
-
-
-
-
-
 function indicadores_riscos(
     $date_init = '2025-01-01',
     $date_end = '2025-12-31'
@@ -274,7 +268,10 @@ function indicadores_riscos(
         )
     ];
 }
-function indicadores_acoes( $date_init = '2025-01-01', $date_end = '2025-12-31' )
+function indicadores_acoes(
+    $date_init = '2025-01-01',
+    $date_end = '2025-12-31'
+)
 {
     return [
         'sugestoes' => dashboard_get_post_type_by_status_between_date(
@@ -307,7 +304,10 @@ function indicadores_acoes( $date_init = '2025-01-01', $date_end = '2025-12-31' 
         )
     ];
 }
-function indicadores_apoio( $date_init = '2025-01-01', $date_end = '2025-12-31' )
+function indicadores_apoio(
+    $date_init = '2025-01-01',
+    $date_end = '2025-12-31'
+)
 {
     return [
         'publicados' => dashboard_get_post_type_by_status_between_date(

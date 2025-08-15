@@ -8,6 +8,16 @@
     transition: all 0.5s 0s ease;
 
 
+    hr {
+        background-color: rgba( 0,0,0,0.09 );
+        display: block;
+        height: 2px;
+        border: none;
+        border-radius: 1px;
+        margin: size( 45 ) size( 40 );
+        position: relative;
+    }
+
 
     &__header {
         background-color: $color--secondary-light;
