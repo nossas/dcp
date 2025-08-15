@@ -520,11 +520,11 @@ class Assets
                 },
             ],
 
-            'dashboard-risco-single-form' => [
-                'file' => 'dashboard-risco-single-form.js',
+            'dashboard-single-form' => [
+                'file' => 'dashboard-single-form.js',
                 'deps' => ['snackbar-module'],
                 'preload_callback' => function () {
-                    return dashboard\is_dashboard() && get_query_var('ver') === 'editar-risco';
+                    return dashboard\is_dashboard();
                 },
             ],
 
