@@ -193,6 +193,9 @@
                         .is-chart-filter {
                             .is-counter {
                                 padding: size( 20 ) size( 30 ) size( 5 );
+                                @include tablet {
+                                    padding: size( 20 ) size( 5 ) size( 5 );
+                                }
                                 h3 {
                                     color: #235540;
                                     font-size: size( 70 );
