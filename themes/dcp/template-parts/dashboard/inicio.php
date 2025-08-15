@@ -110,6 +110,12 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
         </div>
 
         <div class="dashboard-content-section">
+            <div class="dashboard-content-section-body">
+                <hr>
+            </div>
+        </div>
+
+        <div class="dashboard-content-section">
 
             <div class="dashboard-content-section-header">
                 <h2>Relatos de Risco Aguardando Avaliação <span>( <?=$get_riscos[ 'total_posts' ]?> )</span> </h2>

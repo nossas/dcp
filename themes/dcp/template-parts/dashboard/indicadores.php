@@ -92,19 +92,11 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                                     </button>
                                 </form>
                             </div>
-                            <div>
+                            <div class="is-counter">
                                 <div style=" display: flex; justify-content: start; ">
-                                    <h2 style=" font-size: 35px; color: #235540; ">
-                                        <?=$indicadores_riscos_alagamento[ 'total_posts' ]?>
-                                    </h2>
-                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                                    <h2 style=" font-size: 35px; color: #51B2AF; ">
-                                        <?=$indicadores_riscos_lixo[ 'total_posts' ]?>
-                                    </h2>
-                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                                    <h2 style=" font-size: 35px; color: #EE7653; ">
-                                        <?=$indicadores_riscos_outros[ 'total_posts' ]?>
-                                    </h2>
+                                    <h3>
+                                        <?=( $indicadores_riscos_alagamento[ 'total_posts' ] + $indicadores_riscos_lixo[ 'total_posts' ] + $indicadores_riscos_outros[ 'total_posts' ] )?>
+                                    </h3>
                                 </div>
                                 <canvas id="chartRiscosCategorias"></canvas>
                             </div>
@@ -112,27 +104,31 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                     </div>
 
                     <div class="card">
-                        <div class="is-counter">
-                            <h3><?=$indicadores_acoes[ 'agendadas' ][ 'total_posts' ]?></h3>
-                            <p>Novas ações</p>
-                        </div>
                         <div class="is-chart-filter">
+                            <div class="is-counter">
+                                <h3><?=$indicadores_acoes[ 'agendadas' ][ 'total_posts' ]?></h3>
+                                <p>Novas ações</p>
+                            </div>
                             <canvas id="chartAcoesAgendadas"></canvas>
                         </div>
                     </div>
                     <div class="card">
-                        <div class="is-counter">
-                            <h3><?=$indicadores_acoes[ 'realizadas' ][ 'total_posts' ]?></h3>
-                            <p>Ações realizadas</p>
-                        </div>
                         <div class="is-chart-filter">
+                            <div class="is-counter">
+                                <h3><?=$indicadores_acoes[ 'realizadas' ][ 'total_posts' ]?></h3>
+                                <p>Ações realizadas</p>
+                            </div>
                             <canvas id="chartAcoesRealizadas"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        <div class="dashboard-content-section">
+            <div>
+                <hr>
+            </div>
+        </div>
         <div class="dashboard-content-section">
             <header class="dashboard-content-section-header">
                 <h2>Indicadores Gerais</h2>
@@ -167,7 +163,9 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                 </div>
             </div>
         </div>
-
+        <div class="dashboard-content-section">
+            <hr>
+        </div>
         <div class="dashboard-content-section">
             <header class="dashboard-content-section-header">
                 <h2>Indicadores Whatsapp</h2>
