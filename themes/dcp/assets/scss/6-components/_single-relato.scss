@@ -18,9 +18,7 @@
         justify-content: center;
         color: $color--secondary-dark;
         gap: 8px;
-        @media ( max-width: 1366px) {
-            max-width: 75%;
-        }
+
         @include mobile {
             margin-top: 32px;
             margin-bottom: 16px;

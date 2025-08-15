@@ -11,6 +11,7 @@
         z-index: 1;
         @include mobile {
             padding: 0px 12px;
+            width: 99%;
         }
     }
 
@@ -165,7 +166,7 @@
         margin: auto;
         position: absolute;
         max-width: calc(100% - #{size(32)});
-        width: size(720);
+        width: 40rem;
         z-index: 1;
 
         a, button {
