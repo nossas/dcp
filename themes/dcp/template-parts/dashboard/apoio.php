@@ -73,9 +73,9 @@ $sectios_tabs = [
                             <?php switch ( $tab[ 'tipo' ] ) {
                                 case 'locais-seguros':
                                 case 'cacambas':
+                                case 'iniciativas-locais':
                                     echo '<iconify-icon icon="bi:geo-alt-fill"></iconify-icon>';
                                     break;
-                                case 'iniciativas-locais':
                                 case 'quem-acionar':
                                     echo '<iconify-icon icon="bi:text-left"></iconify-icon>';
                                     break;
@@ -89,7 +89,6 @@ $sectios_tabs = [
                 </div>
             </div>
         </div>
-
         <div class="apoio__content">
             <div class="apoio__grid">
                 <?php
