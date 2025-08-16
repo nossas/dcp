@@ -130,64 +130,35 @@ namespace hacklabr\dashboard;
             </div>
             <div class="fields is-media-attachments">
                 <div id="mediaUploadCover" class="input-media">
-                    <?php if( !wp_is_mobile() ) : ?>
-                        <div class="input-media-uploader">
-                            <h4>Foto de capa</h4>
-                            <div class="input-media-uploader-files">
-                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
-                                    <iconify-icon icon="bi:upload"></iconify-icon>
-                                    <span>Adicionar foto</span>
-                                </a>
-                            </div>
-                        </div>
-                    <?php else : ?>
-                        <div class="input-media-uploader is-mobile-only">
-                            <h4 style="margin-top: 15px">Foto (opcional)</h4>
-                            <div class="input-help">
-                                <a href="#/" class="button" style="top: 0 !important;">
-                                    <iconify-icon icon="bi:question"></iconify-icon>
-                                </a>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
-                                </p>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                    <div class="input-media-uploader-progress">
-                        <div class="progress is-empty">
-                            <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
+                    <div class="input-media-uploader">
+                        <h4>Foto de capa</h4>
+                        <div class="input-media-uploader-files">
+                            <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                                <iconify-icon icon="bi:upload"></iconify-icon>
+                                <span>Adicionar foto</span>
+                            </a>
                         </div>
                     </div>
+
+                    <div class="media-preview-container">
+                        <h4 class="media-preview-title" style="display: none;">Mídia adicionada</h4>
+                        <div class="media-preview-list"></div>
+                    </div>
+
                     <div class="input-media-preview">
                         <div class="input-media-preview-assets is-empty">
-                            <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
+                            <p class="is-empty-text">Nenhuma foto adicionada ainda.</p>
                         </div>
                     </div>
-                    <?php if( wp_is_mobile() ) : ?>
-                        <div class="input-media-uploader">
-                            <div class="input-media-uploader-files">
-                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
-                                    <iconify-icon icon="bi:upload"></iconify-icon>
-                                    <span>Adicionar foto</span>
-                                </a>
-                            </div>
-                        </div>
-                    <?php endif; ?>
                 </div>
-                <?php if( !wp_is_mobile() ) : ?>
-                    <div class="input-help">
-                        <a href="#/" class="button">
-                            <iconify-icon icon="bi:question"></iconify-icon>
-                        </a>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
-                        </p>
-                    </div>
-                <?php endif; ?>
+                <div class="input-help">
+                    <a href="#/" class="button"><iconify-icon icon="bi:question"></iconify-icon></a>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.</p>
+                </div>
             </div>
-
             <div class="form-submit">
                 <input type="hidden" name="action" value="form_single_acao_new">
+                <div id="file-input-storage" style="display: none;"></div>
                 <div></div>
                 <div>
                     <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">

@@ -103,6 +103,11 @@ function initializeMediaPreview() {
 
             updateMediaContainerState();
             showDashboardSnackbar('Mídia removida da lista.', 'archive');
+
+            const coverButton = document.getElementById('mediaUploadButtonCover');
+            if (coverButton) {
+                coverButton.removeAttribute('disabled');
+            }
         }
         if (target.classList.contains('media-preview-delete') && target.dataset.attachmentId) {
             const attachmentId = target.dataset.attachmentId;

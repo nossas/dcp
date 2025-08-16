@@ -181,24 +181,19 @@ add_action('rest_api_init', function () {
 function dcp_api_contatos($request) {
     $contatos = [
         [
-            'nome' => 'Defesa Civil',
-            'telefone' => '199',
-            'descricao' => 'Ajuda em situações de risco, como enchentes ou deslizamentos.',
-        ],
-        [
-            'nome' => 'Bombeiros',
+            'nome' => '🚒 Bombeiros',
             'telefone' => '193',
-            'descricao' => 'Atendimento em incêndios, resgates e salvamentos.',
+            'descricao' => 'Incêndios, desmoronamentos e resgates.',
         ],
         [
-            'nome' => 'SAMU',
+            'nome' => '🏠 Defesa Civil',
+            'telefone' => '199',
+            'descricao' => 'Ajuda em enchentes, deslizamentos e outras situações de risco.',
+        ],
+        [
+            'nome' => '🚑 SAMU',
             'telefone' => '192',
-            'descricao' => 'Atendimento médico de urgência.',
-        ],
-        [
-            'nome' => 'Portal Rio',
-            'telefone' => '1746',
-            'descricao' => 'Solicitações, reclamações ou serviços públicos da cidade.',
+            'descricao' => 'Emergências médicas e acidentes.',
         ],
     ];
 

@@ -45,7 +45,8 @@ namespace hacklabr\dashboard;
             $post_status = get_post_status();
 
             $pod = pods( 'acao', get_the_ID());
-            $attachments = get_attached_media('', get_the_ID() );
+            $attachment_cover_id = get_post_thumbnail_id(get_the_ID());
+            $get_attachment = get_the_post_thumbnail_url(get_the_ID(), 'large');
             $get_terms = get_the_terms( get_the_ID(), 'tipo_acao' );
 
             $all_terms = get_terms([
@@ -243,59 +244,45 @@ namespace hacklabr\dashboard;
             </div>
             <div class="fields is-media-attachments">
                 <div id="mediaUploadCover" class="input-media">
-                    <?php
-                    $has_cover_photo = has_post_thumbnail();
-                    ?>
                     <div class="input-media-uploader">
                         <h4>Foto</h4>
                         <div class="input-media-uploader-files">
-                            <a id="mediaUploadButtonCover"
-                               class="button is-primary is-small is-upload-media"
-                               <?= $has_cover_photo ? 'disabled' : '' ?> >
+                            <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media" <?= !empty($get_attachment) ? 'disabled' : '' ?>>
                                 <iconify-icon icon="bi:upload"></iconify-icon>
                                 <span>Adicionar foto</span>
                             </a>
-                            <input type="file" name="media_file" id="cover-photo-input" accept="image/*" style="display: none;">
                         </div>
                     </div>
 
-                    <div id="mediaPreviewContainer" class="media-preview-container">
-                        <h4 class="media-preview-title" style="display: none;">Nova foto adicionada</h4>
+                    <div class="media-preview-container">
+                        <h4 class="media-preview-title" style="display: none;">Nova foto</h4>
                         <div class="media-preview-list"></div>
                     </div>
 
                     <div class="input-media-preview">
-                        <?php if ( $has_cover_photo ) :
-                            $attachment_id = get_post_thumbnail_id();
-                            $image_url = wp_get_attachment_url($attachment_id);
-                        ?>
-                            <div class="input-media-preview-assets is-images">
+                        <div class="input-media-preview-assets is-images">
+                            <?php if (!empty($get_attachment)) : ?>
                                 <div class="assets-list">
-                                    <figure class="asset-item-preview" id="saved-media-item-<?= $attachment_id ?>">
-                                        <img src="<?= $image_url ?>">
+                                    <figure class="asset-item-preview">
+                                        <img src="<?= esc_url($get_attachment) ?>">
                                         <div class="asset-item-preview-actions">
-                                            <a class="button is-fullscreen" data-id="<?= $attachment_id ?>" data-href="<?= $image_url ?>"><iconify-icon icon="bi:arrows-fullscreen"></iconify-icon></a>
-                                            <a class="button is-delete" data-id="<?= $attachment_id ?>"><iconify-icon icon="bi:trash-fill"></iconify-icon></a>
-                                            <a class="button is-download" href="<?= $image_url ?>" target="_blank"><iconify-icon icon="bi:download"></iconify-icon></a>
+                                            <a class="button is-fullscreen" data-id="<?= $attachment_cover_id ?>" data-href="<?= esc_url($get_attachment) ?>"><iconify-icon icon="bi:arrows-fullscreen"></iconify-icon></a>
+                                            <a class="button is-delete" data-id="<?= $attachment_cover_id ?>"><iconify-icon icon="bi:trash-fill"></iconify-icon></a>
+                                            <a class="button is-download" href="<?= esc_url($get_attachment) ?>" target="_blank"><iconify-icon icon="bi:download"></iconify-icon></a>
                                         </div>
                                     </figure>
                                 </div>
-                            </div>
-                        <?php else : ?>
-                            <div class="input-media-preview-assets is-empty">
-                                <p class="is-empty-text">Nenhuma foto adicionada ainda.</p>
-                            </div>
-                        <?php endif; ?>
+                            <?php else : ?>
+                                <div class="input-media-preview-assets is-empty">
+                                    <p class="is-empty-text">Nenhuma foto adicionada ainda.</p>
+                                </div>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
-
                 <div class="input-help">
-                    <a href="#/" class="button">
-                        <iconify-icon icon="bi:question"></iconify-icon>
-                    </a>
-                    <p>
-                        O usuário poderá adicionar uma foto, então se já houver uma foto adicionada (seja por ele ou pela que fez a sugestão), o botão fica desabilitado.
-                    </p>
+                    <a href="#/" class="button"><iconify-icon icon="bi:question"></iconify-icon></a>
+                    <p>O usuário poderá adicionar uma foto, então se já houver uma foto adicionada (seja por ele ou pela que fez a sugestão), o botão fica desabilitado.</p>
                 </div>
             </div>
             <div class="fields">
