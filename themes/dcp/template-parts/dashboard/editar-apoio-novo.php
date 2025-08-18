@@ -192,7 +192,7 @@ namespace hacklabr\dashboard;
                     <p>Adicione ou troque a imagem para este local ou iniciativa.</p>
                 </div>
             </div>
-            <div class="form-submit apoio-edit">
+            <div class="form-submit">
                 <input type="hidden" name="action" value="form_single_apoio_edit">
                 <input type="hidden" name="post_id" value="<?=$postSingle->ID?>">
                 <input type="hidden" name="post_status" value="<?=$postSingle->post_status?>">
@@ -235,14 +235,14 @@ namespace hacklabr\dashboard;
                     <?php endif; endif;
 
                 if( wp_is_mobile() ) : ?>
-                    <div class="form-submit-actions">
-                        <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
-                            <iconify-icon icon="bi:chevron-left"></iconify-icon>
-                            <span>Voltar</span>
-                        </a>
+                    <div>
                         <a class="button is-archive">
                             <iconify-icon icon="bi:x-lg"></iconify-icon>
                             <span>Arquivar</span>
+                        </a>
+                        <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
+                            <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                            <span>Voltar</span>
                         </a>
                     </div>
                 <?php endif; ?>

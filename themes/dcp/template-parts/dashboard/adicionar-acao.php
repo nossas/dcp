@@ -160,7 +160,7 @@ namespace hacklabr\dashboard;
                 <input type="hidden" name="action" value="form_single_acao_new">
                 <div id="file-input-storage" style="display: none;"></div>
                 <div></div>
-                <div class="form-submit-actions">
+                <div>
                     <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
                         <iconify-icon icon="bi:chevron-left"></iconify-icon>
                         <span>Voltar</span>

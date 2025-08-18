@@ -298,7 +298,7 @@ namespace hacklabr\dashboard;
                     </a>
                 <?php endif; ?>
             </div>
-            <div class="form-submit acao-edit">
+            <div class="form-submit">
                 <input type="hidden" name="action" value="form_single_acao_edit">
                 <input type="hidden" name="post_id" value="<?=get_the_ID()?>">
                 <input type="hidden" name="post_status" value="<?=$post_status?>">
@@ -312,7 +312,7 @@ namespace hacklabr\dashboard;
                     </div>
                 <?php endif; ?>
 
-                <div class="form-submit-actions acao-edit-actions">
+                <div>
                     <?php
                         if( !wp_is_mobile() ) :
                             if( $post_status === 'draft' ) : ?>

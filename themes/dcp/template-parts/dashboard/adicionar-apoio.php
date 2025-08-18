@@ -221,7 +221,7 @@ namespace hacklabr\dashboard;
             <div class="form-submit">
                 <input type="hidden" name="action" value="form_single_apoio_new">
                 <div></div>
-                <div class="form-submit-actions">
+                <div>
                     <a class="button is-goback" href="<?=get_dashboard_url('apoio')?>/"><iconify-icon icon="bi:chevron-left"></iconify-icon><span>Voltar</span></a>
                     <a class="button is-new"><iconify-icon icon="bi:check2"></iconify-icon><span>Criar Apoio</span></a>
                 </div>
