@@ -151,7 +151,7 @@
                                 border-radius: size( 20 );
 
                                 position: absolute;
-                                top: 100px;
+                                top: 50px;
                                 left: 0;
                                 right: 0;
                                 z-index: 5;
@@ -171,6 +171,24 @@
 
                                             }
                                         }
+                                    }
+
+                                    .button {
+                                        background-color: transparent;
+                                        color: $color--secondary-dark;
+
+                                        font-size: size(16);
+                                        text-decoration: none;
+                                        padding: size(11) size(50);
+                                        border-radius: size(75);
+                                        border: solid 1px $color--secondary-dark;
+
+                                        display: flex;
+                                        gap: $gap--small;
+                                        width: size( 250 );
+                                        justify-content: center;
+                                        align-items: center;
+                                        height: 40px;
                                     }
                                 }
 
@@ -211,6 +229,12 @@
                         }
                     }
 
+                    &--2 {
+                        .card {
+                            flex: 1 1 calc(50% - 25px);
+                        }
+                    }
+
                     &--3 {
                         .card {
                             flex: 1 1 calc(33.333% - 25px);
@@ -231,9 +255,8 @@
 
                     .card-group {
                         display: flex;
-                        gap: size( 15 );
-                        justify-content: space-between;
-                        width: 33%;
+                        gap: 25px;
+                        width: 50%;
 
                         @include mobile {
                             width: 100%;
@@ -251,7 +274,7 @@
                         }
 
                         .card {
-                            width: 50%;
+                            flex: 1 1 calc(50% - 25px);
                         }
                     }
 

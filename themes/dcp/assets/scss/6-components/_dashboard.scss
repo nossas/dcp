@@ -834,11 +834,7 @@
 
                         span {
                             width: 100%;
-                            display: -webkit-box;
-                            -webkit-line-clamp: 2; /* Número de linhas */
-                            -webkit-box-orient: vertical;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
+                            display: inline-block;
                         }
                     }
                     &__excerpt-wrapped {
@@ -863,13 +859,16 @@
 
                             .read-more {
                                 background-color: #FFF;
-                                font-size: inherit;
+                                font-size: size( 13 );
                                 text-decoration: underline;
                                 text-align: right;
                                 color: $color--secondary-dark;
                                 font-weight: 400;
                                 display: inline-block;
                                 padding: size( 1 ) size( 2 );
+                                position: absolute;
+                                right: 0;
+                                bottom: size( 15 );
 
                                 @include mobile {
                                     font-size: size( 12 );
