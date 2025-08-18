@@ -159,6 +159,20 @@ namespace hacklabr\dashboard;
                     </p>
                 </div>
             </div>
+            <div class="fields is-telefone" style="display: none;">
+                <div class="input-wrap">
+                    <label class="label">Telefone</label>
+                    <input class="input" type="text" name="telefone" placeholder="Digite seu telefone aqui" value="" required>
+                </div>
+                <div class="input-help">
+                    <a href="#/" class="button">
+                        <iconify-icon icon="bi:question"></iconify-icon>
+                    </a>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                    </p>
+                </div>
+            </div>
             <div class="fields is-website" style="display: none;">
                 <div class="input-wrap">
                     <label class="label">Website</label>

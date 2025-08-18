@@ -68,17 +68,16 @@ jQuery(function($) {
 
             case 'locais-seguros' :
                 $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
-                $( '#apoioSingleForm .is-media-attachments' ).show();
+                $( '#apoioSingleForm .is-media-attachments, #apoioSingleForm .is-telefone' ).show();
                 break;
 
             case 'iniciativas-locais' :
                 $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
-                $( '#apoioSingleForm .is-media-attachments' ).show();
+                $( '#apoioSingleForm .is-media-attachments, #apoioSingleForm .is-telefone' ).show();
                 break;
 
             case 'cacambas' :
-                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
-                $( '#apoioSingleForm .is-media-attachments' ).hide();
+                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra, #apoioSingleForm .is-media-attachments, #apoioSingleForm .is-telefone' ).hide();
                 break;
 
             case 'quem-acionar' :
@@ -88,12 +87,12 @@ jQuery(function($) {
             case 'lixo' :
             case 'outros' :
             case 'saude' :
-                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).show();
+                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra, #apoioSingleForm .is-telefone' ).show();
                 $( '#apoioSingleForm .is-media-attachments' ).hide();
                 break;
 
             default :
-                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra, #apoioSingleForm .is-media-attachments' ).hide();
+                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra, #apoioSingleForm .is-media-attachments, #apoioSingleForm .is-telefone' ).hide();
                 $( '#apoioSingleForm input, #apoioSingleForm textarea' ).prop( 'disabled', true );
                 break;
         }

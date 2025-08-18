@@ -991,7 +991,8 @@
                     justify-content: end;
 
                     @include tablet {
-                        display: flex;
+                        display: block;
+                        width: 100%;
                     }
                 }
 
