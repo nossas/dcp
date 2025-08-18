@@ -45,7 +45,7 @@ export async function showDraggableMap (map, risk, updateAddress) {
         updateAddress(...initialCoords, false)
     }
 
-    const marker = new mapboxgl.Marker({ draggable: true })
+    const marker = new mapboxgl.Marker({ anchor: 'bottom', draggable: true })
         .setLngLat(initialCoords)
         .addTo(map)
 
