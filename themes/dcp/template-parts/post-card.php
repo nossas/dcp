@@ -277,7 +277,7 @@
                 if (in_array($post_type, $post_types_com_endereco)) {
                     $pod = pods($post_type, get_the_ID());
                     if ($pod->exists()) {
-                        $endereco_final = $pod->field('endereco');
+                        $endereco_final = 'Endereço: ' . $pod->field('endereco');
                     }
                 }
 
