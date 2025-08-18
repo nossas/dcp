@@ -43,14 +43,15 @@ get_header();
         </div>
     </div>
     <div class="dcp-map__form-container">
-        <form class="dcp-map__form">
-            <iconify-icon id="icon-input" icon="bi:search"></iconify-icon> <input type="text" name="address" autocomplete="address-line1" placeholder="Busque sua localização">
-            <button type="submit" aria-label="Buscar">
-                <iconify-icon icon="bi:search"></iconify-icon>
-                <span>Buscar</span>
+      <form class="dcp-map__form">
+    <iconify-icon id="icon-input" icon="bi:search"></iconify-icon>
+        <input type="text" name="address" autocomplete="address-line1" placeholder="Busque sua localização">
+        <button type="submit" aria-label="Buscar" id="search-btn">
+            <iconify-icon id="icon-btn" icon="bi:plus" width="16"></iconify-icon>
+            <span>Buscar</span>
+        </button>
+    </form>
 
-            </button>
-        </form>
     </div>
     <div class="dcp-map__buttons-container">
         <div class="dcp-map__buttons">

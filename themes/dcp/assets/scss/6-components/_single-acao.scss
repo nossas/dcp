@@ -10,7 +10,6 @@
             margin-bottom: 16px;
         }
     }
-    // 📌 Breadcrumb
     .bread-acao {
         display: flex;
         flex-wrap: wrap;
@@ -73,7 +72,6 @@
     }
 
 
-    // 📌 Grid principal da página
     .acao-grid {
         display: flex;
         gap: 80px;
@@ -120,7 +118,6 @@
         }
     }
 
-    // 📌 Imagem/Thumb
     .acao-thumb {
         width: initial;
         display: flex;
@@ -151,28 +148,52 @@
         }
     }
 
-    // 📌 Conteúdo do lado direito da ação
     .acao-conteudo {
         display: flex;
         flex-direction: column;
 
         .acao-categoria {
             margin-bottom: 8px;
+            background-repeat: no-repeat;
+            background-position: 8px center; // Ícone 8px da esquerda
+            background-size: 16px;
+            padding: 6px 14px 6px 34px; // espaço para o ícone à esquerda
+            border-radius: 16px;
 
-            .badge {
-                display: inline-block;
-                background: #235540;
-                color: white;
-                padding: 0.25rem 0.6rem;
-                font-size: 0.9rem;
-                border-radius: 100px;
 
-                img {
-                    max-width: 1rem;
-                    height: auto;
-                }
+            &--educacao {
+                background-image: url('/wp-content/themes/dcp/assets/images/educacao.svg');
+                background-color: #50B15C;
             }
+            &--limpeza {
+                background-image: url('/wp-content/themes/dcp/assets/images/limpeza.png');
+                background-color: #235540;
+                color:#F9F3EA;
+
+            }
+            &--reparos {
+                background-image: url('/wp-content/themes/dcp/assets/images/hammer-thor.svg');
+                background-color: #51B2AF;
+            }
+            &--cultura {
+                background-image: url('/wp-content/themes/dcp/assets/images/microfone.svg');
+                background-color: #B83D13;
+                color:#F9F3EA;
+
+            }
+            &--incidencia {
+                background-image: url('/wp-content/themes/dcp/assets/images/incidencia.svg');
+                background-color: #FFB300;
+            }
+            &--solidariedade {
+                background-image: url('/wp-content/themes/dcp/assets/images/solidarie.svg');
+                background-color: #FC7753;
+            }
+
+
+
         }
+
 
         .acao-titulo {
             color: $color--secondary-dark;
@@ -218,7 +239,6 @@
         }
     }
 
-    // 📌 Formulário de participação
     .formulario-participar {
         display: grid;
         width: 100%;

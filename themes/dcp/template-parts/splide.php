@@ -1,9 +1,9 @@
 <div class="splide" aria-label="Galeria de mídias">
     <div class="splide__arrows">
-        <button class="splide__arrow splide__arrow--prev" aria-label="Anterior">
+        <button type="button" class="splide__arrow splide__arrow--prev" aria-label="Anterior">
             <iconify-icon icon="bi:chevron-left"></iconify-icon>
         </button>
-        <button class="splide__arrow splide__arrow--next" aria-label="Próxima">
+        <button type="button" class="splide__arrow splide__arrow--next" aria-label="Próxima">
             <iconify-icon icon="bi:chevron-right"></iconify-icon>
         </button>
     </div>

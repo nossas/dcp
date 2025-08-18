@@ -289,3 +289,11 @@
 .required {
     color: $color--warning-dark;
 }
+
+// VLibras - Esconde o pop-up por padrão
+[vw] [vw-access-button] .vp-pop-up {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: opacity 0.2s, visibility 0.2s;
+}

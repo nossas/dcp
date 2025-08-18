@@ -68,9 +68,48 @@ class API {
                     'required' => true,
                 ],
             ],
-            // 'permission_callback' => 'hacklabr\API::rest_permission_to_edit_riscos',
             'permission_callback' => '__return_true',
         ]);
+
+        register_rest_route('hacklabr/v2', '/reverse_geocoding', [
+            'methods' => ['GET', 'POST'],
+            'callback' => 'hacklabr\API::rest_reverse_geocoding_callback',
+            'args' => [
+                'lat' => [
+                    'type' => 'number',
+                    'required' => true,
+                ],
+                'lat' => [
+                    'type' => 'number',
+                    'required' => true,
+                ],
+            ],
+            'permission_callback' => '__return_true',
+        ]);
+    }
+
+    private static function make_nominatim_request ($url) {
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (compatible; NossasDCP/1.0)',
+            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_TIMEOUT => 30,
+        ]);
+
+        $response = curl_exec($curl);
+        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $curl_error = curl_error($curl);
+        curl_close($curl);
+
+        if ($response === false || $http_code !== 200) {
+            $error_message = $curl_error ?: "HTTP Error: {$http_code}";
+            do_action('logger', $error_message, 'warning');
+            return null;
+        }
+
+        return json_decode($response);
     }
 
     static function send_html ($html) {
@@ -81,10 +120,6 @@ class API {
 
     static function rest_permission_to_edit_posts () {
         return current_user_can('edit_posts');
-    }
-
-    static function rest_permission_to_edit_riscos () {
-        return current_user_can('edit_riscos');
     }
 
     static function rest_block_settings_callback () {
@@ -102,12 +137,6 @@ class API {
     }
 
     static function rest_geocoding_callback (\WP_REST_Request $request) {
-        /*
-         * ALTERNATIVA P/ CORREÇÃO
-         * DA REQUISIÇÃO P/ NOMINATIM OPEN STREET MAP
-         * COM CURL DIRETO AO INVÉS wp_remote_get()
-         * */
-        //TODO: REFACTORY QUANDO HOUVER OUTRA NECESSIDADE DE USO DIRETO CURL
         $address = $request->get_param('address');
         $params = [
             'q' => $address,
@@ -119,41 +148,49 @@ class API {
         ];
 
         $url = 'https://nominatim.openstreetmap.org/search?' . http_build_query($params);
-        $ch = curl_init();
-        curl_setopt_array($ch, [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_USERAGENT => 'Mozilla/5.0 (compatible; YourApp/1.0)',
-            CURLOPT_SSL_VERIFYPEER => true,
-            CURLOPT_TIMEOUT => 30,
-        ]);
-
-        $response = curl_exec($ch);
-        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $curl_error = curl_error($ch);
-        curl_close($ch);
-
-        if ($response === false || $http_code !== 200) {
-            $error_message = $curl_error ?: "HTTP Error: {$http_code}";
-            do_action('logger', $error_message, 'warning');
-            return null;
-        }
-
-        do_action('logger', [
-            'response' => $response,
-            'http_code' => $http_code
-        ]);
-
-        $data = json_decode($response);
+        $data = self::make_nominatim_request($url);
 
         if (is_array($data)) {
             foreach ($data as $match) {
                 return [
                     'lat' => floatval($match->lat),
                     'lon' => floatval($match->lon),
-                    'address' => $match->display_name,
+                    'address' => $match->address->road ?? '',
+                    'full_address' => $match->display_name,
                 ];
             }
+        }
+
+        return new \WP_REST_Response(null, 404);
+    }
+
+    static function rest_reverse_geocoding_callback (\WP_REST_Request $request) {
+        $lat = $request->get_param('lat');
+        $lon = $request->get_param('lon');
+
+        $params = [
+            'lat' => $lat,
+            'lon' => $lon,
+            'format' => 'jsonv2',
+            'addressdetails' => 1,
+            'accept-language' => 'pt-BR',
+        ];
+
+        $url = 'https://nominatim.openstreetmap.org/reverse?' . http_build_query($params);
+        $match = self::make_nominatim_request($url);
+
+        if (!empty($match) && empty($match->error)) {
+            $pretty_address = $match->address->road ?? '';
+            if (!empty($match->address->house_number)) {
+                $pretty_address .= ', ' . $match->address->house_number;
+            }
+
+            return [
+                'lat' => floatval($match->lat),
+                'lon' => floatval($match->lon),
+                'address' => $pretty_address,
+                'full_address' => $match->display_name,
+            ];
         }
 
         return new \WP_REST_Response(null, 404);

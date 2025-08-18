@@ -168,6 +168,21 @@
             }
         }
 
+        .wp-block-columns:nth-child(9) {
+            .wp-block-column {
+                .wp-block-buttons {
+                    .wp-block-button {
+                        &__link {
+                            padding: size(9) size(20) !important;
+                            font-weight: 500;
+                            line-height: 120%;
+                            font-family: $font-family--primary;
+                        }
+                    }
+                }
+            }
+        }
+
         .bloco-full-verde {
             width: 100vw;
             max-width: 100vw !important;

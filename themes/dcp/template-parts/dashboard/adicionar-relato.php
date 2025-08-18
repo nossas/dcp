@@ -77,7 +77,7 @@ namespace hacklabr\dashboard;
                         <?php if( !empty( $get_terms[0]->slug ) ) : ?>
                             <option value="<?=$get_terms[0]->slug?>" selected ><?=$get_terms[0]->name?></option>
                         <?php else : ?>
-                            <option value="">SELECIONE UMA AÇÃO</option>
+                            <option value="">Selecione uma ação</option>
                         <?php endif; ?>
                     </select>
                     <a class="button is-category">
@@ -173,89 +173,30 @@ namespace hacklabr\dashboard;
             </div>
             <div class="fields is-media-attachments">
                 <div id="mediaUploadCover" class="input-media">
-                    <?php if( !wp_is_mobile() ) : ?>
-                        <div class="input-media-uploader">
-                            <h4>Foto de capa</h4>
-                            <div class="input-media-uploader-files">
-                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
-                                    <iconify-icon icon="bi:upload"></iconify-icon>
-                                    <span>Adicionar foto</span>
-                                </a>
-                            </div>
+                    <div class="input-media-uploader">
+                        <h4>Foto de capa</h4>
+                        <div class="input-media-uploader-files">
+                            <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                                <iconify-icon icon="bi:upload"></iconify-icon>
+                                <span>Adicionar foto</span>
+                            </a>
                         </div>
-                    <?php else : ?>
-                        <div class="input-media-uploader is-mobile-only">
-                            <h4 style="margin-top: 15px">Foto (opcional)</h4>
-                            <div class="input-help">
-                                <a href="#/" class="button" style="top: 0 !important;">
-                                    <iconify-icon icon="bi:question"></iconify-icon>
-                                </a>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
-                                </p>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                    <div class="input-media-uploader-progress">
-                        <div class="progress is-empty">
-                            <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
-                        </div>
+                    </div>
+                    <div class="media-preview-container">
+                        <div class="media-preview-list"></div>
                     </div>
                     <div class="input-media-preview">
-                        <div class="input-media-preview-assets is-images">
-                            <?php if( !empty( $attachments ) ) : ?>
-                                <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
-                                <div class="assets-list">
-                                    <?php foreach ( $attachments as $image ) : ?>
-                                        <input type="hidden" name="attatchment_cover_id" value="<?=$image->ID?>">
-                                        <figure class="asset-item-preview">
-                                            <img class="is-load-now" data-media-src="<?=$image->guid?>">
-                                            <div class="asset-item-preview-actions">
-                                                <a class="button is-fullscreen" data-id="<?=$image->ID?>" data-href="<?=$image->guid?>">
-                                                    <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
-                                                </a>
-                                                <a class="button is-delete" data-id="<?=$image->ID?>">
-                                                    <iconify-icon icon="bi:trash-fill"></iconify-icon>
-                                                </a>
-                                                <a class="button is-download" href="<?=$image->guid?>" target="_blank">
-                                                    <iconify-icon icon="bi:download"></iconify-icon>
-                                                </a>
-                                                <a class="button is-show-hide">
-                                                    <iconify-icon icon="bi:eye-slash-fill"></iconify-icon>
-                                                </a>
-                                            </div>
-                                        </figure>
-                                    <?php endforeach; ?>
-                                </div>
-                            <?php else : ?>
-                                <div class="input-media-preview">
-                                    <div class="input-media-preview-assets is-empty">
-                                        <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
+                        <div class="input-media-preview-assets is-empty">
+                            <p class="is-empty-text">Nenhuma foto de capa adicionada ainda.</p>
                         </div>
                     </div>
-                    <?php if( wp_is_mobile() ) : ?>
-                        <div class="input-media-uploader">
-                            <div class="input-media-uploader-files">
-                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
-                                    <iconify-icon icon="bi:upload"></iconify-icon>
-                                    <span>Adicionar foto</span>
-                                </a>
-                            </div>
-                        </div>
-                    <?php endif; ?>
                 </div>
                 <div class="input-help">
-                    <a href="#/" class="button">
-                        <iconify-icon icon="bi:question"></iconify-icon>
-                    </a>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
-                    </p>
+                    <a href="#/" class="button"><iconify-icon icon="bi:question"></iconify-icon></a>
+                    <p>O usuário poderá adicionar uma foto, então se já houver uma foto adicionada, o botão que fica a superior, a borda fica desabilitada)</p>
                 </div>
             </div>
+
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Texto</label>
@@ -270,73 +211,41 @@ namespace hacklabr\dashboard;
                     </p>
                 </div>
             </div>
+
             <div class="fields is-media-attachments">
                 <div id="mediaUpload" class="input-media">
-                    <?php if( !wp_is_mobile() ) : ?>
-                        <div class="input-media-uploader">
-                            <h4>Mídias</h4>
-                            <div class="input-media-uploader-files">
-                                <a id="mediaUploadButton" class="button is-primary is-small is-upload-media is-multiple">
-                                    <iconify-icon icon="bi:upload"></iconify-icon>
-                                    <span>Adicionar fotos e vídeos</span>
-                                </a>
-                            </div>
+                    <div class="input-media-uploader">
+                        <h4>Mídias</h4>
+                        <div class="input-media-uploader-files">
+                            <a id="mediaUploadButton" class="button is-primary is-small is-upload-media is-multiple">
+                                <iconify-icon icon="bi:upload"></iconify-icon>
+                                <span>Adicionar fotos e vídeos</span>
+                            </a>
                         </div>
-                    <?php else : ?>
-                        <div class="input-media-uploader is-mobile-only">
-                            <h4 style="margin-top: 15px">Mídias</h4>
-                            <div class="input-help">
-                                <a href="#/" class="button" style="top: 0 !important;">
-                                    <iconify-icon icon="bi:question"></iconify-icon>
-                                </a>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
-                                </p>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                    <div class="input-media-uploader-progress">
-                        <div class="progress is-empty">
-                            <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
-                        </div>
+                    </div>
+                     <div class="media-preview-container">
+                        <div class="media-preview-list"></div>
                     </div>
                     <div class="input-media-preview">
                         <div class="input-media-preview-assets is-empty">
                             <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
                         </div>
                     </div>
-                    <?php if( wp_is_mobile() ) : ?>
-                        <div class="input-media-uploader">
-                            <div class="input-media-uploader-files">
-                                <a id="mediaUploadButton" class="button is-primary is-small is-upload-media is-multiple">
-                                    <iconify-icon icon="bi:upload"></iconify-icon>
-                                    <span>Adicionar fotos e vídeos</span>
-                                </a>
-                            </div>
-                        </div>
-                    <?php endif; ?>
                 </div>
-                <?php if( !wp_is_mobile() ) : ?>
-                    <div class="input-help">
-                        <a href="#/" class="button">
-                            <iconify-icon icon="bi:question"></iconify-icon>
-                        </a>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
-                        </p>
-                    </div>
-                <?php endif; ?>
+                <div class="input-help">
+                    <a href="#/" class="button"><iconify-icon icon="bi:question"></iconify-icon></a>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.</p>
+                </div>
             </div>
             <div class="form-submit">
+                <div id="file-input-storage" style="display: none;"></div>
                 <input type="hidden" name="action" value="form_single_relato_new">
                 <input type="hidden" name="post_id" value="<?=$get_acao->ID?>">
-                <a class="button is-goback">
-                    <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                <a class="button is-goback" href="<?=get_dashboard_url('acoes')?>">
                     <span>Voltar</span>
                 </a>
                 <a class="button is-new relato">
-                    <iconify-icon icon="bi:check2"></iconify-icon>
-                    <span>Criar Relato</span>
+                    <span>Criar relato</span>
                 </a>
             </div>
         </form>
@@ -351,6 +260,9 @@ namespace hacklabr\dashboard;
         <script>
             const _tiny_mce_content_css = '<?php echo includes_url("css/dashicons.css"); ?>,<?php echo includes_url("js/tinymce/skins/wordpress/wp-content.css"); ?>';
         </script>
+    </div>
+
+    <div id="dashboard-snackbar" class="dashboard-snackbar">
     </div>
 </div>
 

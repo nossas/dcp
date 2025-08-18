@@ -62,7 +62,7 @@
             border-radius: 100px;
             display: flex;
             gap: $gap--small;
-            padding: 8px 32px 8px 40px;
+            padding: 8px 22px 8px 14px;
             text-decoration: none;
 
             @include mobile {
@@ -74,12 +74,23 @@
     &__add-risk {
         background-color: $color--warning-dark;
         color: white;
+
+        &:hover {
+            background-color: #7a280c !important;
+            color: $color--high-light !important;
+            transition: all .2s ease-in-out;
+        }
     }
 
     &__open-map {
         background-color: $color--secondary-light;
         color: $color--secondary-dark;
         outline: 1px solid black;
+        padding: 8px 11px 8px 16px !important;
+
+        &:hover {
+            box-shadow: 0 0 5px rgba( 0,0,0,0.5 );
+        }
     }
 
     .jeomap {

@@ -1,15 +1,9 @@
 #dashboardInicio {
-
     .dashboard-content-home {
-
-
         .dashboard-content-header {
             display: block;
         }
-
         .dashboard-content-section {
-
-
             &-header {
                 display: flex;
                 justify-content: space-between;
@@ -68,7 +62,6 @@
 
                 }
             }
-
             &-body {
 
                 .header-cards {
@@ -240,6 +233,7 @@
                         gap: size( 15 );
                         justify-content: space-between;
                         width: 33%;
+                        border: none;
 
                         @include mobile {
                             width: 100%;
@@ -264,49 +258,6 @@
                 }
 
             }
-        }
-
-    }
-
-    .dashboard-content-cards {
-        .post-card {
-            padding-top: size( 10 );
-            padding-bottom: size( 5 );
-
-            &__risco-meta {
-                font-weight: 500;
-                padding: size( 1 ) size( 18 );
-                opacity: 0.5;
-            }
-
-            &__excerpt-wrapped {
-
-                margin-bottom: 0;
-
-                p {
-                    min-height: size(50);
-                }
-
-            }
-
-            &__see-more {
-
-                @include mobile {
-                    display: block;
-                    justify-content: initial;
-                    align-items: initial;
-                }
-
-                .button {
-
-                    @include mobile {
-                        text-align: center;
-                        display: block;
-                    }
-                }
-
-            }
-
         }
     }
 }

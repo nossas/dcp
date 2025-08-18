@@ -373,7 +373,7 @@ class Assets
             'dcp-map' => [
                 'file' => 'dcp-map.js',
                 'preload_callback' => function () {
-                    return is_page_template('page-dcp-map.php');
+                    return is_page_template('page-dcp-map.php') || is_page('conteudo-sobre-o-lixo');
                 },
                 'localize_callback' => function () {
 
@@ -398,7 +398,7 @@ class Assets
                     $jacarezinho = [-43.2578789, -22.8875068];
                     return [
                         'default_coords' => apply_filters('dcp_default_coords', $jacarezinho),
-                        'rest_url' => rest_url('hacklabr/v2/geocoding'),
+                        'rest_url' => rest_url('hacklabr/v2'),
                     ];
                 },
             ],
@@ -493,18 +493,58 @@ class Assets
             ],
             'dashboard-modal' => [
                 'file' => 'dashboard-modal.js',
+                'deps' => ['snackbar-module'],
                 'preload_callback' => function () {
                     return dashboard\is_dashboard();
                 },
             ],
             'dcp-dashboard' => [
                 'file' => 'dashboard.js',
+                'deps' => ['snackbar-module'],
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
+            ],
+            'dashboard-form' => [
+                'file' => 'dashboard-form.js',
+                'deps' => ['snackbar-module'],
                 'preload_callback' => function () {
                     return dashboard\is_dashboard();
                 },
             ],
             'dashboard-single' => [
                 'file' => 'dashboard-single.js',
+                'deps' => ['snackbar-module'],
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
+            ],
+
+            'dashboard-single-form' => [
+                'file' => 'dashboard-single-form.js',
+                'deps' => ['snackbar-module'],
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
+            ],
+
+            'dashboard-recomendacoes' => [
+                'file'  => 'dashboard-recomendacoes.js',
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
+            ],
+
+            'dashboard-media-preview' => [
+                'file' => 'dashboard-media-preview.js',
+                'deps' => ['snackbar-module'],
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
+            ],
+
+            'snackbar-module' => [
+                'file' => 'snackbar.js',
                 'preload_callback' => function () {
                     return dashboard\is_dashboard();
                 },

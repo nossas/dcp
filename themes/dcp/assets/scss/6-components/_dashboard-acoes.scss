@@ -1,5 +1,4 @@
 #dashboardAcoes {
-
     .dashboard-content-header {
 
         .is-actions {
@@ -35,29 +34,23 @@
             }
         }
     }
-
-    .dashboard-content-tabs {
-        .tabs__header {
-            a {
-                &:last-child {
-                    @include desktop {
-                        min-width: 175px;
-                        margin-right: size( 20 );
-                    }
-                    @include desktop-xxlarge {
-                        min-width: 200px;
-                        margin-right: size( 30 );
-                    }
-                }
-            }
-        }
-    }
-
     .dashboard-content-acoes {
 
         .dashboard-content-cards {
 
             .post-card {
+
+                &.is-sugestao,
+                &.is-agendadas,
+                &.is-realizadas,
+                &.is-arquivadas {
+                    height: size( 360 ) !important;
+                }
+
+                &.is-relatos {
+                    height: size( 530 ) !important;
+                }
+
                 &__term {
                     display: flex;
                     justify-content: space-between;
@@ -65,12 +58,27 @@
                 &__excerpt-wrapped {
 
                 }
+
+                &__see-more {
+                    position: absolute;
+                    width: 100%;
+                    bottom: 0;
+
+                    @include mobile {
+                        display: block;
+                        justify-content: initial;
+                        align-items: initial;
+                    }
+                    .button {
+                        @include mobile {
+                            text-align: center;
+                            display: block;
+                        }
+                    }
+                }
             }
 
             .post-card.is-relatos {
-                .post-card__content {
-                    max-height: 575px;
-                }
                 .post-card__list-infos {
                     &::before {
                         display: none;

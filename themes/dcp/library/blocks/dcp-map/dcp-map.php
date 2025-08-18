@@ -119,6 +119,7 @@ function render_dcp_map_callback(array $attributes) {
 
     $jeo_map = $jeo_maps[0];
     assert($jeo_map instanceof \WP_Post);
+    $is_lixo_page = is_page('conteudo-sobre-o-lixo');
 
     $data = get_dcp_map_data();
 
@@ -126,11 +127,11 @@ function render_dcp_map_callback(array $attributes) {
 ?>
     <div class="dcp-map-block" data-share-url="<?= get_permalink($maps_page) ?>" x-data>
         <script type="application/json"><?= json_encode($data) ?></script>
-        <div class="dcp-map-block__tabs" data-selected="risco">
-            <button type="button" class="dcp-map-block__tab dcp-map-block__tab--selected" data-cpt="risco">
+        <div class="dcp-map-block__tabs" data-selected="<?= $is_lixo_page ? 'apoio' : 'risco' ?>">
+            <button type="button" class="dcp-map-block__tab <?php if (!$is_lixo_page) echo 'dcp-map-block__tab--selected'; ?>" data-cpt="risco">
                 Riscos (<?= count($data['riscos']) ?>)
             </button>
-            <button type="button" class="dcp-map-block__tab" data-cpt="apoio">
+            <button type="button" class="dcp-map-block__tab <?php if ($is_lixo_page) echo 'dcp-map-block__tab--selected'; ?>" data-cpt="apoio">
                 Apoio (<?= count($data['apoios']) ?>)
             </button>
         </div>

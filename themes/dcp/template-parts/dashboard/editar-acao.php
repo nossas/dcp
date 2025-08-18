@@ -45,16 +45,14 @@ namespace hacklabr\dashboard;
             $post_status = get_post_status();
 
             $pod = pods( 'acao', get_the_ID());
-            $attachments = get_attached_media('', get_the_ID() );
+            $attachment_cover_id = get_post_thumbnail_id(get_the_ID());
+            $get_attachment = get_the_post_thumbnail_url(get_the_ID(), 'large');
             $get_terms = get_the_terms( get_the_ID(), 'tipo_acao' );
 
             $all_terms = get_terms([
                 'taxonomy' => 'tipo_acao',
                 'hide_empty' => false,
             ]);
-
-
-            //TODO: REFACTORY P/ COMPONENT
 
             switch ( $post_status ) {
                 case 'draft':
@@ -122,7 +120,7 @@ namespace hacklabr\dashboard;
                 <div class="input-wrap">
                     <label class="label">Categoria</label>
                     <select id="selectCategory" class="select" name="tipo_acao" required >
-                        <option value="">SELECIONE UMA CATEGORIA</option>
+                        <option value="">Selecione uma categoria</option>
                         <?php foreach ( $all_terms as $key => $term ) :
                             if( !$term->parent ) : ?>
                                 <option value="<?=$term->slug?>" <?=( $term->slug == $get_terms[0]->slug ) ? 'selected' : '' ?>><?=$term->name?></option>
@@ -177,7 +175,7 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Descrição</label>
-                    <textarea class="textarea" name="descricao" readonly required><?=nl2br( $pod->field('descricao') )?></textarea>
+                    <textarea class="textarea" name="descricao" readonly required><?=wp_unslash( $pod->field('descricao') )?></textarea>
                     <a class="button is-edit-input">
                         <iconify-icon icon="bi:pencil-square"></iconify-icon>
                     </a>
@@ -246,92 +244,46 @@ namespace hacklabr\dashboard;
             </div>
             <div class="fields is-media-attachments">
                 <div id="mediaUploadCover" class="input-media">
-                    <?php if( !wp_is_mobile() ) : ?>
                     <div class="input-media-uploader">
-                        <h4>Foto de capa</h4>
+                        <h4>Foto</h4>
                         <div class="input-media-uploader-files">
-                            <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                            <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media" <?= !empty($get_attachment) ? 'disabled' : '' ?>>
                                 <iconify-icon icon="bi:upload"></iconify-icon>
                                 <span>Adicionar foto</span>
                             </a>
                         </div>
                     </div>
-                    <?php else : ?>
-                        <div class="input-media-uploader is-mobile-only">
-                            <h4 style="margin-top: 15px">Foto (opcional)</h4>
-                            <div class="input-help">
-                                <a href="#/" class="button" style="top: 0 !important;">
-                                    <iconify-icon icon="bi:question"></iconify-icon>
-                                </a>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
-                                </p>
-                            </div>
-                        </div>
-                    <?php endif; ?>
 
-                    <div class="input-media-uploader-progress">
-                        <div class="progress is-empty">
-                            <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
-                        </div>
+                    <div class="media-preview-container">
+                        <h4 class="media-preview-title" style="display: none;">Nova foto</h4>
+                        <div class="media-preview-list"></div>
                     </div>
+
                     <div class="input-media-preview">
                         <div class="input-media-preview-assets is-images">
-                            <?php if( !empty( $attachments ) ) : ?>
-                                <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
+                            <?php if (!empty($get_attachment)) : ?>
                                 <div class="assets-list">
-                                    <?php foreach ( $attachments as $image ) : ?>
-                                        <input type="hidden" name="attatchment_cover_id" value="<?=$image->ID?>">
-                                        <figure class="asset-item-preview">
-                                            <img class="is-load-now" data-media-src="<?=$image->guid?>">
-                                            <div class="asset-item-preview-actions">
-                                                <a class="button is-fullscreen" data-id="<?=$image->ID?>" data-href="<?=$image->guid?>">
-                                                    <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>
-                                                </a>
-                                                <a class="button is-delete" data-id="<?=$image->ID?>">
-                                                    <iconify-icon icon="bi:trash-fill"></iconify-icon>
-                                                </a>
-                                                <a class="button is-download" href="<?=$image->guid?>" target="_blank">
-                                                    <iconify-icon icon="bi:download"></iconify-icon>
-                                                </a>
-                                                <a class="button is-show-hide">
-                                                    <iconify-icon icon="bi:eye-slash-fill"></iconify-icon>
-                                                </a>
-                                            </div>
-                                        </figure>
-                                    <?php endforeach; ?>
+                                    <figure class="asset-item-preview">
+                                        <img src="<?= esc_url($get_attachment) ?>">
+                                        <div class="asset-item-preview-actions">
+                                            <a class="button is-fullscreen" data-id="<?= $attachment_cover_id ?>" data-href="<?= esc_url($get_attachment) ?>"><iconify-icon icon="bi:arrows-fullscreen"></iconify-icon></a>
+                                            <a class="button is-delete" data-id="<?= $attachment_cover_id ?>"><iconify-icon icon="bi:trash-fill"></iconify-icon></a>
+                                            <a class="button is-download" href="<?= esc_url($get_attachment) ?>" target="_blank"><iconify-icon icon="bi:download"></iconify-icon></a>
+                                        </div>
+                                    </figure>
                                 </div>
                             <?php else : ?>
-                                <div class="input-media-preview">
-                                    <div class="input-media-preview-assets is-empty">
-                                        <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
-                                    </div>
+                                <div class="input-media-preview-assets is-empty">
+                                    <p class="is-empty-text">Nenhuma foto adicionada ainda.</p>
                                 </div>
                             <?php endif; ?>
                         </div>
                     </div>
-
-                    <?php if( wp_is_mobile() ) : ?>
-                        <div class="input-media-uploader">
-                            <div class="input-media-uploader-files">
-                                <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
-                                    <iconify-icon icon="bi:upload"></iconify-icon>
-                                    <span>Adicionar foto</span>
-                                </a>
-                            </div>
-                        </div>
-                    <?php endif; ?>
                 </div>
-                <?php if( !wp_is_mobile() ) : ?>
-                    <div class="input-help">
-                        <a href="#/" class="button">
-                            <iconify-icon icon="bi:question"></iconify-icon>
-                        </a>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
-                        </p>
-                    </div>
-                <?php endif; ?>
+                <div class="input-help">
+                    <a href="#/" class="button"><iconify-icon icon="bi:question"></iconify-icon></a>
+                    <p>O usuário poderá adicionar uma foto, então se já houver uma foto adicionada (seja por ele ou pela que fez a sugestão), o botão fica desabilitado.</p>
+                </div>
             </div>
             <div class="fields">
                 <?php if( !empty( $pod->field( 'total_participantes' ) ) ) : ?>
@@ -346,7 +298,7 @@ namespace hacklabr\dashboard;
                     </a>
                 <?php endif; ?>
             </div>
-            <div class="form-submit">
+            <div class="form-submit acao-edit">
                 <input type="hidden" name="action" value="form_single_acao_edit">
                 <input type="hidden" name="post_id" value="<?=get_the_ID()?>">
                 <input type="hidden" name="post_status" value="<?=$post_status?>">
@@ -360,9 +312,8 @@ namespace hacklabr\dashboard;
                     </div>
                 <?php endif; ?>
 
-                <div>
+                <div class="form-submit-actions acao-edit-actions">
                     <?php
-                        //TODO: REFACTORY P/ UI
                         if( !wp_is_mobile() ) :
                             if( $post_status === 'draft' ) : ?>
                         <a class="button is-archive">
@@ -372,7 +323,6 @@ namespace hacklabr\dashboard;
                     <?php endif; endif; ?>
 
                     <?php
-                        //TODO: REFACTORY P/ MELHOR LOGICA
                         switch ( $post_status ) {
 
                             case 'draft': ?>
@@ -417,7 +367,6 @@ namespace hacklabr\dashboard;
                     ?>
 
                     <?php
-                    //TODO: REFACTORY P/ UI
                     if( wp_is_mobile() ) :
                         if( $post_status === 'draft' ) : ?>
                             <a class="button is-archive">
@@ -425,7 +374,6 @@ namespace hacklabr\dashboard;
                                 <span>Arquivar</span>
                             </a>
                         <?php endif; endif; ?>
-
                 </div>
 
                 <?php if( wp_is_mobile() ) : ?>
@@ -437,12 +385,16 @@ namespace hacklabr\dashboard;
                     </div>
                 <?php endif; ?>
             </div>
+
+            <div id="file-input-storage" style="display: none;"></div>
         </form>
 
         <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
         <?php echo get_template_part('template-parts/dashboard/ui/modal-assetset-fullscreen' ); ?>
     </div>
+
+    <div id="dashboard-snackbar" class="dashboard-snackbar">
+    </div>
 </div>
         <?php endwhile; ?>
     <?php endif; ?>
-

@@ -53,12 +53,12 @@ assert($jeo_map instanceof \WP_Post);
                             <small class="error-message"><?php _e('Este campo é obrigatório.'); ?></small>
                         </div>
                         <span class="or"><?php _e('ou'); ?></span>
-                        <a href="javascript:void(0)" role="button" class="multistepform__button-map multistepform__button map-button">
+                        <button type="button" class="multistepform__button-map multistepform__button map-button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                                 <path d="M9 0.000976562C10.7902 0.000976562 12.5076 0.712645 13.7734 1.97852C15.0392 3.24427 15.7499 4.96094 15.75 6.75098C15.75 11.6042 9 18.001 9 18.001C8.9337 17.938 2.25 11.5802 2.25 6.75098C2.25013 4.96094 2.96178 3.24427 4.22754 1.97852C5.4933 0.712759 7.20996 0.00110478 9 0.000976562ZM9 3.37598C8.10507 3.3761 7.24708 3.73241 6.61426 4.36523C5.98144 4.99806 5.62513 5.85605 5.625 6.75098C5.625 7.64608 5.98132 8.50476 6.61426 9.1377C7.24708 9.77051 8.10507 10.1258 9 10.126C9.89511 10.126 10.7538 9.77063 11.3867 9.1377C12.0197 8.50476 12.375 7.64608 12.375 6.75098C12.3749 5.85605 12.0195 4.99805 11.3867 4.36523C10.7538 3.7323 9.89511 3.37598 9 3.37598Z" fill="#281414"/>
                             </svg>
                             <?php _e('Marcar no mapa'); ?>
-                        </a>
+                        </button>
 
                         <div class="multistepform__map-wrapper dcp-map">
                             <div class="jeomap map_id_<?= $jeo_map->ID ?>" style="display: none;"></div>
@@ -68,16 +68,16 @@ assert($jeo_map instanceof \WP_Post);
                         </div>
                     </div>
                     <div class="multistepform__buttons">
-                        <a href="/reportar-riscos" role="button" class="multistepform__button back-to-map">
+                        <button type="button" class="multistepform__button back-to-map">
                             <?php _e('Voltar'); ?>
-                        </a>
+                        </button>
 
-                        <a href="javascript:void(0)" role="button" class="multistepform__button multistepform__button-next">
+                        <button type="button" class="multistepform__button multistepform__button-next">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon-next" viewBox="0 0 18 18" width="18" height="18" aria-hidden="true">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M5.22776 1.85276C5.28001 1.80037 5.34208 1.75881 5.41042 1.73045C5.47876 1.7021 5.55202 1.6875 5.62601 1.6875C5.69999 1.6875 5.77325 1.7021 5.84159 1.73045C5.90993 1.75881 5.972 1.80037 6.02426 1.85276L12.7743 8.60275C12.8266 8.65501 12.8682 8.71708 12.8966 8.78542C12.9249 8.85376 12.9395 8.92702 12.9395 9.001C12.9395 9.07499 12.9249 9.14825 12.8966 9.21659C12.8682 9.28493 12.8266 9.347 12.7743 9.39925L6.02426 16.1493C5.91863 16.2549 5.77538 16.3142 5.62601 16.3142C5.47663 16.3142 5.33338 16.2549 5.22776 16.1493C5.12213 16.0436 5.06279 15.9004 5.06279 15.751C5.06279 15.6016 5.12213 15.4584 5.22776 15.3528L11.5806 9.001L5.22776 2.64926C5.17537 2.597 5.13381 2.53493 5.10545 2.46659C5.0771 2.39826 5.0625 2.32499 5.0625 2.25101C5.0625 2.17702 5.0771 2.10376 5.10545 2.03542C5.13381 1.96708 5.17537 1.90501 5.22776 1.85276V1.85276Z" fill="currentColor" />
                             </svg>
                             <?php _e('Continuar'); ?>
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -116,16 +116,16 @@ assert($jeo_map instanceof \WP_Post);
                     </div>
 
                     <div class="multistepform__buttons">
-                        <a href="javascript:void(0)" role="button" class="multistepform__button back-to-map prev">
+                        <button type="button" class="multistepform__button back-to-map prev">
                             <?php _e('Voltar'); ?>
-                        </a>
+                        </button>
 
-                        <a href="javascript:void(0)" role="button" class="multistepform__button multistepform__button-next">
+                        <button type="button" class="multistepform__button multistepform__button-next">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon-next" viewBox="0 0 18 18" width="18" height="18" aria-hidden="true">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M5.22776 1.85276C5.28001 1.80037 5.34208 1.75881 5.41042 1.73045C5.47876 1.7021 5.55202 1.6875 5.62601 1.6875C5.69999 1.6875 5.77325 1.7021 5.84159 1.73045C5.90993 1.75881 5.972 1.80037 6.02426 1.85276L12.7743 8.60275C12.8266 8.65501 12.8682 8.71708 12.8966 8.78542C12.9249 8.85376 12.9395 8.92702 12.9395 9.001C12.9395 9.07499 12.9249 9.14825 12.8966 9.21659C12.8682 9.28493 12.8266 9.347 12.7743 9.39925L6.02426 16.1493C5.91863 16.2549 5.77538 16.3142 5.62601 16.3142C5.47663 16.3142 5.33338 16.2549 5.22776 16.1493C5.12213 16.0436 5.06279 15.9004 5.06279 15.751C5.06279 15.6016 5.12213 15.4584 5.22776 15.3528L11.5806 9.001L5.22776 2.64926C5.17537 2.597 5.13381 2.53493 5.10545 2.46659C5.0771 2.39826 5.0625 2.32499 5.0625 2.25101C5.0625 2.17702 5.0771 2.10376 5.10545 2.03542C5.13381 1.96708 5.17537 1.90501 5.22776 1.85276V1.85276Z" fill="currentColor" />
                             </svg>
                             <?php _e('Continuar'); ?>
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -154,16 +154,16 @@ assert($jeo_map instanceof \WP_Post);
                     </div>
 
                     <div class="multistepform__buttons">
-                        <a href="javascript:void(0)" role="button" class="multistepform__button back-to-map prev">
+                        <button type="button" class="multistepform__button back-to-map prev">
                             <?php _e('Voltar'); ?>
-                        </a>
+                        </button>
 
-                        <a href="javascript:void(0)" role="button" class="multistepform__button multistepform__button-next">
+                        <button type="button" class="multistepform__button multistepform__button-next">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon-next" viewBox="0 0 18 18" width="18" height="18" aria-hidden="true">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M5.22776 1.85276C5.28001 1.80037 5.34208 1.75881 5.41042 1.73045C5.47876 1.7021 5.55202 1.6875 5.62601 1.6875C5.69999 1.6875 5.77325 1.7021 5.84159 1.73045C5.90993 1.75881 5.972 1.80037 6.02426 1.85276L12.7743 8.60275C12.8266 8.65501 12.8682 8.71708 12.8966 8.78542C12.9249 8.85376 12.9395 8.92702 12.9395 9.001C12.9395 9.07499 12.9249 9.14825 12.8966 9.21659C12.8682 9.28493 12.8266 9.347 12.7743 9.39925L6.02426 16.1493C5.91863 16.2549 5.77538 16.3142 5.62601 16.3142C5.47663 16.3142 5.33338 16.2549 5.22776 16.1493C5.12213 16.0436 5.06279 15.9004 5.06279 15.751C5.06279 15.6016 5.12213 15.4584 5.22776 15.3528L11.5806 9.001L5.22776 2.64926C5.17537 2.597 5.13381 2.53493 5.10545 2.46659C5.0771 2.39826 5.0625 2.32499 5.0625 2.25101C5.0625 2.17702 5.0771 2.10376 5.10545 2.03542C5.13381 1.96708 5.17537 1.90501 5.22776 1.85276V1.85276Z" fill="currentColor" />
                             </svg>
                             <?php _e('Continuar'); ?>
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -175,7 +175,7 @@ assert($jeo_map instanceof \WP_Post);
                     <div class="multistepform__fields">
                         <div class="multistepform__input">
                             <span class="multistepform__label"><?php _e('Nome'); ?><span class="required"><?php _e('*'); ?></span></span>
-                            <input type="text" name="nome_completo" placeholder="<?php _e('Digite seu nome'); ?>">
+                            <input type="text" name="nome_completo" autocomplete="name" placeholder="<?php _e('Digite seu nome'); ?>">
                             <span class="error-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                                     <path d="M9 0.000976562C11.3869 0.000976563 13.6764 0.949868 15.3643 2.6377C17.052 4.32541 17.9999 6.6142 18 9.00098C18 11.3879 17.0521 13.6774 15.3643 15.3652C13.6764 17.0531 11.3869 18.001 9 18.001C6.61323 18.0008 4.32443 17.0529 2.63672 15.3652C0.948891 13.6774 0 11.3879 0 9.00098C0.000128218 6.6142 0.949006 4.32541 2.63672 2.6377C4.32443 0.949982 6.61323 0.00110478 9 0.000976562ZM9.00293 11.251C8.70456 11.251 8.41801 11.3701 8.20703 11.5811C7.99626 11.7919 7.87806 12.0779 7.87793 12.376C7.87793 12.6743 7.99614 12.9609 8.20703 13.1719C8.41801 13.3829 8.70456 13.501 9.00293 13.501C9.30116 13.5009 9.58693 13.3827 9.79785 13.1719C10.0088 12.9609 10.1279 12.6743 10.1279 12.376C10.1278 12.0778 10.0087 11.7919 9.79785 11.5811C9.58693 11.3702 9.30116 11.251 9.00293 11.251ZM9 4.50098C8.85805 4.50112 8.71763 4.53127 8.58789 4.58887C8.45794 4.64659 8.34148 4.73146 8.24609 4.83691C8.15083 4.94227 8.07861 5.06626 8.03418 5.20117C7.98974 5.33624 7.97414 5.47961 7.98828 5.62109L8.38184 9.56641C8.3951 9.72121 8.4657 9.86556 8.58008 9.9707C8.69454 10.0758 8.84462 10.1346 9 10.1348C9.15556 10.1348 9.30632 10.0759 9.4209 9.9707C9.53527 9.86556 9.60588 9.72121 9.61914 9.56641L10.0127 5.62109C10.0268 5.47961 10.0112 5.33624 9.9668 5.20117C9.92237 5.06626 9.85015 4.94227 9.75488 4.83691C9.6595 4.73146 9.54303 4.64659 9.41309 4.58887C9.2832 4.53121 9.14211 4.50106 9 4.50098Z" fill="#B83D13"/>
@@ -197,30 +197,24 @@ assert($jeo_map instanceof \WP_Post);
 
                         <div class="multistepform__input">
                             <label for="campo-email" class="multistepform__label multistepform__label-email"><?php _e('E-mail (opcional)'); ?></label>
-                            <input id="campo-email" type="email" name="email" placeholder="<?php _e('exemplo@exemplo.com.br'); ?>">
+                            <input id="campo-email" type="email" autocomplete="email" name="email" placeholder="<?php _e('exemplo@exemplo.com.br'); ?>">
                         </div>
 
                     </div>
 
-                    <div class="multistepform__accept-wrapper">
-                        <label class="multistepform__accept">
-                            <input type="checkbox" name="autoriza_contato" value="sim">
-                            <?php _e('Autorizo o contato via WhatsApp e estou ciente que meus dados serão usados apenas para esse fim e não serão compartilhados.'); ?>
-                        </label>
-                        <small class="error-message"><?php _e('É necessário marcar esta opção.'); ?></small>
-                    </div>
+
 
                     <div class="multistepform__buttons">
-                        <a href="javascript:void(0)" role="button" class="multistepform__button back-to-map prev">
+                        <button type="button" class="multistepform__button back-to-map prev">
                             <?php _e('Voltar'); ?>
-                        </a>
+                        </button>
 
-                        <a href="javascript:void(0)" role="button" class="multistepform__button multistepform__button-next">
+                        <button type="button" class="multistepform__button multistepform__button-next">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon-next" viewBox="0 0 18 18" width="18" height="18" aria-hidden="true">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M5.22776 1.85276C5.28001 1.80037 5.34208 1.75881 5.41042 1.73045C5.47876 1.7021 5.55202 1.6875 5.62601 1.6875C5.69999 1.6875 5.77325 1.7021 5.84159 1.73045C5.90993 1.75881 5.972 1.80037 6.02426 1.85276L12.7743 8.60275C12.8266 8.65501 12.8682 8.71708 12.8966 8.78542C12.9249 8.85376 12.9395 8.92702 12.9395 9.001C12.9395 9.07499 12.9249 9.14825 12.8966 9.21659C12.8682 9.28493 12.8266 9.347 12.7743 9.39925L6.02426 16.1493C5.91863 16.2549 5.77538 16.3142 5.62601 16.3142C5.47663 16.3142 5.33338 16.2549 5.22776 16.1493C5.12213 16.0436 5.06279 15.9004 5.06279 15.751C5.06279 15.6016 5.12213 15.4584 5.22776 15.3528L11.5806 9.001L5.22776 2.64926C5.17537 2.597 5.13381 2.53493 5.10545 2.46659C5.0771 2.39826 5.0625 2.32499 5.0625 2.25101C5.0625 2.17702 5.0771 2.10376 5.10545 2.03542C5.13381 1.96708 5.17537 1.90501 5.22776 1.85276V1.85276Z" fill="currentColor" />
                             </svg>
                             <?php _e('Continuar'); ?>
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -259,19 +253,29 @@ assert($jeo_map instanceof \WP_Post);
                         </div>
                         </div>
                     </div>
-                        <div class="multistepform__accept-terms">
-                             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/information.svg" alt="Ícone de horário">
-                            “Ao enviar este relato, você concorda com o uso das informações e mídias no site da Defesa Climática Popular e em outras ações do projeto, sem exibição dos seus dados pessoais.”
-                        </div>
+                    <div class="multistepform__accept-wrapper">
+                        <label class="multistepform__accept">
+                            <input type="checkbox" name="autoriza_contato" value="sim">
+                            <?php _e('Autorizo o contato via WhatsApp e estou ciente que meus dados serão usados apenas para esse fim e não serão compartilhados.'); ?>
+                        </label>
+                        <small class="error-message"><?php _e('É necessário marcar esta opção.'); ?></small>
+                    </div>
+                    <div class="multistepform__accept-wrapper">
+                        <label class="multistepform__accept">
+                            <input type="checkbox" name="autoriza_relato" value="sim">
+                            <?php _e('Ao enviar este relato, você concorda com o uso das informações e mídias no site da Defesa Climática Popular e em outras ações do projeto, sem exibição dos seus dados pessoais.'); ?>
+                        </label>
+                        <small class="error-message"><?php _e('É necessário marcar esta opção.'); ?></small>
+                    </div>
                         <div class="multistepform__buttons">
 
-                            <a href="javascript:void(0)" id="editarResumo" role="button" class="multistepform__button multistepform__button-edit">
+                            <button type="button" id="editarResumo" class="multistepform__button multistepform__button-edit">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
                                     <path d="M17.4397 2.87435C17.5449 2.97979 17.6039 3.12259 17.6039 3.27147C17.6039 3.42035 17.5449 3.56316 17.4397 3.6686L16.2664 4.8431L14.0164 2.5931L15.1897 1.4186C15.2952 1.31315 15.4383 1.25391 15.5874 1.25391C15.7366 1.25391 15.8796 1.31315 15.9851 1.4186L17.4397 2.87322V2.87435ZM15.471 5.63735L13.221 3.38735L5.55638 11.0531C5.49446 11.115 5.44785 11.1905 5.42025 11.2736L4.51463 13.9893C4.4982 14.0389 4.49587 14.092 4.50789 14.1427C4.51991 14.1935 4.54581 14.2399 4.5827 14.2768C4.61958 14.3137 4.666 14.3396 4.71676 14.3516C4.76751 14.3636 4.82062 14.3613 4.87012 14.3448L7.58588 13.4392C7.66886 13.412 7.74435 13.3657 7.80638 13.3042L15.471 5.63735Z" fill="#B83D13" />
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M1.125 15.8793C1.125 16.3269 1.30279 16.7561 1.61926 17.0726C1.93573 17.3891 2.36495 17.5668 2.8125 17.5668H15.1875C15.6351 17.5668 16.0643 17.3891 16.3807 17.0726C16.6972 16.7561 16.875 16.3269 16.875 15.8793V9.12935C16.875 8.98016 16.8157 8.83709 16.7102 8.7316C16.6048 8.62611 16.4617 8.56685 16.3125 8.56685C16.1633 8.56685 16.0202 8.62611 15.9148 8.7316C15.8093 8.83709 15.75 8.98016 15.75 9.12935V15.8793C15.75 16.0285 15.6907 16.1716 15.5852 16.2771C15.4798 16.3826 15.3367 16.4418 15.1875 16.4418H2.8125C2.66332 16.4418 2.52024 16.3826 2.41475 16.2771C2.30926 16.1716 2.25 16.0285 2.25 15.8793V3.50435C2.25 3.35516 2.30926 3.21209 2.41475 3.1066C2.52024 3.00111 2.66332 2.94185 2.8125 2.94185H10.125C10.2742 2.94185 10.4173 2.88259 10.5227 2.7771C10.6282 2.67161 10.6875 2.52853 10.6875 2.37935C10.6875 2.23016 10.6282 2.08709 10.5227 1.9816C10.4173 1.87611 10.2742 1.81685 10.125 1.81685H2.8125C2.36495 1.81685 1.93573 1.99464 1.61926 2.31111C1.30279 2.62757 1.125 3.0568 1.125 3.50435V15.8793Z" fill="#B83D13" />
                                 </svg>
                                 <?php _e('Editar'); ?>
-                            </a>
+                            </button>
 
                             <button type="submit" id="enviarResumo" class="multistepform__button multistepform__button-next multistepform__button-submit">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">

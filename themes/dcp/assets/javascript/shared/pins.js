@@ -73,7 +73,7 @@ function getColors(slug) {
     if (slug === 'apoio') {
         return { backgroundColor: '#235540', textColor: '#ffffff' }
     } else {
-        return { backgroundColor: '#ffb300', textColor: '#281414' }
+        return { backgroundColor: '#000000', textColor: '#ffffff' }
     }
 }
 
@@ -82,7 +82,6 @@ function insertFeatureCollection(map, container, slug, features) {
     const clustersLayer = `${slug}-clusters`
     const countLayer = `${slug}-count`
 
-    const SPIDERIFIER_FROM_ZOOM = 18
     let lastZoom = map.getZoom()
 
     const { backgroundColor, textColor } = getColors(slug)
@@ -91,7 +90,7 @@ function insertFeatureCollection(map, container, slug, features) {
         type: 'geojson',
         cluster: true,
         clusterRadius: 54,
-        clusterMaxZoom: SPIDERIFIER_FROM_ZOOM,
+        clusterMaxZoom: 17,
         data: {
             type: 'FeatureCollection',
             features: features,
@@ -105,6 +104,7 @@ function insertFeatureCollection(map, container, slug, features) {
         filter: ['all', ['!has', 'point_count']],
         layout: {
             'icon-allow-overlap': true,
+            'icon-anchor': 'bottom',
             'icon-image': ['get', 'icon'],
         },
     })
@@ -158,8 +158,6 @@ function insertFeatureCollection(map, container, slug, features) {
         spiderifier.unspiderfy()
         if (!features.length) {
             return
-        } else if (map.getZoom() < SPIDERIFIER_FROM_ZOOM) {
-            map.easeTo({ center: event.lngLat, zoom: map.getZoom() + 2 })
         } else {
             map.getSource(slug).getClusterLeaves(features[0].properties.cluster_id, 100, 0, (err, leafFeatures) => {
                 if (err) {

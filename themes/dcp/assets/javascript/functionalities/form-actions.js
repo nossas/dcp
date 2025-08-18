@@ -36,6 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let updateMarker = null;
+    let hasDraggedMarker = false;
+    let hasEditedAddress = false;
 
     function showSnackbar(message) {
         const overlay = document.getElementById('snackbar-overlay');
@@ -214,26 +216,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 mapWrapper.querySelector('.multistepform__input').classList.toggle('has-error', !areCoordsValid);
 
                 return isEnderecoValid && areCoordsValid;
+
             case 1:
                 const isTipoRiscoValid = riskDraft.situacao_de_risco.trim() !== '';
                 const isDescricaoValid = riskDraft.descricao.trim() !== '';
                 return isTipoRiscoValid;
+
             case 2:
                 return true;
-            case 3:
+
+            case 3: // ✅ aqui não valida mais o checkbox
                 const nomeInput = document.querySelector('input[name="nome_completo"]');
                 const telefoneInput = document.querySelector('input[name="telefone"]');
-                const autorizaInput = document.querySelector('input[name="autoriza_contato"]');
-                const autorizaWrapper = autorizaInput.closest('.multistepform__accept-wrapper');
 
                 nomeInput.closest('.multistepform__input').classList.remove('has-error');
                 telefoneInput.closest('.multistepform__input').classList.remove('has-error');
-                autorizaWrapper.classList.remove('has-error');
 
                 const isNomeValid = riskDraft.nome_completo.trim() !== '';
                 const telefoneLimpo = riskDraft.telefone.replace(/\D/g, '');
                 const isTelefoneValid = telefoneLimpo.length >= 10;
-                const isAutorizaValid = autorizaInput.checked;
 
                 if (!isNomeValid) {
                     nomeInput.closest('.multistepform__input').classList.add('has-error');
@@ -241,18 +242,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!isTelefoneValid) {
                     telefoneInput.closest('.multistepform__input').classList.add('has-error');
                 }
+
+                return isNomeValid && isTelefoneValid;
+
+            case 4: // ✅ step 5 → checkbox obrigatório aqui
+                const autorizaInput = document.querySelector('input[name="autoriza_contato"]');
+                const autorizaWrapper = autorizaInput.closest('.multistepform__accept-wrapper');
+
+                autorizaWrapper.classList.remove('has-error');
+
+                const isAutorizaValid = autorizaInput.checked;
+
                 if (!isAutorizaValid) {
                     autorizaWrapper.classList.add('has-error');
                 }
 
-                return isNomeValid && isTelefoneValid && isAutorizaValid;
-            case 4:
-                return true;
+                return isAutorizaValid;
+
             default:
                 return true;
         }
     }
-
     document.querySelectorAll('.multistepform__button-next').forEach(btn => {
         btn.addEventListener('click', (e) => {
             if (btn.type === 'submit') {
@@ -418,26 +428,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // GEOLOCALIZAÇÃO P/ ENDEREÇO
-    document.querySelector('input[name="endereco"]').addEventListener('change', async (event) => {
-        const { rest_url } = globalThis.hl_form_actions_data
+    document.querySelector('input[name="endereco"]').addEventListener('change', (event) => {
         const address = event.target.value
-        const res = await fetch(`${rest_url}?address=${encodeURIComponent(address)}`, {
+
+        hasEditedAddress = address.length > 0
+
+        if (hasEditedAddress && !hasDraggedMarker) {
+            updateCoordinates(address)
+        }
+    })
+
+    async function updateCoordinates (address) {
+        const nextButton = document.querySelector('.multistepform__1 .multistepform__button-next')
+        nextButton.disabled = true
+
+        const { rest_url } = globalThis.hl_form_actions_data
+        const res = await fetch(`${rest_url}/geocoding?address=${encodeURIComponent(address)}`, {
             method: 'POST',
+            cache: 'force-cache',
         })
-        if (res.ok) {
-            try {
-                const json = await res.text()
-                const data = JSON.parse(json)
+
+        try {
+            if (res.ok) {
+                const data = await res.json()
                 if (data) {
                     riskDraft.latitude = data.lat
                     riskDraft.longitude = data.lon
-                    updateMarker?.(data.lat, data.lon)
+                    updateMarker?.(data.lon, data.lat)
+                    return [data.lon, data.lat]
                 }
-            } catch (error) {
-                console.error(error)
+            }
+        } finally {
+            nextButton.disabled = false
+        }
+    }
+
+    async function updateAddress (longitude, latitude, isDrag = false) {
+        hasDraggedMarker ||= isDrag
+        riskDraft.latitude = latitude
+        riskDraft.longitude = longitude
+
+        if (!hasEditedAddress) {
+            const { rest_url } = globalThis.hl_form_actions_data
+            const res = await fetch(`${rest_url}/reverse_geocoding?lat=${latitude}&lon=${longitude}`, {
+                method: 'POST',
+                cache: 'force-cache',
+            })
+            if (res.ok) {
+                const { address } = await res.json()
+                inputEndereco.value = address
+                riskDraft.endereco = address
             }
         }
-    })
+    }
 
     async function submitData(data) {
         const formData = new FormData();
@@ -454,7 +497,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const res = await fetch(new URL('/wp-admin/admin-ajax.php', location.href), {
             method: 'POST',
             body: formData,
-
         })
         if (res.ok) {
             return true;
@@ -580,25 +622,28 @@ document.addEventListener('DOMContentLoaded', () => {
         input.value = value;
     }
 
-    async function loadDraggableMap () {
-        const map = document.querySelector('.jeomap');
+    async function getMap () {
+        const mapEl = document.querySelector('.jeomap');
 
-        await until(() => map.dataset.map_id);
-        const jeoMap = globalThis.jeomaps[map.dataset.uui_id];
+        await until(() => mapEl.dataset.map_id);
+        const jeoMap = globalThis.jeomaps[mapEl.dataset.uui_id];
 
-        await until(() => jeoMap.map);
-        updateMarker = await showDraggableMap(jeoMap, riskDraft);
+        return until(() => jeoMap.map);
     }
 
     const toggleMapButton = document.querySelector('.multistepform__button-map');
     let mapActivated = false;
-    toggleMapButton.addEventListener('click', () => {
-        if (mapActivated) {
-            return;
+    toggleMapButton.addEventListener('click', async () => {
+        const map = await getMap();
+        if (updateMarker) {
+            const center = await updateCoordinates(riskDraft.endereco);
+            if (center) {
+                map.easeTo({ center, zoom: map.getZoom() });
+            }
+        } else if (!mapActivated) {
+            mapActivated = true;
+            mapWrapper.querySelector('.jeomap').style.display = '';
+            updateMarker = await showDraggableMap(map, riskDraft, updateAddress);
         }
-        mapActivated = true;
-
-        mapWrapper.querySelector('.jeomap').style.display = '';
-        loadDraggableMap();
     })
 });

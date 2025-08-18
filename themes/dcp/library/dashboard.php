@@ -88,6 +88,8 @@ function filter_query_vars(array $query_vars): array {
     $query_vars[] = 'pagination_limit';
     $query_vars[] = 'tipo_acao';
     $query_vars[] = 'tipo_risco';
+    $query_vars[] = 'data_inicio';
+    $query_vars[] = 'data_termino';
     return $query_vars;
 }
 add_filter('query_vars', 'hacklabr\\dashboard\\filter_query_vars');

@@ -81,11 +81,10 @@
         .wp-block-button {
             &__link {
                 color: $color--primary-pure !important;
+                border-width: 1px;
 
                 &:hover {
-                    transform: translateY(-1px);
-                    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-                    color: #103B2B !important;
+                    box-shadow: 0 0 5px rgba( 0,0,0,0.5 );
                 }
             }
         }
@@ -112,8 +111,8 @@
 
     .wp-block-button:nth-child(1) > a{
         &:hover {
-            border-color: $color--high-dark !important;
-            color: $color--high-dark !important;
+            border: none;
+            background-color: $color--high-dark !important;
         }
     }
 
@@ -132,8 +131,7 @@
         display: flex;
         font-size: $font-size--x-small !important;
         gap: $gap--small;
-        padding-bottom: size(10);
-        padding-top: size(10);
+        padding: size(8) size(20);
 
         @include mobile{
             padding: $padding--x-small $padding--medium;

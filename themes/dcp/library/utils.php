@@ -290,7 +290,9 @@ function load_more_acoes_callback() {
         'post_type' => 'acao',
         'post_status' => 'publish',
         'posts_per_page' => 3,
-        'paged' => $paged
+        'paged' => $paged,
+        'orderby' => 'meta_value',
+        'meta_key' => 'data_e_horario',
     ]);
 
     ob_start();

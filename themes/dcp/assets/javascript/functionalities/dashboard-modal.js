@@ -1,3 +1,5 @@
+import { showDashboardSnackbar } from "./snackbar";
+
 document.addEventListener('DOMContentLoaded', function () {
     const abrirModalBtn = document.getElementById('abrir-modal');
     const modal = document.getElementById('modal-confirmacao');
@@ -12,16 +14,54 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.style.display = 'none';
     });
 
-    confirmarSalvarBtn?.addEventListener('click', function () {
+    confirmarSalvarBtn?.addEventListener('click', function (event) {
+        event.preventDefault();
         const form = document.querySelector('.editar-recomendacao form');
-        if (form) {
-            const redirectInput = document.createElement('input');
-            redirectInput.type = 'hidden';
-            redirectInput.name = 'redirect_to';
-            //redirectInput.value = '<?= esc_url(get_dashboard_url("situacao_atual")) ?>';
-            form.appendChild(redirectInput);
-            form.submit();
-        }
+        if (!form) return;
+
+        modal.style.display = 'none';
+
+        const formData = new FormData(form);
+        const url = form.action || window.location.href;
+
+        const botaoSalvar = document.getElementById('abrir-modal');
+        const botaoSalvarOriginalContent = botaoSalvar.innerHTML;
+
+        botaoSalvar.disabled = true;
+        botaoSalvar.innerHTML = '<span>Salvando...</span>';
+
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(async response => {
+            if (response.ok) try {
+                return await response.json();
+            } catch {
+                return ({ success: true, data: { message: 'Alteração publicada com sucesso!' } });
+            }
+            try {
+                return await response.json();
+            } catch {
+                return ({ success: false, data: { message: 'Erro ao processar a resposta.' } });
+            }
+        })
+        .then(data => {
+            if (data.success) {
+                showDashboardSnackbar(data.data.message || 'Alteração publicada com sucesso!', 'success');
+                setTimeout(() => window.location.reload(), 2000);
+            } else {
+                showDashboardSnackbar(data.data.message || 'Ocorreu um erro ao salvar.', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Erro na requisição:', error);
+            showDashboardSnackbar('Erro de comunicação. Tente novamente.', 'error');
+        })
+        .finally(() => {
+            botaoSalvar.disabled = false;
+            botaoSalvar.innerHTML = botaoSalvarOriginalContent;
+        });
     });
 
     const voltarModalBtn = document.getElementById('voltar-modal');

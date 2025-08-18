@@ -2,67 +2,69 @@
 
 namespace hacklabr\dashboard;
 
-$tipo_risco = get_query_var('tipo_risco' );
-if( empty( $tipo_risco ) ) $tipo_risco = 'aprovacao';
+    $tipo_risco = get_query_var('tipo_risco' );
+    if( empty( $tipo_risco ) ) $tipo_risco = 'aprovacao';
 
-$paged = isset($_GET['paginacao']) ? intval($_GET['paginacao']) : 1;
-$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 6;
-$get_all_riscos = get_dashboard_riscos( $paged, $limit );
+    $paged = isset($_GET['paginacao']) ? intval($_GET['paginacao']) : 1;
+    $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 6;
+    $get_all_riscos = get_dashboard_riscos( $paged, $limit );
 
-$sectios_tabs = [
-    'aprovacao' => [
-        'name' => 'Aguardando Aprovação',
-        'link' => '',
-        'total' => $get_all_riscos['riscosAprovacao']['total_posts'],
-        //'icon' => 'lightbulb-fill',
-        'tipo_risco' => 'aprovacao',
-        'post_status' => 'draft',
-        'notification' => false
-    ],
-    'publicados' => [
-        'name' => 'Publicados',
-        'link' => '',
-        'total' => $get_all_riscos['riscosPublicados']['total_posts'],
-        //'icon' => 'calendar3',
-        'tipo_risco' => 'publicados',
-        'post_status' => 'publish',
-        'notification' => true
-    ],
-    'arquivados' => [
-        'name' => 'Arquivados',
-        'link' => '',
-        'total' => $get_all_riscos['riscosArquivados']['total_posts'],
-        //'icon' => 'check-square-fill',
-        'tipo_risco' => 'arquivados',
-        'post_status' => 'pending',
-        'notification' => false
-    ]
-];
+    $sectios_tabs = [
+        'aprovacao' => [
+            'name' => 'Aguardando Aprovação',
+            'link' => '',
+            'total' => $get_all_riscos['riscosAprovacao']['total_posts'],
+            //'icon' => 'lightbulb-fill',
+            'tipo_risco' => 'aprovacao',
+            'post_status' => 'draft',
+            'notification' => false
+        ],
+        'publicados' => [
+            'name' => 'Publicados',
+            'link' => '',
+            'total' => $get_all_riscos['riscosPublicados']['total_posts'],
+            //'icon' => 'calendar3',
+            'tipo_risco' => 'publicados',
+            'post_status' => 'publish',
+            'notification' => true
+        ],
+        'arquivados' => [
+            'name' => 'Arquivados',
+            'link' => '',
+            'total' => $get_all_riscos['riscosArquivados']['total_posts'],
+            //'icon' => 'check-square-fill',
+            'tipo_risco' => 'arquivados',
+            'post_status' => 'pending',
+            'notification' => false
+        ]
+    ];
 
-$get_riscos = get_riscos_by_status( $sectios_tabs[ $tipo_risco ][ 'post_status' ], $paged, $limit );
+    $get_riscos = get_riscos_by_status( $sectios_tabs[ $tipo_risco ][ 'post_status' ], $paged, $limit );
 
 ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 <div id="dashboardRiscos" class="dashboard-content">
-    <header class="dashboard-content-header">
+    <div class="dashboard-content-riscos">
+        <header class="dashboard-content-header">
         <h1>RISCOS MAPEADOS</h1>
         <a href="<?=get_dashboard_url( 'adicionar-risco' )?>" class="button">
             <iconify-icon icon="bi:plus-lg"></iconify-icon>
             <span>Adicionar Risco</span>
         </a>
     </header>
-    <div class="dashboard-content-tabs tabs">
+        <div class="dashboard-content-tabs tabs">
         <div class="tabs__header">
-            <?php foreach ( $sectios_tabs as $tab ) : ?>
-                <a href="<?=get_dashboard_url( 'riscos', [ 'tipo_risco' => $tab[ 'tipo_risco' ] ] )?>"
-                   class="<?=( $tipo_risco == $tab[ 'tipo_risco' ] ) ? 'is-active' : ''?> <?=( $tab[ 'notification' ] ) ? 'is-notification' : ''?>">
-                    <iconify-icon icon="bi:<?=$tab[ 'icon' ]?>"></iconify-icon>
-                    <?=$tab[ 'name' ]?>
-                    <span class="total">( <?=$tab[ 'total' ]?> )</span>
-                </a>
-            <?php endforeach; ?>
+            <div class="tabs__header-wrap">
+                <?php foreach ( $sectios_tabs as $tab ) : ?>
+                    <a href="<?=get_dashboard_url( 'riscos', [ 'tipo_risco' => $tab[ 'tipo_risco' ] ] )?>"
+                       class="<?=( $tipo_risco == $tab[ 'tipo_risco' ] ) ? 'is-active' : ''?> <?=( $tab[ 'notification' ] ) ? 'is-notification' : ''?>">
+                        <?=$tab[ 'name' ]?>
+                        <span class="total">( <?=$tab[ 'total' ]?> )</span>
+                    </a>
+                <?php endforeach; ?>
+            </div>
         </div>
         <div class="dashboard-content-cards">
         <?php get_template_part('template-parts/dashboard/ui/skeleton' );
@@ -78,62 +80,52 @@ $get_riscos = get_riscos_by_status( $sectios_tabs[ $tipo_risco ][ 'post_status' 
                     <article class="post-card is-<?=$post_status?>" style="display: none;">
                         <main class="post-card__content">
                             <div class="post-card__term">
-                            <?php
-                                $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
-                                if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
-                                    risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
-                                } else {
-                                    risco_badge_category( 'sem-categoria', 'SEM' );
-                                }
-                            ?>
+                                <?php
+                                    $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
+                                    if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                                        risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name );
+                                    } else {
+                                        risco_badge_category( 'sem-categoria', 'SEM' );
+                                    }
+                                ?>
                             </div>
-                            <div class="post-card__risco-meta"><?=wp_date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
+                            <div class="post-card__risco-meta">
+                                <?=wp_date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?>
+                            </div>
                             <h3 class="post-card__title">
                                 <span><?=$pod->field( 'endereco' )?></span>
                             </h3>
                             <div class="post-card__excerpt-wrapped">
                                 <p class="text-excerpt">
-                                    <?php dashboard_excerpt( $pod->field( 'descricao' ) ); ?>
+                                    <?php dashboard_excerpt( wp_unslash($pod->field( 'descricao' )) ); ?>
                                 </p>
                             </div>
                             <?php if( $sectios_tabs[ $tipo_risco ][ 'tipo_risco' ] == 'publicados' ) : ?>
                                 <div class="post-card__assets is-slider-thumb">
                                     <?php $get_attachments = get_attached_media('', get_the_ID() );
-//                                    echo '<pre>';
-//                                    print_r( count( $get_attachments ) );
-//                                    echo '</pre>';
-                                    if( !empty( $get_attachments ) ) :
-                                        foreach ( get_attached_media('', get_the_ID() ) as $attachment ) : ?>
-                                            <div class="slider-thumb-item">
-                                                <?php if( $attachment->post_mime_type == 'image/jpeg' || $attachment->post_mime_type == 'image/png' ) : ?>
-                                                    <img class="is-load-now" data-media-src="<?=$attachment->guid?>" />
-                                                <?php endif; ?>
-
-                                                <?php if( $attachment->post_mime_type == 'video/mp4' ) : ?>
-                                                    <video class="" poster="" playsinline controls>
-                                                        <source class="is-load-now" data-media-src="<?=$attachment->guid?>" type="video/mp4">
-                                                    </video>
-                                                <?php endif; ?>
-                                            </div>
-                                    <?php endforeach; ?>
-
-                                    <!--
+                                    if( !empty( $get_attachments ) ) : ?>
                                         <div class="swiper">
                                             <div class="swiper-wrapper">
-                                                <div class="swiper-slide">Slide 1</div>
-                                                <div class="swiper-slide">Slide 2</div>
-                                                <div class="swiper-slide">Slide 3</div>
+                                                <?php foreach ( get_attached_media('', get_the_ID() ) as $attachment ) : ?>
+                                                    <div class="swiper-slide">
+                                                        <div class="slider-thumb-item">
+                                                            <?php if( $attachment->post_mime_type == 'image/jpeg' || $attachment->post_mime_type == 'image/png' ) : ?>
+                                                                <img class="is-load-now" data-media-src="<?=$attachment->guid?>" />
+                                                            <?php endif; ?>
+
+                                                            <?php if( $attachment->post_mime_type == 'video/mp4' ) : ?>
+                                                                <video class="" poster="" playsinline controls>
+                                                                    <source class="is-load-now" data-media-src="<?=$attachment->guid?>" type="video/mp4">
+                                                                </video>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                    </div>
+                                                <?php endforeach; ?>
                                             </div>
-
                                             <div class="swiper-pagination"></div>
-
                                             <div class="swiper-button-prev"></div>
                                             <div class="swiper-button-next"></div>
-
-                                            <div class="swiper-scrollbar"></div>
                                         </div>
-                                    -->
-
                                     <?php else : ?>
                                         <div class="slider-thumb-empty">
                                             Nenhuma Mídia adicionada ainda.
@@ -141,6 +133,25 @@ $get_riscos = get_riscos_by_status( $sectios_tabs[ $tipo_risco ][ 'post_status' 
                                     <?php endif; ?>
                                 </div>
                             <?php endif; ?>
+
+                            <ul class="post-card__list-infos">
+                                <?php if( !empty( $pod->field( 'nome_completo' ) ) ) : ?>
+                                    <li>
+                                        <i><iconify-icon icon="bi:person-fill"></iconify-icon></i>
+                                        <span>Nome: <?=$pod->field( 'nome_completo' )?>
+                                        <?php if( !empty( $pod->field( 'telefone' ) ) ) : ?>
+                                            | <?=formatarTelefoneBR( $pod->field( 'telefone' ) )?>
+                                        <?php endif; ?>
+                                        </span>
+                                    </li>
+                                <?php endif; ?>
+                                <?php /* if( !empty( $pod->field( 'email' ) ) ) : ?>
+                                    <li>
+                                        <i><iconify-icon icon="bi:envelope-fill"></iconify-icon></i>
+                                        <span>E-mail: <?=$pod->field( 'email' )?></span>
+                                    </li>
+                                <?php endif; */ ?>
+                            </ul>
                             <div class="post-card__see-more">
                                 <div></div>
                                 <div>
@@ -200,5 +211,35 @@ $get_riscos = get_riscos_by_status( $sectios_tabs[ $tipo_risco ][ 'post_status' 
             </div>
         <?php endif; ?>
     </div>
+    </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // Seleciona todos os containers .swiper
+            document.querySelectorAll('.swiper').forEach((swiperEl) => {
+                // Pega os elementos internos específicos desse slider
+                const pagination = swiperEl.querySelector('.swiper-pagination');
+                const nextBtn = swiperEl.querySelector('.swiper-button-next');
+                const prevBtn = swiperEl.querySelector('.swiper-button-prev');
+                const scrollbar = swiperEl.querySelector('.swiper-scrollbar');
+
+                // Cria uma instância para cada slider
+                new Swiper(swiperEl, {
+                    direction: 'horizontal',
+                    loop: true,
+                    pagination: {
+                        el: pagination,
+                        clickable: true
+                    },
+                    navigation: {
+                        nextEl: nextBtn,
+                        prevEl: prevBtn
+                    },
+                    scrollbar: {
+                        el: scrollbar
+                    }
+                });
+            });
+        });
+    </script>
 </div>
 

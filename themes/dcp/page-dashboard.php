@@ -36,7 +36,7 @@ namespace hacklabr\dashboard;
             <div class="dashboard__header__logo">
                 <a href="<?= get_dashboard_url() ?>">
                     <?php if ( wp_is_mobile() ) : ?>
-                        <img src="<?= get_template_directory_uri() ?>/assets/images/logo-defesa-climatica-popular-icon.svg" alt="<?= get_bloginfo( 'name' ) ?>">
+                        <img src="<?= get_template_directory_uri() ?>/assets/images/logo-defesa-climatica-popular-icon.svg" alt="<?= get_bloginfo( 'name' ) ?>" style="max-height: 40px;">
                     <?php else : ?>
                         <img src="<?= get_template_directory_uri() ?>/assets/images/logo-defesa-climatica-popular-full.svg" alt="<?= get_bloginfo( 'name' ) ?>">
                     <?php endif; ?>
@@ -77,7 +77,6 @@ namespace hacklabr\dashboard;
                 <?php if ( wp_is_mobile() ) : ?>
                     <img class="logo-icon" src="<?= get_template_directory_uri() ?>/assets/images/logo-defesa-climatica-popular-icon-negative.svg" alt="<?= get_bloginfo( 'name' ) ?>">
                 <?php endif; ?>
-
                 <nav>
                     <ul>
                         <?php // TODO : REFACTORY is-current ?>
@@ -93,22 +92,24 @@ namespace hacklabr\dashboard;
                                 <span>Riscos</span>
                             </a>
                         </li>
+                        <li class="<?= ( is_dashboard('apoio') || is_dashboard('editar_apoio') || is_dashboard('adicionar-apoio') ) ? 'dashboard-current' : '' ?>">
+                            <a href="<?= get_dashboard_url('apoio') ?>">
+                                <i>
+                                    <img src="<?= get_template_directory_uri() ?>/assets/images/icon-dashboard-apoio.svg">
+                                </i>
+                                <span>Apoio</span>
+                            </a>
+                        </li>
                         <li class="<?= ( is_dashboard('situacao_atual') || is_dashboard( 'alterar_risco' ) || is_dashboard( 'editar_recomendacao' ) ) ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('situacao_atual') ?>">
                                 <iconify-icon icon="bi:exclamation-triangle-fill"></iconify-icon>
-                                <span>Situação Atual</span>
+                                <span>Recomendações</span>
                             </a>
                         </li>
                         <li class="<?= ( is_dashboard('acoes') || is_dashboard('adicionar-acao') || is_dashboard('editar-acao') || is_dashboard('adicionar-relato') ) ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('acoes') ?>">
                                 <iconify-icon icon="bi:calendar2-week-fill"></iconify-icon>
                                 <span>Ações</span>
-                            </a>
-                        </li>
-                        <li class="<?= ( is_dashboard('apoio') || is_dashboard('editar_apoio') || is_dashboard('adicionar-apoio') ) ? 'dashboard-current' : '' ?>">
-                            <a href="<?= get_dashboard_url('apoio') ?>">
-                                <iconify-icon icon="bi:people-fill"></iconify-icon>
-                                <span>Apoio</span>
                             </a>
                         </li>
                         <li class="<?= is_dashboard('indicadores') ? 'dashboard-current' : '' ?>">
@@ -120,16 +121,14 @@ namespace hacklabr\dashboard;
 
                         <?php if( wp_is_mobile() ) : ?>
 
-                            <li class="">
-                                <a href="<?= get_dashboard_url('conta') ?>">
-                                    <iconify-icon icon="bi:person-circle"></iconify-icon>
+                            <li style="border: none;">
+                                <a href="<?= get_dashboard_url('conta') ?>" style="padding-top: 36px; padding-bottom: 5px;">
                                     <span>Conta</span>
                                 </a>
                             </li>
 
-                            <li class="">
+                            <li style="border: none;">
                                 <a href="<?= get_dashboard_url('ajuda') ?>">
-                                    <iconify-icon icon="bi:question-circle"></iconify-icon>
                                     <span>Ajuda</span>
                                 </a>
                             </li>

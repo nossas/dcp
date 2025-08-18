@@ -110,6 +110,12 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
         </div>
 
         <div class="dashboard-content-section">
+            <div class="dashboard-content-section-body">
+                <hr>
+            </div>
+        </div>
+
+        <div class="dashboard-content-section">
 
             <div class="dashboard-content-section-header">
                 <h2>Relatos de Risco Aguardando Avaliação <span>( <?=$get_riscos[ 'total_posts' ]?> )</span> </h2>
@@ -119,7 +125,7 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                 </a>
             </div>
 
-            <div class="dashboard-content-section-body">
+            <div class="dashboard-content-section-body dashboard-content-riscos">
                 <div class="dashboard-content-tabs tabs">
                     <div id="riscosAprovacao" class="tabs__panels" style=" display: block !important; ">
                         <?php echo get_template_part('template-parts/dashboard/ui/skeleton' ); ?>
@@ -128,7 +134,6 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                                 while( $get_riscos[ 'posts' ]->have_posts() ) :
                                     $get_riscos[ 'posts' ]->the_post();
                                     $pod = pods( 'risco', get_the_ID() ); ?>
-
                                     <article class="post-card is-draft" style="display: none;">
                                         <main class="post-card__content">
                                             <div class="post-card__term">
@@ -142,31 +147,14 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                                                 ?>
                                             </div>
                                             <div class="post-card__risco-meta"><?=wp_date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
-
                                             <h3 class="post-card__title">
                                                 <span><?=$pod->field( 'endereco' )?></span>
                                             </h3>
-
                                             <div class="post-card__excerpt-wrapped">
                                                 <p class="text-excerpt">
-                                                    <?php
-
-                                                    //TODO: REFACTORY P/ UTILS
-                                                    $descricao = $pod->field( 'descricao' );
-
-                                                    if ( strlen( $descricao ) <= 125 ) {
-                                                        echo $descricao;
-                                                    } else {
-                                                        echo substr( $descricao, 0, 125 ) . '<a class="read-more" href="#/">Ver mais</a>';
-                                                        echo '<span class="read-more-full">' . substr( $descricao, 125 ) . '</span>';
-                                                    }
-                                                    //TODO: REFACTORY P/ UTILS
-
-                                                    ?>
-
+                                                    <?php dashboard_excerpt( wp_unslash($pod->field( 'descricao' )) ); ?>
                                                 </p>
                                             </div>
-
                                             <div class="post-card__see-more">
                                                 <div></div>
                                                 <div>
@@ -176,18 +164,14 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                                                     </a>
                                                 </div>
                                             </div>
-
                                         </main>
                                     </article>
-
                                 <?php endwhile;
 
                             else : ?>
-
                                 <div class="message-response">
                                     <span class="tabs__panel-message">Nenhum risco foi publicado ainda.</span>
                                 </div>
-
                             <?php endif; ?>
 
                         </div>

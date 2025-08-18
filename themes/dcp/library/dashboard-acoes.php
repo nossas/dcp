@@ -7,7 +7,8 @@ function get_acoes_by_status( $status, $page = 1, $limit = 6 ) {
         'post_status'    => $status,
         'posts_per_page' => $limit,
         'paged'          => $page,
-        'orderby'        => 'date',
+        'orderby'        => 'meta_value',
+        'meta_key'       => 'data_e_horario',
         'order'          => 'DESC'
     ]);
 

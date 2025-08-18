@@ -12,6 +12,26 @@ function formatFileSize(bytes) {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
+function handlePhoneInput(event) {
+    const input = event.target;
+    let value = input.value.replace(/\D/g, '');
+
+    value = value.substring(0, 11);
+
+    if (value.length > 10) {
+        value = value.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    } else if (value.length > 6) {
+        value = value.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+    } else if (value.length > 2) {
+        value = value.replace(/^(\d{2})(\d*)/, '($1) $2');
+    } else {
+        if (value.length > 0) {
+            value = value.replace(/^(\d*)/, '($1');
+        }
+    }
+
+    input.value = value;
+}
 
 // TODO: COMPORTAMENTO MOCK jQUERY
 jQuery(function($) {
@@ -48,17 +68,16 @@ jQuery(function($) {
 
             case 'locais-seguros' :
                 $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
-                $( '#apoioSingleForm .is-media-attachments' ).show();
+                $( '#apoioSingleForm .is-media-attachments, #apoioSingleForm .is-telefone' ).show();
                 break;
 
             case 'iniciativas-locais' :
                 $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
-                $( '#apoioSingleForm .is-media-attachments' ).show();
+                $( '#apoioSingleForm .is-media-attachments, #apoioSingleForm .is-telefone' ).show();
                 break;
 
             case 'cacambas' :
-                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).hide();
-                $( '#apoioSingleForm .is-media-attachments' ).hide();
+                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra, #apoioSingleForm .is-media-attachments, #apoioSingleForm .is-telefone' ).hide();
                 break;
 
             case 'quem-acionar' :
@@ -68,108 +87,176 @@ jQuery(function($) {
             case 'lixo' :
             case 'outros' :
             case 'saude' :
-                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra' ).show();
+                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra, #apoioSingleForm .is-telefone' ).show();
                 $( '#apoioSingleForm .is-media-attachments' ).hide();
                 break;
 
             default :
-                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra, #apoioSingleForm .is-media-attachments' ).hide();
+                $( '#apoioSingleForm .is-subcategory, #apoioSingleForm .is-website, #apoioSingleForm .is-info-extra, #apoioSingleForm .is-media-attachments, #apoioSingleForm .is-telefone' ).hide();
                 $( '#apoioSingleForm input, #apoioSingleForm textarea' ).prop( 'disabled', true );
                 break;
         }
     }
+    function gelocation_onblur_address( $this ) {
+
+        $.ajax({
+            url: window.location.origin + '/wp-json/hacklabr/v2/geocoding/',
+            type: 'GET',
+            data: {
+                address : $this.val(),
+            },
+            beforeSend: function() {
+                $( '.loading-global' ).fadeIn( 400 );
+                $this.prop( 'disabled', true );
+                $this.parent().find( '.is-loading' ).show();
+                $this.parent().find( '.is-success' ).hide();
+                $this.parent().find( '.is-edit-input' ).hide();
+                $this.parent().find( '.is-error-geolocation' ).hide();
+                $( '.dashboard-content-single input[name="latitude"]' ).val( '' );
+                $( '.dashboard-content-single input[name="longitude"]' ).val( '' );
+            },
+            success: function( response ) {
+                if( response.lat || response.lon ) {
+                    //$this.val( response.address )
+                    $( '.dashboard-content-single input[name="full_address"]' ).val( response.full_address || response.address );
+                    $( '.dashboard-content-single input[name="latitude"]' ).val( response.lat );
+                    $( '.dashboard-content-single input[name="longitude"]' ).val( response.lon );
+                    $this.parent().find( '.is-success' ).show();
+                } else {
+                    $this.parent().find( '.is-error-geolocation' ).show();
+                }
+            },
+            error: function ( response ) {
+                $this.parent().find( '.is-error-geolocation' ).show();
+                $this.parent().find( '.is-edit-input' ).show();
+            },
+            complete: function() {
+                $( '.loading-global' ).fadeOut( 400 );
+                $this.parent().find( '.is-loading' ).hide();
+                $this.prop( 'disabled', false );
+            }
+        });
+
+    }
+    // TODO: COMPONENT
+    function custom_modal_confirm(options) {
+        const {
+            title,
+            description,
+            error = null,
+            cancelText = 'Fechar',
+            confirmText = 'Confirmar',
+            customConfirmText,
+            onCancel,
+            onConfirm,
+            onCustomConfirm
+        } = options;
+
+        const $modal = $('.modal-confirm');
+
+        // Preenche os conteúdos dinâmicos
+        $modal.find('h3').text(title);
+        $modal.find('.is-body p').html(description);
+        $modal.find('.is-error').html( '' );
+        $modal.find('.is-confirm span').text(confirmText);
+
+        if( cancelText ) {
+            $modal.find('.is-cancel').text(cancelText).show();
+        } else {
+            $modal.find('.is-cancel').text('').hide();
+        }
+
+        if( error ) {
+            $modal.find('.is-error').html( error ).show();
+        } else {
+            $modal.find('.is-error').html( '' ).hide();
+        }
+
+        // Configura botão customizado (se fornecido)
+        const $customBtn = $modal.find('.is-custom');
+        if (customConfirmText) {
+            $customBtn.text(customConfirmText).show();
+        } else {
+            $customBtn.hide();
+        }
+
+        // Remove eventos anteriores
+        $modal.off('click', '.is-close, .is-cancel');
+        $modal.off('click', '.is-confirm');
+        $modal.off('click', '.is-custom');
+        $(document).off('keyup.modal');
+
+        // Evento de fechamento (cancelar)
+        $modal.on('click', '.is-close, .is-cancel', function() {
+            _modal_confirm_close();
+            if (typeof onCancel === 'function') onCancel();
+        });
+
+        // Evento de confirmação principal
+        $modal.on('click', '.is-confirm', function() {
+            _modal_confirm_close();
+            if (typeof onConfirm === 'function') onConfirm();
+        });
+
+        // Evento de confirmação customizada
+        if (customConfirmText) {
+            $modal.on('click', '.is-custom', function() {
+                _modal_confirm_close();
+                if (typeof onCustomConfirm === 'function') onCustomConfirm();
+            });
+        }
+
+        // Fechar com ESC
+        $(document).on('keyup.modal', function(e) {
+            if (e.key === 'Escape') {
+                _modal_confirm_close();
+                if (typeof onCancel === 'function') onCancel();
+            }
+        });
+
+        // Mostrar modal
+        $modal.fadeIn(200);
+    }
+    function _modal_confirm_close() {
+        $('.modal-confirm').fadeOut(200);
+    }
+    // TODO: COMPONENT
+    function ajustarTabs() {
+        const $tabsHeader = $('.tabs__header');
+        if (!$tabsHeader.length) return;
+
+        const $wrap = $tabsHeader.find('.tabs__header-wrap');
+        const $links = $wrap.find('a');
+
+        let totalWidth = 0;
+        $links.each(function () {
+            totalWidth += ( $(this).outerWidth(true) + 5 );
+        });
+
+        $wrap.css('width', totalWidth);
+
+        const $active = $links.filter('.is-active');
+        if ($active.length) {
+            $tabsHeader.animate({ scrollLeft : $active.position().left }, 200 );
+        }
+    }
+    function debounce(func, delay) {
+        let timeout;
+        return function () {
+            clearTimeout(timeout);
+            timeout = setTimeout(func, delay);
+        };
+    }
 
     $( document ).ready( function() {
 
-        // TODO: COMPONENT
-        function custom_modal_confirm(options) {
-            const {
-                title,
-                description,
-                error = null,
-                cancelText = 'Fechar',
-                confirmText = 'Confirmar',
-                customConfirmText,
-                onCancel,
-                onConfirm,
-                onCustomConfirm
-            } = options;
-
-            const $modal = $('.modal-confirm');
-
-            // Preenche os conteúdos dinâmicos
-            $modal.find('h3').text(title);
-            $modal.find('.is-body p').html(description);
-            $modal.find('.is-error').html( '' );
-            $modal.find('.is-confirm span').text(confirmText);
-
-            if( cancelText ) {
-                $modal.find('.is-cancel').text(cancelText).show();
-            } else {
-                $modal.find('.is-cancel').text('').hide();
-            }
-
-            if( error ) {
-                $modal.find('.is-error').html( error ).show();
-            } else {
-                $modal.find('.is-error').html( '' ).hide();
-            }
-
-            // Configura botão customizado (se fornecido)
-            const $customBtn = $modal.find('.is-custom');
-            if (customConfirmText) {
-                $customBtn.text(customConfirmText).show();
-            } else {
-                $customBtn.hide();
-            }
-
-            // Remove eventos anteriores
-            $modal.off('click', '.is-close, .is-cancel');
-            $modal.off('click', '.is-confirm');
-            $modal.off('click', '.is-custom');
-            $(document).off('keyup.modal');
-
-            // Evento de fechamento (cancelar)
-            $modal.on('click', '.is-close, .is-cancel', function() {
-                _modal_confirm_close();
-                if (typeof onCancel === 'function') onCancel();
-            });
-
-            // Evento de confirmação principal
-            $modal.on('click', '.is-confirm', function() {
-                _modal_confirm_close();
-                if (typeof onConfirm === 'function') onConfirm();
-            });
-
-            // Evento de confirmação customizada
-            if (customConfirmText) {
-                $modal.on('click', '.is-custom', function() {
-                    _modal_confirm_close();
-                    if (typeof onCustomConfirm === 'function') onCustomConfirm();
-                });
-            }
-
-            // Fechar com ESC
-            $(document).on('keyup.modal', function(e) {
-                if (e.key === 'Escape') {
-                    _modal_confirm_close();
-                    if (typeof onCancel === 'function') onCancel();
-                }
-            });
-
-            // Mostrar modal
-            $modal.fadeIn(200);
-        }
-
-        function _modal_confirm_close() {
-            $('.modal-confirm').fadeOut(200);
-        }
-        // TODO: COMPONENT
+        ajustarTabs();
 
         // DASHBOARD GERAL
         $( '.dashboard-content-cards .post-card__excerpt-wrapped .read-more' ).on('click', function() {
             const $this = $( this );
             $this.hide();
+            $this.parent().find( '.read-more-etc' ).hide();
             $this.parent().find( '.read-more-full' ).show();
         })
         $( 'img' ).each( function () {
@@ -274,43 +361,7 @@ jQuery(function($) {
         });
         $( '.dashboard-content-single input[name="endereco"]' ).on( 'change', function () {
             const $this = $( this );
-
-            $.ajax({
-                url: window.location.origin + '/wp-json/hacklabr/v2/geocoding/',
-                type: 'GET',
-                data: {
-                    address : $this.val(),
-                },
-                beforeSend: function() {
-                    $( '.loading-global' ).fadeIn( 400 );
-                    $this.prop( 'disabled', true );
-                    $this.parent().find( '.is-loading' ).show();
-                    $this.parent().find( '.is-success' ).hide();
-                    $this.parent().find( '.is-error-geolocation' ).hide();
-                    $( '.dashboard-content-single input[name="latitude"]' ).val( '' );
-                    $( '.dashboard-content-single input[name="longitude"]' ).val( '' );
-                },
-                success: function( response ) {
-                    if( response.lat || response.lon ) {
-                        //$this.val( response.address )
-                        $( '.dashboard-content-single input[name="full_address"]' ).val( response.address );
-                        $( '.dashboard-content-single input[name="latitude"]' ).val( response.lat );
-                        $( '.dashboard-content-single input[name="longitude"]' ).val( response.lon );
-                        $this.parent().find( '.is-success' ).show();
-                    } else {
-                        $this.parent().find( '.is-error-geolocation' ).show();
-                    }
-                },
-                error: function ( response ) {
-                    $this.parent().find( '.is-error-geolocation' ).show();
-                },
-                complete: function() {
-                    $( '.loading-global' ).fadeOut( 400 );
-                    $this.parent().find( '.is-loading' ).hide();
-                    $this.prop( 'disabled', false );
-                }
-            });
-
+            gelocation_onblur_address( $this );
         });
         $( '.input-chips input[type="checkbox"]' ).on( 'change', function () {
             if( $( this ).is( ':checked' ) ) {
@@ -323,43 +374,64 @@ jQuery(function($) {
             $( '#input_' + $( this ).attr( 'data-slug' ) ).prop( 'checked', true );
         });
 
-        // BOTÃO MEDIA UPLOAD
-        $( '#mediaUploadButton, #mediaUploadButtonCover' ).on( 'click', function () {
-            const $this = $( this );
+        // INDICADORES
+        $( '#selectFilter' ).on( 'change', function () {
+            const _location = window.location;
+            if( $( this ).val().length ) {
+                $( '#optionsFilter' ).hide();
+                switch ( $( this ).val() ) {
+                    case 'current_month':
+                        _location.href = _location.origin + _location.pathname + '/';
+                        break;
 
-            let isMultiple = '';
-            let isAccept = 'image/*';
-            let inputName = 'media_file[]';
+                    case 'filter_by_dates':
+                        $( '#optionsFilter' ).show();
+                        break;
 
-            if( $this.hasClass( 'is-multiple' ) ) {
-                isMultiple = 'multiple';
-                isAccept = 'image/*,video/*';
-                inputName = 'media_files[]';
-            }
-
-            if( !$this.parent().find( 'input[type="file"]' ).length ) {
-                $this.parent().append( '<input type="file" name="' + inputName + '" style="display:none;" accept="' + isAccept + '" ' + isMultiple + ' >');
-            }
-            $this.parent().find( 'input[type="file"]' ).on( 'change', function ( e ) {
-                const files = Array.from( e.target.files );
-                const $preview = $this.parent().parent().parent().find( '.input-media-preview' );
-                const $progress = $this.parent().parent().parent().find( '.input-media-uploader-progress' );
-
-                $progress.show().html( '' );
-                $preview.find( '.is-empty' ).remove();
-                if( !$this.hasClass( 'is-multiple' ) ) {
-                    $preview.html( '' );
+                    default:
+                        _location.href = _location.origin + _location.pathname + '?filtro_indicadores=' + $( this ).val();
+                        break;
                 }
-
-                files.forEach( function ( file ) {
-                    $progress.append( '<div class="progress is-small">' +
-                        '<div class="progress-bar"><span>' +
-                        formatFileSize( file.size ) + '</span><span>' +
-                        file.name + '</span></div> </div>' );
-                });
-
-            }).trigger( 'click' );
+            }
         });
+
+        // BOTÃO MEDIA UPLOAD
+        // $( '#mediaUploadButton, #mediaUploadButtonCover' ).on( 'click', function () {
+        //     const $this = $( this );
+
+        //     let isMultiple = '';
+        //     let isAccept = 'image/*';
+        //     let inputName = 'media_file[]';
+
+        //     if( $this.hasClass( 'is-multiple' ) ) {
+        //         isMultiple = 'multiple';
+        //         isAccept = 'image/*,video/*';
+        //         inputName = 'media_files[]';
+        //     }
+
+        //     if( !$this.parent().find( 'input[type="file"]' ).length ) {
+        //         $this.parent().append( '<input type="file" name="' + inputName + '" style="display:none;" accept="' + isAccept + '" ' + isMultiple + ' >');
+        //     }
+        //     $this.parent().find( 'input[type="file"]' ).on( 'change', function ( e ) {
+        //         const files = Array.from( e.target.files );
+        //         const $preview = $this.parent().parent().parent().find( '.input-media-preview' );
+        //         const $progress = $this.parent().parent().parent().find( '.input-media-uploader-progress' );
+
+        //         $progress.show().html( '' );
+        //         $preview.find( '.is-empty' ).remove();
+        //         if( !$this.hasClass( 'is-multiple' ) ) {
+        //             $preview.html( '' );
+        //         }
+
+        //         files.forEach( function ( file ) {
+        //             $progress.append( '<div class="progress is-small">' +
+        //                 '<div class="progress-bar"><span>' +
+        //                 formatFileSize( file.size ) + '</span><span>' +
+        //                 file.name + '</span></div> </div>' );
+        //         });
+
+        //     }).trigger( 'click' );
+        // });
         // COMPORTAMENTO MEDIA UPLOAD
         $( '.asset-item-preview-actions .is-delete, .modal-asset-fullscreen .is-delete, .input-media-uploader-options .is-delete' ).on( 'click', function() {
             const $this = $( this );
@@ -380,14 +452,7 @@ jQuery(function($) {
                         $( '.dashboard-content-single form' ).find( 'input[name="post_id"]' ).val(),
                         $this.attr( 'data-id' ),
                         function ( response ) {
-                            custom_modal_confirm({
-                                title: response.data.title,
-                                description: response.data.message,
-                                confirmText: "OK",
-                                onConfirm: function () {
-                                    //window.location.reload();
-                                }
-                            });
+                            showDashboardSnackbar(response.data.message, 'success');
 
                             if( $this.hasClass( 'is-cover-picture' ) ) {
                                 $this.parent().parent().css({
@@ -397,7 +462,13 @@ jQuery(function($) {
                                 $( '#mediaUploadCover .is-cover-image .cover-wrap' ).remove();
                                 $this.remove();
                             } else {
-                                $this.parent().parent().remove();
+                                const $mediaSection = $this.closest('.input-media-preview-assets');
+
+                                $this.closest('.asset-item-preview').remove();
+
+                                if ( $mediaSection.find('.asset-item-preview').length === 0 ) {
+                                    $mediaSection.hide();
+                                }
                             }
 
                         },
@@ -434,103 +505,6 @@ jQuery(function($) {
                 }
 
             });
-        });
-
-        //SUBMIT FORM ADICIONAR + EDITAR
-        $( '#riscoSingleForm, #acaoSingleForm, #apoioSingleForm' ).on( 'submit', function ( e ) {
-            const $this = $( this );
-            const form = e.target;
-            const formData = new FormData( form );
-
-            $this.addClass( 'is-sending' );
-            $( '.loading-global' ).fadeIn( 400 );
-            $( '.is-editing' ).each( function () {
-                $(this).removeClass( 'is-editing' );
-            });
-
-            fetch( $this.attr( 'data-action' ), {
-                method: 'POST',
-                body: formData
-            })
-                .then( res => res.json() )
-                .then( response => {
-                    $this.removeClass( 'is-sending' );
-                    $( '.loading-global' ).fadeOut( 400 );
-                    if( response.success ) {
-
-                        if( response.data.is_new !== undefined ) {
-
-                            custom_modal_confirm({
-                                title: response.data.title,
-                                description: response.data.message,
-
-                                cancelText: "Criar novo",
-                                onCancel: function () {
-                                    $this.find( 'input[type="text"], input[type="date"], input[type="time"], textarea, select' ).val( '' );
-                                    $( '.input-chips .chips-wrap').html( '' );
-                                    $( '#mediaUpload .input-media-uploader-progress').html( '' );
-                                    $( '.chips-checkbox input[type="checkbox"]').prop( 'checked', false );
-                                },
-                                confirmText: "Visualizar",
-                                onConfirm: function () {
-                                    window.location.href = response.data.url_callback;
-                                }
-                            });
-
-                        } else
-                        {
-
-                            custom_modal_confirm({
-                                title: response.data.title,
-                                description: response.data.message,
-
-                                cancelText: "FECHAR",
-                                onCancel: function () {},
-
-                                confirmText: "ATUALIZAR PÁGINA",
-                                onConfirm: function () {
-
-                                    window.location.reload();
-
-                                }
-                            });
-
-                        }
-
-
-                    } else {
-                        custom_modal_confirm({
-                            title: response.data.title,
-                            description: response.data.message,
-                            error: response.data.error,
-
-                            cancelText: "FECHAR",
-                            onCancel: function () {},
-
-                            confirmText: "ATUALIZAR PÁGINA",
-                            onConfirm: function () {
-                                window.location.reload();
-                            }
-                        });
-                    }
-
-                })
-                .catch(error => {
-                    custom_modal_confirm({
-                        title: 'ERRO INESPERADO',
-                        description: 'Houve um erro inesperado ao enviar os dados do formulário, aguarde um momento e tente novamente.',
-                        error: 'BACKEND ERROR FORM DATA',
-
-                        cancelText: "FECHAR",
-                        onCancel: function () {},
-
-                        confirmText: "ATUALIZAR",
-                        onConfirm: function () {
-                            window.location.reload();
-                        }
-                    });
-
-                });
         });
 
         //RISCOS
@@ -689,6 +663,19 @@ jQuery(function($) {
                 }
             });
         });
+        $( '#acaoSingleForm .is-delete.relato' ).on( 'click', function () {
+            custom_modal_confirm({
+                title: 'Publicar Relato?',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper vestibulum erat in commodo.',
+                cancelText: "Cancelar",
+                onCancel: function () {},
+                confirmText: "Publicar Relato",
+                onConfirm: function () {
+                    $( 'input[name="post_status"]' ).val( 'pending' );
+                    $( '#acaoSingleForm' ).submit();
+                }
+            });
+        });
 
         //APOIOS
         $( '#apoioSingleForm .is-new' ).on( 'click', function () {
@@ -767,13 +754,19 @@ jQuery(function($) {
         $( 'body' ).removeClass( 'loading' );
         $( '.dashboard-content-pagination' ).show();
         $( '.loading-global' ).fadeOut( 400 );
+        $( '.dashboard-content-single input[name="endereco"]' ).each( function () {
+            const $this = $( this );
+            if( $this.val().length ) {
+                //gelocation_onblur_address( $this );
+            }
+        });
 
+        //TODO: VERIFICAR E REMOVER
         $( '.tabs__panels.is-active .dashboard-content-skeleton' ).hide();
         $( '.tabs__panels.is-active .post-card, .tabs__panels.is-active .message-response, .tabs__panels .tabs__panel__pagination' ).show();
         $( '#dashboardRiscos .dashboard-content-cards .post-card, #dashboardRiscos .dashboard-content-cards .message-response' ).show();
         $( '#dashboardInicio .dashboard-content-cards .post-card, #dashboardInicio .dashboard-content-cards .message-response' ).show();
         $( '#dashboardAcoes .dashboard-content-cards .post-card, #dashboardAcoes .dashboard-content-cards .message-response' ).show();
-
 
         if (typeof tinymce !== 'undefined') {
             tinymce.init({
@@ -795,8 +788,6 @@ jQuery(function($) {
             });
         }
 
-
-
         // TODO: REFECTORY P/ COMPONENTE DE LOADING TIPO SKELETON
         $( '.dashboard-content-skeleton' ).hide();
         setTimeout( function() {
@@ -807,10 +798,17 @@ jQuery(function($) {
     $( window ).on( 'beforeunload', function () {
         $( '.loading-global' ).fadeIn( 400 );
     });
+    $(window).on( 'resize', debounce( ajustarTabs, 100 ));
 });
 
 document.addEventListener('DOMContentLoaded', function () {
     console.log( 'DOCUMENT LOADED' );
+
+    const phoneInput = document.querySelector('input[name="telefone"]');
+    if (phoneInput) {
+        phoneInput.addEventListener('input', handlePhoneInput);
+    }
+
     document.body.addEventListener("wheel", function(event) {
         if (event.deltaY < 0) {
             document.body.classList.add( 'is-scrolling-up' );

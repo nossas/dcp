@@ -100,7 +100,38 @@ function get_risco_attachments_urls($post_id, $type = 'image') {
     return $urls;
 }
 
+function dcp_api_abrigos($request) {
+    $query_args = [
+        'post_type'      => 'apoio',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'fields'         => 'ids',
+        'tax_query'      => [[
+            'taxonomy' => 'tipo_apoio',
+            'field'    => 'slug',
+            'terms'    => 'locais-seguros',
+        ]]
+    ];
 
+    $locaisSeguros = new WP_Query($query_args);
+    $abrigos = [];
+
+    foreach ( $locaisSeguros->posts as $post ) {
+
+        $pod = pods('apoio', $post );
+        $abrigos[] = [
+            'id' => $post,
+            'nome' => $pod->field( 'titulo' ),
+            'telefone' => $pod->field( 'telefone' ),
+            'endereco' => $pod->field( 'endereco' ),
+            'latitude' => $pod->field( 'latitude' ),
+            'longitude' => $pod->field( 'longitude' ),
+            'geo_full_address' => $pod->field( 'full_address' )
+        ];
+    }
+
+    return rest_ensure_response($abrigos);
+}
 add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/abrigos', [
         'methods' => 'GET',
@@ -109,42 +140,7 @@ add_action('rest_api_init', function () {
     ]);
 });
 
-function dcp_api_abrigos($request) {
-    $abrigos = [
-        [
-            'id' => 1,
-            'nome' => 'Igreja Padre Nelson',
-            'endereco' => 'Rua Projetada A, 120 - Jacarezinho, Japeri - RJ',
-        ],
-        [
-            'id' => 2,
-            'nome' => 'Igreja Batista',
-            'endereco' => 'Av. Principal, 980 - Jacarezinho, Japeri - RJ',
-        ],
-        [
-            'id' => 3,
-            'nome' => 'Centro cultural Jacarézinho',
-            'endereco' => 'Rua da Paz, 789 - Vila Nova',
-        ],
-    ];
 
-    return rest_ensure_response($abrigos);
-}
-add_action('rest_api_init', function () {
-    register_rest_route('dcp/v1', '/dicas', [
-        'methods' => 'GET',
-        'callback' => 'dcp_api_dicas',
-        'args' => [
-            'tipo' => [
-                'required' => true,
-                'validate_callback' => function($param) {
-                    return in_array($param, ['enchente', 'lixo', 'calor']);
-                },
-            ],
-        ],
-        'permission_callback' => '__return_true',
-    ]);
-});
 
 function dcp_api_dicas($request) {
     $tipo = $request->get_param('tipo');
@@ -169,7 +165,44 @@ function dcp_api_dicas($request) {
 
     return rest_ensure_response($dicas[$tipo]);
 }
+add_action('rest_api_init', function () {
+    register_rest_route('dcp/v1', '/dicas', [
+        'methods' => 'GET',
+        'callback' => 'dcp_api_dicas',
+        'args' => [
+            'tipo' => [
+                'required' => true,
+                'validate_callback' => function($param) {
+                    return in_array($param, ['enchente', 'lixo', 'calor']);
+                },
+            ],
+        ],
+        'permission_callback' => '__return_true',
+    ]);
+});
 
+function dcp_api_contatos($request) {
+    $contatos = [
+        [
+            'nome' => '🚒 Bombeiros',
+            'telefone' => '193',
+            'descricao' => 'Incêndios, desmoronamentos e resgates.',
+        ],
+        [
+            'nome' => '🏠 Defesa Civil',
+            'telefone' => '199',
+            'descricao' => 'Ajuda em enchentes, deslizamentos e outras situações de risco.',
+        ],
+        [
+            'nome' => '🚑 SAMU',
+            'telefone' => '192',
+            'descricao' => 'Emergências médicas e acidentes.',
+        ],
+    ];
+
+
+    return rest_ensure_response($contatos);
+}
 add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/contatos', [
         'methods' => 'GET',
@@ -178,34 +211,36 @@ add_action('rest_api_init', function () {
     ]);
 });
 
-function dcp_api_contatos($request) {
-    $contatos = [
-        [
-            'nome' => 'Defesa Civil',
-            'telefone' => '199',
-            'descricao' => 'Ajuda em situações de risco, como enchentes ou deslizamentos.',
-        ],
-        [
-            'nome' => 'Bombeiros',
-            'telefone' => '193',
-            'descricao' => 'Atendimento em incêndios, resgates e salvamentos.',
-        ],
-        [
-            'nome' => 'SAMU',
-            'telefone' => '192',
-            'descricao' => 'Atendimento médico de urgência.',
-        ],
-        [
-            'nome' => 'Portal Rio',
-            'telefone' => '1746',
-            'descricao' => 'Solicitações, reclamações ou serviços públicos da cidade.',
-        ],
-    ];
 
+function dcp_api_risco_regiao($request) {
 
-    return rest_ensure_response($contatos);
+    $situacao_ativa_post = get_posts([
+        'post_type' => 'situacao_atual',
+        'posts_per_page' => -1,
+        'orderby'        => 'date',
+        'order'          => 'ASC',
+        'meta_query' => [
+            [
+                'key' => 'is_active',
+                'value' => true,
+                'compare' => '='
+            ]
+        ]
+    ]);
+    $pod_situacao_ativa = pods( 'situacao_atual', $situacao_ativa_post[ 0 ]->ID );
+
+    return rest_ensure_response([
+        'grau_risco' => [
+            'tipo_de_alerta' => $pod_situacao_ativa->field( 'tipo_de_alerta' ),
+            'descricao' => $pod_situacao_ativa->field( 'descricao' ),
+            'localizacao' => $pod_situacao_ativa->field( 'localizacao' ),
+            'estagio' => $pod_situacao_ativa->field( 'estagio' ),
+            'temperatura' => $pod_situacao_ativa->field( 'temperatura' ),
+            'clima' => $pod_situacao_ativa->field( 'clima' ),
+            'ultima_atualizacao' => $pod_situacao_ativa->field( 'data_e_horario' ),
+        ]
+    ]);
 }
-
 add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/risco-regiao', [
         'methods' => 'GET',
@@ -213,16 +248,3 @@ add_action('rest_api_init', function () {
         'permission_callback' => '__return_true',
     ]);
 });
-
-function dcp_api_risco_regiao($request) {
-
-    $minuto = intval(date('s'));
-    $risco_index = $minuto % 3;
-
-    $graus = ['Baixo', 'Médio', 'Alto'];
-    $grau_risco = $graus[$risco_index];
-
-    return rest_ensure_response([
-        'grau_risco' => $grau_risco,
-    ]);
-}

@@ -4,12 +4,24 @@
 
   <div class="acoes-grid">
     <?php
+
+    $today = current_time('Y-m-d H:i:s');
     $args = array(
-      'post_type' => 'acao',
-      'posts_per_page' => 3,
-      'orderby' => 'date',
-      'order' => 'DESC'
+        'post_type' => 'acao',
+        'posts_per_page' => 3,
+        'orderby' => 'meta_value',
+        'meta_key' => 'data_e_horario',
+        'order' => 'ASC',
+        'meta_query' => array(
+            array(
+                'key' => 'data_e_horario',
+                'value' => $today,
+                'compare' => '>=',
+                'type' => 'DATETIME'
+            )
+        )
     );
+
     $query = new WP_Query($args);
 
    if ($query->have_posts()) :

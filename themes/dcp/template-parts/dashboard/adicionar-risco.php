@@ -1,7 +1,5 @@
 <?php
 
-
-
     $all_terms = get_terms([
         'taxonomy' => 'situacao_de_risco',
         'hide_empty' => false,
@@ -51,20 +49,23 @@
                     </p>
                 </div>
             </div>
+
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Categoria</label>
-                    <select id="selectCategory" class="select" name="situacao_de_risco" required >
-                        <option value="">SELECIONE UMA CATEGORIA</option>
-                        <?php foreach ( $all_terms as $key => $term ) :
+                    <select id="selectCategory" class="select" name="situacao_de_risco" required>
+                        <option class="placeholder-text" value="">Selecione uma categoria</option>
+                        <?php foreach ( $all_terms as $term ) :
                             if( !$term->parent ) : ?>
-                                <option value="<?=$term->slug?>"><?=$term->name?></option>
-                            <?php endif; endforeach; ?>
+                            <option value="<?=$term->slug?>"><?=$term->name?></option>
+                        <?php endif; endforeach; ?>
                     </select>
-                    <a class="button is-category">
-                        <?php risco_badge_category( 'sem-categoria', 'SEM CATEGORIA ADICIONADA', '' ); ?>
-                    </a>
-                    <a class="button is-select-input">
+
+                    <div class="category-icon-container" style="display: none;">
+                        <a class="button is-category"></a>
+                    </div>
+
+                    <a class="button is-select-input is-categoria-toggle">
                         <iconify-icon icon="bi:chevron-down"></iconify-icon>
                     </a>
                 </div>
@@ -77,30 +78,37 @@
                     </p>
                 </div>
             </div>
+
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Subcategoria</label>
-                    <div class="input-chips">
+                    <div class="subcategory-list-icon">
+                        <iconify-icon icon="bi:list"></iconify-icon>
+                    </div>
+                    <div id="subCategoryInput" class="input-chips">
                         <div class="chips-wrap"></div>
+                        <span class="placeholder-text">Selecione uma subcategoria</span>
                         <div class="chips-checkbox">
-                            <?php foreach ( risco_convert_terms( $all_terms ) as $term ) : ?>
-                                <div class="is-<?=$term[ 'slug' ]?>">
-                                    <h4><?=$term[ 'name' ]?></h4>
-                                    <?php foreach ( $term[ 'children' ] as $subterm ) : ?>
-                                        <label for="input_<?=$subterm[ 'slug' ]?>">
-                                            <input id="input_<?=$subterm[ 'slug' ]?>" type="checkbox" value="<?=$subterm[ 'slug' ]?>" data-label="<?=$subterm[ 'name' ]?>" name="subcategories[]">
-                                            <?=$subterm[ 'name' ]?>
-                                        </label>
-                                    <?php endforeach; ?>
-                                </div>
+                            <?php
+                            $all_sub_terms = array_filter($all_terms, function($term) {
+                                return $term->parent != 0;
+                            });
+
+                            foreach ( $all_sub_terms as $subterm ) : ?>
+                                <label for="input_<?=$subterm->slug?>">
+                                    <input
+                                        id="input_<?=$subterm->slug?>"
+                                        type="checkbox"
+                                        value="<?=$subterm->slug?>"
+                                        data-label="<?=$subterm->name?>"
+                                        name="subcategories[]">
+                                    <?=$subterm->name?>
+                                </label>
                             <?php endforeach; ?>
                         </div>
                     </div>
-                    <a class="button is-category" style=" font-size: 21px; top: 34px; ">
-                        <iconify-icon icon="bi:list"></iconify-icon>
-                    </a>
-                    <a class="button is-edit-input">
-                        <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                    <a class="button is-select-input is-subcategoria-toggle">
+                        <iconify-icon icon="bi:chevron-down"></iconify-icon>
                     </a>
                 </div>
                 <div class="input-help">
@@ -151,20 +159,27 @@
                             </div>
                         </div>
                     <?php endif; ?>
-                    <div class="input-media-uploader-progress">
-                        <div class="progress is-empty">
-                            <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
-                        </div>
+
+                    <div id="mediaPreviewContainer" class="media-preview-container">
+                        <h4 class="media-preview-title" style="display: none;">Mídias adicionadas</h4>
+                        <div class="media-preview-list">
+                            </div>
                     </div>
+
+                    <div id="file-input-storage" style="display: none;"></div>
+
+                    <div class="input-media-divider"></div>
+
                     <div class="input-media-preview">
                         <div class="input-media-preview-assets is-empty">
                             <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
                         </div>
                     </div>
+
                     <?php if( wp_is_mobile() ) : ?>
                         <div class="input-media-uploader">
                             <div class="input-media-uploader-files">
-                                <a id="mediaUploadButton" class="button is-primary is-small is-upload-media is-multiple">
+                                <a id="mediaUploadButtonMobile" class="button is-primary is-small is-upload-media is-multiple">
                                     <iconify-icon icon="bi:upload"></iconify-icon>
                                     <span>Adicionar fotos e vídeos</span>
                                 </a>
@@ -172,6 +187,7 @@
                         </div>
                     <?php endif; ?>
                 </div>
+
                 <?php if( !wp_is_mobile() ) : ?>
                     <div class="input-help">
                         <a href="#/" class="button">
@@ -207,11 +223,13 @@
                     </a>
                 <?php endif; ?>
             </div>
+
         </form>
 
         <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
+        <?php echo get_template_part('template-parts/dashboard/ui/modal-assetset-fullscreen' ); ?>
     </div>
 
-
+    <div id="dashboard-snackbar" class="dashboard-snackbar">
+    </div>
 </div>
-
