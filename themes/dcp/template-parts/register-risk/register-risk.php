@@ -202,13 +202,7 @@ assert($jeo_map instanceof \WP_Post);
 
                     </div>
 
-                    <div class="multistepform__accept-wrapper">
-                        <label class="multistepform__accept">
-                            <input type="checkbox" name="autoriza_contato" value="sim">
-                            <?php _e('Autorizo o contato via WhatsApp e estou ciente que meus dados serão usados apenas para esse fim e não serão compartilhados.'); ?>
-                        </label>
-                        <small class="error-message"><?php _e('É necessário marcar esta opção.'); ?></small>
-                    </div>
+
 
                     <div class="multistepform__buttons">
                         <button type="button" class="multistepform__button back-to-map prev">
@@ -259,10 +253,20 @@ assert($jeo_map instanceof \WP_Post);
                         </div>
                         </div>
                     </div>
-                        <div class="multistepform__accept-terms">
-                             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/information.svg" alt="Ícone de horário">
-                            “Ao enviar este relato, você concorda com o uso das informações e mídias no site da Defesa Climática Popular e em outras ações do projeto, sem exibição dos seus dados pessoais.”
-                        </div>
+                    <div class="multistepform__accept-wrapper">
+                        <label class="multistepform__accept">
+                            <input type="checkbox" name="autoriza_contato" value="sim">
+                            <?php _e('Autorizo o contato via WhatsApp e estou ciente que meus dados serão usados apenas para esse fim e não serão compartilhados.'); ?>
+                        </label>
+                        <small class="error-message"><?php _e('É necessário marcar esta opção.'); ?></small>
+                    </div>
+                    <div class="multistepform__accept-wrapper">
+                        <label class="multistepform__accept">
+                            <input type="checkbox" name="autoriza_relato" value="sim">
+                            <?php _e('Ao enviar este relato, você concorda com o uso das informações e mídias no site da Defesa Climática Popular e em outras ações do projeto, sem exibição dos seus dados pessoais.'); ?>
+                        </label>
+                        <small class="error-message"><?php _e('É necessário marcar esta opção.'); ?></small>
+                    </div>
                         <div class="multistepform__buttons">
 
                             <button type="button" id="editarResumo" class="multistepform__button multistepform__button-edit">
