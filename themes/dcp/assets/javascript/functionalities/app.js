@@ -10,7 +10,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('load', function () {
     let DESIRED_BOTTOM = '40%';
-    let DESIRED_LEFT = 'calc(-9px + 100vw)';
 
     let attempts = 0;
     const maxAttempts = 40;
@@ -34,7 +33,6 @@ window.addEventListener('load', function () {
             buttonWrapper.style.setProperty('bottom', DESIRED_BOTTOM, 'important');
             buttonWrapper.style.setProperty('right', 'auto', 'important');
             buttonWrapper.style.setProperty('top', 'auto', 'important');
-            buttonWrapper.style.setProperty('left', DESIRED_LEFT, 'important');
 
             if (attempts > 15) {
                 clearInterval(forceUserWayStyle);
