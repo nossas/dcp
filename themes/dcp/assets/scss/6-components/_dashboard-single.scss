@@ -828,7 +828,7 @@
                         }
 
                         .media-preview-list {
-                            display: flex;
+                            display: none;
                             flex-direction: column;
                             gap: 10px;
                             border: 1px solid $color--secondary-dark;
@@ -1003,7 +1003,6 @@
                     border-radius: size( 75 );
                     display: flex;
                     gap: $gap--small;
-                    width: 209px;
                     justify-content: center;
                     align-items: center;
                     height: 40px;
@@ -1398,7 +1397,15 @@
             background: var(--color-transparency-dark-5, rgba(40, 20, 20, 0.05));
 
             @include mobile {
-                display: none !important;
+                //display: none !important;
+            }
+
+            #apoio-file-name {
+                font-size: size( 15 );
+
+                @include mobile {
+                    display: none;
+                }
             }
         }
 
@@ -1417,6 +1424,12 @@
                 font-size: 16px;
                 font-weight: 500;
                 line-height: 120%;
+
+                span {
+                    @include mobile {
+                        display: none;
+                    }
+                }
             }
         }
     }

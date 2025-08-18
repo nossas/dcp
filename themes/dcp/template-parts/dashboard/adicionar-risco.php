@@ -1,7 +1,5 @@
 <?php
 
-
-
     $all_terms = get_terms([
         'taxonomy' => 'situacao_de_risco',
         'hide_empty' => false,

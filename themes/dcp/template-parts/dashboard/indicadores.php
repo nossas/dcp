@@ -66,7 +66,7 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                                 </p>
                             </header>
                             <div id="optionsFilter">
-                                <form id="formFilterBetweenDates" method="get" action="<?=get_dashboard_url( 'indicadores' )?>/" style="display: flex; justify-content: space-between">
+                                <form id="formFilterBetweenDates" method="get" action="<?=get_dashboard_url( 'indicadores' )?>/">
                                     <p>
                                         <label for="start">Data início:</label>
                                         <br>

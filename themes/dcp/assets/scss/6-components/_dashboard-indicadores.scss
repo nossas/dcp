@@ -163,13 +163,22 @@
                                 transition: all 0.5s 0s ease;
 
                                 form {
+                                    display: flex;
+                                    justify-content: space-between;
                                     padding-top: size( 20 );
 
-                                    p {
-                                        label {
-                                            input {
+                                    @include mobile {
+                                        display: block;
+                                    }
 
-                                            }
+                                    p {
+                                        padding-bottom: size( 15 );
+                                        label {
+
+                                        }
+                                        input {
+                                            display: block;
+                                            width: 100%;
                                         }
                                     }
 
@@ -189,6 +198,10 @@
                                         justify-content: center;
                                         align-items: center;
                                         height: 40px;
+
+                                        @include mobile {
+                                            width: 100%;
+                                        }
                                     }
                                 }
 
