@@ -64,7 +64,7 @@ function form_participar_acao() {
             'email' => sanitize_text_field($_POST['email']),
             'telefone' => sanitize_text_field( limparTelefone( $_POST[ 'telefone' ] ) ),
             'aceite_termos' => sanitize_text_field($_POST['aceite_termos']),
-            'data_e_horario' => date('Y-m-d H:i:s'),
+            'data_e_horario' => current_time( 'mysql' ),
             'ip_address' => $_SERVER[ 'REMOTE_ADDR' ],
             'post_id' => $acao_id,
         ]
@@ -136,7 +136,7 @@ function form_single_apoio_new() {
             'telefone' => sanitize_text_field( limparTelefone( $_POST[ 'telefone' ] ) ),
             'website' => sanitize_text_field($_POST['site']),
             'info_extra' => sanitize_text_field($_POST['observacoes']),
-            'data_e_horario' => date( 'Y-m-d H:i:s' ),
+            'data_e_horario' => current_time( 'mysql' ),
         ]
     ], true );
 
@@ -263,7 +263,7 @@ function form_single_apoio_edit() {
             'telefone' => sanitize_text_field( limparTelefone( $_POST[ 'telefone' ] ) ),
             'website' => sanitize_text_field($_POST['site']),
             'info_extra' => sanitize_text_field($_POST['observacoes']),
-            'data_e_horario' => date( 'Y-m-d H:i:s' ),
+            'data_e_horario' => current_time( 'mysql' ),
         ]
     ], true);
 
@@ -506,7 +506,7 @@ function form_single_acao_new() {
     } else {
         $nome_completo = sanitize_text_field($_POST['nome_completo']);
         $email = sanitize_text_field($_POST['email']);
-        $data_e_horario = date('Y-m-d H:i:s');
+        $data_e_horario = current_time( 'mysql' );
     }
 
     $postID = wp_insert_post([
@@ -748,7 +748,7 @@ function form_single_risco_new() {
                 'email' => $email,
                 'telefone' => sanitize_text_field( limparTelefone( $_POST[ 'telefone' ] ) ),
                 'autoriza_contato' => sanitize_text_field( $_POST[ 'autoriza_contato' ] ),
-                'data_e_horario' => date('Y-m-d H:i:s'),
+                'data_e_horario' => current_time( 'mysql' ),
                 'descricao' => sanitize_text_field( $_POST[ 'descricao' ] ),
             ]
         ]
