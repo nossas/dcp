@@ -483,7 +483,7 @@
                                 background-color: $color--secondary-light;
                                 color: $color--secondary-dark;
                                 text-decoration: none;
-                                height: size( 45 );
+                                min-height: size( 45 );
                                 line-height: size( 35 );
                                 padding: size( 5 ) size( 20 );
                                 border: solid 1.5px $color--secondary-dark;
@@ -1041,6 +1041,85 @@
 
                         @include tablet {
                             order: 2;
+                        }
+                    }
+
+                    &.is-new,
+                    &.is-save,
+                    &.is-scheduled,
+                    &.is-duplicate,
+                    &.is-done {
+                        padding: unset !important;
+                    }
+
+                    &.is-goback {
+                        max-width: 109px;
+                        width: 100%;
+
+                        @include mobile;
+                        @include tablet {
+                            max-width: 100%;
+                        }
+                    }
+
+                }
+
+                &.acao-edit {
+                    flex-direction: row-reverse;
+                    justify-content: flex-start;
+
+                    @media screen and (max-width: 993px) {
+                        flex-direction: column !important;
+                        justify-content: flex-end !important;
+                        gap: 16px !important;
+                    }
+
+                    @include mobile {
+                        flex-direction: column !important;
+                        justify-content: flex-end !important;
+                        gap: 16px !important;
+                    }
+                }
+
+                &.apoio-edit {
+                    flex-direction: row-reverse;
+                    justify-content: flex-start;
+
+                    @include mobile {
+                        flex-direction: column !important;
+                        justify-content: flex-end !important;
+                        gap: 16px !important;
+                    }
+
+                    @media screen and (max-width: 993px) {
+                        flex-direction: column !important;
+                        justify-content: flex-end !important;
+                        gap: 16px !important;
+                    }
+                }
+
+                .form-submit-actions {
+                   display: flex;
+                   gap: 24px;
+
+                    @include mobile;
+                    @include tablet {
+                        flex-direction: column-reverse;
+                        gap: 16px !important;
+                    }
+                }
+
+                .form-submit-actions {
+                    &.acao-edit-actions {
+                        flex-direction: row-reverse !important;
+                        @include mobile {
+                            flex-direction: column !important;
+                            gap: 16px !important;
+                        }
+
+                        @media screen and (max-width: 993px) {
+                            flex-direction: column !important;
+                            gap: 16px !important;
                         }
                     }
                 }
