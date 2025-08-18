@@ -216,26 +216,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 mapWrapper.querySelector('.multistepform__input').classList.toggle('has-error', !areCoordsValid);
 
                 return isEnderecoValid && areCoordsValid;
+
             case 1:
                 const isTipoRiscoValid = riskDraft.situacao_de_risco.trim() !== '';
                 const isDescricaoValid = riskDraft.descricao.trim() !== '';
                 return isTipoRiscoValid;
+
             case 2:
                 return true;
-            case 3:
+
+            case 3: // ✅ aqui não valida mais o checkbox
                 const nomeInput = document.querySelector('input[name="nome_completo"]');
                 const telefoneInput = document.querySelector('input[name="telefone"]');
-                const autorizaInput = document.querySelector('input[name="autoriza_contato"]');
-                const autorizaWrapper = autorizaInput.closest('.multistepform__accept-wrapper');
 
                 nomeInput.closest('.multistepform__input').classList.remove('has-error');
                 telefoneInput.closest('.multistepform__input').classList.remove('has-error');
-                autorizaWrapper.classList.remove('has-error');
 
                 const isNomeValid = riskDraft.nome_completo.trim() !== '';
                 const telefoneLimpo = riskDraft.telefone.replace(/\D/g, '');
                 const isTelefoneValid = telefoneLimpo.length >= 10;
-                const isAutorizaValid = autorizaInput.checked;
 
                 if (!isNomeValid) {
                     nomeInput.closest('.multistepform__input').classList.add('has-error');
@@ -243,18 +242,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!isTelefoneValid) {
                     telefoneInput.closest('.multistepform__input').classList.add('has-error');
                 }
+
+                return isNomeValid && isTelefoneValid;
+
+            case 4: // ✅ step 5 → checkbox obrigatório aqui
+                const autorizaInput = document.querySelector('input[name="autoriza_contato"]');
+                const autorizaWrapper = autorizaInput.closest('.multistepform__accept-wrapper');
+
+                autorizaWrapper.classList.remove('has-error');
+
+                const isAutorizaValid = autorizaInput.checked;
+
                 if (!isAutorizaValid) {
                     autorizaWrapper.classList.add('has-error');
                 }
 
-                return isNomeValid && isTelefoneValid && isAutorizaValid;
-            case 4:
-                return true;
+                return isAutorizaValid;
+
             default:
                 return true;
         }
     }
-
     document.querySelectorAll('.multistepform__button-next').forEach(btn => {
         btn.addEventListener('click', (e) => {
             if (btn.type === 'submit') {

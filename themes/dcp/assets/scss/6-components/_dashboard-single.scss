@@ -1042,6 +1042,24 @@
                             order: 2;
                         }
                     }
+
+                    &.is-new,
+                    &.is-save,
+                    &.is-scheduled,
+                    &.is-duplicate,
+                    &.is-done {
+                        padding: unset !important;
+                    }
+
+                    &.is-goback {
+                        max-width: 109px;
+                        width: 100%;
+
+                        @include mobile;
+                        @include tablet {
+                            max-width: 100%;
+                        }
+                    }
                 }
 
                 .button.is-goback {
