@@ -100,7 +100,37 @@ function get_risco_attachments_urls($post_id, $type = 'image') {
     return $urls;
 }
 
+function dcp_api_abrigos($request) {
+    $query_args = [
+        'post_type'      => 'apoio',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'fields'         => 'ids',
+        'tax_query'      => [[
+            'taxonomy' => 'tipo_apoio',
+            'field'    => 'slug',
+            'terms'    => 'locais-seguros',
+        ]]
+    ];
 
+    $locaisSeguros = new WP_Query($query_args);
+    $abrigos = [];
+
+    foreach ( $locaisSeguros->posts as $post ) {
+
+        $pod = pods('apoio', $post );
+        $abrigos[] = [
+            'id' => $post,
+            'nome' => $pod->field( 'titulo' ),
+            'endereco' => $pod->field( 'endereco' ),
+            'latitude' => $pod->field( 'latitude' ),
+            'longitude' => $pod->field( 'longitude' ),
+            'geo_full_address' => $pod->field( 'full_address' )
+        ];
+    }
+
+    return rest_ensure_response($abrigos);
+}
 add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/abrigos', [
         'methods' => 'GET',
@@ -109,27 +139,8 @@ add_action('rest_api_init', function () {
     ]);
 });
 
-function dcp_api_abrigos($request) {
-    $abrigos = [
-        [
-            'id' => 1,
-            'nome' => 'Igreja Padre Nelson',
-            'endereco' => 'Rua Projetada A, 120 - Jacarezinho, Japeri - RJ',
-        ],
-        [
-            'id' => 2,
-            'nome' => 'Igreja Batista',
-            'endereco' => 'Av. Principal, 980 - Jacarezinho, Japeri - RJ',
-        ],
-        [
-            'id' => 3,
-            'nome' => 'Centro cultural Jacarézinho',
-            'endereco' => 'Rua da Paz, 789 - Vila Nova',
-        ],
-    ];
 
-    return rest_ensure_response($abrigos);
-}
+
 add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/dicas', [
         'methods' => 'GET',
