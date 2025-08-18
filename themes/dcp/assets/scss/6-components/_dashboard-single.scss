@@ -1029,7 +1029,8 @@
                         display: inline-block;
                     }
 
-                    &.is-archive {
+                    &.is-archive,
+                    &.is-delete {
                         background-color: transparent;
                         color: $color--warning-dark;
                         border: solid 1px $color--warning-dark;
@@ -1042,6 +1043,10 @@
                         @include tablet {
                             order: 2;
                         }
+                    }
+                    &.is-delete {
+                        width: 225px;
+                        padding: size( 11 ) size( 20 );
                     }
 
                     &.is-new,
