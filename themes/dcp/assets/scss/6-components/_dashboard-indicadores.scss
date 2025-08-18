@@ -266,6 +266,7 @@
                             margin-bottom: size( 50 );
                         }
                         @include tablet {
+                            display: block;
                             width: 100%;
                             padding-top: size( 15 );
                             padding-bottom: size( 50 );
@@ -275,6 +276,11 @@
 
                         .card {
                             flex: 1 1 calc(50% - 25px);
+
+                            @include mobile {
+                                width: 100%;
+                                margin-bottom: size( 20 );
+                            }
                         }
                     }
 
