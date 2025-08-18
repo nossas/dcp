@@ -297,15 +297,3 @@
   pointer-events: none !important;
   transition: opacity 0.2s, visibility 0.2s;
 }
-
-// Ajuste de posicionamento do UserWay
-body:not(.page-mapa) .userway_buttons_wrapper {
-  position: fixed !important;
-  top: auto !important;
-  right: auto !important;
-  bottom: 40% !important;
-}
-
-body.page-mapa .userway_buttons_wrapper {
-  bottom: 13% !important;
-}

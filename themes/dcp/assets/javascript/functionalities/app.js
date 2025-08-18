@@ -8,6 +8,38 @@ window.addEventListener('DOMContentLoaded', () => {
     Alpine.start();
 });
 
+window.addEventListener('load', function () {
+    let DESIRED_BOTTOM = '40%';
+
+    let attempts = 0;
+    const maxAttempts = 40;
+
+    const forceUserWayStyle = setInterval(() => {
+        const buttonWrapper = document.querySelector('.userway_p3 .userway_buttons_wrapper');
+
+        attempts++;
+
+        if (attempts >= maxAttempts) {
+            clearInterval(forceUserWayStyle);
+            return;
+        }
+
+        if (document.body.classList.contains('page-mapa') && buttonWrapper) {
+            DESIRED_BOTTOM = '13%';
+            buttonWrapper.style.setProperty('bottom', DESIRED_BOTTOM, 'important');
+        }
+
+        if (buttonWrapper) {
+            buttonWrapper.style.setProperty('bottom', DESIRED_BOTTOM, 'important');
+            buttonWrapper.style.setProperty('right', 'auto', 'important');
+            buttonWrapper.style.setProperty('top', 'auto', 'important');
+
+            if (attempts > 15) {
+                clearInterval(forceUserWayStyle);
+            }
+        }
+    }, 300);
+});
 
 document.addEventListener("DOMContentLoaded", function () {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
