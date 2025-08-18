@@ -139,7 +139,7 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                 <div class="cards cards--4">
                     <div class="card">
                         <div class="is-counter">
-                            <h3><?=( $indicadores_riscos_gerais[ 'publicados' ][ 'total_posts' ] + $indicadores_riscos_gerais[ 'aprovacao' ][ 'total_posts' ] + $indicadores_riscos_gerais[ 'arquivados' ][ 'total_posts' ] )?></h3>
+                            <h3><?=$indicadores_riscos_gerais[ 'publicados' ][ 'total_posts' ]?></h3>
                             <p>Riscos mapeados</p>
                         </div>
                     </div>
