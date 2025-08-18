@@ -122,6 +122,7 @@ function dcp_api_abrigos($request) {
         $abrigos[] = [
             'id' => $post,
             'nome' => $pod->field( 'titulo' ),
+            'telefone' => $pod->field( 'telefone' ),
             'endereco' => $pod->field( 'endereco' ),
             'latitude' => $pod->field( 'latitude' ),
             'longitude' => $pod->field( 'longitude' ),
