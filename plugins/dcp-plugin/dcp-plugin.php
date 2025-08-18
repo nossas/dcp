@@ -141,22 +141,6 @@ add_action('rest_api_init', function () {
 
 
 
-add_action('rest_api_init', function () {
-    register_rest_route('dcp/v1', '/dicas', [
-        'methods' => 'GET',
-        'callback' => 'dcp_api_dicas',
-        'args' => [
-            'tipo' => [
-                'required' => true,
-                'validate_callback' => function($param) {
-                    return in_array($param, ['enchente', 'lixo', 'calor']);
-                },
-            ],
-        ],
-        'permission_callback' => '__return_true',
-    ]);
-});
-
 function dcp_api_dicas($request) {
     $tipo = $request->get_param('tipo');
 
@@ -180,11 +164,18 @@ function dcp_api_dicas($request) {
 
     return rest_ensure_response($dicas[$tipo]);
 }
-
 add_action('rest_api_init', function () {
-    register_rest_route('dcp/v1', '/contatos', [
+    register_rest_route('dcp/v1', '/dicas', [
         'methods' => 'GET',
-        'callback' => 'dcp_api_contatos',
+        'callback' => 'dcp_api_dicas',
+        'args' => [
+            'tipo' => [
+                'required' => true,
+                'validate_callback' => function($param) {
+                    return in_array($param, ['enchente', 'lixo', 'calor']);
+                },
+            ],
+        ],
         'permission_callback' => '__return_true',
     ]);
 });
@@ -211,7 +202,44 @@ function dcp_api_contatos($request) {
 
     return rest_ensure_response($contatos);
 }
+add_action('rest_api_init', function () {
+    register_rest_route('dcp/v1', '/contatos', [
+        'methods' => 'GET',
+        'callback' => 'dcp_api_contatos',
+        'permission_callback' => '__return_true',
+    ]);
+});
 
+
+function dcp_api_risco_regiao($request) {
+
+    $situacao_ativa_post = get_posts([
+        'post_type' => 'situacao_atual',
+        'posts_per_page' => -1,
+        'orderby'        => 'date',
+        'order'          => 'ASC',
+        'meta_query' => [
+            [
+                'key' => 'is_active',
+                'value' => true,
+                'compare' => '='
+            ]
+        ]
+    ]);
+    $pod_situacao_ativa = pods( 'situacao_atual', $situacao_ativa_post[ 0 ]->ID );
+
+    return rest_ensure_response([
+        'grau_risco' => [
+            'tipo_de_alerta' => $pod_situacao_ativa->field( 'tipo_de_alerta' ),
+            'descricao' => $pod_situacao_ativa->field( 'descricao' ),
+            'localizacao' => $pod_situacao_ativa->field( 'localizacao' ),
+            'estagio' => $pod_situacao_ativa->field( 'estagio' ),
+            'temperatura' => $pod_situacao_ativa->field( 'temperatura' ),
+            'clima' => $pod_situacao_ativa->field( 'clima' ),
+            'ultima_atualizacao' => $pod_situacao_ativa->field( 'data_e_horario' ),
+        ]
+    ]);
+}
 add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/risco-regiao', [
         'methods' => 'GET',
@@ -219,16 +247,3 @@ add_action('rest_api_init', function () {
         'permission_callback' => '__return_true',
     ]);
 });
-
-function dcp_api_risco_regiao($request) {
-
-    $minuto = intval(date('s'));
-    $risco_index = $minuto % 3;
-
-    $graus = ['Baixo', 'Médio', 'Alto'];
-    $grau_risco = $graus[$risco_index];
-
-    return rest_ensure_response([
-        'grau_risco' => $grau_risco,
-    ]);
-}
