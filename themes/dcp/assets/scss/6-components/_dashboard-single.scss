@@ -985,22 +985,20 @@
                     gap: 16px;
                 }
 
-                div {
-                    width: 50%;
-                    display: flex;
-                    justify-content: end;
+                // div {
+                //     width: 50%;
+                //     display: flex;
+                //     justify-content: end;
 
-                    @include tablet {
-                        display: block;
-                        width: 100%;
-                    }
-                }
+                //     @include tablet {
+                //         display: flex;
+                //     }
+                // }
 
                 .button {
                     font-size: size( 16 );
                     text-decoration: none;
                     padding: size( 11 ) size( 50 );
-                    margin-left: size( 15 );
                     border-radius: size( 75 );
                     display: flex;
                     gap: $gap--small;
@@ -1022,7 +1020,6 @@
                         text-align: center;
                         width: 100% !important;
                         padding: size( 15 );
-                        margin-bottom: size( 15 );
                     }
 
                     span {
@@ -1065,6 +1062,66 @@
                         @include mobile;
                         @include tablet {
                             max-width: 100%;
+                        }
+                    }
+                }
+
+                &.acao-edit {
+                    flex-direction: row-reverse;
+                    justify-content: flex-start;
+
+                    @media screen and (max-width: 993px) {
+                        flex-direction: column !important;
+                        justify-content: flex-end !important;
+                        gap: 16px !important;
+                    }
+
+                    @include mobile {
+                        flex-direction: column !important;
+                        justify-content: flex-end !important;
+                        gap: 16px !important;
+                    }
+                }
+
+                &.apoio-edit {
+                    flex-direction: row-reverse;
+                    justify-content: flex-start;
+
+                    @include mobile {
+                        flex-direction: column !important;
+                        justify-content: flex-end !important;
+                        gap: 16px !important;
+                    }
+
+                    @media screen and (max-width: 993px) {
+                        flex-direction: column !important;
+                        justify-content: flex-end !important;
+                        gap: 16px !important;
+                    }
+                }
+
+                .form-submit-actions {
+                   display: flex;
+                   gap: 24px;
+
+                    @include mobile;
+                    @include tablet {
+                        flex-direction: column-reverse;
+                        gap: 16px !important;
+                    }
+                }
+
+                .form-submit-actions {
+                    &.acao-edit-actions {
+                        flex-direction: row-reverse !important;
+                        @include mobile {
+                            flex-direction: column !important;
+                            gap: 16px !important;
+                        }
+
+                        @media screen and (max-width: 993px) {
+                            flex-direction: column !important;
+                            gap: 16px !important;
                         }
                     }
                 }
