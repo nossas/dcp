@@ -53,7 +53,7 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                 <h2>Nesse Mês</h2>
             </header>
             <div class="dashboard-content-section-body">
-                <div class="cards cards--3">
+                <div class="cards cards--2">
                     <div class="card">
                         <div class="is-chart-filter">
                             <header>
@@ -103,22 +103,24 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="is-chart-filter">
-                            <div class="is-counter">
-                                <h3><?=$indicadores_acoes[ 'agendadas' ][ 'total_posts' ]?></h3>
-                                <p>Novas ações</p>
+                    <div class="card-group">
+                        <div class="card">
+                            <div class="is-chart-filter">
+                                <div class="is-counter">
+                                    <h3><?=$indicadores_acoes[ 'agendadas' ][ 'total_posts' ]?></h3>
+                                    <p>Novas ações</p>
+                                </div>
+                                <canvas id="chartAcoesAgendadas"></canvas>
                             </div>
-                            <canvas id="chartAcoesAgendadas"></canvas>
                         </div>
-                    </div>
-                    <div class="card">
-                        <div class="is-chart-filter">
-                            <div class="is-counter">
-                                <h3><?=$indicadores_acoes[ 'realizadas' ][ 'total_posts' ]?></h3>
-                                <p>Ações realizadas</p>
+                        <div class="card">
+                            <div class="is-chart-filter">
+                                <div class="is-counter">
+                                    <h3><?=$indicadores_acoes[ 'realizadas' ][ 'total_posts' ]?></h3>
+                                    <p>Ações realizadas</p>
+                                </div>
+                                <canvas id="chartAcoesRealizadas"></canvas>
                             </div>
-                            <canvas id="chartAcoesRealizadas"></canvas>
                         </div>
                     </div>
                 </div>
@@ -137,7 +139,7 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                 <div class="cards cards--4">
                     <div class="card">
                         <div class="is-counter">
-                            <h3><?=( $indicadores_riscos_gerais[ 'publicados' ][ 'total_posts' ] )?></h3>
+                            <h3><?=$indicadores_riscos_gerais[ 'publicados' ][ 'total_posts' ]?></h3>
                             <p>Riscos mapeados</p>
                         </div>
                     </div>
