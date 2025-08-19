@@ -143,27 +143,56 @@ add_action('rest_api_init', function () {
 
 
 function dcp_api_dicas($request) {
+
     $tipo = $request->get_param('tipo');
+    $recomendacoes = get_posts([
+        'post_type' => 'recomendacao',
+        'posts_per_page' => -1,
+        'orderby'        => 'date',
+        'order'          => 'ASC',
+    ]);
 
-    $dicas = [
-        'enchente' => [
-            'Evite contato com a água da enchente.',
-            'Desligue a energia elétrica ao sinal de alagamento.',
-            'Mantenha documentos e objetos importantes em locais altos.',
-        ],
-        'lixo' => [
-            'Não jogue lixo nas ruas ou em bueiros.',
-            'Separe resíduos recicláveis e orgânicos.',
-            'Mantenha o lixo tampado para evitar proliferação de doenças.',
-        ],
-        'calor' => [
-            'Beba bastante água durante o dia.',
-            'Evite exposição ao sol entre 10h e 16h.',
-            'Use roupas leves e protetor solar.',
-        ],
-    ];
+    $posts = [];
+    foreach ( $recomendacoes as $key => $post ) {
+        $pod = pods('recomendacao', $post->ID);
 
-    return rest_ensure_response($dicas[$tipo]);
+        if( !empty( $tipo ) ) {
+
+            if( $tipo === $post->post_name ) {
+
+                $posts = [
+                    'ID' => $post->ID,
+                    'title' => $post->post_title,
+                    'slug' => $post->post_name,
+                    'is_active' => $pod->field('is_active'),
+                    'recomendacoes' => [
+                        $pod->display('recomendacao_1'),
+                        $pod->display('recomendacao_2'),
+                        $pod->display('recomendacao_3')
+                    ]
+                ];
+
+            } else {
+                $posts[ 'error' ] = 'Dica não encontrada';
+            }
+
+        } else {
+
+            $posts[ $key ] = [
+                'ID' => $post->ID,
+                'title' => $post->post_title,
+                'slug' => $post->post_name,
+                'is_active' => $pod->field('is_active'),
+                'recomendacoes' => [
+                    $pod->display('recomendacao_1'),
+                    $pod->display('recomendacao_2'),
+                    $pod->display('recomendacao_3')
+                ]
+            ];
+
+        }
+    }
+    return rest_ensure_response( $posts );
 }
 add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/dicas', [
@@ -171,9 +200,10 @@ add_action('rest_api_init', function () {
         'callback' => 'dcp_api_dicas',
         'args' => [
             'tipo' => [
-                'required' => true,
+                'required' => false,
                 'validate_callback' => function($param) {
-                    return in_array($param, ['enchente', 'lixo', 'calor']);
+                    //return in_array($param, ['enchente', 'lixo', 'calor']);
+                    return $param;
                 },
             ],
         ],
