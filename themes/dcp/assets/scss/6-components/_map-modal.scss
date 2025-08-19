@@ -6,7 +6,24 @@
     margin: auto;
     max-width: calc(100% - #{size(32)});
     position: relative;
-    width: size(720);
+
+    @include mobile {
+        width: size(400);
+    }
+    @include tablet {
+        width: size(480);
+    }
+    @include desktop {
+        width: size(520);
+    }
+
+    @include desktop-xlarge {
+        width: size(720);
+    }
+
+    @include modal-height {
+        width: size(500);
+    }
 
     &__close {
         background-color: transparent;
@@ -52,6 +69,7 @@
         font-weight: $font-weight--medium;
     }
 
+
     &__whatsapp {
         border: 1px solid $color--primary-pure;
         border-radius: $border-radius--large;
@@ -69,7 +87,6 @@
 
     &__whatsapp-mobile {
         display: none;
-
         @include mobile {
             display: inline;
         }
@@ -89,6 +106,19 @@
 
     main {
         margin-block: $gap--medium;
+
+        @include mobile {
+            margin-block: $gap--small;
+        }
+        @include tablet {
+            margin-block: $gap--x-small;
+        }
+        @include desktop {
+            margin-block: $gap--small;
+        }
+        @include desktop-xlarge {
+            margin-block: $gap--medium;
+        }
     }
 
     footer {
@@ -114,6 +144,18 @@
 
     &__date {
         margin-block: $gap--medium;
+        @include mobile {
+            margin-block: $gap--small;
+        }
+        @include tablet {
+            margin-block: $gap--x-small;
+        }
+        @include desktop {
+            margin-block: $gap--small;
+        }
+        @include desktop-xlarge {
+            margin-block: $gap--medium;
+        }
     }
 
     &__pill {

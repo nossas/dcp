@@ -1,5 +1,11 @@
 @use "sass:math";
 
+@mixin modal-height {
+    @media (max-height: 600px) {
+        @content;
+    }
+}
+
 @mixin small {
     @media (max-width: $break--small) {
         @content;
