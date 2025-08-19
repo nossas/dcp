@@ -8,6 +8,13 @@
     position: relative;
     width: size(720);
 
+    @include desktop {
+        width: size(520);
+    }
+    @include desktop-xlarge {
+        width: size(720);
+    }
+
     &__close {
         background-color: transparent;
         inset-inline-end: size(16);
@@ -52,6 +59,7 @@
         font-weight: $font-weight--medium;
     }
 
+
     &__whatsapp {
         border: 1px solid $color--primary-pure;
         border-radius: $border-radius--large;
@@ -89,6 +97,12 @@
 
     main {
         margin-block: $gap--medium;
+        @include desktop {
+            margin: size( 2 );
+        }
+        @include desktop-xlarge {
+            margin-block: $gap--medium;
+        }
     }
 
     footer {
@@ -114,6 +128,12 @@
 
     &__date {
         margin-block: $gap--medium;
+        @include desktop {
+            margin: size( 2 );
+        }
+        @include desktop-xlarge {
+            margin-block: $gap--medium;
+        }
     }
 
     &__pill {

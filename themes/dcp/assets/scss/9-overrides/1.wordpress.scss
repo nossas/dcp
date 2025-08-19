@@ -297,3 +297,19 @@
   pointer-events: none !important;
   transition: opacity 0.2s, visibility 0.2s;
 }
+
+
+
+.dcp-map-modal {
+
+    &__excerpt {
+        font-size: size( 15 ) !important;
+        line-height: size( 16 ) !important;
+
+        @include desktop {
+            font-size: size( 13 ) !important;
+            line-height: size( 14 ) !important;
+        }
+    }
+
+}
