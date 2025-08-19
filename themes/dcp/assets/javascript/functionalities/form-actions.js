@@ -39,10 +39,19 @@ document.addEventListener('DOMContentLoaded', () => {
     let hasDraggedMarker = false;
     let hasEditedAddress = false;
 
-    function showSnackbar(message) {
+
+    function showSnackbar(message, type = 'error') {
         const overlay = document.getElementById('snackbar-overlay');
         const snackbar = document.getElementById('formSnackbar');
         if (!overlay || !snackbar) return;
+
+        snackbar.classList.remove('is-error', 'is-info');
+
+        if(type == 'error'){
+            snackbar.classList.add('is-error')
+        } else {
+            snackbar.classList.add('is-info')
+        }
 
         snackbar.innerHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -98,6 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    let reviewingInfo = false;
+
     const handleShowStep = (index) => {
         steps.forEach((step, i) => {
             step.classList.toggle('active', i === index);
@@ -110,6 +121,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (header) header.style.display = 'flex';
         } else {
             if (header) header.style.display = 'none';
+        }
+
+        if (reviewingInfo) {
+            reviewingInfo = false;
+            showSnackbar('Voltamos ao início. Suas informações estão salvas, você pode editar ou continuar.', 'info');
         }
 
         const stepsContainer = document.querySelector('.form-steps__container');
@@ -225,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 2:
                 return true;
 
-            case 3: // ✅ aqui não valida mais o checkbox
+            case 3:
                 const nomeInput = document.querySelector('input[name="nome_completo"]');
                 const telefoneInput = document.querySelector('input[name="telefone"]');
 
@@ -245,22 +261,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 return isNomeValid && isTelefoneValid;
 
-            case 4: // ✅ step 5 → checkbox obrigatório aqui
-                const autorizaInput = document.querySelector('input[name="autoriza_contato"]');
-                const autorizaWrapper = autorizaInput.closest('.multistepform__accept-wrapper');
+            case 4:
+            const autorizaWrapper = autorizaInput.closest('.multistepform__accept-wrapper');
 
-                autorizaWrapper.classList.remove('has-error');
+            autorizaWrapper.classList.remove('has-error');
 
-                const isAutorizaValid = autorizaInput.checked;
+            const isAutorizaValid = autorizaInput.checked;
 
-                if (!isAutorizaValid) {
-                    autorizaWrapper.classList.add('has-error');
-                }
+            if (!isAutorizaValid) {
+                autorizaWrapper.classList.add('has-error');
+                showSnackbar('É necessário marcar esta opção.', 'error');
+            }
 
-                return isAutorizaValid;
+            return isAutorizaValid;
 
             default:
-                return true;
+            return true;
         }
     }
     document.querySelectorAll('.multistepform__button-next').forEach(btn => {
@@ -511,80 +527,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     editarBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        editandoResumo = true;
+        reviewingInfo = true;
         currentStep = 0
         handleShowStep(currentStep)
-        return
 
-        const reviewEndereco = document.getElementById('reviewEndereco');
-        const reviewTipo = document.getElementById('reviewTipoRiscoTexto');
-        const reviewDescricao = document.getElementById('reviewDescricao');
-
-        if (!editandoResumo) {
-            editandoResumo = true;
-            editarBtn.innerHTML = 'Salvar';
-            if (enviarBtn) enviarBtn.disabled = true;
-
-            if (reviewEndereco) {
-                reviewEndereco.innerHTML = `<input type="text" value="${riskDraft.endereco || ''}" />`;
-            }
-
-            if (reviewTipo) {
-                const select = document.createElement('select');
-                const radioInputs = document.querySelectorAll('input[name="situacao_de_risco"]');
-                const opcoes = Array.from(radioInputs).map(input => input.value);
-
-                opcoes.forEach(opcao => {
-                    const opt = document.createElement('option');
-                    opt.value = opcao;
-                    opt.textContent = opcao;
-                    if (opcao === riskDraft.situacao_de_risco) opt.selected = true;
-                    select.appendChild(opt);
-                });
-
-                reviewTipo.innerHTML = '';
-                reviewTipo.appendChild(select);
-            }
-
-            if (reviewDescricao) {
-                reviewDescricao.innerHTML = `<textarea>${riskDraft.descricao || ''}</textarea>`;
-            }
-
-            preencherResumo(); // Atualiza mídia com botões visíveis
-
-        } else {
-            editandoResumo = false;
-            editarBtn.innerHTML = 'Editar';
-            if (enviarBtn) enviarBtn.disabled = false;
-
-            const inputEndereco = reviewEndereco.querySelector('input');
-            if (inputEndereco) {
-                riskDraft.endereco = inputEndereco.value;
-                reviewEndereco.textContent = riskDraft.endereco;
-            }
-
-            const selectTipo = reviewTipo.querySelector('select');
-            if (selectTipo) {
-                riskDraft.situacao_de_risco = selectTipo.value;
-                reviewTipo.textContent = riskDraft.situacao_de_risco;
-
-                const tipoWrapper = document.getElementById('reviewTipoRisco');
-                tipoWrapper.classList.forEach(cl => {
-                    if (cl.startsWith('tipo-')) tipoWrapper.classList.remove(cl);
-                });
-
-                const slug = riskDraft.situacao_de_risco.toLowerCase().normalize('NFD')
-                    .replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-');
-                tipoWrapper.classList.add(`tipo-${slug}`);
-            }
-
-            const textareaDescricao = reviewDescricao.querySelector('textarea');
-            if (textareaDescricao) {
-                riskDraft.descricao = textareaDescricao.value;
-                reviewDescricao.textContent = riskDraft.descricao;
-            }
-
-            preencherResumo(); // Atualiza mídia com botões ocultos
-        }
     });
 
     if (inputEndereco) {
