@@ -771,7 +771,7 @@
     }
 
     &__upload-preview {
-        margin-top: $margin--medium;
+        margin-top: -10px;
         display: flex;
         flex-wrap: wrap;
         gap: $gap--medium;
@@ -792,7 +792,6 @@
         background-color: transparent;
         border: size(1) solid $color--secondary-dark;
         color: $color--secondary-dark;
-        margin-top: 2rem;
     }
 
     &__no-media-button:hover {
@@ -875,6 +874,10 @@
             font-size: 14px;
             gap:8px;
             align-items: flex-start;
+        }
+        .multistepform__accept-wrapper.accept-whatsapp {
+            position: relative;
+            top: 25px;
         }
         .multistepform__carousel {
             .splide {

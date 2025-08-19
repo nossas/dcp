@@ -253,7 +253,7 @@ assert($jeo_map instanceof \WP_Post);
                         </div>
                         </div>
                     </div>
-                    <div class="multistepform__accept-wrapper">
+                    <div class="multistepform__accept-wrapper accept-whatsapp">
                         <label class="multistepform__accept">
                             <input type="checkbox" name="autoriza_contato" value="sim">
                             <?php _e('Autorizo o contato via WhatsApp e estou ciente que meus dados serão usados apenas para esse fim e não serão compartilhados.'); ?>
