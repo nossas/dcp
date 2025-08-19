@@ -16,8 +16,13 @@
     @include desktop {
         width: size(520);
     }
+
     @include desktop-xlarge {
         width: size(720);
+    }
+
+    @include modal-height {
+        width: size(500);
     }
 
     &__close {
