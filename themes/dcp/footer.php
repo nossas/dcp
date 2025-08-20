@@ -16,6 +16,13 @@
 <?php endif; ?>
 <?php wp_footer() ?>
 
+<div class="simple-lightbox" id="simpleLightbox">
+    <button class="simple-lightbox__close" type="button" aria-label="Fechar">&times;</button>
+    <div class="simple-lightbox__content">
+        <img src="" alt="Imagem em tela cheia">
+    </div>
+</div>
+
 </body>
 
 </html>

@@ -1,43 +1,67 @@
 import { Splide } from '@splidejs/splide'
 
+const splideInstances = {};
+
 function buildGallery(container, feature) {
-    const gallery = container.querySelector('.splide')
-    const slidesList = gallery.querySelector('.splide__list')
+    const gallery = container.querySelector('.splide');
+    const slidesList = gallery.querySelector('.splide__list');
 
-    gallery.splide?.destroy()
+    if (!gallery.id) {
+        const modalType = container.classList.contains('risk-modal') ? 'risk' : 'support';
+        gallery.id = `splide-${modalType}`;
+    }
+    const galleryId = gallery.id;
 
-    const medias = (typeof feature.media === 'string') ? JSON.parse(feature.media) : feature.media
+    const medias = (typeof feature.media === 'string') ? JSON.parse(feature.media) : feature.media;
 
-    const slides = []
-    for (const media of medias) {
-        let slideContent = null
+    const slides = [];
+    if (medias && medias.length > 0) {
+        for (const media of medias) {
+            let slideContent = null;
+            if (media.mime.startsWith('image')) {
+                slideContent = document.createElement('img');
+                slideContent.src = media.src;
+                slideContent.alt = media.alt || '';
+            } else if (media.mime.startsWith('video')) {
+                slideContent = document.createElement('video');
+                slideContent.controls = true;
+                slideContent.src = media.src;
+            }
 
-        if (media.mime.startsWith('image')) {
-            slideContent = document.createElement('img')
-            slideContent.src = media.src
-        } else if (media.mime.startsWith('video')) {
-            slideContent = document.createElement('video')
-            slideContent.controls = true
-            slideContent.src = media.src
-        }
-
-        if (slideContent) {
-            const slide = document.createElement('div')
-            slide.className = 'splide__slide'
-            slide.appendChild(slideContent)
-            slides.push(slide)
+            if (slideContent) {
+                const slide = document.createElement('li');
+                const isVertical = media.custom_fields && media.custom_fields.orientation === 'vertical';
+                const verticalClass = isVertical ? 'is-vertical' : '';
+                slide.className = `splide__slide ${verticalClass}`;
+                slide.appendChild(slideContent);
+                slides.push(slide);
+            }
         }
     }
 
-    if (slides.length > 0) {
-        gallery.style.display = ''
-        slidesList.replaceChildren(...slides)
+    if (slides.length === 0) {
+        gallery.style.display = 'none';
+        return;
+    }
 
-        gallery.splide = new Splide(gallery)
-        gallery.splide.mount()
+    gallery.style.display = '';
+
+    const existingInstance = splideInstances[galleryId];
+
+    if (existingInstance && existingInstance.state.is('mounted')) {
+        existingInstance.remove(() => true);
+        existingInstance.add(slides);
     } else {
-        gallery.style.display = 'none'
-        slidesList.replaceChildren()
+        slidesList.replaceChildren(...slides);
+
+        const newInstance = new Splide(gallery);
+        splideInstances[galleryId] = newInstance;
+
+        newInstance.mount();
+
+        setTimeout(() => {
+            newInstance.refresh();
+        }, 0);
     }
 }
 
@@ -271,7 +295,63 @@ async function loadImage(map, slug, height = 54, width = 44) {
     })
 }
 
+function setupLightbox() {
+    const lightbox = document.getElementById('simpleLightbox');
+    if (!lightbox) {
+        console.warn('Elemento do Lightbox não encontrado.');
+        return;
+    }
+
+    const lightboxImage = lightbox.querySelector('img');
+    const closeButton = lightbox.querySelector('.simple-lightbox__close');
+
+    let lastOpenedModal = null;
+
+    const openLightbox = (imageElement) => {
+        const modal = imageElement.closest('.dcp-map-modal');
+
+        if (modal) {
+            lastOpenedModal = modal;
+            lastOpenedModal.close();
+        }
+
+        lightboxImage.src = imageElement.src;
+        lightbox.classList.add('is-active');
+    };
+
+    const closeLightbox = () => {
+        lightbox.classList.remove('is-active');
+        setTimeout(() => { lightboxImage.src = ''; }, 300);
+
+        if (lastOpenedModal) {
+            lastOpenedModal.showModal();
+            lastOpenedModal = null;
+        }
+    };
+
+    document.body.addEventListener('click', function(event) {
+        const clickedImage = event.target.closest('.dcp-map-modal .splide__slide img');
+        if (clickedImage) {
+            event.preventDefault();
+            openLightbox(clickedImage);
+        }
+    });
+
+    closeButton.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) {
+            closeLightbox();
+        }
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && lightbox.classList.contains('is-active')) {
+            closeLightbox();
+        }
+    });
+}
+
 export function setupMap(jeoMap, container, riscos, apoios, initialSource) {
+    setupLightbox();
     const map = jeoMap.map
 
     const riscoFeatures = riscos.map(createRiscoFeature)
