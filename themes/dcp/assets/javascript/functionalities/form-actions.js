@@ -232,31 +232,34 @@ document.addEventListener('DOMContentLoaded', () => {
         switch (stepIndex) {
             case 0:
             const enderecoInput = document.querySelector('input[name="endereco"]');
-            const enderecoError = inputEnderecoWrapper.querySelector('.error-message');
+            const enderecoWrapper = enderecoInput.closest('.multistepform__input');
+            const enderecoError = enderecoWrapper.querySelector('.error-message');
+            const errorIcon = enderecoWrapper.querySelector('.error-icon');
             const mapError = mapWrapper.querySelector('.multistepform__input .error-message');
 
             // Resetando estados
             enderecoError.style.display = 'none';
             mapError.style.display = 'none';
-            inputEnderecoWrapper.classList.remove('has-error');
-            mapWrapper.querySelector('.multistepform__input').classList.remove('has-error');
+            enderecoWrapper.classList.remove('has-error');
 
             const isEnderecoValid = riskDraft.endereco.trim() !== '';
             const areCoordsValid = riskDraft.latitude && riskDraft.longitude;
 
             if (!isEnderecoValid) {
-                // campo vazio
+                // Campo vazio
                 enderecoError.textContent = 'O campo de endereço está vazio';
                 enderecoError.style.display = 'block';
-                inputEnderecoWrapper.classList.add('has-error');
+                enderecoWrapper.classList.add('has-error');
+                if (errorIcon) errorIcon.style.top = '50%'; // 👉 centralizado
                 return false;
             }
 
             if (!areCoordsValid) {
-                // endereço inválido
+                // Endereço inválido
                 mapError.textContent = 'Endereço inválido';
                 mapError.style.display = 'block';
-                mapWrapper.querySelector('.multistepform__input').classList.add('has-error');
+                enderecoWrapper.classList.add('has-error');
+                if (errorIcon) errorIcon.style.top = '65%'; // 👉 mais abaixo
                 return false;
             }
 
