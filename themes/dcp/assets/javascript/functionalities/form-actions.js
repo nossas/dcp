@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             setTimeout(() => {
                 overlay.classList.remove('show');
-            }, 3000);
+            }, 5000);
         }
 
         snackbar.innerHTML = `
