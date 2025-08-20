@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Esconde o snackbar após 3 segundos
         setTimeout(() => {
             overlay.classList.remove('show');
-        }, 3000);
+        }, 5000);
     }
 
     const injectCheckIcon = (circle) => {
