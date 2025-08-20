@@ -774,6 +774,9 @@
         display: flex;
         flex-wrap: wrap;
         gap: $gap--medium;
+        @include mobile {
+            margin-top: 0px;
+        }
 
         img,
         video {
