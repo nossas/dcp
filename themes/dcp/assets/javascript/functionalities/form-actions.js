@@ -231,13 +231,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
         switch (stepIndex) {
             case 0:
-                const isEnderecoValid = riskDraft.endereco.trim() !== '';
-                inputEnderecoWrapper.classList.toggle('has-error', !isEnderecoValid);
+            const enderecoInput = document.querySelector('input[name="endereco"]');
+            const enderecoError = inputEnderecoWrapper.querySelector('.error-message');
+            const mapError = mapWrapper.querySelector('.multistepform__input .error-message');
 
-                const areCoordsValid = riskDraft.latitude && riskDraft.longitude;
-                mapWrapper.querySelector('.multistepform__input').classList.toggle('has-error', !areCoordsValid);
+            // Resetando estados
+            enderecoError.style.display = 'none';
+            mapError.style.display = 'none';
+            inputEnderecoWrapper.classList.remove('has-error');
+            mapWrapper.querySelector('.multistepform__input').classList.remove('has-error');
 
-                return isEnderecoValid && areCoordsValid;
+            const isEnderecoValid = riskDraft.endereco.trim() !== '';
+            const areCoordsValid = riskDraft.latitude && riskDraft.longitude;
+
+            if (!isEnderecoValid) {
+                // campo vazio
+                enderecoError.textContent = 'O campo de endereço está vazio';
+                enderecoError.style.display = 'block';
+                inputEnderecoWrapper.classList.add('has-error');
+                return false;
+            }
+
+            if (!areCoordsValid) {
+                // endereço inválido
+                mapError.textContent = 'Endereço inválido';
+                mapError.style.display = 'block';
+                mapWrapper.querySelector('.multistepform__input').classList.add('has-error');
+                return false;
+            }
+
+            return true;
 
             case 1:
                 const isTipoRiscoValid = riskDraft.situacao_de_risco.trim() !== '';
