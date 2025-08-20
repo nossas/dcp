@@ -66,12 +66,12 @@
                     gap: 25px;
 
                     @include mobile {
-                        display: block;
+                        display: block !important;
                         padding: 0 size( 15 );
                         margin-bottom: size(20);
                     }
                     @include tablet {
-                        display: block;
+                        display: block !important;
                         padding: 0 size( 20 );
                         margin-bottom: size(23);
                     }
@@ -252,6 +252,10 @@
                     }
 
                     &--2 {
+                        display: grid;
+                        grid-template-columns: 1fr 2fr;
+                        gap: 25px;
+
                         .card {
                             flex: 1 1 calc(50% - 25px);
                         }
@@ -278,7 +282,7 @@
                     .card-group {
                         display: flex;
                         gap: 25px;
-                        width: 50%;
+                        // width: 50%;
 
                         @include mobile {
                             width: 100%;
