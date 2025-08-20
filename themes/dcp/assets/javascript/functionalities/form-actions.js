@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 enderecoError.textContent = 'O campo de endereço está vazio';
                 enderecoError.style.display = 'block';
                 enderecoWrapper.classList.add('has-error');
-                if (errorIcon) errorIcon.style.top = '50%'; // 👉 centralizado
+                if (errorIcon) errorIcon.style.top = '50%'; //
                 return false;
             }
 
@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 mapError.textContent = 'Endereço inválido';
                 mapError.style.display = 'block';
                 enderecoWrapper.classList.add('has-error');
-                if (errorIcon) errorIcon.style.top = '65%'; // 👉 mais abaixo
+                if (errorIcon) errorIcon.style.top = '65%'; //
                 return false;
             }
 
@@ -294,11 +294,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return isNomeValid && isTelefoneValid;
 
             case 4:
+            const autorizaInput = document.querySelector('input[name="autoriza_relato"]');
             const autorizaWrapper = autorizaInput.closest('.multistepform__accept-wrapper');
 
             autorizaWrapper.classList.remove('has-error');
 
             const isAutorizaValid = autorizaInput.checked;
+            console.log (isAutorizaValid, autorizaInput);
 
             if (!isAutorizaValid) {
                 autorizaWrapper.classList.add('has-error');
@@ -366,13 +368,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        riskDraft.data_e_horario = new Date().toISOString();
-        const success = await submitData(riskDraft);
-        if (success) {
-            currentStep++;
-            handleShowStep(currentStep);
-        } else {
-            alert('Erro ao enviar o formulário. Tente novamente.');
+
+        if( validateStep(currentStep)){
+
+            riskDraft.data_e_horario = new Date().toISOString();
+            const success = await submitData(riskDraft);
+            if (success) {
+                currentStep++;
+                handleShowStep(currentStep);
+            } else {
+                alert('Erro ao enviar o formulário. Tente novamente.');
+            }
         }
     });
 
