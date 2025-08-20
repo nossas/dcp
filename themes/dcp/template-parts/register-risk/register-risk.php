@@ -52,7 +52,7 @@ assert($jeo_map instanceof \WP_Post);
                             </span>
                             <small class="error-message"><?php _e('Este campo é obrigatório.'); ?></small>
                         </div>
-                        <div class="multistepform__map-wrapper dcp-map">
+                        <div class="multistepform__map-wrapper dcp-map" style="display: none;">
                             <div class="multistepform__input">
                                 <small class="error-message"><?php _e('Insira um endereço válido.'); ?></small>
                             </div>
