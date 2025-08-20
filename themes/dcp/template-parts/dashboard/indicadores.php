@@ -240,7 +240,13 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                 plugins: {
                     // Plugin para customizar tooltips (pop-up)
                     tooltip: {
-                        enabled: false
+                        callbacks: {
+                            label: (context) => {
+                                const valor = context.raw;
+                                const percentual = ((valor / totalCategorias) * 100).toFixed(1);
+                                return ` ${valor} - ${context.label}: ${percentual}%`;
+                            }
+                        }
                     },
                     // Plugin para mostrar percentuais no centro ou nas legendas
                     legend: {
@@ -297,7 +303,13 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                 plugins: {
                     // Plugin para customizar tooltips (pop-up)
                     tooltip: {
-                        enabled: false
+                        callbacks: {
+                            label: (context) => {
+                                const valor = context.raw;
+                                const percentual = ((valor / totalAcoesAgend) * 100).toFixed(1);
+                                return ` ${valor} - ${context.label}: ${percentual}%`;
+                            }
+                        }
                     },
                     // Plugin para mostrar percentuais no centro ou nas legendas
                     legend: {
@@ -346,7 +358,13 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                 plugins: {
                     // Plugin para customizar tooltips (pop-up)
                     tooltip: {
-                        enabled: false
+                        callbacks: {
+                            label: (context) => {
+                                const valor = context.raw;
+                                const percentual = ((valor / totalAcoesRealiz) * 100).toFixed(1);
+                                return ` ${valor} - ${context.label}: ${percentual}%`;
+                            }
+                        }
                     },
                     // Plugin para mostrar percentuais no centro ou nas legendas
                     legend: {
