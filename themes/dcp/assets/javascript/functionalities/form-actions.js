@@ -618,12 +618,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return until(() => jeoMap.map);
     }
 
-  const toggleMapButton = document.querySelector('.multistepform__button-map');
+    const toggleMapButton = document.querySelector('.multistepform__button-map');
     let mapActivated = false;
-
     toggleMapButton.addEventListener('click', async () => {
         const map = await getMap();
-
         if (updateMarker) {
             const center = await updateCoordinates(riskDraft.endereco);
             if (center) {
@@ -631,12 +629,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else if (!mapActivated) {
             mapActivated = true;
-
-            // Aqui exibe a div com display block
-            mapWrapper.style.display = 'block';
-
             mapWrapper.querySelector('.jeomap').style.display = '';
             updateMarker = await showDraggableMap(map, riskDraft, updateAddress);
         }
-    });
+    })
 });
