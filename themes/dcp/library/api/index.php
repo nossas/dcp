@@ -137,8 +137,13 @@ class API {
     }
 
     static function get_geocoder() {
-        require __DIR__ . '/geocoding/google-maps.php';
-        return apply_filters('dcp_geocoder', geocoding\GoogleMaps::class);
+        if (getenv('GOOGLE_MAPS_API_KEY')) {
+            require __DIR__ . '/geocoding/google-maps.php';
+            return apply_filters('dcp_geocoder', geocoding\GoogleMaps::class);
+        } else {
+            require __DIR__ . '/geocoding/nominatim.php';
+            return apply_filters('dcp_geocoder', geocoding\Nominatim::class);
+        }
     }
 
     static function rest_geocoding_callback (\WP_REST_Request $request) {
