@@ -79,7 +79,7 @@ class API {
                     'type' => 'number',
                     'required' => true,
                 ],
-                'lat' => [
+                'lon' => [
                     'type' => 'number',
                     'required' => true,
                 ],
@@ -136,64 +136,41 @@ class API {
         return new \WP_REST_Response($response, 200);
     }
 
+    static function get_geocoder() {
+        if (getenv('GOOGLE_MAPS_API_KEY')) {
+            require __DIR__ . '/geocoding/google-maps.php';
+            return apply_filters('dcp_geocoder', geocoding\GoogleMaps::class);
+        } else {
+            require __DIR__ . '/geocoding/nominatim.php';
+            return apply_filters('dcp_geocoder', geocoding\Nominatim::class);
+        }
+    }
+
     static function rest_geocoding_callback (\WP_REST_Request $request) {
         $address = $request->get_param('address');
-        $params = [
-            'q' => $address,
-            'format' => 'jsonv2',
-            'addressdetails' => 1,
-            'countrycodes' => 'br',
-            'viewbox' => apply_filters('dcp_geocoding_viewbox', '-43.27,-22.87,-43.23,-22.91'),
-            'bounded' => '1',
-        ];
 
-        $url = 'https://nominatim.openstreetmap.org/search?' . http_build_query($params);
-        $data = self::make_nominatim_request($url);
+        $geocoder = self::get_geocoder();
+        $data = $geocoder::geocode($address);
 
-        if (is_array($data)) {
-            foreach ($data as $match) {
-                return [
-                    'lat' => floatval($match->lat),
-                    'lon' => floatval($match->lon),
-                    'address' => $match->address->road ?? '',
-                    'full_address' => $match->display_name,
-                ];
-            }
+        if (!empty($data)) {
+            return new \WP_REST_Response($data, 200);
+        } else {
+            return new \WP_REST_Response(null, 404);
         }
-
-        return new \WP_REST_Response(null, 404);
     }
 
     static function rest_reverse_geocoding_callback (\WP_REST_Request $request) {
         $lat = $request->get_param('lat');
         $lon = $request->get_param('lon');
 
-        $params = [
-            'lat' => $lat,
-            'lon' => $lon,
-            'format' => 'jsonv2',
-            'addressdetails' => 1,
-            'accept-language' => 'pt-BR',
-        ];
+        $geocoder = self::get_geocoder();
+        $data = $geocoder::reverse_geocode($lat, $lon);
 
-        $url = 'https://nominatim.openstreetmap.org/reverse?' . http_build_query($params);
-        $match = self::make_nominatim_request($url);
-
-        if (!empty($match) && empty($match->error)) {
-            $pretty_address = $match->address->road ?? '';
-            if (!empty($match->address->house_number)) {
-                $pretty_address .= ', ' . $match->address->house_number;
-            }
-
-            return [
-                'lat' => floatval($match->lat),
-                'lon' => floatval($match->lon),
-                'address' => $pretty_address,
-                'full_address' => $match->display_name,
-            ];
+        if (!empty($data)) {
+            return new \WP_REST_Response($data, 200);
+        } else {
+            return new \WP_REST_Response(null, 404);
         }
-
-        return new \WP_REST_Response(null, 404);
     }
 
     static function rest_options_callback () {
