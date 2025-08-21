@@ -9,7 +9,7 @@ on:
 
 env:
   THEME_NAME: dcp
-  CURL_URL: https://nossasdcp.hacklab.com.br/
+  CURL_URL: https://defesaclimaticapopular.org/
   DEPLOY: 1
 
 jobs:
