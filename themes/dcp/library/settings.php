@@ -49,3 +49,24 @@ function youtube_key_html() {
     echo '<p><i>Crie uma chave de API do YouTube em <a href="https://console.cloud.google.com/apis/credentials">https://console.cloud.google.com/apis/credentials</a></i></p>';
 }
 
+function register_google_maps_settings () {
+    register_setting(
+        'general',
+        'google_maps_key',
+        'esc_attr'
+    );
+
+    add_settings_field(
+        'google_maps_key',
+        '<label for="google_maps_key">' . __( 'Google Maps API Key', 'hacklabr') . '</label>',
+        'hacklabr\\google_maps_key_html',
+        'general'
+    );
+}
+add_action( 'admin_init', 'hacklabr\\register_google_maps_settings' );
+
+function google_maps_key_html() {
+    $google_maps_key_option = get_option( 'google_maps_key', '' );
+    echo '<input type="text" name="google_maps_key" id="google_maps_key" value="' . $google_maps_key_option . '" autocomplete="off">';
+    echo '<p><i>Crie uma chave de API do Google Maps em <a href="https://console.cloud.google.com/apis/credentials">https://console.cloud.google.com/apis/credentials</a></i></p>';
+}

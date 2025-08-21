@@ -4,8 +4,8 @@ namespace hacklabr\geocoding;
 
 class GoogleMaps {
 
-    private static function get_google_maps_key () {
-        return getenv('GOOGLE_MAPS_API_KEY') ?: '';
+    public static function get_google_maps_key () {
+        return get_option('google_maps_key') ?: getenv('GOOGLE_MAPS_API_KEY') ?: '';
     }
 
     private static function make_google_maps_request ($url) {
