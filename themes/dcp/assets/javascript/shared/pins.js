@@ -93,14 +93,6 @@ function createRiscoFeature(risco) {
     })
 }
 
-function getColors(slug) {
-    if (slug === 'apoio') {
-        return { backgroundColor: '#235540', textColor: '#ffffff' }
-    } else {
-        return { backgroundColor: '#000000', textColor: '#ffffff' }
-    }
-}
-
 function insertFeatureCollection(map, container, slug, features) {
     const pinsLayer = `${slug}-pins`
     const clustersLayer = `${slug}-clusters`
@@ -108,13 +100,11 @@ function insertFeatureCollection(map, container, slug, features) {
 
     let lastZoom = map.getZoom()
 
-    const { backgroundColor, textColor } = getColors(slug)
-
     map.addSource(slug, {
         type: 'geojson',
         cluster: true,
         clusterRadius: 54,
-        clusterMaxZoom: 17,
+        clusterMaxZoom: 24,
         data: {
             type: 'FeatureCollection',
             features: features,
@@ -139,7 +129,7 @@ function insertFeatureCollection(map, container, slug, features) {
         source: slug,
         filter: ['all', ['has', 'point_count']],
         paint: {
-            'circle-color': backgroundColor,
+            'circle-color': '#000000',
             'circle-radius': 14,
         },
     })
@@ -154,7 +144,7 @@ function insertFeatureCollection(map, container, slug, features) {
             'text-size': 12,
         },
         paint: {
-            'text-color': textColor,
+            'text-color': '#ffffff',
         },
     })
 
@@ -162,6 +152,7 @@ function insertFeatureCollection(map, container, slug, features) {
         animate: true,
         animateSpeed: 200,
         customPin: true,
+        circleFootSeparation: 44,
         initializeLeg (leg) {
             const type = leg.feature.type
             leg.elements.pin.style.backgroundImage = `url("${getImageUrl(slug === 'risco' ? `risco-${type}` : type)}")`

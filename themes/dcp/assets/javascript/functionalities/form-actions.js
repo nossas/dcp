@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const enderecoWrapper = enderecoInput.closest('.multistepform__input');
             const enderecoError = enderecoWrapper.querySelector('.error-message');
             const errorIcon = enderecoWrapper.querySelector('.error-icon');
-            const mapError = mapWrapper.querySelector('.multistepform__input .error-message');
+            const mapError = mapWrapper.querySelector('.multistepform__map-wrapper .error-message');
 
             // Resetando estados
             enderecoError.style.display = 'none';
