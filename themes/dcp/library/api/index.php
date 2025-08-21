@@ -137,7 +137,7 @@ class API {
     }
 
     static function get_geocoder() {
-        if (getenv('GOOGLE_MAPS_API_KEY')) {
+        if (get_option('google_maps_key')) {
             require __DIR__ . '/geocoding/google-maps.php';
             return apply_filters('dcp_geocoder', geocoding\GoogleMaps::class);
         } else {
