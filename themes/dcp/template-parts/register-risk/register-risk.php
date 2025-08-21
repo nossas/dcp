@@ -52,23 +52,24 @@ assert($jeo_map instanceof \WP_Post);
                             </span>
                             <small class="error-message"><?php _e('Este campo é obrigatório.'); ?></small>
                         </div>
-                        <div class="multistepform__map-wrapper dcp-map">
-                            <div class="multistepform__input">
-                                <small class="error-message"><?php _e('Insira um endereço válido.'); ?></small>
-                            </div>
-                            <div class="jeomap map_id_<?= $jeo_map->ID ?>" style="display: none;"></div>
 
-                        </div>
-                            <span class="or"><?php _e('ou'); ?></span>
-                       <button type="button" class="multistepform__button-map multistepform__button map-button" style="margin-top: 16px;">
+                        <span class="or"><?php _e('ou'); ?></span>
+
+                        <button type="button" class="multistepform__button-map multistepform__button map-button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                                 <path d="M9 0.000976562C10.7902 0.000976562 12.5076 0.712645 13.7734 1.97852C15.0392 3.24427 15.7499 4.96094 15.75 6.75098C15.75 11.6042 9 18.001 9 18.001C8.9337 17.938 2.25 11.5802 2.25 6.75098C2.25013 4.96094 2.96178 3.24427 4.22754 1.97852C5.4933 0.712759 7.20996 0.00110478 9 0.000976562ZM9 3.37598C8.10507 3.3761 7.24708 3.73241 6.61426 4.36523C5.98144 4.99806 5.62513 5.85605 5.625 6.75098C5.625 7.64608 5.98132 8.50476 6.61426 9.1377C7.24708 9.77051 8.10507 10.1258 9 10.126C9.89511 10.126 10.7538 9.77063 11.3867 9.1377C12.0197 8.50476 12.375 7.64608 12.375 6.75098C12.3749 5.85605 12.0195 4.99805 11.3867 4.36523C10.7538 3.7323 9.89511 3.37598 9 3.37598Z" fill="#281414"/>
                             </svg>
                             <?php _e('Marcar no mapa'); ?>
                         </button>
 
-
+                        <div class="multistepform__map-wrapper dcp-map">
+                            <div class="multistepform__input">
+                                <small class="error-message"><?php _e('Insira um endereço válido.'); ?></small>
+                            </div>
+                            <div class="jeomap map_id_<?= $jeo_map->ID ?>" style="display: none;"></div>
+                        </div>
                     </div>
+
                     <div class="multistepform__buttons">
                         <button type="button" class="multistepform__button back-to-map">
                             <?php _e('Voltar'); ?>
