@@ -266,7 +266,7 @@ assert($jeo_map instanceof \WP_Post);
                     <div class="multistepform__accept-wrapper">
                         <label class="multistepform__accept">
                             <input type="checkbox" name="autoriza_relato" value="sim">
-                            <?php _e('Ao enviar este relato, você concorda com o uso das informações e mídias no site da Defesa Climática Popular e em outras ações do projeto, sem exibição dos seus dados pessoais. *'); ?>
+                            <?php _e('Ao enviar este relato, você concorda com o uso das informações e mídias no site da Defesa Climática Popular e em outras ações do projeto, sem exibição dos seus dados pessoais*.'); ?>
                         </label>
                         <small class="error-message"><?php _e('É necessário marcar esta opção.'); ?></small>
                     </div>
