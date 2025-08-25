@@ -196,13 +196,10 @@ function insertFeatureCollection(map, spiderifier, container, slug, features) {
 
     map.on('zoom', () => {
         const currentZoom = map.getZoom()
-        if (Math.abs(currentZoom - lastZoom) < 0.1) {
-            if (currentZoom < lastZoom) {
-                spiderifier.unspiderfy()
-            }
+        if (Math.abs(currentZoom - lastZoom) > 0.1) {
+            lastZoom = currentZoom
+            spiderifier.unspiderfy()
         }
-
-        lastZoom = currentZoom
     })
 }
 
@@ -346,7 +343,7 @@ function setupLightbox() {
 }
 
 export function setupMap(jeoMap, container, riscos, apoios, initialSource) {
-    setupLightbox();
+    setupLightbox()
     const map = jeoMap.map
     let spiderifier
 
