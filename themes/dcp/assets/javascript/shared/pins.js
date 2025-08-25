@@ -79,6 +79,7 @@ function createFeature(coordinates, properties) {
 function createApoioFeature(apoio) {
     const { lat, lon, type, ...data } = apoio
     return createFeature([lon, lat], {
+        kind: 'apoio',
         icon: type,
         ...data,
     })
@@ -87,13 +88,30 @@ function createApoioFeature(apoio) {
 function createRiscoFeature(risco) {
     const { lat, lon, type, ...data } = risco
     return createFeature([lon, lat], {
+        kind: 'risco',
         icon: `risco-${type}`,
-        type,
         ...data,
     })
 }
 
-function insertFeatureCollection(map, container, slug, features) {
+function createSpiderifier(map, container) {
+    const spiderifier = new MapboxglSpiderifier(map, {
+        animate: true,
+        animateSpeed: 200,
+        customPin: true,
+        circleFootSeparation: 44,
+        initializeLeg (leg) {
+            leg.elements.pin.style.backgroundImage = `url("${getImageUrl(leg.feature.icon)}")`
+            leg.elements.container.addEventListener('click', () => {
+                displayModal(container, leg.feature)
+            })
+        },
+    })
+
+    return spiderifier
+}
+
+function insertFeatureCollection(map, spiderifier, container, slug, features) {
     const pinsLayer = `${slug}-pins`
     const clustersLayer = `${slug}-clusters`
     const countLayer = `${slug}-count`
@@ -148,23 +166,9 @@ function insertFeatureCollection(map, container, slug, features) {
         },
     })
 
-    const spiderifier = new MapboxglSpiderifier(map, {
-        animate: true,
-        animateSpeed: 200,
-        customPin: true,
-        circleFootSeparation: 44,
-        initializeLeg (leg) {
-            const type = leg.feature.type
-            leg.elements.pin.style.backgroundImage = `url("${getImageUrl(slug === 'risco' ? `risco-${type}` : type)}")`
-            leg.elements.container.addEventListener('click', () => {
-                displayModal(container, slug, leg.feature)
-            })
-        },
-    })
-
     map.on('click', pinsLayer, (event) => {
         const feature = event.features[0]
-        displayModal(container, slug, feature.properties)
+        displayModal(container, feature.properties)
     })
 
     map.on('click', clustersLayer, (event) => {
@@ -208,11 +212,11 @@ function closeModals(container) {
     })
 }
 
-function displayModal(container, type, feature) {
+function displayModal(container, feature) {
     closeModals(container)
-    if (type === 'apoio') {
+    if (feature.kind === 'apoio') {
         displayApoioModal(container, feature)
-    } else if (type === 'risco') {
+    } else if (feature.kind === 'risco') {
         displayRiscoModal(container, feature)
     }
 }
@@ -344,12 +348,14 @@ function setupLightbox() {
 export function setupMap(jeoMap, container, riscos, apoios, initialSource) {
     setupLightbox();
     const map = jeoMap.map
+    let spiderifier
 
     const riscoFeatures = riscos.map(createRiscoFeature)
     const apoioFeatures = apoios.map(createApoioFeature)
 
     function toggleLayer(cpt) {
         closeModals(container)
+        spiderifier?.unspiderfy()
 
         for (const [source, features] of [['apoio', apoioFeatures], ['risco', riscoFeatures]]) {
             const filteredFeatures = (source === cpt) ? features : []
@@ -371,8 +377,9 @@ export function setupMap(jeoMap, container, riscos, apoios, initialSource) {
             loadImage(map, 'risco-outros'),
         ])
 
-        insertFeatureCollection(map, container, 'risco', riscoFeatures)
-        insertFeatureCollection(map, container, 'apoio', apoioFeatures)
+        spiderifier = createSpiderifier(map, container)
+        insertFeatureCollection(map, spiderifier, container, 'risco', riscoFeatures)
+        insertFeatureCollection(map, spiderifier, container, 'apoio', apoioFeatures)
         toggleLayer(initialSource.current)
 
         if (window.innerWidth < 800) {
