@@ -81,6 +81,7 @@ function createApoioFeature(apoio) {
     return createFeature([lon, lat], {
         kind: 'apoio',
         icon: type,
+        type,
         ...data,
     })
 }
@@ -90,6 +91,7 @@ function createRiscoFeature(risco) {
     return createFeature([lon, lat], {
         kind: 'risco',
         icon: `risco-${type}`,
+        type,
         ...data,
     })
 }
