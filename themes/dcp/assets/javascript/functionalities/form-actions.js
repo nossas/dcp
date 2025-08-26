@@ -235,31 +235,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const enderecoWrapper = enderecoInput.closest('.multistepform__input');
             const enderecoError = enderecoWrapper.querySelector('.error-message');
             const errorIcon = enderecoWrapper.querySelector('.error-icon');
-            const mapError = mapWrapper.querySelector('.multistepform__map-wrapper .error-message');
 
             // Resetando estados
             enderecoError.style.display = 'none';
-            mapError.style.display = 'none';
             enderecoWrapper.classList.remove('has-error');
 
             const isEnderecoValid = riskDraft.endereco.trim() !== '';
             const areCoordsValid = riskDraft.latitude && riskDraft.longitude;
 
-            if (!isEnderecoValid) {
-                // Campo vazio
-                enderecoError.textContent = 'O campo de endereço está vazio';
+            if (!isEnderecoValid || !areCoordsValid) {
+                if (!isEnderecoValid) {
+                    enderecoError.textContent = 'Este campo é obrigatório.';
+                } else {
+                    enderecoError.textContent = 'Endereço inválido.';
+                }
+
                 enderecoError.style.display = 'block';
                 enderecoWrapper.classList.add('has-error');
                 if (errorIcon) errorIcon.style.top = '50%'; //
-                return false;
-            }
-
-            if (!areCoordsValid) {
-                // Endereço inválido
-                mapError.textContent = 'Endereço inválido';
-                mapError.style.display = 'block';
-                enderecoWrapper.classList.add('has-error');
-                if (errorIcon) errorIcon.style.top = '65%'; //
                 return false;
             }
 
