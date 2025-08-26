@@ -4,7 +4,23 @@ namespace hacklabr\geocoding;
 
 class GoogleMaps {
 
-    public static function get_google_maps_key () {
+    private static function ensure_boundaries (object $address, array $boundaries): object|null {
+        [$west, $north, $east, $south] = $boundaries;
+        $lat = $address->geometry->location->lat;
+        $lon = $address->geometry->location->lng;
+
+        if ($lat > $north || $lat < $south) {
+            return null;
+        }
+
+        if ($lon > $west || $lon < $east) {
+            return null;
+        }
+
+        return $address;
+    }
+
+    private static function get_google_maps_key () {
         return get_option('google_maps_key') ?: getenv('GOOGLE_MAPS_API_KEY') ?: '';
     }
 
@@ -44,7 +60,8 @@ class GoogleMaps {
     }
 
     static function geocode (string $address) {
-        [$west, $north, $east, $south] = apply_filters('dcp_geocoding_viewbox', [-43.23, -22.87, -43.27, -22.91]);
+        $viewbox = apply_filters('dcp_geocoding_viewbox', [-43.23, -22.87, -43.27, -22.91]);
+        [$west, $north, $east, $south] = $viewbox;
 
         $params = [
             'address' => $address,
@@ -62,6 +79,10 @@ class GoogleMaps {
 
         if (is_array($data->results)) {
             foreach ($data->results as $match) {
+                if (!self::ensure_boundaries($match, $viewbox)) {
+                    continue;
+                }
+
                 return [
                     'lat' => $match->geometry->location->lat,
                     'lon' => $match->geometry->location->lng,
