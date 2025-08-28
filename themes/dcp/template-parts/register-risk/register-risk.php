@@ -71,7 +71,6 @@ assert($jeo_map instanceof \WP_Post);
 
                     <div class="multistepform__buttons">
                         <button type="button" class="multistepform__button back-to-map">
-                            <?php _e('Voltar'); ?>
                         </button>
 
                         <button type="button" class="multistepform__button multistepform__button-next">
