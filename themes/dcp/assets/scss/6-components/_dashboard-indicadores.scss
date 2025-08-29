@@ -283,16 +283,12 @@
                         @include mobile {
                             width: 100%;
                             padding-top: size( 15 );
-                            padding-bottom: size( 50 );
-                            border-bottom: solid 2px rgba( 0,0,0,0.3 );
                             margin-bottom: size( 50 );
                         }
                         @include tablet {
                             display: block;
                             width: 100%;
                             padding-top: size( 15 );
-                            padding-bottom: size( 50 );
-                            border-bottom: solid 2px rgba( 0,0,0,0.3 );
                             margin-bottom: size( 50 );
                         }
 
