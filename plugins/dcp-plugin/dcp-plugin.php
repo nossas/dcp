@@ -144,13 +144,30 @@ add_action('rest_api_init', function () {
 
 function dcp_api_dicas($request) {
 
-    $tipo = $request->get_param('tipo');
-    $recomendacoes = get_posts([
+    $tipo = $request->get_param( 'tipo' );
+    $is_active = $request->get_param( 'active' );
+
+    $args = array(
         'post_type' => 'recomendacao',
         'posts_per_page' => -1,
-        'orderby'        => 'date',
-        'order'          => 'ASC',
-    ]);
+        'orderby' => 'date',
+        'order' => 'ASC',
+    );
+
+    if (!is_null($is_active)) {
+
+        $active_value = filter_var($is_active, FILTER_VALIDATE_BOOLEAN) ? '1' : '0';
+        $args['meta_query'] = array(
+            array(
+                'key' => 'is_active',
+                'value' => $active_value,
+                'compare' => '='
+            )
+        );
+    }
+
+
+    $recomendacoes = get_posts( $args );
 
     $posts = [];
     foreach ( $recomendacoes as $key => $post ) {
@@ -201,11 +218,16 @@ add_action('rest_api_init', function () {
         'args' => [
             'tipo' => [
                 'required' => false,
-                'validate_callback' => function($param) {
-                    //return in_array($param, ['enchente', 'lixo', 'calor']);
+                'validate_callback' => function( $param ) {
                     return $param;
                 },
             ],
+            'active' => array(
+                'required' => false,
+                'validate_callback' => function( $param ) {
+                    return in_array( $param, array( 'true', 'false', '1', '0', 'yes', 'no' ) );
+                }
+            ),
         ],
         'permission_callback' => '__return_true',
     ]);
