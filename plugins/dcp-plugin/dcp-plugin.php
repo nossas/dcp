@@ -6,7 +6,7 @@
  * Author: WordPress Wizard
  */
 
- add_action('rest_api_init', function () {
+add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/riscos', [
         'methods' => 'GET',
         'callback' => 'dcp_get_riscos',
@@ -166,9 +166,7 @@ function dcp_api_dicas($request) {
         );
     }
 
-
     $recomendacoes = get_posts( $args );
-
     $posts = [];
     foreach ( $recomendacoes as $key => $post ) {
         $pod = pods('recomendacao', $post->ID);
