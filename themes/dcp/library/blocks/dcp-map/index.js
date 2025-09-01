@@ -41,7 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const postId = Number(card.dataset.postId)
                     for (const risco of riscos) {
                         if (risco.ID == postId) {
-                            displayModal(block, 'risco', {
+                            displayModal(block, {
+                                kind: 'risco',
                                 icon: `risco-${risco.type}`,
                                 ...risco,
                             })

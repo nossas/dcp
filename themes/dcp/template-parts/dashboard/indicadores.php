@@ -203,7 +203,16 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
     <script>
+        Chart.register(ChartDataLabels);
+        function getLegendPosition() {
+            if (window.innerWidth <= 1099) {
+                return 'bottom';
+            }
+            return 'right';
+        }
+
         const ctxCategorias = document.getElementById( 'chartRiscosCategorias' ).getContext( '2d' );
         const dadosCategorias = [
             <?=$indicadores_riscos_alagamento[ 'total_posts' ]?>,
@@ -219,11 +228,15 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                 datasets: [{
                     data: dadosCategorias,
                     backgroundColor: ['#235540', '#51B2AF', '#EE7653'],
-                    hoverOffset: 4
+                    hoverOffset: 4,
+                    borderWidth: 4,
+                    borderColor: '#FEFBF9'
                 }]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
                 plugins: {
                     // Plugin para customizar tooltips (pop-up)
                     tooltip: {
@@ -231,26 +244,34 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                             label: (context) => {
                                 const valor = context.raw;
                                 const percentual = ((valor / totalCategorias) * 100).toFixed(1);
-                                return `${valor} - ${context.label}: ${percentual}%`;
+                                return ` ${valor} - ${context.label}: ${percentual}%`;
                             }
                         }
                     },
                     // Plugin para mostrar percentuais no centro ou nas legendas
                     legend: {
-                        position: 'right', // Legenda à direita
+                        position: getLegendPosition(), // Legenda à direita
                         align: 'center',   // Centraliza verticalmente
                         labels: {
-                            generateLabels: (chart) => {
-                                return chart.data.labels.map((label, i) => {
-                                    const valor = chart.data.datasets[0].data[i];
-                                    const percentual = ((valor / totalCategorias) * 100).toFixed(1) + '%';
-                                    return {
-                                        text: `${valor} - ${label}: ${percentual}`,
-                                        fillStyle: chart.data.datasets[0].backgroundColor[i],
-                                        hidden: false
-                                    };
-                                });
+                            boxWidth: 10,
+                            padding: 20,
+                            usePointStyle: true,
+                        }
+                    },
+
+                    datalabels: {
+                        // Função para calcular a porcentagem mostrada no gráfico.
+                        formatter: (value, context) => {
+                            if (totalCategorias === 0) {
+                                return '0%';
                             }
+                            const percentage = (value / totalCategorias) * 100;
+                            return percentage > 5 ? percentage.toFixed(0) + '%' : '';
+                        },
+                        color: '#fff',
+                        font: {
+                            weight: 'bold',
+                            size: 16,
                         }
                     }
                 }
@@ -271,11 +292,14 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                 datasets: [{
                     data: dadosAcoesAgend,
                     backgroundColor: ['#777777', '#333333'],
-                    hoverOffset: 4
+                    hoverOffset: 4,
+                    borderWidth: 4,
+                    borderColor: '#FEFBF9'
                 }]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     // Plugin para customizar tooltips (pop-up)
                     tooltip: {
@@ -283,27 +307,27 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                             label: (context) => {
                                 const valor = context.raw;
                                 const percentual = ((valor / totalAcoesAgend) * 100).toFixed(1);
-                                return `${valor} - ${context.label}: ${percentual}%`;
+                                return ` ${valor} - ${context.label}: ${percentual}%`;
                             }
                         }
                     },
                     // Plugin para mostrar percentuais no centro ou nas legendas
                     legend: {
-                        position: 'right', // Legenda à direita
+                        position: getLegendPosition(), // Legenda à direita
                         align: 'center',   // Centraliza verticalmente
                         labels: {
-                            generateLabels: (chart) => {
-                                return chart.data.labels.map((label, i) => {
-                                    const valor = chart.data.datasets[0].data[i];
-                                    const percentual = ((valor / totalAcoesAgend) * 100).toFixed(1) + '%';
-                                    return {
-                                        text: `${valor} - ${label}: ${percentual}`,
-                                        fillStyle: chart.data.datasets[0].backgroundColor[i],
-                                        hidden: false
-                                    };
-                                });
-                            }
+                            boxWidth: 10, padding: 20, usePointStyle: true
                         }
+                    },
+
+                    datalabels: {
+                        formatter: (value, context) => {
+                            if (totalAcoesAgend === 0 || value === 0) return '';
+                            const percentage = (value / totalAcoesAgend) * 100;
+                            return percentage > 5 ? percentage.toFixed(0) + '%' : '';
+                        },
+                        color: '#fff',
+                        font: { weight: 'bold', size: 16 }
                     }
                 }
             }
@@ -323,11 +347,14 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                 datasets: [{
                     data: dadosAcoesRealiz,
                     backgroundColor: ['#111111', '#999999'],
-                    hoverOffset: 4
+                    hoverOffset: 4,
+                    borderWidth: 4,
+                    borderColor: '#FEFBF9'
                 }]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     // Plugin para customizar tooltips (pop-up)
                     tooltip: {
@@ -335,31 +362,54 @@ $indicadores_riscos_outros = dashboard_get_riscos_count_by_term(
                             label: (context) => {
                                 const valor = context.raw;
                                 const percentual = ((valor / totalAcoesRealiz) * 100).toFixed(1);
-                                return `${valor} - ${context.label}: ${percentual}%`;
+                                return ` ${valor} - ${context.label}: ${percentual}%`;
                             }
                         }
                     },
                     // Plugin para mostrar percentuais no centro ou nas legendas
                     legend: {
-                        position: 'right', // Legenda à direita
+                        position: getLegendPosition(), // Legenda à direita
                         align: 'center',   // Centraliza verticalmente
                         labels: {
-                            generateLabels: (chart) => {
-                                return chart.data.labels.map((label, i) => {
-                                    const valor = chart.data.datasets[0].data[i];
-                                    const percentual = ((valor / totalAcoesRealiz) * 100).toFixed(1) + '%';
-                                    return {
-                                        text: `${valor} - ${label}: ${percentual}`,
-                                        fillStyle: chart.data.datasets[0].backgroundColor[i],
-                                        hidden: false
-                                    };
-                                });
-                            }
+                            boxWidth: 10, padding: 20, usePointStyle: true
                         }
+                    },
+
+                    datalabels: {
+                        formatter: (value, context) => {
+                            if (totalAcoesRealiz === 0 || value === 0) return '';
+                            const percentage = (value / totalAcoesRealiz) * 100;
+                            return percentage > 5 ? percentage.toFixed(0) + '%' : '';
+                        },
+                        color: '#fff',
+                        font: { weight: 'bold', size: 16 }
                     }
                 }
             }
         });
+
+        function debounce(func, timeout = 250){
+            let timer;
+            return (...args) => {
+                clearTimeout(timer);
+                timer = setTimeout(() => { func.apply(this, args); }, timeout);
+            };
+        }
+
+        const handleResize = debounce(() => {
+            const newPosition = getLegendPosition();
+
+            // Atualiza a posição da legenda em cada gráfico
+            chartRiscosCategorias.options.plugins.legend.position = newPosition;
+            chartAcoesAgendadas.options.plugins.legend.position = newPosition;
+            chartAcoesRealizadas.options.plugins.legend.position = newPosition;
+
+            chartRiscosCategorias.update();
+            chartAcoesAgendadas.update();
+            chartAcoesRealizadas.update();
+        });
+
+        window.addEventListener('resize', handleResize);
     </script>
 </div>
 

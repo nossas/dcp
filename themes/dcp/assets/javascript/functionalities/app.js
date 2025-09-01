@@ -255,17 +255,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-(function() {
-    const iconBtn = document.getElementById('icon-btn');
-
-    function updateIcon() {
-        if (window.innerWidth <= 768) {
-            iconBtn.setAttribute('icon', 'bi:search');
-        } else {
-            iconBtn.setAttribute('icon', 'bi:plus');
-        }
-    }
-
-    updateIcon();
-    window.addEventListener('resize', updateIcon);
-})();

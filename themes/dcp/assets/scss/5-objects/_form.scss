@@ -369,7 +369,6 @@
             color: $color--warning-dark;
             font-size: 12px;
             font-weight: 400;
-            margin-top: 8px;
             padding-left: 5px;
         }
 
@@ -629,13 +628,13 @@
         display: flex;
         flex-direction: column;
         position: relative;
+        margin-top: -14px;
 
         .error-message {
             display: none;
             color: $color--warning-dark;
             font-size: 12px;
             padding-left: 12px;
-            margin-top: 4px;
         }
 
         // Estilo para o estado de erro
@@ -678,6 +677,7 @@
     }
 
     & &__map-wrapper {
+        padding-top: size(16);
 
         .jeomap {
             height: 300px;
@@ -771,10 +771,13 @@
     }
 
     &__upload-preview {
-        margin-top: $margin--medium;
+        margin-top: -10px;
         display: flex;
         flex-wrap: wrap;
         gap: $gap--medium;
+        @include mobile {
+            margin-top: 0px;
+        }
 
         img,
         video {
@@ -792,7 +795,6 @@
         background-color: transparent;
         border: size(1) solid $color--secondary-dark;
         color: $color--secondary-dark;
-        margin-top: 2rem;
     }
 
     &__no-media-button:hover {
@@ -875,6 +877,10 @@
             font-size: 14px;
             gap:8px;
             align-items: flex-start;
+        }
+        .multistepform__accept-wrapper.accept-whatsapp {
+            position: relative;
+            top: 25px;
         }
         .multistepform__carousel {
             .splide {
