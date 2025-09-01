@@ -367,3 +367,9 @@
         line-height: 1;
     }
 }
+
+.wp-block-columns{
+    &.has-background {
+        padding: initial !important;
+    }
+}
