@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html <?php language_attributes();?>>
+<html <?php language_attributes(); ?>>
+
 <head>
-	<meta charset="<?php bloginfo('charset');?>" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1.0">
+    <meta charset="<?php bloginfo('charset'); ?>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1.0">
     <meta property="og:image" content="<?= get_template_directory_uri() ?>/assets/images/cover-website.png">
-	<?php wp_head()?>
-	<title><?= is_front_page() ? get_bloginfo('name') : wp_title()?></title>
-	<link rel="icon" href="<?= get_site_icon_url() ?>" />
+    <?php wp_head() ?>
+    <title><?= is_front_page() ? get_bloginfo('name') : wp_title() ?></title>
+    <link rel="icon" href="<?= get_site_icon_url() ?>" />
 </head>
+
 <body <?php body_class(); ?>>
     <?php wp_body_open(); ?>
 
@@ -15,7 +17,7 @@
         <div class="container container--wide">
             <div class="pre-header__content">
                 <div class="main-header__social-content">
-                    <?= the_social_networks_menu( false ); ?>
+                    <?= the_social_networks_menu(false); ?>
                 </div>
                 <div class="acessibilidade">
                     <a href="#"><iconify-icon icon="material-symbols-light:contrast"></iconify-icon></a>
@@ -30,25 +32,33 @@
 
     <header x-data="{ menuOpen: false, searchOpen: false }" class="main-header main-header-lateral" :class="{ 'main-header-lateral--menu-open': menuOpen, 'main-header-lateral--search-open': searchOpen }">
         <div class="container container--wide">
-			<div class="main-header-lateral__content">
+            <div class="main-header-lateral__content">
                 <button type="button" class="main-header__toggle-menu main-header-lateral__toggle-menu" aria-label="<?= __('Toggle menu visibility', 'hacklabr') ?>" @click="menuOpen = !menuOpen">
-                    <svg class="hamburger" :class="{ 'hamburger--open': menuOpen }" role="img" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                        <title>Exibir menu</title>
-                        <rect width="16" height="2" x="0" y="2"/>
-                        <rect width="16" height="2" x="0" y="7"/>
-                        <rect width="16" height="2" x="0" y="12"/>
-                    </svg>
+                    <source media="(max-width: 768px)" srcset="<?= get_template_directory_uri() ?>/assets/images/DCP_Logo_Escura_4.svg">
+                    <img src="<?= get_template_directory_uri() ?>/assets/images/toggle.svg" width="200" alt="<?= esc_attr(get_bloginfo('name')) ?>">
                 </button>
 
-				<div class="main-header-lateral__logo">
-                    <?php if ( has_custom_logo() ): ?>
-                        <?php the_custom_logo(); ?>
+                <div class="main-header-lateral__logo">
+                    <?php if (has_custom_logo()): ?>
+                        <?php
+                        $custom_logo_id = get_theme_mod('custom_logo');
+                        $logo_url       = wp_get_attachment_image_url($custom_logo_id, 'full');
+                        ?>
+                        <a href="<?= esc_url(home_url('/')) ?>" class="custom-logo-link" rel="home">
+                            <picture>
+                                <source media="(max-width: 768px)" srcset="<?= get_template_directory_uri() ?>/assets/images/DCP_Logo_Escura_4.svg">
+                                <img src="<?= esc_url($logo_url) ?>" alt="<?= esc_attr(get_bloginfo('name')) ?>" class="custom-logo">
+                            </picture>
+                        </a>
                     <?php else: ?>
                         <a href="<?= home_url() ?>">
-                            <img src="<?= get_template_directory_uri() ?>/assets/images/logo.png" width="200" alt="<?= get_bloginfo( 'name' ) ?>">
+                            <picture>
+                                <source media="(max-width: 768px)" srcset="<?= get_template_directory_uri() ?>/assets/images/DCP_Logo_Escura_4.svg">
+                                <img src="<?= get_template_directory_uri() ?>/assets/images/logo.png" width="200" alt="<?= esc_attr(get_bloginfo('name')) ?>">
+                            </picture>
                         </a>
                     <?php endif; ?>
-				</div>
+                </div>
 
 
                 <div class="main-header-lateral__grid">
@@ -63,20 +73,20 @@
 
                 <div class="main-header-lateral__search">
                     <?php get_search_form(); ?>
-                    <button type="button" class="main-header__toggle-search main-header-lateral__toggle-search" aria-label="<?= __( 'Toggle search form visibility', 'hacklabr' ) ?>" @click="searchOpen = !searchOpen">
+                    <button type="button" class="main-header__toggle-search main-header-lateral__toggle-search" aria-label="<?= __('Toggle search form visibility', 'hacklabr') ?>" @click="searchOpen = !searchOpen">
                         <iconify-icon icon="fa-solid:search"></iconify-icon>
                     </button>
                 </div>
 
-                <?php do_action( 'hacklabr/header/menus-end' ); ?>
-				</div>
-			</div>
+                <?php do_action('hacklabr/header/menus-end'); ?>
+            </div>
+        </div>
         </div>
 
         <div class="main-header-lateral__mobile-content">
             <?= wp_nav_menu(['theme_location' => 'main-menu', 'container' => 'nav', 'menu_class' => 'menu', 'container_class' => 'main-header-lateral__menu-mobile']) ?>
         </div>
-	</header>
+    </header>
 
     <div class="sub-header">
         <div class="sub-header__container">
@@ -101,4 +111,4 @@
         </div>
     </div>
 
-	<div id="app">
+    <div id="app">
