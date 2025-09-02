@@ -34,3 +34,15 @@
         }
     }
 }
+
+.home{
+    h2:first-child{
+        margin-bottom: 0;
+    }
+
+    .enabled{
+        @include mobile{
+            right: size(12) !important;
+        }
+    }
+}
