@@ -52,7 +52,7 @@
             }
 
             &__content{
-                gap: $gap--medium;
+                gap: $gap--small;
 
                 a{
                     margin-top: size(4);
@@ -78,7 +78,7 @@
 
             &__title{
                 font-family: $font-family--primary;
-                font-size: $font-size--xx-small;
+                font-size: $font-size--x-small;
                 font-weight: $font-weight--bold;
                 height: auto;
 
@@ -109,7 +109,7 @@
                 align-items: center;
                 display: flex;
                 justify-content: flex-end;
-                font-size: $font-size--xx-small;
+                font-size: $font-size--x-small;
                 gap: $gap--small;
                 text-decoration: underline;
 
