@@ -5,12 +5,14 @@ $break--desktop: 62rem; // 992px
 $break--desktop-large: 75rem; // 1200px
 $break--desktop-x-large: 87.5rem; // 1400px
 $break--desktop-xx-large: 100rem; // 1600px
+$break--desktop-xxx-large: 115rem; // 1840px
 
 // Grid
 $grid--wide: 87.5rem;
 $grid--normal: 48rem;
 $grid--narrow: 37.5rem;
 $grid--medium: 970px; // 970px
+
 // Fontes para dispositivos móveis
 $font-size-mobile--hero:     var(--wp--preset--font-size--hero);
 $font-size-mobile--xx-large: var(--wp--preset--font-size--xx-large);

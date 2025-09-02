@@ -9,14 +9,23 @@
         top: size(16);
         width: 100%;
         z-index: 1;
+        @include mobile {
+            padding: 0px 12px;
+            width: 99%;
+        }
     }
 
     &__tabs {
         align-items: center;
         display: flex;
         justify-content: center;
-        max-width: calc(100% - #{size(32)});
-        width: size(720);
+        width: 100%;
+        max-width: 682px;
+        margin-left: 13px;
+        @include mobile {
+            margin-left: 2px;
+        }
+
     }
 
     &__tab {
@@ -28,7 +37,8 @@
         flex: 1;
         font-weight: 500;
         justify-content: center;
-        padding: 5px;
+        padding-top: 12px;
+        padding-bottom: 12px;
 
         &--selected {
             background-color: var(--tab-color);
@@ -38,13 +48,23 @@
         &[data-cpt="risco"] {
             border-bottom-left-radius: $border-radius--large;
             border-top-left-radius: $border-radius--large;
-            --tab-color: #{$color--warning-dark};
+            --tab-color: #B83D13;
+             cursor: pointer;
+              &:hover {
+                opacity: 0.9;
+                transition: opacity 0.2s;
+            }
         }
 
         &[data-cpt="apoio"] {
             border-bottom-right-radius: $border-radius--large;
             border-top-right-radius: $border-radius--large;
             --tab-color: #{$color--primary-pure};
+             cursor: pointer;
+              &:hover {
+                opacity: 0.9;
+                transition: opacity 0.2s;
+            }
         }
     }
 
@@ -62,29 +82,60 @@
         align-items: center;
         display: flex;
         justify-content: center;
-        max-width: calc(100% - #{size(32)});
-        width: size(720);
+        max-width: calc(100% - 2rem);
+        width: 43.6rem;
+        margin-top: 16px;
+        @include mobile {
 
+        }
         input, button {
-            border: 1px solid $color--low-pure;
-            min-height: size(42);
+            border: 1px solid #281414;
+            height: 100%;
             padding: $padding--small $padding--medium;
+             cursor: pointer;
+              &:hover {
+               /*  opacity: 0.9;
+                transition: opacity 0.2s; */
+            }
         }
 
         input {
             border-bottom-left-radius: $border-radius--large;
             border-top-left-radius: $border-radius--large;
             flex: 1;
-        }
+            padding-left: 40px;
+            padding-top: 12px;
+            padding-bottom: 12px;
 
+            @include mobile {
+                padding-left: 1rem;
+            }
+        }
+        input::placeholder {
+            color: #281414; /* Altere para a cor desejada */
+        }
+        #icon-input{
+            position: relative;
+            left: 29px;
+            @include mobile {
+                display: none;
+            }
+        }
         button {
             align-items: center;
-            background-color: $color--low-pure;
+            background-color: #281414;
             color: $color--high-pure;
             border-bottom-right-radius: $border-radius--large;
             border-top-right-radius: $border-radius--large;
             display: flex;
             gap: $gap--small;
+            padding-top: 12px;
+            padding-bottom: 12px;
+             cursor: pointer;
+              &:hover {
+                opacity: 0.9;
+                transition: opacity 0.2s;
+            }
 
             @include mobile {
 
@@ -92,6 +143,7 @@
                     display: none;
                 }
             }
+
         }
     }
 
@@ -114,7 +166,8 @@
         margin: auto;
         position: absolute;
         max-width: calc(100% - #{size(32)});
-        width: size(720);
+        width: 42.5rem;
+        margin-left: 13px;
         z-index: 1;
 
         a, button {
@@ -124,19 +177,28 @@
             flex: 1;
             gap: $gap--small;
             justify-content: center;
-            padding: $padding--small $padding--medium;
+            padding: $padding--small 9px;
             text-decoration: none;
+            cursor: pointer;
+              &:hover {
+                opacity: 0.9;
+                transition: opacity 0.2s;
+            }
         }
     }
 
     &__add-risk {
         background-color: $color--warning-dark;
         color: white;
+        opacity: 0.9;
+        transition: opacity 0.2s;
     }
 
     &__show-recommendations {
         background-color: $color--primary-pure;
         color: white;
+        opacity: 0.9;
+        transition: opacity 0.2s;
     }
 
     .jeomap {
@@ -153,14 +215,39 @@
 
         // Map zoom controls
         .mapboxgl-ctrl-top-left {
-            bottom: size(16);
-            left: unset;
-            right: size(16);
+            bottom: 6rem;
             top: unset;
-
             @media screen and (max-width: size(820)) {
                 bottom: size(80);
             }
+        }
+        .mapboxgl-ctrl-group {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: $gap--small;
+
+            box-shadow: none !important;
+            background-color: transparent !important;
+
+            button {
+                border-radius: 8px !important;
+            }
+
+            button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon {
+                background-color: $color--secondary-dark !important;
+                background-image: url('/wp-content/themes/dcp/assets/images/zoom-in.svg') !important;
+            }
+
+            button.mapboxgl-ctrl-zoom-out .mapboxgl-ctrl-icon {
+                background-color: $color--secondary-dark !important;
+                background-image: url('/wp-content/themes/dcp/assets/images/zoom-out.svg') !important;
+            }
+        }
+
+        .spider-leg-pin {
+            height: 54px;
+            transform: translateX(-22px) translateY(-27px);
+            width: 44px;
         }
     }
 }

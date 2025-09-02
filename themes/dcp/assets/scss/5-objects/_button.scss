@@ -77,13 +77,18 @@
         }
     }
 
-    .wp-block-buttons:last-child > .wp-block-button > a {
+    .apoio-btn {
+        .wp-block-button {
+            &__link {
+                color: $color--primary-pure !important;
+                border-width: 1px;
 
-        &:hover {
-            border-color: $color--secondary-dark !important;
-            background-color: #93908F !important;
-            color: $color--secondary-dark !important;
+                &:hover {
+                    box-shadow: 0 0 5px rgba( 0,0,0,0.5 );
+                }
+            }
         }
+
     }
 }
 
@@ -106,8 +111,8 @@
 
     .wp-block-button:nth-child(1) > a{
         &:hover {
-            border-color: $color--high-dark !important;
-            color: $color--high-dark !important;
+            border: none;
+            background-color: $color--high-dark !important;
         }
     }
 
@@ -126,8 +131,7 @@
         display: flex;
         font-size: $font-size--x-small !important;
         gap: $gap--small;
-        padding-bottom: size(10);
-        padding-top: size(10);
+        padding: size(8) size(20);
 
         @include mobile{
             padding: $padding--x-small $padding--medium;
@@ -141,17 +145,19 @@
 
 .ver-mais-acoes{
     background-color: $color--secondary-dark;
+    font-weight: $font-weight--medium;
     color: $color--secondary-light;
     display: flex;
     align-items: center;
     gap: $gap--small;
-    padding: size(10) $padding--medium;
-    border-radius: calc($border-radius--large * 5) !important;
-    font-weight: $font-weight--medium;
+    padding: size( 10 ) $padding--medium;
+    border-radius: size( 50 );
+    cursor: pointer;
+
     &::after {
         background-size: contain;
         background-repeat: no-repeat;
-        content: url('/wp-content/themes/dcp/assets/images/icon-down.png');
+        content: url('/wp-content/themes/dcp/assets/images/seta-card-disabled.svg');
         display: inline-block;
         height: 1em;
         width: 1em;

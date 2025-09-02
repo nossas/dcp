@@ -8,9 +8,20 @@ function get_pin_attachments(\WP_Post $post): array {
     $attachments = get_attached_media('', $post->ID);
 
     foreach ($attachments as $attachment) {
+        $attachment_id = $attachment->ID;
+        $metadata = wp_get_attachment_metadata($attachment_id);
+
+        $is_vertical = !empty($metadata['height']) &&
+                       !empty($metadata['width']) &&
+                       $metadata['height'] > $metadata['width'];
+
         $media[] = [
-            'src' => wp_get_attachment_url($attachment->ID),
+            'id'   => $attachment_id,
+            'src'  => wp_get_attachment_url($attachment_id),
             'mime' => $attachment->post_mime_type,
+            'custom_fields' => [
+                'orientation' => $is_vertical ? 'vertical' : 'horizontal',
+            ],
         ];
     }
 
@@ -46,9 +57,20 @@ function format_risk_pin(\WP_Post $post): array {
     ];
 }
 function format_support_pin(\WP_Post $post): array {
+    $types = wp_get_post_terms($post->ID, 'tipo_apoio', [
+        'fields' => 'slugs',
+        'parent' => 0,
+    ]);
+    if (is_array($types) && in_array('cacambas', $types)) {
+        $type = 'cacamba';
+    } else {
+        $type = 'apoio';
+    }
+
     return [
         'ID' => $post->ID,
         'title' => $post->post_title,
+        'type' => $type,
         'excerpt' => get_the_excerpt($post),
         'endereco' => get_post_meta($post->ID, 'endereco', true),
         'horario' => implode('; ', get_post_meta($post->ID, 'horario_de_atendimento')),
@@ -59,7 +81,7 @@ function format_support_pin(\WP_Post $post): array {
 }
 
 function dcp_map_should_load_jeo(bool $should_load): bool {
-    if (is_page_template('page-dcp-map.php')) {
+    if (is_page_template('page-dcp-map.php') || is_page_template('template-parts/page-register-risk.php')) {
         return true;
     } elseif (is_singular() && has_block('hacklabr/dcp-map')) {
         return true;
@@ -108,6 +130,7 @@ function render_dcp_map_callback(array $attributes) {
 
     $jeo_map = $jeo_maps[0];
     assert($jeo_map instanceof \WP_Post);
+    $is_lixo_page = is_page('conteudo-sobre-o-lixo');
 
     $data = get_dcp_map_data();
 
@@ -115,18 +138,18 @@ function render_dcp_map_callback(array $attributes) {
 ?>
     <div class="dcp-map-block" data-share-url="<?= get_permalink($maps_page) ?>" x-data>
         <script type="application/json"><?= json_encode($data) ?></script>
-        <div class="dcp-map-block__tabs" data-selected="risco">
-            <button type="button" class="dcp-map-block__tab dcp-map-block__tab--selected" data-cpt="risco">
+        <div class="dcp-map-block__tabs" data-selected="<?= $is_lixo_page ? 'apoio' : 'risco' ?>">
+            <button type="button" class="dcp-map-block__tab <?php if (!$is_lixo_page) echo 'dcp-map-block__tab--selected'; ?>" data-cpt="risco">
                 Riscos (<?= count($data['riscos']) ?>)
             </button>
-            <button type="button" class="dcp-map-block__tab" data-cpt="apoio">
+            <button type="button" class="dcp-map-block__tab <?php if ($is_lixo_page) echo 'dcp-map-block__tab--selected'; ?>" data-cpt="apoio">
                 Apoio (<?= count($data['apoios']) ?>)
             </button>
         </div>
         <div class="dcp-map-block__buttons">
             <a class="dcp-map-block__add-risk" href="<?= get_permalink($risks_page) ?>">
                 <iconify-icon icon="bi:geo-alt-fill"></iconify-icon>
-                <span>Adicionar risco</span>
+                <span>Informar risco</span>
             </a>
             <a class="dcp-map-block__open-map" href="<?= get_permalink($maps_page) ?>">
                 <span>Abrir</span>

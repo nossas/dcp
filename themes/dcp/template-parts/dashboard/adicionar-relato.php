@@ -1,43 +1,58 @@
 <?php
 
-$acoes = [];
-$all_terms = get_terms([
-    'taxonomy' => 'tipo_acao',
-    'hide_empty' => false,
-]);
+namespace hacklabr\dashboard;
 
+    $get_acoes = get_acoes_by_status( 'private' );
+    $post_id = get_query_var('post_id' );
+    $get_acao = get_post( $post_id );
 ?>
 <div id="dashboardAcaoSingle" class="dashboard-content">
-
     <div class="dashboard-content-breadcrumb">
         <ol class="breadcrumb">
             <li>
-                <a href="">Ações</a>
+                <a href="<?=get_dashboard_url( 'acoes' )?>">Ações</a>
                 <iconify-icon icon="bi:chevron-right"></iconify-icon>
             </li>
-            <li>
-                <a href="">Adicionar</a>
-                <iconify-icon icon="bi:chevron-right"></iconify-icon>
-            </li>
-            <li><a href="">Criar página relato</a></li>
+            <li><a href="">Criar página de relato</a></li>
         </ol>
     </div>
-
-    <header class="dashboard-content-header">
-        <h1>Novo Relato de ação</h1>
+    <header class="dashboard-content-header is-single-new">
+        <h1>Criar página de relato de ação</h1>
     </header>
-
     <div class="dashboard-content-single">
+        <?php
+        //TODO : REFACTORY P/ MELHORAR o $get_acao (quando vazio vem o post_page Dashboard)
+        if( !empty( $get_acao ) ) :
+            $pod = pods( 'acao', $get_acao->ID );
+            $attachments = get_attached_media('', $get_acao->ID );
+            $get_terms = get_the_terms( $get_acao->ID, 'tipo_acao' ); ?>
         <form id="acaoSingleForm" class="" method="post" enctype="multipart/form-data" action="javascript:void(0);" data-action="<?php bloginfo( 'url' );?>/wp-admin/admin-ajax.php">
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Selecione a ação realizada</label>
                     <select id="selectAcaoRealizada" class="select" name="acao_realizada" required >
                         <option value="">SELECIONE UMA AÇÃO</option>
-                        <?php foreach ( $acoes as $key => $acao ) : ?>
-                            <option value="<?=$acao->slug?>"><?=$acao->name?></option>
-                        <?php endforeach; ?>
+                        <?php if( $get_acoes[ 'posts' ]->have_posts() ) :
+                            while( $get_acoes[ 'posts' ]->have_posts() ) :
+                                $get_acoes[ 'posts' ]->the_post();
+                                $acao_term = get_the_terms( get_the_ID(), 'tipo_acao' );
+                                $pod_acoes = pods( 'acao', get_the_ID() );
+                                ?>
+                                <option value="<?=get_the_ID()?>" <?=( $get_acao->ID == get_the_ID() ) ? 'selected' : '' ?> ><?=( $get_acao->ID == get_the_ID() ) ? '( #' . get_the_ID() . ' )' : '( ' . $acao_term[0]->name . ' )' ?> <?=$pod_acoes->field( 'titulo') ?></option>
+                            <?php endwhile; endif; ?>
                     </select>
+                    <?php if( !empty( $get_acao->post_type === 'acao' ) ) : ?>
+                        <p class="input-links">
+                            <a href="<?=get_dashboard_url( 'editar-acao' )?>/?post_id=<?=$get_acao->ID?>" target="_blank">
+                                <iconify-icon icon="bi:box-arrow-up-right"></iconify-icon>
+                                <span>Editar Ação</span>
+                            </a>
+                            <a href="<?=$get_acao->guid?>" target="_blank">
+                                <iconify-icon icon="bi:box-arrow-up-right"></iconify-icon>
+                                <span>Ver Ação</span>
+                            </a>
+                        </p>
+                    <?php endif; ?>
                     <a class="button is-category">
                         <?php risco_badge_category( 'sem-categoria', 'SEM CATEGORIA ADICIONADA', '' ); ?>
                     </a>
@@ -50,23 +65,29 @@ $all_terms = get_terms([
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
-
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Categoria</label>
-                    <select id="selectCategory" class="select" name="tipo_acao" required disabled >
-                        <option value="">SELECIONE UMA CATEGORIA</option>
-                        <?php foreach ( $all_terms as $key => $term ) :
-                            if( !$term->parent ) : ?>
-                                <option value="<?=$term->slug?>"><?=$term->name?></option>
-                            <?php endif; endforeach; ?>
+                    <input type="hidden" name="tipo_acao" value="<?=( !empty( $get_terms[0]->slug ) ) ? $get_terms[0]->slug : ''?>">
+                    <select id="selectCategory" class="select" disabled >
+                        <?php if( !empty( $get_terms[0]->slug ) ) : ?>
+                            <option value="<?=$get_terms[0]->slug?>" selected ><?=$get_terms[0]->name?></option>
+                        <?php else : ?>
+                            <option value="">Selecione uma ação</option>
+                        <?php endif; ?>
                     </select>
                     <a class="button is-category">
-                        <?php risco_badge_category( 'sem-categoria', 'SEM CATEGORIA ADICIONADA', '' ); ?>
+                        <?php
+                            if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                                risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, '' );
+                            } else {
+                                risco_badge_category( 'sem-categoria', 'SEM CATEGORIA ADICIONADA', '' );
+                            }
+                        ?>
                     </a>
                     <a class="button is-select-input">
                         <iconify-icon icon="bi:chevron-down"></iconify-icon>
@@ -77,21 +98,36 @@ $all_terms = get_terms([
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
-
-
+            <div class="fields">
+                <div class="input-wrap">
+                    <label class="label">Endereço</label>
+                    <input type="hidden" name="endereco" value="<?=$pod->field( 'endereco' )?>">
+                    <input class="input" type="text" name="endereco_preview" placeholder="Selecione uma Ação" value="<?=(!empty($pod->field( 'endereco' ))) ? $pod->field( 'endereco' ) : '' ?>" disabled>
+                </div>
+                <div class="input-help">
+                    <a href="#/" class="button">
+                        <iconify-icon icon="bi:question"></iconify-icon>
+                    </a>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                    </p>
+                </div>
+            </div>
             <div class="fields">
                 <div class="is-group">
                     <div class="input-wrap">
                         <label class="label">Data</label>
-                        <input class="input" type="text" name="data" placeholder="Digite aqui" value="" required disabled>
+                        <input class="input" type="hidden" name="data" value="<?=date( 'Y-m-d', strtotime( $pod->field('data_e_horario' ) ) )?>">
+                        <input class="input" type="text" value="<?=date( 'd/m/Y', strtotime( $pod->field('data_e_horario' ) ) )?>" required disabled>
                     </div>
                     <div class="input-wrap">
                         <label class="label">Horário</label>
-                        <input class="input" type="text" name="horario" placeholder="Digite aqui" value="" required disabled>
+                        <input class="input" type="hidden" name="horario" value="<?=date( 'H:i', strtotime( $pod->field( 'data_e_horario' ) ) )?>">
+                        <input class="input" type="text" value="<?=date( 'H:i', strtotime( $pod->field( 'data_e_horario' ) ) )?>" required disabled>
                     </div>
                 </div>
                 <div class="input-help">
@@ -99,30 +135,29 @@ $all_terms = get_terms([
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
-
-
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Título</label>
-                    <input class="input" type="text" name="titulo" placeholder="Digite aqui" value="" required>
+                    <input class="input" type="text" name="titulo" placeholder="Digite aqui" value="<?=(!empty($pod->field( 'titulo' ))) ? $pod->field( 'titulo' ) : '' ?>" required>
+                    <input type="hidden" name="acao_titulo" value="<?=$pod->field( 'titulo' )?>">
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Descrição</label>
-                    <textarea class="textarea" name="descricao" readonly required></textarea>
+                    <textarea class="textarea" name="descricao" readonly required><?=(!empty($pod->field( 'descricao' ))) ? $pod->field( 'descricao' ) : '' ?></textarea>
                     <a class="button is-edit-input">
                         <iconify-icon icon="bi:pencil-square"></iconify-icon>
                     </a>
@@ -132,16 +167,14 @@ $all_terms = get_terms([
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
-
-
             <div class="fields is-media-attachments">
-                <div id="mediaUploadCover" class="input-media" style="margin: 0;">
+                <div id="mediaUploadCover" class="input-media">
                     <div class="input-media-uploader">
-                        <h3>Foto de capa</h3>
+                        <h4>Foto de capa</h4>
                         <div class="input-media-uploader-files">
                             <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
                                 <iconify-icon icon="bi:upload"></iconify-icon>
@@ -149,42 +182,32 @@ $all_terms = get_terms([
                             </a>
                         </div>
                     </div>
-                    <div class="input-media-uploader-progress">
-                        <div class="progress is-empty">
-                            <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
-                        </div>
+                    <div class="media-preview-container">
+                        <div class="media-preview-list"></div>
                     </div>
                     <div class="input-media-preview">
                         <div class="input-media-preview-assets is-empty">
-                            <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
+                            <p class="is-empty-text">Nenhuma foto de capa adicionada ainda.</p>
                         </div>
                     </div>
                 </div>
                 <div class="input-help">
-                    <a href="#/" class="button">
-                        <iconify-icon icon="bi:question"></iconify-icon>
-                    </a>
-                    <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
-                    </p>
+                    <a href="#/" class="button"><iconify-icon icon="bi:question"></iconify-icon></a>
+                    <p>O usuário poderá adicionar uma foto, então se já houver uma foto adicionada, o botão que fica a superior, a borda fica desabilitada)</p>
                 </div>
             </div>
-
 
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Texto</label>
-                    <textarea class="textarea" name="text_post" readonly required style=" min-height: 100vh; "></textarea>
-                    <a class="button is-edit-input">
-                        <iconify-icon icon="bi:pencil-square"></iconify-icon>
-                    </a>
+                    <textarea class="textarea" name="text_post" required style=" min-height: 80vh; "></textarea>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -192,18 +215,16 @@ $all_terms = get_terms([
             <div class="fields is-media-attachments">
                 <div id="mediaUpload" class="input-media">
                     <div class="input-media-uploader">
-                        <h3>Mídias</h3>
+                        <h4>Mídias</h4>
                         <div class="input-media-uploader-files">
-                            <a id="mediaUploadButton" class="button is-primary is-small is-upload-media">
+                            <a id="mediaUploadButton" class="button is-primary is-small is-upload-media is-multiple">
                                 <iconify-icon icon="bi:upload"></iconify-icon>
                                 <span>Adicionar fotos e vídeos</span>
                             </a>
                         </div>
                     </div>
-                    <div class="input-media-uploader-progress">
-                        <div class="progress is-empty">
-                            <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
-                        </div>
+                     <div class="media-preview-container">
+                        <div class="media-preview-list"></div>
                     </div>
                     <div class="input-media-preview">
                         <div class="input-media-preview-assets is-empty">
@@ -212,32 +233,36 @@ $all_terms = get_terms([
                     </div>
                 </div>
                 <div class="input-help">
-                    <a href="#/" class="button">
-                        <iconify-icon icon="bi:question"></iconify-icon>
-                    </a>
-                    <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
-                    </p>
+                    <a href="#/" class="button"><iconify-icon icon="bi:question"></iconify-icon></a>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.</p>
                 </div>
             </div>
-
             <div class="form-submit">
+                <div id="file-input-storage" style="display: none;"></div>
                 <input type="hidden" name="action" value="form_single_relato_new">
-                <input type="hidden" name="email" value="admin@admin.com">
-                <a class="button is-goback">
-                    <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                <input type="hidden" name="post_id" value="<?=$get_acao->ID?>">
+                <a class="button is-goback" href="<?=get_dashboard_url('acoes')?>">
                     <span>Voltar</span>
                 </a>
                 <a class="button is-new relato">
-                    <iconify-icon icon="bi:check2"></iconify-icon>
-                    <span>Criar Relato</span>
+                    <span>Criar relato</span>
                 </a>
             </div>
         </form>
-
-        <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
+        <?php else : ?>
+            <div class="message-response" style="display: block">
+                <span class="tabs__panel-message">Nenhuma ação encontrada.</span>
+            </div>
+        <?php
+            endif;
+            echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
+        <script src="<?=includes_url('js/tinymce/tinymce.min.js')?>"></script>
+        <script>
+            const _tiny_mce_content_css = '<?php echo includes_url("css/dashicons.css"); ?>,<?php echo includes_url("js/tinymce/skins/wordpress/wp-content.css"); ?>';
+        </script>
     </div>
 
-
+    <div id="dashboard-snackbar" class="dashboard-snackbar">
+    </div>
 </div>
 

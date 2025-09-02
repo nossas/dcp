@@ -13,7 +13,7 @@ namespace hacklabr\dashboard;
     <div class="dashboard-content-breadcrumb">
         <ol class="breadcrumb">
             <li>
-                <a href="">Ações</a>
+                <a href="<?=get_dashboard_url( 'acoes' )?>">Ações</a>
                 <iconify-icon icon="bi:chevron-right"></iconify-icon>
             </li>
             <li>
@@ -24,7 +24,7 @@ namespace hacklabr\dashboard;
         </ol>
     </div>
 
-    <header class="dashboard-content-header">
+    <header class="dashboard-content-header is-single-new">
         <h1>Adicionar Ação</h1>
     </header>
 
@@ -33,8 +33,8 @@ namespace hacklabr\dashboard;
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Categoria</label>
-                    <select id="selectCategory" class="select" name="tipo_acao" required >
-                        <option value="">SELECIONE UMA CATEGORIA</option>
+                    <select id="selectCategory" class="select" name="tipo_acao" required>
+                        <option value="">Selecione uma categoria</option>
                         <?php foreach ( $all_terms as $key => $term ) :
                             if( !$term->parent ) : ?>
                                 <option value="<?=$term->slug?>"><?=$term->name?></option>
@@ -52,7 +52,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
@@ -66,33 +66,29 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Descrição</label>
-                    <textarea class="textarea" name="descricao" readonly required></textarea>
-                    <a class="button is-edit-input">
-                        <iconify-icon icon="bi:pencil-square"></iconify-icon>
-                    </a>
+                    <textarea class="textarea" name="descricao" required></textarea>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
-
             <div class="fields">
                 <div class="is-group">
                     <div class="input-wrap">
                         <label class="label">Data</label>
-                        <input class="input" type="date" name="data" placeholder="Digite aqui" value="" required>
+                        <input class="input" type="date" name="date" placeholder="Digite aqui" value="" required>
                     </div>
                     <div class="input-wrap">
                         <label class="label">Horário</label>
@@ -104,30 +100,38 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
-
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Localização</label>
-                    <input class="input" type="text" name="localizacao" placeholder="Digite o local ou endereço aqui" value="" required>
+                    <input class="input" type="text" name="endereco" placeholder="Digite o local ou endereço aqui" value="" required>
+                    <input type="hidden" name="full_address" value="">
+                    <input type="hidden" name="latitude" value="">
+                    <input type="hidden" name="longitude" value="">
+                    <a class="button is-loading" style="display: none">
+                        <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
+                    </a>
+                    <a class="button is-success" style="display: none">
+                        <iconify-icon icon="bi:check-circle"></iconify-icon>
+                    </a>
+                    <p class="is-error-geolocation" style="font-size: 12px; color: #c10202; display: none; padding-left: 10px; ">Não foi possível encontrar este endereço, aguarde atualizações do mapa.</p>
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button">
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
-
             <div class="fields is-media-attachments">
                 <div id="mediaUploadCover" class="input-media">
                     <div class="input-media-uploader">
-                        <h3>Foto de capa</h3>
+                        <h4>Foto de capa</h4>
                         <div class="input-media-uploader-files">
                             <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
                                 <iconify-icon icon="bi:upload"></iconify-icon>
@@ -135,43 +139,44 @@ namespace hacklabr\dashboard;
                             </a>
                         </div>
                     </div>
-                    <div class="input-media-uploader-progress">
-                        <div class="progress is-empty">
-                            <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
-                        </div>
+
+                    <div class="media-preview-container">
+                        <h4 class="media-preview-title" style="display: none;">Mídia adicionada</h4>
+                        <div class="media-preview-list"></div>
                     </div>
+
                     <div class="input-media-preview">
                         <div class="input-media-preview-assets is-empty">
-                            <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
+                            <p class="is-empty-text">Nenhuma foto adicionada ainda.</p>
                         </div>
                     </div>
                 </div>
                 <div class="input-help">
-                    <a href="#/" class="button">
-                        <iconify-icon icon="bi:question"></iconify-icon>
-                    </a>
-                    <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
-                    </p>
+                    <a href="#/" class="button"><iconify-icon icon="bi:question"></iconify-icon></a>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.</p>
                 </div>
             </div>
-
             <div class="form-submit">
                 <input type="hidden" name="action" value="form_single_acao_new">
-                <input type="hidden" name="email" value="admin@admin.com">
-                <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
-                    <iconify-icon icon="bi:chevron-left"></iconify-icon>
-                    <span>Voltar</span>
-                </a>
-
-                <a class="button is-new acao">
-                    <iconify-icon icon="bi:check2"></iconify-icon>
-                    <span>Criar Ação</span>
-                </a>
+                <div id="file-input-storage" style="display: none;"></div>
+                <div></div>
+                <div class="form-submit-actions">
+                    <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
+                        <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                        <span>Voltar</span>
+                    </a>
+                    <a class="button is-new">
+                        <iconify-icon icon="bi:check2"></iconify-icon>
+                        <span>Criar Ação</span>
+                    </a>
+                </div>
             </div>
         </form>
 
         <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
+
+        <div id="dashboard-snackbar" class="dashboard-snackbar">
+        </div>
     </div>
 
 

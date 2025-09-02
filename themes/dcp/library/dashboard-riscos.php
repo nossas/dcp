@@ -1,0 +1,33 @@
+<?php
+
+function get_riscos_by_status( $status, $page = 1, $limit = 6 ) {
+
+    $query = new WP_Query([
+        'post_type'      => 'risco',
+        'post_status'    => $status,
+        'posts_per_page' => $limit,
+        'paged'          => $page,
+        'orderby'        => 'meta_value',
+        'meta_key'       => 'data_e_horario',
+    ]);
+
+    $total_posts = $query->found_posts;
+
+    return [
+        'pagination' => ( $total_posts < $limit ) ? false : true,
+        'pagination_current' => $page,
+        'pagination_total' => $query->max_num_pages,
+        'total_posts' => $total_posts,
+        'posts' => $query
+    ];
+}
+
+function get_dashboard_riscos( $page = 1, $limit = 6 ) {
+
+    return [
+        'riscosAprovacao' => get_riscos_by_status( 'draft', $page, $limit ),
+        'riscosPublicados' => get_riscos_by_status( 'publish', $page, $limit ),
+        'riscosArquivados' => get_riscos_by_status( 'pending', $page, $limit )
+    ];
+
+}

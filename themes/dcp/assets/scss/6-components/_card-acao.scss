@@ -1,6 +1,7 @@
-.post-type-archive-acao{
-    .layout-part--header-archive-acao{
-        padding-top: $padding--xx-large;
+.post-type-archive-acao {
+    .layout-part--header-archive-acao {
+        padding-top: size( 110 );
+        padding-bottom: size( 10 );
         @include mobile{
             padding-top: $padding--x-large;
         }
@@ -8,10 +9,13 @@
             @include mobile{
                 display: flex;
                 flex-direction: column;
+                margin-bottom: unset !important;
                 .wp-block-column:nth-of-type(1){
                     order: 2;
                     .wp-block-buttons{
                         display: flex;
+                        flex-wrap: nowrap !important;
+                        gap: 12px;
                         .wp-block-button{
                             width: fit-content;
                         }
@@ -29,7 +33,7 @@
         .wp-block-heading{
             @include mobile{
                 font-size: size(24);
-                letter-spacing: -1px;
+                letter-spacing: 1.2px;
             }
         }
         .wp-block-separator{
@@ -45,6 +49,44 @@
                 padding-inline: $padding--medium !important;
             }
         }
+
+        .wp-block-columns > .wp-block-column:nth-of-type(1){
+            .mostrar-mais {
+                .wp-block-button > a{
+                    @include mobile{
+                        padding: 8px 16px !important;
+                        width: 100% !important;
+                    }
+                }
+
+                .wp-block-button {
+                    @include mobile{
+                        width: 100% !important;
+                    }
+                }
+
+                .wp-block-button:nth-of-type(1){
+                    @include mobile{
+                        flex-basis: 33% !important;
+                    }
+                }
+
+                .wp-block-button:nth-of-type(2){
+                    @include mobile{
+                        flex-basis: 67% !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .archive-acao {
+        .proximas-acoes{
+            @include mobile{
+                padding: unset !important;
+            }
+        }
+
     }
     .posts-grid__content{
         display: grid;
@@ -78,11 +120,13 @@
             margin-top: 0;
         }
 
+
         .post-card__image{
             display: none;
         }
         .post-card__content{
             border-radius: $border-radius--large $border-radius--large 0 0;
+            justify-content: start;
 
             @include mobile{
                 gap: $gap--small;
@@ -111,6 +155,10 @@
         .post-card__acao-buttons, .post-card__author{
             display: none;
         }
+
+        .post-card__meta--default {
+            display: none !important;
+        }
     }
     .posts-grid{
         &__title {
@@ -125,6 +173,8 @@
     .posts-grid__content-cards-concluidas{
 
         .post-card{
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.30);
+            border-radius: 15px;
             &__title {
                 font-size: $font-size--medium;
                 color: $color--secondary-dark;
@@ -139,6 +189,19 @@
                     gap: $gap--small;
                     height: auto;
                     justify-content: inherit;
+                }
+            }
+
+            &__divisor {
+                display: none;
+            }
+
+            &__meta--default {
+                align-items: flex-end;
+                padding-top: 29px;
+
+                @include mobile {
+                    padding-top: $padding--medium;
                 }
             }
         }
@@ -169,17 +232,26 @@
         }
     }
     .load-more-concluir,
-    .load-more-agendar{
+    .load-more-agendar {
         margin-bottom: 2rem;
         max-width: fit-content;
-        border-radius: 4px;
+        border-radius: size( 50 );
         display: flex;
+        padding-left: size( 30 );
+        padding-right: size( 30 );
         margin-left: auto;
         margin-right: auto;
 
         &:hover {
             border: none;
             background-color: $color--high-dark !important;
+        }
+
+        &:disabled {
+            background-color: #C9C6C5;
+            border-color: #C9C6C5;
+            color: #93908F;
+            cursor: not-allowed;
         }
 
         @include mobile{
@@ -193,6 +265,9 @@
     .post-card {
         max-width: size(443);
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
 
         &__cta {
             border-radius: 0 0 $border-radius--large $border-radius--large;
@@ -204,7 +279,16 @@
             padding: size(20);
 
             &--limpeza {
-                background-color: $color--primary-light;
+                background-color: #235540;
+            }
+            &--educacao {
+                background-color: #50b15c;
+            }
+            &--incidencia {
+                background-color: #ffb301;
+            }
+            &--solidariedade {
+                background-color: #FC7753;
             }
 
             &--reparos {
@@ -263,11 +347,15 @@
             border-bottom-right-radius: size(16);
             border-bottom-left-radius: size(16);
             padding: size(20);
-            height: size(305);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            flex-grow: 1;
 
             @include mobile{
                 gap: 0;
                 min-height: inherit;
+                height: auto;
             }
         }
 
@@ -286,6 +374,8 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 -webkit-line-clamp: 2;
+
+                flex-grow: 0;
             }
         }
 
@@ -311,6 +401,7 @@
         }
 
         &__divisor {
+            margin-top: auto;
             &-line {
                 border-bottom: size(2) solid $color--high-dark;
                 margin-bottom: $margin--medium;
@@ -331,7 +422,9 @@
         .post-card__datetime{
             display: flex;
             align-items: center;
-            gap: .3rem;
+            gap: 6px;
+            color: $color--high-dark;
+            font-size: 16px;
             &::before {
                 background-size: contain;
                 background-repeat: no-repeat;
@@ -362,6 +455,9 @@
 
         &__address {
             flex-direction: row !important;
+            color: $color--high-dark;
+            font-size: 16px;
+            gap: 6px;
 
             &::before {
                 content: url('/wp-content/themes/dcp/assets/images/wrapper6.png') !important;
@@ -397,10 +493,23 @@
             font-weight: $font-weight--medium;
             text-decoration: underline;
         }
+
+        &__top-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        &__top-date {
+            color: $color--high-dark;
+        }
     }
 
-    .layout-part--footer-archive-acao{
-        .wpcf7{
+    .layout-part--footer-archive-acao {
+        padding-bottom: size( 50 );
+
+        .wpcf7 {
             .categoria-acao{
                 .wpcf7-form-control{
                     display: flex;
@@ -410,7 +519,7 @@
                     @include mobile{
                         display: grid;
                         grid-template-columns: 0.3fr 0.3fr 0.3fr;
-                        gap: $gap--small;
+                        gap: 0.75rem;
                     }
 
                     .wpcf7-list-item{
@@ -465,7 +574,13 @@
                 }
             }
 
-            .enviar-acao{
+            .wpcf7-form {
+                .cf7-snackbar {
+                    bottom: 45px !important;
+                }
+            }
+
+            .enviar-acao {
                 input{
                     display: inherit;
                 }

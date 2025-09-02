@@ -8,6 +8,38 @@ window.addEventListener('DOMContentLoaded', () => {
     Alpine.start();
 });
 
+window.addEventListener('load', function () {
+    let DESIRED_BOTTOM = '40%';
+
+    let attempts = 0;
+    const maxAttempts = 40;
+
+    const forceUserWayStyle = setInterval(() => {
+        const buttonWrapper = document.querySelector('.userway_p3 .userway_buttons_wrapper');
+
+        attempts++;
+
+        if (attempts >= maxAttempts) {
+            clearInterval(forceUserWayStyle);
+            return;
+        }
+
+        if (document.body.classList.contains('page-mapa') && buttonWrapper) {
+            DESIRED_BOTTOM = '13%';
+            buttonWrapper.style.setProperty('bottom', DESIRED_BOTTOM, 'important');
+        }
+
+        if (buttonWrapper) {
+            buttonWrapper.style.setProperty('bottom', DESIRED_BOTTOM, 'important');
+            buttonWrapper.style.setProperty('right', 'auto', 'important');
+            buttonWrapper.style.setProperty('top', 'auto', 'important');
+
+            if (attempts > 15) {
+                clearInterval(forceUserWayStyle);
+            }
+        }
+    }, 300);
+});
 
 document.addEventListener("DOMContentLoaded", function () {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -33,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     link.setAttribute("href", `tel:${number}`);
                 } else {
                     e.preventDefault();
-                    modalText.textContent = `Em caso de emergência, ligue para o número ${number}.`;
+                    modalText.innerHTML = `Em caso de emergência, ligue para o número <strong>${number}</strong>.`;
                     modal.classList.add("call-modal--visible");
                 }
             });
@@ -133,5 +165,93 @@ document.addEventListener("DOMContentLoaded", function () {
         nav.innerHTML = nav.innerHTML.replace(/&gt;|›|»|&raquo;|&nbsp;&gt;&nbsp;/g, separatorSVG);
     });
 });
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    if( document.querySelector('.anexos-slider') ) {
+        const swiper = new Swiper( '.anexos-slider', {
+            loop: true,
+            slidesPerView: 1,
+            spaceBetween: 30,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    }
+
+});
+
+//adiciona classe no card da home
+// Só se esse script for executado após os elementos estarem no HTML
+const container = document.getElementById("acontece-na-comunidade");
+
+if (container) {
+  const meta = container.querySelector(".post-card__meta");
+  const datetime = container.querySelector(".post-card__datetime");
+
+  if (meta && datetime) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "post-card__meta-group";
+
+    wrapper.style.display = "flex";
+    wrapper.style.alignItems = "center";
+    wrapper.style.gap = "8px";
+    wrapper.style.color = "#605E5D";
+    wrapper.style.fontSize = "14px";
+
+    meta.style.color = "#605E5D";
+    meta.style.fontSize = "14px";
+    datetime.style.color = "#605E5D";
+    datetime.style.fontSize = "14px";
+
+    meta.parentNode.insertBefore(wrapper, meta);
+    wrapper.appendChild(meta);
+    wrapper.appendChild(datetime);
+  }
+}
+
+ //ajusta o posicionamento do userway
+document.addEventListener("DOMContentLoaded", function () {
+  const isMobile = () => window.innerWidth <= 820;
+
+  const ajustarEstiloBotaoUserWay = () => {
+    if (!isMobile()) return; // só executa no mobile
+
+    const wrapper = document.querySelector('.uwy.userway_p3 .userway_buttons_wrapper');
+    if (wrapper && document.body.classList.contains('page-mapa')) {
+      wrapper.removeAttribute('style');
+
+      const left = 'calc(-12px + 100vw)';
+      const bottom = '115px';
+
+      wrapper.style.left = left;
+      wrapper.style.bottom = bottom;
+    }
+  };
+
+  if (isMobile()) {
+    // Aplica repetidamente por até 6 segundos
+    let tentativas = 0;
+    const intervalo = setInterval(() => {
+      ajustarEstiloBotaoUserWay();
+      tentativas++;
+      if (tentativas > 20) clearInterval(intervalo);
+    }, 300);
+  }
+
+  // Aplica também ao redimensionar (só se for mobile)
+  window.addEventListener('resize', () => {
+    if (isMobile()) ajustarEstiloBotaoUserWay();
+  });
+});
+
+
 
 

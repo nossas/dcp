@@ -43,19 +43,21 @@ get_header();
         </div>
     </div>
     <div class="dcp-map__form-container">
-        <form class="dcp-map__form">
-            <input type="text" name="address" autocomplete="address-line1" placeholder="Busque sua localização">
-            <button type="submit" aria-label="Buscar">
-                <span>Buscar</span>
-                <iconify-icon icon="bi:search"></iconify-icon>
-            </button>
-        </form>
+      <form class="dcp-map__form">
+    <iconify-icon id="icon-input" icon="bi:search"></iconify-icon>
+        <input type="text" name="address" autocomplete="address-line1" placeholder="Busque sua localização">
+        <button type="submit" aria-label="Buscar" id="search-btn">
+            <iconify-icon id="icon-btn" icon="bi:plus" width="16"></iconify-icon>
+            <span>Buscar</span>
+        </button>
+    </form>
+
     </div>
     <div class="dcp-map__buttons-container">
         <div class="dcp-map__buttons">
             <a class="dcp-map__add-risk" href="<?= get_permalink($risks_page) ?>">
                 <iconify-icon icon="bi:geo-alt-fill"></iconify-icon>
-                <span>Adicionar risco</span>
+                <span>Informar risco</span>
             </a>
             <button type="button" class="dcp-map__show-recommendations" @click="$refs.recommendations.showModal()">
                 <span>O que fazer</span>
@@ -68,6 +70,7 @@ get_header();
 </div>
 
 <?php wp_footer(); ?>
+<?php get_footer(); ?>
 </div>
 </body>
 </html>

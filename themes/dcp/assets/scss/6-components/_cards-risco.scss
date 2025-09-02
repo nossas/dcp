@@ -1,17 +1,50 @@
+.wp-block-columns:has(.recomendacoes) {
+    display: flex;
+    justify-content: space-between !important;
+}
 .risco{
+    .wp-block-column:nth-child(2){
+        p {
+            font-size: size(16) !important;
+
+            @include mobile {
+                font-size: size(14) !important;
+            }
+        }
+    }
+    .dcp-map-block{
+        margin-top: 12px;
+        &__tabs {
+            button {
+            cursor: pointer;
+                &:hover {
+                    opacity: 0.9;
+                    transition: opacity 0.2s;
+                }
+            }
+        }
+    }
+
     .hacklabr-posts-grid-block{
         display: flex;
         flex-direction: column;
-        height: size(402);
+        height: 27.5rem;
         overflow: hidden;
         overflow-y: scroll;
-        padding-right: $padding--small;
+        margin-top: 12px;
+        padding: 2px;
+
+        @include mobile {
+            min-height: 200px !important;
+            height: 100% !important;
+        }
 
         .post-card{
             background-color: $color--high-light;
             border-radius: $border-radius--large;
             max-width: size(517);
             padding: $padding--medium;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.30);
 
             &__address,
             &__divisor{
@@ -96,6 +129,9 @@
 }
 
 .page-reportar-riscos{
+    .breadcrumb {
+        display: none;
+    }
 
     .wp-block-cover{
         margin-bottom: $margin--large*2;
@@ -109,8 +145,8 @@
 
         .wp-block-columns > .wp-block-column:last-child{
             .wp-block-group{
-                max-width: size(448);
-                width: 100%;
+/*                 max-width: size(448);
+ */                width: 100%;
 
                 .wp-block-heading {
                     font-family: $font-family--secondary;
@@ -128,6 +164,19 @@
 
                 @include mobile{
                     gap: $gap--small;
+                }
+
+                & > .wp-block-column:nth-child(2){
+                    @include mobile{
+                        text-align: center;
+                    }
+                }
+            }
+
+            .wp-block-columns > .wp-block-column {
+                .wp-block-buttons {
+                    min-width: 288px !important;
+                    max-width: 100% !important;
                 }
             }
 
@@ -151,7 +200,7 @@
                 gap: $gap--small;
 
                 @include mobile{
-                    align-items: center;
+                    align-items: flex-start;
                     font-size: $font-size--xx-small;
                 }
 
@@ -160,6 +209,26 @@
                 }
             }
         }
+    }
+
+    .wp-block-group.is-content-justification-center {
+        @include mobile{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+    }
+
+    .wp-block-buttons > .wp-block-button > a{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: $gap--small;
+    }
+
+    .wp-block-buttons {
+        max-width: 100%;
     }
 }
 

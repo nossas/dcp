@@ -1,179 +1,367 @@
-.single-acao-agendada,
-.single-transparencia {
-    .post-header {
-        padding-left: size(0);
-        padding-right: size(0);
+.single-acao {
+    // Reset local de margin para títulos e parágrafos
+    .acao-titulo h1,
+    .acao-descricao p {
+        margin: 0;
+    }
+    .is-separator{
+        @include mobile{
+            margin-top: 16px;
+            margin-bottom: 16px;
+        }
+    }
+    .bread-acao {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        font-size: 14px;
+        line-height: 1.4;
+        color: $color--secondary-dark;
 
-        .breadcrumb {
-            margin-top: 72px;
+        a,
+        span {
+            white-space: nowrap;
+            word-break: break-word;
+            text-decoration: none;
+            color: $color--secondary-dark;
+            font-weight: 500;
+            display: inline-flex;
             align-items: center;
-            display: flex;
-            justify-content: center;
+            max-width: 100%;
+        }
 
-            @include mobile {
-                justify-content: initial;
-                margin-top: 32px;
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .separator {
+            margin: 0 4px;
+            color: #aaa;
+            white-space: nowrap;
+        }
+
+        // Estilo mobile
+        @include mobile {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            white-space: nowrap;
+            margin-top: 32px;
+            scrollbar-width: thin;
+
+            &::-webkit-scrollbar {
+            height: 4px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 2px;
+            }
+
+            a,
+            span {
+            text-overflow: ellipsis;
+            overflow: hidden;
             }
         }
+        @include mobile{
+            display: none;
+        }
+    }
+
+
+    .acao-grid {
+        display: flex;
+        gap: 80px;
+        padding: 32px 0;
 
         @include mobile {
-            padding-inline: 1rem !important;
+            flex-direction: column;
+            gap:0px;
+            padding-bottom: 0px;
         }
+        .bread-acao-mob{
+            display: none;
+            @include mobile{
+                 display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 14px;
+                line-height: 1.4;
+                color: $color--secondary-dark;
 
-        &__title {
-            color: $color--primary-pure;
-            margin-top: $margin--medium;
-            margin-bottom: $margin--medium;
+                a,
+                span {
+                    white-space: nowrap;
+                    word-break: break-word;
+                    text-decoration: none;
+                    color: $color--secondary-dark;
+                    font-weight: 500;
+                    display: inline-flex;
+                    align-items: center;
+                    max-width: 100%;
+                }
 
-            @include mobile {
-                font-size: 24px;
-                text-align: center !important;
+                a:hover {
+                    text-decoration: underline;
+                }
+
+                .separator {
+                    margin: 0 4px;
+                    color: #aaa;
+                    white-space: nowrap;
+                }
             }
         }
+    }
 
-        &__excerpt {
-            margin-top: $margin--large;
-            margin-bottom: 56px;
-            color: $color--secondary-dark;
-            font-size: 16px !important;
+    .acao-thumb {
+        width: initial;
+        display: flex;
+        align-items: flex-start;
+        padding-top: size(25);
 
-            @include mobile {
-                margin-top: $margin--medium;
-                margin-bottom: 32px;
-                text-align: center;
-            }
+        @include mobile {
+            width: 100%;
+            min-width: 80%;
+            padding-top: 20px;
         }
 
-        &__featured-image {
-            @include mobile {
-                margin-bottom: 0px;
-            }
+        .acao-thumb-wrapper {
+            display: block;
+            border-radius: 16px;
+            overflow: hidden;
 
             img {
+                display: block;
+                max-width: 503px;
+                height: 367px;
+                object-fit: cover;
                 @include mobile {
-                    height: 192px !important;
+                    width: 100%;
+                    height: 192px;
                 }
             }
         }
-
-        &__tags {
-            align-items: center;
-            gap: 16px;
-
-            @include mobile {
-                display: flex;
-                justify-content: center;
-            }
-
-            a {
-                display: flex;
-                gap: 8px;
-                background-color: $color--primary-pure;
-                border-color: $color--primary-pure;
-                color: white;
-                align-items: center;
-
-                @include mobile {
-                    font-size: 12px;
-                }
-            }
-
-            &__date {
-                color: $color--secondary-dark;
-                font-size: 1rem;
-            }
-        }
     }
 
-    .post-content {
-        padding-left: size(0);
-        padding-right: size(0);
-        padding-top: 0px;
+    .acao-conteudo {
+        display: flex;
+        flex-direction: column;
 
-        @include mobile {
-            padding-inline: 1rem;
-        }
+        .acao-categoria {
+            margin-bottom: 8px;
+            background-repeat: no-repeat;
+            background-position: 8px center; // Ícone 8px da esquerda
+            background-size: 16px;
+            padding: 6px 14px 6px 34px; // espaço para o ícone à esquerda
+            border-radius: 16px;
 
-        .wp-block-spacer {
-            @include mobile {
-                margin-top: 16px;
-                margin-bottom: 16px;
+
+            &--educacao {
+                background-image: url('/wp-content/themes/dcp/assets/images/educacao.svg');
+                background-color: #50B15C;
             }
-        }
-        p{
-            @include mobile{
-                padding-top: $padding--medium;
-                padding-bottom: $padding--medium;
+            &--limpeza {
+                background-image: url('/wp-content/themes/dcp/assets/images/limpeza.png');
+                background-color: #235540;
+                color:#F9F3EA;
+
             }
-        }
-        .wp-block-coblocks-gallery-carousel{
-            padding-bottom: 40px !important;
-        }
-    }
-
-    .wp-block-cover {
-        @include mobile {
-            padding: 0px !important;
-            margin-top: 0px !important;
-        }
-
-        &__inner-container {
-            @include mobile {
-                padding-left: 0px;
-                padding-right: 0px;
+            &--reparos {
+                background-image: url('/wp-content/themes/dcp/assets/images/hammer-thor.svg');
+                background-color: #51B2AF;
             }
-        }
-    }
+            &--cultura {
+                background-image: url('/wp-content/themes/dcp/assets/images/microfone.svg');
+                background-color: #B83D13;
+                color:#F9F3EA;
 
-    .main-footer-subscribe {
-        @include mobile {
-            margin-top: 0px;
-        }
-
-        &__widget {
-            @include mobile {
-                padding-inline: 1rem;
             }
+            &--incidencia {
+                background-image: url('/wp-content/themes/dcp/assets/images/incidencia.svg');
+                background-color: #FFB300;
+            }
+            &--solidariedade {
+                background-image: url('/wp-content/themes/dcp/assets/images/solidarie.svg');
+                background-color: #FC7753;
+            }
+
+
+
         }
-    }
-}
 
-// single
 
-.single-transparencia {
-    .post-header {
-        &__title {
-            color: #281414;
-            margin-top: $margin--medium;
-            margin-bottom: $margin--medium;
+        .acao-titulo {
+            color: $color--secondary-dark;
+            font-family: 'gabarito';
+            font-size: 40px;
+            font-weight: $font-weight--medium;
+            line-height: 120%;
+            margin: 24px 0;
 
             @include mobile {
                 font-size: 24px;
-                text-align: start;
+            }
+        }
+
+        .acao-descricao {
+            margin: 32px 0;
+            line-height: 1.6;
+
+            @include mobile {
+                margin: 16px 0;
+            }
+
+            p {
+                word-break: normal;
+                hyphens: auto;
+            }
+        }
+
+        .acao-info {
+            list-style: none;
+            padding: 0;
+            font-size: 1rem;
+            color: $color--secondary-dark;
+
+            li {
+                margin-bottom: 0.5rem;
+                display: flex;
+
+                strong {
+                    margin-right: 0.5rem;
+                }
             }
         }
     }
 
-    .wp-block-list {
-        list-style: disc;
-        padding-left: 2rem;
+    .formulario-participar {
+        display: grid;
+        width: 100%;
+        max-width: 793px;
+        margin-top: 40px;
+        padding-bottom: 58px;
+        margin-left: auto;
 
         @include mobile {
-            margin-left: 1rem !important;
-            margin-bottom: 48px !important;
+            width: auto;
+            margin-top: 48px;
+        }
+
+        h2 {
+            color: #281414;
+            font-family: 'gabarito';
+            font-size: 32px;
+            font-weight: $font-weight--medium;
+            line-height: 120%;
+            margin-bottom: 12px;
+        }
+
+        .form-descricao {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-participar {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+
+            input[type="text"],
+            input[type="email"] {
+                font-size: size(15);
+                width: 100%;
+                padding: size(9) size(18);
+                margin-bottom: size(15);
+                border: 1px solid $color--secondary-dark;
+                border-radius: size(12);
+            }
+
+            p {
+                font-size: size(13);
+                font-weight: 500;
+                line-height: size(14);
+                padding: size(4) size(12);
+            }
+
+            .checkbox-aceite {
+                display: flex;
+                align-items: center;
+                gap: 13px;
+                font-size: 14px;
+                color: $color--secondary-dark;
+
+                input[type="checkbox"] {
+                    width: 18px;
+                    height: 18px;
+                    flex-shrink: 0;
+                }
+            }
+
+            .checkbox-aceite-whatsapp {
+                margin-bottom: 27px;
+                margin-top: 14px;
+            }
+
+            .botao-confirmar {
+                background: $color--primary-pure;
+                color: $color--secondary-light;
+                padding: size(8) size(20);
+                border: none;
+                border-radius: size(50);
+                font-size: size(15);
+                cursor: pointer;
+                transition: background 0.2s ease;
+
+                &:hover {
+                    background: darken(#235514, 5%);
+                }
+
+                &:focus {
+                    outline: 2px solid $color--primary-pure;
+                    outline-offset: 2px;
+                }
+
+                @include mobile {
+                   width: 100%;
+                }
+            }
+
+            .cf7-snackbar {
+                background-color: $color--primary-light;
+                color: $color--secondary-light;
+                padding: 14px 16px;
+                border-radius: 12px;
+                z-index: 1000;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s, visibility 0.3s;
+                font-size: $font-size--xx-small;
+                display: flex;
+                align-items: flex-start;
+                gap: 8px;
+                position: absolute;
+                bottom: 45px;
+                right: 0;
+                margin-bottom: 10px;
+                max-width: 344px;
+                width: auto;
+                box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.30);
+
+                &.show {
+                    opacity: 1;
+                    visibility: visible;
+                    max-height: 100px;
+                }
+            }
         }
     }
-
-    h3 {
-        letter-spacing: 1.6px;
-
+    .proximas-acoes{
         @include mobile {
-            margin-top: 48px !important;
+            margin-top: 48px;
         }
-    }
-
-    .wp-block-separator {
-        margin-right: 1rem !important;
-        margin-left: 0rem !important;
     }
 }

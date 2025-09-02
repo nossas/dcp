@@ -288,15 +288,11 @@ function load_more_acoes_callback() {
 
     $query = new WP_Query([
         'post_type' => 'acao',
+        'post_status' => 'publish',
         'posts_per_page' => 3,
         'paged' => $paged,
-        'meta_query' => [
-            [
-                'key' => 'status_da_acao',
-                'value' => $status,
-                'compare' => '='
-            ]
-        ]
+        'orderby' => 'meta_value',
+        'meta_key' => 'data_e_horario',
     ]);
 
     ob_start();
@@ -319,6 +315,40 @@ function load_more_acoes_callback() {
 add_action('wp_ajax_load_more_acoes', 'load_more_acoes_callback');
 add_action('wp_ajax_nopriv_load_more_acoes', 'load_more_acoes_callback');
 
+
+
+function load_more_relatos_callback() {
+    $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
+    $status = sanitize_text_field($_POST['status']);
+
+    $query = new WP_Query([
+        'post_type' => 'relato',
+        'post_status' => 'publish',
+        'posts_per_page' => 3,
+        'paged' => $paged
+    ]);
+
+    ob_start();
+
+    if ( $query->have_posts() ) {
+        while ( $query->have_posts() ) {
+            $query->the_post();
+            get_template_part('template-parts/post-card', 'vertical');
+        }
+    }
+
+    $html = ob_get_clean();
+
+    // Retorna HTML + total de páginas
+    wp_send_json([
+        'html' => $html,
+        'max'  => $query->max_num_pages
+    ]);
+}
+add_action('wp_ajax_load_more_relatos', 'load_more_relatos_callback');
+add_action('wp_ajax_nopriv_load_more_relatos', 'load_more_relatos_callback');
+
+
 add_filter('body_class', 'add_custom_body_classes');
 function add_custom_body_classes($classes) {
     if (is_singular('acao')) {
@@ -330,4 +360,102 @@ function add_custom_body_classes($classes) {
     }
 
     return $classes;
+}
+
+function cpt_acao_assets() {
+    if (is_singular('acao')) {
+        wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css');
+
+        // Carrega primeiro o Swiper.js
+        wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js', [], null, true);
+
+        // Depois, seu script que usa Swiper (com 'swiper-js' como dependência)
+        wp_enqueue_script('app-js', get_template_directory_uri() . '/dist/js/functionalities/app.js', ['swiper-js'], null, true);
+    }
+}
+add_action('wp_enqueue_scripts', 'cpt_acao_assets');
+
+
+
+// Altera os rótulos do post type "post"
+function alterar_labels_post_para_conteudos( $labels ) {
+    $labels->name               = 'Conteúdos';
+    $labels->singular_name      = 'Conteúdo';
+    $labels->add_new            = 'Adicionar novo';
+    $labels->add_new_item       = 'Adicionar novo conteúdo';
+    $labels->edit_item          = 'Editar conteúdo';
+    $labels->new_item           = 'Novo conteúdo';
+    $labels->view_item          = 'Ver conteúdo';
+    $labels->search_items       = 'Buscar conteúdos';
+    $labels->not_found          = 'Nenhum conteúdo encontrado';
+    $labels->not_found_in_trash = 'Nenhum conteúdo na lixeira';
+    $labels->all_items          = 'Todos os conteúdos';
+    $labels->menu_name          = 'Conteúdos';
+    $labels->name_admin_bar     = 'Conteúdo';
+    return $labels;
+}
+add_filter( 'post_type_labels_post', 'alterar_labels_post_para_conteudos' );
+
+// Altera o nome do menu lateral
+function alterar_menu_posts_para_conteudos() {
+    global $menu;
+    global $submenu;
+
+    // Altera o nome principal do menu
+    foreach ( $menu as $key => $item ) {
+        if ( isset($item[2]) && $item[2] == 'edit.php' ) {
+            $menu[$key][0] = 'Conteúdos';
+        }
+    }
+
+    // Altera os subitens
+    if ( isset($submenu['edit.php']) ) {
+        $submenu['edit.php'][5][0] = 'Todos os conteúdos';
+        $submenu['edit.php'][10][0] = 'Adicionar novo';
+        $submenu['edit.php'][15][0] = 'Categorias';
+        $submenu['edit.php'][16][0] = 'Tags';
+    }
+}
+add_action( 'admin_menu', 'alterar_menu_posts_para_conteudos' );
+
+
+
+add_action('admin_menu', 'adicionar_link_dashboard_personalizado');
+
+function adicionar_link_dashboard_personalizado() {
+    // Adiciona o item principal do menu
+    add_menu_page(
+        'Dashboard',
+        'Dashboard',
+        'read',
+        'dashboard_personalizado',
+        'redirecionar_para_dashboard',
+        'dashicons-chart-pie',
+        1
+    );
+
+    // Remove o submenu padrão criado automaticamente
+    remove_submenu_page('dashboard_personalizado', 'dashboard_personalizado');
+}
+
+// Função de redirecionamento
+function redirecionar_para_dashboard() {
+    echo '<h2 style="opacity: 0.5;">redirecionando . . .</h2>';
+    echo "<script>window.location.href = window.location.origin + '/dashboard/';</script>";
+    exit;
+}
+
+// Adiciona CSS personalizado
+add_action('admin_head', 'estilo_personalizado_menu');
+
+function estilo_personalizado_menu() {
+    echo '<style>
+        #adminmenu .wp-menu-image.dashicons-chart-pie:before {
+            color: #00ff00 !important;
+        }
+        #adminmenu li.toplevel_page_dashboard_personalizado:hover .wp-menu-image:before,
+        #adminmenu li.toplevel_page_dashboard_personalizado.current .wp-menu-image:before {
+            color: #ffffff !important;
+        }
+    </style>';
 }

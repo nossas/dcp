@@ -1,212 +1,317 @@
-// Variáveis básicas (ajuste conforme seu projeto)
-$verde: #235540;
-$cinza-claro: #f5f5f5;
-$cinza-texto: #444;
-$bordas: 6px;
-h1{
-    margin: 0px;
-}
-p {
-    margin: 0px;
-}
-.bread-relato{
-    display: flex !important;
-    width: 75%;
-    max-width: 100%;
-    align-content: flex-end;
-    flex-direction: row;
-    text-align: left;
-    margin-top: 40px;
-    align-items: flex-end;
-    color: $color--secondary-dark;
-    @media ( max-width: 1366px) {
-        max-width: 75%;
+.single-relato
+/* .single-acao */ {
+
+    h1{
+        margin: 0px;
     }
-    @include mobile {
-        margin-top: 32px;
+    p {
+        margin: 0px;
     }
+    .bread-relato {
+        display: flex !important;
+        max-width: 100%;
+        align-content: flex-end;
+        flex-direction: row !important;
+        text-align: left;
+        margin-top: 40px;
+        align-items: center;
+        justify-content: center;
+        color: $color--secondary-dark;
+        gap: 8px;
+
+        @include mobile {
+            margin-top: 32px;
+            margin-bottom: 16px;
+            justify-content: flex-start;
+        }
+    }
+    .post-content {
+        .wp-block-cover {
+            padding: 0px;
+            &__inner-container {
+                padding:0;
+            }
+        }
+        .anexos-slider {
+            width: 100%;
+            max-width: 800px;
+            margin: 50px auto;
+            position: relative;
+
+            .swiper-slide {
+                text-align: center;
+            }
+
+            img {
+                width: 100%;
+                max-height: 400px;
+                object-fit: contain;
+                border-radius: 10px;
+            }
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                color: #000;
+            }
+
+            .swiper-pagination-bullet {
+                background: #000;
+            }
+        }
+    }
+
+    // Container principal
+    .relato-grid {
+        display: flex;
+        gap: 80px;
+        padding-top: 32px;
+        padding-bottom: 32px;
+
+        @media (max-width: 768px) {
+            grid-template-columns: 1fr;
+        }
+        @include mobile{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    // Imagem destacada
+    .relato-thumb {
+        width: 40%;
+        min-width: 35%;
+        display: flex;
+        align-items: start;
+        padding-top: size( 25 );
+
+        @include mobile{
+            width: 100%;
+            min-width: 80%;
+        }
+
+
+        .relato-thumb-wrapper {
+            display: block;
+            border-radius: 16px;
+            overflow: hidden;
+
+            img {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
+
+    // Conteúdo do relato
+    .relato-conteudo {
+        display: flex;
+        flex-direction: column;
+
+
+        .relato-titulo {
+            color: $color--secondary-dark;
+            font-family: 'gabarito';
+            font-size:40px;
+            font-style: normal;
+            font-weight: $font-weight--medium;
+            text-wrap: initial;
+            line-height: 120%;
+            margin-top: 24px;
+            margin-bottom: 24px;
+            @include mobile{
+                font-size: 24px;    }
+        }
+
+        .relato-categoria {
+            margin-bottom: 8px;
+
+            .badge {
+                display: inline-block;
+                background: #235540;
+                color: white;
+                padding: 0.25rem 0.6rem;
+                font-size: 0.9rem;
+                border-radius: 100px;
+                img {
+                    width: auto !important;
+                }
+            }
+        }
+
+        .relato-descricao {
+            margin-bottom: 8px;
+            line-height: 1.6;
+            margin-top: 32px;
+            margin-bottom: 32px;
+            @include mobile{
+                margin-top: 16px;
+                margin-bottom: 16px;
+            }
+            p{
+                word-break: normal;
+                hyphens: auto;
+
+            }
+        }
+
+        .relato-info {
+            list-style: none;
+            padding: 0;
+            font-size: 1rem;
+            color:$color--secondary-dark;
+            li {
+                margin-bottom: 0.5rem;
+                display: flex;
+
+                strong {
+                    margin-right: 0.5rem;
+                }
+            }
+
+        }
+
+    }
+    .post-header{
+        h1 {
+            color: $color--primary-pure !important;
+            font-size: 48px;
+            @include mobile {
+                text-align: start;
+                font-size: 24px;
+            }
+        }
+        &__excerpt {
+            font-size: $font-size--x-small;
+        }
+        &__featured-image{
+            margin-top: 2rem;
+            height: 455px;
+            @include mobile {
+                margin-top: 2rem;
+                margin-bottom: 0px;
+                height: 192px;
+            }
+            img {
+                @include mobile {
+                    height: 192px !important;
+                }
+            }
+        }
+        &__tags {
+            align-items: center;
+            margin-top: $margin--medium;
+            margin-bottom: 34px;
+            gap: $gap--medium;
+            color: $color--secondary-light;
+
+            .tag {
+                background-repeat: no-repeat;
+                background-position: 8px center;
+                background-size: 16px;
+                padding: 2px 14px 0px 34px;
+                border-radius: 16px;
+                border-color: unset;
+                font-size: 14px;
+                @include mobile {
+                    font-size: 12px;
+                }
+
+                &.tag--educacao {
+                    background-image: url('/wp-content/themes/dcp/assets/images/educacao.svg');
+                    background-color: #50B15C;
+                    color: var(--wp--preset--color--secondary-dark);
+                     border: var(--wp--preset--color--secondary-dark);
+                }
+
+                &.tag--limpeza {
+                    background-image: url('/wp-content/themes/dcp/assets/images/limpeza.png');
+                    background-color: #235540;
+                    color: #F9F3EA;
+                }
+
+                &.tag--reparos {
+                    background-image: url('/wp-content/themes/dcp/assets/images/hammer-thor.svg');
+                    background-color: #51B2AF;
+                }
+
+                &.tag--cultura {
+                    background-image: url('/wp-content/themes/dcp/assets/images/microfone.svg');
+                    background-color: #B83D13;
+                    color: #F9F3EA;
+                }
+
+                &.tag--incidencia {
+                    background-image: url('/wp-content/themes/dcp/assets/images/incidencia.svg');
+                    background-color: #FFB300;
+                }
+
+                &.tag--solidariedade {
+                    background-image: url('/wp-content/themes/dcp/assets/images/solidarie.svg');
+                    background-color: #FC7753;
+                }
+            }
+
+            @include mobile {
+                justify-content: flex-start;
+                margin-bottom: $margin--medium;
+            }
+
+            .post-header__date {
+                font-size: 18px;
+            }
+        }
 }
-
-// Container principal
-.relato-grid {
-  display: flex;
-  gap: 80px;
-  padding-top: 32px;
-  padding-bottom: 32px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
-  @include mobile{
-    display: flex;
-    flex-direction: column;
-  }
-}
-
-// Imagem destacada
-.relato-thumb {
+.anexos-slider {
     width: 100%;
-    display: flex;
-    align-items: center;
-  .relato-thumb-wrapper {
-    border-radius: 16px;
-    overflow: hidden;
+    max-width: 1200px !important;
 
     img {
-      display: block;
-      width: 100%;
-      height: auto;
+        max-height: fit-content !important;
+        border-radius: 0px !important;
     }
-  }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        width: 40px; /* ajuste conforme o tamanho do seu SVG */
+        height: 40px;
+        color: transparent; /* oculta o ícone padrão (flecha preta) */
+        background-color: transparent;
+        font-family: inherit !important; /* remove fonte Swiper */
+    }
+
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+        display: none !important; /* esconde flecha padrão */
+    }
+
+    .swiper-button-prev {
+        background-image: url('/wp-content/themes/dcp/assets/images/arrow-left-2.svg');
+    }
+
+    .swiper-button-next {
+        background-image: url('/wp-content/themes/dcp/assets/images/arrow-right-slider.svg');
+    }
+    .swiper-pagination-bullet {
+        width: 10px;
+        height: 10px;
+        border: 1px solid #F9F3EA;
+        background: #F9F3EA !important;
+        opacity: 0.5;    /* borda verde */
+        margin: 0 5px;
+        border-radius: 50%;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    .swiper-pagination-bullet-active {
+        background-color: #fff !important; /* verde escuro */
+        border-color: #fff !important;
+        opacity: 1;
+    }
 }
-
-// Conteúdo do relato
-.relato-conteudo {
-    display: flex;
-    flex-direction: column;
-
-
-  .relato-titulo {
-    color: $color--secondary-dark;
-    font-family: 'gabarito';
-    font-size:40px;
-    font-style: normal;
-    font-weight: $font-weight--medium;
-    line-height: 120%;
-    margin-top: 24px;
-    margin-bottom: 24px;
-    @include mobile{
-        font-size: 24px;    }
-  }
-
-  .relato-categoria {
-    margin-bottom: 8;
-
-    .badge {
-      display: inline-block;
-      background: #235540;
-      color: white;
-      padding: 0.25rem 0.6rem;
-      border-radius: $bordas;
-      font-size: 0.9rem;
-      img {
-            width: auto !important;
-      }
-    }
-  }
-
-  .relato-descricao {
-    margin-bottom: 8px;
-    color: $cinza-texto;
-    line-height: 1.6;
-    margin-top: 32px;
-    margin-bottom: 32px;
-    @include mobile{
-    margin-top: 16px;
-    margin-bottom: 16px;
-    }
-    p{
-        word-break: normal;
-        hyphens: auto;
-
-    }
-  }
-
-  .relato-info {
-    list-style: none;
-    padding: 0;
-    font-size: 1rem;
-    color:$color--secondary-dark;
-    li {
-      margin-bottom: 0.5rem;
-      display: flex;
-
-      strong {
-        margin-right: 0.5rem;
-      }
-    }
-  }
-
-}
-
 // Formulário
-.formulario-participar {
-    display: grid;
-    width: 100%;
-    max-width: 793px;
-    float: right;
-    margin-top: 40px;
-    padding-bottom: 58px;
-    @media ( max-width: 1366px ) {
-        width: 61%;
-    }
-    @include mobile{
-        width: auto;
-    }
-  h2 {
-   color: #281414;
-    font-family: 'gabarito';
-    font-size: var(--Spacing-space-400, 32px);
-    font-style: normal;
-    font-weight: $font-weight--medium;
-    line-height: 120%; /* 38.4px */
-    margin-bottom: 12px;
-    }
 
-  .form-descricao {
-    margin-bottom: 1.5rem;
-  }
-
-  .form-participar {
-    display: flex;
-    flex-direction: column;
-
-    input[type="text"],
-    input[type="email"] {
-      padding: 0.75rem;
-      border: 1px solid #ccc;
-      border-radius: $bordas;
-      font-size: 1rem;
-      width: 100%;
-      margin-bottom: 25px;
-    }
-    p{
-        color: var(--Color-Gray-800, #484646);
-    /* Label/medium */
-    font-family: var(--Typeface-Font-Gabarito, Gabarito);
-    font-size: var(--Spacing-space-175, 14px);
-    font-style: normal;
-    font-weight: 500;
-    line-height: 120%; /* 16.8px */
-    }
-    .checkbox-aceite {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 14px;
-      color: $color--secondary-dark;
-      margin-bottom: 27px;
-    }
-
-    .botao-confirmar {
-    background: $color--primary-pure;
-    color: $color--secondary-light;
-    padding: 10px;
-    border: none;
-    border-radius: 100px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.2s ease;
-    margin-left: 70%;
-
-      &:hover {
-        background: darken($verde, 5%);
-      }
-      @include mobile{
-        margin-left: 0px;
-      }
-    }
-  }
 
 }
-

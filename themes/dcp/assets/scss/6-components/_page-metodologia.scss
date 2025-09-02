@@ -1,0 +1,93 @@
+.page-metodologia {
+    .breadcrumb {
+        color: #281414;
+    }
+    .wp-block-spacer {
+        @include mobile {
+            height: 0 !important;
+        }
+    }
+    h2 {
+        @include mobile {
+            font-size: 24px !important;
+        }
+    }
+    .center-title{
+        max-width: 720px;
+    }
+
+    .image {
+        img {
+            @include mobile {
+                width: 68px;
+            }
+        }
+    }
+    .col-1 {
+        margin-top: 24px;
+        @include mobile {
+            display: flex;
+            flex-direction: column-reverse;
+            margin-top: 32px;
+            margin-bottom: unset;
+        }
+
+        .wp-block-column:first-child {
+            @include mobile {
+                flex-basis: initial !important;
+            }
+        }
+        .wp-block-column:last-child {
+            @include mobile {
+                flex-basis: initial !important;
+            }
+            img {
+                @include mobile {
+                    width: 287px;
+                }
+            }
+        }
+    }
+    .wp-block-group {
+        @include mobile {
+            .wp-block-spacer {
+                height: 12px !important
+            }
+            h3 {
+                font-size: 24px !important;
+            }
+        }
+    }
+
+    .columns {
+        @include mobile {
+            margin-top: unset;
+        }
+    }
+
+    &__como-funciona {
+        .wp-block-column {
+            .wp-block-columns {
+                .wp-block-column:last-child {
+                    @include mobile {
+                        padding-top: unset !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .wp-block-separator:nth-of-type(3) {
+        @include mobile {
+            margin-top: unset !important;
+        }
+    }
+
+    &__monitoramento{
+        .wp-block-cover__inner-container {
+            @include mobile {
+                margin-top: 56px;
+            }
+        }
+    }
+}

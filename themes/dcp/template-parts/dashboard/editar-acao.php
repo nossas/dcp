@@ -2,79 +2,145 @@
 
 namespace hacklabr\dashboard;
 
-    $all_terms = get_terms([
-        'taxonomy' => 'tipo_acao',
-        'hide_empty' => false,
+    $post_id = get_query_var('post_id' );
+
+    $postSingle = new \WP_Query([
+        'p' => $post_id,
+        'post_type' => 'acao'
     ]);
 
-?>
-<div id="dashboardAcaoSingle" class="dashboard-content">
 
+    $tipos_acoes = [
+        'draft' => [
+            'name' => 'Sugestões',
+            'link' => '',
+            'icon' => 'lightbulb-fill',
+            'tipo_acao' => 'sugestoes'
+        ],
+        'publish' => [
+            'name' => 'Agendadas',
+            'link' => '',
+            'icon' => 'calendar3',
+            'tipo_acao' => 'agendadas'
+        ],
+        'private' => [
+            'name' => 'Realizadas',
+            'link' => '',
+            'icon' => 'check-square-fill',
+            'tipo_acao' => 'realizadas'
+        ],
+        'pending' => [
+            'name' => 'Arquivadas',
+            'link' => '',
+            'icon' => 'x-octagon-fill',
+            'tipo_acao' => 'arquivadas'
+        ]
+    ];
+
+    if ( $postSingle->have_posts() ) :
+
+        while ( $postSingle->have_posts()) :
+            $postSingle->the_post();
+
+            $post_status = get_post_status();
+
+            $pod = pods( 'acao', get_the_ID());
+            $attachment_cover_id = get_post_thumbnail_id(get_the_ID());
+            $get_attachment = get_the_post_thumbnail_url(get_the_ID(), 'large');
+            $get_terms = get_the_terms( get_the_ID(), 'tipo_acao' );
+
+            $all_terms = get_terms([
+                'taxonomy' => 'tipo_acao',
+                'hide_empty' => false,
+            ]);
+
+            switch ( $post_status ) {
+                case 'draft':
+                    $class = 'is-draft';
+                    $text = 'Ação Sugerida';
+                    $title = 'Avaliar ação sugerida';
+                    $current_page = 'Avaliar';
+                    break;
+
+                case 'publish':
+                    $class = 'is-publish';
+                    $text = 'Ação Agendada';
+                    $title = 'Editar ação agendada';
+                    $current_page = 'Editar Ação';
+                    $color = '#AA7700';
+                    break;
+
+                case 'private':
+                    $class = 'is-scheduled';
+                    $text = 'Ação Realizada';
+                    $title = 'Criar relato de ação';
+                    $current_page = 'Editar Ação';
+                    $color = '#000';
+                    break;
+
+                case 'pending':
+                    $class = 'is-pending';
+                    $text = 'Ação Arquivada';
+                    $title = 'Ações Arquivadas';
+                    $current_page = 'Editar Ação';
+                    break;
+
+                default:
+                    $class = 'is-blocked';
+                    $text = 'BLOQUEADO';
+                    $title = 'SEM STATUS';
+                    $current_page = 'Editar Ação';
+                    break;
+            }
+        ?>
+
+<div id="dashboardAcaoSingle" class="dashboard-content">
     <div class="dashboard-content-breadcrumb">
         <ol class="breadcrumb">
             <li>
-                <a href="">Ações</a>
+                <a href="<?=get_dashboard_url( 'acoes' )?>">Ações</a>
                 <iconify-icon icon="bi:chevron-right"></iconify-icon>
             </li>
             <li>
-                <a href="">( Sugestão / Agendadas / Realizadas / Arquivadas )</a>
+                <a href="<?=get_dashboard_url( 'acoes', [ 'tipo_acao' => $tipos_acoes[ $post_status ][ 'tipo_acao' ] ] )?>"><?=$tipos_acoes[ $post_status ][ 'name' ]?></a>
                 <iconify-icon icon="bi:chevron-right"></iconify-icon>
             </li>
-            <li><a href="#/">Avaliar / Editar ação</a></li>
+            <li><a href="#/"><?=$current_page?></a></li>
         </ol>
     </div>
-
-    <header class="dashboard-content-header">
-        <h2>Adicionar Ação</h2>
-        <?php
-        //TODO: REFACTORY P/ COMPONENT
-        $post_status = 'draft';
-        switch ( $post_status ) {
-            case 'publish':
-                $class = 'is-publish';
-                $text = 'Ação Sugerida';
-                break;
-
-            case 'draft':
-                $class = 'is-draft';
-                $text = 'Ação Sugerida';
-                break;
-
-            case 'scheduled':
-                $class = 'is-scheduled';
-                $text = 'Ação Agendada';
-                break;
-
-            case 'pending':
-                $class = 'is-pending';
-                $text = 'Ação Arquivada';
-                break;
-
-            default:
-                $class = 'is-blocked';
-                $text = 'BLOQUEADO';
-                break;
-        }
-        ?>
-        <a class="button is-status <?=$class?>">
+    <header class="dashboard-content-header is-single">
+        <h2><?=$title?></h2>
+        <a class="button is-status <?=$class?>" style="<?=( isset( $color ) ? 'background-color : ' . $color : '' )?>">
             <span><?=$text?></span>
         </a>
     </header>
-
     <div class="dashboard-content-single">
         <form id="acaoSingleForm" class="" method="post" enctype="multipart/form-data" action="javascript:void(0);" data-action="<?php bloginfo( 'url' );?>/wp-admin/admin-ajax.php">
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Categoria</label>
                     <select id="selectCategory" class="select" name="tipo_acao" required >
-                        <option value="">SELECIONE UMA CATEGORIA</option>
+                        <option value="">Selecione uma categoria</option>
                         <?php foreach ( $all_terms as $key => $term ) :
                             if( !$term->parent ) : ?>
-                                <option value="<?=$term->slug?>"><?=$term->name?></option>
+                                <option value="<?=$term->slug?>" <?=( $term->slug == $get_terms[0]->slug ) ? 'selected' : '' ?>><?=$term->name?></option>
                             <?php endif; endforeach; ?>
                     </select>
+                    <p class="input-links">
+                        <a href="<?=the_permalink()?>" target="_blank">
+                            <iconify-icon icon="bi:box-arrow-up-right"></iconify-icon>
+                            <span>Ver Ação</span>
+                        </a>
+                    </p>
+
                     <a class="button is-category">
-                        <?php risco_badge_category( 'sem-categoria', 'SEM CATEGORIA ADICIONADA', '' ); ?>
+                        <?php
+                            if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                                risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, '' );
+                            } else {
+                                risco_badge_category( 'sem-categoria', 'SEM CATEGORIA ADICIONADA', '' );
+                            }
+                        ?>
                     </a>
                     <a class="button is-select-input">
                         <iconify-icon icon="bi:chevron-down"></iconify-icon>
@@ -85,14 +151,14 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Título</label>
-                    <input class="input" type="text" name="titulo" placeholder="Digite aqui" value="" required readonly>
+                    <input class="input" type="text" name="titulo" placeholder="Digite aqui" value="<?=$pod->field('titulo')?>" required readonly>
                     <a class="button is-edit-input">
                         <iconify-icon icon="bi:pencil-square"></iconify-icon>
                     </a>
@@ -102,14 +168,14 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Descrição</label>
-                    <textarea class="textarea" name="descricao" readonly required></textarea>
+                    <textarea class="textarea" name="descricao" readonly required><?=wp_unslash( $pod->field('descricao') )?></textarea>
                     <a class="button is-edit-input">
                         <iconify-icon icon="bi:pencil-square"></iconify-icon>
                     </a>
@@ -119,23 +185,22 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
-
             <div class="fields">
                 <div class="is-group">
                     <div class="input-wrap">
                         <label class="label">Data</label>
-                        <input class="input" type="date" name="data" placeholder="" value="" required readonly>
+                        <input class="input" type="date" name="date" value="<?=date( 'Y-m-d', strtotime( $pod->field('data_e_horario' ) ) )?>" required readonly>
                         <a class="button is-edit-input">
                             <iconify-icon icon="bi:pencil-square"></iconify-icon>
                         </a>
                     </div>
                     <div class="input-wrap">
                         <label class="label">Horário</label>
-                        <input class="input" type="time" name="horario" placeholder="" value="" required readonly>
+                        <input class="input" type="time" name="horario" value="<?=date( 'H:i', strtotime( $pod->field('data_e_horario' ) ) )?>" required readonly>
                         <a class="button is-edit-input">
                             <iconify-icon icon="bi:pencil-square"></iconify-icon>
                         </a>
@@ -146,17 +211,26 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
-
             <div class="fields">
                 <div class="input-wrap">
                     <label class="label">Localização</label>
-                    <input class="input" type="text" name="localizacao" placeholder="Digite o local ou endereço aqui" value="" required readonly>
+                    <input class="input" type="text" name="endereco" placeholder="Digite o local ou endereço aqui" value="<?=$pod->field('endereco')?>" required readonly>
+                    <input type="hidden" name="full_address" value="<?=$pod->field( 'full_address' )?>">
+                    <input type="hidden" name="latitude" value="<?=$pod->field( 'latitude' )?>">
+                    <input type="hidden" name="longitude" value="<?=$pod->field( 'longitude' )?>">
                     <a class="button is-edit-input">
                         <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                    </a>
+                    <a class="button is-success" style="display: none">
+                        <iconify-icon icon="bi:check-circle"></iconify-icon>
+                    </a>
+                    <p class="is-error-geolocation" style="font-size: 12px; color: #c10202; padding-left: 10px; display: none; ">Não foi possível encontrar este endereço, aguarde atualizações do mapa.</p>
+                    <a class="button is-loading" style="display: none">
+                        <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
                     </a>
                 </div>
                 <div class="input-help">
@@ -164,61 +238,163 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>
-
             <div class="fields is-media-attachments">
                 <div id="mediaUploadCover" class="input-media">
                     <div class="input-media-uploader">
-                        <h4>Foto de capa</h4>
+                        <h4>Foto</h4>
                         <div class="input-media-uploader-files">
-                            <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media">
+                            <a id="mediaUploadButtonCover" class="button is-primary is-small is-upload-media" <?= !empty($get_attachment) ? 'disabled' : '' ?>>
                                 <iconify-icon icon="bi:upload"></iconify-icon>
                                 <span>Adicionar foto</span>
                             </a>
                         </div>
                     </div>
-                    <div class="input-media-uploader-progress">
-                        <div class="progress is-empty">
-                            <p class="is-empty-text">Funcionalidade de arrasta e solta ainda não disponível.</p>
-                        </div>
+
+                    <div class="media-preview-container">
+                        <h4 class="media-preview-title" style="display: none;">Nova foto</h4>
+                        <div class="media-preview-list"></div>
                     </div>
+
                     <div class="input-media-preview">
-                        <div class="input-media-preview-assets is-empty">
-                            <p class="is-empty-text">Nenhuma imagem ou vídeo adicionado ainda.</p>
+                        <div class="input-media-preview-assets is-images">
+                            <?php if (!empty($get_attachment)) : ?>
+                                <div class="assets-list">
+                                    <figure class="asset-item-preview">
+                                        <img src="<?= esc_url($get_attachment) ?>">
+                                        <div class="asset-item-preview-actions">
+                                            <a class="button is-fullscreen" data-id="<?= $attachment_cover_id ?>" data-href="<?= esc_url($get_attachment) ?>"><iconify-icon icon="bi:arrows-fullscreen"></iconify-icon></a>
+                                            <a class="button is-delete" data-id="<?= $attachment_cover_id ?>"><iconify-icon icon="bi:trash-fill"></iconify-icon></a>
+                                            <a class="button is-download" href="<?= esc_url($get_attachment) ?>" target="_blank"><iconify-icon icon="bi:download"></iconify-icon></a>
+                                        </div>
+                                    </figure>
+                                </div>
+                            <?php else : ?>
+                                <div class="input-media-preview-assets is-empty">
+                                    <p class="is-empty-text">Nenhuma foto adicionada ainda.</p>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
                 <div class="input-help">
-                    <a href="#/" class="button">
-                        <iconify-icon icon="bi:question"></iconify-icon>
-                    </a>
-                    <p>
-                        Todos os campos devem ter pelo menos 5 caracteres.
-                    </p>
+                    <a href="#/" class="button"><iconify-icon icon="bi:question"></iconify-icon></a>
+                    <p>O usuário poderá adicionar uma foto, então se já houver uma foto adicionada (seja por ele ou pela que fez a sugestão), o botão fica desabilitado.</p>
                 </div>
             </div>
-
-            <div class="form-submit">
-                <input type="hidden" name="action" value="form_single_acao_new">
-                <input type="hidden" name="email" value="admin@admin.com">
-                <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>">
-                    <iconify-icon icon="bi:chevron-left"></iconify-icon>
-                    <span>Voltar</span>
-                </a>
-
-                <a class="button is-new acao">
-                    <iconify-icon icon="bi:check2"></iconify-icon>
-                    <span>Criar Ação</span>
-                </a>
+            <div class="fields">
+                <?php if( !empty( $pod->field( 'total_participantes' ) ) ) : ?>
+                    <a class="is-download button" href="<?=admin_url( 'admin-ajax.php?action=download_participantes_acao&post_id=' . get_the_ID() )?>" target="_blank">
+                        <iconify-icon icon="bi:download"></iconify-icon>
+                        Lista de participantes <span>(<?=$pod->field( 'total_participantes' )?>)</span>
+                    </a>
+                <?php else : ?>
+                    <a class="is-download button" style="cursor: not-allowed; opacity: 0.5">
+                        <iconify-icon icon="bi:download"></iconify-icon>
+                        Lista de participantes indisponível</span>
+                    </a>
+                <?php endif; ?>
             </div>
+            <div class="form-submit acao-edit">
+                <input type="hidden" name="action" value="form_single_acao_edit">
+                <input type="hidden" name="post_id" value="<?=get_the_ID()?>">
+                <input type="hidden" name="post_status" value="<?=$post_status?>">
+
+                <?php if( !wp_is_mobile() ) : ?>
+                    <div>
+                        <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
+                            <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                            <span>Voltar</span>
+                        </a>
+                    </div>
+                <?php endif; ?>
+
+                <div class="form-submit-actions acao-edit-actions">
+                    <?php
+                        if( !wp_is_mobile() ) :
+                            if( $post_status === 'draft' ) : ?>
+                        <a class="button is-archive">
+                            <iconify-icon icon="bi:x-lg"></iconify-icon>
+                            <span>Arquivar</span>
+                        </a>
+                    <?php endif; endif; ?>
+
+                    <?php
+                        switch ( $post_status ) {
+
+                            case 'draft': ?>
+                                <a class="button is-scheduled">
+                                    <iconify-icon icon="bi:check2"></iconify-icon>
+                                    <span>Agendar Ação</span>
+                                </a>
+                                <?php break;
+                            case 'publish': ?>
+                                <a class="button is-save">
+                                    <iconify-icon icon="bi:check2"></iconify-icon>
+                                    <span>Publicar Alterações</span>
+                                </a>
+                                <a class="button is-done">
+                                    <iconify-icon icon="bi:check-square-fill"></iconify-icon>
+                                    <span>Concluir Ação</span>
+                                </a>
+                                <?php break;
+
+                            case 'pending': ?>
+                                <a class="button is-scheduled">
+                                    <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                                    <span>Agendar Novamente</span>
+                                </a>
+                                <a class="button is-save">
+                                    <iconify-icon icon="bi:check2"></iconify-icon>
+                                    <span>Salvar Alterações</span>
+                                </a>
+                                <?php break;
+
+                            case 'private': ?>
+                                <a class="button is-archive">
+                                    <iconify-icon icon="bi:x-lg"></iconify-icon>
+                                    <span>Arquivar</span>
+                                </a>
+                                <a class="button is-duplicate" href="<?=get_dashboard_url( 'adicionar-relato' )?>/?post_id=<?=get_the_ID()?>">
+                                    <iconify-icon icon="bi:pencil-square"></iconify-icon>
+                                    Criar Relato
+                                </a>
+                                <?php break;
+                        }
+                    ?>
+
+                    <?php
+                    if( wp_is_mobile() ) :
+                        if( $post_status === 'draft' ) : ?>
+                            <a class="button is-archive">
+                                <iconify-icon icon="bi:x-lg"></iconify-icon>
+                                <span>Arquivar</span>
+                            </a>
+                        <?php endif; endif; ?>
+                </div>
+
+                <?php if( wp_is_mobile() ) : ?>
+                    <div>
+                        <a class="button is-goback" href="<?=get_dashboard_url( 'acoes' )?>/">
+                            <iconify-icon icon="bi:chevron-left"></iconify-icon>
+                            <span>Voltar</span>
+                        </a>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <div id="file-input-storage" style="display: none;"></div>
         </form>
 
         <?php echo get_template_part('template-parts/dashboard/ui/modal-confirm' ); ?>
+        <?php echo get_template_part('template-parts/dashboard/ui/modal-assetset-fullscreen' ); ?>
     </div>
 
-
+    <div id="dashboard-snackbar" class="dashboard-snackbar">
+    </div>
 </div>
-
+        <?php endwhile; ?>
+    <?php endif; ?>

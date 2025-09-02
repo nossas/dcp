@@ -1,12 +1,6 @@
 //card recomendações da home
 .recomendacoes{
-
-    @include mobile {
-        max-height: inherit;
-    }
-
     .wp-block-details[open]{
-        height: size(215);
 
         @include mobile{
             height: auto;
@@ -22,11 +16,25 @@
     .wp-block-details{
         background-color: $color--high-light;
         border-radius: $border-radius--large;
-        padding: $padding--medium;
+        padding: 12px 12px 6px 12px;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.30);
+
+        &[open] {
+            summary {
+                &::after {
+                    transform: translateY(-50%) rotate(0deg);
+                }
+            }
+        }
 
         p:first-child,
         p:last-child {
             border-bottom: none;
+        }
+
+        p:last-child,
+        p:nth-last-child(2) {
+            margin-top: 14px;
         }
 
         & > p {
@@ -34,26 +42,32 @@
             display: flex;
             gap: $gap--small;
             font-size: $font-size--x-small !important;
-            padding-bottom: $padding--small;
-            margin-bottom: $margin--small;
+            padding-bottom: 14px;
+            align-items: center;
 
             @include mobile{
                 align-items: flex-start;
-                margin-bottom: $margin--medium;
             }
 
             & > img {
                 object-fit: contain;
+                flex-shrink: 0;
             }
         }
 
+        p:last-child {
+            padding-bottom: unset !important;
+        }
 
         > summary {
             cursor: pointer;
             list-style: none;
-            margin-bottom: $margin--medium;
+/*             margin-bottom: $margin--medium; */
             padding-right: size(24);
             position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
 
             &::-webkit-details-marker {
                 display: none;
@@ -74,6 +88,10 @@
             }
         }
     }
+
+    .wp-block-details.closed-mobile {
+        padding: 16px 12px;
+    }
 }
 
 .wp-block-columns:has(.recomendacoes){
@@ -88,6 +106,7 @@
 
 //cards recomendações dashboard
 .situacao-atual{
+
     &__btn-wpp {
         @include mobile {
             display: none;
@@ -140,6 +159,7 @@
             &-icon {
                 display: flex;
                 flex-direction: column;
+                position: relative;
             }
         }
 
@@ -171,6 +191,8 @@
         margin-bottom: size(24);
         margin-top: $margin--large;
         text-transform: uppercase;
+
+        position: relative;
 
         @include mobile{
             font-size: $font-size--xx-small;
@@ -235,7 +257,7 @@
         }
     }
 
-    &__icon-select{
+    &__icon-select {
         appearance: none;
         background-color: $color--high-light;
         background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.85276 5.22776C1.90501 5.17537 1.96708 5.13381 2.03542 5.10545C2.10376 5.0771 2.17702 5.0625 2.25101 5.0625C2.32499 5.0625 2.39826 5.0771 2.46659 5.10545C2.53493 5.13381 2.597 5.17537 2.64926 5.22776L9.001 11.5806L15.3528 5.22776C15.4051 5.17546 15.4671 5.13397 15.5355 5.10567C15.6038 5.07736 15.677 5.06279 15.751 5.06279C15.825 5.06279 15.8982 5.07736 15.9665 5.10567C16.0349 5.13397 16.097 5.17546 16.1493 5.22776C16.2016 5.28005 16.243 5.34214 16.2713 5.41047C16.2996 5.47881 16.3142 5.55204 16.3142 5.62601C16.3142 5.69997 16.2996 5.77321 16.2713 5.84154C16.243 5.90987 16.2016 5.97196 16.1493 6.02426L9.39925 12.7743C9.347 12.8266 9.28493 12.8682 9.21659 12.8966C9.14825 12.9249 9.07499 12.9395 9.001 12.9395C8.92702 12.9395 8.85376 12.9249 8.78542 12.8966C8.71708 12.8682 8.65501 12.8266 8.60275 12.7743L1.85276 6.02426C1.80037 5.972 1.75881 5.90993 1.73045 5.84159C1.7021 5.77325 1.6875 5.69999 1.6875 5.62601C1.6875 5.55202 1.7021 5.47876 1.73045 5.41042C1.75881 5.34208 1.80037 5.28001 1.85276 5.22776V5.22776Z" fill="%23605E5D"/></svg>');
@@ -246,9 +268,10 @@
         border-radius: $border-radius--medium;
         cursor: pointer;
         font-size: $font-size--x-small;
-        max-height: size(66);
+        height: size( 45 );
+        line-height: size( 23 );
         -moz-appearance: none;
-        padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+        padding: 0.5rem 2.5rem 0.5rem 50px;
         -webkit-appearance: none;
 
         &::-ms-expand {
@@ -256,7 +279,7 @@
         }
 
         @include mobile{
-            max-width: size(178);
+            width: 60%;
         }
     }
 
@@ -270,11 +293,16 @@
     }
 
     &__textarea{
-        border: size(1) solid $color--secondary-dark;
+        border: size( 1 ) solid $color--secondary-dark;
         border-radius: $border-radius--medium;
-        max-height: size(42);
+        height: size( 45 );
         padding: $padding--small $padding--medium;
         width: 100%;
+        resize: none;
+
+        @include mobile {
+            height: size( 105 );
+        }
     }
 
     &__textarea-wrapper{
@@ -285,7 +313,6 @@
         width: 100%;
 
         textarea {
-            flex: 1;
             padding-right: 2.5rem;
         }
 
@@ -379,6 +406,105 @@
             margin-bottom: $margin--small;
         }
     }
+
+    .situacao-atual__card-text-icon {
+        .situacao-atual__icon {
+            margin-bottom: $margin--small;
+
+            span {
+                font-size: $font-size--x-small;
+                color: $color--high-dark;
+            }
+        }
+    }
+
+    .custom-select-wrapper {
+        position: relative;
+        width: 100%;
+    }
+
+    .custom-select-trigger {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        width: size(104);
+        height: 45px;
+        padding: $padding--small $padding--medium;
+        border: size(1) solid $color--secondary-dark;
+        border-radius: $border-radius--medium;
+        background-color: $color--high-light;
+        transition: border-color 0.2s ease;
+
+        &:hover {
+            border-color: $color--primary-pure;
+        }
+
+        .selected-icon-preview {
+            display: flex;
+            align-items: center;
+
+            svg {
+                width: size(24);
+                height: size(24);
+            }
+            span {
+                font-size: $font-size--x-small;
+                color: $color--high-dark;
+            }
+        }
+    }
+
+    .custom-select-arrow {
+        display: flex;
+        align-items: center;
+        transition: transform 0.3s ease;
+
+        svg {
+            width: size(16);
+            height: size(16);
+            stroke: $color--secondary-dark;
+        }
+    }
+
+    &.active .custom-select-arrow {
+        transform: rotate(180deg);
+    }
+
+    .custom-select-options.active {
+        display: block;
+    }
+    .custom-select-trigger.active .custom-select-arrow {
+        transform: rotate(180deg);
+    }
+
+    .custom-select-options {
+        display: none;
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 0;
+        right: 0;
+        background-color: $color--high-light;
+        border: size(1) solid #E6E2E0;
+        box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+        max-height: 200px;
+        overflow-y: auto;
+        z-index: 1000;
+        padding: $padding--small / 2;
+    }
+
+    .custom-select-option {
+        padding: $padding--small;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        border-radius: $border-radius--small;
+
+        svg {
+            width: size(24);
+            height: size(24);
+        }
+    }
 }
 .editar-recomendacao{
     padding-top: 0;
@@ -401,13 +527,17 @@
     }
 
     & > a{
+        font-size: size( 18 );
         align-items: center;
         border: size(1) solid $color--secondary-dark;
         border-radius: size(100);
         color: $color--secondary-dark;
         display: flex;
         gap: $gap--small;
-        padding: size(10) $gap--medium;
+        padding: 0 size( 18 ) 0 size( 15 );
+        min-height: 40px;
+        height: size( 38 );
+        line-height: size( 38 );
 
         @include mobile{
             justify-content: center;
@@ -416,12 +546,16 @@
     }
 
     & > button{
+        font-size: size( 18 );
         align-items: center;
         background-color: $color--primary-pure;
         border-radius: size(100);
         color: $color--high-light;
         display: flex;
         gap: $gap--small;
+        padding: 0 size( 33 ) 0 size( 30 );
+        line-height: size( 38 );
+        min-height: 40px;
 
         @include mobile {
             justify-content: center;
@@ -435,7 +569,15 @@
 }
 
 .editar-recomendacao .situacao-atual__icon {
-  display: none;
+    display: block;
+    position: absolute;
+    bottom: 12px;
+    left: 10px;
+    transform: scale( 0.9 );
+
+    @include mobile {
+        bottom: 10px;
+    }
 }
 
 .recomendacoes-card{
@@ -475,6 +617,14 @@
             gap: size(24);
             margin-bottom: $margin--medium;
             padding-bottom: $margin--medium;
+
+            span {
+
+                svg {
+                    width: 25px;
+                    height: 27px;
+                }
+            }
         }
 
         & > li:last-child{
@@ -527,6 +677,8 @@
 
     &__saiba-mais{
         color: $color--secondary-dark;
+        text-align: center;
+        width: size( 100 );
 
         @include mobile{
             display: none;
@@ -560,6 +712,7 @@
     &__icone {
         align-items: center;
         display: flex;
+        padding: size( 5 );
 
         @include mobile {
             flex-shrink: 0;
@@ -569,7 +722,17 @@
 
             svg {
                 width: 100%;
+                max-width: 35px;
                 height: 100%;
+            }
+        }
+
+        img {
+            width: auto;
+            height: 38px;
+
+            @include mobile {
+                height: 28px;
             }
         }
     }
@@ -607,7 +770,7 @@
         background-color: transparent;
 
         @include mobile{
-            bottom: size(30);
+            bottom: 0;
             height: size(20);
             padding: 0;
             position: relative;

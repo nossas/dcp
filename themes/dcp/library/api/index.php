@@ -68,9 +68,48 @@ class API {
                     'required' => true,
                 ],
             ],
-            // 'permission_callback' => 'hacklabr\API::rest_permission_to_edit_riscos',
             'permission_callback' => '__return_true',
         ]);
+
+        register_rest_route('hacklabr/v2', '/reverse_geocoding', [
+            'methods' => ['GET', 'POST'],
+            'callback' => 'hacklabr\API::rest_reverse_geocoding_callback',
+            'args' => [
+                'lat' => [
+                    'type' => 'number',
+                    'required' => true,
+                ],
+                'lon' => [
+                    'type' => 'number',
+                    'required' => true,
+                ],
+            ],
+            'permission_callback' => '__return_true',
+        ]);
+    }
+
+    private static function make_nominatim_request ($url) {
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (compatible; NossasDCP/1.0)',
+            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_TIMEOUT => 30,
+        ]);
+
+        $response = curl_exec($curl);
+        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $curl_error = curl_error($curl);
+        curl_close($curl);
+
+        if ($response === false || $http_code !== 200) {
+            $error_message = $curl_error ?: "HTTP Error: {$http_code}";
+            do_action('logger', $error_message, 'warning');
+            return null;
+        }
+
+        return json_decode($response);
     }
 
     static function send_html ($html) {
@@ -81,10 +120,6 @@ class API {
 
     static function rest_permission_to_edit_posts () {
         return current_user_can('edit_posts');
-    }
-
-    static function rest_permission_to_edit_riscos () {
-        return current_user_can('edit_riscos');
     }
 
     static function rest_block_settings_callback () {
@@ -101,20 +136,41 @@ class API {
         return new \WP_REST_Response($response, 200);
     }
 
+    static function get_geocoder() {
+        if (get_option('google_maps_key')) {
+            require __DIR__ . '/geocoding/google-maps.php';
+            return apply_filters('dcp_geocoder', geocoding\GoogleMaps::class);
+        } else {
+            require __DIR__ . '/geocoding/nominatim.php';
+            return apply_filters('dcp_geocoder', geocoding\Nominatim::class);
+        }
+    }
+
     static function rest_geocoding_callback (\WP_REST_Request $request) {
         $address = $request->get_param('address');
 
-        $result = \Jeo\Geocode_Handler::get_instance()->get_active_geocoder()->geocode( $address );
+        $geocoder = self::get_geocoder();
+        $data = $geocoder::geocode($address);
 
-        if ( empty( $result[0] ) ) {
-            return null;
+        if (!empty($data)) {
+            return new \WP_REST_Response($data, 200);
+        } else {
+            return new \WP_REST_Response(null, 404);
         }
+    }
 
-        return [
-            'lat' => floatval($result[0]['lat']),
-            'lon' => floatval($result[0]['lon']),
-            'address' => $result[0]['raw']['address'],
-        ];
+    static function rest_reverse_geocoding_callback (\WP_REST_Request $request) {
+        $lat = $request->get_param('lat');
+        $lon = $request->get_param('lon');
+
+        $geocoder = self::get_geocoder();
+        $data = $geocoder::reverse_geocode($lat, $lon);
+
+        if (!empty($data)) {
+            return new \WP_REST_Response($data, 200);
+        } else {
+            return new \WP_REST_Response(null, 404);
+        }
     }
 
     static function rest_options_callback () {

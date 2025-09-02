@@ -1,5 +1,11 @@
 @use "sass:math";
 
+@mixin modal-height {
+    @media (max-height: 600px) {
+        @content;
+    }
+}
+
 @mixin small {
     @media (max-width: $break--small) {
         @content;
@@ -50,6 +56,18 @@
 
 @mixin desktop-xlarge {
     @media (min-width: $break--desktop-x-large) {
+        @content;
+    }
+}
+
+@mixin desktop-xxlarge {
+    @media (min-width: $break--desktop-xx-large) {
+        @content;
+    }
+}
+
+@mixin desktop-xxxlarge {
+    @media (min-width: $break--desktop-xxx-large) {
         @content;
     }
 }

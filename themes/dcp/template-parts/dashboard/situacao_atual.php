@@ -2,6 +2,7 @@
 
 namespace hacklabr\dashboard;
 
+//TODO: REFACTORY TO LIBRARY
 if (!function_exists(__NAMESPACE__ . '\render_svg')) {
     function render_svg($id)
     {
@@ -16,157 +17,219 @@ if (!function_exists(__NAMESPACE__ . '\render_svg')) {
     }
 }
 
-$args = [
+function get_cor_by_name( $name = 'NORMAL' ) {
+    $cor = '';
+    switch ($name) {
+        case 'NORMAL';
+            $cor = 'normal';
+            break;
+        case 'ATENÇÃO';
+            $cor = 'atencao';
+            break;
+        case 'PERIGO';
+            $cor = 'perigo';
+            break;
+    }
+    return $cor;
+}
+
+//TODO: REFACTORY TO LIBRARY
+$recomendacoes_post = get_posts([
     'post_type' => 'recomendacao',
     'posts_per_page' => -1,
     'orderby'        => 'date',
     'order'          => 'ASC',
-];
-$recomendacoes_post = get_posts($args);
+]);
+$recomendacoes_ativas_post = get_posts([
+    'post_type' => 'recomendacao',
+    'posts_per_page' => -1,
+    'orderby'        => 'date',
+    'order'          => 'ASC',
+        'meta_query' => [
+            [
+                'key' => 'is_active',
+                'value' => true,
+                'compare' => '='
+            ]
+        ]
+]);
+$situacao_ativa_post = get_posts([
+    'post_type' => 'situacao_atual',
+    'posts_per_page' => -1,
+    'orderby'        => 'date',
+    'order'          => 'ASC',
+    'meta_query' => [
+        [
+            'key' => 'is_active',
+            'value' => true,
+            'compare' => '='
+        ]
+    ]
+]);
+$pod_situacao_ativa = pods( 'situacao_atual', $situacao_ativa_post[ 0 ]->ID );
+
 ?>
-
-<div class="situacao-atual__container">
-    <div class="situacao-atual__header">
-        <h1 class="situacao-atual__title"><?= __('Situação atual') ?></h1>
-        <div class="situacao-atual__btn">
-            <div class="situacao-atual__icon--wpp">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                    <path d="M15.3011 2.61778C14.4759 1.78492 13.4932 1.12462 12.4102 0.675363C11.3272 0.226106 10.1657 -0.00312325 8.99325 0.00103206C4.08037 0.00103206 0.0765 4.00378 0.072 8.91778C0.072 10.4917 0.48375 12.0228 1.26113 13.3784L0 18.001L4.7295 16.7613C6.03788 17.4733 7.50367 17.8465 8.99325 17.8469H8.99775C13.9118 17.8469 17.9145 13.8442 17.919 8.92566C17.9201 7.75346 17.6893 6.59262 17.2398 5.51002C16.7903 4.42742 16.1311 3.44447 15.3 2.61778H15.3011ZM8.99325 16.3372C7.66462 16.3376 6.36041 15.9801 5.21775 15.3022L4.94775 15.1402L2.142 15.8759L2.89125 13.1388L2.71575 12.8564C1.97303 11.6755 1.58023 10.3083 1.58287 8.91328C1.58287 4.83403 4.9095 1.50628 8.99775 1.50628C9.97171 1.50453 10.9364 1.69559 11.8361 2.06843C12.7359 2.44128 13.553 2.98854 14.2402 3.67866C14.9299 4.36609 15.4766 5.18326 15.8489 6.08304C16.2212 6.98282 16.4116 7.94741 16.4093 8.92116C16.4048 13.015 13.0781 16.3372 8.99325 16.3372V16.3372ZM13.0601 10.7864C12.8385 10.675 11.7439 10.1362 11.538 10.0597C11.3332 9.98653 11.1836 9.94828 11.0374 10.171C10.8877 10.3927 10.4603 10.8978 10.332 11.0429C10.2038 11.1925 10.071 11.2094 9.84825 11.0992C9.62662 10.9867 8.90775 10.7527 8.05725 9.99103C7.3935 9.40041 6.94913 8.66916 6.81638 8.44753C6.68813 8.22478 6.804 8.10553 6.91537 7.99416C7.01325 7.89516 7.137 7.73316 7.24837 7.60491C7.36087 7.47666 7.398 7.38216 7.47112 7.23366C7.54425 7.08291 7.50937 6.95466 7.45425 6.84328C7.398 6.73191 6.95362 5.63278 6.76575 5.18953C6.58575 4.75191 6.40237 4.81266 6.26512 4.80703C6.13687 4.79916 5.98725 4.79916 5.83763 4.79916C5.72463 4.80197 5.61344 4.8281 5.51103 4.87592C5.40862 4.92374 5.3172 4.99221 5.2425 5.07703C5.03775 5.29978 4.46513 5.83866 4.46513 6.93778C4.46513 8.03691 5.26387 9.09328 5.37637 9.24291C5.48662 9.39253 6.94462 11.6414 9.18225 12.6089C9.711 12.8395 10.1273 12.9757 10.4524 13.0792C10.9868 13.2502 11.4694 13.2243 11.8541 13.1692C12.2816 13.1039 13.1715 12.6292 13.3594 12.1083C13.5439 11.5863 13.5439 11.1408 13.4876 11.0474C13.4325 10.9529 13.2829 10.8978 13.0601 10.7864V10.7864Z" fill="#F9F3EA" />
-                </svg>
-            </div>
-            <a class="situacao-atual__btn-wpp" href=""><?= __('Notificar moradores') ?></a>
-        </div>
-    </div>
-
-    <div class="alerta-faixa">
-        <div class="alerta-faixa__topo">
-            <div class="alerta-faixa__mensagem">
-                <span class="alerta-faixa__icone">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="30" viewBox="0 0 40 30" fill="none">
-                        <path d="M4.03307 13.7394C4.03307 13.7394 4.03796 13.7467 4.04283 13.7467H4.46187C6.31106 13.7369 7.95317 14.9186 8.53302 16.6752L8.83512 17.5888C8.83512 17.5888 8.84243 17.5985 8.84974 17.5961L28.8936 10.979C28.8936 10.979 28.9033 10.9717 28.9009 10.9644L28.5988 10.0532C28.0189 8.299 28.6353 6.36941 30.1264 5.27549L30.5649 4.95389C30.5649 4.95389 30.5698 4.94658 30.5698 4.94171L30.2653 4.0159C29.4637 1.58685 26.8422 0.266351 24.4132 1.06791L6.66677 6.92733C4.23773 7.72889 2.91723 10.3504 3.71879 12.7794L4.03551 13.7418L4.03307 13.7394Z" fill="#281414" />
-                        <path d="M8.21674 22.3297C7.68805 20.729 6.56488 17.3254 6.56488 17.323C5.98991 15.581 3.88002 15.6955 2.40116 15.7662C2.39872 15.7662 2.39629 15.7662 2.39385 15.7662C1.45586 16.1194 0.88332 17.1695 1.22441 18.2074L2.84701 23.1191C4.00915 22.6659 5.39299 22.3151 7.53211 22.3151C7.77087 22.3151 7.99745 22.32 8.21916 22.3297H8.21674Z" fill="#281414" />
-                        <path d="M30.0354 20.8946L30.8711 20.6193L31.9187 20.2734C31.9187 20.2734 31.9309 20.2734 31.9333 20.2807L32.0917 20.7582C32.2695 21.2966 32.8201 21.6499 33.3707 21.5208C33.992 21.3746 34.3428 20.7314 34.1455 20.1394L33.9701 19.6107C33.9701 19.6107 33.9701 19.5985 33.9774 19.5961L35.1054 19.2233C37.3785 18.4729 38.6113 16.0219 37.8609 13.7488C37.8609 13.7488 35.5903 6.86857 35.5878 6.8637C35.3539 6.15472 34.7229 5.63578 33.9847 5.54076C33.6387 5.49691 33.3147 5.57731 33.0053 5.72349C32.3938 6.01585 31.8505 6.57378 31.3461 6.9441C30.5787 7.5069 30.262 8.49849 30.5616 9.40238L32.4669 15.1717C32.6374 15.6906 32.4133 16.2826 31.9114 16.4995C31.3461 16.7431 30.7054 16.4459 30.5153 15.8733L29.5505 12.9546C29.5505 12.9546 29.5432 12.9448 29.5359 12.9473L9.49208 19.5644C9.49208 19.5644 9.48233 19.5717 9.48477 19.579L10.4325 22.4466C10.4496 22.4978 10.4593 22.5489 10.469 22.6001C13.283 23.1994 14.4062 24.5833 17.6002 25.0048L30.0354 20.8995V20.8946Z" fill="#281414" />
-                        <path d="M19.6346 27.312C13.5802 27.312 13.5802 24.5029 7.52589 24.5029C3.54977 24.5029 2.18297 25.7162 0 26.547V30.0773H40V26.6323C37.3176 25.7796 36.2017 24.5029 31.7432 24.5029C25.6889 24.5029 25.6889 27.312 19.6346 27.312Z" fill="#281414" />
+<div id="dashboardSituacaoAtual" class="dashboard-content">
+    <div class="situacao-atual__container">
+        <!-- HEADER -->
+        <div class="situacao-atual__header">
+            <h1 class="situacao-atual__title"><?= __('Situação atual') ?></h1>
+            <div class="situacao-atual__btn">
+                <div class="situacao-atual__icon--wpp">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M15.3011 2.61778C14.4759 1.78492 13.4932 1.12462 12.4102 0.675363C11.3272 0.226106 10.1657 -0.00312325 8.99325 0.00103206C4.08037 0.00103206 0.0765 4.00378 0.072 8.91778C0.072 10.4917 0.48375 12.0228 1.26113 13.3784L0 18.001L4.7295 16.7613C6.03788 17.4733 7.50367 17.8465 8.99325 17.8469H8.99775C13.9118 17.8469 17.9145 13.8442 17.919 8.92566C17.9201 7.75346 17.6893 6.59262 17.2398 5.51002C16.7903 4.42742 16.1311 3.44447 15.3 2.61778H15.3011ZM8.99325 16.3372C7.66462 16.3376 6.36041 15.9801 5.21775 15.3022L4.94775 15.1402L2.142 15.8759L2.89125 13.1388L2.71575 12.8564C1.97303 11.6755 1.58023 10.3083 1.58287 8.91328C1.58287 4.83403 4.9095 1.50628 8.99775 1.50628C9.97171 1.50453 10.9364 1.69559 11.8361 2.06843C12.7359 2.44128 13.553 2.98854 14.2402 3.67866C14.9299 4.36609 15.4766 5.18326 15.8489 6.08304C16.2212 6.98282 16.4116 7.94741 16.4093 8.92116C16.4048 13.015 13.0781 16.3372 8.99325 16.3372V16.3372ZM13.0601 10.7864C12.8385 10.675 11.7439 10.1362 11.538 10.0597C11.3332 9.98653 11.1836 9.94828 11.0374 10.171C10.8877 10.3927 10.4603 10.8978 10.332 11.0429C10.2038 11.1925 10.071 11.2094 9.84825 11.0992C9.62662 10.9867 8.90775 10.7527 8.05725 9.99103C7.3935 9.40041 6.94913 8.66916 6.81638 8.44753C6.68813 8.22478 6.804 8.10553 6.91537 7.99416C7.01325 7.89516 7.137 7.73316 7.24837 7.60491C7.36087 7.47666 7.398 7.38216 7.47112 7.23366C7.54425 7.08291 7.50937 6.95466 7.45425 6.84328C7.398 6.73191 6.95362 5.63278 6.76575 5.18953C6.58575 4.75191 6.40237 4.81266 6.26512 4.80703C6.13687 4.79916 5.98725 4.79916 5.83763 4.79916C5.72463 4.80197 5.61344 4.8281 5.51103 4.87592C5.40862 4.92374 5.3172 4.99221 5.2425 5.07703C5.03775 5.29978 4.46513 5.83866 4.46513 6.93778C4.46513 8.03691 5.26387 9.09328 5.37637 9.24291C5.48662 9.39253 6.94462 11.6414 9.18225 12.6089C9.711 12.8395 10.1273 12.9757 10.4524 13.0792C10.9868 13.2502 11.4694 13.2243 11.8541 13.1692C12.2816 13.1039 13.1715 12.6292 13.3594 12.1083C13.5439 11.5863 13.5439 11.1408 13.4876 11.0474C13.4325 10.9529 13.2829 10.8978 13.0601 10.7864V10.7864Z" fill="#F9F3EA" />
                     </svg>
-                </span>
-                <div class="alerta-faixa__warning"><strong>ATENÇÃO</strong> Alagamento em algumas áreas do Jacarezinho. Evite locais de risco.</div>
-            </div>
-            <?php
-                $slug = sanitize_title($post->post_title);
-            ?>
-            <a href="<?= get_dashboard_url('alterar_risco', ['alterar-risco' => $slug]) ?>" class="alerta-faixa__alterar">Alterar</a>
-        </div>
-
-        <div class="alerta-faixa__info">
-            <div class="alerta-faixa__local">
-                <p class="alerta-faixa__local--estado"><?= __('Rio de Janeiro:') ?></p> <strong><span>ESTÁGIO 3</span></strong>
-                <div class="multistepform__pipe"> | </div>
-                <span>32º</span> • Chuvas medianas
-            </div>
-            <div class="alerta-faixa__data">
-                Última atualização: <span>15:30</span> <span>15/01/25</span>
+                </div>
+                <a class="situacao-atual__btn-wpp" href=""><?= __('Notificar moradores') ?></a>
             </div>
         </div>
-    </div>
 
-
-    <div class="recomendacoes-card">
-        <div class="recomendacoes-card__header">
-            <h2 class="recomendacoes-card__title situacao-atual__content-title-text"><?= __('Recomendações Ativas') ?></h2>
-            <button class="recomendacoes-card__editar situacao-atual__edit-btn">
-                <?= __('Editar') ?>
-            </button>
-        </div>
-
-        <div class="recomendacoes-card__body">
-            <p class="recomendacoes-card__titulo situacao-atual__card-title"><?= __('Recomendações') ?></p>
-            <ul class="recomendacoes-card__lista">
-                <li>
-                    <span class="recomendacoes-card__icone">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M18 0.000976562C18.7956 0.000976563 19.5585 0.317322 20.1211 0.879883C20.6837 1.44247 21 2.20536 21 3.00098V21.001C21 21.7966 20.6837 22.5595 20.1211 23.1221C19.5585 23.6847 18.7956 24.001 18 24.001H6C5.20438 24.001 4.4415 23.6847 3.87891 23.1221C3.31635 22.5595 3 21.7966 3 21.001V3.00098C3.00002 2.20536 3.31632 1.44247 3.87891 0.879883C4.4415 0.317292 5.20438 0.000997272 6 0.000976562H18ZM12 18.001C8.06555 18.001 5.78099 19.2403 4.5 20.6338V21.001C4.5 21.3988 4.6582 21.7802 4.93945 22.0615C5.22074 22.3428 5.6022 22.501 6 22.501H18C18.3978 22.501 18.7792 22.3428 19.0605 22.0615C19.3419 21.7802 19.5 21.3988 19.5 21.001V20.6338C18.219 19.2388 15.9345 18.001 12 18.001ZM12 7.50098C10.8066 7.501 9.66225 7.97544 8.81836 8.81934C7.97446 9.66323 7.50002 10.8075 7.5 12.001C7.5 13.1944 7.97449 14.3387 8.81836 15.1826C9.66225 16.0265 10.8066 16.501 12 16.501C13.1935 16.501 14.3377 16.0265 15.1816 15.1826C16.0256 14.3387 16.5 13.1945 16.5 12.001C16.5 10.8075 16.0255 9.66323 15.1816 8.81934C14.3377 7.97547 13.1934 7.50098 12 7.50098ZM9.75 3.00098C9.55112 3.001 9.36036 3.08007 9.21973 3.2207C9.07909 3.36134 9.00002 3.55209 9 3.75098C9 3.94985 9.07912 4.14061 9.21973 4.28125C9.36036 4.42188 9.55112 4.50096 9.75 4.50098H14.25C14.4489 4.50098 14.6396 4.4219 14.7803 4.28125C14.9209 4.1406 15 3.94989 15 3.75098C15 3.55209 14.9209 3.36134 14.7803 3.2207C14.6396 3.0801 14.4489 3.00098 14.25 3.00098H9.75Z" fill="#D49500" />
-                        </svg>
+        <!-- SITUACAO ATUAL -->
+        <div class="alerta-faixa">
+            <div class="alerta-faixa__topo alerta-faixa__topo--<?=get_cor_by_name( $pod_situacao_ativa->field( 'tipo_de_alerta' ) )?>">
+                <div class="alerta-faixa__mensagem">
+                    <span class="alerta-faixa__icone">
+                        <img src="<?=$pod_situacao_ativa->field( 'icone.guid' )?>">
                     </span>
-                    <?= __('Coloque os documentos importantes e receitas no kit de sobrevivência.') ?>
-                </li>
-                <li>
-                    <span class="recomendacoes-card__icone">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M12.0006 0.000976562C13.0356 0.00105663 14.7648 0.400389 16.3922 0.839844C17.846 1.23994 19.2904 1.67475 20.7232 2.14453C21.1358 2.28111 21.502 2.53121 21.7789 2.86621C22.0559 3.2013 22.2322 3.60801 22.2887 4.03906C23.1827 10.7546 21.1084 15.7319 18.5914 19.0244C17.5242 20.4327 16.2513 21.6725 14.816 22.7031C14.3197 23.0598 13.7934 23.3734 13.2437 23.6406C12.8224 23.8386 12.3725 24.0009 12.0006 24.001C11.6286 24.001 11.1764 23.8386 10.7564 23.6406C10.3005 23.4261 9.76395 23.1125 9.18515 22.7031C7.74969 21.6724 6.47616 20.4329 5.40878 19.0244C2.89179 15.7319 0.817533 10.7545 1.71152 4.03906C1.76805 3.60819 1.94527 3.20203 2.22226 2.86719C2.49927 2.53233 2.86526 2.28276 3.27793 2.14648C4.26489 1.824 5.94307 1.29081 7.608 0.84082C9.2355 0.39832 10.9656 0.000976562 12.0006 0.000976562ZM12.0035 15.001C11.6058 15.001 11.2243 15.1592 10.943 15.4404C10.6617 15.7217 10.5035 16.1032 10.5035 16.501C10.5035 16.8988 10.6617 17.2802 10.943 17.5615C11.2243 17.8428 11.6057 18.001 12.0035 18.001C12.4012 18.0009 12.7828 17.8428 13.0641 17.5615C13.3453 17.2802 13.5035 16.8987 13.5035 16.501C13.5035 16.1032 13.3453 15.7217 13.0641 15.4404C12.7828 15.1592 12.4012 15.001 12.0035 15.001ZM12.0006 5.99316C11.8103 5.99316 11.6217 6.03391 11.4478 6.11133C11.2741 6.18874 11.1181 6.30199 10.9908 6.44336C10.8638 6.58466 10.7673 6.75091 10.7086 6.93164C10.6499 7.1125 10.6301 7.30406 10.65 7.49316L11.1754 12.7539C11.193 12.9606 11.2873 13.1537 11.44 13.2939C11.5928 13.4342 11.7932 13.5117 12.0006 13.5117C12.2077 13.5116 12.4075 13.434 12.5602 13.2939C12.7129 13.1537 12.8072 12.9606 12.8248 12.7539L13.3502 7.49316C13.3701 7.30405 13.3503 7.11252 13.2916 6.93164C13.2329 6.75087 13.1365 6.58467 13.0094 6.44336C12.8821 6.30192 12.7262 6.18875 12.5523 6.11133C12.3786 6.03397 12.1907 5.99321 12.0006 5.99316Z" fill="#D49500" />
-                        </svg>
-                    </span>
-                    <?= __('Avise vizinhos sobre o risco e compartilhe as recomendações.') ?>
-                </li>
-                <li>
-                    <span class="recomendacoes-card__icone">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M15 0.000976562C15.1989 0.000976563 15.3896 0.0801 15.5303 0.220703C15.6709 0.361337 15.75 0.552092 15.75 0.750977V4.50098H17.25C17.4489 4.50098 17.6396 4.5801 17.7803 4.7207C17.9209 4.86134 18 5.05209 18 5.25098V9.75098C18 11.1434 17.4465 12.4783 16.4619 13.4629C15.4773 14.4475 14.1424 15.001 12.75 15.001C12.747 15.652 12.7354 16.2686 12.6904 16.8311C12.6289 17.6019 12.5012 18.3354 12.2148 18.9668C11.9244 19.6346 11.4095 20.1801 10.7598 20.5088C10.0878 20.8508 9.2535 21.001 8.25 21.001C6.75305 21.001 5.83505 21.4961 5.28906 22.0781C4.79614 22.5987 4.51476 23.2842 4.5 24.001H3C3.00002 23.077 3.34784 21.9503 4.19531 21.0488C5.0608 20.1308 6.39154 19.501 8.25 19.501C9.12145 19.501 9.69315 19.3693 10.0771 19.1729C10.4386 18.9884 10.6767 18.7225 10.8477 18.3477C11.0291 17.9487 11.1379 17.4162 11.1934 16.7129C11.2339 16.2029 11.246 15.6355 11.249 15.001C9.8569 15.0006 8.52135 14.4474 7.53711 13.4629C6.55289 12.4784 6 11.1431 6 9.75098V5.25098C6.00002 5.05209 6.07909 4.86134 6.21973 4.7207C6.36036 4.58007 6.55112 4.501 6.75 4.50098H8.25V0.750977C8.25002 0.552092 8.32909 0.361337 8.46973 0.220703C8.61036 0.0800693 8.80112 0.000997268 9 0.000976562C9.19888 0.000976563 9.38963 0.0800997 9.53027 0.220703C9.67091 0.361337 9.74998 0.552092 9.75 0.750977V4.50098H14.25V0.750977C14.25 0.552092 14.3291 0.361337 14.4697 0.220703C14.6104 0.0800695 14.8011 0.000997268 15 0.000976562Z" fill="#D49500" />
-                        </svg>
-                    </span>
-                    <?= __('Tire os aparelhos eletrônicos da tomada.') ?>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-
-    <div class="situacao-atual">
-        <div class="situacao-atual__content-title">
-            <h2 class="situacao-atual__content-title-text"><?= __('Todas recomendações') ?></h2>
-        </div>
-
-        <div class="situacao-atual__grid">
-            <?php foreach ($recomendacoes_post as $post): ?>
-                <?php
-                $pod = \pods('recomendacao', $post->ID);
-
-                $recomendacao_1 = $pod ? $pod->display('recomendacao_1') : '';
-                $recomendacao_2 = $pod ? $pod->display('recomendacao_2') : '';
-                $recomendacao_3 = $pod ? $pod->display('recomendacao_3') : '';
-
-                $icone_1_id = $pod ? $pod->field('icone_1.ID') : null;
-                $icone_2_id = $pod ? $pod->field('icone_2.ID') : null;
-                $icone_3_id = $pod ? $pod->field('icone_3.ID') : null;
-
-                $slug = sanitize_title($post->post_title);
-                ?>
-                <div class="situacao-atual__card">
-                    <div class="situacao-atual__card-header">
-                        <h4 class="situacao-atual__card-title"><?= esc_html($post->post_title) ?></h4>
-                        <a class="situacao-atual__edit-btn" href="<?= get_dashboard_url('editar_recomendacao', ['situacao' => $slug]) ?>">
-                            <?= __('Editar') ?>
-                        </a>
-                    </div>
-                    <div class="situacao-atual__card-content">
-                        <?php if (!empty($recomendacao_1)): ?>
-                            <div class="situacao-atual__card-text">
-                                <div class="situacao-atual__icon">
-                                    <?= $icone_1_id ? render_svg($icone_1_id) : ''; ?>
-                                </div>
-                                <p><?= esc_html($recomendacao_1) ?></p>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if (!empty($recomendacao_2)): ?>
-                            <div class="situacao-atual__card-text">
-                                <div class="situacao-atual__icon">
-                                    <?= $icone_2_id ? render_svg($icone_2_id) : ''; ?>
-                                </div>
-                                <p><?= esc_html($recomendacao_2) ?></p>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if (!empty($recomendacao_3)): ?>
-                            <div class="situacao-atual__card-text">
-                                <div class="situacao-atual__icon">
-                                    <?= $icone_3_id ? render_svg($icone_3_id) : ''; ?>
-                                </div>
-                                <p><?= esc_html($recomendacao_3) ?></p>
-                            </div>
-                        <?php endif; ?>
+                    <div class="alerta-faixa__warning">
+                        <strong><?=$pod_situacao_ativa->field( 'tipo_de_alerta' )?></strong>
+                        <?=$pod_situacao_ativa->field( 'descricao' )?>
                     </div>
                 </div>
-            <?php endforeach; ?>
+                <a href="<?= get_dashboard_url('alterar_risco', ['alterar-risco' => time() ]) ?>" class="alerta-faixa__alterar">Alterar</a>
+            </div>
+            <div class="alerta-faixa__info">
+                <div class="alerta-faixa__local">
+                    <p class="alerta-faixa__local--estado"><?=$pod_situacao_ativa->field( 'localizacao' )?></p> <strong><span>ESTÁGIO <?=$pod_situacao_ativa->field( 'estagio' )?></span></strong>
+                    <div class="multistepform__pipe"> | </div>
+                    <span><?=$pod_situacao_ativa->field( 'temperatura' )?>º</span> • <?=$pod_situacao_ativa->field( 'clima' )?>
+                </div>
+                <div class="alerta-faixa__data">
+                    Última atualização: <span><?=date( 'H:m', strtotime( $pod_situacao_ativa->field( 'data_e_horario' ) ) ) ?> </span>
+                    • <span><?=date( 'd/m/y', strtotime( $pod_situacao_ativa->field( 'data_e_horario' ) ) )?></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- RECOMENDAÇÕES ATIVAS -->
+        <div class="recomendacoes-card">
+            <?php if( !empty( $recomendacoes_ativas_post ) ) :
+
+            foreach ( $recomendacoes_ativas_post as $post_ativo ) :
+                $slug = sanitize_title( $post_ativo->post_title );
+                ?>
+
+                <div class="recomendacoes-card__header">
+                    <h2 class="recomendacoes-card__title situacao-atual__content-title-text"><?= __('Recomendações Ativas') ?></h2>
+                    <a href="<?= get_dashboard_url('editar_recomendacao', ['situacao' => $slug]) ?>" class="recomendacoes-card__editar situacao-atual__edit-btn">
+                        <?= __('Editar') ?>
+                    </a>
+                </div>
+
+            <?php
+                $pod_ativo = \pods('recomendacao', $post_ativo->ID);
+
+                $recomendacao_ativa_1 = $pod_ativo ? $pod_ativo->display('recomendacao_1') : '';
+                $recomendacao_ativa_2 = $pod_ativo ? $pod_ativo->display('recomendacao_2') : '';
+                $recomendacao_ativa_3 = $pod_ativo ? $pod_ativo->display('recomendacao_3') : '';
+
+                $icone_ativa_1_id = $pod_ativo ? $pod_ativo->field('icone_1.ID') : null;
+                $icone_ativa_2_id = $pod_ativo ? $pod_ativo->field('icone_2.ID') : null;
+                $icone_ativa_3_id = $pod_ativo ? $pod_ativo->field('icone_3.ID') : null;
+
+                ?>
+
+            <div class="recomendacoes-card__body" style="margin-bottom: 25px;">
+                <p class="recomendacoes-card__titulo situacao-atual__card-title"><?= esc_html($post_ativo->post_title) ?></p>
+                <ul class="recomendacoes-card__lista">
+                    <li>
+                        <span class="recomendacoes-card__icone">
+                            <?= $icone_ativa_1_id ? render_svg($icone_ativa_1_id) : ''; ?>
+                        </span>
+                        <?= esc_html($recomendacao_ativa_1) ?>
+                    </li>
+                    <li>
+                        <span class="recomendacoes-card__icone">
+                            <?= $icone_ativa_2_id ? render_svg($icone_ativa_2_id) : ''; ?>
+                        </span>
+                        <?= esc_html($recomendacao_ativa_2) ?>
+                    </li>
+                    <li>
+                        <span class="recomendacoes-card__icone">
+                            <?= $icone_ativa_3_id ? render_svg($icone_ativa_3_id) : ''; ?>
+                        </span>
+                        <?= esc_html($recomendacao_ativa_3) ?>
+                    </li>
+                </ul>
+            </div>
+
+            <?php endforeach;
+
+            else : ?>
+                <div class="message-response" style="display: block;">
+                    <span class="tabs__panel-message">Nenhuma recomendação foi ativa ainda.</span>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <!-- TODAS AS RECOMENDAÇÕES -->
+        <div class="situacao-atual">
+            <div class="situacao-atual__content-title">
+                <h2 class="situacao-atual__content-title-text"><?= __('Todas recomendações') ?></h2>
+            </div>
+            <div class="situacao-atual__grid">
+                <?php foreach ($recomendacoes_post as $post): ?>
+                    <?php
+                    $pod = \pods('recomendacao', $post->ID);
+
+                    $recomendacao_1 = $pod ? $pod->display('recomendacao_1') : '';
+                    $recomendacao_2 = $pod ? $pod->display('recomendacao_2') : '';
+                    $recomendacao_3 = $pod ? $pod->display('recomendacao_3') : '';
+
+                    $icone_1_id = $pod ? $pod->field('icone_1.ID') : null;
+                    $icone_2_id = $pod ? $pod->field('icone_2.ID') : null;
+                    $icone_3_id = $pod ? $pod->field('icone_3.ID') : null;
+
+                    $slug = sanitize_title($post->post_title);
+                    ?>
+                    <div class="situacao-atual__card">
+                        <div class="situacao-atual__card-header">
+                            <h4 class="situacao-atual__card-title"><?= esc_html($post->post_title) ?></h4>
+                            <a class="situacao-atual__edit-btn" href="<?= get_dashboard_url('editar_recomendacao', ['situacao' => $slug]) ?>">
+                                <?= __('Editar') ?>
+                            </a>
+                        </div>
+                        <div class="situacao-atual__card-content">
+                            <?php if (!empty($recomendacao_1)): ?>
+                                <div class="situacao-atual__card-text">
+                                    <div class="situacao-atual__icon">
+                                        <?= $icone_1_id ? render_svg($icone_1_id) : ''; ?>
+                                    </div>
+                                    <p><?= esc_html($recomendacao_1) ?></p>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if (!empty($recomendacao_2)): ?>
+                                <div class="situacao-atual__card-text">
+                                    <div class="situacao-atual__icon">
+                                        <?= $icone_2_id ? render_svg($icone_2_id) : ''; ?>
+                                    </div>
+                                    <p><?= esc_html($recomendacao_2) ?></p>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if (!empty($recomendacao_3)): ?>
+                                <div class="situacao-atual__card-text">
+                                    <div class="situacao-atual__icon">
+                                        <?= $icone_3_id ? render_svg($icone_3_id) : ''; ?>
+                                    </div>
+                                    <p><?= esc_html($recomendacao_3) ?></p>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
 </div>

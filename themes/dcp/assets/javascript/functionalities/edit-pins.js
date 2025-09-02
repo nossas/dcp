@@ -1,19 +1,14 @@
 import { until } from '../shared/wait'
 
 async function fetchCoordinates (address) {
-    const { address_suffix, rest_url } = globalThis.hl_edit_pins_data
-    const fullAddress = address + address_suffix
-    const res = await fetch(`${rest_url}?address=${encodeURIComponent(fullAddress)}`, {
+    const { rest_url } = globalThis.hl_edit_pins_data
+    const res = await fetch(`${rest_url}?address=${encodeURIComponent(address)}`, {
         method: 'POST',
     })
     if (res.ok) {
-        try {
-            const json = await res.text()
-            return JSON.parse(json)
-        } catch (error) {
-            console.error(error)
-            return null
-        }
+        return res.json()
+    } else {
+        return null
     }
 }
 

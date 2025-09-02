@@ -157,6 +157,15 @@ Com isso, ao digitar `psy` e pressionar a tecla `Tab`, o VS Code vai imprimir o 
 
 Para sair desbloquear o processo de debug no terminal, utilize o comando `exit`.
 
+## Configurando o Google Maps
+
+Por padrão, o tema utiliza o [Nominatim](https://nominatim.org/) para realizar *geocoding* e *geocoding* reverso.
+
+O tema pode utiliza a API do Google Maps para *geocoding* e *geocoding* reverso se uma das duas condições forem preenchidas:
+
+- a chave do Google Maps é preenchida em "Configurações > Geral" no painel do WordPress
+- a chave do Google Maps é fornecida pela variável de ambiente `GOOGLE_MAPS_API_KEY`
+
 ## Instalando plugins e temas
 
 ### Copiando arquivos para dentro do repositório
@@ -168,6 +177,7 @@ O conteúdo de `wp-content` está excluído do versionamento por padrão. Para a
 Quando utilizar o comando `wp i18n make-json languages/` para gerar as traduções de arquivos `.js` e as traduções não funcionarem, uma das possíveis soluções pode ser renomear o arquivo gerado de `{locale}-{hash}.json` para `{domain}-{locale}-{script-handle}.json`.
 
 ## Github Workflow e plugin git-updater (v12.4.0)
+
 Para que o plugin funcione corretamente devemos ter o nome da pasta do tema, o nome do repositório no github e o a slug configurada no plugin sendo a mesma string. Por exemplo:
 pasta do tema no repo: themes/novo-nome
 endereço do repo: github.com/hacklabr/novo-nome
@@ -176,15 +186,17 @@ Slug configurada no plugin: novo-nome
 Além disso precisamos ter um link simbolico na raiz do repo apontando para o arquivo style.css dentro da pasta do tema.
 
 Para que a estrutura dos arquivos do repositório siga esse padrão você deve executar, logo após clonar, o script dev-scripts/cria-tema.sh que faz as seguintes alterações:
+
 - altera a pasta do tema
 - substitui em massa a string dcp pelo novo nome
 - cria o link simbolico entre /themes/novo-nome/style.css e /style.css
 - altera a versão do tema para 0.1
 
+### outras alterações
 
-### outras alterações:
-- a variável CURL_URL no arquivo .github/workflows/main.yml com a URL do ambiente a ser atualizado (o plugin git-updater deve estar instalado e o tema adicionado na aba additions)
-- a variável DEPLOY no arquivo .github/workflows/main.yml com um número diferente de 0 se desejar atualizações automáticas.
+- a variável `CURL_URL` no arquivo `.github/workflows/main.yml` com a URL do ambiente a ser atualizado (o plugin git-updater deve estar instalado e o tema adicionado na aba additions)
+- a variável `DEPLOY` no arquivo `.github/workflows/main.yml` com um número diferente de 0 se desejar atualizações automáticas.
 
-### observações importantes: 
+### observações importantes
+
 - para atualizar o tema no ambiente usando o plugin a versão na tag do repositório deve ser igual à versão do tema no style.css

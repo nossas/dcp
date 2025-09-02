@@ -3,7 +3,7 @@
     padding: size(80) !important;
 
     @include mobile{
-        padding: $padding--medium !important;
+        padding: 56px $padding--medium $padding--medium !important;
     }
 
     .wp-block-columns{

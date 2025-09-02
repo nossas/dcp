@@ -354,23 +354,30 @@ class Assets
             return $this->js_files;
         }
 
-        $default_suffix = ', Jacarezinho, Rio de Janeiro, Rio de Janeiro, Brasil';
-
         $js_files = [
             'app' => [
                 'file' => 'app.js',
                 'global' => true,
             ],
 
+            'posts-grid-load-more' => [
+                'file' => 'posts-grid-load-more.js',
+                'global' => true,
+                'localize_callback' => function () {
+                    return [
+                        'ajax_url' => admin_url('admin-ajax.php'),
+                    ];
+                },
+            ],
+
             'dcp-map' => [
                 'file' => 'dcp-map.js',
                 'preload_callback' => function () {
-                    return is_page_template('page-dcp-map.php');
+                    return is_page_template('page-dcp-map.php') || is_page('conteudo-sobre-o-lixo');
                 },
-                'localize_callback' => function () use ($default_suffix) {
+                'localize_callback' => function () {
 
                     return [
-                        'addressSuffix' => apply_filters('dcp_address_suffix', $default_suffix),
                         'restUrl' => rest_url('hacklabr/v2/geocoding'),
                         'themeAssets' => get_stylesheet_directory_uri(),
                     ];
@@ -387,12 +394,18 @@ class Assets
                 'preload_callback' => function () {
                     return is_page_template('template-parts/page-register-risk.php');
                 },
-                'localize_callback' => function () use($default_suffix) {
+                'localize_callback' => function () {
+                    $jacarezinho = [-43.2578789, -22.8875068];
                     return [
-                        'rest_url' => rest_url('hacklabr/v2/geocoding'),
-                        'address_suffix' => apply_filters('dcp_address_suffix', $default_suffix),
+                        'default_coords' => apply_filters('dcp_default_coords', $jacarezinho),
+                        'rest_url' => rest_url('hacklabr/v2'),
                     ];
                 },
+            ],
+
+            'cf7-form-actions' => [
+                'file' => 'cf7-form-actions.js',
+                'global' => true,
             ],
 
             'gutenberg' => [
@@ -409,25 +422,27 @@ class Assets
                     return $screen->base === 'post' && in_array($screen->post_type, ['apoio', 'risco']);
                 },
                 'localize_callback' => function () {
-                    $default_suffix = ', Jacarezinho, Rio de Janeiro, Rio de Janeiro, Brasil';
-
                     return [
                         'rest_url' => rest_url('hacklabr/v2/geocoding'),
-                        'address_suffix' => apply_filters('dcp_address_suffix', $default_suffix),
                     ];
                 },
             ],
 
-            'scroll-behavior'     => [
+            'scroll-behavior' => [
                 'file' => 'anchor-behavior.js',
                 'global' => true,
             ],
 
-            'acoes-load-more'     => [
+            'acoes-load-more' => [
                 'file' => 'acoes-load-more.js',
                 'preload_callback' => function () {
                     return is_archive('acao');
                 }
+            ],
+
+            'acoes-participar' => [
+                'file' => 'acoes-participar.js',
+                'global' => true,
             ],
 
             'search' => [
@@ -435,7 +450,7 @@ class Assets
                 'global' => true,
             ],
 
-            'acoes-anchor'     => [
+            'acoes-anchor' => [
                 'file' => 'acoes-anchor.js',
                 'preload_callback' => function () {
                     return is_archive('acao');
@@ -447,7 +462,7 @@ class Assets
                 'global' => true,
             ],
 
-            'anchor-sidebar'     => [
+            'anchor-sidebar' => [
                 'file' => 'anchor-sidebar.js',
                 'preload_callback' => function () {
                     return is_page_template('page-anchor.php');
@@ -456,6 +471,16 @@ class Assets
 
             'tabs' => [
                 'file' => 'tabs.js',
+                'global' => true,
+            ],
+
+            'mobile-menu' => [
+                'file'   => 'mobile-menu.js',
+                'global' => true,
+            ],
+
+            'mobile-accordion' => [
+                'file'   => 'mobile-accordion.js',
                 'global' => true,
             ],
 
@@ -468,20 +493,58 @@ class Assets
             ],
             'dashboard-modal' => [
                 'file' => 'dashboard-modal.js',
+                'deps' => ['snackbar-module'],
                 'preload_callback' => function () {
                     return dashboard\is_dashboard();
                 },
             ],
-
             'dcp-dashboard' => [
                 'file' => 'dashboard.js',
+                'deps' => ['snackbar-module'],
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
+            ],
+            'dashboard-form' => [
+                'file' => 'dashboard-form.js',
+                'deps' => ['snackbar-module'],
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
+            ],
+            'dashboard-single' => [
+                'file' => 'dashboard-single.js',
+                'deps' => ['snackbar-module'],
                 'preload_callback' => function () {
                     return dashboard\is_dashboard();
                 },
             ],
 
-            'dashboard-single' => [
-                'file' => 'dashboard-single.js',
+            'dashboard-single-form' => [
+                'file' => 'dashboard-single-form.js',
+                'deps' => ['snackbar-module'],
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
+            ],
+
+            'dashboard-recomendacoes' => [
+                'file'  => 'dashboard-recomendacoes.js',
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
+            ],
+
+            'dashboard-media-preview' => [
+                'file' => 'dashboard-media-preview.js',
+                'deps' => ['snackbar-module'],
+                'preload_callback' => function () {
+                    return dashboard\is_dashboard();
+                },
+            ],
+
+            'snackbar-module' => [
+                'file' => 'snackbar.js',
                 'preload_callback' => function () {
                     return dashboard\is_dashboard();
                 },

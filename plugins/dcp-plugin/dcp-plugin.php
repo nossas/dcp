@@ -6,7 +6,7 @@
  * Author: WordPress Wizard
  */
 
- add_action('rest_api_init', function () {
+add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/riscos', [
         'methods' => 'GET',
         'callback' => 'dcp_get_riscos',
@@ -100,7 +100,38 @@ function get_risco_attachments_urls($post_id, $type = 'image') {
     return $urls;
 }
 
+function dcp_api_abrigos($request) {
+    $query_args = [
+        'post_type'      => 'apoio',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'fields'         => 'ids',
+        'tax_query'      => [[
+            'taxonomy' => 'tipo_apoio',
+            'field'    => 'slug',
+            'terms'    => 'locais-seguros',
+        ]]
+    ];
 
+    $locaisSeguros = new WP_Query($query_args);
+    $abrigos = [];
+
+    foreach ( $locaisSeguros->posts as $post ) {
+
+        $pod = pods('apoio', $post );
+        $abrigos[] = [
+            'id' => $post,
+            'nome' => $pod->field( 'titulo' ),
+            'telefone' => $pod->field( 'telefone' ),
+            'endereco' => $pod->field( 'endereco' ),
+            'latitude' => $pod->field( 'latitude' ),
+            'longitude' => $pod->field( 'longitude' ),
+            'geo_full_address' => $pod->field( 'full_address' )
+        ];
+    }
+
+    return rest_ensure_response($abrigos);
+}
 add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/abrigos', [
         'methods' => 'GET',
@@ -109,26 +140,74 @@ add_action('rest_api_init', function () {
     ]);
 });
 
-function dcp_api_abrigos($request) {
-    $abrigos = [
-        [
-            'id' => 1,
-            'nome' => 'Igreja Padre Nelson',
-            'endereco' => 'Rua Projetada A, 120 - Jacarezinho, Japeri - RJ',
-        ],
-        [
-            'id' => 2,
-            'nome' => 'Igreja Batista',
-            'endereco' => 'Av. Principal, 980 - Jacarezinho, Japeri - RJ',
-        ],
-        [
-            'id' => 3,
-            'nome' => 'Centro cultural Jacarézinho',
-            'endereco' => 'Rua da Paz, 789 - Vila Nova',
-        ],
-    ];
 
-    return rest_ensure_response($abrigos);
+
+function dcp_api_dicas($request) {
+
+    $tipo = $request->get_param( 'tipo' );
+    $is_active = $request->get_param( 'active' );
+
+    $args = array(
+        'post_type' => 'recomendacao',
+        'posts_per_page' => -1,
+        'orderby' => 'date',
+        'order' => 'ASC',
+    );
+
+    if (!is_null($is_active)) {
+
+        $active_value = filter_var($is_active, FILTER_VALIDATE_BOOLEAN) ? '1' : '0';
+        $args['meta_query'] = array(
+            array(
+                'key' => 'is_active',
+                'value' => $active_value,
+                'compare' => '='
+            )
+        );
+    }
+
+    $recomendacoes = get_posts( $args );
+    $posts = [];
+    foreach ( $recomendacoes as $key => $post ) {
+        $pod = pods('recomendacao', $post->ID);
+
+        if( !empty( $tipo ) ) {
+
+            if( $tipo === $post->post_name ) {
+
+                $posts = [
+                    'ID' => $post->ID,
+                    'title' => $post->post_title,
+                    'slug' => $post->post_name,
+                    'is_active' => $pod->field('is_active'),
+                    'recomendacoes' => [
+                        $pod->display('recomendacao_1'),
+                        $pod->display('recomendacao_2'),
+                        $pod->display('recomendacao_3')
+                    ]
+                ];
+
+            } else {
+                $posts[ 'error' ] = 'Dica não encontrada';
+            }
+
+        } else {
+
+            $posts[ $key ] = [
+                'ID' => $post->ID,
+                'title' => $post->post_title,
+                'slug' => $post->post_name,
+                'is_active' => $pod->field('is_active'),
+                'recomendacoes' => [
+                    $pod->display('recomendacao_1'),
+                    $pod->display('recomendacao_2'),
+                    $pod->display('recomendacao_3')
+                ]
+            ];
+
+        }
+    }
+    return rest_ensure_response( $posts );
 }
 add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/dicas', [
@@ -136,40 +215,44 @@ add_action('rest_api_init', function () {
         'callback' => 'dcp_api_dicas',
         'args' => [
             'tipo' => [
-                'required' => true,
-                'validate_callback' => function($param) {
-                    return in_array($param, ['enchente', 'lixo', 'calor']);
+                'required' => false,
+                'validate_callback' => function( $param ) {
+                    return $param;
                 },
             ],
+            'active' => array(
+                'required' => false,
+                'validate_callback' => function( $param ) {
+                    return in_array( $param, array( 'true', 'false', '1', '0', 'yes', 'no' ) );
+                }
+            ),
         ],
         'permission_callback' => '__return_true',
     ]);
 });
 
-function dcp_api_dicas($request) {
-    $tipo = $request->get_param('tipo');
-
-    $dicas = [
-        'enchente' => [
-            'Evite contato com a água da enchente.',
-            'Desligue a energia elétrica ao sinal de alagamento.',
-            'Mantenha documentos e objetos importantes em locais altos.',
+function dcp_api_contatos($request) {
+    $contatos = [
+        [
+            'nome' => '🚒 Bombeiros',
+            'telefone' => '193',
+            'descricao' => 'Incêndios, desmoronamentos e resgates.',
         ],
-        'lixo' => [
-            'Não jogue lixo nas ruas ou em bueiros.',
-            'Separe resíduos recicláveis e orgânicos.',
-            'Mantenha o lixo tampado para evitar proliferação de doenças.',
+        [
+            'nome' => '🏠 Defesa Civil',
+            'telefone' => '199',
+            'descricao' => 'Ajuda em enchentes, deslizamentos e outras situações de risco.',
         ],
-        'calor' => [
-            'Beba bastante água durante o dia.',
-            'Evite exposição ao sol entre 10h e 16h.',
-            'Use roupas leves e protetor solar.',
+        [
+            'nome' => '🚑 SAMU',
+            'telefone' => '192',
+            'descricao' => 'Emergências médicas e acidentes.',
         ],
     ];
 
-    return rest_ensure_response($dicas[$tipo]);
-}
 
+    return rest_ensure_response($contatos);
+}
 add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/contatos', [
         'methods' => 'GET',
@@ -178,33 +261,36 @@ add_action('rest_api_init', function () {
     ]);
 });
 
-function dcp_api_contatos($request) {
-    $contatos = [
-        [
-            'nome' => 'Defesa Civil',
-            'telefone' => '199',
-            'descricao' => 'Ajuda em situações de risco, como enchentes ou deslizamentos.',
-        ],
-        [
-            'nome' => 'Bombeiros',
-            'telefone' => '193',
-            'descricao' => 'Atendimento em incêndios, resgates e salvamentos.',
-        ],
-        [
-            'nome' => 'SAMU',
-            'telefone' => '192',
-            'descricao' => 'Atendimento médico de urgência.',
-        ],
-        [
-            'nome' => 'Portal Rio',
-            'telefone' => '1746',
-            'descricao' => 'Solicitações, reclamações ou serviços públicos da cidade.',
-        ],
-    ];
 
-    return rest_ensure_response($contatos);
+function dcp_api_risco_regiao($request) {
+
+    $situacao_ativa_post = get_posts([
+        'post_type' => 'situacao_atual',
+        'posts_per_page' => -1,
+        'orderby'        => 'date',
+        'order'          => 'ASC',
+        'meta_query' => [
+            [
+                'key' => 'is_active',
+                'value' => true,
+                'compare' => '='
+            ]
+        ]
+    ]);
+    $pod_situacao_ativa = pods( 'situacao_atual', $situacao_ativa_post[ 0 ]->ID );
+
+    return rest_ensure_response([
+        'grau_risco' => [
+            'tipo_de_alerta' => $pod_situacao_ativa->field( 'tipo_de_alerta' ),
+            'descricao' => $pod_situacao_ativa->field( 'descricao' ),
+            'localizacao' => $pod_situacao_ativa->field( 'localizacao' ),
+            'estagio' => $pod_situacao_ativa->field( 'estagio' ),
+            'temperatura' => $pod_situacao_ativa->field( 'temperatura' ),
+            'clima' => $pod_situacao_ativa->field( 'clima' ),
+            'ultima_atualizacao' => $pod_situacao_ativa->field( 'data_e_horario' ),
+        ]
+    ]);
 }
-
 add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/risco-regiao', [
         'methods' => 'GET',
@@ -212,16 +298,3 @@ add_action('rest_api_init', function () {
         'permission_callback' => '__return_true',
     ]);
 });
-
-function dcp_api_risco_regiao($request) {
-
-    $minuto = intval(date('s'));
-    $risco_index = $minuto % 3;
-
-    $graus = ['Baixo', 'Médio', 'Alto'];
-    $grau_risco = $graus[$risco_index];
-
-    return rest_ensure_response([
-        'grau_risco' => $grau_risco,
-    ]);
-}

@@ -10,8 +10,8 @@
         </div>
 
         <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis: 676px;">
-                    <h1 style="color:#281414;"> Ficou alguma dúvida ? </h1>
-                    <p style="color:#281414;">Aenean egestas ultricies nibh, at tempus purus fringilla in. Curabitur ornare enim justo, at tristique lorem iaculis et. Vivamus eget mollis nibh. </p>
+                <h1 style="color:#281414; font-size: clamp(24px, 5vw, 36px);">Ficou alguma dúvida?</h1>
+                <p style="color:#281414;">Aenean egestas ultricies nibh, at tempus purus fringilla in. Curabitur ornare enim justo, at tristique lorem iaculis et. Vivamus eget mollis nibh. </p>
 
         <?php echo do_shortcode('[contact-form-7 id="76b0509" title="contato"]'); ?>
         </div>

@@ -11,36 +11,49 @@ $pod = pods( 'acao', get_the_ID() );
         <div class="post-card__term">
             <div>
                 <?php
-                $get_terms = get_the_terms( get_the_ID(), 'tipo_acao' );
-                if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
-                    risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, 'post-card__taxonomia term-' . $get_terms[0]->slug );
-                } else {
-                    risco_badge_category( 'sem-categoria', 'NENHUMA CATEGORIA ADICIONADA' );
-                }
+                    $get_terms = get_the_terms( get_the_ID(), 'tipo_acao' );
+                    if( !empty( $get_terms ) && !is_wp_error( $get_terms ) ) {
+                        risco_badge_category( $get_terms[0]->slug, $get_terms[0]->name, 'post-card__taxonomia term-' . $get_terms[0]->slug );
+                    } else {
+                        risco_badge_category( 'sem-categoria', 'SEM' );
+                    }
                 ?>
+                <style>
+                    .post-card .post-card__taxonomia {
+                        background-color: #F4F0EE !important;
+                        color: #281414 !important;
+                    }
+                </style>
             </div>
-            <div class="post-card__risco-meta">10/06/2025</div>
+            <div class="post-card__risco-meta"><?=date( 'd/m/Y', strtotime( $pod->field( 'data_e_horario' ) ) )?></div>
         </div>
 
         <h3 class="post-card__title">
-            <span>Endereço sugerido</span>
+            <span><?=$pod->field( 'endereco' )?></span>
         </h3>
         <div class="post-card__excerpt-wrapped">
             <p class="text-excerpt">
-                Descrição da ação sugerida. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                <a class="read-more" href="#/">Ver mais</a>
-                <span class="read-more-full">Etiam eget magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget magna. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget magna. Lorem ipsum dolor sit amet.</span>
+                <?php dashboard_excerpt( $pod->field( 'descricao' ) ); ?>
             </p>
         </div>
         <ul class="post-card__list-infos">
-            <li>
-                <i><iconify-icon icon="bi:person-fill"></iconify-icon></i>
-                <span>Nome: João de souza</span>
-            </li>
-            <li>
-                <i><iconify-icon icon="bi:telephone-fill"></iconify-icon></i>
-                <span>Telefone: (21) 99851-2135</span>
-            </li>
+            <?php if( !empty( $pod->field( 'nome_completo' ) ) ) : ?>
+                <li>
+                    <i><iconify-icon icon="bi:person-fill"></iconify-icon></i>
+                    <span>Nome: <?=$pod->field( 'nome_completo' )?></span>
+                </li>
+            <?php endif; ?>
+            <?php if( !empty( $pod->field( 'telefone' ) ) ) : ?>
+                <li>
+                    <i><iconify-icon icon="bi:telephone-fill"></iconify-icon></i>
+                    <span>Telefone: <?=$pod->field( 'telefone' )?></span>
+                </li>
+            <?php else : ?>
+                <li>
+                    <i><iconify-icon icon="bi:envelope-fill"></iconify-icon></i>
+                    <span>E-mail: <?=$pod->field( 'email' )?></span>
+                </li>
+            <?php endif; ?>
         </ul>
 
         <div class="post-card__see-more">

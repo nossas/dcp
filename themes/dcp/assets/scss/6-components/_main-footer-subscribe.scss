@@ -2,10 +2,25 @@
     margin-top: size(80);
     margin-bottom: size(80);
 
+    @include mobile {
+        margin-top: unset !important;
+    }
+
     &__widget{
         .wp-block-cover{
 
             .wp-block-columns > .wp-block-column:first-child{
+                .wp-block-image.hide-on-mobile {
+                    @media (max-width: 782px) {
+                        display: none !important;
+                    }
+                }
+
+                .wp-block-image.hide-on-desktop {
+                    @media (min-width: 783px) {
+                        display: none !important;
+                    }
+                }
 
                 .wp-block-image > img{
                     @include mobile{
@@ -43,6 +58,10 @@
 
                 & > h2{
                     font-size: $font-size--large;
+
+                    @include mobile {
+                        font-size: 24px !important;
+                    }
                 }
 
                 .p2 {
@@ -68,8 +87,11 @@
 .page-template-page-register-risk,
 .post-type-archive-acao,
 .page-politica-de-privacidade,
-.single-relato,
-.page-politica-de-privacidade-2{
+.single-acao,
+.page-politica-de-privacidade-2,
+.page-transparencia,
+.page-sobre,
+.page-metodologia {
     .main-footer-subscribe{
         display: none;
     }

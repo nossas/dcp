@@ -1,47 +1,71 @@
 import { Splide } from '@splidejs/splide'
 
-function buildGallery (container, feature) {
-    const gallery = container.querySelector('.splide')
-    const slidesList = gallery.querySelector('.splide__list')
+const splideInstances = {};
 
-    gallery.splide?.destroy()
+function buildGallery(container, feature) {
+    const gallery = container.querySelector('.splide');
+    const slidesList = gallery.querySelector('.splide__list');
 
-    const medias = (typeof feature.media === 'string') ? JSON.parse(feature.media) : feature.media
+    if (!gallery.id) {
+        const modalType = container.classList.contains('risk-modal') ? 'risk' : 'support';
+        gallery.id = `splide-${modalType}`;
+    }
+    const galleryId = gallery.id;
 
-    const slides = []
-    for (const media of medias) {
-        let slideContent = null
+    const medias = (typeof feature.media === 'string') ? JSON.parse(feature.media) : feature.media;
 
-        if (media.mime.startsWith('image')) {
-            slideContent = document.createElement('img')
-            slideContent.src = media.src
-        } else if (media.mime.startsWith('video')) {
-            slideContent = document.createElement('video')
-            slideContent.controls = true
-            slideContent.src = media.src
-        }
+    const slides = [];
+    if (medias && medias.length > 0) {
+        for (const media of medias) {
+            let slideContent = null;
+            if (media.mime.startsWith('image')) {
+                slideContent = document.createElement('img');
+                slideContent.src = media.src;
+                slideContent.alt = media.alt || '';
+            } else if (media.mime.startsWith('video')) {
+                slideContent = document.createElement('video');
+                slideContent.controls = true;
+                slideContent.src = media.src;
+            }
 
-        if (slideContent) {
-            const slide = document.createElement('div')
-            slide.className = 'splide__slide'
-            slide.appendChild(slideContent)
-            slides.push(slide)
+            if (slideContent) {
+                const slide = document.createElement('li');
+                const isVertical = media.custom_fields && media.custom_fields.orientation === 'vertical';
+                const verticalClass = isVertical ? 'is-vertical' : '';
+                slide.className = `splide__slide ${verticalClass}`;
+                slide.appendChild(slideContent);
+                slides.push(slide);
+            }
         }
     }
 
-    if (slides.length > 0) {
-        gallery.style.display = ''
-        slidesList.replaceChildren(...slides)
+    if (slides.length === 0) {
+        gallery.style.display = 'none';
+        return;
+    }
 
-        gallery.splide = new Splide(gallery)
-        gallery.splide.mount()
+    gallery.style.display = '';
+
+    const existingInstance = splideInstances[galleryId];
+
+    if (existingInstance && existingInstance.state.is('mounted')) {
+        existingInstance.remove(() => true);
+        existingInstance.add(slides);
     } else {
-        gallery.style.display = 'none'
-        slidesList.replaceChildren()
+        slidesList.replaceChildren(...slides);
+
+        const newInstance = new Splide(gallery);
+        splideInstances[galleryId] = newInstance;
+
+        newInstance.mount();
+
+        setTimeout(() => {
+            newInstance.refresh();
+        }, 0);
     }
 }
 
-function createFeature (coordinates, properties) {
+function createFeature(coordinates, properties) {
     return {
         type: 'Feature',
         geometry: {
@@ -52,29 +76,55 @@ function createFeature (coordinates, properties) {
     }
 }
 
-function createApoioFeature (apoio) {
-    const { lat, lon, ...data } = apoio
+function createApoioFeature(apoio) {
+    const { lat, lon, type, ...data } = apoio
     return createFeature([lon, lat], {
-        icon: 'apoio',
+        kind: 'apoio',
+        icon: type,
+        type,
         ...data,
     })
 }
 
-function createRiscoFeature (risco) {
+function createRiscoFeature(risco) {
     const { lat, lon, type, ...data } = risco
     return createFeature([lon, lat], {
+        kind: 'risco',
         icon: `risco-${type}`,
         type,
         ...data,
     })
 }
 
-function insertFeatureCollection (map, container, slug, features) {
-    const sourceSlug = slug
-    const pinsSlug = `${slug}-pins`
+function createSpiderifier(map, container) {
+    const spiderifier = new MapboxglSpiderifier(map, {
+        animate: true,
+        animateSpeed: 200,
+        customPin: true,
+        circleFootSeparation: 44,
+        initializeLeg (leg) {
+            leg.elements.pin.style.backgroundImage = `url("${getImageUrl(leg.feature.icon)}")`
+            leg.elements.container.addEventListener('click', () => {
+                displayModal(container, leg.feature)
+            })
+        },
+    })
 
-    map.addSource(sourceSlug, {
+    return spiderifier
+}
+
+function insertFeatureCollection(map, spiderifier, container, slug, features) {
+    const pinsLayer = `${slug}-pins`
+    const clustersLayer = `${slug}-clusters`
+    const countLayer = `${slug}-count`
+
+    let lastZoom = map.getZoom()
+
+    map.addSource(slug, {
         type: 'geojson',
+        cluster: true,
+        clusterRadius: 54,
+        clusterMaxZoom: 24,
         data: {
             type: 'FeatureCollection',
             features: features,
@@ -82,42 +132,95 @@ function insertFeatureCollection (map, container, slug, features) {
     })
 
     map.addLayer({
-        id: pinsSlug,
+        id: pinsLayer,
         type: 'symbol',
-        source: sourceSlug,
+        source: slug,
+        filter: ['all', ['!has', 'point_count']],
         layout: {
             'icon-allow-overlap': true,
+            'icon-anchor': 'bottom',
             'icon-image': ['get', 'icon'],
         },
     })
 
-    map.on('click', pinsSlug, (event) => {
-		const feature = event.features[0]
-        displayModal(container, slug, feature.properties)
-	})
+    map.addLayer({
+        id: clustersLayer,
+        type: 'circle',
+        source: slug,
+        filter: ['all', ['has', 'point_count']],
+        paint: {
+            'circle-color': '#000000',
+            'circle-radius': 14,
+        },
+    })
 
-	map.on('mousemove', (event) => {
-		const features = map.queryRenderedFeatures(event.point, { layers: [pinsSlug] })
-		map.getCanvas().style.cursor = (features.length > 0) ? 'pointer' : ''
-	})
+    map.addLayer({
+        id: countLayer,
+        type: 'symbol',
+        source: slug,
+        layout: {
+            'text-field': '{point_count}',
+            'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+            'text-size': 12,
+        },
+        paint: {
+            'text-color': '#ffffff',
+        },
+    })
+
+    map.on('click', pinsLayer, (event) => {
+        const feature = event.features[0]
+        displayModal(container, feature.properties)
+    })
+
+    map.on('click', clustersLayer, (event) => {
+        const features = map.queryRenderedFeatures(event.point, { layers: [clustersLayer] })
+
+        spiderifier.unspiderfy()
+        if (!features.length) {
+            return
+        } else {
+            map.getSource(slug).getClusterLeaves(features[0].properties.cluster_id, 100, 0, (err, leafFeatures) => {
+                if (err) {
+                    console.error('Error getting leaves from cluster', err)
+                } else {
+                    const markers = leafFeatures.map((feature) => feature.properties)
+                    spiderifier.spiderfy(features[0].geometry.coordinates, markers)
+                }
+            })
+        }
+    })
+
+    map.on('mousemove', (event) => {
+        const features = map.queryRenderedFeatures(event.point, { layers: [clustersLayer, pinsLayer] })
+        map.getCanvas().style.cursor = (features.length > 0) ? 'pointer' : ''
+    })
+
+    map.on('zoom', () => {
+        const currentZoom = map.getZoom()
+        if (Math.abs(currentZoom - lastZoom) > 0.1) {
+            lastZoom = currentZoom
+            spiderifier.unspiderfy()
+        }
+    })
 }
 
-function closeModals (container) {
+function closeModals(container) {
     container.querySelectorAll('dialog').forEach((dialog) => {
         dialog.close()
     })
 }
 
-function displayModal (container, type, feature) {
+function displayModal(container, feature) {
     closeModals(container)
-    if (type === 'apoio') {
+    if (feature.kind === 'apoio') {
         displayApoioModal(container, feature)
-    } else if (type === 'risco') {
+    } else if (feature.kind === 'risco') {
         displayRiscoModal(container, feature)
     }
 }
 
-function displayApoioModal (container, apoio) {
+function displayApoioModal(container, apoio) {
     const dialog = container.querySelector('.support-modal')
 
     dialog.querySelector('.dcp-map-modal__title').innerHTML = apoio.title
@@ -134,7 +237,7 @@ function displayApoioModal (container, apoio) {
     dialog.showModal()
 }
 
-function displayRiscoModal (container, risco) {
+function displayRiscoModal(container, risco) {
     const dialog = container.querySelector('.risk-modal')
     dialog.classList.toggle('risk-modal--alagamento', risco.type === 'alagamento')
     dialog.classList.toggle('risk-modal--lixo', risco.type === 'lixo')
@@ -169,31 +272,89 @@ function displayRiscoModal (container, risco) {
     dialog.showModal()
 }
 
-function getImageUrl (slug) {
+function getImageUrl(slug) {
     return `${globalThis.hl_dcp_map_data.themeAssets}/assets/images/pin-${slug}.svg`
 }
 
-async function loadImage (map, slug, height = 54, width = 44) {
+async function loadImage(map, slug, height = 54, width = 44) {
     const src = getImageUrl(slug)
 
-	return new Promise((resolve) => {
-		const img = new globalThis.Image(width, height)
-		img.onload = () => {
-			map.addImage(slug, img)
-			resolve(slug)
-		}
-		img.src = src
-	})
+    return new Promise((resolve) => {
+        const img = new globalThis.Image(width, height)
+        img.onload = () => {
+            map.addImage(slug, img)
+            resolve(slug)
+        }
+        img.src = src
+    })
 }
 
-export function setupMap (jeoMap, container, riscos, apoios, initialSource) {
+function setupLightbox() {
+    const lightbox = document.getElementById('simpleLightbox');
+    if (!lightbox) {
+        console.warn('Elemento do Lightbox não encontrado.');
+        return;
+    }
+
+    const lightboxImage = lightbox.querySelector('img');
+    const closeButton = lightbox.querySelector('.simple-lightbox__close');
+
+    let lastOpenedModal = null;
+
+    const openLightbox = (imageElement) => {
+        const modal = imageElement.closest('.dcp-map-modal');
+
+        if (modal) {
+            lastOpenedModal = modal;
+            lastOpenedModal.close();
+        }
+
+        lightboxImage.src = imageElement.src;
+        lightbox.classList.add('is-active');
+    };
+
+    const closeLightbox = () => {
+        lightbox.classList.remove('is-active');
+        setTimeout(() => { lightboxImage.src = ''; }, 300);
+
+        if (lastOpenedModal) {
+            lastOpenedModal.showModal();
+            lastOpenedModal = null;
+        }
+    };
+
+    document.body.addEventListener('click', function(event) {
+        const clickedImage = event.target.closest('.dcp-map-modal .splide__slide img');
+        if (clickedImage) {
+            event.preventDefault();
+            openLightbox(clickedImage);
+        }
+    });
+
+    closeButton.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) {
+            closeLightbox();
+        }
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && lightbox.classList.contains('is-active')) {
+            closeLightbox();
+        }
+    });
+}
+
+export function setupMap(jeoMap, container, riscos, apoios, initialSource) {
+    setupLightbox()
     const map = jeoMap.map
+    let spiderifier
 
     const riscoFeatures = riscos.map(createRiscoFeature)
     const apoioFeatures = apoios.map(createApoioFeature)
 
-    function toggleLayer (cpt) {
+    function toggleLayer(cpt) {
         closeModals(container)
+        spiderifier?.unspiderfy()
 
         for (const [source, features] of [['apoio', apoioFeatures], ['risco', riscoFeatures]]) {
             const filteredFeatures = (source === cpt) ? features : []
@@ -207,13 +368,17 @@ export function setupMap (jeoMap, container, riscos, apoios, initialSource) {
     map.on('load', async () => {
         await Promise.all([
             loadImage(map, 'apoio'),
+            loadImage(map, 'cacamba'),
+            // Adicionar outro tipo de apoio
+
             loadImage(map, 'risco-alagamento'),
             loadImage(map, 'risco-lixo'),
             loadImage(map, 'risco-outros'),
         ])
 
-        insertFeatureCollection(map, container, 'risco', riscoFeatures)
-        insertFeatureCollection(map, container, 'apoio', apoioFeatures)
+        spiderifier = createSpiderifier(map, container)
+        insertFeatureCollection(map, spiderifier, container, 'risco', riscoFeatures)
+        insertFeatureCollection(map, spiderifier, container, 'apoio', apoioFeatures)
         toggleLayer(initialSource.current)
 
         if (window.innerWidth < 800) {

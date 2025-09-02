@@ -1,28 +1,57 @@
 #dashboardInicio {
-
     .dashboard-content-home {
-
         .dashboard-content-header {
             display: block;
         }
-
         .dashboard-content-section {
-
-
             &-header {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 padding: size( 25 ) size( 10 );
 
+                @include mobile {
+                    padding: 0 size( 15 );
+                    margin-bottom: size(20);
+                }
+                @include tablet {
+                    padding: 0 size( 20 );
+                    margin-bottom: size(23);
+                }
+                @include desktop {
+                    padding: 0 size( 30 );
+                    margin-bottom: size(10);
+                }
+                @include desktop-large {
+                    padding: 0 size( 35 );
+                    margin-bottom: size(15);
+                }
+                @include desktop-xxlarge {
+                    padding: 0 size( 40 );
+                    margin-bottom: size(10);
+                }
+
+                h2 {
+                    font-size: size( 20 );
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    line-height: size( 22 );
+
+                    @include mobile {
+                        font-size: size( 16 );
+                        width: 60%;
+                        line-height: size( 18 );
+                    }
+                }
+
                 .button {
                     background-color: transparent;
                     color: $color--secondary-dark;
                     text-decoration: none;
-                    padding: size( 13 ) size( 25 );
+                    padding: size( 11 ) size( 20 );
                     border: solid 1.5px $color--secondary-dark;
                     border-radius: size( 50 );
-                    display: inline-block;
+                    display: flex;
                     position: relative;
                     z-index: 2;
 
@@ -30,43 +59,52 @@
                         background-color: $color--secondary-dark;
                         color: $color--secondary-light;
                     }
+
                 }
             }
-
             &-body {
-
-
 
                 .header-cards {
                     display: flex;
+                    justify-content: space-between;
 
-                    @include small {
-                        display: block;
-                    }
                     @include mobile {
                         display: block;
+                        padding: 0 size( 15 );
+                        margin-bottom: size(20);
                     }
                     @include tablet {
                         display: block;
+                        padding: 0 size( 20 );
+                        margin-bottom: size(23);
+                    }
+                    @include desktop {
+                        padding: 0 size( 30 );
+                        margin-bottom: size(30);
+                    }
+                    @include desktop-large {
+                        padding: 0 size( 35 );
+                        margin-bottom: size(35);
+                    }
+                    @include desktop-xxlarge {
+                        padding: 0 size( 40 );
+                        margin-bottom: size(40);
                     }
 
                     .card {
-                        background-color: white;
+                        background-color: #FFF;
                         font-weight: 300;
                         color: $color--secondary-dark;
                         display: inline-block;
                         width: 17.5%;
                         min-height: size( 100 );
                         padding: 0;
-                        margin: 0 25px 25px 0;
-
+                        margin: 0;
                         border-color: #FEFBF9;
                         border-radius: size( 20 );
-
                         position: relative;
                         z-index: 1;
                         overflow: hidden;
-
                         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.30);
                         transform: scale( 1 );
                         transition: all 0.5s 0s ease;
@@ -108,15 +146,49 @@
                             gap: size( 20 );
                             padding: size( 15 ) size( 20 );
 
+
+                            &.normal{
+                                background-color: $color--primary-light;
+                            }
+
+                            &.atencao{
+                                background-color: $color--warning-pure;
+                            }
+
+                            &.perigo{
+                                background-color: $color--secondary-pure
+                            }
+
                             figure {
 
-                            }
-                            p {
+                                display: block;
+                                width: size( 50 );
 
-                                strong {
-                                    text-transform: uppercase;
+                                @include mobile {
+
                                 }
 
+                                img {
+                                    display: block;
+                                    width: 100%;
+                                }
+                            }
+                            div {
+                                display: flex;
+                                gap: size( 40 );
+
+                                @include mobile {
+                                    display: block;
+                                }
+
+                                p {
+                                    font-weight: 400;
+                                    strong {
+                                        font-weight: 600;
+                                        text-transform: uppercase;
+                                    }
+
+                                }
                             }
                         }
 
@@ -127,11 +199,10 @@
                             padding: size( 15 ) size( 20 );
 
                             p {
-
+                                strong {
+                                    font-weight: 600;
+                                }
                                 span {
-
-
-
                                     &.is-separator {
                                         font-size: size( 20 );
                                         font-weight: bold;
@@ -157,25 +228,33 @@
 
                     }
 
-                }
+                    .card-group {
+                        display: flex;
+                        gap: size( 15 );
+                        justify-content: space-between;
+                        width: 33%;
+                        border: none;
 
-            }
-        }
+                        @include mobile {
+                            width: 100%;
+                            padding-top: size( 15 );
+                            padding-bottom: size( 50 );
+                            border-bottom: solid 2px rgba( 0,0,0,0.3 );
+                            margin-bottom: size( 50 );
+                        }
+                        @include tablet {
+                            width: 100%;
+                            padding-top: size( 15 );
+                            padding-bottom: size( 50 );
+                            border-bottom: solid 2px rgba( 0,0,0,0.3 );
+                            margin-bottom: size( 50 );
+                        }
 
-    }
+                        .card {
+                            width: 50%;
+                        }
+                    }
 
-
-    .dashboard-content-cards {
-        .post-card {
-            padding-top: size( 10 );
-            padding-bottom: size( 10 );
-
-            &__excerpt-wrapped {
-
-                margin-bottom: 0;
-
-                p {
-                    min-height: size(50);
                 }
 
             }

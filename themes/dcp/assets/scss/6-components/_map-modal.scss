@@ -6,7 +6,24 @@
     margin: auto;
     max-width: calc(100% - #{size(32)});
     position: relative;
-    width: size(720);
+
+    @include mobile {
+        width: size(400);
+    }
+    @include tablet {
+        width: size(480);
+    }
+    @include desktop {
+        width: size(520);
+    }
+
+    @include desktop-xlarge {
+        width: size(720);
+    }
+
+    @include modal-height {
+        width: size(500);
+    }
 
     &__close {
         background-color: transparent;
@@ -52,6 +69,7 @@
         font-weight: $font-weight--medium;
     }
 
+
     &__whatsapp {
         border: 1px solid $color--primary-pure;
         border-radius: $border-radius--large;
@@ -69,7 +87,6 @@
 
     &__whatsapp-mobile {
         display: none;
-
         @include mobile {
             display: inline;
         }
@@ -77,18 +94,58 @@
 
     .splide {
         margin-block: $gap--medium;
+        aspect-ratio: 16 / 9;
+
+        @include desktop {
+            max-height: 640px;
+        }
+
+        .splide__track, .splide__list, .splide__slide {
+            height: 100%;
+        }
+
+        .splide__slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
 
         img, video {
-            aspect-ratio: 16 / 9;
+            display: block;
             border-radius: $border-radius--medium;
             object-fit: cover;
-            object-position: center;
+        }
+
+        .splide__slide:not(.is-vertical) img {
             width: 100%;
+            height: 100%;
+        }
+
+        .splide__slide.is-vertical img {
+            max-height: 100%;
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            aspect-ratio: 4 / 5;
         }
     }
 
     main {
         margin-block: $gap--medium;
+
+        @include mobile {
+            margin-block: $gap--small;
+        }
+        @include tablet {
+            margin-block: $gap--x-small;
+        }
+        @include desktop {
+            margin-block: $gap--small;
+        }
+        @include desktop-xlarge {
+            margin-block: $gap--medium;
+        }
     }
 
     footer {
@@ -114,6 +171,18 @@
 
     &__date {
         margin-block: $gap--medium;
+        @include mobile {
+            margin-block: $gap--small;
+        }
+        @include tablet {
+            margin-block: $gap--x-small;
+        }
+        @include desktop {
+            margin-block: $gap--small;
+        }
+        @include desktop-xlarge {
+            margin-block: $gap--medium;
+        }
     }
 
     &__pill {

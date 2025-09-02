@@ -54,7 +54,7 @@
     }
 }
 
-.wpcf7{
+.wpcf7 {
     &-list-item{
         margin-left: 0 !important;
     }
@@ -81,31 +81,38 @@
         }
 
         .custom-submit-button {
-            align-items: flex-end;
             background-color: $color--primary-pure;
             color: $color--high-light;
             border: none;
             border-radius: size(100);
             cursor: pointer;
-            display: flex;
             font-size: $font-size--x-small;
-            gap: $gap--x-small;
-            height: size(40);
-            padding: 10px 16px 10px 10px;
             transition: background-color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            max-width: size(134);
+            width: 100%;
+/*             height: size(48);
+ */
+            padding: size(8) size(20);
 
-            @include mobile{
-                padding-inline: size(104);
+            &:hover {
+               background-color: #19382A;
+               transition: all 0.2s ease-in-out;
+            }
+
+            span {
+                display: inline-block;
+                font-size: size(15);
+                margin-top: 0;
+                padding-left: size(8);
+            }
+
+            @include mobile {
+                max-width: 100%;
                 width: 100%;
             }
-        }
-
-        .custom-submit-button .icon {
-            width: size(16);
-            height: size(16);
-            position: relative;
-            bottom: size(3);
-            stroke: $color--high-light;
         }
 
         label{
@@ -123,12 +130,27 @@
             }
 
             .wpcf7-form-control-wrap > .wpcf7-textarea{
+                height: size( 150 );
+                resize: none;
+
                 @include mobile {
                     height: size(115);
                 }
             }
         }
     }
+
+    // .wpcf7-response-output,
+    .wpcf7-not-valid-tip {
+        display: none !important;
+    }
+}
+.layout-part--footer-archive-acao .wpcf7 {
+
+    form {
+        gap: size(15);
+    }
+
 }
 
 .form-layout{
@@ -138,10 +160,23 @@
     margin-inline: auto;
     max-width: $grid--wide;
 
+    @include mobile {
+        display: flex;
+        flex-direction: column;
+    }
     .form-image{
+
         @include mobile{
             display: none;
         }
+        //    display: flex;
+        //    flex-direction: column;
+        //}
+        //img {
+        //    @include mobile {
+        //        max-width: 50%;
+        //    }
+        //}
     }
 }
 
@@ -263,11 +298,22 @@
 }
 
 .multistepform{
+    position: relative;
     margin-top: size(40);
     width: size(752);
 
     @include mobile{
         width: 100%;
+    }
+
+    &__remove-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
     }
 
     &__carousel {
@@ -299,11 +345,10 @@
     }
 
     &__accept{
-        align-items: center;
+        align-items: flex-start;
         display: flex;
         font-size: $font-size--xx-small;
-        gap: $gap--x-small;
-        padding-left: $padding--small;
+        gap: 14px;
 
         @include mobile{
             align-items: flex-start;
@@ -317,7 +362,36 @@
         }
     }
 
+    &__accept-wrapper {
+
+        .error-message {
+            display: none;
+            color: $color--warning-dark;
+            font-size: 12px;
+            font-weight: 400;
+            padding-left: 5px;
+        }
+
+        &.has-error {
+            .error-message {
+                display: block;
+            }
+
+            input[type="checkbox"] {
+                outline: 2px solid $color--warning-dark;
+                outline-offset: -1px;
+            }
+        }
+
+        input[type="checkbox"] {
+           width: 18px;
+           height: 18px;
+           flex-shrink: 0;
+        }
+    }
+
     &__button{
+        background-color: transparent;
         text-decoration: none;
         padding-inline: $padding--medium;
         padding-bottom: size(10);
@@ -389,7 +463,6 @@
         border-top: size(1) solid #E6E2E0;
         display: flex;
         justify-content: space-between;
-        margin-top: size(48);
         margin-bottom: $margin--large;
         max-width: size(752);
         padding-top: size(48);
@@ -407,8 +480,23 @@
         }
 
         &-success{
-            gap: $gap--medium;
+            gap: 32px;
             justify-content: flex-start !important;
+            border-top: unset !important;
+            padding-top: 8px;
+
+            @include mobile {
+                border-top: unset !important;
+                flex-direction: column;
+                gap: 12px;
+                max-width: 100%;
+                width: 100%;
+                padding-top: unset !important;
+            }
+
+            .multistepform__button{
+                padding: 8px 16px;
+            }
         }
     }
 
@@ -539,6 +627,45 @@
     &__input{
         display: flex;
         flex-direction: column;
+        position: relative;
+        margin-top: -14px;
+
+        .error-message {
+            display: none;
+            color: $color--warning-dark;
+            font-size: 12px;
+            padding-left: 12px;
+        }
+
+        // Estilo para o estado de erro
+        &.has-error {
+            .multistepform__label {
+                color: $color--warning-dark;
+            }
+
+            input {
+                border-color: $color--warning-dark;
+                padding-right: 40px;
+            }
+
+            .error-icon {
+                display: block;
+            }
+
+            .error-message {
+                display: block;
+            }
+        }
+
+        .error-icon {
+            display: none;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: $color--warning-dark;
+            pointer-events: none;
+        }
     }
 
     &__pipe{
@@ -546,6 +673,16 @@
 
         @include mobile{
             display: none;
+        }
+    }
+
+    & &__map-wrapper {
+        padding-top: size(16);
+
+        .jeomap {
+            height: 300px;
+            max-width: 100%;
+            width: 400px;
         }
     }
 
@@ -594,7 +731,6 @@
 
         @include mobile{
             font-size: size(20);
-            white-space: nowrap;
         }
     }
 
@@ -603,7 +739,7 @@
         flex-direction: column;
         align-items: center;
         gap: $gap--medium;
-        margin-bottom: $margin--large;
+        // margin-bottom: $margin--large;
 
         @include mobile{
             gap: $gap--small;
@@ -635,10 +771,13 @@
     }
 
     &__upload-preview {
-        margin-top: $margin--medium;
+        margin-top: -10px;
         display: flex;
         flex-wrap: wrap;
         gap: $gap--medium;
+        @include mobile {
+            margin-top: 0px;
+        }
 
         img,
         video {
@@ -666,8 +805,121 @@
         font-weight: $font-weight--medium;
         color: $color--secondary-dark;
     }
-}
 
+   .snackbar-overlay {
+        display: none;
+        z-index: 9998;
+
+        &.show {
+            display: block;
+
+            @include mobile {
+                position: fixed;
+                inset: 0;
+                background-color: rgba(0, 0, 0, 0.4);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: $padding--medium;
+            }
+        }
+
+    }
+
+    .form-snackbar {
+        background-color: $color--warning-dark;
+        color: $color--secondary-light;
+        padding: 14px 16px;
+        border-radius: 12px;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+        font-size: $font-size--xx-small;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        position: absolute;
+        bottom: 85px;
+        right: 0;
+        margin-bottom: 10px;
+        max-width: 344px;
+        width: auto;
+        box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.30);
+
+        @include mobile {
+            position: relative;
+            bottom: auto;
+            right: auto;
+            width: 100%;
+        }
+
+        &.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        svg {
+            flex-shrink: 0;
+        }
+    }
+    [data-step="1"] {
+        .multistepform__header {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+    }
+    [data-step="5"] {
+        .multistepform__accept-terms {
+            display: flex;
+            color: var(--Color-Theme-Dark, #281414);
+            font-size: 14px;
+            gap:8px;
+            align-items: flex-start;
+        }
+        .multistepform__accept-wrapper.accept-whatsapp {
+            position: relative;
+            top: 25px;
+        }
+        .multistepform__carousel {
+            .splide {
+                width: 400px;
+                max-width: 400px !important;
+                display: flex;
+                height: 224.691px;
+                @include mobile {
+                    width: auto !important;
+                    height: auto !important;
+                }
+            }
+        }
+
+    }
+    [data-step="6"] {
+      /*   @include mobile {
+            display: none;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            text-align: center;
+        } */
+
+        .multistepform__button-backmapa {
+            @include mobile {
+                display: flex;
+                justify-content: center;
+            }
+        }
+        .multistepform__button-more-risk {
+            @include mobile {
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
+
+}
 .multistepform__checkbox-option input[type="checkbox"]:checked + .multistepform__checkbox-label {
     background-color: $color--high-light ;
 }
