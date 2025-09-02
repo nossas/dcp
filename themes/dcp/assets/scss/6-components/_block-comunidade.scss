@@ -5,6 +5,7 @@
 
     @include mobile {
         margin-top: unset !important;
+        margin-bottom: 0 !important;
     }
 
     .wp-block-column{
@@ -12,8 +13,7 @@
             font-size: $font-size--x-large;
 
             @include mobile{
-                font-size: size(24);
-                white-space: nowrap;
+                font-size: size(40);
                 text-align: left !important;
                 letter-spacing: 1.2px;
                 line-height: 130%;
