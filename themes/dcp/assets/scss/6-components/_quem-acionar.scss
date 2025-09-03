@@ -10,7 +10,7 @@
             width: 100%;
             margin-inline: auto;
             margin-top: $margin--large;
-            margin-bottom: $margin--large;
+
             @media ( max-width:1366px ){
                 margin-inline: 2rem;
             }
@@ -136,7 +136,8 @@
         }
         .title > h2{
             color: var(--Color-Theme-Danger, #B83D13) !important;
-            margin: 16px 0;
+            margin: 24px 0;
+
             @include mobile{
                 font-size: 24px !important;
                 margin-bottom: 0px;
@@ -147,6 +148,8 @@
             max-width: 676px;
             color:#281414;
             font-weight: 500;
+            margin-bottom: $margin--large;
+
             @include mobile{
                 font-size: 16px;
                 font-weight: 400;
