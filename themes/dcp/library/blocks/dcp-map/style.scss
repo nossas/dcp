@@ -16,8 +16,8 @@
     &__tab {
         align-items: center;
         background-color: transparent;
-        border: 1px solid var(--tab-color);
-        color: var(--tab-color);
+        border: 1px solid $color--secondary-dark;
+        color: $color--secondary-dark;
         display: flex;
         flex: 1;
         font-weight: 500;
@@ -26,17 +26,28 @@
 
         &--selected {
             background-color: var(--tab-color);
+            border: 1px solid var(--tab-color);
             color: white;
         }
 
         &[data-cpt="risco"] {
             border-top-left-radius: $border-radius--medium;
             --tab-color: #{$color--warning-dark};
+
+            &:hover{
+                background-color: #7A280C;
+                color: $color--high-light;
+            }
         }
 
         &[data-cpt="apoio"] {
             border-top-right-radius: $border-radius--medium;
             --tab-color: #{$color--primary-pure};
+
+            &:hover{
+                background-color: #17382A;
+                color: $color--high-light;
+            }
         }
     }
 

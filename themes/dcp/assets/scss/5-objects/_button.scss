@@ -93,6 +93,7 @@
 }
 
 .mostrar-mais{
+    margin-top: size(40);
     margin-bottom: size(128);
 
     @include mobile{
