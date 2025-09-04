@@ -104,6 +104,19 @@
 
             @include mobile {
                 max-width: size(56);
+                display: none;
+            }
+        }
+
+        &-mobile1{
+            display: none;
+
+            @include mobile {
+
+                display: flex !important;
+                height: auto;
+                max-width: size(56);
+                width: 100%;
             }
         }
     }
