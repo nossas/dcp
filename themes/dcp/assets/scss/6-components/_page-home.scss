@@ -19,9 +19,10 @@ body.page-home {
         }
 
         .mostrar-mais {
+            margin-bottom: unset !important;
+            margin-top: size(40);
             max-width: 100% !important;
             width: 100% !important;
-            margin-bottom: unset !important;
 
             .wp-block-button__link {
                 padding: 9px;

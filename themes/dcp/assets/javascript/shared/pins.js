@@ -235,6 +235,9 @@ function displayApoioModal(container, apoio) {
 
     buildGallery(dialog, apoio)
     dialog.showModal()
+
+    enableDialogOutsideClickClose(dialog);
+
 }
 
 function displayRiscoModal(container, risco) {
@@ -270,6 +273,9 @@ function displayRiscoModal(container, risco) {
 
     buildGallery(dialog, risco)
     dialog.showModal()
+
+    enableDialogOutsideClickClose(dialog);
+
 }
 
 function getImageUrl(slug) {
@@ -403,3 +409,19 @@ export function setupMap(jeoMap, container, riscos, apoios, initialSource) {
 
     return { displayModal, toggleLayer }
 }
+
+function enableDialogOutsideClickClose(dialog) {
+    dialog.addEventListener('click', (event) => {
+        const rect = dialog.getBoundingClientRect();
+        const isInDialog = (
+            event.clientX >= rect.left &&
+            event.clientX <= rect.right &&
+            event.clientY >= rect.top &&
+            event.clientY <= rect.bottom
+        );
+        if (!isInDialog) {
+            dialog.close();
+        }
+    });
+}
+

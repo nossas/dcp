@@ -39,6 +39,7 @@
                 }
 
                 .p1{
+                    font-size: $font-size--x-small !important;
                     @include mobile{
                         display: none;
                     }

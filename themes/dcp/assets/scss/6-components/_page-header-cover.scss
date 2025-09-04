@@ -1,5 +1,6 @@
 .page-header-cover{
     margin-bottom: size(100);
+    padding-top: 0 !important;
 
     @include mobile{
         margin-bottom: unset !important;
@@ -78,5 +79,11 @@
                 }
             }
         }
+    }
+}
+
+.page{
+    h2:first-child{
+        margin-top: size(24) !important;
     }
 }

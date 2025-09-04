@@ -77,6 +77,10 @@
         }
     }
 
+    .wp-block-button > a > img:first-child{
+        display: none;
+    }
+
     .apoio-btn {
         .wp-block-button {
             &__link {
@@ -93,6 +97,7 @@
 }
 
 .mostrar-mais{
+    margin-top: size(40);
     margin-bottom: size(128);
 
     @include mobile{
