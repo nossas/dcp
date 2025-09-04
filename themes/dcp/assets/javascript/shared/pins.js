@@ -369,6 +369,7 @@ export function setupMap(jeoMap, container, riscos, apoios, initialSource) {
         await Promise.all([
             loadImage(map, 'apoio'),
             loadImage(map, 'cacamba'),
+            loadImage(map, 'iniciativas-locais'),
             // Adicionar outro tipo de apoio
 
             loadImage(map, 'risco-alagamento'),

@@ -63,6 +63,8 @@ function format_support_pin(\WP_Post $post): array {
     ]);
     if (is_array($types) && in_array('cacambas', $types)) {
         $type = 'cacamba';
+    } elseif ( is_array($types) && in_array('iniciativas-locais', $types ) ) {
+        $type = 'iniciativas-locais';
     } else {
         $type = 'apoio';
     }
