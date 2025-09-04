@@ -85,7 +85,7 @@
 
     &__monitoramento{
         @include mobile {
-            padding-bottom: 0px;
+            padding-bottom: 0px !important;
         }
         .wp-block-cover__inner-container {
             @include mobile {
