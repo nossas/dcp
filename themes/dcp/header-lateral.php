@@ -39,27 +39,13 @@
                 </button>
 
                 <div class="main-header-lateral__logo">
-                    <?php if (has_custom_logo()): ?>
-                        <?php
-                        $custom_logo_id = get_theme_mod('custom_logo');
-                        $logo_url       = wp_get_attachment_image_url($custom_logo_id, 'full');
-                        ?>
-                        <a href="<?= esc_url(home_url('/')) ?>" class="custom-logo-link" rel="home">
-                            <picture>
-                                <source media="(max-width: 768px)" srcset="<?= get_template_directory_uri() ?>/assets/images/DCP_Logo_Escura_4.svg">
-                                <img src="<?= esc_url($logo_url) ?>" alt="<?= esc_attr(get_bloginfo('name')) ?>" class="custom-logo">
-                            </picture>
-                        </a>
-                    <?php else: ?>
-                        <a href="<?= home_url() ?>">
-                            <picture>
-                                <source media="(max-width: 768px)" srcset="<?= get_template_directory_uri() ?>/assets/images/DCP_Logo_Escura_4.svg">
-                                <img src="<?= get_template_directory_uri() ?>/assets/images/logo.png" width="200" alt="<?= esc_attr(get_bloginfo('name')) ?>">
-                            </picture>
-                        </a>
-                    <?php endif; ?>
+                    <a href="<?php echo esc_url(home_url('/')); ?>" class="custom-logo-link" rel="home">
+                        <picture>
+                            <source media="(max-width: 768px)" srcset="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/DCP_Logo_Escura_4.svg">
+                            <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/DCP_Logo_Escura_4.svg" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="custom-logo">
+                        </picture>
+                    </a>
                 </div>
-
 
                 <div class="main-header-lateral__grid">
                     <div class="main-header-lateral__desktop-content">
