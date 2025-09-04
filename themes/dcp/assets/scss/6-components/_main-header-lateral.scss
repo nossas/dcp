@@ -84,6 +84,9 @@
 
         @include tablet {
             display: block;
+            max-width: size(32);
+            height: auto;
+            order: 2;
         }
 
         @include mobile {

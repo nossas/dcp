@@ -41,7 +41,7 @@
                 <div class="main-header-lateral__logo">
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="custom-logo-link" rel="home">
                         <picture>
-                            <img media="(max-width: 768px)" class="main-header-lateral__logo-mobile1" srcset="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/DCP_Logo_Escura_4.svg">
+                            <img media="(max-width: 900px)" class="main-header-lateral__logo-mobile1" srcset="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/DCP_Logo_Escura_4.svg">
                             <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/logo-defesa-climatica-popular-full.svg" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="custom-logo">
                         </picture>
                     </a>

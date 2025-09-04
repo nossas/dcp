@@ -109,6 +109,12 @@
                     }
                 }
 
+                .wp-block-image > img{
+                    @include mobile {
+                        max-width: size(68) !important;
+                    }
+                }
+
                 p {
                     @include mobile {
                         margin-top: 12px;
@@ -119,7 +125,15 @@
     }
 
     &__dcp {
+
         .wp-block-columns {
+
+            .wp-block-column > h2{
+                @include mobile {
+                    padding-top: size(40);
+                }
+            }
+
             .wp-block-column:nth-child(2) {
                 @include mobile {
                     display: none;
