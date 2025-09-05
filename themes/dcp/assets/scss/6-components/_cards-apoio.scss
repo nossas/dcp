@@ -240,10 +240,12 @@
         &__load-more-container {
             display: flex;
             justify-content: center;
-            margin-top: 24px;
+            margin-top: size(40);
+            padding-bottom: size(80);
 
             @include mobile{
                 margin-top: 32px;
+                padding-bottom: size(24);
             }
         }
 
