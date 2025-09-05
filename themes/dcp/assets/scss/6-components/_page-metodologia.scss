@@ -109,13 +109,12 @@
 
         .page-metodologia__monitoramento {
             @include mobile {
-                padding-left: 15px !important;
-                padding-bottom: 35px !important;
+
             }
 
             .has-secondary-light-color {
                 @include mobile {
-                    width: 95%;
+
                 }
             }
         }
@@ -126,6 +125,8 @@
             }
 
             button {
+                margin: 5px;
+
                 &:first-child {
                     margin-left: 0 !important;
                 }
