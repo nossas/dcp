@@ -160,6 +160,10 @@
     --risk-background: #{$color--warning-pure};
     --risk-color: black;
 
+    @include mobile{
+        position: fixed;
+    }
+
     &--alagamento {
         --risk-background: #{$color--warning-dark};
         --risk-color: white;
