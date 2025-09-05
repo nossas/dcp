@@ -8,6 +8,8 @@
     border-radius: var(--Spacing-space-250, 20px);
     background: var(--Color-Brown-50, #FEFBF9);
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+    max-width: size(442);
+    width: 100%;
 
     .post-card__category{
         margin-top: 20px;
@@ -36,6 +38,7 @@
             color: #281414;
             font-size: 20px;
             font-family: 'gabarito';
+            letter-spacing: 0;
             height: auto;
             margin-bottom: 8px;
         }

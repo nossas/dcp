@@ -3,6 +3,13 @@
     @include mobile {
         padding-inline: inherit;
     } */
+
+    .wp-block-buttons > .wp-block-button > a{
+        &:hover {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+    }
+
     .wp-block-cover{
          width: 100vw;
         margin-left: calc(-50vw + 50%);
@@ -152,6 +159,19 @@
         .wp-block-buttons {
             @include mobile {
                 margin-top: 32px;
+            }
+
+            .wp-block-button > a{
+                display: flex;
+                gap: $gap--small;
+
+                &:hover{
+                    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+                }
+
+                & > img{
+                    object-fit: contain;
+                }
             }
         }
     }

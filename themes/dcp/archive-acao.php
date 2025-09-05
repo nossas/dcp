@@ -28,7 +28,7 @@
             <?php
             $disabled_agendar = ($agendar_query->found_posts <= 3) ? 'disabled' : '';
             ?>
-            <button class="load-more-agendar ver-mais-acoes" data-status="Agendar" data-page="1" <?php echo $disabled_agendar; ?>>Ver mais</button>
+            <button class="load-more-agendar ver-mais-acoes" data-status="Agendar" data-page="1" <?php echo $disabled_agendar; ?>>Mostrar mais</button>
             <?php
             wp_reset_postdata();
         else : ?>
@@ -67,7 +67,7 @@
             <?php
             $disabled_concluir = ($concluir_query->found_posts <= 3) ? 'disabled' : '';
             ?>
-            <button class="load-more-concluir ver-mais-acoes" data-status="Concluir" data-page="1" <?php echo $disabled_concluir; ?>><?= __('Ver mais') ?></button>
+            <button class="load-more-concluir ver-mais-acoes" data-status="Concluir" data-page="1" <?php echo $disabled_concluir; ?>><?= __('Mostrar mais') ?></button>
             <?php
             wp_reset_postdata();
         else : ?>

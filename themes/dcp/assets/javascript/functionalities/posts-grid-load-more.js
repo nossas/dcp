@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     this.style.display = 'none';
                 }
 
-                this.textContent = 'Ver mais';
+                this.textContent = 'Mostrar mais';
                 this.disabled = false;
             })
             .catch(error => {

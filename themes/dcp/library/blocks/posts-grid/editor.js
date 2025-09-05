@@ -22,7 +22,7 @@ function Edit ({ attributes, setAttributes }) {
             <PanelBody className="hacklabr-gutenberg-panel__panel-body" title={__('Layout', 'hacklabr')}>
                 <PanelRow>
                     <ToggleControl
-                        label={__("Ativar 'Ver mais'?", 'hacklabr')}
+                        label={__("Ativar 'Mostrar mais'?", 'hacklabr')}
                         help={
                             enableLoadMore
                                 ? __('Exibirá 6 posts e um botão para carregar mais.', 'hacklabr')

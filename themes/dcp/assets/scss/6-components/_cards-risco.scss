@@ -8,6 +8,12 @@
         flex-direction: column-reverse;
     }
 
+    .wp-block-column:first-child{
+        @include mobile{
+            flex-basis: unset !important;
+        }
+    }
+
     .wp-block-column:nth-child(2){
         @include mobile{
             flex-basis: unset !important;
