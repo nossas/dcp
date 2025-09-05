@@ -77,7 +77,7 @@
                     <p>Nome</p>
                     <input type="text" name="nome_completo" placeholder="Digite seu nome" required>
                     <p> Telefone (WhatsApp) </p>
-                    <input type="text" name="telefone" placeholder="(xx) xxxxx-xxxx" required>
+                    <input type="text" class="phone" name="telefone" placeholder="(xx) xxxxx-xxxx" required>
                     <p> E-mail (opcional) </p>
                     <input type="email" name="email" placeholder="exemplo@email.com">
 
@@ -86,7 +86,7 @@
                         <?php _e('Aceito receber confirmações e informações sobre esta ação via e-mail e WhatsApp.', 'dcp'); ?>
                     </label>
                     <label class="checkbox-aceite checkbox-aceite-whatsapp">
-                        <input type="checkbox" name="aceite_whatsapp" value="ACEITE">
+                        <input type="checkbox" name="aceite_whatsapp" value="ACEITE" required>
                         <?php _e('Quero receber o link para entrar no grupo da Defesa Climática Popular no WhatsApp.', 'dcp'); ?>
                     </label>
                     <input type="hidden" name="post_id" value="<?= get_the_ID(); ?>">
