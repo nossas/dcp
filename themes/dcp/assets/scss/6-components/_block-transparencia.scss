@@ -110,21 +110,21 @@
                 //     }
                 // }
 
-                &--boletim-mensal,
-                &--boletim{
+                &--category-boletim-mensal,
+                &--category-boletim{
                     &::before{
                         background-image: url('/wp-content/themes/dcp/assets/images/boletim.svg');
                     }
                 }
 
-                &--relatorio,
-                &--relatorios{
+                &--category-relatorio,
+                &--category-relatorios{
                     &::before{
                         background-image: url('/wp-content/themes/dcp/assets/images/relatorios.svg');
                     }
                 }
 
-                &--publicacao{
+                &--category-publicacao{
                     &::before{
                         background-image: url('/wp-content/themes/dcp/assets/images/publicacao.svg');
                     }
