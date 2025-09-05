@@ -36,9 +36,14 @@
         }
     }
 
-    .wp-block-buttons {
-        @include mobile{
-            margin-block-start: 32px !important;
+    .wp-block-cover__inner-container{
+        .wp-block-buttons {
+            margin-block-start: size(40) !important;
+            padding-bottom: size(80);
+
+            @include mobile{
+                margin-block-start: 32px !important;
+            }
         }
     }
 
@@ -47,7 +52,6 @@
         display: flex;
         font-size: $font-size--xx-small;
         gap: $gap--small;
-        margin-top: size(40);
 
         @include mobile{
             padding: 9px !important;
