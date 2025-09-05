@@ -19,7 +19,7 @@
     .image {
         img {
             @include mobile {
-                width: 68px;
+                width: 68px !important;
             }
         }
     }
