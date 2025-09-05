@@ -139,6 +139,10 @@
         .post-card__title{
             font-size: $font-size--medium;
             color: $color--secondary-dark;
+
+            @include mobile{
+                font-size: $font-size--x-small;
+            }
         }
         .post-card__excerpt{
             color: $color--secondary-dark;

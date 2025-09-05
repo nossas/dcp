@@ -38,6 +38,10 @@
             margin: 50px auto;
             position: relative;
 
+            @include mobile{
+                margin: unset;
+            }
+
             .swiper-slide {
                 text-align: center;
             }
@@ -183,6 +187,10 @@
         }
         &__excerpt {
             font-size: $font-size--x-small;
+
+            @include mobile{
+                text-align: left;
+            }
         }
         &__featured-image{
             margin-top: 2rem;
@@ -313,5 +321,18 @@
 }
 // Formulário
 
+}
 
+.page-contato{
+    .wp-block-spacer{
+        @include mobile{
+            display: none !important;
+        }
+    }
+
+    .post-content{
+        @include mobile{
+            padding-top: 0;
+        }
+    }
 }
