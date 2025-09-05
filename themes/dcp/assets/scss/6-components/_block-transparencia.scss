@@ -1,34 +1,39 @@
 .block-transparencia {
     gap: 32px !important;
 
-    @include mobile {
+    article {
+        border-radius: var(--Spacing-space-250, 20px);
+        background: var(--Color-Brown-50, #FEFBF9);
+        box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+        max-width: size(442);
+        width: 100%;
 
-    }
-  article {
-    border-radius: var(--Spacing-space-250, 20px);
-    background: var(--Color-Brown-50, #FEFBF9);
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
-    max-width: size(442);
-    width: 100%;
+        .post-card__category{
+            margin-top: 20px;
+            margin-bottom: 20px;
 
-    .post-card__category{
-        margin-top: 20px;
-        margin-bottom: 20px;
-        a{
-            background-color: #235540;
-            border: #235540;
+            a{
+                background-color: #235540;
+                border: #235540;
+            }
+        }
+
+        .post-card__category > .tag > .tag--category-manuais-de-referencia{
+            border: 1px solid red;
         }
     }
+
     .post-card {
         // outros estilos...
-
         &__image {
+
             a > img {
                 height: 220px;
                 border-radius: 20px 20px 0 0;
 
             }
         }
+
         &__author {
             display: none !important;
         }
@@ -78,15 +83,55 @@
             &__adress {
                 display: flex;
             }
+        }
 
-            &__category {
-                padding-top: 20px !important;
-                padding-bottom: 20px !important;
+        &__category {
+            padding-top: 20px !important;
+            padding-bottom: 20px !important;
+
+            .tag{
+                align-items: center;
+                display: flex;
+                gap: $gap--small/2;
+                font-size: $font-size--xx-small;
+
+                &::before {
+                    content: '';
+                    display: block;
+                    width: size(14);
+                    height: size(14);
+                    background-repeat: no-repeat;
+
+                }
+
+                // &--category-manuais-de-referencia{
+                //     &::before{
+                //         background-image: url('/wp-content/themes/dcp/assets/images/boletim.svg');
+                //     }
+                // }
+
+                &--category-boletim-mensal,
+                &--category-boletim{
+                    &::before{
+                        background-image: url('/wp-content/themes/dcp/assets/images/boletim.svg');
+                    }
+                }
+
+                &--category-relatorio,
+                &--category-relatorios{
+                    &::before{
+                        background-image: url('/wp-content/themes/dcp/assets/images/relatorios.svg');
+                    }
+                }
+
+                &--category-publicacao{
+                    &::before{
+                        background-image: url('/wp-content/themes/dcp/assets/images/publicacao.svg');
+                    }
+                }
             }
-
         }
     }
-  }
 }
 
 .page-transparencia {
