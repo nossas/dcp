@@ -287,7 +287,7 @@ export function setupMap(jeoMap, container, riscos, apoios, initialSource) {
         }
     }
 
-    map.on('load', async () => {
+    map.U.onLoad(async () => {
         await Promise.all([
             loadImage(map, 'apoio'),
             loadImage(map, 'cacamba'),
