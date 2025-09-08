@@ -159,13 +159,11 @@ function insertFeatureCollection(map, container, slug, features) {
         if (!features.length) {
             return
         } else {
-            map.getSource(slug).getClusterLeaves(features[0].properties.cluster_id, 100, 0, (err, leafFeatures) => {
-                if (err) {
-                    console.error('Error getting leaves from cluster', err)
-                } else {
-                    const markers = leafFeatures.map((feature) => feature.properties)
-                    spiderifier.spiderfy(features[0].geometry.coordinates, markers)
-                }
+            map.getSource(slug).getClusterLeaves(features[0].properties.cluster_id, 100, 0).then((leafFeatures) => {
+                const markers = leafFeatures.map((feature) => feature.properties)
+                spiderifier.spiderfy(features[0].geometry.coordinates, markers)
+            }).catch((err) => {
+                console.error('Error getting leaves from cluster', err)
             })
         }
     })
