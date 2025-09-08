@@ -101,7 +101,7 @@ function insertFeatureCollection(map, container, slug, features) {
         id: pinsLayer,
         type: 'symbol',
         source: slug,
-        filter: ['all', ['!has', 'point_count']],
+        filter: ['!', ['has', 'point_count']],
         layout: {
             'icon-allow-overlap': true,
             'icon-anchor': 'bottom',
@@ -113,7 +113,7 @@ function insertFeatureCollection(map, container, slug, features) {
         id: clustersLayer,
         type: 'circle',
         source: slug,
-        filter: ['all', ['has', 'point_count']],
+        filter: ['has', 'point_count'],
         paint: {
             'circle-color': backgroundColor,
             'circle-radius': 14,
@@ -124,8 +124,9 @@ function insertFeatureCollection(map, container, slug, features) {
         id: countLayer,
         type: 'symbol',
         source: slug,
+        filter: ['has', 'point_count'],
         layout: {
-            'text-field': '{point_count}',
+            'text-field': ['get', 'point_count'],
             'text-font': ['Open Sans Bold'],
             'text-size': 12,
         },
