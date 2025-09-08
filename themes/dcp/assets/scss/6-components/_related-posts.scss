@@ -9,10 +9,10 @@ $sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
 .transparencia {
   padding: 4rem 1rem;
   font-family: 'Arial', sans-serif;
-  padding-top: 0px !important;
   background-color: initial !important;
+
   @include mobile{
-    padding-top: 0px;
+    padding: 0px 1rem !important;
     margin-top: -16px !important;
     padding-left: 0;
     padding-right: 0px;

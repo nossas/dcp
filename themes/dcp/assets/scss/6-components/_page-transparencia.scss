@@ -6,10 +6,18 @@
         line-height: 130%;
         letter-spacing: 2px;
         font-weight: 400;
+
         @include mobile {
             font-size: 24px !important;
+            margin-top: 0;
         }
 
+    }
+
+    .wp-block-spacer{
+        @include mobile{
+            display: none;
+        }
     }
     .page-content {
         // padding-inline: 1rem;
@@ -42,6 +50,8 @@
             margin: 0px;
             @include mobile{
                 font-size: 24px !important;
+                margin-top: $margin--medium;
+                margin-bottom: $margin--medium;
             }
         }
 
@@ -49,12 +59,21 @@
             color: #E6E2E0 !important;
             margin-top: 40px !important;
             margin-bottom: 40px !important;
-            color: #E6E2E0 !important;
+
             @include mobile {
                 margin-top: 32px !important;
                 margin-bottom: 32px !important;
             }
         }
+
+        .wp-block-separator{
+            &:last-of-type{
+                @include mobile{
+                    display: none !important;
+                }
+            }
+        }
+
         .wp-block-group {
             padding-left: 0px;
             padding-right: 0px;
@@ -103,6 +122,11 @@
             .wp-block-cover__inner-container  {
                 padding-top: 80px;
                 padding-bottom: 56px;
+
+                @include mobile{
+                    padding-top: size(40) ;
+                }
+
                 .wp-block-image {
                     @include mobile {
                         display: none !important;
@@ -188,8 +212,42 @@
             max-width: 100vw !important;
             margin-left: calc(50% - 50vw);
             margin-right: calc(50% - 50vw);
+
+            .wp-block-cover__inner-container{
+                .wp-block-columns > .wp-block-column{
+                    & > h2{
+                        margin-bottom: $margin--medium;
+                    }
+
+                    & > p:not(:first-child){
+                        color: $color--secondary-light;
+
+                        @include mobile{
+                            margin-top: size(8);
+                        }
+                    }
+                }
+            }
+
         }
 
     }
 
 }
+
+.page-transparencia {
+    .wp-block-buttons>.wp-block-button>a {
+        &:hover {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    p{
+        color: $color--secondary-dark;
+        font-family: $font-family--primary;
+        font-size: $font-size--x-small;
+        font-weight: $font-weight--regular;
+        line-height: 1.3;
+    }
+}
+

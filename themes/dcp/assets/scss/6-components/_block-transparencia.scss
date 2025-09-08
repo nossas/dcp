@@ -1,6 +1,11 @@
 .block-transparencia {
     gap: 32px !important;
 
+    @include mobile{
+        display: flex !important;
+        flex-direction: column;
+    }
+
     article {
         border-radius: var(--Spacing-space-250, 20px);
         background: var(--Color-Brown-50, #FEFBF9);
@@ -17,10 +22,6 @@
                 border: #235540;
             }
         }
-
-        .post-card__category > .tag > .tag--category-manuais-de-referencia{
-            border: 1px solid red;
-        }
     }
 
     .post-card {
@@ -31,6 +32,9 @@
                 height: 220px;
                 border-radius: 20px 20px 0 0;
 
+                @include mobile{
+                    height: size(188);
+                }
             }
         }
 
@@ -85,9 +89,23 @@
             }
         }
 
+        &__meta{
+            &--manuais{
+                hr{
+                    @include mobile{
+                        display: none;
+                    }
+                }
+            }
+        }
+
         &__category {
             padding-top: 20px !important;
             padding-bottom: 20px !important;
+
+            @include mobile {
+                display: none;
+            }
 
             .tag{
                 align-items: center;
@@ -103,12 +121,6 @@
                     background-repeat: no-repeat;
 
                 }
-
-                // &--category-manuais-de-referencia{
-                //     &::before{
-                //         background-image: url('/wp-content/themes/dcp/assets/images/boletim.svg');
-                //     }
-                // }
 
                 &--category-boletim-mensal,
                 &--category-boletim{
@@ -131,21 +143,5 @@
                 }
             }
         }
-    }
-}
-
-.page-transparencia {
-    .wp-block-buttons>.wp-block-button>a {
-        &:hover {
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-        }
-    }
-
-    p{
-        color: $color--secondary-dark;
-        font-family: $font-family--primary;
-        font-size: $font-size--x-small;
-        font-weight: $font-weight--regular;
-        line-height: 1.3;
     }
 }

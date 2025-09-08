@@ -180,6 +180,9 @@
             height: 32px !important;
         }
     }
+    label{
+        padding-left: size(12);
+    }
     .btn-submit-2 {
     display: flex;
     justify-content: flex-end;
@@ -200,6 +203,14 @@
 
     .submit-button .icon {
     display: inline-block;
+    }
+
+    .wp-block-cover__inner-container {
+        @include mobile{
+            border-top: size(2) solid #E6E2E0;
+            padding-top: size(32);
+            margin-top: size(32);
+        }
     }
 }
 .page-mapa {
