@@ -10,3 +10,12 @@
         top: size(50);
 	}
 }
+
+.wp-singular,
+.archive{
+    .uwy > .userway_buttons_wrapper > .uai{
+        @include mobile {
+            right: size(-15);
+        }
+    }
+}
