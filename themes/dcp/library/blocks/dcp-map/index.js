@@ -13,23 +13,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedCPT = { current: tabsList.dataset.selected }
         function selectCPT(cpt) {
             tabs.forEach((tab) => {
-                selectedCPT.current = cpt
+                selectedCPT.current = cpt;
 
                 if (tab.dataset.cpt === cpt) {
-                    tab.classList.add('dcp-map-block__tab--selected')
+                    tab.classList.add('dcp-map-block__tab--selected');
                 } else {
-                    tab.classList.remove('dcp-map-block__tab--selected')
+                    tab.classList.remove('dcp-map-block__tab--selected');
                 }
-            })
+            });
 
-            const apoioLegend = document.querySelector('.dcp-map-legend-apoio')
-            if (apoioLegend) {
-                apoioLegend.style.display = (cpt === 'apoio') ? 'block' : 'none'
+            const apoioLegendDesktop = document.querySelector('.dcp-map-legend-apoio');
+            const apoioLegendMobile = document.querySelector('.dcp-map-legend-apoio__mobile');
+
+            if (apoioLegendDesktop) {
+                apoioLegendDesktop.style.display = (cpt === 'apoio') ? 'block' : 'none';
             }
 
-            toggleLayer?.(cpt)
-        }
+            if (apoioLegendMobile) {
+                const isMobile = window.matchMedia('(max-width: 768px)').matches; // ajuste breakpoint se necessário
+                apoioLegendMobile.style.display = (cpt === 'apoio' && isMobile) ? 'block' : 'none';
+            }
 
+            toggleLayer?.(cpt);
+        }
 
         tabs.forEach((tab) => {
             tab.addEventListener('click', () => {

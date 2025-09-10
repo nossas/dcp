@@ -15,6 +15,7 @@
         padding-left: size(12);
 
         @include mobile{
+            display: none;
             padding-left: 0;
         }
     }
@@ -80,10 +81,6 @@
     &__mobile {
         display: none;
 
-        @include mobile {
-            display: block;
-        }
-
         &-btn{
             position: absolute;
             top: size(200);
@@ -114,6 +111,12 @@
 
         &-close{
             background-color: transparent;
+        }
+
+        article > main > .dcp-map-legend-apoio__list{
+            @include mobile{
+                display: block;
+            }
         }
 
         article > header{

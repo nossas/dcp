@@ -30,9 +30,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             tab.classList.toggle(selectedTabClass, isSelected);
         });
 
-        const legend = document.querySelector('.dcp-map-legend-apoio');
-        if (legend) {
-            legend.style.display = (cpt === 'apoio') ? 'block' : 'none';
+        const legendDesktop = document.querySelector('.dcp-map-legend-apoio');
+        const legendMobile = document.querySelector('.dcp-map-legend-apoio__mobile');
+
+        if (legendDesktop) {
+            legendDesktop.style.display = (cpt === 'apoio') ? 'block' : 'none';
+        }
+
+        if (legendMobile) {
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            legendMobile.style.display = (cpt === 'apoio' && isMobile) ? 'block' : 'none';
         }
 
         toggleLayer?.(cpt);
