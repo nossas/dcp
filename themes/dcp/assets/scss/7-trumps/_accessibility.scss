@@ -2,13 +2,22 @@
     @include sr-only;
 }
 
-.uwy > .userway_buttons_wrapper > .uai{
+ .uwy > .userway_buttons_wrapper > .uai{
 	right: size(15);
 
 	@include mobile{
 		right: 0;
         top: size(50);
 	}
+}
+
+.home{
+    .uwy > .userway_buttons_wrapper > .uai{
+
+        @include mobile{
+            right: 0 !important;
+        }
+    }
 }
 
 .wp-singular,
