@@ -29,6 +29,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             const isSelected = tab.dataset.cpt === cpt;
             tab.classList.toggle(selectedTabClass, isSelected);
         });
+
+        const legend = document.querySelector('.dcp-map-legend-apoio');
+        if (legend) {
+            legend.style.display = (cpt === 'apoio') ? 'block' : 'none';
+        }
+
         toggleLayer?.(cpt);
         updateSearchParams(cpt);
     }

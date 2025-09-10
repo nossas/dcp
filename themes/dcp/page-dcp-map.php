@@ -65,6 +65,7 @@ get_header();
         </div>
     </div>
     <div class="jeomap map_id_<?= $jeo_map->ID ?>"></div>
+    <?php get_template_part('template-parts/dcp-map-legend') ?>
     <?php get_template_part('template-parts/dcp-map-modal') ?>
     <?php get_template_part('template-parts/recommendations') ?>
 </div>

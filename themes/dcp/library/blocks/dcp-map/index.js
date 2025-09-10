@@ -11,17 +11,25 @@ document.addEventListener('DOMContentLoaded', () => {
         let toggleLayer = null
 
         const selectedCPT = { current: tabsList.dataset.selected }
-        function selectCPT (cpt) {
+        function selectCPT(cpt) {
             tabs.forEach((tab) => {
                 selectedCPT.current = cpt
+
                 if (tab.dataset.cpt === cpt) {
                     tab.classList.add('dcp-map-block__tab--selected')
                 } else {
                     tab.classList.remove('dcp-map-block__tab--selected')
                 }
-                toggleLayer?.(cpt)
             })
+
+            const apoioLegend = document.querySelector('.dcp-map-legend-apoio')
+            if (apoioLegend) {
+                apoioLegend.style.display = (cpt === 'apoio') ? 'block' : 'none'
+            }
+
+            toggleLayer?.(cpt)
         }
+
 
         tabs.forEach((tab) => {
             tab.addEventListener('click', () => {
