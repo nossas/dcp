@@ -159,11 +159,6 @@ function insertFeatureCollection(map, container, slug, features) {
         }
     })
 
-    map.on('mousemove', (event) => {
-        const features = map.queryRenderedFeatures(event.point, { layers: [clustersLayer, pinsLayer] })
-        map.getCanvas().style.cursor = (features.length > 0) ? 'pointer' : ''
-    })
-
     map.on('zoom', () => {
         const currentZoom = map.getZoom()
         if (Math.abs(currentZoom - lastZoom) < 0.1) {
@@ -302,6 +297,13 @@ export function setupMap(jeoMap, container, riscos, apoios, initialSource) {
         riscoSpiderifier = insertFeatureCollection(map, container, 'risco', riscoFeatures)
         apoioSpiderifier = insertFeatureCollection(map, container, 'apoio', apoioFeatures)
         toggleLayer(initialSource.current)
+
+        map.on('mousemove', (event) => {
+            const features = map.queryRenderedFeatures(event.point, {
+                layers: ['apoio-clusters', 'apoio-pins', 'risco-clusters', 'risco-pins'],
+            })
+            map.getCanvas().style.cursor = (features.length > 0) ? 'pointer' : ''
+        })
 
         if (window.innerWidth < 800) {
             map.dragPan.disable()
