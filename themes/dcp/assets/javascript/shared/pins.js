@@ -101,11 +101,15 @@ function insertFeatureCollection(map, container, slug, features) {
         id: pinsLayer,
         type: 'symbol',
         source: slug,
-        filter: ['!', ['has', 'point_count']],
         layout: {
             'icon-allow-overlap': true,
             'icon-anchor': 'bottom',
-            'icon-image': ['get', 'icon'],
+            'icon-image': [
+                'case',
+                ['boolean', ['has', 'point_count'], false],
+                ['image', 'cluster'],
+                ['get', 'icon'],
+            ],
         },
     })
 
@@ -135,37 +139,23 @@ function insertFeatureCollection(map, container, slug, features) {
         },
     })
 
-    const spiderifier = new MapboxglSpiderifier(map, {
-        animate: true,
-        animateSpeed: 200,
-        customPin: true,
-        initializeLeg (leg) {
-            const type = leg.feature.type
-            leg.elements.pin.style.backgroundImage = `url("${getImageUrl(slug === 'risco' ? `risco-${type}` : type)}")`
-            leg.elements.container.addEventListener('click', () => {
-                displayModal(container, slug, leg.feature)
-            })
+    const spiderifier = new Spiderfy(map, {
+        renderMethod: '3D',
+		closeOnLeafClick: false,
+        spiderLeavesLayout: {
+            'icon-image': ['get', 'icon'],
+        },
+        onLeafClick: (feature) => {
+            displayModal(container, slug, feature.properties)
         },
     })
 
+    spiderifier.applyTo(pinsLayer)
+
     map.on('click', pinsLayer, (event) => {
         const feature = event.features[0]
-        displayModal(container, slug, feature.properties)
-    })
-
-    map.on('click', clustersLayer, (event) => {
-        const features = map.queryRenderedFeatures(event.point, { layers: [clustersLayer] })
-
-        spiderifier.unspiderfy()
-        if (!features.length) {
-            return
-        } else {
-            map.getSource(slug).getClusterLeaves(features[0].properties.cluster_id, 100, 0).then((leafFeatures) => {
-                const markers = leafFeatures.map((feature) => feature.properties)
-                spiderifier.spiderfy(features[0].geometry.coordinates, markers)
-            }).catch((err) => {
-                console.error('Error getting leaves from cluster', err)
-            })
+        if (!feature?.properties.cluster) {
+            displayModal(container, slug, feature.properties)
         }
     })
 
@@ -178,12 +168,14 @@ function insertFeatureCollection(map, container, slug, features) {
         const currentZoom = map.getZoom()
         if (Math.abs(currentZoom - lastZoom) < 0.1) {
             if (currentZoom < lastZoom) {
-                spiderifier.unspiderfy()
+                spiderifier._clearSpiderifiedCluster?.()
             }
         }
 
         lastZoom = currentZoom
     })
+
+    return spiderifier
 }
 
 function closeModals(container) {
@@ -253,15 +245,15 @@ function displayRiscoModal(container, risco) {
     dialog.showModal()
 }
 
-function getImageUrl(slug) {
-    return `${globalThis.hl_dcp_map_data.themeAssets}/assets/images/pin-${slug}.svg`
+function getImageUrl(file) {
+    return `${globalThis.hl_dcp_map_data.themeAssets}/assets/images/${file}`
 }
 
-async function loadImage(map, slug, height = 54, width = 44) {
-    const src = getImageUrl(slug)
+async function loadImage(map, slug, file) {
+    const src = getImageUrl(file)
 
     return new Promise((resolve) => {
-        const img = new globalThis.Image(width, height)
+        const img = new globalThis.Image()
         img.onload = () => {
             map.addImage(slug, img)
             resolve(slug)
@@ -270,16 +262,25 @@ async function loadImage(map, slug, height = 54, width = 44) {
     })
 }
 
+async function loadPinImage(map, slug) {
+    return loadImage(map, slug, `pin-${slug}.svg`)
+}
+
 export function setupMap(jeoMap, container, riscos, apoios, initialSource) {
     const map = jeoMap.map
 
+    let riscoSpiderifier, apoioSpiderifier
     const riscoFeatures = riscos.map(createRiscoFeature)
     const apoioFeatures = apoios.map(createApoioFeature)
 
     function toggleLayer(cpt) {
         closeModals(container)
 
-        for (const [source, features] of [['apoio', apoioFeatures], ['risco', riscoFeatures]]) {
+        for (const [source, features, spiderifier] of [
+            ['apoio', apoioFeatures, apoioSpiderifier],
+            ['risco', riscoFeatures, riscoSpiderifier],
+        ]) {
+            spiderifier?._clearSpiderifiedCluster?.()
             const filteredFeatures = (source === cpt) ? features : []
             map.getSource(source)?.setData({
                 type: 'FeatureCollection',
@@ -290,15 +291,16 @@ export function setupMap(jeoMap, container, riscos, apoios, initialSource) {
 
     map.U.onLoad(async () => {
         await Promise.all([
-            loadImage(map, 'apoio'),
-            loadImage(map, 'cacamba'),
-            loadImage(map, 'risco-alagamento'),
-            loadImage(map, 'risco-lixo'),
-            loadImage(map, 'risco-outros'),
+            loadImage(map, 'cluster', 'cluster.svg'),
+            loadPinImage(map, 'apoio'),
+            loadPinImage(map, 'cacamba'),
+            loadPinImage(map, 'risco-alagamento'),
+            loadPinImage(map, 'risco-lixo'),
+            loadPinImage(map, 'risco-outros'),
         ])
 
-        insertFeatureCollection(map, container, 'risco', riscoFeatures)
-        insertFeatureCollection(map, container, 'apoio', apoioFeatures)
+        riscoSpiderifier = insertFeatureCollection(map, container, 'risco', riscoFeatures)
+        apoioSpiderifier = insertFeatureCollection(map, container, 'apoio', apoioFeatures)
         toggleLayer(initialSource.current)
 
         if (window.innerWidth < 800) {
