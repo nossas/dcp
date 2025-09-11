@@ -340,10 +340,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         break;
 
                     case 3:
-                        const autorizaInput = document.querySelector('input[name="autoriza_contato"]');
-                        if (!autorizaInput.checked) {
-                            showSnackbar('Marque a caixa de autorização para seguir.');
-                        } else {
+                        const nomeInput = document.querySelector('input[name="nome_completo"]');
+                        const telefoneInput = document.querySelector('input[name="telefone"]');
+                        if (!nomeInput.value.trim() || !telefoneInput.value.trim()) {
                             showSnackbar('Preencha nome e telefone para continuar.');
                         }
                         break;
