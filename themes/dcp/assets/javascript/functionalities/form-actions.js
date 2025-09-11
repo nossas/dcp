@@ -287,23 +287,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 return isNomeValid && isTelefoneValid;
 
             case 4:
-            const autorizaInput = document.querySelector('input[name="autoriza_relato"]');
-            const autorizaWrapper = autorizaInput.closest('.multistepform__accept-wrapper');
+            const autorizaRelatoInput = document.querySelector('input[name="autoriza_relato"]');
+            const autorizaContatoInput = document.querySelector('input[name="autoriza_contato"]');
+            const autorizaRelatoWrapper = autorizaRelatoInput.closest('.multistepform__accept-wrapper');
+            const autorizaContatoWrapper = autorizaContatoInput.closest('.multistepform__accept-wrapper');
 
-            autorizaWrapper.classList.remove('has-error');
+            autorizaRelatoWrapper.classList.remove('has-error');
+            autorizaContatoWrapper.classList.remove('has-error');
 
-            const isAutorizaValid = autorizaInput.checked;
-            console.log (isAutorizaValid, autorizaInput);
+            const isRelatoValid = autorizaRelatoInput.checked;
+            const isContatoValid = autorizaContatoInput.checked;
 
-            if (!isAutorizaValid) {
-                autorizaWrapper.classList.add('has-error');
-                showSnackbar('É necessário marcar esta opção.', 'error');
+            if (!isRelatoValid) {
+                autorizaRelatoWrapper.classList.add('has-error');
+            }
+            if (!isContatoValid) {
+                autorizaContatoWrapper.classList.add('has-error');
             }
 
-            return isAutorizaValid;
+            if (!isRelatoValid || !isContatoValid) {
+                showSnackbar('É necessário marcar as duas opções de autorização para continuar.', 'error');
+            }
 
-            default:
-            return true;
+            return isRelatoValid && isContatoValid;
         }
     }
     document.querySelectorAll('.multistepform__button-next').forEach(btn => {
@@ -334,10 +340,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         break;
 
                     case 3:
-                        const autorizaInput = document.querySelector('input[name="autoriza_contato"]');
-                        if (!autorizaInput.checked) {
-                            showSnackbar('Marque a caixa de autorização para seguir.');
-                        } else {
+                        const nomeInput = document.querySelector('input[name="nome_completo"]');
+                        const telefoneInput = document.querySelector('input[name="telefone"]');
+                        if (!nomeInput.value.trim() || !telefoneInput.value.trim()) {
                             showSnackbar('Preencha nome e telefone para continuar.');
                         }
                         break;
