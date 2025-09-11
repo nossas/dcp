@@ -459,3 +459,19 @@ function estilo_personalizado_menu() {
         }
     </style>';
 }
+
+add_filter('wpcf7_validate_tel*', 'custom_phone_validation', 20, 2);
+add_filter('wpcf7_validate_tel', 'custom_phone_validation', 20, 2);
+
+function custom_phone_validation($result, $tag) {
+    $name = $tag->name;
+    $value = isset($_POST[$name]) ? trim($_POST[$name]) : '';
+
+    if ($name === 'tel-932') {
+        if (!preg_match('/^\(\d{2}\) \d{5}-\d{4}$/', $value)) {
+            $result->invalidate($tag, 'Por favor, preencha um telefone válido (xx) xxxxx-xxxx.');
+        }
+    }
+
+    return $result;
+}

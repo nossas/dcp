@@ -115,6 +115,10 @@
             }
         }
 
+        p > label{
+            padding-left: size(12);
+        }
+
         label{
             color: $color--low-light;
             font-size: $font-size--xx-small;
@@ -154,7 +158,7 @@
         padding: $padding--medium !important;
         position: relative;
         top: size(-185);
-        right: size(-310);
+        right: size(-318);
         width: 100%;
 
         @include mobile{
@@ -340,6 +344,7 @@
     .wpcf7-not-valid-tip {
         color: $color--warning-dark;
         font-size: $font-size--xx-small;
+        padding-left: size(12);
     }
 }
 
@@ -680,7 +685,6 @@
     &__label{
         color: $color--low-light;
         font-size: $font-size--xx-small;
-        padding-left: $padding--small;
 
         &-email,
         &-phone{
@@ -982,11 +986,10 @@
             }
         }
     }
-
 }
 
-.multistepform__checkbox-option input[type="checkbox"]:checked + .multistepform__checkbox-label {
-    background-color: $color--high-light ;
+.required{
+    color: $color--warning-dark;
 }
 
 .hidden-by-js{

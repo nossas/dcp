@@ -236,6 +236,11 @@
 }
 
 .page-transparencia {
+    .main-header{
+        @include mobile{
+            margin-bottom: size(80);
+        }
+    }
     .wp-block-buttons>.wp-block-button>a {
         &:hover {
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);

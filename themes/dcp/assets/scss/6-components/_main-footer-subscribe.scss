@@ -1,6 +1,8 @@
 .main-footer-subscribe{
     margin-top: size(80);
     margin-bottom: size(80);
+    position: relative;
+    z-index: -999;
 
     @include mobile {
         margin-top: unset !important;
@@ -55,6 +57,9 @@
 
                 p{
                     font-size: $font-size--x-small !important;
+                    display: flex;
+                    flex-direction: column;
+                    gap: $gap--medium;
                 }
 
                 & > h2{

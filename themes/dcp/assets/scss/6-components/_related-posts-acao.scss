@@ -12,6 +12,10 @@
 
     h2 {
         padding-bottom: size( 18 );
+
+        @include mobile{
+            padding-bottom: size(12);
+        }
     }
 
   .secao-titulo {
