@@ -68,6 +68,7 @@ get_header();
     <?php get_template_part('template-parts/dcp-map-legend') ?>
     <?php get_template_part('template-parts/dcp-map-modal') ?>
     <?php get_template_part('template-parts/recommendations') ?>
+    <?php get_template_part('template-parts/dcp-map-welcome-modal'); ?>
 </div>
 
 <?php wp_footer(); ?>

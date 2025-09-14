@@ -384,6 +384,14 @@ class Assets
                 },
             ],
 
+            'dcp-map-welcome-modal' => [
+                'file' => 'dcp-map-welcome-modal.js',
+                'deps' => ['app'],
+                'preload_callback' => function () {
+                    return is_page_template('page-dcp-map.php');
+                },
+            ],
+
             'slider-button' => [
                 'file' => 'slider-button.js',
                 'global' => true,
