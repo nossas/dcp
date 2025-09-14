@@ -1048,3 +1048,13 @@
     right: size(16);
     top: size(16);
 }
+
+.wpcf7{
+
+    &-form{
+        & p > br{
+            display: none;
+        }
+    }
+
+}

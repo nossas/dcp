@@ -3,6 +3,10 @@
     position: absolute;
     top: size(560);
 
+    @media (max-width: size(1400)){
+        top: size(272);
+    }
+
     @include mobile{
         display: none;
     }

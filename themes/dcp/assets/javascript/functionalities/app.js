@@ -277,6 +277,24 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('#formParticiparAcao');
+    const phoneInput = form.querySelector('.phone');
 
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
 
+        const phoneValue = phoneInput.value.trim();
+        const phoneRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
+
+        if (!phoneRegex.test(phoneValue)) {
+            const snackbar = document.querySelector('#cf7-snackbar');
+            snackbar.textContent = 'Preencha um telefone válido (xx) xxxxx-xxxx';
+            snackbar.classList.add('show');
+            return false;
+        }
+
+        form.submit();
+    });
+});
 

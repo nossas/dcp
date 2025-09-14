@@ -28,3 +28,17 @@
         }
     }
 }
+
+.page-template-page-dcp-map{
+    #app{
+        .enabled{
+            top: 50% !important;
+        }
+
+        .dcp-map-legend-apoio__mobile-btn{
+            @include mobile{
+               top: size(472);
+            }
+        }
+    }
+}
