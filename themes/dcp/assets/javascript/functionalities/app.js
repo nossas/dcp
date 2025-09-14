@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (!phoneRegex.test(phoneValue)) {
             const snackbar = document.querySelector('#cf7-snackbar');
-            snackbar.textContent = 'Preencha um telefone válido (xx) xxxxx-xxxx';
+            //snackbar.textContent = 'Preencha um telefone válido (xx) xxxxx-xxxx';
             snackbar.classList.add('show');
             return false;
         }
@@ -297,4 +297,3 @@ document.addEventListener('DOMContentLoaded', function () {
         form.submit();
     });
 });
-

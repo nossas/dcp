@@ -1058,3 +1058,11 @@
     }
 
 }
+
+.wpcf7-form.unaccepted .wpcf7-list-item-label {
+  color: $color--warning-dark !important;
+}
+
+.wpcf7-form.unaccepted .wpcf7-form-control-wrap[data-name="aceite-informacoes"] .wpcf7-list-item-label {
+  color: $color--warning-dark !important;
+}
