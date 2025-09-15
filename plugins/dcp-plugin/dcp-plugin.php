@@ -26,6 +26,11 @@ add_action('rest_api_init', function () {
             ],
         ],
     ]);
+    register_rest_route('dcp/v1', '/riscos-resumo', [
+        'methods' => 'GET',
+        'callback' => 'dcp_get_riscos_resumo',
+        'permission_callback' => '__return_true',
+    ]);
 });
 
 
@@ -52,7 +57,7 @@ function dcp_get_riscos($request) {
 
         $riscos[] = [
             'id' => $post_id,
-            'timestamp' => get_the_date('c', $post),
+            'timestamp' => $pod->field('data_e_horario'),
             'id_usuario' => $post->post_author,
             'latitude' => $pod->field('latitude'),
             'longitude' => $pod->field('longitude'),
@@ -71,6 +76,54 @@ function dcp_get_riscos($request) {
         'total' => $query->found_posts,
         'total_pages' => $query->max_num_pages,
         'data' => $riscos,
+    ]);
+}
+
+function dcp_get_riscos_resumo($request) {
+    $now = current_time('timestamp');
+    $last_24h = wp_date('Y-m-d H:i:s', $now - 24 * 3600);
+
+    $args = [
+        'post_type'      => 'risco',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'meta_query' => array(
+            array(
+            'key' => 'data_e_horario',
+            'value' => $last_24h,
+            'compare' => '>=',
+            'type' => 'DATETIME',
+            ),
+        )
+    ];
+
+    $query = new WP_Query($args);
+
+    $total = 0;
+    $alagamento = 0;
+    $lixo = 0;
+    $outros = 0;
+
+    foreach ($query->posts as $post) {
+        $pod = pods('risco', $post->ID);
+        $classificacao = strtolower(trim($pod->field('situacao_de_risco')[0]['slug']));
+
+        $total++;
+
+        if ($classificacao === 'alagamento') {
+            $alagamento++;
+        } elseif ($classificacao === 'lixo') {
+            $lixo++;
+        } else {
+            $outros++;
+        }
+    }
+
+    return rest_ensure_response([
+        'total' => $total,
+        'alagamento' => $alagamento,
+        'lixo' => $lixo,
+        'outros' => $outros,
     ]);
 }
 
@@ -297,4 +350,58 @@ add_action('rest_api_init', function () {
         'callback' => 'dcp_api_risco_regiao',
         'permission_callback' => '__return_true',
     ]);
+});
+// Função para adicionar a coluna "classificacao" antes da coluna "date" na listagem de riscos do painel do WordPress.
+add_filter('manage_risco_posts_columns', function($columns) {
+    $new_columns = [];
+    foreach ($columns as $key => $value) {
+        if ($key === 'date') {
+            $new_columns['classificacao'] = __('Classificação', 'dcp-plugin');
+            $new_columns['data_ocorrencia'] = __('Data de Ocorrência', 'dcp-plugin');
+        }
+        $new_columns[$key] = $value;
+    }
+    return $new_columns;
+});
+
+// Exibe os valores das colunas personalizadas
+add_action('manage_risco_posts_custom_column', function($column, $post_id) {
+    if ($column === 'classificacao') {
+        $pod = pods('risco', $post_id);
+        $classificacao = $pod->field('situacao_de_risco');
+        if (is_array($classificacao) && isset($classificacao[0]['name'])) {
+            echo esc_html($classificacao[0]['name']);
+        } elseif (is_string($classificacao)) {
+            echo esc_html($classificacao);
+        } else {
+            echo '-';
+        }
+    }
+    if ($column === 'data_ocorrencia') {
+        $pod = pods('risco', $post_id);
+        $data = $pod->field('data_e_horario');
+        if ($data) {
+            echo esc_html($data);
+        } else {
+            echo '-';
+        }
+    }
+}, 10, 2);
+
+// Torna a coluna "data de ocorrência" ordenável
+add_filter('manage_edit-risco_sortable_columns', function($columns) {
+    $columns['data_ocorrencia'] = 'data_ocorrencia';
+    return $columns;
+});
+
+// Altera a query para ordenar pela coluna "data de ocorrência"
+add_action('pre_get_posts', function($query) {
+    if (!is_admin() || !$query->is_main_query()) {
+        return;
+    }
+    $orderby = $query->get('orderby');
+    if ($query->get('post_type') === 'risco' && $orderby === 'data_ocorrencia') {
+        $query->set('meta_key', 'data_e_horario');
+        $query->set('orderby', 'meta_value');
+    }
 });
