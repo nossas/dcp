@@ -70,15 +70,15 @@
                 <div class="dcp-map-welcome-modal__list">
                     <div class="dcp-map-welcome-modal__item">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/modal-page-map/icon1.svg" alt="exclamacao" class="dcp-map-welcome-modal__item-icon icon">
-                        <span class="dcp-map-welcome-modal__item-text"><?= _e('Em “O que fazer” você encontra orientações e contatos úteis.', 'dcp'); ?></span>
+                        <span class="dcp-map-welcome-modal__item-text"><?= _e('Em ', 'dcp'); ?> <strong><?= _e('"O que fazer"', 'dcp'); ?></strong> <?= _e(' você encontra orientações e contatos úteis.', 'dcp'); ?></span>
                     </div>
                     <div class="dcp-map-welcome-modal__item">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/modal-page-map/icon2.svg" alt="interrogacao" class="dcp-map-welcome-modal__item-icon icon">
-                        <span class="dcp-map-welcome-modal__item-text"><?= _e('Clique no “?” na barra à esquerda para ver como usar o mapa.', 'dcp'); ?></span>
+                        <span class="dcp-map-welcome-modal__item-text"><?= _e('Clique no ', 'dcp'); ?> <strong><?= _e('"?"', 'dcp'); ?></strong> <?= _e(' na barra à esquerda para ver como usar o mapa.', 'dcp'); ?></span>
                     </div>
                     <div class="dcp-map-welcome-modal__item">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/modal-page-map/icon3.svg" alt="faq" class="dcp-map-welcome-modal__item-icon icon">
-                        <span class="dcp-map-welcome-modal__item-text"><?= _e('Em caso de emergência, ligue para a Defesa Civil: 199.', 'dcp'); ?></span>
+                        <span class="dcp-map-welcome-modal__item-text"><?= _e('Em caso de emergência, ligue para a Defesa Civil: ', 'dcp'); ?> <strong><?= _e('199.', 'dcp'); ?></strong></span>
                     </div>
                 </div>
             </div>
@@ -92,14 +92,18 @@
 
         <div class="dcp-map-welcome-modal__actions">
             <button type="button" class="dcp-map-welcome-modal__button dcp-map-welcome-modal__button--skip" @click="closeModal()"><?php echo _e('Pular', 'dcp'); ?></button>
-            <button type="button" class="dcp-map-welcome-modal__button dcp-map-welcome-modal__button--next" @click="nextStep()">
-                <span x-text="step < 3 ? 'Próximo' : 'Vamos lá!'"></span>
-                <img
-                    src="<?php echo get_template_directory_uri(); ?>/assets/images/modal-page-map/arrow-right.svg"
-                    alt="Avançar"
-                    class="dcp-map-welcome-modal__arrow-icon"
-                    x-show="step < 3"
-                >
+            <button
+                type="button"
+                class="dcp-map-welcome-modal__button dcp-map-welcome-modal__button--next"
+                :class="{ 'dcp-map-welcome-modal__button--last-step': step === 3 }"
+                @click="nextStep()">
+                    <span x-text="step < 3 ? 'Próximo' : 'Vamos lá!'"></span>
+                    <img
+                        src="<?php echo get_template_directory_uri(); ?>/assets/images/modal-page-map/arrow-right.svg"
+                        alt="Avançar"
+                        class="dcp-map-welcome-modal__arrow-icon"
+                        x-show="step < 3"
+                    >
             </button>
         </div>
     </div>

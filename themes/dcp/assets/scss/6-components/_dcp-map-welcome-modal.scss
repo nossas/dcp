@@ -122,6 +122,13 @@
         .icon {
             padding-top: 5px;
         }
+
+        &-text {
+            font-family: $font-family--primary;
+            font-size: 16px;
+            font-weight: $font-weight--regular;
+            line-height: 130%;
+        }
     }
 
     &__pagination {
@@ -173,6 +180,10 @@
             gap: 8px;
             background-color: $color--primary-pure;
             color: $color--secondary-light;
+        }
+
+        &--last-step {
+            width: 156px;
         }
     }
 
@@ -237,6 +248,12 @@
 
         &__pagination {
             margin-top: 12px;
+        }
+
+        &__button {
+            &--last-step {
+                width: unset;
+            }
         }
     }
 }
