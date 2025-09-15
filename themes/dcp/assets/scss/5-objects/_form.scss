@@ -1066,3 +1066,94 @@
 .wpcf7-form.unaccepted .wpcf7-form-control-wrap[data-name="aceite-informacoes"] .wpcf7-list-item-label {
   color: $color--warning-dark !important;
 }
+
+.formulario-participar{
+
+    .form-participar input:required:user-invalid {
+        border: 1px solid $color--warning-dark !important;
+        margin-bottom: 0 !important;
+    }
+
+    .form-participar input:focus {
+        outline: none;
+        box-shadow: none;
+    }
+}
+
+.msg-erro {
+  display: none;
+  color: $color--warning-dark;
+  font-size: $font-size--xx-small;
+  margin-top: $margin--small/2;
+  margin-bottom: $margin--small;
+  padding-left: size(12);
+}
+
+#formParticiparAcao .campo-erro,
+#formParticiparAcao label.campo-erro {
+  border-color: $color--warning-dark !important;
+  color: $color--warning-dark !important;
+}
+
+#formParticiparAcao .msg-erro { display: none; color: $color--warning-dark; }
+
+.snackbar.modal {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: size(344);
+  z-index: 9999;
+}
+
+#cf7-snackbar-error {
+    align-items: flex-start;
+    background-color: $color--warning-dark;
+    border-color: transparent !important;
+    border-radius: size(12);
+    color: $color--secondary-light;
+    display: flex;
+    gap: $gap--small;
+    font-size: $font-size--x-small;
+    font-weight: $font-weight--regular;
+    line-height: 1.3;
+    max-width: size(344);
+    padding: $padding--medium !important;
+    position: relative;
+    top: size(-137);
+    right: size(-408);
+    width: 100%;
+
+        &::before {
+            content: "";
+            display: inline-block;
+            background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'><path d='M9.00195 0.000976562C11.3889 0.000976563 13.6784 0.949868 15.3662 2.6377C17.0539 4.32541 18.0018 6.6142 18.002 9.00098C18.002 11.3879 17.054 13.6774 15.3662 15.3652C13.6784 17.0531 11.3889 18.001 9.00195 18.001C6.61518 18.0008 4.32638 17.0529 2.63867 15.3652C0.950845 13.6774 0.00195313 11.3879 0.00195312 9.00098C0.00208134 6.6142 0.950959 4.32541 2.63867 2.6377C4.32639 0.949982 6.61518 0.00110478 9.00195 0.000976562ZM9.00488 11.251C8.70651 11.251 8.41996 11.3701 8.20898 11.5811C7.99821 11.7919 7.88001 12.0779 7.87988 12.376C7.87988 12.6743 7.9981 12.9609 8.20898 13.1719C8.41996 13.3829 8.70651 13.501 9.00488 13.501C9.30311 13.5009 9.58889 13.3827 9.7998 13.1719C10.0108 12.9609 10.1299 12.6743 10.1299 12.376C10.1298 12.0778 10.0107 11.7919 9.7998 11.5811C9.58889 11.3702 9.30311 11.251 9.00488 11.251ZM9.00195 4.50098C8.86001 4.50112 8.71958 4.53127 8.58984 4.58887C8.4599 4.64659 8.34343 4.73146 8.24805 4.83691C8.15278 4.94227 8.08056 5.06626 8.03613 5.20117C7.99169 5.33624 7.97609 5.47961 7.99023 5.62109L8.38379 9.56641C8.39705 9.72121 8.46765 9.86556 8.58203 9.9707C8.69649 10.0758 8.84657 10.1346 9.00195 10.1348C9.15751 10.1348 9.30827 10.0759 9.42285 9.9707C9.53723 9.86556 9.60783 9.72121 9.62109 9.56641L10.0146 5.62109C10.0288 5.47961 10.0132 5.33624 9.96875 5.20117C9.92432 5.06626 9.8521 4.94227 9.75684 4.83691C9.66145 4.73146 9.54499 4.64659 9.41504 4.58887C9.28515 4.5312 9.14407 4.50106 9.00195 4.50098Z' fill='%23F9F3EA'/></svg>") no-repeat center center;
+            background-size: contain;
+            flex-shrink: 0;
+            height: size(18);
+            width: size(18);
+        }
+}
+
+#cf7-snackbar-success {
+    background-color: #5cb85c;
+    position: relative;
+    top: size(-90);
+    right: size(-412);
+}
+
+.snackbar.modal.show { display: flex; }
+
+.snackbar.modal .modal-close {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
