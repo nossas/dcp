@@ -144,9 +144,10 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                                                 } else {
                                                     risco_badge_category( 'sem-categoria', 'SEM' );
                                                 }
+                                                $timezone = new DateTimeZone('UTC');
                                                 ?>
                                             </div>
-                                            <div class="post-card__risco-meta"><?=wp_date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?></div>
+                                            <div class="post-card__risco-meta"><?=wp_date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ),$timezone)?></div>
                                             <h3 class="post-card__title">
                                                 <span><?=$pod->field( 'endereco' )?></span>
                                             </h3>
