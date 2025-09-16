@@ -160,6 +160,7 @@ function insertFeatureCollection(map, container, slug, features) {
         renderMethod: '3D',
 		closeOnLeafClick: false,
         spiderLeavesLayout: {
+            'icon-allow-overlap': true,
             'icon-image': ['get', 'icon'],
         },
         onLeafClick: (feature) => {
