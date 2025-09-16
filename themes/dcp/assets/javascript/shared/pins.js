@@ -163,7 +163,7 @@ function insertFeatureCollection(map, container, slug, features) {
             'icon-image': ['get', 'icon'],
         },
         onLeafClick: (feature) => {
-            displayModal(container, slug, feature.properties)
+            displayModal(container, feature.properties)
         },
     })
 
@@ -172,7 +172,7 @@ function insertFeatureCollection(map, container, slug, features) {
     map.on('click', pinsLayer, (event) => {
         const feature = event.features[0]
         if (!feature?.properties.cluster) {
-            displayModal(container, slug, feature.properties)
+            displayModal(container, feature.properties)
         }
     })
 
