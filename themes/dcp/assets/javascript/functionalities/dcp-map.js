@@ -85,8 +85,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const res = await fetch(`${restUrl}?address=${encodeURIComponent(address)}`, { method: 'POST' });
                 if (res.ok) {
                     const { lat, lon } = await res.json();
-                    const mapbox = await until(() => jeoMap.map);
-                    mapbox.flyTo({ center: [lon, lat], zoom: 19 });
+                    const mapGL = await until(() => jeoMap.map);
+                    mapGL.flyTo({ center: [lon, lat], zoom: 19 });
                 } else if (res.status === 404) {
                     input.value = '';
                 }

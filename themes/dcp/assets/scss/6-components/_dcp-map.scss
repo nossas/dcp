@@ -206,19 +206,19 @@
             display: none;
         }
 
-        .mapboxgl-ctrl-logo {
+        .maplibregl-ctrl-logo {
             display: none;
         }
 
         // Map zoom controls
-        .mapboxgl-ctrl-top-left {
+        .maplibregl-ctrl-top-left {
             bottom: 6rem;
             top: unset;
             @media screen and (max-width: size(820)) {
                 bottom: size(80);
             }
         }
-        .mapboxgl-ctrl-group {
+        .maplibregl-ctrl-group {
             display: flex !important;
             flex-direction: column !important;
             gap: $gap--small;
@@ -230,12 +230,12 @@
                 border-radius: 8px !important;
             }
 
-            button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon {
+            button.maplibregl-ctrl-zoom-in .maplibregl-ctrl-icon {
                 background-color: $color--secondary-dark !important;
                 background-image: url('/wp-content/themes/dcp/assets/images/zoom-in.svg') !important;
             }
 
-            button.mapboxgl-ctrl-zoom-out .mapboxgl-ctrl-icon {
+            button.maplibregl-ctrl-zoom-out .maplibregl-ctrl-icon {
                 background-color: $color--secondary-dark !important;
                 background-image: url('/wp-content/themes/dcp/assets/images/zoom-out.svg') !important;
             }
