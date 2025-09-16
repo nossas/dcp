@@ -87,11 +87,11 @@ namespace hacklabr\dashboard;
                                     } else {
                                         risco_badge_category( 'sem-categoria', 'SEM' );
                                     }
-                                    $timezone = new \DateTimeZone('UTC');
+                                    //$timezone = new \DateTimeZone('UTC');
                                 ?>
                             </div>
                             <div class="post-card__risco-meta">
-                                <?=wp_date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ),$timezone)?>
+                                <?=date( 'H:i | d/m/Y', strtotime( $pod->field('data_e_horario') ))?>
                             </div>
                             <h3 class="post-card__title">
                                 <span><?=$pod->field( 'endereco' )?></span>
