@@ -227,16 +227,15 @@
             background-color: transparent !important;
 
             button {
+                background-color: $color--secondary-dark !important;
                 border-radius: 8px !important;
             }
 
             button.maplibregl-ctrl-zoom-in .maplibregl-ctrl-icon {
-                background-color: $color--secondary-dark !important;
                 background-image: url('/wp-content/themes/dcp/assets/images/zoom-in.svg') !important;
             }
 
             button.maplibregl-ctrl-zoom-out .maplibregl-ctrl-icon {
-                background-color: $color--secondary-dark !important;
                 background-image: url('/wp-content/themes/dcp/assets/images/zoom-out.svg') !important;
             }
         }
