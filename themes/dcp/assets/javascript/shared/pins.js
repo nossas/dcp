@@ -347,7 +347,7 @@ export function setupMap(jeoMap, container, riscos, apoios, initialSource) {
 
     function toggleLayer(cpt) {
         closeModals(container)
-        spiderifier?.unspiderfy()
+        spiderifier?._clearSpiderifiedCluster?.()
 
         for (const [source, features, spiderifier] of [
             ['apoio', apoioFeatures, apoioSpiderifier],
