@@ -231,3 +231,20 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+  function updateNoBorderForCheckboxWraps() {
+    document.querySelectorAll('.wpcf7-form-control-wrap.wpcf7-not-valid').forEach(function (wrap) {
+      if (wrap.querySelector('input[type="checkbox"], input[type="radio"]')) {
+        wrap.classList.add('no-border-checkbox');
+      } else {
+        wrap.classList.remove('no-border-checkbox');
+      }
+    });
+  }
+
+  updateNoBorderForCheckboxWraps();
+  document.addEventListener('wpcf7invalid', function () { setTimeout(updateNoBorderForCheckboxWraps, 8); });
+  document.addEventListener('wpcf7submit', function () { setTimeout(updateNoBorderForCheckboxWraps, 8); });
+});
+
+

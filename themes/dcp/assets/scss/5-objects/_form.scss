@@ -330,10 +330,27 @@
     }
 }
 
-.wpcf7 .wpcf7-not-valid {
-  border: 1px solid $color--warning-dark !important;
-  outline: none;
-  padding-right: 32px;
+[data-name="aceite_termos"],
+[data-name="aceite_whatsapp"]
+{
+    .wpcf7 .wpcf7-not-valid:not([type="checkbox"]):not([type="radio"]) {
+      //border: 1px solid $color--warning-dark !important;
+      outline: none;
+      padding-right: 32px;
+    }
+
+    .wpcf7-not-valid .wpcf7-list-item-label{
+      color: $color--warning-dark !important;
+    }
+
+    .wpcf7-not-valid-tip{
+        display: none;
+    }
+}
+
+.wpcf7 input[type="checkbox"].wpcf7-not-valid + span,
+.wpcf7 input[type="radio"].wpcf7-not-valid + span {
+  color: $color--warning-dark !important;
 }
 
 .wpcf7-form-control-wrap {
@@ -1155,5 +1172,17 @@
   color: #fff;
   font-size: 18px;
   cursor: pointer;
+}
+
+/* remove borda/padding quando o wrapper conter checkbox/radio */
+.wpcf7 .wpcf7-form-control-wrap.no-border-checkbox {
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* e mantém apenas a cor do label */
+.wpcf7 .wpcf7-form-control-wrap.no-border-checkbox .wpcf7-list-item-label,
+.wpcf7 .wpcf7-form-control-wrap.no-border-checkbox label {
+  color: $color--warning-dark !important; /* ou hex */
 }
 
