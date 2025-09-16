@@ -179,10 +179,9 @@ function insertFeatureCollection(map, container, slug, features) {
 
     map.on('zoom', () => {
         const currentZoom = map.getZoom()
-        if (Math.abs(currentZoom - lastZoom) < 0.1) {
-            if (currentZoom < lastZoom) {
-                spiderifier._clearSpiderifiedCluster?.()
-            }
+        if (Math.abs(currentZoom - lastZoom) > 0.1) {
+            lastZoom = currentZoom
+            spiderifier?._clearSpiderifiedCluster?.()
         }
     })
 
