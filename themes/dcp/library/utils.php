@@ -469,7 +469,7 @@ function custom_phone_validation($result, $tag) {
 
     if ($name === 'tel-932') {
         if (!preg_match('/^\(\d{2}\) \d{5}-\d{4}$/', $value)) {
-            $result->invalidate($tag, 'Por favor, preencha um telefone válido (xx) xxxxx-xxxx.');
+            $result->invalidate($tag, 'Telefone inválido');
         }
     }
 
