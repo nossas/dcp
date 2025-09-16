@@ -12,6 +12,10 @@
 
     h2 {
         padding-bottom: size( 18 );
+
+        @include mobile{
+            padding-bottom: size(12);
+        }
     }
 
   .secao-titulo {
@@ -22,7 +26,11 @@
     margin-bottom: 0;
 
     @include mobile {
+        border-top: 2px solid #E6E2E0;
         font-size: 24px;
+        margin-top: $margin--large;
+        padding-top: size(40);
+        width: 100%;
     }
   }
 

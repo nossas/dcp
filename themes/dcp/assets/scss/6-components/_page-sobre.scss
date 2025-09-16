@@ -3,6 +3,13 @@
     @include mobile {
         padding-inline: inherit;
     } */
+
+    .wp-block-buttons > .wp-block-button > a{
+        &:hover {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+    }
+
     .wp-block-cover{
          width: 100vw;
         margin-left: calc(-50vw + 50%);
@@ -109,6 +116,12 @@
                     }
                 }
 
+                .wp-block-image > img{
+                    @include mobile {
+                        max-width: size(68) !important;
+                    }
+                }
+
                 p {
                     @include mobile {
                         margin-top: 12px;
@@ -119,7 +132,15 @@
     }
 
     &__dcp {
+
         .wp-block-columns {
+
+            .wp-block-column > h2{
+                @include mobile {
+                    padding-top: size(40);
+                }
+            }
+
             .wp-block-column:nth-child(2) {
                 @include mobile {
                     display: none;
@@ -138,6 +159,19 @@
         .wp-block-buttons {
             @include mobile {
                 margin-top: 32px;
+            }
+
+            .wp-block-button > a{
+                display: flex;
+                gap: $gap--small;
+
+                &:hover{
+                    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+                }
+
+                & > img{
+                    object-fit: contain;
+                }
             }
         }
     }

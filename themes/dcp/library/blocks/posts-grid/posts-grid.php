@@ -52,8 +52,8 @@ function render_posts_grid_callback($attributes)
 
             <div class="hacklabr-posts-grid__load-more-container">
                 <button class="hacklabr-posts-grid__load-more-button" data-page="3" data-per-page="3" data-query-attributes='<?= $query_attributes_json ?>'  <?= $is_disabled ?>>
-                    <span><?= __('Ver mais') ?></span>
-                    <img src="<?= get_template_directory_uri(); ?>/assets/images/seta-card-disabled.svg" alt="Seta" class="saiba-mais-icon" style="width: 12px; height: auto;" />
+                    <span><?= __('Mostrar mais') ?></span>
+                    <img src="<?= get_template_directory_uri(); ?>/assets/images/icon-down.png" alt="Seta" class="saiba-mais-icon" style="width: 12px; height: auto;" />
                 </button>
             </div>
         </div>

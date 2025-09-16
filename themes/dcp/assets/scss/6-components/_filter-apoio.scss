@@ -1,6 +1,8 @@
 .page-quem-acionar{
     .apoio-filtro {
         margin-bottom: 2rem;
+        display: none;
+
         .apoio-search-wrap {
         display: flex;
         width: 100%;
@@ -8,6 +10,7 @@
         max-height: 45px;
         margin: 56px 0;
         position: relative;
+
 
         @include mobile {
             margin: 32px 0;

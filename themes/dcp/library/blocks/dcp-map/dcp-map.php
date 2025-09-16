@@ -8,9 +8,20 @@ function get_pin_attachments(\WP_Post $post): array {
     $attachments = get_attached_media('', $post->ID);
 
     foreach ($attachments as $attachment) {
+        $attachment_id = $attachment->ID;
+        $metadata = wp_get_attachment_metadata($attachment_id);
+
+        $is_vertical = !empty($metadata['height']) &&
+                       !empty($metadata['width']) &&
+                       $metadata['height'] > $metadata['width'];
+
         $media[] = [
-            'src' => wp_get_attachment_url($attachment->ID),
+            'id'   => $attachment_id,
+            'src'  => wp_get_attachment_url($attachment_id),
             'mime' => $attachment->post_mime_type,
+            'custom_fields' => [
+                'orientation' => $is_vertical ? 'vertical' : 'horizontal',
+            ],
         ];
     }
 
@@ -52,6 +63,8 @@ function format_support_pin(\WP_Post $post): array {
     ]);
     if (is_array($types) && in_array('cacambas', $types)) {
         $type = 'cacamba';
+    } elseif ( is_array($types) && in_array('iniciativas-locais', $types ) ) {
+        $type = 'iniciativas-locais';
     } else {
         $type = 'apoio';
     }
@@ -146,6 +159,7 @@ function render_dcp_map_callback(array $attributes) {
             </a>
         </div>
         <div class="jeomap map_id_<?= $jeo_map->ID ?>"></div>
+        <?php get_template_part('template-parts/dcp-map-legend') ?>
         <?php get_template_part('template-parts/dcp-map-modal') ?>
     </div>
 <?php

@@ -50,6 +50,7 @@
 
         @include mobile{
             display: grid;
+            gap: size(12);
             grid-template-columns: 1fr 1fr;
             margin-top: $margin--medium;
         }

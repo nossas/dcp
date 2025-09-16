@@ -866,9 +866,9 @@
                                 font-weight: 400;
                                 display: inline-block;
                                 padding: size( 1 ) size( 2 );
-                                position: absolute;
-                                right: 0;
-                                bottom: size( 15 );
+                                //position: absolute;
+                                //right: 0;
+                                //bottom: size( 15 );
 
                                 @include mobile {
                                     font-size: size( 12 );

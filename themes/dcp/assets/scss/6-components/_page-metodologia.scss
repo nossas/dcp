@@ -1,4 +1,5 @@
 .page-metodologia {
+
     .breadcrumb {
         color: #281414;
     }
@@ -19,7 +20,7 @@
     .image {
         img {
             @include mobile {
-                width: 68px;
+                width: 68px !important;
             }
         }
     }
@@ -84,10 +85,114 @@
     }
 
     &__monitoramento{
+        @include mobile {
+            padding-bottom: 0px !important;
+        }
         .wp-block-cover__inner-container {
             @include mobile {
-                margin-top: 56px;
+                /* margin-top: 56px; */
             }
         }
     }
+
+
+
+
+
+    //
+
+    .post-content {
+
+        .wp-block-columns.has-background {
+            margin: 0;
+        }
+
+        .page-metodologia__monitoramento {
+            @include mobile {
+
+            }
+
+            .has-secondary-light-color {
+                @include mobile {
+
+                }
+            }
+        }
+        .wp-block-coblocks-gallery-carousel-thumbnail-pagination {
+            @include mobile {
+                margin-top: 15px;
+                overflow-x: scroll;
+            }
+
+            button {
+                margin: 5px;
+
+                &:first-child {
+                    margin-left: 0 !important;
+                }
+                &:last-child {
+                    margin-right: 0 !important;
+                }
+            }
+        }
+
+
+
+
+        .wp-block-separator {
+            padding: 0 !important;
+            margin: 0 1rem 50px 1rem !important;
+            padding-inline : 0 !important;
+        }
+
+        .wp-block-group {
+
+            &.is-layout-constrained {}
+
+            &.wp-block-group-is-layout-constrained {
+
+                .wp-block-columns {
+
+                    .is-layout-flow {
+
+                        .wp-block-columns {
+
+                            .wp-block-column {
+
+                                h5 {
+                                    //background-color: #00FF00 !important;
+                                    font-family: inherit;
+                                    font-size: 23px;
+                                    font-weight: inherit;
+
+                                    strong {
+                                        font-family: inherit;
+                                        font-size: inherit;
+                                    }
+                                }
+
+                                p {
+                                    font-family: inherit;
+                                    font-size: inherit;
+
+                                    strong {
+                                        //background-color: #00FF00 !important;
+                                        font-family: inherit;
+                                        font-size: 23px;
+                                        font-weight: inherit;
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+
+
+
 }

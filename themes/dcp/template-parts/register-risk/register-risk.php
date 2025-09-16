@@ -50,9 +50,10 @@ assert($jeo_map instanceof \WP_Post);
                                     <path d="M9 0.000976562C11.3869 0.000976563 13.6764 0.949868 15.3643 2.6377C17.052 4.32541 17.9999 6.6142 18 9.00098C18 11.3879 17.0521 13.6774 15.3643 15.3652C13.6764 17.0531 11.3869 18.001 9 18.001C6.61323 18.0008 4.32443 17.0529 2.63672 15.3652C0.948891 13.6774 0 11.3879 0 9.00098C0.000128218 6.6142 0.949006 4.32541 2.63672 2.6377C4.32443 0.949982 6.61323 0.00110478 9 0.000976562ZM9.00293 11.251C8.70456 11.251 8.41801 11.3701 8.20703 11.5811C7.99626 11.7919 7.87806 12.0779 7.87793 12.376C7.87793 12.6743 7.99614 12.9609 8.20703 13.1719C8.41801 13.3829 8.70456 13.501 9.00293 13.501C9.30116 13.5009 9.58693 13.3827 9.79785 13.1719C10.0088 12.9609 10.1279 12.6743 10.1279 12.376C10.1278 12.0778 10.0087 11.7919 9.79785 11.5811C9.58693 11.3702 9.30116 11.251 9.00293 11.251ZM9 4.50098C8.85805 4.50112 8.71763 4.53127 8.58789 4.58887C8.45794 4.64659 8.34148 4.73146 8.24609 4.83691C8.15083 4.94227 8.07861 5.06626 8.03418 5.20117C7.98974 5.33624 7.97414 5.47961 7.98828 5.62109L8.38184 9.56641C8.3951 9.72121 8.4657 9.86556 8.58008 9.9707C8.69454 10.0758 8.84462 10.1346 9 10.1348C9.15556 10.1348 9.30632 10.0759 9.4209 9.9707C9.53527 9.86556 9.60588 9.72121 9.61914 9.56641L10.0127 5.62109C10.0268 5.47961 10.0112 5.33624 9.9668 5.20117C9.92237 5.06626 9.85015 4.94227 9.75488 4.83691C9.6595 4.73146 9.54303 4.64659 9.41309 4.58887C9.2832 4.53121 9.14211 4.50106 9 4.50098Z" fill="#B83D13"/>
                                 </svg>
                             </span>
-                            <small class="error-message"><?php _e('Este campo é obrigatório.'); ?></small>
+                            <small class="error-message blank"><?php _e('Este campo é obrigatório.'); ?></small>
                         </div>
                         <span class="or"><?php _e('ou'); ?></span>
+
                         <button type="button" class="multistepform__button-map multistepform__button map-button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                                 <path d="M9 0.000976562C10.7902 0.000976562 12.5076 0.712645 13.7734 1.97852C15.0392 3.24427 15.7499 4.96094 15.75 6.75098C15.75 11.6042 9 18.001 9 18.001C8.9337 17.938 2.25 11.5802 2.25 6.75098C2.25013 4.96094 2.96178 3.24427 4.22754 1.97852C5.4933 0.712759 7.20996 0.00110478 9 0.000976562ZM9 3.37598C8.10507 3.3761 7.24708 3.73241 6.61426 4.36523C5.98144 4.99806 5.62513 5.85605 5.625 6.75098C5.625 7.64608 5.98132 8.50476 6.61426 9.1377C7.24708 9.77051 8.10507 10.1258 9 10.126C9.89511 10.126 10.7538 9.77063 11.3867 9.1377C12.0197 8.50476 12.375 7.64608 12.375 6.75098C12.3749 5.85605 12.0195 4.99805 11.3867 4.36523C10.7538 3.7323 9.89511 3.37598 9 3.37598Z" fill="#281414"/>
@@ -61,15 +62,15 @@ assert($jeo_map instanceof \WP_Post);
                         </button>
 
                         <div class="multistepform__map-wrapper dcp-map">
-                            <div class="jeomap map_id_<?= $jeo_map->ID ?>" style="display: none;"></div>
                             <div class="multistepform__input">
                                 <small class="error-message"><?php _e('Insira um endereço válido.'); ?></small>
                             </div>
+                            <div class="jeomap map_id_<?= $jeo_map->ID ?>" style="display: none;"></div>
                         </div>
                     </div>
+
                     <div class="multistepform__buttons">
                         <button type="button" class="multistepform__button back-to-map">
-                            <?php _e('Voltar'); ?>
                         </button>
 
                         <button type="button" class="multistepform__button multistepform__button-next">
@@ -253,7 +254,7 @@ assert($jeo_map instanceof \WP_Post);
                         </div>
                         </div>
                     </div>
-                    <div class="multistepform__accept-wrapper">
+                    <div class="multistepform__accept-wrapper accept-whatsapp">
                         <label class="multistepform__accept">
                             <input type="checkbox" name="autoriza_contato" value="sim">
                             <?php _e('Autorizo o contato via WhatsApp e estou ciente que meus dados serão usados apenas para esse fim e não serão compartilhados.'); ?>
@@ -263,7 +264,9 @@ assert($jeo_map instanceof \WP_Post);
                     <div class="multistepform__accept-wrapper">
                         <label class="multistepform__accept">
                             <input type="checkbox" name="autoriza_relato" value="sim">
-                            <?php _e('Ao enviar este relato, você concorda com o uso das informações e mídias no site da Defesa Climática Popular e em outras ações do projeto, sem exibição dos seus dados pessoais.'); ?>
+                        <?php
+                        _e('Ao enviar este relato, você concorda com o uso das informações e mídias no site da Defesa Climática Popular e em outras ações do projeto, sem exibição dos seus dados pessoais<span style="color:red">*</span>.');
+                        ?>
                         </label>
                         <small class="error-message"><?php _e('É necessário marcar esta opção.'); ?></small>
                     </div>

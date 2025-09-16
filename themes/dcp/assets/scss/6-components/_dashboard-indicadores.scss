@@ -66,12 +66,12 @@
                     gap: 25px;
 
                     @include mobile {
-                        display: block;
+                        display: block !important;
                         padding: 0 size( 15 );
                         margin-bottom: size(20);
                     }
                     @include tablet {
-                        display: block;
+                        display: block !important;
                         padding: 0 size( 20 );
                         margin-bottom: size(23);
                     }
@@ -165,43 +165,48 @@
                                 form {
                                     display: flex;
                                     justify-content: space-between;
+                                    flex-direction: column;
+                                    align-items: stretch;
+                                    gap: size(16);
                                     padding-top: size( 20 );
-
-                                    @include mobile {
-                                        display: block;
-                                    }
+                                    align-items: center;
 
                                     p {
-                                        padding-bottom: size( 15 );
-                                        label {
+                                        width: 100%;
 
+                                        label {
+                                            font-size: size( 14 );
                                         }
                                         input {
-                                            display: block;
+                                            font-size: size( 17 );
+                                            color: $color--secondary-dark;
                                             width: 100%;
+                                            padding: size( 5 ) size( 20 );
+                                            border-radius: size( 5 );
+                                            border: solid 1px $color--secondary-dark;
+                                            position: relative;
+                                            z-index: 1;
+                                            opacity: 1;
+                                            appearance: none;
+                                            transition: all 0.4s 0s ease;
                                         }
                                     }
 
                                     .button {
                                         background-color: transparent;
                                         color: $color--secondary-dark;
-
                                         font-size: size(16);
                                         text-decoration: none;
                                         padding: size(11) size(50);
+                                        margin-top: size( 5 );
                                         border-radius: size(75);
                                         border: solid 1px $color--secondary-dark;
-
                                         display: flex;
                                         gap: $gap--small;
-                                        width: size( 250 );
+                                        width: 100%;
                                         justify-content: center;
                                         align-items: center;
                                         height: 40px;
-
-                                        @include mobile {
-                                            width: 100%;
-                                        }
                                     }
                                 }
 
@@ -243,6 +248,10 @@
                     }
 
                     &--2 {
+                        display: grid;
+                        grid-template-columns: 1fr 2fr;
+                        gap: 25px;
+
                         .card {
                             flex: 1 1 calc(50% - 25px);
                         }
@@ -269,21 +278,17 @@
                     .card-group {
                         display: flex;
                         gap: 25px;
-                        width: 50%;
+                        // width: 50%;
 
                         @include mobile {
                             width: 100%;
                             padding-top: size( 15 );
-                            padding-bottom: size( 50 );
-                            border-bottom: solid 2px rgba( 0,0,0,0.3 );
                             margin-bottom: size( 50 );
                         }
                         @include tablet {
                             display: block;
                             width: 100%;
                             padding-top: size( 15 );
-                            padding-bottom: size( 50 );
-                            border-bottom: solid 2px rgba( 0,0,0,0.3 );
                             margin-bottom: size( 50 );
                         }
 

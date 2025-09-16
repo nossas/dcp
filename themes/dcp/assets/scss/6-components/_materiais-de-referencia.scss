@@ -5,6 +5,9 @@
     .post-card {
         display: flex;
         flex-direction: column;
+        max-width: size(442);
+        width: 100%;
+
         .post-card__image{
             a{
                 display: flex;
@@ -25,6 +28,7 @@
             }
             .post-card__excerpt{
                 display: -webkit-box;
+                line-clamp: 2 ;
                 -webkit-line-clamp: 2;
                 -webkit-box-orient: vertical;
                 overflow: hidden;

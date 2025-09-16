@@ -88,4 +88,18 @@
     @include mobile{
         padding-inline: 0;
     }
+
+    .wp-block-coblocks-accordion-item {
+       details {
+           summary::-webkit-details-marker {
+               display: none !important;
+           }
+
+           summary::marker {
+               content: "";
+               display: none !important;
+           }
+
+       }
+   }
 }

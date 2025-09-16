@@ -9,3 +9,8 @@
         @extend .accordeon__content;
     }
 }
+
+.wp-block-coblocks-gallery-carousel {
+    max-width: calc(100vw - size(32));
+
+}

@@ -29,6 +29,19 @@ document.addEventListener('DOMContentLoaded', async () => {
             const isSelected = tab.dataset.cpt === cpt;
             tab.classList.toggle(selectedTabClass, isSelected);
         });
+
+        const legendDesktop = document.querySelector('.dcp-map-legend-apoio');
+        const legendMobile = document.querySelector('.dcp-map-legend-apoio__mobile');
+
+        if (legendDesktop) {
+            legendDesktop.style.display = (cpt === 'apoio') ? 'block' : 'none';
+        }
+
+        if (legendMobile) {
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            legendMobile.style.display = (cpt === 'apoio' && isMobile) ? 'block' : 'none';
+        }
+
         toggleLayer?.(cpt);
         updateSearchParams(cpt);
     }
@@ -86,4 +99,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (canvas) {
         canvas.style.height = jeoMap.element.style.height;
     }
+
+    (function() {
+        const iconBtn = document.getElementById('icon-btn');
+
+        function updateIcon() {
+            if (window.innerWidth <= 768) {
+                iconBtn.setAttribute('icon', 'bi:search');
+            } else {
+                iconBtn.setAttribute('icon', 'bi:plus');
+            }
+        }
+
+        updateIcon();
+        window.addEventListener('resize', updateIcon);
+    })();
 });
+
+
+

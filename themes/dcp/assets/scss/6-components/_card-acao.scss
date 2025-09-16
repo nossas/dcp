@@ -52,6 +52,8 @@
 
         .wp-block-columns > .wp-block-column:nth-of-type(1){
             .mostrar-mais {
+                margin-top: size(40);
+
                 .wp-block-button > a{
                     @include mobile{
                         padding: 8px 16px !important;
@@ -137,6 +139,10 @@
         .post-card__title{
             font-size: $font-size--medium;
             color: $color--secondary-dark;
+
+            @include mobile{
+                font-size: $font-size--x-small;
+            }
         }
         .post-card__excerpt{
             color: $color--secondary-dark;
@@ -288,7 +294,7 @@
                 background-color: #ffb301;
             }
             &--solidariedade {
-                background-color: #50b15c;
+                background-color: #FC7753;
             }
 
             &--reparos {
@@ -310,6 +316,7 @@
         }
 
         &__cta-button {
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
             background-color: $color--high-light;
             border-radius: $border-radius--large;
             color: $color--secondary-dark;
@@ -517,8 +524,7 @@
                     margin-top: .8rem;
 
                     @include mobile{
-                        display: grid;
-                        grid-template-columns: 0.3fr 0.3fr 0.3fr;
+                        flex-wrap: wrap;
                         gap: 0.75rem;
                     }
 

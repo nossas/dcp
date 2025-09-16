@@ -1,3 +1,44 @@
 .sr-only {
     @include sr-only;
 }
+
+ .uwy > .userway_buttons_wrapper > .uai{
+	right: size(15);
+
+	@include mobile{
+		right: 0;
+        top: size(50);
+	}
+}
+
+.home{
+    .uwy > .userway_buttons_wrapper > .uai{
+
+        @include mobile{
+            right: 0 !important;
+        }
+    }
+}
+
+.wp-singular,
+.archive{
+    .uwy > .userway_buttons_wrapper > .uai{
+        @include mobile {
+            right: size(-15);
+        }
+    }
+}
+
+.page-template-page-dcp-map{
+    #app{
+        .enabled{
+            top: 50% !important;
+        }
+
+        .dcp-map-legend-apoio__mobile-btn{
+            @include mobile{
+               top: size(568);
+            }
+        }
+    }
+}

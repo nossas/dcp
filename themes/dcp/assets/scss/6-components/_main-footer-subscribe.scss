@@ -1,6 +1,8 @@
 .main-footer-subscribe{
     margin-top: size(80);
     margin-bottom: size(80);
+    position: relative;
+    //z-index: -999;
 
     @include mobile {
         margin-top: unset !important;
@@ -39,6 +41,7 @@
                 }
 
                 .p1{
+                    font-size: $font-size--x-small !important;
                     @include mobile{
                         display: none;
                     }
@@ -54,6 +57,9 @@
 
                 p{
                     font-size: $font-size--x-small !important;
+                    display: flex;
+                    flex-direction: column;
+                    gap: $gap--medium;
                 }
 
                 & > h2{
@@ -83,6 +89,13 @@
         }
     }
 }
+
+.page-template-page-dcp-map{
+    .main-footer-subscribe{
+        z-index: -999;
+    }
+}
+
 .page-reportar-riscos,
 .page-template-page-register-risk,
 .post-type-archive-acao,

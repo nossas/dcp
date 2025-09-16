@@ -94,7 +94,8 @@
 
                         if (!empty($data_bruta)) {
                             $timestamp = strtotime($data_bruta);
-                            $data_formatada = wp_date('H:i | d/m/Y', $timestamp);
+                            $timezone = new DateTimeZone('UTC'); 
+                            $data_formatada = wp_date('H:i | d/m/Y', $timestamp,$timezone);
                             echo ' ' . esc_html($data_formatada);
                         }
                     }
@@ -107,9 +108,11 @@
                 $pods_relato = pods('relato', get_the_ID());
                 $data_do_relato = $pods_relato->field('data_e_horario');
                 if (!empty($data_do_relato)) :
+                    $timezone = new DateTimeZone('UTC'); 
+                    $data_formatada = wp_date('d/m/Y', strtotime($data_do_relato),$timezone);
             ?>
                 <span class="post-card__top-date">
-                    <?= date('d/m/Y', strtotime($data_do_relato)); ?>
+                    <?= $data_formatada; ?>
                 </span>
             <?php
                 endif;
@@ -193,8 +196,9 @@
                                     if (!empty($data_bruta)) {
                                         $timestamp = strtotime($data_bruta);
                                         if ($timestamp) {
-                                            $data_formatada = wp_date('d/m/Y', $timestamp);
-                                            $hora_formatada = wp_date('H:i', $timestamp);
+                                            $timezone = new DateTimeZone('UTC'); 
+                                            $data_formatada = wp_date('d/m/Y', $timestamp,$timezone);
+                                            $hora_formatada = wp_date('H:i', $timestamp,$timezone);
                                             echo 'Dia: ' . esc_html($data_formatada) . ', ' . esc_html($hora_formatada);
                                         }
                                     }
@@ -250,9 +254,11 @@
                     <?php endif;
                 }
                 ?>
-                  <?php if ($post_type == 'acao') : $pods = pods('acao', get_the_ID()); ?>
+                <?php if ($post_type == 'acao') : $pods = pods('acao', get_the_ID()); 
+                    $timezone = new DateTimeZone('UTC'); 
+                ?>
                     <time class="post-card__datetime">
-                        Dia: <?=date( 'd/m/Y, H:i', strtotime( $pods->field( 'data_e_horario' ) ) )?>
+                        Dia: <?= wp_date( 'd/m/Y, H:i', strtotime( $pods->field( 'data_e_horario' ) ),$timezone )?>
                     </time>
                 <?php endif; ?>
             </div>
@@ -260,9 +266,11 @@
 
 
 
-        <?php if ($post_type == 'relato') : $pods = pods('relato', get_the_ID()); ?>
+        <?php if ($post_type == 'relato') : $pods = pods('relato', get_the_ID()); 
+            $timezone = new DateTimeZone('UTC'); 
+        ?>
             <time class="post-card__datetime">
-                Dia: <?=date( 'd/m/Y, H:i', strtotime( $pods->field( 'data_e_horario' ) ) )?>
+                Dia: <?= wp_date( 'd/m/Y, H:i', strtotime( $pods->field( 'data_e_horario' ) ),$timezone )?>
             </time>
         <?php endif; ?>
 
@@ -277,7 +285,7 @@
                 if (in_array($post_type, $post_types_com_endereco)) {
                     $pod = pods($post_type, get_the_ID());
                     if ($pod->exists()) {
-                        $endereco_final = $pod->field('endereco');
+                        $endereco_final = 'Endereço: ' . $pod->field('endereco');
                     }
                 }
 

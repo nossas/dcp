@@ -26,17 +26,17 @@ jQuery(function($) {
                     if (response.html.trim()) {
                         $(containerClass).append(response.html);
                         button.data('page', page);
-                        button.text('Ver mais');
+                        button.text('Mostrar mais');
 
                         if (page >= response.max) {
                             button
-                            .text('Ver mais')
+                            .text('Mostrar mais')
                             .addClass('disabled')
                             .prop('disabled', true);
                         }
                     } else {
                         button
-                        .text('Ver mais')
+                        .text('Mostrar mais')
                         .addClass('disabled')
                         .prop('disabled', true);
                     }

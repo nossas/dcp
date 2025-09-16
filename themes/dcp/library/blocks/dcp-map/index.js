@@ -11,16 +11,30 @@ document.addEventListener('DOMContentLoaded', () => {
         let toggleLayer = null
 
         const selectedCPT = { current: tabsList.dataset.selected }
-        function selectCPT (cpt) {
+        function selectCPT(cpt) {
             tabs.forEach((tab) => {
-                selectedCPT.current = cpt
+                selectedCPT.current = cpt;
+
                 if (tab.dataset.cpt === cpt) {
-                    tab.classList.add('dcp-map-block__tab--selected')
+                    tab.classList.add('dcp-map-block__tab--selected');
                 } else {
-                    tab.classList.remove('dcp-map-block__tab--selected')
+                    tab.classList.remove('dcp-map-block__tab--selected');
                 }
-                toggleLayer?.(cpt)
-            })
+            });
+
+            const apoioLegendDesktop = document.querySelector('.dcp-map-legend-apoio');
+            const apoioLegendMobile = document.querySelector('.dcp-map-legend-apoio__mobile');
+
+            if (apoioLegendDesktop) {
+                apoioLegendDesktop.style.display = (cpt === 'apoio') ? 'block' : 'none';
+            }
+
+            if (apoioLegendMobile) {
+                const isMobile = window.matchMedia('(max-width: 768px)').matches; // ajuste breakpoint se necessário
+                apoioLegendMobile.style.display = (cpt === 'apoio' && isMobile) ? 'block' : 'none';
+            }
+
+            toggleLayer?.(cpt);
         }
 
         tabs.forEach((tab) => {
@@ -41,7 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const postId = Number(card.dataset.postId)
                     for (const risco of riscos) {
                         if (risco.ID == postId) {
-                            displayModal(block, 'risco', {
+                            displayModal(block, {
+                                kind: 'risco',
                                 icon: `risco-${risco.type}`,
                                 ...risco,
                             })

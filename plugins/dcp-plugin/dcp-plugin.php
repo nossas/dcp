@@ -6,7 +6,7 @@
  * Author: WordPress Wizard
  */
 
- add_action('rest_api_init', function () {
+add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/riscos', [
         'methods' => 'GET',
         'callback' => 'dcp_get_riscos',
@@ -25,6 +25,11 @@
                 },
             ],
         ],
+    ]);
+    register_rest_route('dcp/v1', '/riscos-resumo', [
+        'methods' => 'GET',
+        'callback' => 'dcp_get_riscos_resumo',
+        'permission_callback' => '__return_true',
     ]);
 });
 
@@ -52,7 +57,7 @@ function dcp_get_riscos($request) {
 
         $riscos[] = [
             'id' => $post_id,
-            'timestamp' => get_the_date('c', $post),
+            'timestamp' => $pod->field('data_e_horario'),
             'id_usuario' => $post->post_author,
             'latitude' => $pod->field('latitude'),
             'longitude' => $pod->field('longitude'),
@@ -71,6 +76,54 @@ function dcp_get_riscos($request) {
         'total' => $query->found_posts,
         'total_pages' => $query->max_num_pages,
         'data' => $riscos,
+    ]);
+}
+
+function dcp_get_riscos_resumo($request) {
+    $now = current_time('timestamp');
+    $last_24h = wp_date('Y-m-d H:i:s', $now - 24 * 3600);
+
+    $args = [
+        'post_type'      => 'risco',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'meta_query' => array(
+            array(
+            'key' => 'data_e_horario',
+            'value' => $last_24h,
+            'compare' => '>=',
+            'type' => 'DATETIME',
+            ),
+        )
+    ];
+
+    $query = new WP_Query($args);
+
+    $total = 0;
+    $alagamento = 0;
+    $lixo = 0;
+    $outros = 0;
+
+    foreach ($query->posts as $post) {
+        $pod = pods('risco', $post->ID);
+        $classificacao = strtolower(trim($pod->field('situacao_de_risco')[0]['slug']));
+
+        $total++;
+
+        if ($classificacao === 'alagamento') {
+            $alagamento++;
+        } elseif ($classificacao === 'lixo') {
+            $lixo++;
+        } else {
+            $outros++;
+        }
+    }
+
+    return rest_ensure_response([
+        'total' => $total,
+        'alagamento' => $alagamento,
+        'lixo' => $lixo,
+        'outros' => $outros,
     ]);
 }
 
@@ -143,27 +196,71 @@ add_action('rest_api_init', function () {
 
 
 function dcp_api_dicas($request) {
-    $tipo = $request->get_param('tipo');
 
-    $dicas = [
-        'enchente' => [
-            'Evite contato com a água da enchente.',
-            'Desligue a energia elétrica ao sinal de alagamento.',
-            'Mantenha documentos e objetos importantes em locais altos.',
-        ],
-        'lixo' => [
-            'Não jogue lixo nas ruas ou em bueiros.',
-            'Separe resíduos recicláveis e orgânicos.',
-            'Mantenha o lixo tampado para evitar proliferação de doenças.',
-        ],
-        'calor' => [
-            'Beba bastante água durante o dia.',
-            'Evite exposição ao sol entre 10h e 16h.',
-            'Use roupas leves e protetor solar.',
-        ],
-    ];
+    $tipo = $request->get_param( 'tipo' );
+    $is_active = $request->get_param( 'active' );
 
-    return rest_ensure_response($dicas[$tipo]);
+    $args = array(
+        'post_type' => 'recomendacao',
+        'posts_per_page' => -1,
+        'orderby' => 'date',
+        'order' => 'ASC',
+    );
+
+    if (!is_null($is_active)) {
+
+        $active_value = filter_var($is_active, FILTER_VALIDATE_BOOLEAN) ? '1' : '0';
+        $args['meta_query'] = array(
+            array(
+                'key' => 'is_active',
+                'value' => $active_value,
+                'compare' => '='
+            )
+        );
+    }
+
+    $recomendacoes = get_posts( $args );
+    $posts = [];
+    foreach ( $recomendacoes as $key => $post ) {
+        $pod = pods('recomendacao', $post->ID);
+
+        if( !empty( $tipo ) ) {
+
+            if( $tipo === $post->post_name ) {
+
+                $posts = [
+                    'ID' => $post->ID,
+                    'title' => $post->post_title,
+                    'slug' => $post->post_name,
+                    'is_active' => $pod->field('is_active'),
+                    'recomendacoes' => [
+                        $pod->display('recomendacao_1'),
+                        $pod->display('recomendacao_2'),
+                        $pod->display('recomendacao_3')
+                    ]
+                ];
+
+            } else {
+                $posts[ 'error' ] = 'Dica não encontrada';
+            }
+
+        } else {
+
+            $posts[ $key ] = [
+                'ID' => $post->ID,
+                'title' => $post->post_title,
+                'slug' => $post->post_name,
+                'is_active' => $pod->field('is_active'),
+                'recomendacoes' => [
+                    $pod->display('recomendacao_1'),
+                    $pod->display('recomendacao_2'),
+                    $pod->display('recomendacao_3')
+                ]
+            ];
+
+        }
+    }
+    return rest_ensure_response( $posts );
 }
 add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/dicas', [
@@ -171,11 +268,17 @@ add_action('rest_api_init', function () {
         'callback' => 'dcp_api_dicas',
         'args' => [
             'tipo' => [
-                'required' => true,
-                'validate_callback' => function($param) {
-                    return in_array($param, ['enchente', 'lixo', 'calor']);
+                'required' => false,
+                'validate_callback' => function( $param ) {
+                    return $param;
                 },
             ],
+            'active' => array(
+                'required' => false,
+                'validate_callback' => function( $param ) {
+                    return in_array( $param, array( 'true', 'false', '1', '0', 'yes', 'no' ) );
+                }
+            ),
         ],
         'permission_callback' => '__return_true',
     ]);
@@ -247,4 +350,58 @@ add_action('rest_api_init', function () {
         'callback' => 'dcp_api_risco_regiao',
         'permission_callback' => '__return_true',
     ]);
+});
+// Função para adicionar a coluna "classificacao" antes da coluna "date" na listagem de riscos do painel do WordPress.
+add_filter('manage_risco_posts_columns', function($columns) {
+    $new_columns = [];
+    foreach ($columns as $key => $value) {
+        if ($key === 'date') {
+            $new_columns['classificacao'] = __('Classificação', 'dcp-plugin');
+            $new_columns['data_ocorrencia'] = __('Data de Ocorrência', 'dcp-plugin');
+        }
+        $new_columns[$key] = $value;
+    }
+    return $new_columns;
+});
+
+// Exibe os valores das colunas personalizadas
+add_action('manage_risco_posts_custom_column', function($column, $post_id) {
+    if ($column === 'classificacao') {
+        $pod = pods('risco', $post_id);
+        $classificacao = $pod->field('situacao_de_risco');
+        if (is_array($classificacao) && isset($classificacao[0]['name'])) {
+            echo esc_html($classificacao[0]['name']);
+        } elseif (is_string($classificacao)) {
+            echo esc_html($classificacao);
+        } else {
+            echo '-';
+        }
+    }
+    if ($column === 'data_ocorrencia') {
+        $pod = pods('risco', $post_id);
+        $data = $pod->field('data_e_horario');
+        if ($data) {
+            echo esc_html($data);
+        } else {
+            echo '-';
+        }
+    }
+}, 10, 2);
+
+// Torna a coluna "data de ocorrência" ordenável
+add_filter('manage_edit-risco_sortable_columns', function($columns) {
+    $columns['data_ocorrencia'] = 'data_ocorrencia';
+    return $columns;
+});
+
+// Altera a query para ordenar pela coluna "data de ocorrência"
+add_action('pre_get_posts', function($query) {
+    if (!is_admin() || !$query->is_main_query()) {
+        return;
+    }
+    $orderby = $query->get('orderby');
+    if ($query->get('post_type') === 'risco' && $orderby === 'data_ocorrencia') {
+        $query->set('meta_key', 'data_e_horario');
+        $query->set('orderby', 'meta_value');
+    }
 });

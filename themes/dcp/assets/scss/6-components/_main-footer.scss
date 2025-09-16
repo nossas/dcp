@@ -3,6 +3,131 @@
     padding-bottom: $padding--large;
     padding-top: $padding--xx-large;
 
+    .wp-block-columns > .wp-block-column > p {
+        color: $color--secondary-light !important;
+        font-size: $font-size--xx-small;
+
+        & > a {
+            text-decoration: none;
+        }
+    }
+
+    .wp-block-columns > .wp-block-column:first-child > .wp-block-columns:first-child {
+        max-width: size(280);
+        width: 100%;
+
+        .wp-block-column:first-child {
+
+            figure {
+                display: flex;
+                gap: size(12);
+
+                &::after {
+                    content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='3' height='46' viewBox='0 0 3 46' fill='none'><path d='M2.69343 45.311C2.57664 45.437 2.40146 45.5 2.16788 45.5L0.416058 45.1976C0.313869 44.2146 0.248175 43.4207 0.218978 42.8159L0.569344 17.8271L1.9057e-06 0.537805C0.0291996 0.638618 0.116791 0.66382 0.262776 0.613414L0.569345 0.5C0.91971 0.5 1.37956 0.600812 1.94891 0.802437C2.53285 1.02926 2.86131 1.24349 2.93431 1.44511L3 2.91949L2.89051 40.8741C2.87591 41.0254 3.0146 42.8789 2.9562 43.761C2.89781 44.6431 2.81022 45.1598 2.69343 45.311Z' fill='%23F9F3EA' fill-opacity='0.35'/></svg>");
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+
+    .wp-block-columns > .wp-block-column:first-child > .wp-block-columns:last-child {
+        gap: size(12);
+        max-width: size(280);
+        width: 100%;
+
+        .wp-block-column {
+            & > p {
+                white-space: nowrap;
+                margin-block-start: 0 !important;
+            }
+
+            &:first-child {
+                @include mobile{
+                    border-right: size(2) solid #F9F3EA26;
+                    padding-right: size(40);
+                    margin-right: size(10);
+                }
+
+                &::before {
+                    border-top: size(2) solid #F9F3EA26;
+                    display: block;
+                    content: "";
+                    padding-bottom: $padding--medium;
+                    width: size(25);
+
+                    @include mobile {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .wp-block-columns:first-child > .wp-block-column:last-child > .wp-block-columns {
+        margin-bottom: size(46);
+        margin-top: size(80);
+
+        @include mobile{
+            margin-top: $margin--small;
+        }
+
+        .wp-block-column {
+            border-right: size(2) solid #F9F3EA26;
+            padding-right: size(12);
+
+            @include mobile {
+                border-right: none;
+                padding-right: 0;
+            }
+
+            &:first-child {
+                @include mobile {
+                    max-width: fit-content;
+                }
+
+                &::before {
+                    @include mobile {
+                        border-top: size(2) solid #F9F3EA26;
+                        display: block;
+                        content: "";
+                        width: size(25);
+                    }
+                }
+            }
+
+            &:last-child {
+                border-right: none;
+                padding-right: 0;
+            }
+
+            & > p {
+                margin-top: 0;
+                white-space: nowrap;
+            }
+        }
+
+        .wp-block-column:nth-child(3) {
+            max-width: fit-content;
+        }
+    }
+
+    .wp-block-columns:first-child > .wp-block-column:last-child > .copyright {
+        &::before {
+            border-top: size(2) solid #F9F3EA26;
+            display: block;
+            content: "";
+            padding-bottom: $padding--medium;
+            width: size(25);
+            margin-left: auto;
+
+            @include mobile {
+                margin-left: unset;
+            }
+        }
+    }
+
+
     @include mobile {
         padding-top: $padding--x-large;
     }
@@ -10,85 +135,22 @@
     &__widgets {
         max-width: $grid--wide;
 
-        @include mobile {
-            padding-inline: $padding--x-large;
-        }
-
         .wp-block-heading {
             margin-block: $margin--small;
         }
     }
 
-    &__widget{
-        @include mobile{
+    &__widget {
+        @include mobile {
             display: none;
-        }
-
-        .footer-column1{
-            .wp-block-column{
-                & > p{
-                    color: $color--secondary-light;
-                    font-size: $font-size--xx-small;
-                    white-space: nowrap;
-                }
-            }
-
-            .wp-block-column:last-child{
-                border-right: size(3) solid $color--secondary-light;
-                display: flex;
-                height: size(46);
-                justify-content: flex-end;
-                padding-right: size(5);
-            }
-        }
-
-        .footer-column2{
-            p{
-                color: $color--secondary-light;
-                font-size: $font-size--xx-small;
-                font-weight: $font-weight--bold;
-                margin-block-start: 0;
-            }
-
-            a{
-                text-decoration: none;
-            }
-
-            .wp-block-column:last-child{
-                display: flex;
-                justify-content: flex-end;
-                margin-right: size(70);
-
-                @include mobile{
-                    margin-right: 0;
-                }
-
-                & > h6{
-                    position: relative;
-                    right: size(-60);
-                }
-
-                .wp-block-group{
-                    display: flex;
-                }
-            }
-        }
-
-        .copyright{
-            color: $color--secondary-light;
-            font-size: $font-size--xx-small;
-
-            @include mobile{
-                font-size: $font-size--xxx-small !important;
-            }
         }
     }
 
-    &__mobile-widget{
+    &__mobile-widget {
         display: none;
 
-        @include mobile{
-            display: block;
+        @include mobile {
+            display: flex;
         }
     }
 }
