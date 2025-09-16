@@ -248,3 +248,94 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("formParticiparAcao");
+  const modalTelefone = document.getElementById("cf7-snackbar-telefone");
+  const modalErro = document.getElementById("cf7-snackbar-error");
+  const modalSucesso = document.getElementById("cf7-snackbar-success");
+
+  if (!form) return console.warn("formParticiparAcao não encontrado.");
+
+  function validarTelefone(valor) {
+    const numeros = valor.replace(/\D/g, "");
+    return numeros.length === 10 || numeros.length === 11;
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    // Reset modais e mensagens
+    form.querySelectorAll(".erro-telefone").forEach(el => el.style.display = "none");
+    modalTelefone.style.display = "none";
+    modalErro.style.display = "none";
+    modalSucesso.style.display = "none";
+
+    let camposValidos = true;
+    let telefoneValido = true;
+
+    // ===== Nome =====
+    const nome = form.querySelector('input[name="nome_completo"]');
+    if (!nome || !nome.value.trim()) {
+      camposValidos = false;
+    }
+
+    // ===== Telefone =====
+    const telefone = form.querySelector('input[name="telefone"]');
+    if (!telefone || !validarTelefone(telefone.value)) {
+      telefoneValido = false;
+      const erroSpan = telefone.parentNode.querySelector(".erro-telefone");
+      if (erroSpan) erroSpan.style.display = "block";
+
+      // exibir modal de telefone
+      modalTelefone.style.display = "flex";
+    }
+
+    // ===== Aceite termos =====
+    const aceiteTermos = form.querySelector('input[name="aceite_termos"]');
+    if (!aceiteTermos || !aceiteTermos.checked) {
+      camposValidos = false;
+    }
+
+    // ===== Aceite WhatsApp =====
+    const aceiteWhats = form.querySelector('input[name="aceite_whatsapp"]');
+    if (!aceiteWhats || !aceiteWhats.checked) {
+      camposValidos = false;
+    }
+
+    // ===== Modal de erro geral =====
+    if (!camposValidos && telefoneValido) {
+      modalErro.style.display = "flex";
+    }
+
+    // ===== Envio =====
+    if (camposValidos && telefoneValido) {
+      const formData = new FormData(form);
+
+      fetch(form.dataset.action, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            modalSucesso.style.display = "flex";
+            form.reset();
+          } else {
+            modalErro.style.display = "flex";
+          }
+        })
+        .catch(() => {
+          modalErro.style.display = "flex";
+        });
+    }
+  });
+
+  // ===== Botões para fechar modais =====
+  document.querySelectorAll(".modal-close").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      btn.closest(".modal").style.display = "none";
+    });
+  });
+});
+

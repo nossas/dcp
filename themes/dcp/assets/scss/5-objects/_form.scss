@@ -1084,7 +1084,7 @@
   color: $color--warning-dark !important;
 }
 
-.formulario-participar{
+.formulario-participar {
 
     .form-participar input:required:user-invalid {
         border: 1px solid $color--warning-dark !important;
@@ -1095,6 +1095,40 @@
         outline: none;
         box-shadow: none;
     }
+
+    .erro-telefone {
+        margin-top: 4px;
+        display: none;
+        font-size: 14px;
+        color: $color--warning-dark;
+        padding-left: 12px;
+    }
+
+    #cf7-snackbar-error {
+        display: none;
+        position: absolute;
+        max-width: size(340);
+        width: 100%;
+        top: 60%;
+        height: 90px;
+        left: 77%;
+        transform: translateX(-50%);
+        background-color: $color--warning-dark;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        z-index: 9999;
+    }
+
+    #cf7-snackbar-error .modal-close {
+        margin-left: 15px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: white;
+        font-weight: bold;
+    }
+
 }
 
 .msg-erro {
@@ -1127,7 +1161,7 @@
   max-width: size(344);
   z-index: 9999;
 }
-
+#cf7-snackbar-telefone,
 #cf7-snackbar-error {
     align-items: flex-start;
     background-color: $color--warning-dark;
@@ -1174,15 +1208,12 @@
   cursor: pointer;
 }
 
-/* remove borda/padding quando o wrapper conter checkbox/radio */
 .wpcf7 .wpcf7-form-control-wrap.no-border-checkbox {
   border: none !important;
   padding: 0 !important;
 }
 
-/* e mantém apenas a cor do label */
 .wpcf7 .wpcf7-form-control-wrap.no-border-checkbox .wpcf7-list-item-label,
 .wpcf7 .wpcf7-form-control-wrap.no-border-checkbox label {
   color: $color--warning-dark !important; /* ou hex */
 }
-
