@@ -87,7 +87,7 @@
 
         &-btn{
             position: absolute;
-            top: size(200);
+            bottom: size(280);
             background-color: transparent;
 
             & > img{
@@ -110,7 +110,7 @@
         padding-inline: $padding--medium;
         padding-top: $padding--medium;
         position: fixed;
-        top: size(440);
+        top: size(360);
         width: 100vw;
 
         &-close{

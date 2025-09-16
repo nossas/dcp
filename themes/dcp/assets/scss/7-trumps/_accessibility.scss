@@ -37,7 +37,7 @@
 
         .dcp-map-legend-apoio__mobile-btn{
             @include mobile{
-               top: size(568);
+               bottom: size(-215);
             }
         }
     }
