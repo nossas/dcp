@@ -343,6 +343,12 @@
     }
 }
 
+[data-name=acceptance-124] .wpcf7-list-item-label{
+    @include mobile{
+        display: unset !important;
+    }
+}
+
 [data-name="descricao"],
 [data-name="telefone"],
 [data-name="nome-completo"]{
