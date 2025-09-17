@@ -115,7 +115,7 @@
             }
         }
 
-        p > label{
+        p > label > .label-title{
             padding-left: size(12);
         }
 
@@ -330,11 +330,37 @@
     }
 }
 
+.wrap-required > p {
+    display: flex;
+    flex-direction: row !important;
+    gap: 0 !important;
+    width: fit-content;
+}
+
+[data-name="descricao"]{
+    .wpcf7-not-valid-tip:last-child{
+        display: none;
+    }
+}
+
+[data-name="descricao"],
+[data-name="telefone"],
+[data-name="nome-completo"]{
+
+    textarea.wpcf7-not-valid,
+    input.wpcf7-not-valid{
+        border-color: $color--warning-dark !important;
+    }
+}
+
 [data-name="aceite_termos"],
-[data-name="aceite_whatsapp"]
+[data-name="aceite_whatsapp"],
+[data-name="aceite-informacoes"],
+[data-name="acceptance-124"]
 {
+    width: fit-content !important;
+
     .wpcf7 .wpcf7-not-valid:not([type="checkbox"]):not([type="radio"]) {
-      //border: 1px solid $color--warning-dark !important;
       outline: none;
       padding-right: 32px;
     }
@@ -344,6 +370,14 @@
     }
 
     .wpcf7-not-valid-tip{
+        display: none;
+    }
+
+    .wpcf7-list-item-label{
+        display: flex;
+    }
+
+    &::after{
         display: none;
     }
 }
@@ -1215,5 +1249,20 @@
 
 .wpcf7 .wpcf7-form-control-wrap.no-border-checkbox .wpcf7-list-item-label,
 .wpcf7 .wpcf7-form-control-wrap.no-border-checkbox label {
-  color: $color--warning-dark !important; /* ou hex */
+  color: $color--warning-dark !important;
 }
+
+.page-contato,
+.page-metodologia,
+.page-sobre,
+.page-transparencia{
+    input.wpcf7-not-valid{
+        border: 1px solid $color--warning-dark !important;
+    }
+
+    textarea.wpcf7-not-valid{
+        border: 1px solid $color--warning-dark !important;
+    }
+}
+
+

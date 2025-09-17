@@ -282,6 +282,7 @@
 
             p {
                 font-size: size(13);
+                display: flex;
                 font-weight: 500;
                 line-height: size(14);
                 padding: size(4) size(12);
@@ -290,7 +291,6 @@
             .checkbox-aceite {
                 display: flex;
                 align-items: center;
-                gap: 13px;
                 font-size: 14px;
                 color: $color--secondary-dark;
 
@@ -298,6 +298,7 @@
                     width: 18px;
                     height: 18px;
                     flex-shrink: 0;
+                    margin-right: size(12);
                 }
             }
 

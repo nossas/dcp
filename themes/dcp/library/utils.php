@@ -475,3 +475,17 @@ function custom_phone_validation($result, $tag) {
 
     return $result;
 }
+
+add_filter('wpcf7_validate_textarea', 'cf7_descricao_custom_msg', 20, 2);
+add_filter('wpcf7_validate_textarea*', 'cf7_descricao_custom_msg', 20, 2);
+
+function cf7_descricao_custom_msg( $result, $tag ) {
+    if ( isset($tag->name) && $tag->name === 'descricao' ) {
+        $value = isset($_POST[$tag->name]) ? trim( wp_unslash($_POST[$tag->name]) ) : '';
+        if ( $tag->is_required() && $value === '' ) {
+            $result->invalidate($tag, 'Conte um pouco sobre a ideia para podermos avaliar.');
+        }
+    }
+    return $result;
+}
+

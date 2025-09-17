@@ -247,7 +247,6 @@ document.addEventListener('DOMContentLoaded', function () {
   document.addEventListener('wpcf7submit', function () { setTimeout(updateNoBorderForCheckboxWraps, 8); });
 });
 
-
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("formParticiparAcao");
   const modalTelefone = document.getElementById("cf7-snackbar-telefone");
@@ -339,3 +338,54 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+document.addEventListener('wpcf7invalid', function(event) {
+  if (!event || !event.detail || !event.detail.inputs) return;
+
+  try {
+    event.detail.inputs.forEach(function(input) {
+      if (input && input.name === 'descricao') {
+        var textarea = document.querySelector('[name="descricao"]');
+        if (!textarea) return;
+
+        var tip = textarea.closest('.wpcf7-form-control-wrap')
+        .querySelector('.wpcf7-not-valid-tip');
+
+        if (tip) {
+          tip.textContent = 'Conte um pouco sobre a ideia para podermos avaliar.';
+        } else {
+          var wrap = textarea.closest('.wpcf7-form-control-wrap') || textarea.parentElement;
+          var span = document.createElement('span');
+          span.className = 'wpcf7-not-valid-tip';
+          span.textContent = 'Conte um pouco sobre a ideia para podermos avaliar.';
+          wrap.appendChild(span);
+        }
+      }
+    });
+  } catch (e) {
+    console.error('CF7 custom msg error', e);
+  }
+}, false);
+
+document.addEventListener('wpcf7invalid', function(event) {
+  if (!event || !event.detail || !event.detail.invalidFields) return;
+
+  const checkboxFields = ['aceite_termos', 'aceite_whatsapp'];
+
+  const checkboxError = event.detail.invalidFields.some(function(field) {
+    return checkboxFields.includes(field.name);
+  });
+
+  if (checkboxError) {
+    const responseOutput = event.target.querySelector('.wpcf7-response-output');
+    if (!responseOutput) return;
+
+    const observer = new MutationObserver(() => {
+      responseOutput.textContent = 'Para continuar, marque que você autoriza o envio das informações.';
+      responseOutput.classList.add('wpcf7-validation-error');
+      responseOutput.style.display = 'block';
+      observer.disconnect();
+    });
+
+    observer.observe(responseOutput, { childList: true, characterData: true, subtree: true });
+  }
+}, false);
