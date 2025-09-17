@@ -405,3 +405,110 @@ add_action('pre_get_posts', function($query) {
         $query->set('orderby', 'meta_value');
     }
 });
+
+
+//
+function dcp_webhook_situacao_atual($request) {
+
+    $estagio = $request->get_param( 'estagio' );
+    $clima = $request->get_param( 'clima' );
+
+    $args = array(
+        'post_type' => 'situacao_atual',
+        'posts_per_page' => 1
+    );
+
+    if( !empty( $estagio ) ) {
+
+        $args[ 'meta_query' ] = [
+            [
+                'key' => 'is_active',
+                'value' => true,
+                'compare' => '='
+            ]
+        ];
+        $meta_key = 'estagio';
+
+        switch ( strtolower( $estagio ) ) {
+
+            case 'estágio 1':
+                $meta_value = 1;
+                break;
+            case 'estágio 2':
+                $meta_value = 2;
+                break;
+            case 'estágio 3':
+                $meta_value = 3;
+                break;
+        }
+
+    }
+
+    if( !empty( $clima ) ) {
+        switch ( strtolower( $clima ) ) {
+
+            case 'calor 1':
+                $args[ 'name' ] = 'situacao-atual-normal-ensolarado';
+                break;
+
+            case 'calor 2':
+                $args[ 'name' ] = 'situacao-atual-atencao-calor';
+                break;
+
+            case 'calor 3':
+                $args[ 'name' ] = 'situacao-atual-calor-extremo';
+                break;
+        }
+        $meta_key = 'is_active';
+        $meta_value = true;
+
+        $situacoes_ids = get_posts([
+            'post_type' => 'situacao_atual',
+            'posts_per_page' => -1,
+            'fields' => 'ids'
+        ]);
+
+        foreach ( $situacoes_ids as $id ) {
+            $pods = \pods( 'situacao_atual', $id );
+            $pods->save( 'is_active', false );
+        }
+    }
+
+
+    $query = new WP_Query( $args );
+
+    if ( $query->have_posts() ) {
+        $query->the_post();
+        $post_id = get_the_ID();
+
+        sleep( 1 );
+
+        $updated_post_id = update_post_meta( $post_id, $meta_key, $meta_value );
+
+        if (is_wp_error($updated_post_id)) {
+            $is_save = false;
+        } else {
+            $is_save = true;
+        }
+
+        wp_reset_postdata();
+    } else {
+        $is_save = false;
+    }
+
+    return rest_ensure_response([
+        'status' => true,
+        'data' => [
+            'total' => 213,
+            'is_save' => $is_save,
+        ]
+    ]);
+
+}
+add_action('rest_api_init', function () {
+    register_rest_route('dcp/v1', '/webhook/situacao-atual', [
+        'methods' => 'POST',
+        'callback' => 'dcp_webhook_situacao_atual',
+        'permission_callback' => '__return_true',
+    ]);
+});
