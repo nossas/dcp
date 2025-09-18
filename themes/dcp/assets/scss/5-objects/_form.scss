@@ -742,6 +742,7 @@
     &__label{
         color: $color--low-light;
         font-size: $font-size--xx-small;
+        padding-left: size(12);
 
         &-email,
         &-phone{
@@ -1201,6 +1202,7 @@
   max-width: size(344);
   z-index: 9999;
 }
+
 #cf7-snackbar-telefone,
 #cf7-snackbar-error {
     align-items: flex-start;
