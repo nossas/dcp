@@ -130,6 +130,20 @@ function insertFeatureCollection(map, container, slug, features) {
         },
     })
 
+    const spiderifier = new Spiderfy(map, {
+        renderMethod: '3D',
+		closeOnLeafClick: false,
+        spiderLeavesLayout: {
+            'icon-allow-overlap': true,
+            'icon-image': ['get', 'icon'],
+        },
+        onLeafClick: (feature) => {
+            displayModal(container, feature.properties)
+        },
+    })
+
+    spiderifier.applyTo(pinsLayer)
+
     map.addLayer({
         id: clustersLayer,
         type: 'circle',
@@ -155,20 +169,6 @@ function insertFeatureCollection(map, container, slug, features) {
             'text-color': '#ffffff',
         },
     })
-
-    const spiderifier = new Spiderfy(map, {
-        renderMethod: '3D',
-		closeOnLeafClick: false,
-        spiderLeavesLayout: {
-            'icon-allow-overlap': true,
-            'icon-image': ['get', 'icon'],
-        },
-        onLeafClick: (feature) => {
-            displayModal(container, feature.properties)
-        },
-    })
-
-    spiderifier.applyTo(pinsLayer)
 
     map.on('click', pinsLayer, (event) => {
         const feature = event.features[0]
