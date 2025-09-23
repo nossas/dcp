@@ -245,3 +245,9 @@
         }
     }
 }
+
+.dcp-map-block{
+    &__buttons{
+        bottom: size(16) !important;
+    }
+}
