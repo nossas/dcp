@@ -1,6 +1,10 @@
 .dcp-map {
     position: relative;
 
+    &__buttons{
+        bottom: size(16) !important;
+    }
+
     &__tabs-container {
         display: flex;
         justify-content: center;

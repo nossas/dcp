@@ -24,8 +24,78 @@
             <span class="dcp-map-legend-apoio__item--initiates"><?= __('Iniciativas locais', 'hacklabr') ?></span>
         </li>
 
+
     </ul>
 </aside>
+
+<li class="dcp-map-legend-apoio__item dcp-map-legend-apoio__item--dicas">
+    <button type="button" aria-label="<?= __('Abrir dicas do mapa', 'hacklabr') ?>" @click="$refs.dicasModal.showModal()">
+        <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/dicas.svg" alt="<?= __('Dicas', 'hacklabr') ?>">
+    </button>
+</li>
+
+<dialog class="dcp-map-dicas__modal" x-ref="dicasModal">
+    <article>
+        <header>
+            <div class="dcp-map-dicas__title">
+                <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/icon-tip.svg" alt="">
+                <h5><?= __('Dicas para usar o mapa', 'hacklabr') ?></h5>
+            </div>
+
+            <button type="button" class="dcp-map-dicas__modal-close" aria-label="<?= __('Fechar dicas', 'hacklabr') ?>" @click="$refs.dicasModal.close()">
+                <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/close-modal.svg" alt="">
+            </button>
+        </header>
+        <main>
+            <ul class="dcp-map-dicas__list">
+
+                <div class="dcp-map-dicas__list--zonas">
+                    <li class="dcp-map-dicas__item  dcp-map-dicas__item-zonas dcp-map-dicas__item--alagamento">
+                        <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/icon-alagamento.svg" alt="">
+                        <span><?= __('Zonas de risco de alagamento', 'hacklabr') ?></span>
+                    </li>
+                    <li class="dcp-map-dicas__item dcp-map-dicas__item-zonas dcp-map-dicas__item--lixo">
+                        <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/icon-lixo.svg" alt="">
+                        <span><?= __('Zonas de acúmulo de lixo', 'hacklabr') ?></span>
+                    </li>
+                </div>
+
+                <div class="dcp-map-dicas__list--first">
+                    <li class="dcp-map-dicas__item">
+                        <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/lupa-mapa.svg" alt="">
+                        <h5><?= __('Buscar localização:', 'hacklabr') ?></h5><span><?= __('Digite o endereço para localizar', 'hacklabr') ?></span>
+                    </li>
+                    <li class="dcp-map-dicas__item">
+                        <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/aqui-modal.svg" alt="">
+                        <h5><?= __('Informar risco:', 'hacklabr') ?></h5><span><?= __('Clique e envie um relato', 'hacklabr') ?></span>
+                    </li>
+                    </li>
+                    <li class="dcp-map-dicas__item">
+                        <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/defender.svg" alt="">
+                        <h5><?= __('O que fazer:', 'hacklabr') ?></h5><span><?= __('Veja dicas e contatos úteis', 'hacklabr') ?></span>
+                    </li>
+                </div>
+
+                <div class="dcp-map-dicas__list--second">
+                    <li class="dcp-map-dicas__item">
+                        <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/maismenos.svg" alt="">
+                        <h5><?= __('Zoom:', 'hacklabr') ?></h5><span><?= __('Aproximar ou afastar o mapa', 'hacklabr') ?></span>
+                    </li>
+                    <li class="dcp-map-dicas__item">
+                        <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/alvo.svg" alt="">
+                        <h5><?= __('Buscar Localização:', 'hacklabr') ?></h5><span><?= __('Vá direto para a sua localização atual.', 'hacklabr') ?></span>
+                    </li>
+                    </li>
+                    <li class="dcp-map-dicas__item">
+                        <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/dicas2.svg" alt="">
+                        <h5><?= __('Ajuda sobre o mapa:', 'hacklabr') ?></h5><span><?= __('Volte a este card quando quiser!', 'hacklabr') ?></span>
+                    </li>
+                </div>
+
+            </ul>
+        </main>
+    </article>
+</dialog>
 
 <aside class="dcp-map-legend-apoio__mobile">
     <button class="dcp-map-legend-apoio__mobile-btn" type="button" aria-label="<?= __('Abrir legenda', 'hacklabr') ?>" @click="$refs.legendModal.showModal()">
@@ -36,7 +106,7 @@
         <article>
             <header>
                 <button type="button" class="dcp-map-legend-apoio__modal-close" aria-label="<?= __('Fechar legenda', 'hacklabr') ?>" @click="$refs.legendModal.close()">
-                   <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/close-modal.svg" alt="">
+                    <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/close-modal.svg" alt="">
                 </button>
                 <h5><img src="<?= get_stylesheet_directory_uri() ?>/assets/images/legenda.svg" alt=""><?= __('Legenda', 'hacklabr') ?></h5>
             </header>
