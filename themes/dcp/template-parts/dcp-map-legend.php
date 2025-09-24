@@ -63,32 +63,55 @@
                 <div class="dcp-map-dicas__list--first">
                     <li class="dcp-map-dicas__item">
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/lupa-mapa.svg" alt="">
-                        <h5><?= __('Buscar localização:', 'hacklabr') ?></h5><span><?= __('Digite o endereço para localizar', 'hacklabr') ?></span>
+
+                        <div class="dcp-map-dicas__text">
+                            <h5><?= __('Buscar localização:', 'hacklabr') ?></h5>
+                            <span><?= __('Digite o endereço para localizar', 'hacklabr') ?></span>
+                        </div>
                     </li>
                     <li class="dcp-map-dicas__item">
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/aqui-modal.svg" alt="">
-                        <h5><?= __('Informar risco:', 'hacklabr') ?></h5><span><?= __('Clique e envie um relato', 'hacklabr') ?></span>
+
+                        <div class="dcp-map-dicas__text">
+                            <h5><?= __('Informar risco:', 'hacklabr') ?></h5>
+                            <span><?= __('Clique e envie um relato', 'hacklabr') ?></span>
+                        </div>
                     </li>
                     </li>
                     <li class="dcp-map-dicas__item">
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/defender.svg" alt="">
-                        <h5><?= __('O que fazer:', 'hacklabr') ?></h5><span><?= __('Veja dicas e contatos úteis', 'hacklabr') ?></span>
+
+                        <div class="dcp-map-dicas__text">
+                            <h5><?= __('O que fazer:', 'hacklabr') ?></h5>
+                            <span><?= __('Veja dicas e contatos úteis', 'hacklabr') ?></span>
+                        </div>
                     </li>
                 </div>
 
                 <div class="dcp-map-dicas__list--second">
                     <li class="dcp-map-dicas__item">
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/maismenos.svg" alt="">
-                        <h5><?= __('Zoom:', 'hacklabr') ?></h5><span><?= __('Aproximar ou afastar o mapa', 'hacklabr') ?></span>
+
+                        <div class="dcp-map-dicas__text">
+                            <h5><?= __('Zoom:', 'hacklabr') ?></h5>
+                            <span><?= __('Aproximar ou afastar o mapa', 'hacklabr') ?></span>
+                        </div>
                     </li>
                     <li class="dcp-map-dicas__item">
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/alvo.svg" alt="">
-                        <h5><?= __('Buscar Localização:', 'hacklabr') ?></h5><span><?= __('Vá direto para a sua localização atual.', 'hacklabr') ?></span>
+
+                        <div class="dcp-map-dicas__text">
+                            <h5><?= __('Buscar Localização:', 'hacklabr') ?></h5>
+                            <span><?= __('Vá direto para a sua localização atual.', 'hacklabr') ?></span>
+                        </div>
                     </li>
                     </li>
                     <li class="dcp-map-dicas__item">
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/dicas2.svg" alt="">
-                        <h5><?= __('Ajuda sobre o mapa:', 'hacklabr') ?></h5><span><?= __('Volte a este card quando quiser!', 'hacklabr') ?></span>
+                        <div class="dcp-map-dicas__text">
+                            <h5><?= __('Ajuda sobre o mapa:', 'hacklabr') ?></h5>
+                            <span><?= __('Volte a este card quando quiser!', 'hacklabr') ?></span>
+                        </div>
                     </li>
                 </div>
 
@@ -129,3 +152,12 @@
         </article>
     </dialog>
 </aside>
+
+<footer class="dcp-map-footer">
+    <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/metodologia-icon.svg" alt="">
+    <p class="dcp-map-footer__text">
+        <?= __('As zonas demarcadas não mostram a situação em tempo real. Entenda nossa', 'hacklabr') ?>
+        <a href="/sobre/metodologia" class="dcp-map-footer__link"><?= __('metodologia', 'hacklabr') ?></a>
+    </p>
+</footer>
+

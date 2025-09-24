@@ -1,8 +1,16 @@
 .dcp-map {
     position: relative;
 
+    .mapboxgl-map > .mapboxgl-control-container > .mapboxgl-ctrl-bottom-left{
+        display: none !important;
+    }
+
     &__buttons{
-        bottom: size(16) !important;
+        bottom: size(64) !important;
+
+        @include mobile {
+            bottom: size(72) !important;
+        }
     }
 
     &__tabs-container {
@@ -249,5 +257,9 @@
 .dcp-map-block{
     &__buttons{
         bottom: size(16) !important;
+
+        @include mobile{
+            bottom: size(32) !important;
+        }
     }
 }
