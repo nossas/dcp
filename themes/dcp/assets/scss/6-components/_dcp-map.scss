@@ -210,6 +210,11 @@
         transition: opacity 0.2s;
     }
 
+    .jeomap :is(.mapboxgl-ctrl-zoom-out,.maplibregl-ctrl-zoom-out),
+    .jeomap :is(.mapboxgl-ctrl-zoom-in,.maplibregl-ctrl-zoom-in){
+        background-image: unset !important;
+    }
+
     .jeomap {
         background-color: transparent;
         height: calc(100vh - #{size(120)});
@@ -241,6 +246,8 @@
             button {
                 background-color: $color--secondary-dark !important;
                 border-radius: 8px !important;
+                width: size(24);
+                height: size(24);
             }
 
             button.maplibregl-ctrl-zoom-in .maplibregl-ctrl-icon {

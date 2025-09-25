@@ -343,8 +343,28 @@
 }
 
 .page-mapa{
-    .dcp-map-legend-apoio__item--dicas{
-        bottom: size(210);
+    .dcp-map-legend-apoio {
+        bottom: size(240);
+        top: unset;
+
+        &__item {
+            &--dicas {
+                bottom: size(210);
+
+                @include mobile {
+                    bottom: size(178);
+                    padding-left: size(10);
+                }
+            }
+        }
+
+        &__mobile {
+            @include mobile {
+                bottom: size(90);
+                position: relative;
+                padding-left: size(4);
+            }
+        }
     }
 
     .dcp-map-footer{
