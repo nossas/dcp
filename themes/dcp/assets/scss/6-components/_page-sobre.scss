@@ -139,8 +139,6 @@
     }
 
     &__dcp {
-        border: 1px solid red;
-
         .wp-block-columns {
             @media (min-width: size(500)) and (max-width: size(768)){
                 display: flex !important;
