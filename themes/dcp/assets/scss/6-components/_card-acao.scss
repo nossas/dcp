@@ -89,11 +89,30 @@
             }
         }
 
+        .posts-grid__content{
+            justify-items: center;
+
+            &-cards-agendada{
+                @media (min-width: size(500)) and (max-width: size(768)) {
+                    display: grid !important;
+                    grid-template-columns: 1fr 1fr !important;
+                }
+            }
+        }
+
     }
     .posts-grid__content{
         display: grid;
         grid-template-columns: 1fr;
         gap: 2rem;
+
+        &-cards-concluidas{
+            @media (min-width: size(500)) and (max-width: size(768)) {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+            }
+        }
+
 
         @include mobile{
             margin-top: $margin--large;
@@ -546,6 +565,7 @@
                         border: 1px solid #000;
                         border-radius: calc($border-radius--large * 5);
                         cursor: pointer;
+                        white-space: nowrap;
                     }
 
 
@@ -575,6 +595,7 @@
                         font-weight: $font-weight--regular;
                         border-color: $color--secondary-dark;
                         position: relative;
+                        white-space: nowrap;
                     }
 
                 }

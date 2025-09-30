@@ -131,6 +131,10 @@
                 max-width: size(676);
                 padding: $padding--medium;
                 width: 100%;
+
+                @media (min-width: size(500)) and (max-width: size(768)) {
+                    max-width: inherit !important;
+                }
             }
 
             .wpcf7-form-control-wrap > .wpcf7-textarea{
