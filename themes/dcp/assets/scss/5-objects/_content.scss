@@ -20,6 +20,12 @@
         padding-inline: $padding--large;
     }
 
+    @media (min-width: size(500)) and (max-width: size(768)){
+        display: block !important;
+        max-width: size(768);
+        width: 100%;
+    }
+
     @media (max-width: $breakpoint--wide) {
         grid-template-columns:
             [start wide-start] 1fr

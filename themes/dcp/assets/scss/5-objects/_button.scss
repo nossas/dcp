@@ -69,6 +69,10 @@
 }
 
 .risco-btn{
+    @media (min-width: size(500)) and (max-width: size(768)) {
+       flex-direction: row !important;
+    }
+
     .wp-block-buttons:first-child > .wp-block-button > a{
 
         &:hover {

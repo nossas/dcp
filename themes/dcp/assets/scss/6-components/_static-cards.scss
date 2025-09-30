@@ -2,6 +2,13 @@
     margin-bottom: size(80);
     margin-top: size(80);
 
+    &__content{
+        @media (min-width: size(500)) and (max-width: size(768)) {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
     @include mobile {
         margin-bottom: unset !important;
     }
@@ -133,6 +140,11 @@
             margin-bottom: size(24);
             margin-block-start: size(24);
             gap: size(24) !important;
+
+            @media (min-width: size(500)) and (max-width: size(768)) {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
         .wp-block-columns>.wp-block-column {

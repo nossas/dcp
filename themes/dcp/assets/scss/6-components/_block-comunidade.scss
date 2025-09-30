@@ -90,6 +90,10 @@
     }
 
     .hacklabr-posts-grid-block {
+        @media (min-width: size(500)) and (max-width: size(768)) {
+            grid-template-columns: 1fr 1fr;
+        }
+
         .post-card {
             background-color: $color--high-light;
             border-radius: $border-radius--large;
@@ -113,7 +117,6 @@
                 font-family: $font-family--primary !important;
                 font-size: $font-size--medium;
                 font-weight: $font-weight--medium;
-                /* margin-top: size(5); */
                 margin-top: 20px;
 
             }

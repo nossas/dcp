@@ -6,7 +6,7 @@
  */
 
 namespace hacklabr;
-$risks_page = get_page_by_path('reportar-riscos');
+$risks_page = get_page_by_path('informar-riscos');
 
 $jeo_maps = get_posts([
     'post_type' => 'map',
