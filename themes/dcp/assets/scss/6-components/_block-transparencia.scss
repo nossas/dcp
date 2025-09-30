@@ -1,6 +1,11 @@
 .block-transparencia {
     gap: 32px !important;
 
+    @media (min-width: size(500)) and (max-width: size(768)){
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+    }
+
     @include mobile{
         display: flex !important;
         flex-direction: column;

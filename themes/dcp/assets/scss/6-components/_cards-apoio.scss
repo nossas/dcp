@@ -278,6 +278,11 @@
                 }
             }
 
+            @media (min-width: size(500)) and (max-width: size(768)){
+                max-width: inherit !important;
+                width: inherit !important;
+            }
+
             @include mobile{
                 max-width: 100%;
                 width: 100%;

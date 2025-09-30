@@ -11,11 +11,12 @@
     }
 
     .wp-block-cover{
-         width: 100vw;
+        width: 100vw;
         margin-left: calc(-50vw + 50%);
         position: relative;
         left: 0;
         right: 0;
+        padding: size(32);
 
         &__inner-container{
             @include mobile{
@@ -75,6 +76,12 @@
         }
         .wp-block-columns {
                 padding-inline: 0rem;
+
+                @media (min-width: size(500)) and (max-width: size(768)){
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                }
+
                 @include mobile {
                     .wp-block-spacer {
                         height: 16px !important;
@@ -132,8 +139,13 @@
     }
 
     &__dcp {
+        border: 1px solid red;
 
         .wp-block-columns {
+            @media (min-width: size(500)) and (max-width: size(768)){
+                display: flex !important;
+                flex-direction: column;
+            }
 
             .wp-block-column > h2{
                 @include mobile {
@@ -143,7 +155,7 @@
 
             .wp-block-column:nth-child(2) {
                 @include mobile {
-                    display: none;
+                    //display: none;
                 }
             }
         }
@@ -199,9 +211,7 @@
                     height: 32px !important;
                 }
             }
-            .title{
-                /* padding-left: 24px !important; */
-            }
+
             .reverse-mob{
                 @include mobile {
                     display: flex;

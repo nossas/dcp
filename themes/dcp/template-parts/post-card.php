@@ -310,7 +310,7 @@
                         </a>
 
                     <?php elseif ( has_term('locais-seguros', 'tipo_apoio', $post) ) : ?>
-                        <a href="/mapa" class="saiba-mais-link" style="display: inline-flex; align-items: center; gap: 6px; color: #281414; text-decoration: none;">
+                        <a href="/mapa/?tab=apoio" class="saiba-mais-link" style="display: inline-flex; align-items: center; gap: 6px; color: #281414; text-decoration: none;">
                             <span class="saiba-mais-text" style="text-decoration: underline;"><?= __('Veja no mapa', 'dcp') ?></span>
                             <img src="<?= get_template_directory_uri() ?>/assets/images/seta_card.svg" alt="Seta" class="saiba-mais-icon" style="width: 12px; height: auto;">
                         </a>

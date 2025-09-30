@@ -129,6 +129,10 @@
             }
         }
 
+        @media (min-width: size(500)) and (max-width: size(768)){
+            max-width: inherit !important;
+        }
+
         @include mobile {
             flex-wrap: nowrap !important;
             margin-inline: auto;
@@ -189,12 +193,6 @@
             &.right {
                 right: -0.5rem;
                 transform: translateY(-50%) rotate(180deg);
-            }
-        }
-
-        @media (min-width: 768px) {
-            .slider-arrow {
-                display: none;
             }
         }
     }
