@@ -3,6 +3,7 @@
     width: 100%;
     max-width: 1370px;
     padding: size( 75 ) 0 size( 15 ) 0;
+    border-top: size(1) solid #E6E2E0;
 
     @include mobile {
         padding-inline: 1rem;
@@ -196,9 +197,6 @@
         display: flex;
         gap: 8px;
         flex-direction: row;
-
-        .acao-icon {
-        }
       }
     }
 

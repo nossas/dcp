@@ -180,6 +180,8 @@
         h1 {
             color: $color--primary-pure !important;
             font-size: 48px;
+            margin-top: size(32);
+
             @include mobile {
                 text-align: start;
                 font-size: 24px;
