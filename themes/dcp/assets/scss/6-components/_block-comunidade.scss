@@ -173,6 +173,58 @@
 }
 
 //card ação
+
+.hacklabr-posts-grid {
+    &__load-more-container {
+        display: flex;
+        justify-content: center;
+        margin-top: size(40);
+        padding-bottom: size(80);
+
+        @include mobile {
+            margin-top: 32px;
+            padding-bottom: size(24);
+        }
+    }
+
+    &__load-more-button {
+        display: flex;
+        gap: 0.5rem;
+        border-radius: 100px;
+        padding: 10px 24px;
+        background-color: $color--secondary-dark;
+
+        &>img {
+            object-fit: contain;
+            width: size(16) !important;
+        }
+
+        span {
+            color: $color--high-light;
+        }
+
+        &:disabled {
+            background-color: #C9C6C5;
+
+            span {
+                color: #93908F;
+            }
+        }
+
+        @media (min-width: size(500)) and (max-width: size(768)) {
+            max-width: inherit !important;
+            width: inherit !important;
+        }
+
+        @include mobile {
+            max-width: 100%;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+
 .hacklabr-posts-grid-block{
     .post-card{
          &__meta--default {
@@ -181,8 +233,8 @@
         &__title,
         &__excerpt-wrapped{
             display: flex;
-/*             height: size(50);
- */            color: $color--secondary-dark !important;
+            color: $color--secondary-dark !important;
+
             @include mobile{
                 height: inherit;
             }
