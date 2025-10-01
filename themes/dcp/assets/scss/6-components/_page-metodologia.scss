@@ -54,7 +54,7 @@
     .wp-block-group {
 
         .wp-block-columns:last-child{
-            @media (min-width: size(500)) and (max-width: size(768)) {
+            @media (min-width: size(500)) and (max-width: size(1200)) {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
             }

@@ -5,6 +5,11 @@
 .uwy > .userway_buttons_wrapper > .uai{
 	right: size(15);
 
+    @media (min-width: size(768)) and (max-width: size(1200)){
+        right: size(-13);
+        top: size(-53);
+    }
+
 	@include mobile{
 		right: 0;
         top: size(50);
