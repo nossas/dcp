@@ -177,6 +177,14 @@
 .ficou-alguma-duvida {
     padding-inline: 0 !important;
 
+    @media (min-width: size(500)) and (max-width: size(768)){
+        padding-inline: size(24) !important;
+    }
+
+    @include mobile{
+        padding-inline: $padding--medium !important;
+    }
+
     .wp-block-spacer{
         @include mobile {
             height: 32px !important;
