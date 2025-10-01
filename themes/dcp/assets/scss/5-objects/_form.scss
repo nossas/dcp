@@ -68,6 +68,10 @@
             display: flex;
             justify-content: flex-end;
 
+            @media (min-width: size(500)) and (max-width: size(768)) {
+                margin-inline: auto;
+            }
+
             @include mobile{
                 max-width: size(350);
                 width: 100%;
