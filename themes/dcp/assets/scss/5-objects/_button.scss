@@ -192,6 +192,14 @@
 }
 
 .page-informar-riscos{
+    .wp-block-columns > .wp-block-column >  p{
+        display: flex;
+        gap: $gap--small;
+
+        & > img{
+            object-fit: contain;
+        }
+    }
     .wp-block-columns > .wp-block-column > .wp-block-group > .wp-block-buttons > .wp-block-button > a{
         display: flex;
         align-items: center;

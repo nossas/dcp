@@ -1277,4 +1277,12 @@
     }
 }
 
+.page-contato{
+    #app{
+        @media (min-width: size(500)) and (max-width: size(768)){
+            padding-bottom: size(56);
+        }
+    }
+}
+
 
