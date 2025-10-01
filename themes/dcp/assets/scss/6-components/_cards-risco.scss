@@ -49,6 +49,10 @@
         margin-top: 12px;
         padding: 2px;
 
+        @media (min-width: size(500)) and (max-width: size(768)){
+            display: flex !important;
+        }
+
         @include mobile {
             min-height: 200px !important;
             height: 100% !important;

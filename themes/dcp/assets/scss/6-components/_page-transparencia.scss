@@ -15,6 +15,10 @@
     }
 
     .wp-block-spacer{
+        @media (min-width: size(500)) and (max-width: size(768)){
+            display: block !important;
+        }
+
         @include mobile{
             display: none;
         }

@@ -7,7 +7,12 @@
     width: 100%;
 
     @include tablet {
-        grid-template-columns: repeat(min(2, var(--grid-columns)), 1fr);
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    @media (min-width: size(500)) and (max-width: size(768)) {
+        grid-template-columns: 1fr 1fr !important;
+        display: grid !important;
     }
 
     @include mobile {

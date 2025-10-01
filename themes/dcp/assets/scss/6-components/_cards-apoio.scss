@@ -75,7 +75,7 @@
         margin-block-start: size(56);
 
         @media (min-width: size(500)) and (max-width: size(768)) {
-            display: grid;
+            display: grid !important;
             grid-template-columns: 1fr 1fr !important;
         }
 

@@ -91,7 +91,8 @@
 
     .hacklabr-posts-grid-block {
         @media (min-width: size(500)) and (max-width: size(768)) {
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr !important;
+            display: grid !important;
         }
 
         .post-card {
