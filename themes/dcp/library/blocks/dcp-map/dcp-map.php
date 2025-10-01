@@ -119,7 +119,7 @@ function get_dcp_map_data(): array {
 
 function render_dcp_map_callback(array $attributes) {
     $maps_page = get_page_by_template('page-dcp-map.php');
-    $risks_page = get_page_by_path('reportar-riscos');
+    $risks_page = get_page_by_path('informar-riscos');
 
     $jeo_maps = get_posts([
         'post_type' => 'map',

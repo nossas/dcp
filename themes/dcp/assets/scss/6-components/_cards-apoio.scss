@@ -97,6 +97,10 @@
                 display: none;
             }
 
+            &__meta--default{
+                display: none !important;
+            }
+
             &__image {
                 img{
                     border-radius: 0;

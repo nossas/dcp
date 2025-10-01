@@ -76,6 +76,10 @@
         display: flex;
         flex-direction: column;
 
+        @media (min-width: size(500)) and (max-width: size(768)) {
+            min-height: size(367)!important;
+        }
+
         @include mobile{
             width: 100%;
         }
