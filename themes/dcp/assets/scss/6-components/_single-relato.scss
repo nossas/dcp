@@ -1,5 +1,14 @@
-.single-relato
-/* .single-acao */ {
+.single-relato{
+
+    .post-content{
+        border-bottom: size(2) solid #E6E2E0;
+    }
+
+    .proximas-acoes{
+        max-width: size(1440);
+        width: 100%;
+        margin-inline: $margin--large;
+    }
 
     h1{
         margin: 0px;

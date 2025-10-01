@@ -268,5 +268,9 @@
         @include mobile{
             bottom: size(32) !important;
         }
+
+        & > a{
+            padding: $padding--small $padding--medium !important;
+        }
     }
 }

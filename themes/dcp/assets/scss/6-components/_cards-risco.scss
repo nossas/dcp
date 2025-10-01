@@ -70,6 +70,10 @@
                 display: none;
             }
 
+            &__meta--default {
+                display: none !important;
+            }
+
             &__content{
                 gap: $gap--small;
 
