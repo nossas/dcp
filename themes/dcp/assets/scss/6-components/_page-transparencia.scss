@@ -26,14 +26,13 @@
             padding-inline: 1rem;
 
         }
-        .container{
-            padding:0px;
-        }
+
         h2{
             font-weight: 400 !important;
             font-size: $font-family--heading;
             font-size: 40px;
             margin: 0px;
+            margin-top: 0 !important;
             @include mobile{
                 font-size: 24px !important;
             }
@@ -87,12 +86,6 @@
                     display: flex;
                     flex-direction: column-reverse;
                 }
-                .wp-block-column:first-child{
-                    p:last-child {
-/*                         padding-top: 16px !important;
- */                    }
-                }
-
             }
             .col-2 {
                 .wp-block-column {
@@ -236,6 +229,10 @@
 }
 
 .page-transparencia {
+    .breadcrumb{
+        padding-inline: $padding--large;
+    }
+
     .main-header{
         @include mobile{
             margin-bottom: size(80);

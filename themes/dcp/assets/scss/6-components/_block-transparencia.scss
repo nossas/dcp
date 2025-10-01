@@ -43,6 +43,17 @@
             }
         }
 
+        &__pre-header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--Color-Gray-700, #605E5D);
+            font-family: $font-family--primary;
+            font-size: size(16);
+            font-weight: $font-weight--regular;
+            line-height: 1.3;
+        }
+
         &__author {
             display: none !important;
         }
@@ -124,7 +135,7 @@
             .tag{
                 align-items: center;
                 display: flex;
-                gap: $gap--small/2;
+                gap: $gap--small;
                 font-size: $font-size--xx-small;
                 color: var(--Color-Theme-Light, #F9F3EA);
                 font-family: $font-family--primary;

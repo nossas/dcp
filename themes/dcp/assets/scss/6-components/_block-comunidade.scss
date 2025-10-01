@@ -227,9 +227,6 @@
 
 .hacklabr-posts-grid-block{
     .post-card{
-         &__meta--default {
-            display: none !important;
-        }
         &__title,
         &__excerpt-wrapped{
             display: flex;

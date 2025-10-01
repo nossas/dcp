@@ -175,6 +175,8 @@
     }
 }
 .ficou-alguma-duvida {
+    padding-inline: 0 !important;
+
     .wp-block-spacer{
         @include mobile {
             height: 32px !important;
@@ -206,6 +208,8 @@
     }
 
     .wp-block-cover__inner-container {
+        padding-inline: 0 !important;
+
         @include mobile{
             border-top: size(2) solid #E6E2E0;
             padding-top: size(32);
