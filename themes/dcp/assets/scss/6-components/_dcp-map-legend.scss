@@ -413,6 +413,10 @@
 
 .page-mapa .dcp-map-legend-risco{
     bottom: size(240);
+
+    @include mobile{
+        left: size(-2);
+    }
 }
 
 .page-mapa{

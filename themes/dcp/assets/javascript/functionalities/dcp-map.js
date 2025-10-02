@@ -114,6 +114,33 @@ document.addEventListener('DOMContentLoaded', async () => {
         updateIcon();
         window.addEventListener('resize', updateIcon);
     })();
+});
 
+document.addEventListener("DOMContentLoaded", () => {
+    const alagamentoIcon = document.querySelector(".icon-alagamento");
+    const lixoIcon = document.querySelector(".icon-lixo");
 
+    if (alagamentoIcon) {
+        const original = alagamentoIcon.getAttribute("src");
+        const hover = original.replace("buttons-risco.svg", "hovered.svg");
+
+        alagamentoIcon.addEventListener("mouseenter", () => {
+            alagamentoIcon.setAttribute("src", hover);
+        });
+        alagamentoIcon.addEventListener("mouseleave", () => {
+            alagamentoIcon.setAttribute("src", original);
+        });
+    }
+
+    if (lixoIcon) {
+        const original = lixoIcon.getAttribute("src");
+        const hover = original.replace("buttons-riscolixo.svg", "hoveredlixo.svg");
+
+        lixoIcon.addEventListener("mouseenter", () => {
+            lixoIcon.setAttribute("src", hover);
+        });
+        lixoIcon.addEventListener("mouseleave", () => {
+            lixoIcon.setAttribute("src", original);
+        });
+    }
 });
