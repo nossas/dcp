@@ -91,6 +91,10 @@
 
     .wp-block-details.closed-mobile {
         padding: 16px 12px;
+
+        @media (min-width: $break--small) and (max-width: $break--desktop) {
+            min-height: size(259);
+        }
     }
 }
 

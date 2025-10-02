@@ -133,6 +133,18 @@
         }
 
         .transparencia-container {
+
+            @include mobile{
+                display: flex;
+                flex-direction: column;
+            }
+
+            .wp-block-column{
+                @include mobile{
+                    flex-basis: auto !important;
+                }
+            }
+
             .wp-block-column:first-child {
                 @include mobile {
                     order: 2;

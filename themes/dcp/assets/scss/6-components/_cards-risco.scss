@@ -53,7 +53,7 @@
             display: flex !important;
         }
 
-        @include mobile {
+        @include small {
             min-height: 200px !important;
             height: 100% !important;
         }
@@ -97,6 +97,7 @@
 
             &__excerpt-wrapped {
                 height: auto !important;
+
                 @include mobile {
                     align-items: flex-end;
                     display: flex;

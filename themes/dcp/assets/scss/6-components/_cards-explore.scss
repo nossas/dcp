@@ -17,6 +17,24 @@
         }
     }
 
+    .wp-block-cover__inner-container > .wp-block-columns:not(:last-child){
+        @media (min-width: $break--small) and (max-width: $break--desktop) {
+            flex-direction: column;
+        }
+    }
+
+    .wp-block-columns > .wp-block-column {
+        @media (min-width: $break--small) and (max-width: $break--desktop) {
+            flex-basis: unset !important;
+        }
+    }
+
+    .wp-block-cover__inner-container>.wp-block-columns:not(:first-child) {
+        @media (min-width: $break--small) and (max-width: $break--desktop) {
+            flex-direction: column;
+        }
+    }
+
     .wp-block-columns > .wp-block-column > .wp-block-cover{
         border-radius: $border-radius--medium;
 

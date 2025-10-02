@@ -128,10 +128,6 @@
             padding-top: size(14) !important;
             padding-bottom: size(14) !important;
 
-            @include mobile {
-                display: none;
-            }
-
             .tag{
                 align-items: center;
                 display: flex;

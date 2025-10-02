@@ -140,7 +140,7 @@
 
     &__dcp {
         .wp-block-columns {
-            @media (min-width: size(500)) and (max-width: size(768)){
+            @media (min-width: $break--small) and (max-width: $break--desktop){
                 display: flex !important;
                 flex-direction: column;
             }
