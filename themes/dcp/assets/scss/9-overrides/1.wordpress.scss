@@ -176,6 +176,9 @@
 }
 .ficou-alguma-duvida {
     padding-inline: 0 !important;
+    max-width: size(1280);
+    width: 100%;
+    margin-inline: auto;
 
     @media (min-width: size(500)) and (max-width: size(768)){
         padding-inline: size(24) !important;

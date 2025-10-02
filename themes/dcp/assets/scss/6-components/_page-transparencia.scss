@@ -25,6 +25,9 @@
     }
     .page-content {
         // padding-inline: 1rem;
+        max-width: size(1287);
+        width: 100%;
+        margin-inline: auto;
 
         @include mobile {
             padding-inline: 1rem;
