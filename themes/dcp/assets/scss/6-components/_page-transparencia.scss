@@ -137,6 +137,7 @@
             @include mobile{
                 display: flex;
                 flex-direction: column;
+                margin-top: size(24);
             }
 
             .wp-block-column{

@@ -11,6 +11,7 @@
         gap: $gap--x-small;
         max-width: size(100);
         padding: size(2) size(10);
+        white-space: nowrap;
 
         &::before {
             background-size: contain;
