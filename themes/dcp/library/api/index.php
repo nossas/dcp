@@ -138,10 +138,10 @@ class API {
 
     static function get_geocoder() {
         if (get_option('google_maps_key')) {
-            require __DIR__ . '/geocoding/google-maps.php';
+            require_once __DIR__ . '/geocoding/google-maps.php';
             return apply_filters('dcp_geocoder', geocoding\GoogleMaps::class);
         } else {
-            require __DIR__ . '/geocoding/nominatim.php';
+            require_once __DIR__ . '/geocoding/nominatim.php';
             return apply_filters('dcp_geocoder', geocoding\Nominatim::class);
         }
     }
