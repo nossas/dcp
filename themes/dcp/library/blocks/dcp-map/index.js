@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let toggleLayer = null
 
         const selectedCPT = { current: tabsList.dataset.selected }
+
         function selectCPT(cpt) {
             tabs.forEach((tab) => {
                 selectedCPT.current = cpt;
@@ -24,14 +25,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const apoioLegendDesktop = document.querySelector('.dcp-map-legend-apoio');
             const apoioLegendMobile = document.querySelector('.dcp-map-legend-apoio__mobile');
+            const riscoLegend = document.querySelector('.dcp-map-legend-risco');
+            const riscoLegendMobile = document.querySelector('.dcp-map-legend-risco__mobile'); // caso queira versão mobile também
 
             if (apoioLegendDesktop) {
                 apoioLegendDesktop.style.display = (cpt === 'apoio') ? 'block' : 'none';
             }
 
             if (apoioLegendMobile) {
-                const isMobile = window.matchMedia('(max-width: 768px)').matches; // ajuste breakpoint se necessário
+                const isMobile = window.matchMedia('(max-width: 768px)').matches;
                 apoioLegendMobile.style.display = (cpt === 'apoio' && isMobile) ? 'block' : 'none';
+            }
+
+            if (riscoLegend) {
+                riscoLegend.style.display = (cpt === 'risco') ? 'block' : 'none';
+            }
+
+            if (riscoLegendMobile) {
+                const isMobile = window.matchMedia('(max-width: 768px)').matches;
+                riscoLegendMobile.style.display = (cpt === 'risco' && isMobile) ? 'block' : 'none';
             }
 
             toggleLayer?.(cpt);
@@ -78,3 +90,34 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleLayer = mapContext.toggleLayer
     })
 })
+
+document.addEventListener("DOMContentLoaded", () => {
+    const alagamentoIcon = document.querySelector(".icon-alagamento");
+    const lixoIcon = document.querySelector(".icon-lixo");
+
+    if (alagamentoIcon) {
+        const original = alagamentoIcon.getAttribute("src");
+        const hover = original.replace("buttons-risco.svg", "hovered.svg");
+
+        alagamentoIcon.addEventListener("mouseenter", () => {
+            alagamentoIcon.setAttribute("src", hover);
+        });
+        alagamentoIcon.addEventListener("mouseleave", () => {
+            alagamentoIcon.setAttribute("src", original);
+        });
+    }
+
+    if (lixoIcon) {
+        const original = lixoIcon.getAttribute("src");
+        const hover = original.replace("buttons-riscolixo.svg", "hoveredlixo.svg");
+
+        lixoIcon.addEventListener("mouseenter", () => {
+            lixoIcon.setAttribute("src", hover);
+        });
+        lixoIcon.addEventListener("mouseleave", () => {
+            lixoIcon.setAttribute("src", original);
+        });
+    }
+});
+
+

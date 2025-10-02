@@ -169,6 +169,75 @@
     }
 }
 
+.dcp-map-legend-risco{
+    position: absolute;
+    bottom: size(233);
+
+    @include mobile{
+        bottom: size(249);
+        left: size(-6);
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: $gap--small;
+        list-style: none;
+        padding-left: size(12);
+    }
+
+    &__item{
+        display: flex;
+        gap: $gap--small;
+
+        & > img{
+            max-width: size(24);
+            width: 100%;
+            height: auto;
+        }
+
+        & > span{
+            border-radius: size(8);
+            color: $color--high-light;
+            display: none;
+            font-size: $font-size--xx-small;
+            font-weight: $font-weight--regular;
+            padding: size(4) size(12);
+        }
+
+        &:hover > span {
+            display: inline-block;
+        }
+
+        &--dicas{
+            padding-left: size(12);
+            position: relative;
+            bottom: size(202);
+            width: fit-content;
+
+            & > button{
+                background-color: transparent;
+                cursor: pointer;
+                padding: 0;
+
+                & > img{
+                    height: auto;
+                    max-width: size(24);
+                    width: 100%;
+                }
+            }
+        }
+
+        &--alagamento{
+            background-color: #7A280C;
+        }
+
+        &--lixo{
+            background-color: #A70;
+        }
+    }
+}
+
 .risco .dcp-map-legend-apoio{
     top: size(144);
 }
@@ -340,6 +409,10 @@
             line-height: 1.2;
         }
     }
+}
+
+.page-mapa .dcp-map-legend-risco{
+    bottom: size(240);
 }
 
 .page-mapa{

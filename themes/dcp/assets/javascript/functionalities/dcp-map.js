@@ -114,7 +114,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         updateIcon();
         window.addEventListener('resize', updateIcon);
     })();
+
+
 });
-
-
-
