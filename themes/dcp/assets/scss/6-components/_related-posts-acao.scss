@@ -1,8 +1,12 @@
 .proximas-acoes {
     text-align: left;
     width: 100%;
-    max-width: size(1280);
+    max-width: size(1351);
     padding: size( 75 ) 0 size( 15 ) 0;
+
+    @media (max-width: size(1400)) {
+        max-width: size(1280);
+    }
 
     @include mobile {
         padding-inline: 1rem;

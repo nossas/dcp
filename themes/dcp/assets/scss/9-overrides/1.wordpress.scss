@@ -21,9 +21,13 @@
 .wp-block-cover {
     &__inner-container {
         margin-inline: auto;
-        max-width: $grid--wide;
-        padding-inline: $padding--large;
+        max-width: size(1351);
+        padding-inline: size(24);
         width: 100%;
+
+        @media (max-width: size(1400)){
+            max-width: size(1280);
+        }
 
         @include mobile{
             padding-inline: unset !important;
@@ -176,9 +180,13 @@
 }
 .ficou-alguma-duvida {
     padding-inline: 0 !important;
-    max-width: size(1280);
+    max-width: size(1351);
     width: 100%;
     margin-inline: auto;
+
+    @media (max-width: size(1400)) {
+        max-width: size(1280);
+    }
 
     @media (min-width: size(500)) and (max-width: size(768)){
         padding-inline: size(24) !important;
@@ -296,7 +304,7 @@
             label {
                 display: flex;
                 align-items: center;
-                gap: 13px;
+                gap: $gap--small;
 
                 @media (min-width: size(500)) and (max-width: size(768)){
                     gap: $gap--small;

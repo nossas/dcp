@@ -1,14 +1,19 @@
 .single-relato{
 
     .post-content{
-        border-bottom: size(2) solid #E6E2E0;
         padding-bottom: size(64);
     }
 
     .proximas-acoes{
-        max-width: size(1280);
+        max-width: size(1351);
         width: 100%;
         margin-inline: $margin--large;
+        border-top: size(2) solid #E6E2E0;
+
+
+        @media (max-width: size(1400)) {
+            max-width: size(1280);
+        }
     }
 
     h1{
