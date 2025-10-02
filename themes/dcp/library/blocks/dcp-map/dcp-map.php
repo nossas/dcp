@@ -2,6 +2,15 @@
 
 namespace hacklabr;
 
+function format_coord_meta(int $post_id, string $meta_key): float {
+    $meta_value = get_post_meta($post_id, $meta_key, true) ?: 0.0;
+    if (is_string($meta_value)) {
+        return floatval(str_replace(',', '.', $meta_value));
+    } else {
+        return floatval($meta_value);
+    }
+}
+
 function get_pin_attachments(\WP_Post $post): array {
     $media = [];
 
@@ -52,8 +61,8 @@ function format_risk_pin(\WP_Post $post): array {
         'date' => get_the_date('H:i | d/m/Y', $post),
         'excerpt' => get_the_excerpt($post),
         'media' => get_pin_attachments($post),
-        'lat' => get_post_meta($post->ID, 'latitude', true) ?: 0,
-        'lon' => get_post_meta($post->ID, 'longitude', true) ?: 0,
+        'lat' => format_coord_meta($post->ID, 'latitude'),
+        'lon' => format_coord_meta($post->ID, 'longitude'),
     ];
 }
 function format_support_pin(\WP_Post $post): array {
@@ -77,8 +86,8 @@ function format_support_pin(\WP_Post $post): array {
         'endereco' => get_post_meta($post->ID, 'endereco', true),
         'horario' => implode('; ', get_post_meta($post->ID, 'horario_de_atendimento')),
         'media' => get_pin_attachments($post),
-        'lat' => get_post_meta($post->ID, 'latitude', true) ?: 0,
-        'lon' => get_post_meta($post->ID, 'longitude', true) ?: 0,
+        'lat' => format_coord_meta($post->ID, 'latitude'),
+        'lon' => format_coord_meta($post->ID, 'longitude'),
     ];
 }
 
