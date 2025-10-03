@@ -21,8 +21,7 @@
 .wp-block-cover {
     &__inner-container {
         margin-inline: auto;
-        max-width: size(1351);
-        padding-inline: size(24);
+        max-width: size(1325);
         width: 100%;
 
         @media (max-width: size(1400)){
@@ -180,7 +179,7 @@
 }
 .ficou-alguma-duvida {
     padding-inline: 0 !important;
-    max-width: size(1351);
+    max-width: size(1325);
     width: 100%;
     margin-inline: auto;
 
