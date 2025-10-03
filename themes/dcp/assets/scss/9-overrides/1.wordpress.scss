@@ -233,6 +233,10 @@
             padding-top: size(32);
             margin-top: size(32);
         }
+
+        .wp-block-spacer{
+            display: none !important;
+        }
     }
 }
 .page-mapa {

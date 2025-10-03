@@ -338,6 +338,10 @@
     }
 }
 
+.wrap-required{
+    height: size(10);
+}
+
 .wrap-required > p {
     display: flex;
     flex-direction: row !important;
@@ -1120,6 +1124,10 @@
     &-form{
         & p > br{
             display: none;
+        }
+
+        .wrap-required {
+            height: size(10);
         }
     }
 

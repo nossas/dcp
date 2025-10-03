@@ -24,14 +24,21 @@
         }
     }
     .page-content {
-        // padding-inline: 1rem;
-        max-width: size(1287);
+        max-width: size(1330);
         width: 100%;
         margin-inline: auto;
+
+        @media (max-width: size(1400)){
+            max-width: size(1280);
+        }
 
         @include mobile {
             padding-inline: 1rem;
 
+        }
+
+        .wp-block-columns:first-child{
+            padding-inline: 0 !important;
         }
 
         h2{
@@ -250,7 +257,7 @@
 
 .page-transparencia {
     .breadcrumb{
-        padding-inline: $padding--large;
+        padding-inline: $padding--medium;
     }
 
     .main-header{
