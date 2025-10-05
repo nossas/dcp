@@ -4,6 +4,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function atualizarRecomendacoes() {
+
+        const elemento = document.querySelector('.home .recomendacoes');
+        if (elemento) {
+            elemento.style.opacity = 0.5;
+            elemento.style.cursor = 'wait';
+        }
+
         fetch('/wp-json/dcp/v1/situacao-atual-home')
             .then(response => {
                 if (!response.ok) {
@@ -35,6 +42,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     });
 
+                    elemento.style.opacity = 1;
+                    elemento.style.cursor = 'default';
                     console.log('Recomendações atualizadas com sucesso');
                 }
             })

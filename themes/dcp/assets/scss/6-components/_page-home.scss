@@ -30,3 +30,9 @@ body.page-home {
         }
     }
 }
+
+body.home {
+    .recomendacoes {
+        transition: all 0.8s ease 0s;
+    }
+}
