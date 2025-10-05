@@ -72,6 +72,8 @@
         padding-bottom: $padding--medium;
     }
   .ficou-alguma-duvida{
+    margin-bottom: size(64);
+
     @include mobile{
         margin-top: 16px;
         padding: unset !important;

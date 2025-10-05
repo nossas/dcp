@@ -67,14 +67,15 @@
         .btn-submit{
             display: flex;
             justify-content: flex-end;
+            margin-top: $margin--large;
 
             @media (min-width: size(500)) and (max-width: size(768)) {
                 margin-inline: auto;
             }
 
             @include mobile{
-                max-width: size(350);
                 width: 100%;
+                margin-top: $margin--large;
             }
 
             & > p{
@@ -340,6 +341,15 @@
 
 .wrap-required{
     height: size(10);
+
+    @include tablet{
+        margin-bottom: size(24);
+        height: 0;
+    }
+
+    @include mobile{
+        height: size(32);
+    }
 }
 
 .wrap-required > p {
@@ -393,6 +403,7 @@
 
     .wpcf7-list-item-label{
         display: flex;
+        gap: size(3);
     }
 
     &::after{
@@ -1119,15 +1130,25 @@
     top: size(16);
 }
 
-.wpcf7{
+.wpcf7 {
 
-    &-form{
-        & p > br{
+    &-form {
+        & p > br {
             display: none;
         }
 
         .wrap-required {
             height: size(10);
+
+            @include tablet {
+                margin-bottom: size(24);
+                height: 0 !important;
+            }
+
+            @include mobile {
+                height: size(32);
+                margin-bottom: size(24);
+            }
         }
     }
 
