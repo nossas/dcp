@@ -184,6 +184,8 @@
             &--incidencia {
                 background-image: url('/wp-content/themes/dcp/assets/images/incidencia.svg');
                 background-color: #FFB300;
+                color: $color--secondary-dark;
+                border-color: transparent;
             }
             &--solidariedade {
                 background-image: url('/wp-content/themes/dcp/assets/images/solidarie.svg');

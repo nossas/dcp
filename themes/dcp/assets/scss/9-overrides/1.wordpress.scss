@@ -182,6 +182,8 @@
     max-width: size(1325);
     width: 100%;
     margin-inline: auto;
+    border-top: size(2) solid #E6E2E0;
+    padding-top: size(64) !important;
 
     @media (max-width: size(1400)) {
         max-width: size(1280);

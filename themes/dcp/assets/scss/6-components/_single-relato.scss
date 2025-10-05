@@ -192,6 +192,12 @@
 
     }
     .post-header{
+        @include tablet{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         h1 {
             color: $color--primary-pure !important;
             font-size: 48px;
