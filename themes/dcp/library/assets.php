@@ -491,6 +491,10 @@ class Assets
                 'file'   => 'mobile-accordion.js',
                 'global' => true,
             ],
+            'situacao_atual_front' => [
+                'file'   => 'situacao-atual-front.js',
+                'global' => true,
+            ],
 
             // DASHBOARD
             'dashboard-media-loader' => [
