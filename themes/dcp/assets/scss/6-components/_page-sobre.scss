@@ -24,8 +24,16 @@
         right: 0;
         padding: size(32);
 
+        @include mobile{
+            padding-top: 0 !important;
+        }
+
         &:last-child{
             margin-left: unset !important;
+
+            @include mobile{
+                margin-top: $margin--large*2 !important;
+            }
         }
 
 

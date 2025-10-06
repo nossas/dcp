@@ -27,7 +27,6 @@
         }
     }
     .col-1 {
-        margin-top: 24px;
         @include mobile {
             display: flex;
             flex-direction: column-reverse;
