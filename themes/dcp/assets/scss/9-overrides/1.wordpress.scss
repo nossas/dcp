@@ -21,7 +21,7 @@
 .wp-block-cover {
     &__inner-container {
         margin-inline: auto;
-        max-width: size(1325);
+        max-width: size(1337);
         width: 100%;
 
         @media (max-width: size(1400)){
@@ -231,7 +231,6 @@
         padding-inline: 0 !important;
 
         @include mobile{
-            border-top: size(2) solid #E6E2E0;
             padding-top: size(32);
             margin-top: size(32);
         }
@@ -266,6 +265,10 @@
 .page-contato {
     .breadcrumb {
         display: none;
+    }
+
+    .btn-submit{
+        margin-top: unset !important;
     }
 }
 

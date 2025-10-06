@@ -297,6 +297,15 @@
     }
 }
 
+.page-rede-de-apoio{
+    .hacklabr-posts-grid-block{
+        .post-card {
+            &__see-in-map {
+               display: none !important;
+            }
+        }
+    }
+}
 
 .apoio{
     &__container{

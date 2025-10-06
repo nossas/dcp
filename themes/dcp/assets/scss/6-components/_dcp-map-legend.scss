@@ -42,7 +42,7 @@
         }
 
         & > img{
-            max-width: size(24);
+            max-width: size(30);
             width: 100%;
             height: auto;
 
@@ -183,7 +183,7 @@
         flex-direction: column;
         gap: $gap--small;
         list-style: none;
-        padding-left: size(12);
+        padding-left: size(10);
     }
 
     &__item{

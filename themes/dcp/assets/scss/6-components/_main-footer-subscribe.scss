@@ -109,3 +109,21 @@
         display: none;
     }
 }
+
+.single-relato{
+    .main-footer-subscribe > .main-footer-subscribe__widget{
+        .wp-block-cover{
+            border-top: size(2) solid #E6E3DF;
+            padding-top: size(64);
+            padding-inline: 0 !important;
+            max-width: size(1351);
+            width: 100%;
+            margin-inline: auto !important;
+
+            @include mobile{
+                padding-inline: inherit !important;
+            }
+        }
+
+    }
+}

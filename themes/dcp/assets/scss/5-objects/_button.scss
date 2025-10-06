@@ -215,3 +215,17 @@
         gap: $gap--small !important;
     }
 }
+
+.saiba-mais-text {
+    color: $color--secondary-dark;
+    font-family: $font-family--primary;
+    font-size: size(16);
+    font-weight: $font-weight--regular;
+    line-height: 1.2;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
+}

@@ -4,6 +4,12 @@
         padding-inline: inherit;
     } */
 
+    #app > main > .wp-block-separator{
+        &:last-child{
+            display: none !important;
+        }
+    }
+
     .wp-block-buttons > .wp-block-button > a{
         &:hover {
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
@@ -17,6 +23,20 @@
         left: 0;
         right: 0;
         padding: size(32);
+
+        @include mobile{
+            padding-top: 0 !important;
+        }
+
+        &:last-child{
+            margin-left: unset !important;
+
+            @include mobile{
+                margin-top: $margin--large*2 !important;
+                margin-left: calc(-50vw + 50%) !important;
+            }
+        }
+
 
         &__inner-container{
             @include mobile{
