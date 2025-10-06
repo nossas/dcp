@@ -114,6 +114,14 @@ function get_dcp_map_data(): array {
     $supports = get_posts([
         'post_type' => 'apoio',
         'posts_per_page' => -1,
+        'tax_query' => [
+            [
+                'taxonomy' => 'tipo_apoio',
+                'field'    => 'slug',
+                'terms'    => 'quem-acionar',
+                'operator' => 'NOT IN',
+            ]
+        ],
     ]);
 
     foreach ($risks as $risk) {
