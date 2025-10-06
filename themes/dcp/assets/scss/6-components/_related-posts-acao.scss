@@ -28,10 +28,11 @@
     margin-bottom: 0.5rem;
     text-align: start;
     margin-bottom: 0;
+    border-top: size(2) solid #E6E2E0;
+    padding-top: size(64);
 
     @include mobile {
-        border-top: 2px solid #E6E2E0;
-        font-size: 24px;
+        font-size: size(24);
         margin-top: $margin--large;
         padding-top: size(40);
         width: 100%;

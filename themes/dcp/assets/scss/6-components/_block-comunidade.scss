@@ -85,8 +85,15 @@
         padding-inline: $padding--small;
     }
 
-    .wp-block-cover__inner-container{
+    .wp-block-cover__inner-container {
         padding-inline: 0;
+
+        .hacklabr-posts-grid-wrapper > .hacklabr-posts-grid-block  {
+            @include mobile {
+                display: flex !important;
+                flex-direction: column;
+            }
+        }
     }
 
     .hacklabr-posts-grid-block {
