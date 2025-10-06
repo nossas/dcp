@@ -207,3 +207,11 @@
         gap: $gap--small;
     }
 }
+
+.btn-informar-riscos{
+    @include mobile{
+        display: flex;
+        flex-direction: column;
+        gap: $gap--small !important;
+    }
+}

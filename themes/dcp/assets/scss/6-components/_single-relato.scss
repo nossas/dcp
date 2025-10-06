@@ -8,8 +8,6 @@
         max-width: size(1325);
         width: 100%;
         margin-inline: auto;
-        border-top: size(2) solid #E6E2E0;
-
 
         @media (max-width: size(1400)) {
             max-width: size(1280);
@@ -275,6 +273,8 @@
                 &.tag--incidencia {
                     background-image: url('/wp-content/themes/dcp/assets/images/incidencia.svg');
                     background-color: #FFB300;
+                    color: $color--secondary-dark;
+                    border-color: transparent;
                 }
 
                 &.tag--solidariedade {
