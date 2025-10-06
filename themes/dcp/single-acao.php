@@ -133,7 +133,6 @@
         <p>Nenhuma ação encontrada.</p>
     <?php endif; ?>
 
-    <hr class="is-separator">
     <?php get_template_part('template-parts/content/related-posts-acao'); ?>
     <p style="padding: 100px 0;">
         Ficou com alguma dúvida? Fale com a gente para saber mais sobre o projeto ou como participar.

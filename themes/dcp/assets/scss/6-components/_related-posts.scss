@@ -8,8 +8,11 @@ $sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
 
 .transparencia {
   padding: 4rem 1rem;
-  font-family: 'Arial', sans-serif;
   background-color: initial !important;
+
+  &-container{
+    margin-bottom: 0;
+  }
 
   @include mobile{
     padding: 0px 1rem !important;

@@ -231,7 +231,6 @@
         padding-inline: 0 !important;
 
         @include mobile{
-            border-top: size(2) solid #E6E2E0;
             padding-top: size(32);
             margin-top: size(32);
         }
