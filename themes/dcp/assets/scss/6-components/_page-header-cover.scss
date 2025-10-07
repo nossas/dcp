@@ -64,6 +64,7 @@
                 font-size: $font-size--x-small !important;
                 gap: $gap--small;
                 padding: $padding--small size(20);
+                white-space: nowrap;
 
                 @include mobile {
                     font-size: size(14) !important;

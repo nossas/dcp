@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const legendRiscoDesktop = document.querySelector('.dcp-map-legend-risco');
         const legendRiscoMobile = document.querySelector('.dcp-map-legend-risco__mobile');
 
-        const isMobile = window.matchMedia('(max-width: 821px)').matches;
+        const isMobile = window.matchMedia('(max-width: 819px)').matches;
 
         if (legendApoioDesktop) {
             legendApoioDesktop.style.display = (cpt === 'apoio') ? 'block' : 'none';
