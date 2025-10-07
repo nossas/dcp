@@ -9,6 +9,10 @@
         width: 100%;
         margin-inline: auto;
 
+        @media (max-width: size(1025)){
+            padding-inline: $padding--large;
+        }
+
         @media (max-width: size(1400)) {
             max-width: size(1280);
         }

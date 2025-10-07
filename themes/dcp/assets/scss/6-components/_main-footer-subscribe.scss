@@ -112,6 +112,15 @@
 
 .single-relato{
     .main-footer-subscribe > .main-footer-subscribe__widget{
+
+        @media (max-width: size(1025)) {
+            padding-inline: $padding--large;
+        }
+
+        @media (max-width: size(769)) {
+            padding-inline: $padding--medium;
+        }
+
         .wp-block-cover{
             border-top: size(2) solid #E6E3DF;
             padding-top: size(64);
@@ -120,9 +129,10 @@
             width: 100%;
             margin-inline: auto !important;
 
-            @include mobile{
-                padding-inline: inherit !important;
+            @include mobile {
+                padding-inline: $padding--medium !important;
             }
+
         }
 
     }

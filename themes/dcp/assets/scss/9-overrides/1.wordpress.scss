@@ -195,6 +195,8 @@
 
     @include mobile{
         padding-inline: $padding--medium !important;
+        padding-top: $padding--large !important;
+        margin-top: $margin--large *2;
     }
 
     .wp-block-spacer{
