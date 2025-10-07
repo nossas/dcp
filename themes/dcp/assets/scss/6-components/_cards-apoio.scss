@@ -81,7 +81,7 @@
 
         @include mobile {
             margin-block-start: size(32);
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr !important;
         }
 
         .post-card {
