@@ -74,12 +74,17 @@
     .hacklabr-posts-grid-block {
         margin-block-start: size(56);
 
-        @media (min-width: size(500)) and (max-width: size(768)) {
+        @include tablet {
             display: grid !important;
             grid-template-columns: 1fr 1fr !important;
         }
 
-        @include mobile {
+        @media (max-width: size(768)) {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+        }
+
+        @media (max-width: size(667)) {
             margin-block-start: size(32);
             grid-template-columns: 1fr !important;
         }
