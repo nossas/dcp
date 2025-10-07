@@ -1,5 +1,9 @@
-import { setupMap } from '../shared/pins';
-import { until } from '../shared/wait';
+import {
+    setupMap
+} from '../shared/pins';
+import {
+    until
+} from '../shared/wait';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const container = document.querySelector('.dcp-map') || document.querySelector('.dcp-map-block');
@@ -10,7 +14,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const tabSelector = isBlockContext ? '.dcp-map-block__tab' : '.dcp-map__tab';
     const selectedTabClass = isBlockContext ? 'dcp-map-block__tab--selected' : 'dcp-map__tab--selected';
     const tabsContainerSelector = isBlockContext ? '.dcp-map-block__tabs' : '.dcp-map__tabs';
-    const { apoios, riscos } = JSON.parse(container.querySelector('script').innerText);
+    const {
+        apoios,
+        riscos
+    } = JSON.parse(container.querySelector('script').innerText);
     const tabsList = container.querySelector(tabsContainerSelector);
     const tabs = [...container.querySelectorAll(tabSelector)];
     const map = container.querySelector('.jeomap');
@@ -30,16 +37,25 @@ document.addEventListener('DOMContentLoaded', async () => {
             tab.classList.toggle(selectedTabClass, isSelected);
         });
 
-        const legendDesktop = document.querySelector('.dcp-map-legend-apoio');
-        const legendMobile = document.querySelector('.dcp-map-legend-apoio__mobile');
+        const legendApoioDesktop = document.querySelector('.dcp-map-legend-apoio');
+        const legendApoioMobile = document.querySelector('.dcp-map-legend-apoio__mobile');
+        const legendRiscoDesktop = document.querySelector('.dcp-map-legend-risco');
+        const legendRiscoMobile = document.querySelector('.dcp-map-legend-risco__mobile');
 
-        if (legendDesktop) {
-            legendDesktop.style.display = (cpt === 'apoio') ? 'block' : 'none';
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+        if (legendApoioDesktop) {
+            legendApoioDesktop.style.display = (cpt === 'apoio') ? 'block' : 'none';
+        }
+        if (legendApoioMobile) {
+            legendApoioMobile.style.display = (cpt === 'apoio' && isMobile) ? 'block' : 'none';
         }
 
-        if (legendMobile) {
-            const isMobile = window.matchMedia('(max-width: 768px)').matches;
-            legendMobile.style.display = (cpt === 'apoio' && isMobile) ? 'block' : 'none';
+        if (legendRiscoDesktop) {
+            legendRiscoDesktop.style.display = (cpt === 'risco') ? 'block' : 'none';
+        }
+        if (legendRiscoMobile) {
+            legendRiscoMobile.style.display = (cpt === 'risco' && isMobile) ? 'block' : 'none';
         }
 
         toggleLayer?.(cpt);
@@ -56,7 +72,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const jeoMap = globalThis.jeomaps[map.dataset.uui_id];
     await until(() => jeoMap.map);
 
-    const selectedCPT = { current: initialTab };
+    const selectedCPT = {
+        current: initialTab
+    };
     const mapContext = setupMap(jeoMap, container, riscos, apoios, selectedCPT);
     toggleLayer = mapContext.toggleLayer;
 
@@ -78,15 +96,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (form) {
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
-            const { restUrl } = globalThis.hl_dcp_map_data;
+            const {
+                restUrl
+            } = globalThis.hl_dcp_map_data;
             const input = event.target.querySelector('input[name="address"]');
             if (input.value.length > 2) {
                 const address = input.value;
-                const res = await fetch(`${restUrl}?address=${encodeURIComponent(address)}`, { method: 'POST' });
+                const res = await fetch(`${restUrl}?address=${encodeURIComponent(address)}`, {
+                    method: 'POST'
+                });
                 if (res.ok) {
-                    const { lat, lon } = await res.json();
+                    const {
+                        lat,
+                        lon
+                    } = await res.json();
                     const mapGL = await until(() => jeoMap.map);
-                    mapGL.flyTo({ center: [lon, lat], zoom: 19 });
+                    mapGL.flyTo({
+                        center: [lon, lat],
+                        zoom: 19
+                    });
                 } else if (res.status === 404) {
                     input.value = '';
                 }
@@ -100,7 +128,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         canvas.style.height = jeoMap.element.style.height;
     }
 
-    (function() {
+    (function () {
         const iconBtn = document.getElementById('icon-btn');
 
         function updateIcon() {

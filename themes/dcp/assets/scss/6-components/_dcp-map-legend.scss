@@ -104,6 +104,9 @@
 
     &__mobile {
         display: none;
+        top: size(-170);
+        padding-left: size(2);
+        position: relative;
 
         &-btn{
             position: absolute;
