@@ -60,6 +60,14 @@
             }
         }
 
+        .group {
+            h3 {
+                @include mobile {
+                    white-space: nowrap;
+                }
+            }
+        }
+
         .group:nth-of-type(1) {
             padding-bottom: 17px;
             border-bottom: size(1) solid #E6E2E0;
