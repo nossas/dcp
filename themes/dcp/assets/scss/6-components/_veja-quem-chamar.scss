@@ -62,7 +62,9 @@
 
         .group {
             h3 {
+                font-size : size( 35 );
                 @include mobile {
+
                     white-space: nowrap;
                 }
             }
