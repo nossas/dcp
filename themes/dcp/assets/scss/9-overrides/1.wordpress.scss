@@ -189,19 +189,8 @@
         max-width: size(1280);
     }
 
-    @media (max-width: size(1300)) {
-        max-width: 90%;
-    }
-
-    @media (min-width: size(500)) and (max-width: size(768)){
+    @media (max-width: size(768)){
         padding-inline: size(24) !important;
-    }
-
-    @include mobile{
-        padding-top: $padding--large !important;
-        margin-top: $margin--large *2;
-        max-width: 90%;
-        background-color: yellow;
     }
 
     .wp-block-spacer{

@@ -55,9 +55,31 @@ if (!file_exists($icon_path)) {
 <main class="post-content container container--medium">
     <?php the_content(); ?>
 
-</div>
+    <?php
+    $arquivo = pods_field_display( 'enviar_arquivo', get_the_ID() );
+
+    if ( ! empty( $arquivo ) ) :
+        if ( is_array( $arquivo ) && isset( $arquivo['guid'] ) ) {
+            $arquivo_url  = esc_url( $arquivo['guid'] );
+            $arquivo_nome = basename( $arquivo['guid'] );
+        } else {
+            $arquivo_url  = esc_url( $arquivo );
+            $arquivo_nome = basename( $arquivo );
+        }
+    ?>
+        <div class="post-download" style="margin-top: 40px; text-align: center;">
+            <h2><?= __('Seção de Downloads')?></h2>
+            <a href="<?= $arquivo_url ?>" download class="botao-download" style="">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+                </svg>
+                Baixar arquivo (<?= esc_html( $arquivo_nome ) ?>)
+            </a>
+        </div>
+    <?php endif; ?>
 
 </main>
+
 
 <?php get_template_part('template-parts/content/related-posts'); ?>
 

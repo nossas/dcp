@@ -229,3 +229,27 @@
     text-underline-offset: auto;
     text-underline-position: from-font;
 }
+
+.botao-download{
+    display: inline-flex;
+    align-items: center;
+    gap: $gap--small;
+    background: #007c5a;
+    color: $color--high-light;
+    padding: size(12) size(20);
+    border-radius: size(99);
+    text-decoration: none;
+    font-weight: $font-weight--regular;
+}
+
+.post-download{
+    text-align: left !important;
+    border-bottom: size(2) solid #E6E2E0;
+    padding-bottom: size(64);
+
+    h2{
+        margin-top: size(24) !important;
+        margin-bottom: size(24) !important;
+    }
+
+}

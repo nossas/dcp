@@ -87,6 +87,8 @@
 
     @include mobile{
         padding-inline: 0;
+        padding-bottom: size(64);
+        border-bottom: size(2) solid #E6E2E0;
     }
 
     .wp-block-coblocks-accordion-item {

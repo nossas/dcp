@@ -26,6 +26,7 @@
 
         @include mobile{
             padding-top: 0 !important;
+            border-top: none
         }
 
         &:last-child{
