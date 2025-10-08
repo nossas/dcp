@@ -16,6 +16,11 @@
     padding-inline: 0;
     width: 100vw;
 
+    @include mobile{
+        display: flex;
+        flex-direction: column;
+    }
+
     & > :not(.alignfull) {
         padding-inline: $padding--large;
     }

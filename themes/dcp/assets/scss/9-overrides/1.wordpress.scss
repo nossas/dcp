@@ -179,14 +179,18 @@
 }
 .ficou-alguma-duvida {
     padding-inline: 0 !important;
-    max-width: size(1325);
+    max-width: size(1330);
     width: 100%;
     margin-inline: auto;
     border-top: size(2) solid #E6E2E0;
     padding-top: size(64) !important;
 
-    @media (max-width: size(1400)) {
+    @media (max-width: size(1400)){
         max-width: size(1280);
+    }
+
+    @media (max-width: size(1300)) {
+        max-width: 90%;
     }
 
     @media (min-width: size(500)) and (max-width: size(768)){
@@ -194,7 +198,10 @@
     }
 
     @include mobile{
-        padding-inline: $padding--medium !important;
+        padding-top: $padding--large !important;
+        margin-top: $margin--large *2;
+        max-width: 90%;
+        background-color: yellow;
     }
 
     .wp-block-spacer{
