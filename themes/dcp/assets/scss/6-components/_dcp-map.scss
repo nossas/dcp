@@ -266,7 +266,7 @@
         bottom: size(16) !important;
 
         @include mobile{
-            bottom: size(32) !important;
+            bottom: 11% !important;
         }
 
         & > a{

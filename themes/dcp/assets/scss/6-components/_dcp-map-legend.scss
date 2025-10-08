@@ -72,7 +72,7 @@
             width: fit-content;
 
             @include mobile{
-                padding-left: size(7);
+                padding-left: size(10);
                 top: 50%;
             }
 
@@ -105,13 +105,17 @@
     &__mobile {
         display: none;
         top: size(-170);
-        padding-left: size(2);
+        padding-left: size(1);
         position: relative;
 
         &-btn{
             position: absolute;
             bottom: size(188);
             background-color: transparent;
+
+            @include mobile{
+                padding-left: size(8);
+            }
 
             & > img{
                 height: auto;
@@ -188,6 +192,10 @@
         gap: $gap--small;
         list-style: none;
         padding-left: size(12);
+
+        @include mobile{
+            padding-left: size(15);
+        }
     }
 
     &__item{
@@ -244,6 +252,12 @@
 
 .risco .dcp-map-legend-apoio__mobile{
     top: size(-45);
+}
+
+.dcp-map-footer{
+    @include mobile{
+        padding-inline: size(15);
+    }
 }
 
 .risco .dcp-map-footer{

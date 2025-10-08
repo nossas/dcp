@@ -68,11 +68,6 @@
         margin-bottom: size(46);
         margin-top: size(80);
 
-        @media (min-width: size(782)) and (max-width: size(1024)) {
-            display: flex;
-            flex-direction: column;
-        }
-
         @include mobile{
             margin-top: $margin--small;
         }
@@ -151,6 +146,10 @@
 
     &__widget {
         @include mobile {
+            display: none;
+        }
+
+        @media (max-width: size(1025)) {
             display: none;
         }
     }

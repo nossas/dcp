@@ -6,6 +6,10 @@
             display: block;
         }
 
+        @media (max-width: size(1025)){
+            display: block;
+        }
+
         .wp-block-spacer{
             display: none;
         }

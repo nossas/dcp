@@ -38,6 +38,15 @@
                 }
             }
         }
+
+        &__buttons{
+            bottom: size(16) !important;
+
+            @include mobile {
+                bottom: size(16) !important;
+                padding-bottom: 0 !important;
+            }
+        }
     }
 
     .hacklabr-posts-grid-block{
