@@ -121,6 +121,10 @@
                 height: 100%;
             }
 
+            &__top-meta {
+                display: flex;
+            }
+
             &__title {
                 font-family: $font-family--primary !important;
                 font-size: $font-size--medium;

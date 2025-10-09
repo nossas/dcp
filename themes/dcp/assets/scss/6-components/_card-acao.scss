@@ -107,7 +107,7 @@
                         color: $color--secondary-dark;
                         font-family: $font-family--primary;
                         font-size: size(20);
-                        font-weight: var(--Spacing-space-100, 8);
+                        font-weight: $font-weight--medium;
                         line-height: 1.2;
                     }
                 }
@@ -118,7 +118,7 @@
     .posts-grid__content{
         display: grid;
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: $gap--medium;
 
         &-cards-concluidas{
             @media (min-width: size(500)) and (max-width: size(768)) {
@@ -137,7 +137,7 @@
     .posts-grid__content-cards-concluidas{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        gap: 2rem;
+        gap: $gap--medium;
 
         @include tablet{
             grid-template-columns: 1fr 1fr;
