@@ -2,93 +2,36 @@
   <h2 class="secao-titulo">Próximas Ações</h2>
   <p class="secao-subtitulo">Aenean egestas ultricies nibh, at tempus purus fringilla in. Curabitur ornare enim justo, at tristique.</p>
 
-  <div class="acoes-grid">
-    <?php
+  <div class="posts-grid__content">
 
-    $today = current_time('Y-m-d H:i:s');
-    $args = array(
-        'post_type' => 'acao',
-        'posts_per_page' => 3,
-        'orderby' => 'meta_value',
-        'meta_key' => 'data_e_horario',
-        'order' => 'ASC',
-        'meta_query' => array(
-            array(
-                'key' => 'data_e_horario',
-                'value' => $today,
-                'compare' => '>=',
-                'type' => 'DATETIME'
-            )
-        )
-    );
-
-    $query = new WP_Query($args);
-
-   if ($query->have_posts()) :
-    while ($query->have_posts()) : $query->the_post();
-        $categorias = get_the_terms(get_the_ID(), 'tipo_acao');
-        $categoria_nome = $categorias ? $categorias[0]->name : '';
-        $categoria_slug = $categorias ? $categorias[0]->slug : '';
-
-        // Mapeamento de cores por categoria
-        $cores = [
-            'limpeza'       => '#235540',
-            'educacao'      => '#50B15C',
-            'solidariedade' => '#FC7753',
-            'reparos'       => '#51B2AF',
-            'cultural'      => '#B83D13',
-            'incidencia'      => '#FFB300'
-        ];
-
-                // Cor final baseada no slug, ou cinza padrão
-                $cor = $cores[$categoria_slug] ?? '#888';
-
-                $pod   = pods('acao', get_the_ID());
-                $data  = $pod->display('data');
-                $hora  = $pod->display('horario');
-                $local = $pod->display('endereco');
-        ?>
-
-      <div class="acao-card card-style--<?= $categoria_slug ?>">
-        <div class="acao-topo " style="background: <?= esc_attr($cor) ?>;">
-          <span class="acao-categoria acao-card--<?= $categoria_slug ?>">
-            <span class="acao-icon"></span> <?= esc_html($categoria_nome) ?>
-          </span>
-        </div>
-
-        <div class="acao-conteudo">
-            <h3 class="acao-titulo"><?php the_title(); ?></h3>
-            <p class="acao-descricao"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
-            <hr>
-            <ul class="acao-infos">
-                <?php
-                    $imagem_calendar = get_template_directory_uri() . '/assets/images/wrapper.svg';
-                    $imagem_pin = get_template_directory_uri() . '/assets/images/pin.svg';
-                ?>
-
-                <?php if ($data && $hora): ?>
-                    <li><img src="<?= esc_url($imagem_calendar) ?>" alt="Data e hora"> Dia: <?= esc_html($data) ?>, <?= esc_html($hora) ?></li>
-                <?php elseif ($data): ?>
-                    <li><img src="<?= esc_url($imagem_calendar) ?>" alt="Data"> Dia: <?= esc_html($data) ?></li>
-                <?php elseif ($hora): ?>
-                    <li><img src="<?= esc_url($imagem_calendar) ?>" alt="Horário"> Horário: <?= esc_html($hora) ?></li>
-                <?php endif; ?>
-
-                <?php if ($local): ?>
-                    <li><img src="<?= esc_url($imagem_pin) ?>" alt="Endereço"> Endereço: <?= esc_html($local) ?></li>
-                <?php endif; ?>
-            </ul>
-        </div>
-
-
-        <div class="acao-rodape" style="background: <?= esc_attr($cor) ?>;">
-          <a href="<?php the_permalink(); ?>" class="acao-botao">Saiba mais e participe</a>
-        </div>
+      <div class="posts-grid__content-cards-agendada">
+          <?php
+          $agendar_query = new WP_Query([
+              'post_type' => 'acao',
+              'post_status' => 'publish',
+              'posts_per_page' => 3,
+              'orderby' => 'meta_value',
+              'meta_key' => 'data_e_horario',
+          ]);
+          if ( $agendar_query->have_posts() ) : ?>
+              <div class="posts-grid__content-cards-agendada">
+                  <?php
+                      while ( $agendar_query->have_posts() ) : $agendar_query->the_post();
+                          get_template_part( 'template-parts/post-card', 'vertical' );
+                      endwhile;
+                  ?>
+              </div>
+              <?php
+              $disabled_agendar = ($agendar_query->found_posts <= 3) ? 'disabled' : '';
+              ?>
+              <button class="load-more-agendar ver-mais-acoes" data-status="Agendar" data-page="1" <?php echo $disabled_agendar; ?>>Mostrar mais</button>
+              <?php
+              wp_reset_postdata();
+          else : ?>
+          <div style="background-color: rgba(0,0,0,0.03); padding: 25px; margin: 25px 0; border-radius: 25px;">
+              <p>Não existe ações agendadas.</p>
+          </div>
+          <?php endif; ?>
       </div>
-    <?php
-      endwhile;
-      wp_reset_postdata();
-    endif;
-    ?>
   </div>
 </section>

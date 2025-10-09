@@ -4,12 +4,34 @@
         padding-bottom: size(64);
     }
 
-    .proximas-acoes{
+    .proximas-acoes {
         max-width: size(1325);
         width: 100%;
         margin-inline: auto;
 
-        @media (max-width: size(1025)){
+        .posts-grid__content {
+
+            &-cards-agendada {
+                display: flex;
+                flex-direction: column;
+
+                .posts-grid__content-cards-agendada {
+                    margin-top: 0;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+
+                    @include tablet {
+                        grid-template-columns: 1fr 1fr;
+                    }
+
+                    @include mobile {
+                        grid-template-columns: 1fr;
+                    }
+                }
+            }
+        }
+
+        @media (max-width: size(1025)) {
             padding-inline: $padding--large;
         }
 

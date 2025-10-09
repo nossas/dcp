@@ -1,3 +1,5 @@
+.single-acao,
+.single-relato,
 .post-type-archive-acao {
     .layout-part--header-archive-acao {
         padding-top: size( 110 );
@@ -82,6 +84,8 @@
         }
     }
 
+    .single-acao,
+    .single-relato,
     .archive-acao {
         .proximas-acoes{
             @include mobile{
@@ -678,6 +682,36 @@
                 height: size(1);
                 background-color: #ccc;
             }
+        }
+    }
+}
+.single-acao{
+    #app {
+        main {
+            .proximas-acoes {
+                .posts-grid__content {
+
+                    &-cards-agendada {
+                        display: flex;
+                        flex-direction: column;
+
+                        .posts-grid__content-cards-agendada{
+                            margin-top: 0;
+                            display: grid;
+                            grid-template-columns: 1fr 1fr 1fr;
+
+                            @include tablet{
+                                grid-template-columns: 1fr 1fr;
+                            }
+
+                            @include mobile{
+                                grid-template-columns: 1fr;
+                            }
+                        }
+                    }
+                }
+            }
+
         }
     }
 }
