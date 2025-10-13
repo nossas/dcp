@@ -464,7 +464,8 @@
             align-items: center;
             gap: 6px;
             color: $color--high-dark;
-            font-size: 16px;
+            font-size: size(14);
+
             &::before {
                 background-size: contain;
                 background-repeat: no-repeat;
@@ -496,7 +497,7 @@
         &__address {
             flex-direction: row !important;
             color: $color--high-dark;
-            font-size: 16px;
+            font-size: size(14);
             gap: 6px;
 
             &::before {
