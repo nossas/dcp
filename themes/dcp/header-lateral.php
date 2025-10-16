@@ -53,7 +53,7 @@
                     </div>
 
                     <div class="main-header-lateral__login">
-                        <a href="#"><button class="main-header-lateral__login-access"><?= __('Login') ?></button></a>
+                        <a href="<?= wp_login_url( get_permalink() ); ?>"><button class="main-header-lateral__login-access"><?= __('Login') ?></button></a>
                     </div>
                 </div>
 
