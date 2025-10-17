@@ -234,8 +234,11 @@
                 margin-inline-start: $gap--small;
             }
 
-            &:hover .sub-menu {
-                display: block;
+            &:focus-within, &:hover {
+
+                .sub-menu {
+                    display: block;
+                }
             }
         }
     }
