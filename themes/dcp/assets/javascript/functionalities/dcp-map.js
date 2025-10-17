@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     function selectCPT(cpt) {
         tabs.forEach((tab) => {
             const isSelected = tab.dataset.cpt === cpt;
+            tab.ariaSelected = isSelected ? 'true' : 'false';
             tab.classList.toggle(selectedTabClass, isSelected);
         });
 

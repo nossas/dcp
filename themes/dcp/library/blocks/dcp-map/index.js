@@ -14,13 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function selectCPT(cpt) {
             tabs.forEach((tab) => {
+                const isSelected = tab.dataset.cpt === cpt;
                 selectedCPT.current = cpt;
-
-                if (tab.dataset.cpt === cpt) {
-                    tab.classList.add('dcp-map-block__tab--selected');
-                } else {
-                    tab.classList.remove('dcp-map-block__tab--selected');
-                }
+                tab.ariaSelected = isSelected ? 'true' : 'false';
+                tab.classList.toggle('dcp-map-block__tab--selected', isSelected);
             });
 
             const apoioLegendDesktop = document.querySelector('.dcp-map-legend-apoio');
