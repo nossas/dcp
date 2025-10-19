@@ -151,12 +151,6 @@
         }
     }
 
-    &__login{
-        @include mobile{
-            display: none;
-        }
-    }
-
     &__login-access{
         background-color: $color--primary-pure;
         border: size(1) solid $color--primary-pure;
@@ -288,4 +282,15 @@
             font-size: $font-size--x-small !important;
         }
     }
+}
+
+@media (max-width: size(768 )) {
+  .main-header-lateral__login--mobile {
+    display: block;
+  }
+}
+@media (min-width: size(769)) {
+  .main-header-lateral__login--mobile {
+    display: none;
+  }
 }
