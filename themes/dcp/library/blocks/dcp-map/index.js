@@ -1,3 +1,4 @@
+import { setupLegends } from '../../../assets/javascript/shared/legends'
 import { setupMap } from '../../../assets/javascript/shared/pins'
 import { until } from '../../../assets/javascript/shared/wait'
 
@@ -11,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let toggleLayer = null
 
         const selectedCPT = { current: tabsList.dataset.selected }
+        const selectedLayers = { alagamento: true, lixo: true }
 
         function selectCPT(cpt) {
             tabs.forEach((tab) => {
@@ -82,37 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         await until(() => jeoMap.map)
 
-        const mapContext = setupMap(jeoMap, block, riscos, apoios, selectedCPT)
+        const mapContext = setupMap(jeoMap, block, riscos, apoios, selectedCPT, selectedLayers)
         displayModal = mapContext.displayModal
         toggleLayer = mapContext.toggleLayer
+        setupLegends(toggleLayer, selectedLayers)
     })
 })
-
-document.addEventListener("DOMContentLoaded", () => {
-    const alagamentoIcon = document.querySelector(".icon-alagamento");
-    const lixoIcon = document.querySelector(".icon-lixo");
-
-    if (alagamentoIcon) {
-        const original = alagamentoIcon.getAttribute("src");
-        const hover = original.replace("buttons-risco.svg", "hovered.svg");
-
-        alagamentoIcon.addEventListener("mouseenter", () => {
-            alagamentoIcon.setAttribute("src", hover);
-        });
-        alagamentoIcon.addEventListener("mouseleave", () => {
-            alagamentoIcon.setAttribute("src", original);
-        });
-    }
-
-    if (lixoIcon) {
-        const original = lixoIcon.getAttribute("src");
-        const hover = original.replace("buttons-riscolixo.svg", "hoveredlixo.svg");
-
-        lixoIcon.addEventListener("mouseenter", () => {
-            lixoIcon.setAttribute("src", hover);
-        });
-        lixoIcon.addEventListener("mouseleave", () => {
-            lixoIcon.setAttribute("src", original);
-        });
-    }
-});
