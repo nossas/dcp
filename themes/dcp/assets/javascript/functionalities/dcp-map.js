@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await until(() => jeoMap.map);
 
     const selectedCPT = { current: initialTab };
-    const selectedLayers = { alagamento: true, lixo: true };
+    const selectedLayers = { alagamentoNivel4: true, alagamentoNivel5: true };
     const mapContext = setupMap(jeoMap, container, riscos, apoios, selectedCPT, selectedLayers);
     toggleLayer = mapContext.toggleLayer;
     setupLegends(toggleLayer, selectedLayers);

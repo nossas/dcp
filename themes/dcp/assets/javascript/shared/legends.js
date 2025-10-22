@@ -1,42 +1,42 @@
 export function setupLegends(toggleLayer, selectedLayers) {
-    const alagamentoToggle = document.querySelector('.icon-alagamento')
-    const lixoToggle = document.querySelector('.icon-lixo')
+    const level5Toggle = document.querySelector('.icon-alagamento-nivel5')
+    const level4Toggle = document.querySelector('.icon-alagamento-nivel4')
 
-    if (alagamentoToggle) {
-        const alagamentoOnImg = alagamentoToggle.getAttribute('src')
-        const alagamentoOffImg = alagamentoOnImg.replace('button-alagamento-on.svg', 'button-alagamento-off.svg')
+    if (level5Toggle) {
+        const level5OnImg = level5Toggle.getAttribute('src')
+        const level5OffImg = level5OnImg.replace('button-alagamento-on.svg', 'button-alagamento-off.svg')
 
-        alagamentoToggle.addEventListener('click', () => {
-            selectedLayers.alagamento = !selectedLayers.alagamento
-            alagamentoToggle.src = selectedLayers.alagamento ? alagamentoOnImg : alagamentoOffImg
+        level5Toggle.addEventListener('click', () => {
+            selectedLayers.alagamentoNivel5 = !selectedLayers.alagamentoNivel5
+            level5Toggle.src = selectedLayers.alagamentoNivel5 ? level5OnImg : level5OffImg
             toggleLayer('risco')
         })
 
-        alagamentoToggle.addEventListener('mouseenter', () => {
-            alagamentoToggle.src = alagamentoOffImg
+        level5Toggle.addEventListener('mouseenter', () => {
+            level5Toggle.src = level5OffImg
         })
 
-        alagamentoToggle.addEventListener('mouseleave', () => {
-            alagamentoToggle.src = selectedLayers.alagamento ? alagamentoOnImg : alagamentoOffImg
+        level5Toggle.addEventListener('mouseleave', () => {
+            level5Toggle.src = selectedLayers.alagamentoNivel5 ? level5OnImg : level5OffImg
         })
     }
 
-    if (lixoToggle) {
-        const lixoOnImg = lixoToggle.getAttribute('src')
-        const lixoOffImg = lixoOnImg.replace('button-lixo-on.svg', 'button-lixo-off.svg')
+    if (level4Toggle) {
+        const level4OnImg = level4Toggle.getAttribute('src')
+        const level4OffImg = level4OnImg.replace('button-alagamento-nivel4-on.svg', 'button-alagamento-nivel4-off.svg')
 
-        lixoToggle.addEventListener('click', () => {
-            selectedLayers.lixo = !selectedLayers.lixo
-            lixoToggle.src = selectedLayers.lixo ? lixoOnImg : lixoOffImg
+        level4Toggle.addEventListener('click', () => {
+            selectedLayers.alagamentoNivel4 = !selectedLayers.alagamentoNivel4
+            level4Toggle.src = selectedLayers.alagamentoNivel4 ? level4OnImg : level4OffImg
             toggleLayer('risco')
         })
 
-        lixoToggle.addEventListener('mouseenter', () => {
-            lixoToggle.src = lixoOffImg
+        level4Toggle.addEventListener('mouseenter', () => {
+            level4Toggle.src = level4OffImg
         })
 
-        lixoToggle.addEventListener('mouseleave', () => {
-            lixoToggle.src = selectedLayers.lixo ? lixoOnImg : lixoOffImg
+        level4Toggle.addEventListener('mouseleave', () => {
+            level4Toggle.src = selectedLayers.alagamentoNivel4 ? level4OnImg : level4OffImg
         })
     }
 }

@@ -9,10 +9,16 @@
 <aside class="dcp-map-legend-risco">
     <ul class="dcp-map-legend-risco__list">
         <li class="dcp-map-legend-risco__item">
-            <img class="icon-alagamento"
+            <img class="icon-alagamento-nivel5"
                 src="<?= get_stylesheet_directory_uri() ?>/assets/images/button-alagamento-on.svg"
-                alt="<?= __('Zonas de risco de alagamento', 'hacklabr') ?>">
-            <span class="dcp-map-legend-risco__item--alagamento"><?= __('Zonas de risco de alagamento', 'hacklabr') ?></span>
+                alt="<?= __('Zonas de risco alto de alagamento', 'hacklabr') ?>">
+            <span class="dcp-map-legend-risco__item--alagamento"><?= __('Zonas de risco alto de alagamento', 'hacklabr') ?></span>
+        </li>
+        <li class="dcp-map-legend-risco__item">
+            <img class="icon-alagamento-nivel4"
+                src="<?= get_stylesheet_directory_uri() ?>/assets/images/button-alagamento-nivel4-on.svg"
+                alt="<?= __('Zonas de risco moderado de alagamento', 'hacklabr') ?>">
+            <span class="dcp-map-legend-risco__item--alagamento"><?= __('Zonas de risco moderado de alagamento', 'hacklabr') ?></span>
         </li>
     </ul>
 </aside>
@@ -61,9 +67,13 @@
             <ul class="dcp-map-dicas__list">
 
                 <div class="dcp-map-dicas__list--zonas">
-                    <li class="dcp-map-dicas__item  dcp-map-dicas__item-zonas dcp-map-dicas__item--alagamento">
+                    <li class="dcp-map-dicas__item  dcp-map-dicas__item-zonas dcp-map-dicas__item--alagamento-5">
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/icon-alagamento.svg" alt="">
-                        <span><?= __('Zonas de risco de alagamento', 'hacklabr') ?></span>
+                        <span><?= __('Zonas de risco alto de alagamento', 'hacklabr') ?></span>
+                    </li>
+                    <li class="dcp-map-dicas__item  dcp-map-dicas__item-zonas dcp-map-dicas__item--alagamento-4">
+                        <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/icon-alagamento-nivel4.svg" alt="">
+                        <span><?= __('Zonas de risco moderado de alagamento', 'hacklabr') ?></span>
                     </li>
                 </div>
 
