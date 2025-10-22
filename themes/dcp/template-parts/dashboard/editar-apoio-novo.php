@@ -53,7 +53,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Informe o nome pelo qual o local é conhecido. Se não houver nome formal, descreva de forma simples e reconhecível.') ?>
                     </p>
                 </div>
             </div>
@@ -70,7 +70,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Escreva de forma clara o que é oferecido pela iniciativa. Inclua informações úteis, como quem pode acessar, quando funciona e que tipo de ajuda ou recurso está disponível.') ?>
                     </p>
                 </div>
             </div>
@@ -99,7 +99,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Informe os dias e horários em que o local está funcionando.') ?>
                     </p>
                 </div>
             </div>
@@ -126,7 +126,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Indique o endereço ou ponto de referência. Verifique se está completo para que a comunidade possa localizar facilmente.') ?>
                     </p>
                 </div>
             </div>
@@ -140,7 +140,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Informe um número de contato do local ou da iniciativa, se houver.') ?>
                     </p>
                 </div>
             </div>
@@ -157,7 +157,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Se houver um site oficial ou página com mais informações, inclua o link aqui.') ?>
                     </p>
                 </div>
             </div>
@@ -204,7 +204,7 @@ namespace hacklabr\dashboard;
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button"><iconify-icon icon="bi:question"></iconify-icon></a>
-                    <p>Adicione ou troque a imagem para este local ou iniciativa.</p>
+                    <p><?= __('Adicione ou atualize uma foto que ajude a identificar o local, como a fachada ou o ponto de entrada. Evite fotos com pessoas ou dados pessoais, como placas e documentos.') ?></p>
                 </div>
             </div>
             <div class="form-submit apoio-edit">

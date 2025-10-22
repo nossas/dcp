@@ -151,7 +151,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Escolha a categoria que melhor representa a ação.') ?>
                     </p>
                 </div>
             </div>
@@ -168,7 +168,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Dê um nome curto e claro para a ação. Use um título que ajude a identificar o que vai acontecer.') ?>
                     </p>
                 </div>
             </div>
@@ -185,7 +185,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Explique o objetivo da ação e o que será feito. Inclua informações úteis, como quem pode participar, o que levar e qual o propósito da atividade.') ?>
                     </p>
                 </div>
             </div>
@@ -211,7 +211,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Indique a data e horário que a ação vai acontecer.') ?>
                     </p>
                 </div>
             </div>
@@ -238,7 +238,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Informe o endereço ou ponto de referência onde a ação acontecerá.') ?>
                     </p>
                 </div>
             </div>
@@ -282,7 +282,7 @@ namespace hacklabr\dashboard;
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button"><iconify-icon icon="bi:question"></iconify-icon></a>
-                    <p>O usuário poderá adicionar uma foto, então se já houver uma foto adicionada (seja por ele ou pela que fez a sugestão), o botão fica desabilitado.</p>
+                    <p><?= __('Adicione uma imagem que represente bem a ação, como o local, um momento anterior ou um símbolo da atividade. Evite fotos com pessoas identificáveis ou informações sensíveis.') ?></p>
                 </div>
             </div>
             <div class="fields">

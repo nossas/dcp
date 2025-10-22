@@ -43,7 +43,7 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
     <div class="dashboard-content-home">
         <header class="dashboard-content-header">
             <h1>Olá, <?=wp_get_current_user()->display_name?></h1>
-            <p>Lorem ipsum dolor sit amet. Curabitur ornare enim justo, at tristique.</p>
+            <p> <?= __('Acompanhe a situação atual do Jacarezinho e veja os relatos enviados pela comunidade.') ?> </p>
         </header>
 
         <div class="dashboard-content-section">

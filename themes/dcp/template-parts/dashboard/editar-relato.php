@@ -72,7 +72,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                       <?= __('Selecione a ação agendada que dará origem a este relato. ') ?>
                     </p>
                 </div>
             </div>
@@ -105,7 +105,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Escolha a categoria que melhor representa o relato.') ?>
                     </p>
                 </div>
             </div>
@@ -120,7 +120,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Insira o endereço da ação') ?>
                     </p>
                 </div>
             </div>
@@ -142,7 +142,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Insira a data e o horário da ação') ?>
                     </p>
                 </div>
             </div>
@@ -156,7 +156,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Dê um nome curto e claro ao relato. Ele pode repetir o nome da ação ou destacar um resultado importante.') ?>
                     </p>
                 </div>
             </div>
@@ -173,7 +173,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Escreva um breve resumo da ação: o que foi feito, quem participou e qual foi o principal resultado alcançado.') ?>
                     </p>
                 </div>
             </div>
@@ -230,7 +230,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                       <?= __('Escreva o relato de forma livre, contando o que aconteceu, os aprendizados e o impacto da ação. <b>Evite citar nomes de pessoas ou informações sensíveis.</b>') ?>
                     </p>
                 </div>
             </div>
@@ -254,7 +254,7 @@ namespace hacklabr\dashboard;
                                     <iconify-icon icon="bi:question"></iconify-icon>
                                 </a>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                                 </p>
                             </div>
                         </div>
@@ -330,7 +330,7 @@ namespace hacklabr\dashboard;
                             <iconify-icon icon="bi:question"></iconify-icon>
                         </a>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                            <?= __('Adicione fotos ou vídeos que ilustrem a ação. Verifique se não há rostos identificáveis ou dados pessoais antes de publicar.') ?>
                         </p>
                     </div>
                 <?php endif; ?>
