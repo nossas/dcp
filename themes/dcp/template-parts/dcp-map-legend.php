@@ -14,14 +14,6 @@
                 alt="<?= __('Zonas de risco de alagamento', 'hacklabr') ?>">
             <span class="dcp-map-legend-risco__item--alagamento"><?= __('Zonas de risco de alagamento', 'hacklabr') ?></span>
         </li>
-
-        <li class="dcp-map-legend-risco__item">
-            <img class="icon-lixo"
-                src="<?= get_stylesheet_directory_uri() ?>/assets/images/button-lixo-on.svg"
-                alt="<?= __('Zonas de acúmulo de lixo', 'hacklabr') ?>">
-            <span class="dcp-map-legend-risco__item--lixo"><?= __('Zonas de acúmulo de lixo', 'hacklabr') ?></span>
-        </li>
-
     </ul>
 </aside>
 
@@ -72,10 +64,6 @@
                     <li class="dcp-map-dicas__item  dcp-map-dicas__item-zonas dcp-map-dicas__item--alagamento">
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/icon-alagamento.svg" alt="">
                         <span><?= __('Zonas de risco de alagamento', 'hacklabr') ?></span>
-                    </li>
-                    <li class="dcp-map-dicas__item dcp-map-dicas__item-zonas dcp-map-dicas__item--lixo">
-                        <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/icon-lixo.svg" alt="">
-                        <span><?= __('Zonas de acúmulo de lixo', 'hacklabr') ?></span>
                     </li>
                 </div>
 
