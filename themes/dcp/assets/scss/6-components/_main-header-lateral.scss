@@ -284,13 +284,38 @@
     }
 }
 
-@media (max-width: size(768 )) {
-  .main-header-lateral__login--mobile {
-    display: block;
-  }
+@media (max-width: size(768)) {
+    .main-header-lateral__login--mobile {
+        display: block;
+        padding-inline: $padding--medium;
+
+        & > a > button{
+            width: 100%;
+        }
+    }
+
+    .main-header-lateral__mobile-btns{
+        display: flex;
+        flex-direction: column;
+        gap: $gap--medium;
+        padding-bottom: $gap--large;
+    }
+
+    .main-header-lateral__adicionar-risco{
+        text-align: center;
+    }
+
+    .main-header-lateral__adicionar-risco-button{
+        padding: $padding--small;
+        border-radius: $border-radius--large;
+        max-width: size(398);
+        width: 100%;
+        font-size: size(14);
+    }
 }
+
 @media (min-width: size(769)) {
-  .main-header-lateral__login--mobile {
-    display: none;
-  }
+    .main-header-lateral__login--mobile {
+        display: none;
+    }
 }
