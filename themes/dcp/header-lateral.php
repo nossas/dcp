@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="<?php bloginfo('charset'); ?>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:image" content="<?= get_template_directory_uri() ?>/assets/images/cover-website.png">
     <?php wp_head() ?>
     <title><?= is_front_page() ? get_bloginfo('name') : wp_title() ?></title>
@@ -18,13 +18,6 @@
             <div class="pre-header__content">
                 <div class="main-header__social-content">
                     <?= the_social_networks_menu(false); ?>
-                </div>
-                <div class="acessibilidade">
-                    <a href="#"><iconify-icon icon="material-symbols-light:contrast"><iconify-icon icon="material-symbols-light:contrast"></iconify-icon></a>
-                    <a href="#"><iconify-icon icon="mdi:format-font-size-increase"></iconify-icon></a>
-                    <a href="#"><iconify-icon icon="mdi:format-font-size-decrease"></iconify-icon></a>
-                    <a href="#"><iconify-icon icon="bi:volume-down-fill"></iconify-icon></a>
-                    <a href="#"><iconify-icon icon="fa:print"></iconify-icon></a>
                 </div>
             </div>
         </div>
