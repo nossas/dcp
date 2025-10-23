@@ -528,31 +528,31 @@ function dcp_home_situacao_atual($request) {
             ]
         ]
     );
-
     $recomendacoes = get_posts( $args );
-    $posts = [];
-    foreach ( $recomendacoes as $key => $post ) {
-        $pod = pods('recomendacao', $post->ID);
 
-        $posts[$key] = [
-            'recomendacao_1' => [
-                'icon' => $pod->display('icone_1.guid'),
-                'text' => $pod->display('recomendacao_1'),
-            ],
-            'recomendacao_2' => [
-                'icon' => $pod->display('icone_2.guid'),
-                'text' => $pod->display('recomendacao_2'),
-            ],
-            'recomendacao_3' => [
-                'icon' => $pod->display('icone_3.guid'),
-                'text' => $pod->display('recomendacao_3'),
-            ]
-        ];
-    }
+//    $posts = [];
+//    foreach ( $recomendacoes as $key => $post ) {
+//        $pod = pods('recomendacao', $post->ID);
+//
+//        $posts[$key] = [
+//            'recomendacao_1' => [
+//                'icon' => $pod->display('icone_1.guid'),
+//                'text' => $pod->display('recomendacao_1'),
+//            ],
+//            'recomendacao_2' => [
+//                'icon' => $pod->display('icone_2.guid'),
+//                'text' => $pod->display('recomendacao_2'),
+//            ],
+//            'recomendacao_3' => [
+//                'icon' => $pod->display('icone_3.guid'),
+//                'text' => $pod->display('recomendacao_3'),
+//            ]
+//        ];
+//    }
 
     return rest_ensure_response([
         'status' => true,
-        'data' => $posts[0]
+        //'data' => $posts[0]
     ]);
 
 }
@@ -560,6 +560,8 @@ add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/situacao-atual-home', [
         'methods' => 'GET',
         'callback' => 'dcp_home_situacao_atual',
-        'permission_callback' => '__return_true',
+        'permission_callback' => function($request) {
+            return current_user_can('write');
+        }
     ]);
 });
