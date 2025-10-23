@@ -1,9 +1,6 @@
-import {
-    setupMap
-} from '../shared/pins';
-import {
-    until
-} from '../shared/wait';
+import { setupLegends } from '../shared/legends';
+import { setupMap } from '../shared/pins';
+import { until } from '../shared/wait';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const container = document.querySelector('.dcp-map') || document.querySelector('.dcp-map-block');
@@ -34,6 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     function selectCPT(cpt) {
         tabs.forEach((tab) => {
             const isSelected = tab.dataset.cpt === cpt;
+            tab.ariaSelected = isSelected ? 'true' : 'false';
             tab.classList.toggle(selectedTabClass, isSelected);
         });
 
@@ -72,11 +70,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     const jeoMap = globalThis.jeomaps[map.dataset.uui_id];
     await until(() => jeoMap.map);
 
-    const selectedCPT = {
-        current: initialTab
-    };
-    const mapContext = setupMap(jeoMap, container, riscos, apoios, selectedCPT);
+    const selectedCPT = { current: initialTab };
+    const selectedLayers = { alagamentoNivel4: true, alagamentoNivel5: true };
+    const mapContext = setupMap(jeoMap, container, riscos, apoios, selectedCPT, selectedLayers);
     toggleLayer = mapContext.toggleLayer;
+    setupLegends(toggleLayer, selectedLayers);
 
     setTimeout(() => {
         selectCPT(initialTab);
@@ -142,33 +140,4 @@ document.addEventListener('DOMContentLoaded', async () => {
         updateIcon();
         window.addEventListener('resize', updateIcon);
     })();
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    const alagamentoIcon = document.querySelector(".icon-alagamento");
-    const lixoIcon = document.querySelector(".icon-lixo");
-
-    if (alagamentoIcon) {
-        const original = alagamentoIcon.getAttribute("src");
-        const hover = original.replace("buttons-risco.svg", "hovered.svg");
-
-        alagamentoIcon.addEventListener("mouseenter", () => {
-            alagamentoIcon.setAttribute("src", hover);
-        });
-        alagamentoIcon.addEventListener("mouseleave", () => {
-            alagamentoIcon.setAttribute("src", original);
-        });
-    }
-
-    if (lixoIcon) {
-        const original = lixoIcon.getAttribute("src");
-        const hover = original.replace("buttons-riscolixo.svg", "hoveredlixo.svg");
-
-        lixoIcon.addEventListener("mouseenter", () => {
-            lixoIcon.setAttribute("src", hover);
-        });
-        lixoIcon.addEventListener("mouseleave", () => {
-            lixoIcon.setAttribute("src", original);
-        });
-    }
 });

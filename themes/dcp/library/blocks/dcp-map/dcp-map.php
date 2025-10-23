@@ -158,10 +158,10 @@ function render_dcp_map_callback(array $attributes) {
     <div class="dcp-map-block" data-share-url="<?= get_permalink($maps_page) ?>" x-data>
         <script type="application/json"><?= json_encode($data) ?></script>
         <div class="dcp-map-block__tabs" data-selected="<?= $is_lixo_page ? 'apoio' : 'risco' ?>">
-            <button type="button" class="dcp-map-block__tab <?php if (!$is_lixo_page) echo 'dcp-map-block__tab--selected'; ?>" data-cpt="risco">
+            <button type="button" class="dcp-map-block__tab <?= (!$is_lixo_page) ? 'dcp-map-block__tab--selected' : '' ?>" data-cpt="risco" role="tab" aria-selected="<?= (!$is_lixo_page) ? 'true' : 'false' ?>">
                 Riscos (<?= count($data['riscos']) ?>)
             </button>
-            <button type="button" class="dcp-map-block__tab <?php if ($is_lixo_page) echo 'dcp-map-block__tab--selected'; ?>" data-cpt="apoio">
+            <button type="button" class="dcp-map-block__tab <?= ($is_lixo_page) ? 'dcp-map-block__tab--selected' : '' ?>" data-cpt="apoio" role="tab" aria-selected="<?= ($is_lixo_page) ? 'true' : 'false' ?>">
                 Apoio (<?= count($data['apoios']) ?>)
             </button>
         </div>

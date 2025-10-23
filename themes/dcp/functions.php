@@ -26,4 +26,5 @@ require __DIR__ . '/library/dashboard-indicadores.php';
 require __DIR__ . '/library/dashboard-ajax.php';
 require __DIR__ . '/library/ajax.php';
 require __DIR__ . '/library/geocoding.php';
+require __DIR__ . '/library/import.php';
 require __DIR__ . '/library/frontend_auth.php';

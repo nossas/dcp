@@ -96,6 +96,18 @@ function createRiscoFeature(risco) {
     })
 }
 
+function toggleMapboxLayer(map, layer, visible) {
+    map.setLayoutProperty(layer, 'visibility', visible ? 'visible' : 'none')
+}
+
+function toggleMapboxLayers(map, cpt, { alagamentoNivel4 = true, alagamentoNivel5 = true } = {}) {
+    const level4Slug = 'areas alagadas nivel 4'
+    const level5Slug = 'areas alagadas nivel 5'
+
+    toggleMapboxLayer(map, level4Slug, cpt === 'risco' && alagamentoNivel4)
+    toggleMapboxLayer(map, level5Slug, cpt === 'risco' && alagamentoNivel5)
+}
+
 function insertFeatureCollection(map, container, slug, features) {
     const pinsLayer = `${slug}-pins`
     const clustersLayer = `${slug}-clusters`
@@ -336,7 +348,7 @@ function setupLightbox() {
     });
 }
 
-export function setupMap(jeoMap, container, riscos, apoios, initialSource) {
+export function setupMap(jeoMap, container, riscos, apoios, initialSource, selectedLayers) {
     setupLightbox()
     const map = jeoMap.map
     let spiderifier
@@ -348,6 +360,7 @@ export function setupMap(jeoMap, container, riscos, apoios, initialSource) {
     function toggleLayer(cpt) {
         closeModals(container)
         spiderifier?._clearSpiderifiedCluster?.()
+        toggleMapboxLayers(map, cpt, selectedLayers)
 
         for (const [source, features, spiderifier] of [
             ['apoio', apoioFeatures, apoioSpiderifier],
