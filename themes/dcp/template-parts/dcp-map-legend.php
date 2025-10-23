@@ -18,7 +18,7 @@
             <img class="icon-alagamento-nivel4"
                 src="<?= get_stylesheet_directory_uri() ?>/assets/images/button-alagamento-nivel4-on.svg"
                 alt="<?= __('Zonas de risco moderado de alagamento', 'hacklabr') ?>">
-            <span class="dcp-map-legend-risco__item--alagamento"><?= __('Zonas de risco moderado de alagamento', 'hacklabr') ?></span>
+            <span class="dcp-map-legend-risco__item--alagamento-nivel4"><?= __('Zonas de risco moderado de alagamento', 'hacklabr') ?></span>
         </li>
     </ul>
 </aside>
