@@ -1,6 +1,7 @@
 <?php
 get_header();
 ?>
+<h1 class="sr-only"><?php get_the_title() ?></h1>
 <div class="container">
     <div class="post-header post-header__separator">
         <!-- <h1 class="post-header__title"><?php the_title() ?></h1>

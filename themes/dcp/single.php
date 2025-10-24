@@ -51,6 +51,8 @@ if (!file_exists($icon_path)) {
         ]); ?>
     </div>
 </header>
+<h1 class="sr-only"><?php get_the_title() ?></h1>
+
 
 <main class="post-content container container--medium">
     <?php the_content(); ?>

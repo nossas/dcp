@@ -68,6 +68,7 @@ namespace hacklabr\dashboard;
             </nav>
         </header>
         <div class="dashboard__body">
+        <h1 class="sr-only"><?php get_the_title() ?></h1>
             <a id="btnOpenMenuMobile" class="button">
                 <span></span>
                 <span></span>

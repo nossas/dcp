@@ -7,7 +7,7 @@
 
 get_header();
 ?>
-
+<h1 class="sr-only"><?php get_the_title() ?></h1>
 <main id="primary" class="site-main">
     <div class="background">
         <?php if (function_exists('bcn_display')) : ?>
