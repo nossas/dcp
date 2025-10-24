@@ -46,7 +46,7 @@ $show_info_between = !$hide_date;
             <?php if (has_post_thumbnail()): ?>
                 <?php the_post_thumbnail($image_size); ?>
             <?php else: ?>
-                <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/placeholder.png" alt="">
+                <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/placeholder.png" alt="<?= esc_attr__('Imagem padrão', 'dcp') ?>">
             <?php endif; ?>
         </a>
     </header>

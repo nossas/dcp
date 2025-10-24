@@ -6,7 +6,7 @@
             </button>
         </header>
         <article class="is-body">
-            <img class="is-image" src="" style="display: none;">
+            <img class="is-image" src="" style="display: none;" alt="display none">
             <video class="is-video" style="display: none;" playsinline controls >
                 <source type="video/mp4">
             </video>

@@ -112,7 +112,7 @@ namespace hacklabr\dashboard;
                     <input type="hidden" name="latitude" value="">
                     <input type="hidden" name="longitude" value="">
                     <a class="button is-loading" style="display: none">
-                        <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
+                        <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif" alt="<?= __('carregamento') ?>">
                     </a>
                     <a class="button is-success" style="display: none">
                         <iconify-icon icon="bi:check-circle"></iconify-icon>

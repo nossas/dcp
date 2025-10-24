@@ -198,7 +198,7 @@ namespace hacklabr\dashboard;
                             <?php if( !empty( $get_attachment ) ) : ?>
                                 <div class="assets-list">
                                     <figure class="asset-item-preview">
-                                        <img src="<?=$get_attachment?>">
+                                        <img src="<?=$get_attachment?>" alt="Capa do relato">
 
                                         <div class="asset-item-preview-actions">
                                             <a class="button is-fullscreen" data-id="<?=$attachment_cover_id?>" data-href="<?=$get_attachment?>"><iconify-icon icon="bi:arrows-fullscreen"></iconify-icon></a>
@@ -295,7 +295,7 @@ namespace hacklabr\dashboard;
                                 <div class="assets-list">
                                     <?php foreach ( $images as $image ) : ?>
                                         <figure class="asset-item-preview">
-                                            <img src="<?=$image->guid?>">
+                                            <img src="<?=$image->guid?>" alt="Foto do relato">
                                             <div class="asset-item-preview-actions">
                                                 <a class="button is-fullscreen" data-id="<?=$image->ID?>" data-href="<?=$image->guid?>"><iconify-icon icon="bi:arrows-fullscreen"></iconify-icon></a>
                                                 <a class="button is-delete" data-id="<?=$image->ID?>"><iconify-icon icon="bi:trash-fill"></iconify-icon></a>

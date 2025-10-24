@@ -5,7 +5,7 @@
     <div class="wp-block-cover__inner-container is-layout-constrained wp-block-cover-is-layout-constrained wp-block-columns is-layout-flex wp-container-core-columns is-layout-28f84493 wp-block-columns is-layout-flex" style="display: flex;">
         <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis: 656px;">
         <figure class="wp-block-image size-full">
-        <img decoding="async" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/banner-duvida.png'); ?>" alt="Descrição da imagem" style="object-fit: cover;">        </figure>
+        <img decoding="async" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/banner-duvida.png'); ?>" alt="<?=__('Ilustração ficou com alguma dúvida') ?>" style="object-fit: cover;">        </figure>
         <div style="height:100px" aria-hidden="true" class="wp-block-spacer"></div>
         </div>
 

@@ -145,7 +145,7 @@ namespace hacklabr\dashboard;
                                 <div class="assets-list">
                                     <?php foreach ( $attachments as $image ) : ?>
                                         <figure class="asset-item-preview">
-                                            <img class="is-load-now" data-media-src="<?=$image->guid?>">
+                                            <img class="is-load-now" data-media-src="<?=$image->guid?>" alt="<?= __('carregamento') ?>">
                                             <div class="asset-item-preview-actions">
                                                 <a class="button is-fullscreen" data-id="<?=$image->ID?>" data-href="<?=$image->guid?>">
                                                     <iconify-icon icon="bi:arrows-fullscreen"></iconify-icon>

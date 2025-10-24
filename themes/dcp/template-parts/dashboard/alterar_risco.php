@@ -108,7 +108,7 @@ $pod_ativo = \pods('situacao_atual', $situacao_ativa_post[0]->ID);
                 <div class="alerta-faixa__topo alerta-faixa__topo--<?=get_cor_by_name( $pod_ativo->field( 'tipo_de_alerta' ) )?>">
                     <div class="alerta-faixa__mensagem">
                         <span class="alerta-faixa__icone">
-                            <img src="<?=$pod_ativo->field( 'icone.guid' )?>">
+                            <img src="<?=$pod_ativo->field( 'icone.guid' )?>" alt="<?= __('ícone de guia') ?>">
                         </span>
                         <div class="alerta-faixa__warning">
                             <strong><?=$pod_ativo->field( 'tipo_de_alerta' )?></strong>
@@ -143,7 +143,7 @@ $pod_ativo = \pods('situacao_atual', $situacao_ativa_post[0]->ID);
                             <div class="alerta-faixa__topo alerta-faixa__topo--<?=get_cor_by_name( $pod->field( 'tipo_de_alerta' ) )?>">
                                 <div class="alerta-faixa__mensagem">
                                     <span class="alerta-faixa__icone">
-                                        <img src="<?=$pod->field( 'icone.guid' )?>">
+                                        <img src="<?=$pod->field( 'icone.guid' )?>" alt="<?= __('ícone de guia') ?>">
                                     </span>
                                     <div class="alerta-faixa__warning"><strong><?=$pod->field( 'tipo_de_alerta' )?></strong> <?=$pod->field( 'descricao' )?></div>
                                 </div>

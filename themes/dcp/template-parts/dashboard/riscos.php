@@ -111,7 +111,7 @@ namespace hacklabr\dashboard;
                                                     <div class="swiper-slide">
                                                         <div class="slider-thumb-item">
                                                             <?php if( $attachment->post_mime_type == 'image/jpeg' || $attachment->post_mime_type == 'image/png' ) : ?>
-                                                                <img class="is-load-now" data-media-src="<?=$attachment->guid?>" />
+                                                                <img class="is-load-now" data-media-src="<?=$attachment->guid?>" alt="<?= __('carregamento') ?>)" />
                                                             <?php endif; ?>
 
                                                             <?php if( $attachment->post_mime_type == 'video/mp4' ) : ?>
