@@ -50,7 +50,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Escolha o tipo de apoio.') ?>
                     </p>
                 </div>
             </div>
@@ -77,7 +77,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Informe o nome pelo qual o local é conhecido. Se não houver nome formal, descreva de forma simples e reconhecível.') ?>
                     </p>
                 </div>
             </div>
@@ -91,7 +91,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Informe o nome pelo qual o local é conhecido. Se não houver nome formal, descreva de forma simples e reconhecível.') ?>
                     </p>
                 </div>
             </div>
@@ -105,7 +105,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Escreva de forma clara o que é oferecido pela iniciativa. Inclua informações úteis, como quem pode acessar, quando funciona e que tipo de ajuda ou recurso está disponível.') ?>
                     </p>
                 </div>
             </div>
@@ -131,7 +131,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Informe os dias e horários em que o local está funcionando.') ?>
                     </p>
                 </div>
             </div>
@@ -155,7 +155,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Indique o endereço ou ponto de referência. Verifique se está completo para que a comunidade possa localizar facilment') ?>
                     </p>
                 </div>
             </div>

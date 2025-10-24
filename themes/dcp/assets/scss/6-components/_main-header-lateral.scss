@@ -308,7 +308,7 @@
     .main-header-lateral__adicionar-risco-button{
         padding: $padding--small;
         border-radius: $border-radius--large;
-        max-width: size(398);
+        max-width: size(328) !important;
         width: 100%;
         font-size: size(14);
     }
