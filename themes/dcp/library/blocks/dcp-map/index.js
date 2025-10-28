@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let toggleLayer = null
 
         const selectedCPT = { current: tabsList.dataset.selected }
-        const selectedLayers = { alagamentoNivel4: true, alagamentoNivel5: true }
+        const selectedLayers = { alagamentoNivel4: false, alagamentoNivel5: true }
 
         function selectCPT(cpt) {
             tabs.forEach((tab) => {

@@ -26,6 +26,10 @@
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/modal-page-map/pin-risco-alagamento.svg" alt="Icone de risco de alagamento" class="dcp-map-welcome-modal__tag-icon">
                         <span class="dcp-map-welcome-modal__tag tag-alagamento"><?= _e('Alagamento', 'dcp'); ?></span>
                     </div>
+                    <div class="dcp-map-welcome-modal__tag-container lixo">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/modal-page-map/pin-risco-lixo-amarelo.svg" alt="Icone de risco de lixo" class="dcp-map-welcome-modal__tag-icon">
+                        <span class="dcp-map-welcome-modal__tag tag-lixo"><?= _e('Lixo', 'dcp'); ?></span>
+                    </div>
                 </div>
             </div>
         </div>

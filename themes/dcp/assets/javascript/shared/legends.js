@@ -22,8 +22,8 @@ export function setupLegends(toggleLayer, selectedLayers) {
     }
 
     if (level4Toggle) {
-        const level4OnImg = level4Toggle.getAttribute('src')
-        const level4OffImg = level4OnImg.replace('button-alagamento-nivel4-on.svg', 'button-alagamento-nivel4-off.svg')
+        const level4OffImg = level4Toggle.getAttribute('src')
+        const level4OnImg = level4OffImg.replace('button-alagamento-nivel4-off.svg', 'button-alagamento-nivel4-on.svg')
 
         level4Toggle.addEventListener('click', () => {
             selectedLayers.alagamentoNivel4 = !selectedLayers.alagamentoNivel4
