@@ -104,6 +104,14 @@
         }
     }
 
+    .dcp-map-legend {
+        bottom: size(120);
+
+        @include mobile {
+            bottom: size(170);
+        }
+    }
+
     .jeomap {
         background-color: transparent;
         height: size(400);
@@ -132,7 +140,9 @@
 
             button {
                 background-color: $color--secondary-dark !important;
-                border-radius: 8px !important;
+                border-radius: 6px !important;
+                height: 30px;
+                width: 30px;
             }
 
             button.maplibregl-ctrl-zoom-in .maplibregl-ctrl-icon {
@@ -150,7 +160,7 @@
             pointer-events: none;
             position: absolute;
             z-index: 2;
-            bottom: 20%;
+            bottom: size(20);
             right: 0 !important;
         }
 

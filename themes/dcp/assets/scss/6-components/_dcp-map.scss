@@ -1,6 +1,20 @@
 .dcp-map {
     position: relative;
 
+    &--apoio {
+
+        .risco-only {
+            display: none !important;
+        }
+    }
+
+    &--risco {
+
+        .apoio-only {
+            display: none !important;
+        }
+    }
+
     .mapboxgl-map > .mapboxgl-control-container > .mapboxgl-ctrl-bottom-left{
         display: none !important;
     }
@@ -227,6 +241,13 @@
             display: none;
         }
 
+        .maplibregl-ctrl-attrib {
+
+            @include mobile {
+                display: none; // @TODO FIXME
+            }
+        }
+
         // Map zoom controls
         .maplibregl-ctrl-top-left {
             bottom: 6rem;
@@ -245,7 +266,9 @@
 
             button {
                 background-color: $color--secondary-dark !important;
-                border-radius: 8px !important;
+                border-radius: 6px !important;
+                height: 30px;
+                width: 30px;
             }
 
             button.maplibregl-ctrl-zoom-in .maplibregl-ctrl-icon {

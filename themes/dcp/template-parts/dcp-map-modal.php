@@ -11,7 +11,7 @@
             <p class="risk-modal__date"></p>
         </header>
         <main>
-            <h1 class="dcp-map-modal__title">$</h1>
+            <h2 class="dcp-map-modal__title">$</h2>
             <p class="dcp-map-modal__excerpt"></p>
             <?php get_template_part('template-parts/splide') ?>
         </main>
@@ -36,7 +36,7 @@
             </div>
         </header>
         <main>
-            <h1 class="dcp-map-modal__title">$</h1>
+            <h2 class="dcp-map-modal__title">$</h2>
             <p class="dcp-map-modal__excerpt"></p>
             <div class="dcp-map-modal__details">
                 <p><iconify-icon icon="bi:calendar3"></iconify-icon> Horário: <span class="support-modal__hour"></span></p>

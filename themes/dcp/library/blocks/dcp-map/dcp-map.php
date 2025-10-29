@@ -149,19 +149,19 @@ function render_dcp_map_callback(array $attributes) {
 
     $jeo_map = $jeo_maps[0];
     assert($jeo_map instanceof \WP_Post);
-    $is_lixo_page = is_page('conteudo-sobre-o-lixo');
+    $tab = is_page('conteudo-sobre-o-lixo') ? 'apoio' : 'risco';
 
     $data = get_dcp_map_data();
 
     ob_start();
 ?>
-    <div class="dcp-map-block" data-share-url="<?= get_permalink($maps_page) ?>" x-data>
+    <div class="dcp-map-block" :class="`dcp-map--${tab}`" data-share-url="<?= get_permalink($maps_page) ?>" x-data="{ tab: '<?= $tab ?>' }">
         <script type="application/json"><?= json_encode($data) ?></script>
-        <div class="dcp-map-block__tabs" data-selected="<?= $is_lixo_page ? 'apoio' : 'risco' ?>">
-            <button type="button" class="dcp-map-block__tab <?= (!$is_lixo_page) ? 'dcp-map-block__tab--selected' : '' ?>" data-cpt="risco" role="tab" aria-selected="<?= (!$is_lixo_page) ? 'true' : 'false' ?>">
+        <div class="dcp-map-block__tabs" data-selected="<?= $tab ?>">
+            <button type="button" class="dcp-map-block__tab <?= ($tab === 'risco') ? 'dcp-map-block__tab--selected' : '' ?>" data-cpt="risco" role="tab" aria-selected="<?= ($tab === 'risco') ? 'true' : 'false' ?>" @click="tab = 'risco'">
                 Riscos (<?= count($data['riscos']) ?>)
             </button>
-            <button type="button" class="dcp-map-block__tab <?= ($is_lixo_page) ? 'dcp-map-block__tab--selected' : '' ?>" data-cpt="apoio" role="tab" aria-selected="<?= ($is_lixo_page) ? 'true' : 'false' ?>">
+            <button type="button" class="dcp-map-block__tab <?= ($tab === 'apoio') ? 'dcp-map-block__tab--selected' : '' ?>" data-cpt="apoio" role="tab" aria-selected="<?= ($tab === 'apoio') ? 'true' : 'false' ?>" @click="tab = 'apoio'">
                 Apoio (<?= count($data['apoios']) ?>)
             </button>
         </div>

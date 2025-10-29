@@ -30,14 +30,14 @@ if (empty($tab)) {
 get_header();
 ?>
 <h1 class="sr-only"><?php get_the_title() ?></h1>
-<div class="dcp-map" data-share-url="<?= get_permalink() ?>" x-data>
+<div class="dcp-map" :class="`dcp-map--${tab}`" data-share-url="<?= get_permalink() ?>" x-data="{ tab: '<?= $tab ?>' }">
     <script type="application/json"><?= json_encode($data) ?></script>
     <div class="dcp-map__tabs-container">
         <div class="dcp-map__tabs" data-selected="risco">
-            <button type="button" class="dcp-map__tab<?= $tab === 'risco' ? ' dcp-map__tab--selected' : '' ?>" data-cpt="risco">
+            <button type="button" class="dcp-map__tab<?= $tab === 'risco' ? ' dcp-map__tab--selected' : '' ?>" data-cpt="risco"  role="tab" aria-selected="<?= ($tab === 'risco') ? 'true' : 'false' ?>" @click="tab = 'risco'">
                 Riscos (<?= count($data['riscos']) ?>)
             </button>
-            <button type="button" class="dcp-map__tab<?= $tab === 'apoio' ? ' dcp-map__tab--selected' : '' ?>" data-cpt="apoio">
+            <button type="button" class="dcp-map__tab<?= $tab === 'apoio' ? ' dcp-map__tab--selected' : '' ?>" data-cpt="apoio" role="tab" aria-selected="<?= ($tab === 'apoio') ? 'true' : 'false' ?>" @click="tab = 'apoio'">
                 Apoio (<?= count($data['apoios']) ?>)
             </button>
         </div>
