@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             const img = p.querySelector('img');
                             if (img && recomendacoes[chave].icon) {
                                 img.src = recomendacoes[chave].icon;
-                                img.alt = 'Ícone recomendação';
+                                img.alt = recomendacoes[chave].alt || 'Ícone recomendação';
                             }
 
                             // Atualiza o texto mantendo a estrutura HTML
