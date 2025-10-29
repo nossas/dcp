@@ -1,43 +1,45 @@
-.dcp-map-legend-apoio{
-    display: none;
+.dcp-map-legend {
+    bottom: 50%;
+    flex-direction: column;
+    display: flex;
+    gap: $gap--large;
     position: absolute;
-    top: 26%;
 
-    @include mobile{
-        display: none;
+    &--desktop {
+
+        @include mobile {
+            display: none !important;
+        }
     }
 
-    &__list{
+    &--mobile {
+
+        @include mobile-up {
+            display: none !important;
+        }
+    }
+
+    &__list {
         display: flex;
         flex-direction: column;
         gap: $gap--small;
         list-style: none;
-        padding-left: size(11);
-
-        @include mobile{
-            display: none;
-            padding-left: 0;
-        }
+        padding-left: size(10);
     }
 
-    &__item{
+    &__item {
         display: flex;
         gap: $gap--small;
 
-        @include mobile{
-            align-items: center;
-            border-bottom: size(1) solid #E6E2E0;
-            padding-bottom: $padding--medium;
-            margin-bottom: size(12);
+        button {
+            background-color: transparent;
+            display: flex;
+            cursor: pointer;
+            gap: $gap--small;
+            padding: 0;
         }
 
-        &:last-child{
-            @include mobile{
-                border-bottom: unset;
-            }
-        }
-
-        & > img{
+        img {
             max-width: size(30);
             width: 100%;
             height: auto;
@@ -47,7 +49,7 @@
             }
         }
 
-        & > span{
+        span {
             border-radius: size(8);
             color: $color--high-light;
             display: none;
@@ -55,77 +57,53 @@
             font-weight: $font-weight--regular;
             padding: size(4) size(12);
 
-            @include mobile{
+            @include mobile {
                 display: inline-block;
                 height: fit-content;
             }
         }
 
-        &:hover > span {
+        &:hover span {
             display: inline-block;
         }
 
-        &--dicas{
-            padding-left: size(12);
-            position: absolute;
-            top: 51%;
-            width: fit-content;
-
-            @include mobile{
-                padding-left: size(10);
-                top: 50%;
-            }
-
-            & > button{
-                background-color: transparent;
-                cursor: pointer;
-                padding: 0;
-
-                & > img{
-                    height: auto;
-                    max-width: size(30);
-                    width: 100%;
-                }
-            }
+        &--alagamento {
+            background-color: #B83D13;
+            color: $color--high-light;
         }
 
-        &--safe{
+        &--alagamento-nivel5 {
+            background-color: #7A280C;
+        }
+
+        &--alagamento-nivel4 {
+            background-color: #CF7E63;
+        }
+
+        &--lixo {
+            background-color: #FC7753;
+            color: $color--secondary-dark;
+        }
+
+        &--outros {
+            background-color: #FFB300;
+            color: $color--secondary-dark;
+        }
+
+        &--seguros {
             background-color: #1D4635;
         }
 
-        &--cacambas{
-            background-color: #35763D;
+        &--cacambas {
+            background-color: #28582E;
         }
 
-        &--initiates{
-            background-color: #367674;
-        }
-    }
-
-    &__mobile {
-        display: none;
-        top: size(-170);
-        padding-left: size(1);
-        position: relative;
-
-        &-btn{
-            position: absolute;
-            bottom: size(188);
-            background-color: transparent;
-
-            @include mobile{
-                padding-left: size(8);
-            }
-
-            & > img{
-                height: auto;
-                max-width: size(30);
-                width: 100%;
-            }
+        &--iniciativas {
+            background-color: #285957;
         }
     }
 
-    &__modal{
+    &__modal {
         background-color: $color--secondary-light;
         border: none;
         border-radius: size(12) size(12) 0 0;
@@ -140,13 +118,24 @@
         top: size(360);
         width: 100vw;
 
-        &-close{
+        &-close {
             background-color: transparent;
         }
 
-        article > main > .dcp-map-legend-apoio__list{
+        article > main > .dcp-map-legend__list {
             @include mobile{
                 display: block;
+            }
+        }
+
+        .dcp-map-legend__item {
+            align-items: center;
+            border-bottom: size(1) solid #E6E2E0;
+            padding-bottom: $padding--medium;
+            margin-bottom: size(12);
+
+            &:last-child {
+                border-bottom: unset;
             }
         }
 
@@ -177,83 +166,6 @@
     }
 }
 
-.dcp-map-legend-risco{
-    position: absolute;
-    bottom: 50%;
-
-    @include mobile{
-        bottom: 52%;
-        left: size(-5);
-    }
-
-    &__list {
-        display: flex;
-        flex-direction: column;
-        gap: $gap--small;
-        list-style: none;
-        padding-left: size(12);
-
-        @include mobile{
-            padding-left: size(15);
-        }
-    }
-
-    &__item{
-        display: flex;
-        gap: $gap--small;
-
-        & > img{
-            max-width: size(30);
-            width: 100%;
-            height: auto;
-        }
-
-        & > span{
-            border-radius: size(8);
-            color: $color--high-light;
-            display: none;
-            font-size: $font-size--xx-small;
-            font-weight: $font-weight--regular;
-            padding: size(4) size(12);
-        }
-
-        &:hover > span {
-            display: inline-block;
-        }
-
-        &--dicas{
-            padding-left: size(12);
-            position: relative;
-            bottom: size(202);
-            width: fit-content;
-
-            & > button{
-                background-color: transparent;
-                cursor: pointer;
-                padding: 0;
-
-                & > img{
-                    height: auto;
-                    max-width: size(30);
-                    width: 100%;
-                }
-            }
-        }
-
-        &--alagamento{
-            background-color: #7A280C;
-        }
-
-        &--alagamento-nivel4 {
-            background-color: #EE6F44;
-        }
-
-        &--lixo{
-            background-color: #A70;
-        }
-    }
-}
-
 .risco .dcp-map-legend-apoio__mobile{
     top: size(-45);
 }
@@ -269,6 +181,7 @@
 }
 
 .dcp-map-dicas {
+
     &__modal {
         background: $color--high-light;
         border: none;

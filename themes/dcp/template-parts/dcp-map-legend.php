@@ -6,56 +6,68 @@
  */
 ?>
 
-<aside class="dcp-map-legend-risco">
-    <ul class="dcp-map-legend-risco__list">
-        <li class="dcp-map-legend-risco__item">
-            <img class="icon-alagamento-nivel5"
-                src="<?= get_stylesheet_directory_uri() ?>/assets/images/button-alagamento-on.svg"
-                alt="<?= __('Zonas de risco alto de alagamento', 'hacklabr') ?>">
-            <span class="dcp-map-legend-risco__item--alagamento"><?= __('Zonas de risco alto de alagamento', 'hacklabr') ?></span>
+<aside class="dcp-map-legend" aria-label="<?= __('Legenda', 'hacklabr') ?>">
+    <ul class="dcp-map-legend__list dcp-map-legend--desktop risco-only">
+        <li class="dcp-map-legend__item">
+            <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/legend-risco-alagamento.svg" alt="<?= __('Alagamento', 'hacklabr') ?>">
+            <span class="dcp-map-legend__item--alagamento"><?= __('Alagamento', 'hacklabr') ?></span>
         </li>
-        <li class="dcp-map-legend-risco__item">
-            <img class="icon-alagamento-nivel4"
-                src="<?= get_stylesheet_directory_uri() ?>/assets/images/button-alagamento-nivel4-off.svg"
-                alt="<?= __('Zonas de risco moderado de alagamento', 'hacklabr') ?>">
-            <span class="dcp-map-legend-risco__item--alagamento-nivel4"><?= __('Zonas de risco moderado de alagamento', 'hacklabr') ?></span>
+        <li class="dcp-map-legend__item">
+            <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/legend-risco-lixo.svg" alt="<?= __('Lixo', 'hacklabr') ?>">
+            <span class="dcp-map-legend__item--lixo"><?= __('Lixo', 'hacklabr') ?></span>
         </li>
-        <li class="dcp-map-legend-risco__item">
-            <img class="icon-lixo"
-                src="<?= get_stylesheet_directory_uri() ?>/assets/images/button-lixo-on.svg"
-                alt="<?= __('Zonas de acúmulo de lixo', 'hacklabr') ?>">
-            <span class="dcp-map-legend-risco__item--lixo"><?= __('Zonas de acúmulo de lixo', 'hacklabr') ?></span>
+        <li class="dcp-map-legend__item">
+            <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/legend-risco-outros.svg" alt="<?= __('Outros riscos', 'hacklabr') ?>">
+            <span class="dcp-map-legend__item--outros"><?= __('Outros riscos', 'hacklabr') ?></span>
         </li>
     </ul>
-</aside>
 
-<aside class="dcp-map-legend-apoio">
-    <ul class="dcp-map-legend-apoio__list">
-
-        <li class="dcp-map-legend-apoio__item">
+    <ul class="dcp-map-legend__list dcp-map-legend--desktop apoio-only">
+        <li class="dcp-map-legend__item">
             <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/locais-seguros.svg" alt="<?= __('Locais seguros', 'hacklabr') ?>">
-            <span class="dcp-map-legend-apoio__item--safe"><?= __('Locais seguros', 'hacklabr') ?></span>
+            <span class="dcp-map-legend__item--seguros"><?= __('Locais seguros', 'hacklabr') ?></span>
         </li>
 
-        <li class="dcp-map-legend-apoio__item">
+        <li class="dcp-map-legend__item">
             <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/cacambas.svg" alt="<?= __('Caçambas', 'hacklabr') ?>">
-            <span class="dcp-map-legend-apoio__item--cacambas"><?= __('Caçambas', 'hacklabr') ?></span>
+            <span class="dcp-map-legend__item--cacambas"><?= __('Caçambas', 'hacklabr') ?></span>
         </li>
 
-        <li class="dcp-map-legend-apoio__item">
+        <li class="dcp-map-legend__item">
             <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/iniciativas-locais.svg" alt="<?= __('Iniciativas locais', 'hacklabr') ?>">
-            <span class="dcp-map-legend-apoio__item--initiates"><?= __('Iniciativas locais', 'hacklabr') ?></span>
+            <span class="dcp-map-legend__item--iniciativas"><?= __('Iniciativas locais', 'hacklabr') ?></span>
         </li>
+    </ul>
 
-
+    <ul class="dcp-map-legend__list">
+        <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel5 risco-only">
+            <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco alto de alagamento', 'hacklabr') ?>">
+                <img class="icon-alagamento-nivel5"
+                    src="<?= get_stylesheet_directory_uri() ?>/assets/images/button-alagamento-on.svg"
+                    alt="<?= __('Zonas de risco alto de alagamento', 'hacklabr') ?>">
+                <span class="dcp-map-legend__item--alagamento-nivel5"><?= __('Zonas de risco alto de alagamento', 'hacklabr') ?></span>
+            </button>
+        </li>
+        <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel4 risco-only">
+            <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco moderado de alagamento', 'hacklabr') ?>">
+                <img class="icon-alagamento-nivel4"
+                    src="<?= get_stylesheet_directory_uri() ?>/assets/images/button-alagamento-nivel4-off.svg"
+                    alt="<?= __('Zonas de risco moderado de alagamento', 'hacklabr') ?>">
+                <span class="dcp-map-legend__item--alagamento-nivel4"><?= __('Zonas de risco moderado de alagamento', 'hacklabr') ?></span>
+            </button>
+        </li>
+        <li class="dcp-map-legend__item dcp-map-legend--mobile">
+            <button class=" dcp-map-legend__mobile-btn" type="button" aria-label="<?= __('Abrir legenda', 'hacklabr') ?>" @click="$refs.legendModal.showModal()">
+                <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/mobile-legend.svg" alt="<?= __('Legenda do mapa', 'hacklabr') ?>">
+            </button>
+        </li>
+        <li class="dcp-map-legend__item">
+            <button type="button" aria-label="<?= __('Abrir dicas do mapa', 'hacklabr') ?>" @click="$refs.dicasModal.showModal()">
+                <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/dicas.svg" alt="<?= __('Dicas', 'hacklabr') ?>">
+            </button>
+        </li>
     </ul>
 </aside>
-
-<li class="dcp-map-legend-apoio__item dcp-map-legend-apoio__item--dicas">
-    <button type="button" aria-label="<?= __('Abrir dicas do mapa', 'hacklabr') ?>" @click="$refs.dicasModal.showModal()">
-        <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/dicas.svg" alt="<?= __('Dicas', 'hacklabr') ?>">
-    </button>
-</li>
 
 <dialog class="dcp-map-dicas__modal" x-ref="dicasModal">
     <article>
@@ -71,7 +83,6 @@
         </header>
         <main>
             <ul class="dcp-map-dicas__list">
-
                 <div class="dcp-map-dicas__list--zonas">
                     <li class="dcp-map-dicas__item  dcp-map-dicas__item-zonas dcp-map-dicas__item--alagamento">
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/icon-alagamento.svg" alt="">
@@ -81,10 +92,12 @@
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/icon-alagamento-nivel4.svg" alt="">
                         <span><?= __('Zonas de risco moderado de alagamento', 'hacklabr') ?></span>
                     </li>
+                    <!--
                     <li class="dcp-map-dicas__item dcp-map-dicas__item-zonas dcp-map-dicas__item--lixo">
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/icon-lixo.svg" alt="">
                         <span><?= __('Zonas de acúmulo de lixo', 'hacklabr') ?></span>
                     </li>
+                    -->
                 </div>
 
                 <div class="dcp-map-dicas__list--first">
@@ -141,38 +154,49 @@
                         </div>
                     </li>
                 </div>
-
             </ul>
         </main>
     </article>
 </dialog>
 
-<aside class="dcp-map-legend-apoio__mobile">
-    <button class="dcp-map-legend-apoio__mobile-btn" type="button" aria-label="<?= __('Abrir legenda', 'hacklabr') ?>" @click="$refs.legendModal.showModal()">
-        <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/mobile-legend.svg" alt="<?= __('Legenda do mapa', 'hacklabr') ?>">
-    </button>
-
-    <dialog class="dcp-map-legend-apoio__modal" x-ref="legendModal">
+<aside class="dcp-map-legend__mobile">
+    <dialog class="dcp-map-legend__modal" x-ref="legendModal">
         <article>
             <header>
-                <button type="button" class="dcp-map-legend-apoio__modal-close" aria-label="<?= __('Fechar legenda', 'hacklabr') ?>" @click="$refs.legendModal.close()">
+                <button type="button" class="dcp-map-legend__modal-close" aria-label="<?= __('Fechar legenda', 'hacklabr') ?>" @click="$refs.legendModal.close()">
                     <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/close-modal.svg" alt="">
                 </button>
                 <h5><img src="<?= get_stylesheet_directory_uri() ?>/assets/images/legenda.svg" alt=""><?= __('Legenda', 'hacklabr') ?></h5>
             </header>
+
             <main>
-                <ul class="dcp-map-legend-apoio__list">
-                    <li class="dcp-map-legend-apoio__item">
+                <ul class="dcp-map-legend__list risco-only">
+                    <li class="dcp-map-legend__item">
+                        <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/legend-risco-alagamento.svg" alt="<?= __('Alagamento', 'hacklabr') ?>">
+                        <span class="dcp-map-legend__item--alagamento"><?= __('Alagamento', 'hacklabr') ?></span>
+                    </li>
+                    <li class="dcp-map-legend__item">
+                        <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/legend-risco-lixo.svg" alt="<?= __('Lixo', 'hacklabr') ?>">
+                        <span class="dcp-map-legend__item--lixo"><?= __('Lixo', 'hacklabr') ?></span>
+                    </li>
+                    <li class="dcp-map-legend__item">
+                        <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/legend-risco-outros.svg" alt="<?= __('Outros riscos', 'hacklabr') ?>">
+                        <span class="dcp-map-legend__item--outros"><?= __('Outros riscos', 'hacklabr') ?></span>
+                    </li>
+                </ul>
+
+                <ul class="dcp-map-legend__list apoio-only">
+                    <li class="dcp-map-legend__item">
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/locais-seguros.svg" alt="<?= __('Locais seguros', 'hacklabr') ?>">
-                        <span class="dcp-map-legend-apoio__item--safe"><?= __('Locais seguros', 'hacklabr') ?></span>
+                        <span class="dcp-map-legend__item--seguros"><?= __('Locais seguros', 'hacklabr') ?></span>
                     </li>
-                    <li class="dcp-map-legend-apoio__item">
+                    <li class="dcp-map-legend__item">
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/cacambas.svg" alt="<?= __('Caçambas', 'hacklabr') ?>">
-                        <span class="dcp-map-legend-apoio__item--cacambas"><?= __('Caçambas', 'hacklabr') ?></span>
+                        <span class="dcp-map-legend__item--cacambas"><?= __('Caçambas', 'hacklabr') ?></span>
                     </li>
-                    <li class="dcp-map-legend-apoio__item">
+                    <li class="dcp-map-legend__item">
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/iniciativas-locais.svg" alt="<?= __('Iniciativas locais', 'hacklabr') ?>">
-                        <span class="dcp-map-legend-apoio__item--initiates"><?= __('Iniciativas locais', 'hacklabr') ?></span>
+                        <span class="dcp-map-legend__item--iniciativas"><?= __('Iniciativas locais', 'hacklabr') ?></span>
                     </li>
                 </ul>
             </main>
