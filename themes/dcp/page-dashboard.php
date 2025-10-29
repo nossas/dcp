@@ -62,12 +62,13 @@ namespace hacklabr\dashboard;
                 <?php endif; ?>
 
                 <i class="loading-global">
-                    <img src="<?= get_template_directory_uri() ?>/assets/images/loading.gif">
+                    <img src="<?= get_template_directory_uri() ?>/assets/images/loading.gif" alt="carregamento">
                 </i>
 
             </nav>
         </header>
         <div class="dashboard__body">
+        <h1 class="sr-only"><?php get_the_title() ?></h1>
             <a id="btnOpenMenuMobile" class="button">
                 <span></span>
                 <span></span>
@@ -95,7 +96,7 @@ namespace hacklabr\dashboard;
                         <li class="<?= ( is_dashboard('apoio') || is_dashboard('editar_apoio') || is_dashboard('adicionar-apoio') ) ? 'dashboard-current' : '' ?>">
                             <a href="<?= get_dashboard_url('apoio') ?>">
                                 <i>
-                                    <img src="<?= get_template_directory_uri() ?>/assets/images/icon-dashboard-apoio.svg">
+                                    <img src="<?= get_template_directory_uri() ?>/assets/images/icon-dashboard-apoio.svg" alt="Apoio">
                                 </i>
                                 <span>Apoio</span>
                             </a>

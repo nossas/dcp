@@ -1310,6 +1310,11 @@
                         border: solid 1px $color--secondary-dark;
                         padding: size( 10 ) size( 25 );
                     }
+
+                    .arquivar{
+                        background-color: $color--warning-dark !important;
+                    }
+
                     .button.is-confirm {
                         background-color: $color--primary-pure;
                         color: $color--secondary-light;

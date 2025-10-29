@@ -33,7 +33,7 @@
                     <input type="hidden" name="latitude" value="">
                     <input type="hidden" name="longitude" value="">
                     <a class="button is-loading" style="display: none">
-                        <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
+                        <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif" alt="<?= __('carregamento') ?>">
                     </a>
                     <a class="button is-success" style="display: none">
                         <iconify-icon icon="bi:check-circle"></iconify-icon>
@@ -45,7 +45,7 @@
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Verifique se o endereço está correto e completo. Se não encontrar, use um ponto de referência próximo.') ?>
                     </p>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Escolha o tipo de situação relatada.') ?>
                     </p>
                 </div>
             </div>
@@ -116,7 +116,7 @@
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Especifique o tipo de ocorrência dentro da categoria escolhida. Isso nos ajuda a entender o risco com mais precisão.') ?>
                     </p>
                 </div>
             </div>
@@ -130,7 +130,7 @@
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Confira se o texto não traz nomes, acusações ou informações delicadas. Antes de publicar,<b>remova nomes e expressões que possam causar exposição ou constrangimento.</b>') ?>
                     </p>
                 </div>
             </div>
@@ -154,7 +154,7 @@
                                     <iconify-icon icon="bi:question"></iconify-icon>
                                 </a>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                                    <?= __('Confira se as partes sensíveis das imagens, como rostos, placas ou nomes, foram borradas corretamente. Se ainda houver algo visível, edite, exclua ou substitua o arquivo antes de publicar.') ?>
                                 </p>
                             </div>
                         </div>
@@ -194,7 +194,7 @@
                             <iconify-icon icon="bi:question"></iconify-icon>
                         </a>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                            <?= __('Confira se as partes sensíveis das imagens, como rostos, placas ou nomes, <b>foram borradas corretamente</b>. Se ainda houver algo visível, edite, exclua ou substitua o arquivo antes de publicar.') ?>
                         </p>
                     </div>
                 <?php endif; ?>

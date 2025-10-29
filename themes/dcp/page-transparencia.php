@@ -2,7 +2,7 @@
 // page-transparencia.php
 
 get_header(); ?>
-
+<h1 class="sr-only"><?php get_the_title() ?></h1>
 <main class="container container--wide transparencia">
     <?php if (function_exists('bcn_display')) : ?>
         <nav class="breadcrumb" typeof="BreadcrumbList" vocab="https://schema.org/">

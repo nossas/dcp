@@ -230,7 +230,7 @@ namespace hacklabr\dashboard;
                     </a>
                     <p class="is-error-geolocation" style="font-size: 12px; color: #c10202; padding-left: 10px; display: none; ">Não foi possível encontrar este endereço, aguarde atualizações do mapa.</p>
                     <a class="button is-loading" style="display: none">
-                        <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
+                        <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif" alt="<?= __('carregamento') ?>">
                     </a>
                 </div>
                 <div class="input-help">
@@ -264,7 +264,7 @@ namespace hacklabr\dashboard;
                             <?php if (!empty($get_attachment)) : ?>
                                 <div class="assets-list">
                                     <figure class="asset-item-preview">
-                                        <img src="<?= esc_url($get_attachment) ?>">
+                                        <img src="<?= esc_url($get_attachment) ?>" alt="<?= __('Carregamento') ?>">
                                         <div class="asset-item-preview-actions">
                                             <a class="button is-fullscreen" data-id="<?= $attachment_cover_id ?>" data-href="<?= esc_url($get_attachment) ?>"><iconify-icon icon="bi:arrows-fullscreen"></iconify-icon></a>
                                             <a class="button is-delete" data-id="<?= $attachment_cover_id ?>"><iconify-icon icon="bi:trash-fill"></iconify-icon></a>

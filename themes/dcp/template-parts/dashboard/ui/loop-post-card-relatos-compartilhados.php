@@ -10,7 +10,7 @@ $pod = pods( 'relato', get_the_ID() );
         <div class="post-card__cover">
             <?php $get_attachment = wp_get_attachment_url( get_post_thumbnail_id( get_the_ID() ) );
                 if( !empty( $get_attachment ) ) : ?>
-                    <img class="is-load-now" data-media-src="<?=$get_attachment?>" />
+                    <img class="is-load-now" data-media-src="<?=$get_attachment?>" alt="carregamento" />
                 <?php else : ?>
                     <div class="slider-thumb-empty">
                         Nenhuma Mídia adicionada ainda.

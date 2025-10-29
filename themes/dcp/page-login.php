@@ -11,7 +11,7 @@ if (is_user_logged_in() && current_user_can('administrator')) {
 
 get_header();
 ?>
-
+<h1 class="sr-only"><?php get_the_title() ?></h1>
     <div class="auth-page-wrapper">
         <div class="auth-container">
             <div class="auth-form-container">

@@ -65,7 +65,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                       oi  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
                     </p>
                 </div>
             </div>

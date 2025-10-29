@@ -16,9 +16,15 @@
         </li>
         <li class="dcp-map-legend-risco__item">
             <img class="icon-alagamento-nivel4"
-                src="<?= get_stylesheet_directory_uri() ?>/assets/images/button-alagamento-nivel4-on.svg"
+                src="<?= get_stylesheet_directory_uri() ?>/assets/images/button-alagamento-nivel4-off.svg"
                 alt="<?= __('Zonas de risco moderado de alagamento', 'hacklabr') ?>">
-            <span class="dcp-map-legend-risco__item--alagamento"><?= __('Zonas de risco moderado de alagamento', 'hacklabr') ?></span>
+            <span class="dcp-map-legend-risco__item--alagamento-nivel4"><?= __('Zonas de risco moderado de alagamento', 'hacklabr') ?></span>
+        </li>
+        <li class="dcp-map-legend-risco__item">
+            <img class="icon-lixo"
+                src="<?= get_stylesheet_directory_uri() ?>/assets/images/button-lixo-on.svg"
+                alt="<?= __('Zonas de acúmulo de lixo', 'hacklabr') ?>">
+            <span class="dcp-map-legend-risco__item--lixo"><?= __('Zonas de acúmulo de lixo', 'hacklabr') ?></span>
         </li>
     </ul>
 </aside>
@@ -67,13 +73,17 @@
             <ul class="dcp-map-dicas__list">
 
                 <div class="dcp-map-dicas__list--zonas">
-                    <li class="dcp-map-dicas__item  dcp-map-dicas__item-zonas dcp-map-dicas__item--alagamento-5">
+                    <li class="dcp-map-dicas__item  dcp-map-dicas__item-zonas dcp-map-dicas__item--alagamento">
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/icon-alagamento.svg" alt="">
                         <span><?= __('Zonas de risco alto de alagamento', 'hacklabr') ?></span>
                     </li>
-                    <li class="dcp-map-dicas__item  dcp-map-dicas__item-zonas dcp-map-dicas__item--alagamento-4">
+                    <li class="dcp-map-dicas__item  dcp-map-dicas__item-zonas dcp-map-dicas__item--alagamento">
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/icon-alagamento-nivel4.svg" alt="">
                         <span><?= __('Zonas de risco moderado de alagamento', 'hacklabr') ?></span>
+                    </li>
+                    <li class="dcp-map-dicas__item dcp-map-dicas__item-zonas dcp-map-dicas__item--lixo">
+                        <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/icon-lixo.svg" alt="">
+                        <span><?= __('Zonas de acúmulo de lixo', 'hacklabr') ?></span>
                     </li>
                 </div>
 
@@ -171,7 +181,7 @@
 </aside>
 
 <footer class="dcp-map-footer">
-    <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/metodologia-icon.svg" alt="">
+    <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/metodologia-icon.svg" alt="<?= __('Metodologia', 'hacklabr') ?>" class="dcp-map-footer__icon">
     <p class="dcp-map-footer__text">
         <?= __('As zonas demarcadas não mostram a situação em tempo real. Entenda nossa', 'hacklabr') ?>
         <a href="/sobre/metodologia" class="dcp-map-footer__link"><?= __('metodologia', 'hacklabr') ?></a>

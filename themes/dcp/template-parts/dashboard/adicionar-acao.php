@@ -52,7 +52,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Escolha o tipo de ação relatada.') ?>
                     </p>
                 </div>
             </div>
@@ -66,7 +66,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Dê um nome curto e claro a ação.') ?>
                     </p>
                 </div>
             </div>
@@ -80,7 +80,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Escreva um breve resumo da ação: o que foi feito, quem participou e qual foi o principal resultado alcançado.') ?>
                     </p>
                 </div>
             </div>
@@ -100,7 +100,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Informe a data e horário da ação.') ?>
                     </p>
                 </div>
             </div>
@@ -112,7 +112,7 @@ namespace hacklabr\dashboard;
                     <input type="hidden" name="latitude" value="">
                     <input type="hidden" name="longitude" value="">
                     <a class="button is-loading" style="display: none">
-                        <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
+                        <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif" alt="<?= __('carregamento') ?>">
                     </a>
                     <a class="button is-success" style="display: none">
                         <iconify-icon icon="bi:check-circle"></iconify-icon>
@@ -124,7 +124,7 @@ namespace hacklabr\dashboard;
                         <iconify-icon icon="bi:question"></iconify-icon>
                     </a>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.
+                        <?= __('Informe o endereço ou ponto de referência onde a ação acontecerá.') ?>
                     </p>
                 </div>
             </div>
@@ -153,7 +153,7 @@ namespace hacklabr\dashboard;
                 </div>
                 <div class="input-help">
                     <a href="#/" class="button"><iconify-icon icon="bi:question"></iconify-icon></a>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper.</p>
+                    <p><?= __('Essa será a imagem principal da página do relato. Escolha uma foto que represente bem a ação.') ?></p>
                 </div>
             </div>
             <div class="form-submit">

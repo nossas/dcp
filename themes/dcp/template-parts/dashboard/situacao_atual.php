@@ -89,7 +89,7 @@ $pod_situacao_ativa = pods( 'situacao_atual', $situacao_ativa_post[ 0 ]->ID );
             <div class="alerta-faixa__topo alerta-faixa__topo--<?=get_cor_by_name( $pod_situacao_ativa->field( 'tipo_de_alerta' ) )?>">
                 <div class="alerta-faixa__mensagem">
                     <span class="alerta-faixa__icone">
-                        <img src="<?=$pod_situacao_ativa->field( 'icone.guid' )?>">
+                        <img src="<?=$pod_situacao_ativa->field( 'icone.guid' )?>" alt="<?=__('ícone de guia')?>">
                     </span>
                     <div class="alerta-faixa__warning">
                         <strong><?=$pod_situacao_ativa->field( 'tipo_de_alerta' )?></strong>

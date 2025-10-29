@@ -98,7 +98,7 @@ namespace hacklabr\dashboard;
                             </a>
                             <p class="is-error-geolocation" style="font-size: 12px; color: #c10202; padding-left: 10px; display: none; ">Não foi possível encontrar este endereço, aguarde atualizações do mapa.</p>
                             <a class="button is-loading" style="display: none">
-                                <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif">
+                                <img src="<?=get_template_directory_uri()?>/assets/images/loading.gif"  alt="<?= __('carregamento') ?>">
                             </a>
                         </div>
                         <div class="input-help">
@@ -295,7 +295,7 @@ namespace hacklabr\dashboard;
                                         <div class="assets-list">
                                             <?php foreach ( $images as $image ) : ?>
                                                 <figure class="asset-item-preview">
-                                                    <img src="<?=$image->guid?>">
+                                                    <img src="<?=$image->guid?>" alt="Foto do risco">
                                                     <div class="asset-item-preview-actions">
                                                         <a class="button is-fullscreen" data-id="<?=$image->ID?>" data-href="<?=$image->guid?>"><iconify-icon icon="bi:arrows-fullscreen"></iconify-icon></a>
                                                         <a class="button is-delete" data-id="<?=$image->ID?>"><iconify-icon icon="bi:trash-fill"></iconify-icon></a>

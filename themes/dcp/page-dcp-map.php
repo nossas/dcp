@@ -29,7 +29,7 @@ if (empty($tab)) {
 
 get_header();
 ?>
-
+<h1 class="sr-only"><?php get_the_title() ?></h1>
 <div class="dcp-map" data-share-url="<?= get_permalink() ?>" x-data>
     <script type="application/json"><?= json_encode($data) ?></script>
     <div class="dcp-map__tabs-container">

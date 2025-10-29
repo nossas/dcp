@@ -14,7 +14,7 @@
 
         <div class="is-actions">
             <?php if( wp_is_mobile() ) : ?>
-                <button class="button is-confirm">
+                <button class="button is-confirm ">
                     <i><iconify-icon icon="bi:check"></iconify-icon></i>
                     <span>{MODAL}</span>
                 </button>
@@ -23,7 +23,7 @@
             <?php else : ?>
                 <button class="button is-cancel">{CANCEL}</button>
                 <button class="button is-custom">{CUSTOM}</button>
-                <button class="button is-confirm">
+                <button class="button is-confirm arquivar">
                     <i><iconify-icon icon="bi:check"></iconify-icon></i>
                     <span>{MODAL}</span>
                 </button>

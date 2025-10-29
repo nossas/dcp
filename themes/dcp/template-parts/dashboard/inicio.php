@@ -59,7 +59,7 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                     <div class="card">
                         <header class="<?=get_cor_by_name( $pod_ativo->field( 'tipo_de_alerta' ) )?>">
                             <figure>
-                                <img src="<?=$pod_ativo->field( 'icone.guid' )?>">
+                                <img src="<?=$pod_ativo->field( 'icone.guid' )?>" alt="<?=$pod_ativo->field( 'tipo_de_alerta' )?>">
                             </figure>
                             <div>
                                 <p> <strong><?=$pod_ativo->field( 'tipo_de_alerta' )?></strong> </p>

@@ -5,7 +5,7 @@
                 <iconify-icon icon="bi:x-lg"></iconify-icon>
             </button>
             <div class="dcp-map-modal__pill risk-modal__pill">
-                <img src="" data-src="<?= get_stylesheet_directory_uri() ?>/assets/images/risco-$.svg" alt="">
+                <img src="" data-src="<?= get_stylesheet_directory_uri() ?>/assets/images/risco-$.svg" alt="<?= __('Risco', 'hacklabr') ?>" class="risk-modal__icon">
                 <span></span>
             </div>
             <p class="risk-modal__date"></p>
