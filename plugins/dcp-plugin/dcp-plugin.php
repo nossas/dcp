@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: DCP Plugin
- * Description: Cria um endpoint público de API REST com riscos para teste do bot.
- * Version: 1.0
- * Author: WordPress Wizard
+ * Description: Cria um endpoints e webhook público para API REST.
+ * Version: 1.5.0
+ * Author: Hacklab
  */
 
 add_action('rest_api_init', function () {
@@ -32,7 +32,6 @@ add_action('rest_api_init', function () {
         'permission_callback' => '__return_true',
     ]);
 });
-
 
 function dcp_get_riscos($request) {
     $per_page = intval($request->get_param('per_page') ?? 10);
@@ -193,8 +192,6 @@ add_action('rest_api_init', function () {
     ]);
 });
 
-
-
 function dcp_api_dicas($request) {
 
     $tipo = $request->get_param( 'tipo' );
@@ -314,7 +311,6 @@ add_action('rest_api_init', function () {
     ]);
 });
 
-
 function dcp_api_risco_regiao($request) {
 
     $situacao_ativa_post = get_posts([
@@ -406,104 +402,100 @@ add_action('pre_get_posts', function($query) {
     }
 });
 
+// Webhook p/ receber informações de situação atual
+function getSituacaoByCode($weatherCode, $temperature = null) {
+    $code_condition_by_slug = [
+        'situacao-atual-normal-ensolarado' => [31, 32, 33, 34, 44],
+        'situacao-atual-normal-chuva' => [9, 11, 12, 40],
+        'situacao-atual-atencao-calor' => [36],
+        'situacao-atual-atencao-chuva' => [4, 5, 6, 7, 10, 35, 37, 38, 39, 45, 47],
+        'situacao-atual-calor-extremo' => [36],
+        'situacao-atual-perigo-chuvas-fortes' => [0, 1, 2, 3, 14, 15, 17, 41, 42, 43, 46],
+    ];
 
-//
+    foreach ($code_condition_by_slug as $situacao => $codes) {
+        if (in_array($weatherCode, $codes)) {
+            if ($situacao === 'situacao-atual-atencao-calor' && $temperature > 35) {
+                return 'situacao-atual-calor-extremo';
+            }
+            return $situacao;
+        }
+    }
+
+    // CODIGOS NAO MAPEADOS (19,20,21,22,23,24,25,26,28,29,30,48)
+    return 'situacao-atual-normal-ensolarado';
+}
 function dcp_webhook_situacao_atual($request) {
 
     $estagio = $request->get_param( 'estagio' );
-    $clima = $request->get_param( 'clima' );
+    switch ( strtolower( $estagio ) ) {
+        case 'estágio 1':
+            $estagio = 1;
+            break;
+        case 'estágio 2':
+            $estagio = 2;
+            break;
+        case 'estágio 3':
+            $estagio = 3;
+            break;
+    }
+    $temp = $request->get_param( 'temp' );
+    $description = $request->get_param( 'description' );
+    $date = $request->get_param( 'date' );
+    $time = $request->get_param( 'time' );
+    $date_time = DateTime::createFromFormat('d/m/Y H:i', $date . ' ' . $time );
+    $data_e_horario = $date_time->format('Y-m-d H:i:s' );
 
-    $args = array(
+    $condition_code = $request->get_param( 'condition_code' );
+    $is_rain = $request->get_param( 'is_rain' );
+    $currently = $request->get_param( 'currently' );
+    $condition_slug = $request->get_param( 'condition_slug' );
+
+    $situacoes_ids = get_posts([
         'post_type' => 'situacao_atual',
-        'posts_per_page' => 1
-    );
-
-    if( !empty( $estagio ) ) {
-
-        $args[ 'meta_query' ] = [
-            [
-                'key' => 'is_active',
-                'value' => true,
-                'compare' => '='
-            ]
-        ];
-        $meta_key = 'estagio';
-
-        switch ( strtolower( $estagio ) ) {
-
-            case 'estágio 1':
-                $meta_value = 1;
-                break;
-            case 'estágio 2':
-                $meta_value = 2;
-                break;
-            case 'estágio 3':
-                $meta_value = 3;
-                break;
-        }
-
+        'posts_per_page' => -1,
+        'fields' => 'ids'
+    ]);
+    foreach ( $situacoes_ids as $id ) {
+        $pods = \pods( 'situacao_atual', $id );
+        $pods->save( 'is_active', false );
     }
 
-    if( !empty( $clima ) ) {
-        switch ( strtolower( $clima ) ) {
-
-            case 'calor 1':
-                $args[ 'name' ] = 'situacao-atual-normal-ensolarado';
-                break;
-
-            case 'calor 2':
-                $args[ 'name' ] = 'situacao-atual-atencao-calor';
-                break;
-
-            case 'calor 3':
-                $args[ 'name' ] = 'situacao-atual-calor-extremo';
-                break;
-        }
-        $meta_key = 'is_active';
-        $meta_value = true;
-
-        $situacoes_ids = get_posts([
-            'post_type' => 'situacao_atual',
-            'posts_per_page' => -1,
-            'fields' => 'ids'
-        ]);
-
-        foreach ( $situacoes_ids as $id ) {
-            $pods = \pods( 'situacao_atual', $id );
-            $pods->save( 'is_active', false );
-        }
+    $recomendacao_ids = get_posts([
+        'post_type' => 'recomendacao',
+        'posts_per_page' => -1,
+        'fields' => 'ids'
+    ]);
+    foreach ( $recomendacao_ids as $id ) {
+        $pods = \pods( 'recomendacao', $id );
+        $pods->save( 'is_active', false );
     }
 
+    sleep(1 );
 
-    $query = new WP_Query( $args );
+    $situacao_atual = get_posts([
+        'post_type' => 'situacao_atual',
+        'name' => getSituacaoByCode( $condition_code, $temp ),
+        'posts_per_page' => 1,
+        'fields' => 'ids',
+    ]);
 
-    if ( $query->have_posts() ) {
-        $query->the_post();
-        $post_id = get_the_ID();
+    foreach ( $situacao_atual as $id ) {
+        $pods = \pods( 'situacao_atual', $id );
+        $pods->save( 'is_active', true );
 
-        sleep( 1 );
+        $pods->save( 'temperatura', $temp );
+        $pods->save( 'clima', $description );
+        $pods->save( 'estagio', $estagio );
+        $pods->save( 'data_e_horario', $data_e_horario );
 
-        $updated_post_id = update_post_meta( $post_id, $meta_key, $meta_value );
-
-        if (is_wp_error($updated_post_id)) {
-            $is_save = false;
-        } else {
-            $is_save = true;
-        }
-
-        wp_reset_postdata();
-    } else {
-        $is_save = false;
+        $pods_rec = \pods( 'recomendacao', $pods->field( 'recomendacao_id' ) );
+        $pods_rec->save( 'is_active', true );
     }
 
     return rest_ensure_response([
-        'status' => true,
-        'data' => [
-            'total' => 213,
-            'is_save' => $is_save,
-        ]
+        'is_save' => true,
     ]);
-
 }
 add_action('rest_api_init', function () {
     register_rest_route('dcp/v1', '/webhook/situacao-atual', [
@@ -512,7 +504,6 @@ add_action('rest_api_init', function () {
         'permission_callback' => '__return_true',
     ]);
 });
-
 
 function dcp_home_situacao_atual($request) {
     $args = array(
