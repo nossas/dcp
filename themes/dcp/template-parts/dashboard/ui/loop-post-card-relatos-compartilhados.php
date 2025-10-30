@@ -6,7 +6,7 @@ $pod = pods( 'relato', get_the_ID() );
 
 ?>
 <article class="post-card is-relatos" style="display: none;">
-    <main class="post-card__content">
+    <section class="post-card__content">
         <div class="post-card__cover">
             <?php $get_attachment = wp_get_attachment_url( get_post_thumbnail_id( get_the_ID() ) );
                 if( !empty( $get_attachment ) ) : ?>
@@ -65,5 +65,5 @@ $pod = pods( 'relato', get_the_ID() );
                 </a>
             </div>
         </div>
-    </main>
+    </section>
 </article>

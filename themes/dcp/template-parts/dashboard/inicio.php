@@ -135,7 +135,7 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                                     $get_riscos[ 'posts' ]->the_post();
                                     $pod = pods( 'risco', get_the_ID() ); ?>
                                     <article class="post-card is-draft" style="display: none;">
-                                        <main class="post-card__content">
+                                        <section class="post-card__content">
                                             <div class="post-card__term">
                                                 <?php
                                                 $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
@@ -165,7 +165,7 @@ $pod_ativo = pods('situacao_atual', $situacao_ativa_post[0]->ID);
                                                     </a>
                                                 </div>
                                             </div>
-                                        </main>
+                                        </section>
                                     </article>
                                 <?php endwhile;
 

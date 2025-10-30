@@ -6,7 +6,7 @@ $pod = pods( 'acao', get_the_ID() );
 
 ?>
 <article class="post-card is-arquivadas" style="display: none;">
-    <main class="post-card__content">
+    <section class="post-card__content">
 
         <div class="post-card__term">
             <div>
@@ -62,5 +62,5 @@ $pod = pods( 'acao', get_the_ID() );
                 <a class="is-arquivados button" href="<?=get_dashboard_url( 'editar-acao' )?>/?post_id=1153">Reavaliar</a>
             </div>
         </div>
-    </main>
+    </section>
 </article>

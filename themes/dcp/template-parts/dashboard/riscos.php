@@ -78,7 +78,7 @@ namespace hacklabr\dashboard;
                     $pod = pods( 'risco', get_the_ID() );
                     $post_status = get_post_status(); ?>
                     <article class="post-card is-<?=$post_status?>" style="display: none;">
-                        <main class="post-card__content">
+                        <section class="post-card__content">
                             <div class="post-card__term">
                                 <?php
                                     $get_terms = get_the_terms( get_the_ID(), 'situacao_de_risco' );
@@ -178,7 +178,7 @@ namespace hacklabr\dashboard;
                                     <?php endif; ?>
                                 </div>
                             </div>
-                        </main>
+                        </section>
                     </article>
                 <?php endwhile;
             else : ?>

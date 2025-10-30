@@ -51,42 +51,42 @@ $show_info_between = !$hide_date;
         </a>
     </header>
 
-    <main class="post-card__content">
+    <section class="post-card__content">
         <?php if (!$hide_categories && !empty($categoria_pai)): ?>
 
-    <div class="post-card__pre-header">
-        <div class="post-card__category">
-            <?php
-            $categoria_obj = null;
-            foreach ($categories as $cat) {
-                if ($cat->name === $categoria_pai) {
-                    $categoria_obj = $cat;
-                    break;
+        <div class="post-card__pre-header">
+            <div class="post-card__category">
+                <?php
+                $categoria_obj = null;
+                foreach ($categories as $cat) {
+                    if ($cat->name === $categoria_pai) {
+                        $categoria_obj = $cat;
+                        break;
+                    }
                 }
-            }
 
-            if ($categoria_obj): ?>
-                <a class="tag tag--solid tag--category-<?= $categoria_obj->slug ?>" href="<?= get_term_link($categoria_obj, 'category') ?>">
-                    <?= esc_html($categoria_obj->name); ?>
-                </a>
-            <?php endif; ?>
-        </div>
+                if ($categoria_obj): ?>
+                    <a class="tag tag--solid tag--category-<?= $categoria_obj->slug ?>" href="<?= get_term_link($categoria_obj, 'category') ?>">
+                        <?= esc_html($categoria_obj->name); ?>
+                    </a>
+                <?php endif; ?>
+            </div>
 
-        <div class="post-card__date">
-            <?php
-            $dia_raw = get_post_meta(get_the_ID(), 'dia', true);
+            <div class="post-card__date">
+                <?php
+                $dia_raw = get_post_meta(get_the_ID(), 'dia', true);
 
-            if (!empty($dia_raw)) {
-                $timestamp = strtotime($dia_raw);
-                if ($timestamp) {
-                    echo esc_html(date('d/m/y', $timestamp));
-                } else {
-                    echo esc_html($dia_raw);
+                if (!empty($dia_raw)) {
+                    $timestamp = strtotime($dia_raw);
+                    if ($timestamp) {
+                        echo esc_html(date('d/m/y', $timestamp));
+                    } else {
+                        echo esc_html($dia_raw);
+                    }
                 }
-            }
-            ?>
+                ?>
+            </div>
         </div>
-    </div>
 
         <?php endif; ?>
         <div class="post-card__top-meta">
@@ -439,7 +439,7 @@ $show_info_between = !$hide_date;
                 </div>
             <?php endif; */
         ?>
-    </main>
+    </section>
     <?php if ($post_type == 'acao'): ?>
         <div class="post-card__acao-buttons">
             <button class="post-card__acao-button">
