@@ -6,7 +6,7 @@ $pod = pods( 'acao', get_the_ID() );
 
 ?>
 <article class="post-card is-realizadas" style="display: none;">
-    <main class="post-card__content">
+    <section class="post-card__content">
 
         <a href="<?=get_dashboard_url( 'editar-acao' )?>/?post_id=<?=get_the_ID()?>" class="button is-edit-post-hover">
             <iconify-icon icon="bi:pencil-square"></iconify-icon>
@@ -62,5 +62,5 @@ $pod = pods( 'acao', get_the_ID() );
                 </a>
             </div>
         </div>
-    </main>
+    </secti>
 </article>

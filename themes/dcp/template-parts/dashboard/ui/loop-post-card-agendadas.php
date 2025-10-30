@@ -6,7 +6,7 @@ $pod = pods( 'acao', get_the_ID() );
 
 ?>
 <article class="post-card is-agendadas" style="display: none;">
-    <main class="post-card__content">
+    <section class="post-card__content">
         <div class="post-card__term">
             <div>
                 <?php
@@ -55,5 +55,5 @@ $pod = pods( 'acao', get_the_ID() );
                 </a>
             </div>
         </div>
-    </main>
+    </section>
 </article>
