@@ -2,7 +2,7 @@
 /**
  * Plugin Name: DCP Plugin
  * Description: Cria um endpoints e webhook público para API REST.
- * Version: 1.5.0
+ * Version: 1.6.0
  * Author: Hacklab
  */
 
@@ -455,8 +455,9 @@ function dcp_webhook_situacao_atual($request) {
 
     $situacao_atual = get_posts([
         'post_type' => 'situacao_atual',
-        'posts_per_page' => 1,
+        'posts_per_page' => -1,
         'fields' => 'ids',
+        /*
         'meta_query' => [
             [
                 'key' => 'is_active',
@@ -464,15 +465,16 @@ function dcp_webhook_situacao_atual($request) {
                 'compare' => '='
             ]
         ]
+        */
     ]);
 
     foreach ( $situacao_atual as $id ) {
         $pods = \pods( 'situacao_atual', $id );
-        $pods->save( 'is_active', true );
         $pods->save( 'temperatura', $temp );
         $pods->save( 'clima', $description );
         $pods->save( 'estagio', $estagio );
         $pods->save( 'data_e_horario', $data_e_horario );
+        //$pods->save( 'is_active', true );
     }
 
     return rest_ensure_response([
