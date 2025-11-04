@@ -446,51 +446,33 @@ function dcp_webhook_situacao_atual($request) {
     $date_time = DateTime::createFromFormat('d/m/Y H:i', $date . ' ' . $time );
     $data_e_horario = $date_time->format('Y-m-d H:i:s' );
 
+    /*
     $condition_code = $request->get_param( 'condition_code' );
     $is_rain = $request->get_param( 'is_rain' );
     $currently = $request->get_param( 'currently' );
     $condition_slug = $request->get_param( 'condition_slug' );
-
-    $situacoes_ids = get_posts([
-        'post_type' => 'situacao_atual',
-        'posts_per_page' => -1,
-        'fields' => 'ids'
-    ]);
-    foreach ( $situacoes_ids as $id ) {
-        $pods = \pods( 'situacao_atual', $id );
-        $pods->save( 'is_active', false );
-    }
-
-    $recomendacao_ids = get_posts([
-        'post_type' => 'recomendacao',
-        'posts_per_page' => -1,
-        'fields' => 'ids'
-    ]);
-    foreach ( $recomendacao_ids as $id ) {
-        $pods = \pods( 'recomendacao', $id );
-        $pods->save( 'is_active', false );
-    }
-
-    sleep(1 );
+    */
 
     $situacao_atual = get_posts([
         'post_type' => 'situacao_atual',
-        'name' => getSituacaoByCode( $condition_code, $temp ),
         'posts_per_page' => 1,
         'fields' => 'ids',
+        'meta_query' => [
+            [
+                'key' => 'is_active',
+                'value' => true,
+                'compare' => '='
+            ]
+        ]
     ]);
 
     foreach ( $situacao_atual as $id ) {
         $pods = \pods( 'situacao_atual', $id );
         $pods->save( 'is_active', true );
-
         $pods->save( 'temperatura', $temp );
         $pods->save( 'clima', $description );
         $pods->save( 'estagio', $estagio );
         $pods->save( 'data_e_horario', $data_e_horario );
-
-        $pods_rec = \pods( 'recomendacao', $pods->field( 'recomendacao_id' ) );
-        $pods_rec->save( 'is_active', true );
     }
 
     return rest_ensure_response([
