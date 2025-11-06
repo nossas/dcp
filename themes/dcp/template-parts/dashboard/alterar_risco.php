@@ -18,7 +18,7 @@ if ( isset( $_POST['risco_selecionado'] ) ) {
 
     $pod_ativar = \pods( 'situacao_atual', $post_id );
     $pod_ativar->save( 'is_active', true );
-    $pod_ativar->save( 'data_e_horario', date( 'Y-m-d H:i:s' ) );
+    //$pod_ativar->save( 'data_e_horario', date( 'Y-m-d H:i:s' ) );
 
     $recomendacoes_ids = get_posts([
         'post_type' => 'recomendacao',
@@ -33,7 +33,7 @@ if ( isset( $_POST['risco_selecionado'] ) ) {
 
     $pod_recomendacao = \pods( 'recomendacao', $pod_ativar->field( 'recomendacao_id' ) );
     $pod_recomendacao->save( 'is_active', true );
-    $pod_recomendacao->save( 'data_e_horario', date( 'Y-m-d H:i:s' ) );
+    //$pod_recomendacao->save( 'data_e_horario', date( 'Y-m-d H:i:s' ) );
 }
 
 //TODO: REFACTORY TO LIBRARY
