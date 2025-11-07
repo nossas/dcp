@@ -443,7 +443,7 @@ $show_info_between = !$hide_date;
     <?php if ($post_type == 'acao'): ?>
         <div class="post-card__acao-buttons">
             <button class="post-card__acao-button">
-                <a href="#"><?= __("Participe", "dcp"); ?></a>
+                <a href="/participe"><?= __("Participe", "dcp"); ?></a>
             </button>
         </div>
     <?php endif; ?>

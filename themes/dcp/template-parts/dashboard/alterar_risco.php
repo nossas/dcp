@@ -96,7 +96,7 @@ $pod_ativo = \pods('situacao_atual', $situacao_ativa_post[0]->ID);
 <main id="dashboardSituacaoAtual" class="dashboard dashboard--alterar-risco">
     <div class="situacao-atual__container">
         <nav class="breadcrumb-dashboard">
-            <a href="#">Situação atual</a>
+            <a href="/situacao-atual">Situação atual</a>
             <span class="breadcrumb-dashboard__separator"> > </span>
             <span class="breadcrumb-dashboard__current">Alterar Risco</span>
         </nav>

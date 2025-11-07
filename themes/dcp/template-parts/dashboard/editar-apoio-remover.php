@@ -53,9 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && current_user_can('edit_post', $post
         <div class="apoio__container-edit">
 
             <nav class="breadcrumb-dashboard">
-                <a href="#">Apoio</a>
+                <a href="/apoio">Apoio</a>
                 <span class="breadcrumb-dashboard__separator"> > </span>
-                <a href="#">Locais Seguros</a>
+                <a href="/locais-seguros">Locais Seguros</a>
                 <span class="breadcrumb-dashboard__separator"> > </span>
                 <span class="breadcrumb-dashboard__current">Editar Local seguro</span>
             </nav>
