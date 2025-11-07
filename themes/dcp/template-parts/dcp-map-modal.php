@@ -10,11 +10,11 @@
             </div>
             <p class="risk-modal__date"></p>
         </header>
-        <main>
+        <section>
             <h2 class="dcp-map-modal__title">$</h2>
             <p class="dcp-map-modal__excerpt"></p>
             <?php get_template_part('template-parts/splide') ?>
-        </main>
+        </section>
         <footer>
             <a class="dcp-map-modal__whatsapp" href="#" data-href="https://api.whatsapp.com/send?text=$">
                 <iconify-icon icon="formkit:whatsapp"></iconify-icon>
@@ -35,7 +35,7 @@
                 <span>Apoio</span>
             </div>
         </header>
-        <main>
+        <section>
             <h2 class="dcp-map-modal__title">$</h2>
             <p class="dcp-map-modal__excerpt"></p>
             <div class="dcp-map-modal__details">
@@ -43,7 +43,7 @@
                 <p><iconify-icon icon="bi:geo-alt-fill"></iconify-icon> Endereço: <span class="support-modal__address"></span></p>
             </div>
             <?php get_template_part('template-parts/splide') ?>
-        </main>
+        </section>
         <footer>
             <a class="dcp-map-modal__whatsapp" href="#" data-href="https://api.whatsapp.com/send?text=$">
                 <iconify-icon icon="formkit:whatsapp"></iconify-icon>
