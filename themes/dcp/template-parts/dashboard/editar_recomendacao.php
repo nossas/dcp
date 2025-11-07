@@ -58,7 +58,7 @@ function render_svg_preview($id)
 <div class="situacao-atual__container editar-recomendacao">
 
     <nav class="breadcrumb-dashboard">
-        <a href="#">Situação atual</a>
+        <a href="/situacao-atual">Situação atual</a>
         <span class="breadcrumb-dashboard__separator"> > </span>
         <span class="breadcrumb-dashboard__current">Editar recomendações</span>
     </nav>

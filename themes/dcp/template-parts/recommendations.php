@@ -11,7 +11,7 @@
                 <iconify-icon icon="bi:x-lg"></iconify-icon>
             </button>
         </header>
-        <main>
+        <section>
             <div class="recommendations-content">
                 <p>Recomendações</p>
                 <div class="recommendations-items">
@@ -72,7 +72,7 @@
                 </div>
 
             </div>
-        </main>
+        </section>
         <footer>
             <p>*A Defesa Climática Popular não oferece resgate ou atendimento de emergência.</p>
         </footer>

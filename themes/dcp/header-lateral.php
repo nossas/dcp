@@ -124,10 +124,10 @@
 
         <div class="sub-header__content-right">
             <div class="sub-header__read-more">
-                <a href="#"><?= __('Saiba mais') ?></a>
+                <a href="/saiba-mais"><?= __('Saiba mais') ?></a>
             </div>
             <div class="sub-header__close">
-                <a href="#"><?= __('X') ?></a>
+                <a href="/close"><?= __('X') ?></a>
             </div>
         </div>
     </div>
