@@ -16,3 +16,4 @@ themes/dcp/mix-manifest.json
 .DS_Store
 .idea
 .env
+AGENTS.md
