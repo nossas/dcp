@@ -93,6 +93,11 @@
                 display: flex !important;
                 flex-direction: column;
             }
+
+            @media (min-width: size(768)) and (max-width: size(1100)) {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+            }
         }
     }
 
