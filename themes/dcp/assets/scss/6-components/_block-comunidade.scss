@@ -90,13 +90,13 @@
 
         .hacklabr-posts-grid-wrapper > .hacklabr-posts-grid-block  {
             @include mobile {
-                display: flex !important;
+                display: flex;
                 flex-direction: column;
             }
 
             @media (min-width: size(768)) and (max-width: size(1100)) {
-                display: grid !important;
-                grid-template-columns: 1fr 1fr !important;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
             }
         }
     }
@@ -118,6 +118,7 @@
             flex-direction: column;
             height: 100%;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.30);
+
             &__image {
                 display: none;
             }
@@ -145,6 +146,7 @@
 
             &__divisor {
                 margin-top: auto;
+
                 &-line {
                     border-bottom: size(2) solid #C9C6C5;
                     margin-bottom: $margin--medium;
@@ -174,11 +176,12 @@
 
             .post-card__meta,
             .post-card__datetime {
-            display: inline-flex;
-            align-items: center;
-            vertical-align: middle;
-            gap: size(4); // espaçamento entre ícone e texto
+                display: inline-flex;
+                align-items: center;
+                vertical-align: middle;
+                gap: size(4);
             }
+
             &__address {
                 &::before {
                     content: url('/wp-content/themes/dcp/assets/images/wrapper6.png') !important;
