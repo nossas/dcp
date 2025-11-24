@@ -11,10 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const tabSelector = isBlockContext ? '.dcp-map-block__tab' : '.dcp-map__tab';
     const selectedTabClass = isBlockContext ? 'dcp-map-block__tab--selected' : 'dcp-map__tab--selected';
     const tabsContainerSelector = isBlockContext ? '.dcp-map-block__tabs' : '.dcp-map__tabs';
-    const {
-        apoios,
-        riscos
-    } = JSON.parse(container.querySelector('script').innerText);
+    const { apoios, riscos } = JSON.parse(container.querySelector('script').innerText);
     const tabsList = container.querySelector(tabsContainerSelector);
     const tabs = [...container.querySelectorAll(tabSelector)];
     const map = container.querySelector('.jeomap');
@@ -28,33 +25,32 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.history.replaceState(null, '', url.toString());
     }
 
-    function selectCPT(cpt) {
+function selectCPT(cpt) {
         tabs.forEach((tab) => {
             const isSelected = tab.dataset.cpt === cpt;
             tab.ariaSelected = isSelected ? 'true' : 'false';
             tab.classList.toggle(selectedTabClass, isSelected);
         });
 
-        const legendApoioDesktop = document.querySelector('.dcp-map-legend-apoio');
-        const legendApoioMobile = document.querySelector('.dcp-map-legend-apoio__mobile');
-        const legendRiscoDesktop = document.querySelector('.dcp-map-legend-risco');
-        const legendRiscoMobile = document.querySelector('.dcp-map-legend-risco__mobile');
+        // Seleciona as listas que contêm as classes de controle
+        const apoioLegends = document.querySelectorAll('.apoio-only');
+        const riscoLegends = document.querySelectorAll('.risco-only');
 
-        const isMobile = window.matchMedia('(max-width: 819px)').matches;
+        // Seu CSS usa display: flex para .dcp-map-legend__list (a classe UL)
+        const displayType = 'flex';
 
-        if (legendApoioDesktop) {
-            legendApoioDesktop.style.display = (cpt === 'apoio') ? 'block' : 'none';
-        }
-        if (legendApoioMobile) {
-            legendApoioMobile.style.display = (cpt === 'apoio' && isMobile) ? 'block' : 'none';
-        }
+        // Itera sobre Apoio
+        apoioLegends.forEach(legend => {
+            // Aplicamos o display com !important. Isso deve sobrescrever qualquer regra CSS.
+            // O elemento 'legend' é a <ul> que tem .apoio-only e .dcp-map-legend__list
+            legend.style.setProperty('display', (cpt === 'apoio') ? displayType : 'none', 'important');
+        });
 
-        if (legendRiscoDesktop) {
-            legendRiscoDesktop.style.display = (cpt === 'risco') ? 'block' : 'none';
-        }
-        if (legendRiscoMobile) {
-            legendRiscoMobile.style.display = (cpt === 'risco' && isMobile) ? 'block' : 'none';
-        }
+        // Itera sobre Risco
+        riscoLegends.forEach(legend => {
+            // Aplicamos o display com !important.
+            legend.style.setProperty('display', (cpt === 'risco') ? displayType : 'none', 'important');
+        });
 
         toggleLayer?.(cpt);
         updateSearchParams(cpt);
@@ -66,6 +62,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         initialTab = query.get('tab');
     }
 
+    selectCPT(initialTab);
+
     await until(() => map.dataset.map_id);
     const jeoMap = globalThis.jeomaps[map.dataset.uui_id];
     await until(() => jeoMap.map);
@@ -76,17 +74,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     toggleLayer = mapContext.toggleLayer;
     setupLegends(toggleLayer, selectedLayers);
 
-    setTimeout(() => {
-        selectCPT(initialTab);
-    }, 50);
-
     tabs.forEach((tab) => {
         tab.addEventListener('click', (e) => {
             e.preventDefault();
-            const currentSelectedCpt = new URLSearchParams(location.search).get('tab');
-            if (tab.dataset.cpt !== currentSelectedCpt) {
-                selectCPT(tab.dataset.cpt);
-            }
+            selectCPT(tab.dataset.cpt);
         });
     });
 
@@ -94,9 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (form) {
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
-            const {
-                restUrl
-            } = globalThis.hl_dcp_map_data;
+            const { restUrl } = globalThis.hl_dcp_map_data;
             const input = event.target.querySelector('input[name="address"]');
             if (input.value.length > 2) {
                 const address = input.value;
@@ -104,10 +93,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     method: 'POST'
                 });
                 if (res.ok) {
-                    const {
-                        lat,
-                        lon
-                    } = await res.json();
+                    const { lat, lon } = await res.json();
                     const mapGL = await until(() => jeoMap.map);
                     mapGL.flyTo({
                         center: [lon, lat],

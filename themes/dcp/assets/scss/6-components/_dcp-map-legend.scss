@@ -6,14 +6,12 @@
     position: absolute;
 
     &--desktop {
-
         @include mobile {
             display: none !important;
         }
     }
 
     &--mobile {
-
         @include mobile-up {
             display: none !important;
         }
@@ -29,7 +27,13 @@
 
     &__item {
         display: flex;
+        align-items: center;
         gap: $gap--small;
+        min-height: size(30);
+
+        @include mobile {
+            min-height: size(36);
+        }
 
         button {
             background-color: transparent;
@@ -40,12 +44,14 @@
         }
 
         img {
-            max-width: size(30);
-            width: 100%;
-            height: auto;
+            width: size(30);
+            height: size(30);
+            max-width: none;
+            object-fit: contain;
 
-            @include mobile{
-                max-width: size(36);
+            @include mobile {
+                width: size(36);
+                height: size(36);
             }
         }
 
@@ -72,24 +78,24 @@
             color: $color--high-light;
         }
 
-        &--dicas{
+        &--dicas {
             padding-left: size(12);
             position: absolute;
             top: 53%;
             left: 0%;
             width: fit-content;
 
-            @include mobile{
+            @include mobile {
                 padding-left: size(10);
                 top: 50%;
             }
 
-            & > button{
+            & > button {
                 background-color: transparent;
                 cursor: pointer;
                 padding: 0;
 
-                & > img{
+                & > img {
                     height: auto;
                     max-width: size(30);
                     width: 100%;
@@ -369,4 +375,13 @@
             line-height: 1.2;
         }
     }
+}
+
+
+.apoio-only {
+    display: flex;
+}
+
+.risco-only {
+    display: flex;
 }
