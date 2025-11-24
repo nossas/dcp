@@ -32,23 +32,16 @@ function selectCPT(cpt) {
             tab.classList.toggle(selectedTabClass, isSelected);
         });
 
-        // Seleciona as listas que contêm as classes de controle
         const apoioLegends = document.querySelectorAll('.apoio-only');
         const riscoLegends = document.querySelectorAll('.risco-only');
 
-        // Seu CSS usa display: flex para .dcp-map-legend__list (a classe UL)
         const displayType = 'flex';
 
-        // Itera sobre Apoio
         apoioLegends.forEach(legend => {
-            // Aplicamos o display com !important. Isso deve sobrescrever qualquer regra CSS.
-            // O elemento 'legend' é a <ul> que tem .apoio-only e .dcp-map-legend__list
             legend.style.setProperty('display', (cpt === 'apoio') ? displayType : 'none', 'important');
         });
 
-        // Itera sobre Risco
         riscoLegends.forEach(legend => {
-            // Aplicamos o display com !important.
             legend.style.setProperty('display', (cpt === 'risco') ? displayType : 'none', 'important');
         });
 
