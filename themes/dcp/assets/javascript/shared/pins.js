@@ -100,12 +100,11 @@ function toggleMapboxLayer(map, layer, visible) {
     map.setLayoutProperty(layer, 'visibility', visible ? 'visible' : 'none')
 }
 
-function toggleMapboxLayers(map, cpt, { alagamentoNivel4 = true, alagamentoNivel5 = true } = {}) {
-    const level4Slug = 'areas alagadas nivel 4'
-    const level5Slug = 'areas alagadas nivel 5'
-
-    toggleMapboxLayer(map, level4Slug, cpt === 'risco' && alagamentoNivel4)
-    toggleMapboxLayer(map, level5Slug, cpt === 'risco' && alagamentoNivel5)
+function toggleMapboxLayers(map, cpt, selectedLayers) {
+    for (let level = 1; level <= 5; level++) {
+        const slug = `areas alagadas nivel ${level}`
+        toggleMapboxLayer(map, slug, cpt === 'risco' && selectedLayers.alagamento[level])
+    }
 }
 
 function insertFeatureCollection(map, container, slug, features) {
