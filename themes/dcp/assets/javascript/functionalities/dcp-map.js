@@ -62,7 +62,7 @@ function selectCPT(cpt) {
     await until(() => jeoMap.map);
 
     const selectedCPT = { current: initialTab };
-    const selectedLayers = { alagamentoNivel4: false, alagamentoNivel5: true };
+    const selectedLayers = { alagamento: [null, true, true, true, true, true] }
     const mapContext = setupMap(jeoMap, container, riscos, apoios, selectedCPT, selectedLayers);
     toggleLayer = mapContext.toggleLayer;
     setupLegends(toggleLayer, selectedLayers);
