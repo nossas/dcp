@@ -318,6 +318,14 @@
     top: size(-45);
 }
 
+.risco .dcp-map-legend__list--icons{
+    top: size(30) !important;
+}
+
+.risco .dcp-map-legend__item--dicas-toggle{
+    top: size(3);
+}
+
 .dcp-map-footer{
     @include mobile{
         padding-inline: size(15);
@@ -330,7 +338,7 @@
 
 .risco .dcp-map-legend{
     &__list{
-        top: size(50);
+        top: size(2);
     }
 }
 
