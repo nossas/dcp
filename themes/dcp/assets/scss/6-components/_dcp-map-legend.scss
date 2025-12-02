@@ -5,6 +5,78 @@
     gap: $gap--large;
     position: absolute;
 
+    &__alagamento-nivel5 {
+        background-color: #E33131;
+        border-radius: 0 0 size(8) size(8);
+        height: size(26);
+        width: size(35);
+
+        &:hover {
+            background-color: #CC2C2C;
+        }
+
+        & > button {
+            background-color: #E33131;
+        }
+    }
+
+    &__alagamento-nivel4 {
+        background-color: #F5891D;
+        height: size(26);
+        width: size(35);
+
+        &:hover {
+            background-color: #DC7B1A;
+        }
+
+        & > button {
+            background-color: #F5891D;
+        }
+    }
+
+    &__alagamento-nivel3 {
+        background-color: #FFE74D;
+        height: size(26);
+        width: size(35);
+
+        &:hover {
+            background-color: #E6D045;
+        }
+
+        & > button {
+            background-color: #FFE74D;
+        }
+    }
+
+    &__alagamento-nivel2 {
+        background-color: #B3DE4E;
+        height: size(26);
+        width: size(35);
+
+        &:hover {
+            background-color: #A1C846;
+        }
+
+        & > button {
+            background-color: #B3DE4E;
+        }
+    }
+
+    &__alagamento-nivel1 {
+        background-color: #76BF53;
+        border-radius: size(8) size(8) 0 0;
+        height: size(26);
+        width: size(35);
+
+        &:hover{
+           background-color:#6AAC4B;
+        }
+
+        & > button {
+            background-color: #76BF53;
+        }
+    }
+
     &--desktop {
         @include mobile {
             display: none !important;
@@ -20,9 +92,30 @@
     &__list {
         display: flex;
         flex-direction: column;
-        gap: $gap--small;
         list-style: none;
         padding-left: size(10);
+        position: relative;
+        top: size(125);
+
+        @include mobile{
+            position: unset;
+        }
+
+        &--apoio{
+            gap: $gap--small;
+            top: size(-20) !important;
+
+            .dcp-map-legend__item > span{
+                margin-left: inherit !important;
+                color: $color--high-light;
+            }
+        }
+
+        &--icons{
+            .dcp-map-legend__item > span{
+                margin-left: inherit !important;
+            }
+        }
     }
 
     &__item {
@@ -43,6 +136,16 @@
             padding: 0;
         }
 
+        &--dicas-toggle {
+            position: relative;
+            left: size(2);
+            top: size(10);
+
+            @include mobile{
+                position: unset;
+            }
+        }
+
         img {
             width: size(30);
             height: size(30);
@@ -57,7 +160,7 @@
 
         span {
             border-radius: size(8);
-            color: $color--high-light;
+            color: $color--secondary-dark;
             display: none;
             font-size: $font-size--xx-small;
             font-weight: $font-weight--regular;
@@ -71,6 +174,8 @@
 
         &:hover span {
             display: inline-block;
+            white-space: nowrap;
+            margin-left: size(50);
         }
 
         &--alagamento {
@@ -104,11 +209,23 @@
         }
 
         &--alagamento-nivel5 {
-            background-color: #7A280C;
+            background-color: #E33131;
         }
 
         &--alagamento-nivel4 {
-            background-color: #CF7E63;
+            background-color: #F5891D;
+        }
+
+        &--alagamento-nivel3 {
+            background-color: #FFE74D;
+        }
+
+        &--alagamento-nivel2 {
+            background-color: #B3DE4E;
+        }
+
+        &--alagamento-nivel1 {
+            background-color: #76BF53;
         }
 
         &--lixo {
@@ -211,6 +328,12 @@
     display: none;
 }
 
+.risco .dcp-map-legend{
+    &__list{
+        top: size(50);
+    }
+}
+
 .dcp-map-dicas {
 
     &__modal {
@@ -295,6 +418,7 @@
         list-style: none;
         padding-left: 0;
 
+
         &--first,
         &--zonas{
             border-bottom: size(1) solid #E6E2E0 ;
@@ -377,11 +501,20 @@
     }
 }
 
-
 .apoio-only {
     display: flex;
 }
 
 .risco-only {
     display: flex;
+}
+
+.desktop-only {
+    @include tablet{
+        display: none;
+    }
+
+    @include mobile{
+        display: none;
+    }
 }

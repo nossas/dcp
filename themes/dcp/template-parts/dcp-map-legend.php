@@ -7,7 +7,7 @@
 ?>
 
 <aside class="dcp-map-legend" aria-label="<?= __('Legenda', 'hacklabr') ?>">
-    <ul class="dcp-map-legend__list dcp-map-legend--desktop risco-only">
+    <ul class="dcp-map-legend__list dcp-map-legend--desktop dcp-map-legend__list--icons risco-only">
         <li class="dcp-map-legend__item">
             <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/legend-risco-alagamento.svg" alt="<?= __('Alagamento', 'hacklabr') ?>">
             <span class="dcp-map-legend__item--alagamento"><?= __('Alagamento', 'hacklabr') ?></span>
@@ -22,7 +22,7 @@
         </li>
     </ul>
 
-    <ul class="dcp-map-legend__list dcp-map-legend--desktop apoio-only">
+    <ul class="dcp-map-legend__list dcp-map-legend--desktop dcp-map-legend__list--apoio apoio-only">
         <li class="dcp-map-legend__item">
             <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/locais-seguros.svg" alt="<?= __('Locais seguros', 'hacklabr') ?>">
             <span class="dcp-map-legend__item--seguros"><?= __('Locais seguros', 'hacklabr') ?></span>
@@ -39,29 +39,41 @@
         </li>
     </ul>
 
-    <ul class="dcp-map-legend__list">
-        <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel5 risco-only">
-            <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco alto de alagamento', 'hacklabr') ?>">
-                <img class="icon-alagamento-nivel5"
-                    src="<?= get_stylesheet_directory_uri() ?>/assets/images/button-alagamento-on.svg"
-                    alt="<?= __('Zonas de risco alto de alagamento', 'hacklabr') ?>">
-                <span class="dcp-map-legend__item--alagamento-nivel5"><?= __('Zonas de risco alto de alagamento', 'hacklabr') ?></span>
+    <ul class="dcp-map-legend__list desktop-only">
+        <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel1 risco-only">
+            <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco muito baixo de alagamento', 'hacklabr') ?>">
+                <span class="dcp-map-legend__item--alagamento-nivel1"><?= __('Risco de alagamento: Muito baixo', 'hacklabr') ?></span>
+            </button>
+        </li>
+
+        <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel2 risco-only">
+            <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco baixo de alagamento', 'hacklabr') ?>">
+                <span class="dcp-map-legend__item--alagamento-nivel2"><?= __('Risco de alagamento: Baixo', 'hacklabr') ?></span>
+            </button>
+        </li>
+
+        <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel3 risco-only">
+            <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco médio de alagamento', 'hacklabr') ?>">
+                <span class="dcp-map-legend__item--alagamento-nivel3"><?= __('Risco de alagamento: Médio', 'hacklabr') ?></span>
             </button>
         </li>
         <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel4 risco-only">
-            <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco moderado de alagamento', 'hacklabr') ?>">
-                <img class="icon-alagamento-nivel4"
-                    src="<?= get_stylesheet_directory_uri() ?>/assets/images/button-alagamento-nivel4-off.svg"
-                    alt="<?= __('Zonas de risco moderado de alagamento', 'hacklabr') ?>">
-                <span class="dcp-map-legend__item--alagamento-nivel4"><?= __('Zonas de risco moderado de alagamento', 'hacklabr') ?></span>
+            <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco alto de alagamento', 'hacklabr') ?>">
+                <span class="dcp-map-legend__item--alagamento-nivel4"><?= __('Risco de alagamento: Alto', 'hacklabr') ?></span>
             </button>
         </li>
+        <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel5 risco-only">
+            <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco muito alto de alagamento', 'hacklabr') ?>">
+                <span class="dcp-map-legend__item--alagamento-nivel5"><?= __('Risco de alagamento: Muito alto', 'hacklabr') ?></span>
+            </button>
+        </li>
+
         <li class="dcp-map-legend__item dcp-map-legend--mobile">
             <button class=" dcp-map-legend__mobile-btn" type="button" aria-label="<?= __('Abrir legenda', 'hacklabr') ?>" @click="$refs.legendModal.showModal()">
                 <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/mobile-legend.svg" alt="<?= __('Legenda do mapa', 'hacklabr') ?>">
             </button>
         </li>
-        <li class="dcp-map-legend__item">
+        <li class="dcp-map-legend__item dcp-map-legend__item--dicas-toggle">
             <button type="button" aria-label="<?= __('Abrir dicas do mapa', 'hacklabr') ?>" @click="$refs.dicasModal.showModal()">
                 <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/dicas.svg" alt="<?= __('Dicas', 'hacklabr') ?>">
             </button>
@@ -163,7 +175,7 @@
                         </li>
                     </ul>
                 </div>
-            </ul>
+                </ul>
         </section>
     </article>
 </dialog>

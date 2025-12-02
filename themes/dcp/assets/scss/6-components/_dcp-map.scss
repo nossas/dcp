@@ -308,6 +308,11 @@
         }
     }
 
+    .dcp-map-legend__item--dicas-toggle{
+        left: 0;
+        top: size(-120);
+    }
+
     .dcp-map-footer {
         &__text {
             position: relative;
