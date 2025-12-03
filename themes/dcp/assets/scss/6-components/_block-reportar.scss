@@ -3,6 +3,7 @@
     margin-bottom: size(100);
     margin-top: size(100);
     padding-inline: $padding--large;
+    display: none;
 
     @include mobile {
         margin-top: unset !important;

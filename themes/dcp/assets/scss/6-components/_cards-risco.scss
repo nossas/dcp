@@ -2,8 +2,23 @@
     display: flex;
     justify-content: space-between !important;
 }
+
 .risco{
-    display: none !important;
+
+    .wp-block-column:first-child > .wp-block-columns{
+        flex-direction: column;
+        margin-bottom: 0;
+        padding-top: size(33);
+        padding-inline: 0;
+
+        .wp-block-column{
+            flex-basis: unset !important;
+        }
+    }
+
+    .wp-block-column > .riscos-ocultar{
+        display: none;
+    }
 
     @include mobile{
         flex-direction: column-reverse;

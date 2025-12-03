@@ -101,7 +101,6 @@
 .wp-block-columns:has(.recomendacoes){
     margin-bottom: $margin--large * 2;
     padding-inline: $padding--large;
-    display: none !important;
 
     @include mobile{
         margin-bottom: 0;
