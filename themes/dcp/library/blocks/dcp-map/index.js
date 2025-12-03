@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         await until(() => jeoMap.map)
 
-        const mapContext = setupMap(jeoMap, block, riscos, apoios, selectedCPT, selectedLayers)
+        const mapContext = setupMap(jeoMap, block, riscos, apoios, selectedCPT, selectedLayers, 10)
         displayModal = mapContext.displayModal
         toggleLayer = mapContext.toggleLayer
         setupLegends(toggleLayer, selectedLayers)

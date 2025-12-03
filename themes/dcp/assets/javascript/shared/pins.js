@@ -347,7 +347,7 @@ function setupLightbox() {
     });
 }
 
-export function setupMap(jeoMap, container, riscos, apoios, initialSource, selectedLayers) {
+export function setupMap(jeoMap, container, riscos, apoios, initialSource, selectedLayers, padding = 10) {
     setupLightbox()
     const map = jeoMap.map
     let spiderifier
@@ -375,6 +375,8 @@ export function setupMap(jeoMap, container, riscos, apoios, initialSource, selec
     }
 
     map.U.onLoad(async () => {
+        map.fitBounds(globalThis.hl_dcp_map_data.initialBbox, { padding })
+
         await Promise.all([
             loadImage(map, 'cluster', 'cluster.svg'),
 

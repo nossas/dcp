@@ -186,6 +186,7 @@ function render_dcp_map_callback(array $attributes) {
 
 function localize_dcp_map_script() {
     wp_localize_script( 'hacklabr-dcp-map-script', 'hl_dcp_map_data', [
+        'initialBbox' => get_default_boundaries(),
         'themeAssets' => get_stylesheet_directory_uri(),
     ]);
 }
