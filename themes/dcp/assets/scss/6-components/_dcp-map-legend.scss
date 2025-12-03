@@ -84,6 +84,9 @@
     }
 
     &--mobile {
+        margin-top: size(5);
+        margin-bottom: size(5);
+
         @include mobile-up {
             display: none !important;
         }
@@ -96,10 +99,6 @@
         padding-left: size(10);
         position: relative;
         top: size(125);
-
-        @include mobile{
-            position: unset;
-        }
 
         &--apoio{
             gap: $gap--small;
@@ -166,8 +165,13 @@
             padding: size(4) size(12);
 
             @include mobile {
-                display: inline-block;
+                //display: inline-block;
                 height: fit-content;
+                white-space: nowrap;
+
+                &:hover{
+                    display: inline-block;
+                }
             }
         }
 
@@ -180,6 +184,16 @@
         &--alagamento {
             background-color: #B83D13;
             color: $color--high-light;
+
+            &-nivel1,
+            &-nivel2,
+            &-nivel3,
+            &-nivel4,
+            &-nivel5 {
+                @include mobile{
+                    margin-left: size(40);
+                }
+            }
         }
 
         &--dicas {

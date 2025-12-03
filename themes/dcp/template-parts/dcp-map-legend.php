@@ -39,7 +39,7 @@
         </li>
     </ul>
 
-    <ul class="dcp-map-legend__list desktop-only">
+    <ul class="dcp-map-legend__list">
         <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel1 risco-only">
             <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco muito baixo de alagamento', 'hacklabr') ?>">
                 <span class="dcp-map-legend__item--alagamento-nivel1"><?= __('Risco de alagamento: Muito baixo', 'hacklabr') ?></span>
