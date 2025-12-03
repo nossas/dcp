@@ -11,20 +11,17 @@ function hacklabr_load_more_posts_ajax_handler() {
     $debug_info .= "Recebido Page: " . (isset($_POST['page']) ? $_POST['page'] : 'N/A') . "\n";
     $debug_info .= "Recebido Query Attributes: " . (isset($_POST['query_attributes']) ? stripslashes($_POST['query_attributes']) : 'N/A') . "\n";
 
-
     $query_args_from_js = json_decode(stripslashes($_POST['query_attributes']), true);
     $page = intval($_POST['page']);
     $posts_per_page = intval($_POST['per_page']);
 
-
     $query_args = build_posts_query($query_args_from_js, []);
 
-
     $query_args['posts_per_page'] = $posts_per_page;
+    $query_args['post_status'] = 'publish';
     $query_args['paged'] = $page;
     $query_args['ignore_sticky_posts'] = 1;
     unset($query_args['offset']);
-
 
     $query = new \WP_Query($query_args);
 

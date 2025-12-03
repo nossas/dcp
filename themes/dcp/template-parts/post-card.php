@@ -315,46 +315,45 @@ $show_info_between = !$hide_date;
         <?php endif; ?>
 
         <?php if ($post_type == 'apoio'): ?>
-            <div class="post-card__see-in-map" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0;">
 
-                <div> <?php
-                        if (has_term('iniciativas-locais', 'tipo_apoio', $post)) :
-                        ?>
-                        <a href="<?php the_permalink(); ?>" class="saiba-mais-link" style="display: inline-flex; align-items: center; gap: 6px; color: #281414; text-decoration: none;">
-                            <span class="saiba-mais-text" style="text-decoration: underline;"><?= __('Conheça a iniciativa', 'dcp') ?></span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
-                                <path d="M15.8516 2.25098C16.0007 2.25098 16.1445 2.31053 16.25 2.41602C16.3554 2.52139 16.4139 2.66447 16.4141 2.81348V9.56348C16.4141 9.71266 16.3555 9.85642 16.25 9.96191C16.1445 10.0674 16.0007 10.126 15.8516 10.126C15.7026 10.1258 15.5595 10.0673 15.4541 9.96191C15.3486 9.85642 15.2891 9.71266 15.2891 9.56348V4.17188L3.875 15.5869C3.8227 15.6392 3.76071 15.6807 3.69238 15.709C3.62407 15.7373 3.5505 15.752 3.47656 15.752C3.40279 15.7519 3.32988 15.7372 3.26172 15.709C3.19339 15.6807 3.1314 15.6392 3.0791 15.5869C3.0268 15.5346 2.98534 15.4726 2.95703 15.4043C2.92874 15.336 2.91406 15.2624 2.91406 15.1885C2.91413 15.1147 2.92881 15.0418 2.95703 14.9736C2.98534 14.9053 3.0268 14.8433 3.0791 14.791L14.4941 3.37598H9.10156C8.95255 3.37585 8.80948 3.31729 8.7041 3.21191C8.59861 3.10642 8.53906 2.96266 8.53906 2.81348C8.53919 2.66447 8.59873 2.52139 8.7041 2.41602C8.80948 2.31064 8.95255 2.2511 9.10156 2.25098H15.8516Z" fill="#281414" />
-                            </svg>
-                        </a>
+            <?php if (get_post_status() === 'publish') : ?>
+                <div class="post-card__see-in-map" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0;">
+                    <div> <?php
+                            if (has_term('iniciativas-locais', 'tipo_apoio', $post)) :
+                            ?>
+                            <a href="<?php the_permalink(); ?>" class="saiba-mais-link" style="display: inline-flex; align-items: center; gap: 6px; color: #281414; text-decoration: none;">
+                                <span class="saiba-mais-text" style="text-decoration: underline;"><?= __('Conheça a iniciativa', 'dcp') ?></span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+                                    <path d="M15.8516 2.25098C16.0007 2.25098 16.1445 2.31053 16.25 2.41602C16.3554 2.52139 16.4139 2.66447 16.4141 2.81348V9.56348C16.4141 9.71266 16.3555 9.85642 16.25 9.96191C16.1445 10.0674 16.0007 10.126 15.8516 10.126C15.7026 10.1258 15.5595 10.0673 15.4541 9.96191C15.3486 9.85642 15.2891 9.71266 15.2891 9.56348V4.17188L3.875 15.5869C3.8227 15.6392 3.76071 15.6807 3.69238 15.709C3.62407 15.7373 3.5505 15.752 3.47656 15.752C3.40279 15.7519 3.32988 15.7372 3.26172 15.709C3.19339 15.6807 3.1314 15.6392 3.0791 15.5869C3.0268 15.5346 2.98534 15.4726 2.95703 15.4043C2.92874 15.336 2.91406 15.2624 2.91406 15.1885C2.91413 15.1147 2.92881 15.0418 2.95703 14.9736C2.98534 14.9053 3.0268 14.8433 3.0791 14.791L14.4941 3.37598H9.10156C8.95255 3.37585 8.80948 3.31729 8.7041 3.21191C8.59861 3.10642 8.53906 2.96266 8.53906 2.81348C8.53919 2.66447 8.59873 2.52139 8.7041 2.41602C8.80948 2.31064 8.95255 2.2511 9.10156 2.25098H15.8516Z" fill="#281414" />
+                                </svg>
+                            </a>
 
-                    <?php elseif (has_term('locais-seguros', 'tipo_apoio', $post)) : ?>
-                        <a href="/mapa/?tab=apoio" class="saiba-mais-link" style="display: inline-flex; align-items: center; gap: 6px; color: #281414; text-decoration: none;">
-                            <span class="saiba-mais-text" style="text-decoration: underline;"><?= __('Veja no mapa', 'dcp') ?></span>
-                            <img src="<?= get_template_directory_uri() ?>/assets/images/seta_card.svg" alt="Seta" class="saiba-mais-icon" style="width: 12px; height: auto;">
-                        </a>
-                    <?php else : ?>
-                        <a href="/mapa" class="saiba-mais-link" style="display: inline-flex; align-items: center; gap: 6px; color: #281414; text-decoration: none;">
-                            <span class="saiba-mais-text" style="text-decoration: underline;"><?= __('Veja no mapa', 'dcp') ?></span>
-                            <img src="<?= get_template_directory_uri() ?>/assets/images/seta_card.svg" alt="Seta" class="saiba-mais-icon" style="width: 12px; height: auto;">
-                        </a>
-                    <?php endif; ?>
+                        <?php elseif (has_term('locais-seguros', 'tipo_apoio', $post)) : ?>
+                            <a href="/mapa/?tab=apoio" class="saiba-mais-link" style="display: inline-flex; align-items: center; gap: 6px; color: #281414; text-decoration: none;">
+                                <span class="saiba-mais-text" style="text-decoration: underline;"><?= __('Veja no mapa', 'dcp') ?></span>
+                                <img src="<?= get_template_directory_uri() ?>/assets/images/seta_card.svg" alt="Seta" class="saiba-mais-icon" style="width: 12px; height: auto;">
+                            </a>
+                        <?php else : ?>
+                            <a href="/mapa" class="saiba-mais-link" style="display: inline-flex; align-items: center; gap: 6px; color: #281414; text-decoration: none;">
+                                <span class="saiba-mais-text" style="text-decoration: underline;"><?= __('Veja no mapa', 'dcp') ?></span>
+                                <img src="<?= get_template_directory_uri() ?>/assets/images/seta_card.svg" alt="Seta" class="saiba-mais-icon" style="width: 12px; height: auto;">
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                    <div> <?php
+                            $tem_quem_acionar = has_term('quem-acionar', 'tipo_apoio', $post);
+                            $tem_cacambas = has_term('cacambas', 'tipo_apoio', $post);
+                            if ($tem_quem_acionar || $tem_cacambas || has_term(['locais-seguros', 'iniciativas-locais'], 'tipo_apoio', $post)) :
+                            ?>
+                            <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar-apoio-novo', ['post_id' => $post->ID]); ?>">
+                                <?= __('Editar') ?>
+                            </a>
+                        <?php endif; ?>
+                    </div>
                 </div>
-
-                <div> <?php
-                        $tem_quem_acionar = has_term('quem-acionar', 'tipo_apoio', $post);
-                        $tem_cacambas = has_term('cacambas', 'tipo_apoio', $post);
-                        if ($tem_quem_acionar || $tem_cacambas || has_term(['locais-seguros', 'iniciativas-locais'], 'tipo_apoio', $post)) :
-                        ?>
-                        <a class="situacao-atual__edit-btn post-card__editar-btn" href="<?= hacklabr\dashboard\get_dashboard_url('editar-apoio-novo', ['post_id' => $post->ID]); ?>">
-                            <?= __('Editar') ?>
-                        </a>
-                    <?php endif; ?>
-                </div>
-
-            </div>
-
-            <?php if (get_post_status() === 'draft') : ?>
-                <h3 style="font-size: 12px; font-weight: 700; opacity: 0.5; text-align: center; ">MODO RASCUNHO</h3>
+                <?php if (get_post_status() === 'draft') : ?>
+                    <h3 style="font-size: 12px; font-weight: 700; opacity: 0.5; text-align: center; ">MODO RASCUNHO</h3>
+                <?php endif; ?>
             <?php endif; ?>
         <?php endif; ?>
 
