@@ -34,7 +34,7 @@ add_action('updated_post_meta', 'hacklabr\\geocode_imported_posts', 20, 4);
 
 function get_default_boundaries() {
     /// @see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/LngLatBoundsLike/
-    $jacarezinho = [[-43.266, -22.898], [-43.248, -22.881]];
+    $jacarezinho = [[-43.265, -22.891], [-43.251, -22.885]];
     return apply_filters('dcp_default_bbox', $jacarezinho);
 }
 
