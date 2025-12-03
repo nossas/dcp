@@ -138,7 +138,6 @@
 
         &--dicas-toggle {
             position: relative;
-            left: size(2);
             top: size(10);
 
             @include mobile{
@@ -147,8 +146,8 @@
         }
 
         img {
-            width: size(30);
-            height: size(30);
+            width: size(35);
+            height: size(35);
             max-width: none;
             object-fit: contain;
 
@@ -319,7 +318,7 @@
 }
 
 .risco .dcp-map-legend__list--icons{
-    top: size(30) !important;
+    top: size(44) !important;
 }
 
 .risco .dcp-map-legend__item--dicas-toggle{
@@ -338,7 +337,7 @@
 
 .risco .dcp-map-legend{
     &__list{
-        top: size(2);
+        top: size(15);
     }
 }
 
