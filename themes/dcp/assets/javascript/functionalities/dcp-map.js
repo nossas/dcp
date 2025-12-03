@@ -63,7 +63,7 @@ function selectCPT(cpt) {
 
     const selectedCPT = { current: initialTab };
     const selectedLayers = { alagamento: [null, true, true, true, true, true] }
-    const mapContext = setupMap(jeoMap, container, riscos, apoios, selectedCPT, selectedLayers);
+    const mapContext = setupMap(jeoMap, container, riscos, apoios, selectedCPT, selectedLayers, 150);
     toggleLayer = mapContext.toggleLayer;
     setupLegends(toggleLayer, selectedLayers);
 

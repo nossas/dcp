@@ -31,3 +31,14 @@ function geocode_imported_posts(int $meta_id, int $post_id, string $meta_key, mi
 }
 add_action('added_post_meta', 'hacklabr\\geocode_imported_posts', 20, 4);
 add_action('updated_post_meta', 'hacklabr\\geocode_imported_posts', 20, 4);
+
+function get_default_boundaries() {
+    /// @see https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/LngLatBoundsLike/
+    $jacarezinho = [[-43.266, -22.898], [-43.248, -22.881]];
+    return apply_filters('dcp_default_bbox', $jacarezinho);
+}
+
+function get_default_coordinates () {
+    $jacarezinho = [-43.2578789, -22.8875068];
+    return apply_filters('dcp_default_coords', $jacarezinho);
+}

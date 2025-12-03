@@ -376,8 +376,8 @@ class Assets
                     return is_page_template('page-dcp-map.php') || is_page('conteudo-sobre-o-lixo');
                 },
                 'localize_callback' => function () {
-
                     return [
+                        'initialBbox' => get_default_boundaries(),
                         'restUrl' => rest_url('hacklabr/v2/geocoding'),
                         'themeAssets' => get_stylesheet_directory_uri(),
                     ];
@@ -403,9 +403,8 @@ class Assets
                     return is_page_template('template-parts/page-register-risk.php');
                 },
                 'localize_callback' => function () {
-                    $jacarezinho = [-43.2578789, -22.8875068];
                     return [
-                        'default_coords' => apply_filters('dcp_default_coords', $jacarezinho),
+                        'default_coords' => get_default_coordinates(),
                         'rest_url' => rest_url('hacklabr/v2'),
                     ];
                 },
