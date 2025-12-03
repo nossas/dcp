@@ -1,5 +1,5 @@
 export function setupLegends(toggleLayer, selectedLayers) {
-    for (const level = 1; level <= 5; level++) {
+    for (let level = 1; level <= 5; level++) {
         const levelToggle = document.querySelector(`.dcp-map-legend__alagamento-nivel${level}`)
 
         if (levelToggle) {
