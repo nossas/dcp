@@ -2,7 +2,6 @@ import { toggleMapboxLayers } from './pins'
 
 export function setupLegends(jeoMap, selectedLayers) {
     const map = jeoMap.map
-    console.log(jeoMap, map)
 
     for (let level = 1; level <= 5; level++) {
         const levelToggle = document.querySelector(`.dcp-map-legend__alagamento-nivel${level}`)

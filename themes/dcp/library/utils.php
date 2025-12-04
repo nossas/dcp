@@ -491,7 +491,7 @@ function cf7_descricao_custom_msg( $result, $tag ) {
 
 add_action( 'template_redirect', function() {
     if ( is_singular( 'apoio' ) ) {
-        wp_redirect( home_url( '/mapa/?tab=apoio' ) );
+        wp_redirect( home_url( sprintf('/mapa/?tab=apoio&open=%s', get_the_ID() )) );
         exit;
     }
 });

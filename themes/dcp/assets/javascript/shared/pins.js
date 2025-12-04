@@ -2,6 +2,18 @@ import { Splide } from '@splidejs/splide'
 
 const splideInstances = {};
 
+/**
+ * Polyfill `Promise.withResolvers`
+ */
+function promiseWithResolvers () {
+    let resolve, reject
+    const promise = new Promise((_resolve, _reject) => {
+        resolve = _resolve
+        reject = _reject
+    })
+    return { promise, resolve, reject }
+}
+
 function buildGallery(container, feature) {
     const gallery = container.querySelector('.splide');
     const slidesList = gallery.querySelector('.splide__list');
@@ -372,6 +384,11 @@ export function setupMap(jeoMap, container, riscos, apoios, initialSource, selec
     const riscoFeatures = riscos.map(createRiscoFeature)
     const apoioFeatures = apoios.map(createApoioFeature)
 
+    const onloadPromise = promiseWithResolvers()
+    function onMapLoad (callback) {
+        onloadPromise.promise.then(callback)
+    }
+
     function switchView(cpt) {
         closeModals(container)
         spiderifier?._clearSpiderifiedCluster?.()
@@ -388,6 +405,10 @@ export function setupMap(jeoMap, container, riscos, apoios, initialSource, selec
                 features: filteredFeatures,
             })
         }
+    }
+
+    function centralizeMap(lat, lon) {
+        map.flyTo({ center: [lon, lat], zoom: 17 })
     }
 
     map.U.onLoad(async () => {
@@ -409,6 +430,7 @@ export function setupMap(jeoMap, container, riscos, apoios, initialSource, selec
         riscoSpiderifier = insertFeatureCollection(map, container, 'risco', riscoFeatures)
         apoioSpiderifier = insertFeatureCollection(map, container, 'apoio', apoioFeatures)
         switchView(initialSource.current)
+        onloadPromise.resolve()
 
         map.on('mousemove', (event) => {
             const features = map.queryRenderedFeatures(event.point, {
@@ -436,7 +458,7 @@ export function setupMap(jeoMap, container, riscos, apoios, initialSource, selec
         }
     })
 
-    return { displayModal, switchView }
+    return { centralizeMap, displayModal, onMapLoad, switchView }
 }
 
 function enableDialogOutsideClickClose(dialog) {

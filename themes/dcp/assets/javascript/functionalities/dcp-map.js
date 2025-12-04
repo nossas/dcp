@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const tabsList = container.querySelector(tabsContainerSelector);
     const tabs = [...container.querySelectorAll(tabSelector)];
     const map = container.querySelector('.jeomap');
-    let switchView = null;
+    let centralizeMap, displayModal, switchView, onMapLoad;
 
     if (!tabsList || tabs.length === 0) return;
 
@@ -51,6 +51,9 @@ function selectCPT(cpt) {
     const selectedCPT = { current: initialTab };
     const selectedLayers = { alagamento: [null, true, true, true, true, true] }
     const mapContext = setupMap(jeoMap, container, riscos, apoios, selectedCPT, selectedLayers);
+    centralizeMap = mapContext.centralizeMap;
+    displayModal = mapContext.displayModal;
+    onMapLoad = mapContext.onMapLoad;
     switchView = mapContext.switchView;
     setupLegends(jeoMap, selectedLayers);
 
@@ -60,6 +63,20 @@ function selectCPT(cpt) {
             selectCPT(tab.dataset.cpt);
         });
     });
+
+    onMapLoad(() => {
+        if (query.has('open')) {
+            const apoioId = Number(query.get('open'));
+            for (const apoio of apoios) {
+                if (apoio.ID === apoioId) {
+                    centralizeMap(apoio.lat, apoio.lon);
+                    displayModal(container, { kind: 'apoio', icon: apoio.type, ...apoio });
+                    break;
+                }
+            }
+        }
+    })
+
 
     const form = document.querySelector('.dcp-map__form');
     if (form) {
