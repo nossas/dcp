@@ -100,10 +100,10 @@ function toggleMapboxLayer(map, layer, visible) {
     map.setLayoutProperty(layer, 'visibility', visible ? 'visible' : 'none')
 }
 
-function toggleMapboxLayers(map, cpt, selectedLayers) {
+export function toggleMapboxLayers(map, selectedLayers) {
     for (let level = 1; level <= 5; level++) {
         const slug = `areas alagadas nivel ${level}`
-        toggleMapboxLayer(map, slug, cpt === 'risco' && selectedLayers.alagamento[level])
+        toggleMapboxLayer(map, slug, selectedLayers.alagamento[level])
     }
 }
 
@@ -356,10 +356,10 @@ export function setupMap(jeoMap, container, riscos, apoios, initialSource, selec
     const riscoFeatures = riscos.map(createRiscoFeature)
     const apoioFeatures = apoios.map(createApoioFeature)
 
-    function toggleLayer(cpt) {
+    function switchView(cpt) {
         closeModals(container)
         spiderifier?._clearSpiderifiedCluster?.()
-        toggleMapboxLayers(map, cpt, selectedLayers)
+        toggleMapboxLayers(map, selectedLayers)
 
         for (const [source, features, spiderifier] of [
             ['apoio', apoioFeatures, apoioSpiderifier],
@@ -392,7 +392,7 @@ export function setupMap(jeoMap, container, riscos, apoios, initialSource, selec
 
         riscoSpiderifier = insertFeatureCollection(map, container, 'risco', riscoFeatures)
         apoioSpiderifier = insertFeatureCollection(map, container, 'apoio', apoioFeatures)
-        toggleLayer(initialSource.current)
+        switchView(initialSource.current)
 
         map.on('mousemove', (event) => {
             const features = map.queryRenderedFeatures(event.point, {
@@ -420,7 +420,7 @@ export function setupMap(jeoMap, container, riscos, apoios, initialSource, selec
         }
     })
 
-    return { displayModal, toggleLayer }
+    return { displayModal, switchView }
 }
 
 function enableDialogOutsideClickClose(dialog) {
