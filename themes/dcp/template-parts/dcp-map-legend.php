@@ -40,29 +40,29 @@
     </ul>
 
     <ul class="dcp-map-legend__list">
-        <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel1 risco-only">
+        <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel1">
             <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco muito baixo de alagamento', 'hacklabr') ?>">
                 <span class="dcp-map-legend__item--alagamento-nivel1"><?= __('Risco de alagamento: Muito baixo', 'hacklabr') ?></span>
             </button>
         </li>
 
-        <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel2 risco-only">
+        <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel2">
             <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco baixo de alagamento', 'hacklabr') ?>">
                 <span class="dcp-map-legend__item--alagamento-nivel2"><?= __('Risco de alagamento: Baixo', 'hacklabr') ?></span>
             </button>
         </li>
 
-        <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel3 risco-only">
+        <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel3">
             <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco médio de alagamento', 'hacklabr') ?>">
                 <span class="dcp-map-legend__item--alagamento-nivel3"><?= __('Risco de alagamento: Médio', 'hacklabr') ?></span>
             </button>
         </li>
-        <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel4 risco-only">
+        <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel4">
             <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco alto de alagamento', 'hacklabr') ?>">
                 <span class="dcp-map-legend__item--alagamento-nivel4"><?= __('Risco de alagamento: Alto', 'hacklabr') ?></span>
             </button>
         </li>
-        <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel5 risco-only">
+        <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel5">
             <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco muito alto de alagamento', 'hacklabr') ?>">
                 <span class="dcp-map-legend__item--alagamento-nivel5"><?= __('Risco de alagamento: Muito alto', 'hacklabr') ?></span>
             </button>
@@ -95,30 +95,30 @@
         </header>
         <section>
             <div class="dcp-map-dicas__list">
-                <ul class="dcp-map-legend__list dcp-map-legend__list--list-mobile dcp-map-dicas__list--list-dicas">
-                    <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel1 risco-only">
+                <ul class="dcp-map-legend__list dcp-map-legend__list--list-mobile dcp-map-legend__list--list-dicas">
+                    <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel1">
                         <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco muito baixo de alagamento', 'hacklabr') ?>">
                             <span class="dcp-map-legend__item--alagamento-nivel1"><?= __('Risco de alagamento: Muito baixo', 'hacklabr') ?></span>
                         </button>
                     </li>
 
-                    <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel2 risco-only">
+                    <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel2">
                         <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco baixo de alagamento', 'hacklabr') ?>">
                             <span class="dcp-map-legend__item--alagamento-nivel2"><?= __('Risco de alagamento: Baixo', 'hacklabr') ?></span>
                         </button>
                     </li>
 
-                    <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel3 risco-only">
+                    <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel3">
                         <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco médio de alagamento', 'hacklabr') ?>">
                             <span class="dcp-map-legend__item--alagamento-nivel3"><?= __('Risco de alagamento: Médio', 'hacklabr') ?></span>
                         </button>
                     </li>
-                    <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel4 risco-only">
+                    <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel4">
                         <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco alto de alagamento', 'hacklabr') ?>">
                             <span class="dcp-map-legend__item--alagamento-nivel4"><?= __('Risco de alagamento: Alto', 'hacklabr') ?></span>
                         </button>
                     </li>
-                    <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel5 risco-only">
+                    <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel5">
                         <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco muito alto de alagamento', 'hacklabr') ?>">
                             <span class="dcp-map-legend__item--alagamento-nivel5"><?= __('Risco de alagamento: Muito alto', 'hacklabr') ?></span>
                         </button>
