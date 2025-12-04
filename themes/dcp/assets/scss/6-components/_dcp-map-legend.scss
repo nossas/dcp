@@ -124,6 +124,10 @@
         position: relative;
         top: size(125);
 
+        @include mobile{
+            top: size(170);
+        }
+
         &--apoio{
             gap: $gap--x-small;
 
