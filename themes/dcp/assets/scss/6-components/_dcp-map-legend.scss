@@ -5,6 +5,26 @@
     gap: $gap--large;
     position: absolute;
 
+    &__mobile > &__modal{
+        article > section > .dcp-map-legend__list--list-mobile{
+            margin-bottom: $margin--small;
+
+            .dcp-map-legend__item > button > span{
+                display: inline-block;
+                background-color: transparent;
+                white-space: nowrap;
+                margin-left: size(40);
+                font-size: size(16);
+            }
+        }
+
+        article > section > .dcp-map-legend__list > .dcp-map-legend__item > span{
+            display: inline-block;
+            background-color: transparent;
+            margin-left: 0;
+        }
+    }
+
     &__alagamento-nivel5 {
         background-color: #E33131;
         border-radius: 0 0 size(8) size(8);
@@ -282,6 +302,7 @@
             @include mobile{
                 position: relative;
                 top: size(-130);
+                width: 80%;
             }
         }
 
@@ -293,7 +314,6 @@
             }
 
             &--list-dicas{
-                border: 1px solid red;
                 top: size(-15);
                 left: -2%;
             }
@@ -381,7 +401,6 @@
 }
 
 .dcp-map-dicas {
-
     &__modal {
         background: $color--high-light;
         border: none;
@@ -414,6 +433,20 @@
             background: rgba(0, 0, 0, 0.4);
         }
 
+        & > article > section > .dcp-map-dicas__list > .dcp-map-dicas__list--list-dicas{
+            top: size(-17);
+            left: -2%;
+            width: 80%;
+
+            .dcp-map-legend__item > button > span{
+                display: inline-block;
+                background-color: transparent;
+                white-space: nowrap;
+                margin-left: size(40);
+                font-size: size(16)
+            }
+        }
+
         & > article > header{
             align-items: center;
             border-bottom: size(1) solid #E6E2E0;
@@ -426,11 +459,6 @@
                 background-color: transparent;
                 cursor: pointer;
             }
-        }
-
-        article > section > .dcp-map-legend__list > .dcp-map-legend__list--list-dicas {
-            top: size(-15);
-            left: -2%;
         }
     }
 
