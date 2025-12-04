@@ -117,13 +117,6 @@ function render_posts_grid_callback($attributes)
                                 <img src="<?= esc_url(get_template_directory_uri() . '/assets/images/wrapper70.png') ?>" alt="Nenhum risco cadastrado" />
                             </div>
                             <p><?= __('Nada nas últimas 24h.') ?> </p>
-                            <p> <?= __('Viu lixo ou alagamento na rua?') ?> </p>
-                            <a href="/reportar-riscos" class="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" focusable="false">
-                                    <path d="M9 18.001C9 18.001 15.75 11.6042 15.75 6.75098C15.75 4.96077 15.0388 3.24388 13.773 1.97801C12.5071 0.712135 10.7902 0.000976562 9 0.000976562C7.20979 0.000976562 5.4929 0.712135 4.22703 1.97801C2.96116 3.24388 2.25 4.96077 2.25 6.75098C2.25 11.6042 9 18.001 9 18.001ZM9 10.126C8.10489 10.126 7.24645 9.7704 6.61351 9.13746C5.98058 8.50453 5.625 7.64608 5.625 6.75098C5.625 5.85587 5.98058 4.99743 6.61351 4.36449C7.24645 3.73156 8.10489 3.37598 9 3.37598C9.89511 3.37598 10.7536 3.73156 11.3865 4.36449C12.0194 4.99743 12.375 5.85587 12.375 6.75098C12.375 7.64608 12.0194 8.50453 11.3865 9.13746C10.7536 9.7704 9.89511 10.126 9 10.126Z" fill="#F9F3EA" />
-                                </svg>
-                                <?= __('Adicionar risco') ?>
-                            </a>
                         </div>
                     </div>
                 <?php endif; ?>

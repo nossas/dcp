@@ -98,14 +98,6 @@
                      <button class="main-header-lateral__login-access"><?= __('Login') ?></button>
                  </a>
              </div>
-             <div class="main-header-lateral__adicionar-risco">
-                 <a href="<?= esc_url(home_url('/informar-riscos')); ?>">
-                     <button class="main-header-lateral__adicionar-risco-button dcp-map-block__add-risk">
-                        <iconify-icon icon="bi:geo-alt-fill"></iconify-icon>
-                        <?= __('Adicionar Risco') ?>
-                    </button>
-                 </a>
-             </div>
          </div>
     </div>
 </header>
