@@ -339,14 +339,19 @@
     top: size(3);
 }
 
-.dcp-map-footer{
-    @include mobile{
-        padding-inline: size(15);
-    }
-}
+.dcp-map-footer {
+    align-items: center;
+    display: flex;
+    gap: 1ch;
+    padding: size(4) size(8);
 
-.risco .dcp-map-footer{
-    display: none;
+    @include mobile-up {
+        background-color: hsla(0, 0%, 100%, 0.75);
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        width: fit-content;
+    }
 }
 
 .risco .dcp-map-legend{
