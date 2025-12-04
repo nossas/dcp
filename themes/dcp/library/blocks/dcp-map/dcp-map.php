@@ -162,7 +162,7 @@ function render_dcp_map_callback(array $attributes) {
                 Riscos (<?= count($data['riscos']) ?>)
             </button>
             <button type="button" class="dcp-map-block__tab <?= ($tab === 'apoio') ? 'dcp-map-block__tab--selected' : '' ?>" data-cpt="apoio" role="tab" aria-selected="<?= ($tab === 'apoio') ? 'true' : 'false' ?>" @click="tab = 'apoio'">
-                Apoio (<?= count($data['apoios']) ?>)
+                Rede de Apoio (<?= count($data['apoios']) ?>)
             </button>
         </div>
         <div class="dcp-map-block__buttons">

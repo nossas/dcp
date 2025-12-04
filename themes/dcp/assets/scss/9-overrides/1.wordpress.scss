@@ -350,10 +350,11 @@
 .dcp-map-modal {
 
     &__excerpt {
-        font-size: size( 15 ) !important;
+        font-size: size( 16 ) !important;
         line-height: size( 16 ) !important;
+        margin-top: $margin--medium;
 
-        @include desktop {
+        @include mobile {
             font-size: size( 13 ) !important;
             line-height: size( 14 ) !important;
         }
