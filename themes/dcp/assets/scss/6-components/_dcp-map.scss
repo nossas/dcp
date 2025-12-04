@@ -313,8 +313,12 @@
         bottom: size(248);
     }
 
+    .dcp-map-legend__list{
+        top: size(173) !important;
+    }
+
     .dcp-map-legend__list--icons{
-        top: size(150) !important;
+        top: size(198) !important;
     }
 
     .dcp-map-block{
@@ -324,7 +328,7 @@
     }
 
     .dcp-map-legend__list--apoio{
-        top: size(125) !important;
+        top: size(189) !important;
     }
 
     .dcp-map-legend__item--dicas-toggle{
