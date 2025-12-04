@@ -32,19 +32,6 @@ function selectCPT(cpt) {
             tab.classList.toggle(selectedTabClass, isSelected);
         });
 
-        const apoioLegends = document.querySelectorAll('.apoio-only');
-        const riscoLegends = document.querySelectorAll('.risco-only');
-
-        const displayType = 'flex';
-
-        apoioLegends.forEach(legend => {
-            legend.style.setProperty('display', (cpt === 'apoio') ? displayType : 'none', 'important');
-        });
-
-        riscoLegends.forEach(legend => {
-            legend.style.setProperty('display', (cpt === 'risco') ? displayType : 'none', 'important');
-        });
-
         switchView?.(cpt);
         updateSearchParams(cpt);
     }
