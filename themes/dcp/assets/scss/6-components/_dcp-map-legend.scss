@@ -130,6 +130,8 @@
         }
 
         &--icons{
+            gap: $gap--x-small;
+
             .dcp-map-legend__item > span{
                 margin-left: inherit !important;
             }
