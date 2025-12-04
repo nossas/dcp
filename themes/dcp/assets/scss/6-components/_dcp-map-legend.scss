@@ -9,6 +9,10 @@
         article > section > .dcp-map-legend__list--list-mobile{
             margin-bottom: $margin--small;
 
+            .dcp-map-legend__item{
+                margin-bottom: 0;
+            }
+
             .dcp-map-legend__item > button > span{
                 display: inline-block;
                 background-color: transparent;
@@ -97,11 +101,11 @@
         }
     }
 
-    &--desktop {
-        @include mobile {
-            display: none !important;
-        }
-    }
+    // &--desktop {
+    //     @include mobile {
+    //         display: none !important;
+    //     }
+    // }
 
     &--mobile {
         margin-top: size(5);
@@ -305,7 +309,7 @@
             }
         }
 
-        article > section > .dcp-map-legend__list{
+        article > section > .dcp-map-dicas__list{
             &--list-mobile{
                 .dcp-map-legend__item{
                     margin-bottom: 0;

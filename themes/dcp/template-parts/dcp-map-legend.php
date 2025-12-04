@@ -95,7 +95,7 @@
         </header>
         <section>
             <div class="dcp-map-dicas__list">
-                <ul class="dcp-map-legend__list dcp-map-legend__list--list-mobile dcp-map-legend__list--list-dicas">
+                <ul class="dcp-map-legend__list dcp-map-legend__list--list-mobile dcp-map-dicas__list--list-dicas">
                     <li class="dcp-map-legend__item dcp-map-legend--desktop dcp-map-legend__alagamento-nivel1">
                         <button type="button" aria-label="<?= __('Exibir/ocultar zona de risco muito baixo de alagamento', 'hacklabr') ?>">
                             <span class="dcp-map-legend__item--alagamento-nivel1"><?= __('Risco de alagamento: Muito baixo', 'hacklabr') ?></span>
