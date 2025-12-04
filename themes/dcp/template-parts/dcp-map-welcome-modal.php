@@ -51,13 +51,6 @@
                             <span class="dcp-map-welcome-modal__item-text"><?= _e('Veja o que já foi mapeado na sua rua ou em outras regiões.', 'dcp'); ?></span>
                         </div>
                     </div>
-                    <div class="dcp-map-welcome-modal__item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/modal-page-map/gps.svg" alt="gps" class="dcp-map-welcome-modal__item-icon">
-                        <div class="dcp-map-welcome-modal__item-text-container">
-                            <h4 class="dcp-map-welcome-modal__item-title"><?= _e('Informar um risco', 'dcp'); ?></h4>
-                            <span class="dcp-map-welcome-modal__item-text"><?= _e('Viu alagamento, lixo ou outro problema? Envie um relato e mantenha o mapa atualizado.', 'dcp'); ?></span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -68,7 +61,6 @@
             </div>
             <div class="dcp-map-welcome-modal__text-container">
                 <h3 class="dcp-map-welcome-modal__title bold-position"><?= _e('Ajude a manter o mapa vivo!', 'dcp'); ?></h3>
-                <p class="dcp-map-welcome-modal__text"><?= _e('Viu alagamento, lixo ou outro problema? Clique em “Informar risco” e contribua!', 'dcp'); ?></p>
                 <div class="dcp-map-welcome-modal__list">
                     <div class="dcp-map-welcome-modal__item">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/modal-page-map/icon1.svg" alt="exclamacao" class="dcp-map-welcome-modal__item-icon icon">
