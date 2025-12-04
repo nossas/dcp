@@ -287,10 +287,15 @@
 
         article > section > .dcp-map-legend__list{
             &--list-mobile{
-
                 .dcp-map-legend__item{
                     margin-bottom: 0;
                 }
+            }
+
+            &--list-dicas{
+                border: 1px solid red;
+                top: size(-15);
+                left: -2%;
             }
         }
 
@@ -421,6 +426,11 @@
                 background-color: transparent;
                 cursor: pointer;
             }
+        }
+
+        article > section > .dcp-map-legend__list > .dcp-map-legend__list--list-dicas {
+            top: size(-15);
+            left: -2%;
         }
     }
 
