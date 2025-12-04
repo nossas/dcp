@@ -158,6 +158,12 @@
             }
         }
 
+        .maplibregl-ctrl-bottom-left{
+            @include mobile{
+                display: none;
+            }
+        }
+
         .maplibregl-ctrl-top-left {
             left: 92% !important;
             top: 0 !important;
@@ -166,6 +172,10 @@
             z-index: 2;
             bottom: size(20);
             right: 0 !important;
+
+            @include mobile{
+                left: 86% !important;
+            }
         }
 
         // Map zoom controls

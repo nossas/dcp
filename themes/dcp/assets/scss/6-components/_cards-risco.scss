@@ -47,7 +47,8 @@
         margin-top: 12px;
         &__tabs {
             button {
-            cursor: pointer;
+                cursor: pointer;
+                white-space: nowrap ;
                 &:hover {
                     opacity: 0.9;
                     transition: opacity 0.2s;
