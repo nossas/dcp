@@ -8,8 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tabsList = block.querySelector('.dcp-map-block__tabs')
         const tabs = [...block.querySelectorAll('.dcp-map-block__tab')]
         const map = block.querySelector('.jeomap')
-        let displayModal
-        let toggleLayer = null
+        let displayModal, switchView
 
         const selectedCPT = { current: tabsList.dataset.selected }
         const selectedLayers = { alagamento: [null, true, true, true, true, true] }
@@ -45,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 riscoLegendMobile.style.display = (cpt === 'risco' && isMobile) ? 'block' : 'none';
             }
 
-            toggleLayer?.(cpt);
+            switchView?.(cpt);
         }
 
         tabs.forEach((tab) => {
@@ -86,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const mapContext = setupMap(jeoMap, block, riscos, apoios, selectedCPT, selectedLayers)
         displayModal = mapContext.displayModal
-        toggleLayer = mapContext.toggleLayer
-        setupLegends(toggleLayer, selectedLayers)
+        switchView = mapContext.switchView
+        setupLegends(jeoMap, selectedLayers)
     })
 })

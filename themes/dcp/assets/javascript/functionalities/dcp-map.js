@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const tabsList = container.querySelector(tabsContainerSelector);
     const tabs = [...container.querySelectorAll(tabSelector)];
     const map = container.querySelector('.jeomap');
-    let toggleLayer = null;
+    let switchView = null;
 
     if (!tabsList || tabs.length === 0) return;
 
@@ -45,7 +45,7 @@ function selectCPT(cpt) {
             legend.style.setProperty('display', (cpt === 'risco') ? displayType : 'none', 'important');
         });
 
-        toggleLayer?.(cpt);
+        switchView?.(cpt);
         updateSearchParams(cpt);
     }
 
@@ -64,8 +64,8 @@ function selectCPT(cpt) {
     const selectedCPT = { current: initialTab };
     const selectedLayers = { alagamento: [null, true, true, true, true, true] }
     const mapContext = setupMap(jeoMap, container, riscos, apoios, selectedCPT, selectedLayers);
-    toggleLayer = mapContext.toggleLayer;
-    setupLegends(toggleLayer, selectedLayers);
+    switchView = mapContext.switchView;
+    setupLegends(jeoMap, selectedLayers);
 
     tabs.forEach((tab) => {
         tab.addEventListener('click', (e) => {
