@@ -136,7 +136,6 @@ function get_dcp_map_data(): array {
 
 function render_dcp_map_callback(array $attributes) {
     $maps_page = get_page_by_template('page-dcp-map.php');
-    $risks_page = get_page_by_path('informar-riscos');
 
     $jeo_maps = get_posts([
         'post_type' => 'map',
@@ -166,10 +165,6 @@ function render_dcp_map_callback(array $attributes) {
             </button>
         </div>
         <div class="dcp-map-block__buttons">
-            <a class="dcp-map-block__add-risk" href="<?= get_permalink($risks_page) ?>">
-                <iconify-icon icon="bi:geo-alt-fill"></iconify-icon>
-                <span>Informar risco</span>
-            </a>
             <a class="dcp-map-block__open-map" href="<?= get_permalink($maps_page) ?>">
                 <span>Abrir</span>
                 <iconify-icon icon="bi:chevron-right"></iconify-icon>

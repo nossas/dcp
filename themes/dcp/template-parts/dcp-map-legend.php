@@ -136,16 +136,6 @@
                             </div>
                         </li>
                     </ul>
-                    <ul>
-                        <li class="dcp-map-dicas__item">
-                            <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/aqui-modal.svg" alt="icone de localização">
-
-                            <div class="dcp-map-dicas__text">
-                                <h5><?= __('Informar risco:', 'hacklabr') ?></h5>
-                                <span><?= __('Clique e envie um relato', 'hacklabr') ?></span>
-                            </div>
-                        </li>
-                    </ul>
                     </li>
                     <ul>
                         <li class="dcp-map-dicas__item">

@@ -6,8 +6,6 @@
  */
 
 namespace hacklabr;
-$risks_page = get_page_by_path('informar-riscos');
-
 $jeo_maps = get_posts([
     'post_type' => 'map',
     'posts_per_page' => 1,
@@ -55,10 +53,6 @@ get_header();
     </div>
     <div class="dcp-map__buttons-container">
         <div class="dcp-map__buttons">
-            <a class="dcp-map__add-risk" href="<?= get_permalink($risks_page) ?>">
-                <iconify-icon icon="bi:geo-alt-fill"></iconify-icon>
-                <span>Informar risco</span>
-            </a>
             <button type="button" class="dcp-map__show-recommendations" @click="$refs.recommendations.showModal()">
                 <span>O que fazer</span>
             </button>

@@ -20,10 +20,10 @@
     }
 
     &__buttons{
-        bottom: size(64) !important;
+        bottom: size(32) !important;
 
         @include mobile {
-            bottom: size(72) !important;
+            bottom: size(64) !important;
         }
     }
 
@@ -203,7 +203,9 @@
             padding: $padding--small 9px;
             text-decoration: none;
             cursor: pointer;
-              &:hover {
+            max-width: size(400);
+
+            &:hover {
                 opacity: 0.9;
                 transition: opacity 0.2s;
             }
