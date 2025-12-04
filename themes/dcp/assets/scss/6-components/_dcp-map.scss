@@ -259,6 +259,10 @@
             }
         }
 
+        .maplibregl-ctrl-bottom-left {
+            display: none !important;
+        }
+
         .maplibregl-ctrl-group {
             display: flex !important;
             flex-direction: column !important;
