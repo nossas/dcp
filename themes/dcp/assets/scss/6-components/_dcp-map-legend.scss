@@ -165,7 +165,6 @@
             padding: size(4) size(12);
 
             @include mobile {
-                //display: inline-block;
                 height: fit-content;
                 white-space: nowrap;
 
@@ -278,6 +277,22 @@
         position: fixed;
         top: size(360);
         width: 100vw;
+
+        article > section{
+            @include mobile{
+                position: relative;
+                top: size(-130);
+            }
+        }
+
+        article > section > .dcp-map-legend__list{
+            &--list-mobile{
+
+                .dcp-map-legend__item{
+                    margin-bottom: 0;
+                }
+            }
+        }
 
         &-close {
             background-color: transparent;
