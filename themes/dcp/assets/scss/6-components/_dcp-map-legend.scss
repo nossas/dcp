@@ -125,7 +125,7 @@
         top: size(125);
 
         &--apoio{
-            gap: $gap--small;
+            gap: $gap--x-small;
 
             .dcp-map-legend__item > span{
                 margin-left: inherit !important;
@@ -276,15 +276,15 @@
         }
 
         &--seguros {
-            background-color: #1D4635;
+            background-color: #235540;
         }
 
         &--cacambas {
-            background-color: #28582E;
+            background-color: #35763d;
         }
 
         &--iniciativas {
-            background-color: #285957;
+            background-color: #367674;
         }
     }
 
