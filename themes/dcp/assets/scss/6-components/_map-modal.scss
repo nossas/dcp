@@ -199,7 +199,15 @@
 .support-modal {
 
     &__pill {
-        background-color: $color--primary-pure;
+        background-color: #235540;
         color: white;
+    }
+
+    &--cacamba &__pill {
+        background-color: #35763D;
+    }
+
+    &--iniciativas-locais &__pill {
+        background-color: #367674;
     }
 }

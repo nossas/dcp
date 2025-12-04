@@ -216,7 +216,23 @@ function displayModal(container, feature) {
 
 function displayApoioModal(container, apoio) {
     const dialog = container.querySelector('.support-modal')
+    dialog.classList.toggle('support-modal--cacamba', apoio.type === 'cacamba')
+    dialog.classList.toggle('support-modal--iniciativas-locais', apoio.type === 'iniciativas-locais')
 
+    let typeLabel
+    switch (apoio.type) {
+        case 'cacamba':
+            typeLabel = 'Caçamba'
+            break
+        case 'iniciativas-locais':
+            typeLabel = 'Iniciativas locais'
+            break
+        default:
+            typeLabel = 'Serviços públicos'
+            break
+    }
+
+    dialog.querySelector('.dcp-map-modal__pill > span').textContent = typeLabel
     dialog.querySelector('.dcp-map-modal__title').innerHTML = apoio.title
     dialog.querySelector('.dcp-map-modal__excerpt').innerHTML = apoio.excerpt
     dialog.querySelector('.support-modal__hour').innerHTML = apoio.horario
