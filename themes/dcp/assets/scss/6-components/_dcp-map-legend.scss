@@ -148,10 +148,6 @@
         gap: $gap--small;
         min-height: size(30);
 
-        @include mobile {
-            min-height: size(36);
-        }
-
         button {
             background-color: transparent;
             display: flex;
@@ -176,8 +172,8 @@
             object-fit: contain;
 
             @include mobile {
-                width: size(36);
-                height: size(36);
+                width: size(30);
+                height: size(30);
             }
         }
 
@@ -377,7 +373,21 @@
 }
 
 .risco .dcp-map-legend__list--icons{
-    top: size(44) !important;
+    @include mobile{
+        top: size(140) !important;
+    }
+}
+
+.risco .dcp-map-legend__list--apoio{
+    @include mobile{
+        top: size(137) !important;
+    }
+}
+
+.dcp-map-legend__list--apoio{
+    @include mobile{
+        top: size(145);
+    }
 }
 
 .risco .dcp-map-legend__item--dicas-toggle{
@@ -401,7 +411,11 @@
 
 .risco .dcp-map-legend{
     &__list{
-        top: size(15);
+        top: size(80);
+
+        @include mobile{
+            top: size(112);
+        }
     }
 }
 
