@@ -122,6 +122,10 @@
             &__meta{
                 justify-content: flex-end;
 
+                .post-card__author{
+                    display: none;
+                }
+
                 &::before{
                     display: none !important;
                 }
