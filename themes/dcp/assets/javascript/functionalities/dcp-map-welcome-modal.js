@@ -4,7 +4,8 @@ document.addEventListener('alpine:init', () => {
         step: 1,
 
         init() {
-            if (!localStorage.getItem('welcomeModal')) {
+            const query = new URLSearchParams(location.href);
+            if (!localStorage.getItem('welcomeModal') && !query.has('open')) {
                 this.isOpen = true;
             }
         },
