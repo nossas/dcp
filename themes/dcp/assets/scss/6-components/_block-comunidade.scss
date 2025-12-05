@@ -111,7 +111,7 @@
             background-color: $color--high-light;
             border-radius: $border-radius--large;
             padding: 1.25rem 1.0rem 0;
-            padding-bottom: 0;
+            padding-bottom: size(20);
             max-width: size(443);
             width: 100%;
             display: flex;
@@ -119,12 +119,26 @@
             height: 100%;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.30);
 
+            &__meta{
+                justify-content: flex-end;
+
+                &::before{
+                    display: none !important;
+                }
+
+            }
+
             &__image {
                 display: none;
             }
 
             &__content {
                 height: 100%;
+            }
+
+            &__datetime{
+                color: rgb(96, 94, 93);
+                font-size: size(14);
             }
 
             &__top-meta {
