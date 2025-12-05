@@ -15,14 +15,25 @@
 
     .recommendations-content{
         padding-bottom: 2rem;
+
+        & > p{
+            font-weight: $font-weight--bold;
+        }
     }
+
     .phones-content{
         padding-bottom: 1rem;
+
+        & > p{
+            font-weight: $font-weight--bold;
+        }
     }
     .recommendations-content,
     .phones-content{
-        border-bottom: 1px solid #281414    ;
+        border-bottom: 1px solid #ddd;
+        margin-top: $margin--medium;
     }
+
     .phones-item{
         display: flex;
         justify-content: space-between;
@@ -46,6 +57,7 @@
         font-size: size(20);
     }
     footer{
+        padding-top: $padding--medium;
         justify-content: flex-start;
     }
 }

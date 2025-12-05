@@ -65,7 +65,7 @@
                     </div>
                     <div class="phones-item">
                         <div class="phone-text">
-                            <p class="phone-number">192</p>
+                            <p class="phone-number">199</p>
                             <p>Defesa Civil</p>
                         </div>
                         <a href="tel:199">
