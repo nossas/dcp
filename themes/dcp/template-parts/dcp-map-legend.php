@@ -242,7 +242,7 @@
                 <ul class="dcp-map-legend__list apoio-only">
                     <li class="dcp-map-legend__item">
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/locais-seguros.svg" alt="<?= __('Locais seguros', 'hacklabr') ?>">
-                        <span class="dcp-map-legend__item--seguros"><?= __('Locais seguros', 'hacklabr') ?></span>
+                        <span class="dcp-map-legend__item--seguros"><?= __('Serviços Públicos', 'hacklabr') ?></span>
                     </li>
                     <li class="dcp-map-legend__item">
                         <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/cacambas.svg" alt="<?= __('Caçambas', 'hacklabr') ?>">
