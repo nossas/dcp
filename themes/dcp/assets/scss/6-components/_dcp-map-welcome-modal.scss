@@ -61,6 +61,16 @@
         display: flex;
         gap: 12px;
         margin: 16px 0 30px 0;
+
+        .dcp-map-legend__list{
+            top: 0;
+
+            li > button > span{
+                display: inline-block;
+                white-space: nowrap ;
+                margin-left: size(40);
+            }
+        }
     }
 
     &__tag-container {
@@ -110,6 +120,17 @@
         display: flex;
         gap: 12px;
         align-items: flex-start;
+        flex-direction: column;
+
+        &-2{
+            flex-direction: row;
+        }
+
+        .dcp-map-welcolme-modal__item--container{
+            display: flex;
+            align-items: flex-start;
+            gap: $gap--small;
+        }
 
         &-title {
             font-family: $font-family--secondary;
