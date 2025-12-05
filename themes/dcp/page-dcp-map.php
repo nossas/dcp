@@ -33,10 +33,10 @@ get_header();
     <div class="dcp-map__tabs-container">
         <div class="dcp-map__tabs" data-selected="risco">
             <button type="button" class="dcp-map__tab<?= $tab === 'risco' ? ' dcp-map__tab--selected' : '' ?>" data-cpt="risco"  role="tab" aria-selected="<?= ($tab === 'risco') ? 'true' : 'false' ?>" @click="tab = 'risco'">
-                Riscos (<?= count($data['riscos']) ?>)
+                Riscos
             </button>
             <button type="button" class="dcp-map__tab<?= $tab === 'apoio' ? ' dcp-map__tab--selected' : '' ?>" data-cpt="apoio" role="tab" aria-selected="<?= ($tab === 'apoio') ? 'true' : 'false' ?>" @click="tab = 'apoio'">
-                Rede de Apoio (<?= count($data['apoios']) ?>)
+                Rede de Apoio
             </button>
         </div>
     </div>

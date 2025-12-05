@@ -158,10 +158,10 @@ function render_dcp_map_callback(array $attributes) {
         <script type="application/json"><?= json_encode($data) ?></script>
         <div class="dcp-map-block__tabs" data-selected="<?= $tab ?>">
             <button type="button" class="dcp-map-block__tab <?= ($tab === 'risco') ? 'dcp-map-block__tab--selected' : '' ?>" data-cpt="risco" role="tab" aria-selected="<?= ($tab === 'risco') ? 'true' : 'false' ?>" @click="tab = 'risco'">
-                Riscos (<?= count($data['riscos']) ?>)
+                Riscos
             </button>
             <button type="button" class="dcp-map-block__tab <?= ($tab === 'apoio') ? 'dcp-map-block__tab--selected' : '' ?>" data-cpt="apoio" role="tab" aria-selected="<?= ($tab === 'apoio') ? 'true' : 'false' ?>" @click="tab = 'apoio'">
-                Rede de Apoio (<?= count($data['apoios']) ?>)
+                Rede de Apoio
             </button>
         </div>
         <div class="dcp-map-block__buttons">
