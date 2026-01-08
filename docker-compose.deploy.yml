@@ -24,9 +24,35 @@ services:
       MYSQL_USER: ${MYSQL_USER:-wordpress}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-wordpress}
 
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command:
+      - "redis-server"
+      - "--maxmemory 256mb"
+      - "--maxmemory-policy allkeys-lru"
+      - "--save 900 1"
+      - "--save 300 10"
+      - "--save 60 10000"
+      - "--stop-writes-on-bgsave-error yes"
+      - "--rdbcompression yes"
+      - "--rdbchecksum yes"
+      - "--dbfilename dump.rdb"
+      - "--dir /data"
+      - "--appendonly no"  # Desativado para cache (melhor performance)
+      - "--protected-mode yes"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
 volumes:
   mariadb_data:
   wp-root:
+  redis_data:
 
 # Todos os serviços devem pertencer a mesma rede para serem descobertos pelo Traefik
 networks:
