@@ -29,13 +29,25 @@
         }
     }
 
+    &__alagamento {
+
+        & > button {
+            align-items: center;
+
+            & > img {
+                height: size(20);
+                min-width: size(35);
+            }
+        }
+    }
+
     &__alagamento-nivel5 {
         background-color: #E33131;
         border-radius: 0 0 size(8) size(8);
         height: size(26);
         width: size(35);
 
-        &:hover {
+        &:focus-within, &:hover {
             background-color: #CC2C2C;
         }
 
@@ -49,7 +61,7 @@
         height: size(26);
         width: size(35);
 
-        &:hover {
+        &:focus-within, &:hover {
             background-color: #DC7B1A;
         }
 
@@ -63,7 +75,7 @@
         height: size(26);
         width: size(35);
 
-        &:hover {
+        &:focus-within, &:hover {
             background-color: #E6D045;
         }
 
@@ -77,7 +89,7 @@
         height: size(26);
         width: size(35);
 
-        &:hover {
+        &:focus-within, &:hover {
             background-color: #A1C846;
         }
 
@@ -92,7 +104,7 @@
         height: size(26);
         width: size(35);
 
-        &:hover{
+        &:focus-within, &:hover{
            background-color:#6AAC4B;
         }
 
@@ -158,7 +170,9 @@
             display: flex;
             cursor: pointer;
             gap: $gap--small;
+            height: 100%;
             padding: 0;
+            width: 100%;
         }
 
         &--dicas-toggle {
@@ -194,16 +208,19 @@
                 height: fit-content;
                 white-space: nowrap;
 
-                &:hover{
+                &:focus-within, &:hover {
                     display: inline-block;
                 }
             }
         }
 
-        &:hover span {
-            display: inline-block;
-            white-space: nowrap;
-            margin-left: size(50);
+        &:focus-within, &:hover {
+
+            span {
+                display: inline-block;
+                margin-left: size(15);
+                white-space: nowrap;
+            }
         }
 
         &--alagamento {
