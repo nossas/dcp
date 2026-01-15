@@ -10,7 +10,7 @@ LimitRequestBody 102400000000
 RewriteEngine On
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 RewriteBase /
-RewriteRule ^index\.php$ - [L]
+RewriteRule ^wp-content\/uploads\/?(.*)$ "https\:\/\/defesaclimaticapopular.org/\/wp-content\/uploads\/$1" [R=302,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
