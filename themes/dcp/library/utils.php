@@ -496,3 +496,13 @@ add_action( 'template_redirect', function() {
     }
 });
 
+add_filter('wpcf7_form_html_output', function ($html) {
+
+    $html = preg_replace(
+        '/<fieldset class="hidden-fields-container">/i',
+        '<fieldset class="hidden-fields-container"><legend class="screen-reader-text">Campos ocultos do formulário</legend>',
+        $html
+    );
+
+    return $html;
+}, 10, 1);

@@ -1,7 +1,12 @@
 <?php get_header(); ?>
 
-<div class="post-content content content--wide">
+<main
+    id="main"
+    class="post-content content content--wide"
+    role="main"
+    tabindex="-1"
+>
     <?php the_content(); ?>
-</div>
+</main>
 
 <?php get_footer(); ?>

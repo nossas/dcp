@@ -417,7 +417,7 @@ $show_info_between = !$hide_date;
             <?php elseif ($post_type !== 'acao') : ?>
                 <div class="post-card__meta post-card__meta--default" style="text-align: end;">
                     <a href="<?php the_permalink(); ?>" class="saiba-mais-link" style="display: inline-flex; align-items: center; gap: 6px; color: #281414; text-decoration: none;">
-                        <span class="saiba-mais-text" style="text-decoration: underline;"><?php echo __("Saiba mais", "dcp"); ?></span>
+                    <span class="saiba-mais-text" style="text-decoration: underline;"><?php echo __("Ver publicação", "dcp"); ?></span>
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/seta_card.svg" alt="Seta" class="saiba-mais-icon" style="width: 12px; height: auto;" />
                     </a>
                 </div>
