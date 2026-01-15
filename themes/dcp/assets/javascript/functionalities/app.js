@@ -250,4 +250,13 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-document.querySelectorAll('.mapbox-improve-map[title]').forEach(el => el.removeAttribute('title'));
+window.addEventListener('load', () => {
+  document
+    .querySelectorAll(
+      '.mapboxgl-ctrl-attrib a[aria-label], .mapboxgl-ctrl-attrib a[title]'
+    )
+    .forEach(link => {
+      link.removeAttribute('aria-label');
+      link.removeAttribute('title');
+    });
+});
