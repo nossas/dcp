@@ -7,18 +7,35 @@
 ?>
 
 <aside class="dcp-map-legend" aria-label="<?= __('Legenda', 'hacklabr') ?>">
-    <ul class="dcp-map-legend__list dcp-map-legend--desktop dcp-map-legend__list--apoio apoio-only">
-        <li class="dcp-map-legend__item">
+    <!--
+    <ul class="dcp-map-legend__list dcp-map-legend--desktop dcp-map-legend__list--icons risco-only" aria-hidden="true">
+        <li class="dcp-map-legend__item" tabindex="0">
+            <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/legend-risco-alagamento.svg" alt="<?= __('Alagamento', 'hacklabr') ?>">
+            <span class="dcp-map-legend__item--alagamento"><?= __('Alagamento', 'hacklabr') ?></span>
+        </li>
+        <li class="dcp-map-legend__item" tabindex="0">
+            <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/legend-risco-lixo.svg" alt="<?= __('Lixo', 'hacklabr') ?>">
+            <span class="dcp-map-legend__item--lixo"><?= __('Lixo', 'hacklabr') ?></span>
+        </li>
+        <li class="dcp-map-legend__item" tabindex="0">
+            <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/legend-risco-outros.svg" alt="<?= __('Outros riscos', 'hacklabr') ?>">
+            <span class="dcp-map-legend__item--outros"><?= __('Outros riscos', 'hacklabr') ?></span>
+        </li>
+    </ul>
+    -->
+
+    <ul class="dcp-map-legend__list dcp-map-legend--desktop dcp-map-legend__list--apoio apoio-only" aria-hidden="true">
+        <li class="dcp-map-legend__item" tabindex="0">
             <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/locais-seguros.svg" alt="<?= __('Locais seguros', 'hacklabr') ?>">
             <span class="dcp-map-legend__item--seguros"><?= __('Serviços públicos', 'hacklabr') ?></span>
         </li>
 
-        <li class="dcp-map-legend__item">
+        <li class="dcp-map-legend__item" tabindex="0">
             <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/cacambas.svg" alt="<?= __('Caçambas', 'hacklabr') ?>">
             <span class="dcp-map-legend__item--cacambas"><?= __('Caçambas', 'hacklabr') ?></span>
         </li>
 
-        <li class="dcp-map-legend__item">
+        <li class="dcp-map-legend__item" tabindex="0">
             <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/iniciativas-locais.svg" alt="<?= __('Iniciativas locais', 'hacklabr') ?>">
             <span class="dcp-map-legend__item--iniciativas"><?= __('Iniciativas locais', 'hacklabr') ?></span>
         </li>
