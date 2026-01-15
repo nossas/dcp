@@ -506,3 +506,15 @@ add_filter('wpcf7_form_html_output', function ($html) {
 
     return $html;
 }, 10, 1);
+
+function override_jeo_templates($template) {
+    global $post;
+
+    if (is_singular('map')) {
+        return get_stylesheet_directory() . '/single-map.php';
+    }
+
+    return $template;
+}
+
+add_filter('single_template', 'override_jeo_templates', 20, 1);
