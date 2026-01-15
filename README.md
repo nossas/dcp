@@ -61,3 +61,33 @@ Revise os commits antes de aplicar para garantir que não revertam personalizaç
 
 ## Suporte e contato
 Em caso de dúvidas sobre infraestrutura ou integrações, abra uma issue no repositório ou contate a equipe Hacklab em `contato@hacklab.com.br`. Para novos recursos no mapa ou no dashboard, descreva o fluxo esperado, dependências externas e anexos relevantes ao abrir a issue ou pull request.
+
+
+## Contexto do Projeto e Objetivos
+
+### Defesa Climática Popular (DCP)
+
+A **Defesa Climática Popular** é uma iniciativa voltada ao fortalecimento das respostas comunitárias frente aos impactos da crise climática em territórios populares. O projeto parte do reconhecimento de que eventos como alagamentos, deslizamentos, ondas de calor e outros desastres climáticos afetam de forma desproporcional populações historicamente vulnerabilizadas, demandando soluções que integrem tecnologia, organização comunitária e produção de conhecimento local.
+
+O projeto piloto foi realizado no **Jacarezinho (RJ)** e envolveu a formação de lideranças climáticas, ações de aprendizado coletivo e mobilização comunitária, além do desenvolvimento de tecnologias comunitárias e mapeamentos participativos de risco. Ao ampliar as capacidades locais de prevenção, resposta e articulação, a iniciativa busca fortalecer a **organização coletiva**, a **autonomia territorial** e a **resiliência climática**.
+
+Este repositório mantém a base tecnológica do projeto, construída sobre WordPress, e sustenta mapas colaborativos, conteúdos informativos e ferramentas digitais que apoiam a tomada de decisão comunitária e a redução de danos em contextos de risco climático.
+
+### Componentes da Solução
+
+A solução digital da Defesa Climática Popular é composta pelos seguintes módulos:
+
+- **Recomendações**  
+  Módulo responsável por orientar a população sobre **o que fazer** em situações de risco climático, como alagamentos, deslizamentos e outros desastres ambientais, apoiando ações de prevenção, resposta imediata e redução de danos.
+
+- **Quem Chamar**  
+  Funcionalidade que auxilia na **identificação e no contato** com pessoas, serviços, órgãos públicos ou iniciativas comunitárias adequadas para cada tipo de situação de risco, facilitando o acionamento rápido de redes de apoio e resposta.
+
+- **Rede de Apoio**  
+  Módulo que orienta e apresenta **locais, serviços e iniciativas** onde é possível buscar abrigo, apoio ou assistência em momentos de emergência climática, fortalecendo a conexão entre a população e os recursos disponíveis no território.
+
+- **Mapa de Riscos e Apoios**  
+  Funcionalidade baseada no plugin **Jeo**, que exibe um mapa interativo com **legendas e camadas temáticas**, incluindo áreas de alagamento, pontos de lixo exposto, locais de risco e redes de apoio comunitárias. É uma ferramenta central para visualização territorial e planejamento de ações preventivas.
+
+- **Conteúdos sobre Riscos Climáticos**  
+  Conjunto de conteúdos informativos e educativos sobre temas como lixo, alagamentos e outros riscos ambientais, com foco em conscientização, prevenção e fortalecimento do conhecimento comunitário sobre a crise climática e seus impactos locais.
