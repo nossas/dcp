@@ -260,3 +260,26 @@ window.addEventListener('load', () => {
       link.removeAttribute('title');
     });
 });
+
+(function () {
+  const limparAtributosMapbox = () => {
+    document
+      .querySelectorAll('.mapbox-improve-map')
+      .forEach(link => {
+        link.removeAttribute('title');
+        link.removeAttribute('aria-label');
+      });
+  };
+
+  limparAtributosMapbox();
+
+  const observer = new MutationObserver(() => {
+    limparAtributosMapbox();
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+})();
+
