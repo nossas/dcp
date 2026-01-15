@@ -15,13 +15,13 @@
             <p class="dcp-map-modal__excerpt"></p>
             <?php get_template_part('template-parts/splide') ?>
         </section>
-        <footer>
+        <div class="dcp-map-modal__footer>
             <a class="dcp-map-modal__whatsapp" href="#" data-href="https://api.whatsapp.com/send?text=$">
                 <iconify-icon icon="formkit:whatsapp"></iconify-icon>
                 <span class="dcp-map-modal__whatsapp-desktop">Compartilhar no WhatsApp</span>
                 <span class="dcp-map-modal__whatsapp-mobile">Compartilhar</span>
             </a>
-        </footer>
+        </div>
     </article>
 </dialog>
 
@@ -44,12 +44,12 @@
             </div>
             <?php get_template_part('template-parts/splide') ?>
         </section>
-        <footer>
+        <div class="dcp-map-modal__footer">
             <a class="dcp-map-modal__whatsapp" href="#" data-href="https://api.whatsapp.com/send?text=$">
                 <iconify-icon icon="formkit:whatsapp"></iconify-icon>
                 <span class="dcp-map-modal__whatsapp-desktop">Compartilhar no WhatsApp</span>
                 <span class="dcp-map-modal__whatsapp-mobile">Compartilhar</span>
             </a>
-        </footer>
+        </div>
     </article>
 </dialog>
