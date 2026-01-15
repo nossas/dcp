@@ -108,14 +108,16 @@ function createRiscoFeature(risco) {
     })
 }
 
-function toggleMapboxLayer(map, layer, visible) {
+export function toggleMapboxLayer(map, layer, visible) {
     map.setLayoutProperty(layer, 'visibility', visible ? 'visible' : 'none')
 }
 
 export function toggleMapboxLayers(map, selectedLayers) {
     for (let level = 1; level <= 5; level++) {
-        const slug = `areas alagadas nivel ${level}`
-        toggleMapboxLayer(map, slug, selectedLayers.alagamento[level])
+        const baseSlug = `areas alagadas nivel ${level}`
+        const highlightSlug = `areas alagadas nivel ${level} contorno`
+        toggleMapboxLayer(map, baseSlug, selectedLayers.alagamento[level])
+        toggleMapboxLayer(map, highlightSlug, false)
     }
 }
 
