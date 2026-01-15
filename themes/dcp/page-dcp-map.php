@@ -31,7 +31,7 @@ get_header();
 <div class="dcp-map" :class="`dcp-map--${tab}`" data-share-url="<?= get_permalink() ?>" x-data="{ tab: '<?= $tab ?>' }">
     <script type="application/json"><?= json_encode($data) ?></script>
     <div class="dcp-map__tabs-container">
-        <div class="dcp-map__tabs" data-selected="risco">
+        <div class="dcp-map__tabs" role="tablist" data-selected="risco">
             <button type="button" class="dcp-map__tab<?= $tab === 'risco' ? ' dcp-map__tab--selected' : '' ?>" data-cpt="risco"  role="tab" aria-selected="<?= ($tab === 'risco') ? 'true' : 'false' ?>" @click="tab = 'risco'">
                 Riscos
             </button>

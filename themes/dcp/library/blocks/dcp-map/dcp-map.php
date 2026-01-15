@@ -156,7 +156,7 @@ function render_dcp_map_callback(array $attributes) {
 ?>
     <div class="dcp-map-block" :class="`dcp-map--${tab}`" data-share-url="<?= get_permalink($maps_page) ?>" x-data="{ tab: '<?= $tab ?>' }">
         <script type="application/json"><?= json_encode($data) ?></script>
-        <div class="dcp-map-block__tabs" data-selected="<?= $tab ?>">
+        <div class="dcp-map-block__tabs" role="tablist" data-selected="<?= $tab ?>">
             <button type="button" class="dcp-map-block__tab <?= ($tab === 'risco') ? 'dcp-map-block__tab--selected' : '' ?>" data-cpt="risco" role="tab" aria-selected="<?= ($tab === 'risco') ? 'true' : 'false' ?>" @click="tab = 'risco'">
                 Riscos
             </button>
