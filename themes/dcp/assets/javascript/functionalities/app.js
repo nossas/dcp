@@ -249,3 +249,5 @@ document.addEventListener("DOMContentLoaded", function () {
     if (isMobile()) ajustarEstiloBotaoUserWay();
   });
 });
+
+document.querySelectorAll('.mapbox-improve-map[title]').forEach(el => el.removeAttribute('title'));
