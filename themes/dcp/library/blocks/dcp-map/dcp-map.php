@@ -182,6 +182,13 @@ function render_dcp_map_callback(array $attributes) {
 function localize_dcp_map_script() {
     wp_localize_script( 'hacklabr-dcp-map-script', 'hl_dcp_map_data', [
         'initialBbox' => get_default_boundaries(),
+        'levelLabels' => [
+            '1' => __('Muito baixo', 'hacklabr'),
+            '2' => __('Baixo', 'hacklabr'),
+            '3' => __('Médio', 'hacklabr'),
+            '4' => __('Alto', 'hacklabr'),
+            '5' => __('Muito alto', 'hacklabr'),
+        ],
         'themeAssets' => get_stylesheet_directory_uri(),
     ]);
 }

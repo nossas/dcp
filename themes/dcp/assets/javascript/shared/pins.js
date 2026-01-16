@@ -108,8 +108,27 @@ function createRiscoFeature(risco) {
     })
 }
 
-export function toggleMapboxLayer(map, layer, visible) {
+export function queryHoveredHighlightLayer (map, event) {
+    const features = map.queryRenderedFeatures(event.point, {
+        layers: ['areas alagadas nivel 1', 'areas alagadas nivel 2', 'areas alagadas nivel 3', 'areas alagadas nivel 4', 'areas alagadas nivel 5'],
+    })
+    const layerSlugs = features.map((feature) => feature.layer.id).sort((a, b) => b.localeCompare(a))
+    if (layerSlugs.length > 0) {
+        return Number(layerSlugs[0].slice(-1))
+    } else {
+        return false
+    }
+}
+
+function toggleMapboxLayer(map, layer, visible) {
     map.setLayoutProperty(layer, 'visibility', visible ? 'visible' : 'none')
+}
+
+export function toggleMapboxHighlightLayers (map, selectedLevel) {
+    for (let level = 1; level <= 5; level ++) {
+        const highlightSlug = `areas alagadas nivel ${level} contorno`
+        toggleMapboxLayer(map, highlightSlug, selectedLevel === level)
+    }
 }
 
 export function toggleMapboxLayers(map, selectedLayers) {

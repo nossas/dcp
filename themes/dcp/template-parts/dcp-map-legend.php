@@ -96,6 +96,11 @@
     </ul>
 </aside>
 
+<div class="dcp-map-selected-layer" data-level="" aria-live="polite" style="display: none">
+    <img src="" alt="">
+    <span></span>
+</div>
+
 <dialog class="dcp-map-dicas__modal" x-ref="dicasModal">
     <article>
         <header>
