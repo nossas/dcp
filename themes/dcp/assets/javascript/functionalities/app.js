@@ -290,5 +290,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const legend = document.createElement('legend');
         legend.textContent = 'hidden';
         legend.className = 'sr-only';
+
+        fieldset.prepend(legend);
     });
 })
