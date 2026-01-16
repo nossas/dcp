@@ -416,7 +416,7 @@
             justify-content: space-between;
             margin-bottom: $margin--medium;
 
-            & > h5{
+            & > h2{
                 align-items: center;
                 display: flex;
                 gap: $gap--small;
@@ -552,7 +552,7 @@
 
     &__text{
         display: flex;
-        align-items: center;
+        align-items: baseline;
         gap: $gap--small/2;
 
         @include mobile{
@@ -605,13 +605,14 @@
             }
         }
 
-        &--second > .dcp-map-dicas__item > .dcp-map-dicas__text{
-            & > h5{
+        &--second .dcp-map-dicas__item .dcp-map-dicas__text{
+            & > h2{
                 color: $color--secondary-dark;
                 font-family: $font-family--primary;
                 font-size: size(16);
                 font-weight: $font-weight--medium;
                 line-height: 1.2;
+                margin-top: 0 !important;
             }
 
             & > span {
@@ -628,14 +629,15 @@
             }
         }
 
-        &--first > .dcp-map-dicas__item > .dcp-map-dicas__text{
+        &--first .dcp-map-dicas__item .dcp-map-dicas__text{
 
-            & > h5{
+            & > h2{
                 color: $color--secondary-dark;
                 font-family: $font-family--primary;
                 font-size: size(16);
                 font-weight: $font-weight--medium;
                 line-height: 1.2;
+                margin-top: 0 !important;
             }
 
             & > span {
@@ -658,12 +660,13 @@
             width: 100%;
         }
 
-        & > h5 {
+        & > h2 {
             color: $color--secondary-dark;
             font-family: $font-family--primary;
             font-size: size(20);
             font-weight: var(--Spacing-space-100, 8);
             line-height: 1.2;
+            margin-top: 0 !important;
         }
     }
 }

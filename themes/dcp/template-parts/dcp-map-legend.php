@@ -106,7 +106,7 @@
         <header>
             <div class="dcp-map-dicas__title">
                 <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/icon-tip.svg" alt="icone de dica">
-                <h5><?= __('Dicas para usar o mapa', 'hacklabr') ?></h5>
+                <h2><?= __('Dicas para usar o mapa', 'hacklabr') ?></h2>
             </div>
 
             <button type="button" class="dcp-map-dicas__modal-close" aria-label="<?= __('Fechar dicas', 'hacklabr') ?>" @click="$refs.dicasModal.close()">
@@ -121,7 +121,7 @@
                             <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/lupa-mapa.svg" alt="ícone de lupa">
 
                             <div class="dcp-map-dicas__text">
-                                <h5><?= __('Buscar localização:', 'hacklabr') ?></h5>
+                                <h2><?= __('Buscar localização:', 'hacklabr') ?></h2>
                                 <span><?= __('Digite o endereço para localizar', 'hacklabr') ?></span>
                             </div>
                         </li>
@@ -132,7 +132,7 @@
                             <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/defender.svg" alt="icone de alerta">
 
                             <div class="dcp-map-dicas__text">
-                                <h5><?= __('O que fazer:', 'hacklabr') ?></h5>
+                                <h2><?= __('O que fazer:', 'hacklabr') ?></h2>
                                 <span><?= __('Veja dicas e contatos úteis', 'hacklabr') ?></span>
                             </div>
                         </li>
@@ -145,7 +145,7 @@
                             <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/maismenos.svg" alt="mais e menos">
 
                             <div class="dcp-map-dicas__text">
-                                <h5><?= __('Zoom:', 'hacklabr') ?></h5>
+                                <h2><?= __('Zoom:', 'hacklabr') ?></h2>
                                 <span><?= __('Aproximar ou afastar o mapa', 'hacklabr') ?></span>
                             </div>
                         </li>
@@ -153,7 +153,7 @@
                             <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/alvo.svg" alt="alvo">
 
                             <div class="dcp-map-dicas__text">
-                                <h5><?= __('Buscar Localização:', 'hacklabr') ?></h5>
+                                <h2><?= __('Buscar Localização:', 'hacklabr') ?></h2>
                                 <span><?= __('Vá direto para a sua localização atual.', 'hacklabr') ?></span>
                             </div>
                         </li>
@@ -161,7 +161,7 @@
                         <li class="dcp-map-dicas__item">
                             <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/dicas2.svg" alt="dicas">
                             <div class="dcp-map-dicas__text">
-                                <h5><?= __('Ajuda sobre o mapa:', 'hacklabr') ?></h5>
+                                <h2><?= __('Ajuda sobre o mapa:', 'hacklabr') ?></h2>
                                 <span><?= __('Volte a este card quando quiser!', 'hacklabr') ?></span>
                             </div>
                         </li>
@@ -179,7 +179,7 @@
                 <button type="button" class="dcp-map-legend__modal-close" aria-label="<?= __('Fechar legenda', 'hacklabr') ?>" @click="$refs.legendModal.close()">
                     <img src="<?= get_stylesheet_directory_uri() ?>/assets/images/close-modal.svg" alt="fechar modal">
                 </button>
-                <h5><img src="<?= get_stylesheet_directory_uri() ?>/assets/images/legenda.svg" alt="legenda"><?= __('Legenda', 'hacklabr') ?></h5>
+                <h2><img src="<?= get_stylesheet_directory_uri() ?>/assets/images/legenda.svg" alt="legenda"><?= __('Legenda', 'hacklabr') ?></h2>
             </header>
 
 
