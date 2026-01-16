@@ -286,5 +286,9 @@ window.addEventListener('load', () => {
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('fieldset.hidden-fields-container').forEach(fieldset => {
         fieldset.ariaHidden = 'true';
+
+        const legend = document.createElement('legend');
+        legend.textContent = 'hidden';
+        legend.className = 'sr-only';
     });
 })
