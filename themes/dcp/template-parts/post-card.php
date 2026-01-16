@@ -138,7 +138,7 @@ $show_info_between = !$hide_date;
             ?>
         </div>
 
-        <h3 class="post-card__title">
+        <h2 class="post-card__title">
             <a href="<?php the_permalink(); ?>">
                 <?php
 
@@ -150,7 +150,7 @@ $show_info_between = !$hide_date;
                 }
                 ?>
             </a>
-        </h3>
+        </h2>
 
         <?php if (!$hide_excerpt): ?>
             <div class="post-card__excerpt-wrapped">

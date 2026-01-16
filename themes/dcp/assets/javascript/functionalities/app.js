@@ -283,3 +283,8 @@ window.addEventListener('load', () => {
   });
 })();
 
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('fieldset.hidden-fields-container').forEach(fieldset => {
+        fieldset.ariaHidden = 'true';
+    });
+})
