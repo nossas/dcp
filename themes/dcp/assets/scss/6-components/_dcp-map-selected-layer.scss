@@ -1,0 +1,32 @@
+.dcp-map-selected-layer {
+    align-items: center;
+    border-radius: $border-radius--medium;
+    box-shadow: 0 4px 12px rgba(128, 128, 128, 0.25);
+    display: flex;
+    gap: $gap--small;
+    left: 25%;
+    padding: $padding--small $padding--medium;
+    position: absolute;
+    top: 25%;
+    transform: translate(-50%, -50%);
+
+    &[data-level="1"] {
+        background-color: #76BF53;
+    }
+
+    &[data-level="2"] {
+        background-color: #B3DE4E;
+    }
+
+    &[data-level="3"] {
+        background-color: #FFE74D;
+    }
+
+    &[data-level="4"] {
+        background-color: #F5891D;
+    }
+
+    &[data-level="5"] {
+        background-color: #E33131;
+    }
+}

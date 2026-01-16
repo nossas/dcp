@@ -378,6 +378,13 @@ class Assets
                 'localize_callback' => function () {
                     return [
                         'initialBbox' => get_default_boundaries(),
+                        'levelLabels' => [
+                            '1' => __('Muito baixo', 'hacklabr'),
+                            '2' => __('Baixo', 'hacklabr'),
+                            '3' => __('Médio', 'hacklabr'),
+                            '4' => __('Alto', 'hacklabr'),
+                            '5' => __('Muito alto', 'hacklabr'),
+                        ],
                         'restUrl' => rest_url('hacklabr/v2/geocoding'),
                         'themeAssets' => get_stylesheet_directory_uri(),
                     ];

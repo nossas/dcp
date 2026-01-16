@@ -1,15 +1,33 @@
-import { toggleMapboxLayer, toggleMapboxLayers } from './pins'
+import { queryHoveredHighlightLayer, toggleMapboxHighlightLayers, toggleMapboxLayers } from './pins'
 
-function hideHighlightLayers (map, level) {
-    toggleMapboxLayer(map, `areas alagadas nivel ${level} contorno`, false)
-}
+function updateLevelAnnouncer (level) {
+    const { levelLabels, themeAssets } = globalThis.hl_dcp_map_data
 
-function showHighlithLayers (map, level) {
-    toggleMapboxLayer(map, `areas alagadas nivel ${level} contorno`, true)
+    const announcer = document.querySelector('.dcp-map-selected-layer')
+    if (announcer) {
+        if (level) {
+            const img = announcer.querySelector('img')
+            const span = announcer.querySelector('span')
+
+            announcer.dataset.level = level
+            img.src = `${themeAssets}/assets/images/alagamento-nivel-${level}.svg`
+            img.alt = levelLabels[level]
+            span.innerText = levelLabels[level]
+            announcer.style.display = ''
+        } else {
+            announcer.style.display = 'none'
+        }
+    }
 }
 
 export function setupLegends(jeoMap, selectedLayers) {
     const map = jeoMap.map
+
+    map.on('mousemove', (event) => {
+        const selectedLevel = queryHoveredHighlightLayer(map, event)
+        toggleMapboxHighlightLayers(map, selectedLevel)
+        updateLevelAnnouncer(selectedLevel)
+    })
 
     for (let level = 1; level <= 5; level++) {
         const levelToggle = document.querySelector(`.dcp-map-legend__alagamento-nivel${level}`)
@@ -21,13 +39,13 @@ export function setupLegends(jeoMap, selectedLayers) {
                 toggleMapboxLayers(map, selectedLayers)
             })
 
-            levelToggle.addEventListener('mouseover', () => showHighlithLayers(map, level))
-            levelToggle.addEventListener('mouseout', () => hideHighlightLayers(map, level))
+            levelToggle.addEventListener('mouseover', () => toggleMapboxHighlightLayers(map, level))
+            levelToggle.addEventListener('mouseout', () => toggleMapboxHighlightLayers(map, false))
 
             const levelToggleButton = levelToggle.querySelector('button')
             if (levelToggleButton) {
-                levelToggleButton.addEventListener('focus', () => showHighlithLayers(map, level))
-                levelToggleButton.addEventListener('blur', () => hideHighlightLayers(map, level))
+                levelToggleButton.addEventListener('focus', () => toggleMapboxHighlightLayers(map, level))
+                levelToggleButton.addEventListener('blur', () => toggleMapboxHighlightLayers(map, false))
             }
         }
     }
