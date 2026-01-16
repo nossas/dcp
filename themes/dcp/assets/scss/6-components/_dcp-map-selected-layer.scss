@@ -4,11 +4,12 @@
     box-shadow: 0 4px 12px rgba(128, 128, 128, 0.25);
     display: flex;
     gap: $gap--small;
-    left: 25%;
     padding: $padding--small $padding--medium;
     position: absolute;
-    top: 25%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -100%);
+    user-select: none;
+    white-space: nowrap;
+    word-break: keep-all;
 
     &[data-level="1"] {
         background-color: #76BF53;
@@ -28,5 +29,9 @@
 
     &[data-level="5"] {
         background-color: #E33131;
+    }
+
+    .dcp-map-block & {
+        transform: translate(-50%, 0);
     }
 }
