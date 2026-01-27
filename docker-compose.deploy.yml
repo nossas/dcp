@@ -40,7 +40,7 @@ services:
       - "--dbfilename dump.rdb"
       - "--dir /data"
       - "--appendonly no"  # Desativado para cache (melhor performance)
-      - "--protected-mode yes"
+      - "--protected-mode no"
     volumes:
       - redis_data:/data
     healthcheck:
