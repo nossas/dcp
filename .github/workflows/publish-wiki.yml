@@ -1,0 +1,30 @@
+name: Publish wiki
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - wiki/**
+      - .github/workflows/publish-wiki.yml
+
+concurrency:
+  group: publish-wiki
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  publish-wiki:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: Andrew-Chen-Wang/github-wiki-action@v4
+        with:
+          # Espelha a pasta wiki/ para a aba Wiki do repositório
+          path: wiki/
+          # Converte links .md para o formato wiki e move README.md para Home.md
+          preprocess: true
+          # Mensagem de commit opcional
+          commit-message: "docs(wiki): sync wiki from ${{ github.ref_name }}"
