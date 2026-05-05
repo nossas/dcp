@@ -48,6 +48,33 @@ O plugin `dcp-plugin` entrega endpoints públicos para uso em apps e integraçõ
 - `GET /wp-json/dcp/v1/situacao-atual-home`: conteúdo dinâmico da home.
 Outros endpoints tratam de tarefas de ETL, dashboards e sincronização com Pods. Consulte o arquivo `plugins/dcp-plugin/dcp-plugin.php` para detalhes de parâmetros e cargas.
 
+#### Webhook `situacao-atual` (n8n)
+O workflow n8n (`n8n/NOSSAS_DCP___SITUACAO_ATUAL.json`) é executado a cada hora para coletar dados meteorológicos e de estágio de risco e enviá-los ao WordPress.
+
+**Fontes de dados:**
+- **Clima:** API HG Brasil (`https://api.hgbrasil.com/weather`), consultando as coordenadas do Rio de Janeiro (`-22.8873378, -43.2559982`). Retorna `temp`, `date`, `time`, `condition_code`, `description`, `currently`, `rain`, `condition_slug`.
+- **Estágio:** API da COCR (`https://aplicativo.cocr.com.br/estagio_api`), que retorna o estágio operacional de risco.
+
+**Payload enviado ao WordPress (`multipart/form-data`):**
+| Campo | Descrição |
+|-------|-----------|
+| `temp` | Temperatura atual (°C) |
+| `condition_code` | Código numérico da condição climática |
+| `description` | Descrição textual do clima |
+| `is_rain` | Indicador booleano de chuva |
+| `estagio` | Estágio operacional de risco da COCR |
+| `date` | Data da leitura |
+| `time` | Hora da leitura |
+| `currently` | Período do dia (`dia` / `noite`) |
+| `condition_slug` | Slug da condição climática |
+
+**Destinos configurados no workflow:**
+1. `https://<staging-url>/wp-json/dcp/v1/webhook/situacao-atual/` — ambiente staging
+2. `https://defesaclimaticapopular.org/wp-json/dcp/v1/webhook/situacao-atual/` — ambiente de produção
+3. `https://<ngrok-local>/wp-json/dcp/v1/webhook/situacao-atual/` — ambiente local (desabilitado)
+
+A autenticação nos ambientes staging e produção utiliza credenciais do tipo `wordpressApi` (WP DCP PROD); o nó local usa `WP_DCP_LOCAL`.
+
 ## Deploy
 O arquivo `docker-compose.deploy.yml` referencia a imagem `nossas/dcp-wp` e espera os serviços na rede externa `web` (compatível com Traefik). Ajuste as variáveis `WORDPRESS_DB_*`, `GOOGLE_MAPS_API_KEY` e a tag da imagem conforme o ambiente.
 
