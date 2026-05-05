@@ -40,6 +40,25 @@ Importe um dump para `compose/local/mariadb/data/` e reinicie os containers (`do
 - `template-parts/`: componentes PHP utilizados nas páginas públicas e no dashboard.
 - `assets/js`, `assets/scss`: código fonte compilado pelo Laravel Mix definido em `webpack.mix.js`.
 
+### Dashboard
+O dashboard é uma área administrativa frontend customizada (`/dashboard/*`), renderizada pelo template `page-dashboard.php`. Ela não utiliza o wp-admin padrão e é voltada para agentes comunitários gerenciarem conteúdo do projeto.
+
+**Autenticação:**
+- Role customizada `agente-dcp` (criada em `library/dashboard.php`) com permissões de CRUD sobre riscos.
+- Acesso restrito a usuários com `edit_riscos`; não-autenticados são redirecionados para login.
+- ⚠️ **Conflito conhecido:** `library/frontend_auth.php` restringe o dashboard a administradores, o que pode impedir que agentes comunitários acessem via formulário frontend.
+
+**Principais rotas:**
+- `/dashboard/inicio` — Visão geral com situação atual, novos relatos e riscos pendentes.
+- `/dashboard/riscos` — Gestão de riscos (aprovação, publicação, arquivamento) com galeria de mídias.
+- `/dashboard/acoes` — Gestão de ações comunitárias (sugestões, agendadas, realizadas).
+- `/dashboard/apoio` — Pontos de apoio (locais seguros, caçambas, iniciativas, quem acionar).
+- `/dashboard/situacao_atual` — Alerta climático ativo e recomendações de segurança.
+- `/dashboard/indicadores` — Estatísticas e gráficos (Chart.js) sobre riscos e ações.
+
+**Operações CRUD:**
+Todas as operações de criação, edição e exclusão são feitas via AJAX centralizado em `library/dashboard-ajax.php`. Riscos e ações podem ser criados por usuários anônimos no frontend do site.
+
 ### API e integrações
 O plugin `dcp-plugin` entrega endpoints públicos para uso em apps e integrações:
 - `GET /wp-json/dcp/v1/riscos`: lista riscos com paginação, anexos e metadados.
@@ -47,6 +66,33 @@ O plugin `dcp-plugin` entrega endpoints públicos para uso em apps e integraçõ
 - `POST /wp-json/dcp/v1/webhook/situacao-atual`: webhook para atualizar temperatura, estágio e clima.
 - `GET /wp-json/dcp/v1/situacao-atual-home`: conteúdo dinâmico da home.
 Outros endpoints tratam de tarefas de ETL, dashboards e sincronização com Pods. Consulte o arquivo `plugins/dcp-plugin/dcp-plugin.php` para detalhes de parâmetros e cargas.
+
+#### Webhook `situacao-atual` (n8n)
+O workflow n8n (`n8n/NOSSAS_DCP___SITUACAO_ATUAL.json`) é executado a cada hora para coletar dados meteorológicos e de estágio de risco e enviá-los ao WordPress.
+
+**Fontes de dados:**
+- **Clima:** API HG Brasil (`https://api.hgbrasil.com/weather`), consultando as coordenadas do Rio de Janeiro (`-22.8873378, -43.2559982`). Retorna `temp`, `date`, `time`, `condition_code`, `description`, `currently`, `rain`, `condition_slug`.
+- **Estágio:** API da COCR (`https://aplicativo.cocr.com.br/estagio_api`), que retorna o estágio operacional de risco.
+
+**Payload enviado ao WordPress (`multipart/form-data`):**
+| Campo | Descrição |
+|-------|-----------|
+| `temp` | Temperatura atual (°C) |
+| `condition_code` | Código numérico da condição climática |
+| `description` | Descrição textual do clima |
+| `is_rain` | Indicador booleano de chuva |
+| `estagio` | Estágio operacional de risco da COCR |
+| `date` | Data da leitura |
+| `time` | Hora da leitura |
+| `currently` | Período do dia (`dia` / `noite`) |
+| `condition_slug` | Slug da condição climática |
+
+**Destinos configurados no workflow:**
+1. `https://<staging-url>/wp-json/dcp/v1/webhook/situacao-atual/` — ambiente staging
+2. `https://defesaclimaticapopular.org/wp-json/dcp/v1/webhook/situacao-atual/` — ambiente de produção
+3. `https://<ngrok-local>/wp-json/dcp/v1/webhook/situacao-atual/` — ambiente local (desabilitado)
+
+A autenticação nos ambientes staging e produção utiliza credenciais do tipo `wordpressApi` (WP DCP PROD); o nó local usa `WP_DCP_LOCAL`.
 
 ## Deploy
 O arquivo `docker-compose.deploy.yml` referencia a imagem `nossas/dcp-wp` e espera os serviços na rede externa `web` (compatível com Traefik). Ajuste as variáveis `WORDPRESS_DB_*`, `GOOGLE_MAPS_API_KEY` e a tag da imagem conforme o ambiente.
