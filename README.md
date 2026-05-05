@@ -40,6 +40,25 @@ Importe um dump para `compose/local/mariadb/data/` e reinicie os containers (`do
 - `template-parts/`: componentes PHP utilizados nas páginas públicas e no dashboard.
 - `assets/js`, `assets/scss`: código fonte compilado pelo Laravel Mix definido em `webpack.mix.js`.
 
+### Dashboard
+O dashboard é uma área administrativa frontend customizada (`/dashboard/*`), renderizada pelo template `page-dashboard.php`. Ela não utiliza o wp-admin padrão e é voltada para agentes comunitários gerenciarem conteúdo do projeto.
+
+**Autenticação:**
+- Role customizada `agente-dcp` (criada em `library/dashboard.php`) com permissões de CRUD sobre riscos.
+- Acesso restrito a usuários com `edit_riscos`; não-autenticados são redirecionados para login.
+- ⚠️ **Conflito conhecido:** `library/frontend_auth.php` restringe o dashboard a administradores, o que pode impedir que agentes comunitários acessem via formulário frontend.
+
+**Principais rotas:**
+- `/dashboard/inicio` — Visão geral com situação atual, novos relatos e riscos pendentes.
+- `/dashboard/riscos` — Gestão de riscos (aprovação, publicação, arquivamento) com galeria de mídias.
+- `/dashboard/acoes` — Gestão de ações comunitárias (sugestões, agendadas, realizadas).
+- `/dashboard/apoio` — Pontos de apoio (locais seguros, caçambas, iniciativas, quem acionar).
+- `/dashboard/situacao_atual` — Alerta climático ativo e recomendações de segurança.
+- `/dashboard/indicadores` — Estatísticas e gráficos (Chart.js) sobre riscos e ações.
+
+**Operações CRUD:**
+Todas as operações de criação, edição e exclusão são feitas via AJAX centralizado em `library/dashboard-ajax.php`. Riscos e ações podem ser criados por usuários anônimos no frontend do site.
+
 ### API e integrações
 O plugin `dcp-plugin` entrega endpoints públicos para uso em apps e integrações:
 - `GET /wp-json/dcp/v1/riscos`: lista riscos com paginação, anexos e metadados.
