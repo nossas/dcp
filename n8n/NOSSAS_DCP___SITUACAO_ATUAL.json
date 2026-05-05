@@ -1,0 +1,459 @@
+{
+  "name": "NOSSAS DCP - SITUACAO ATUAL",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "=https://aplicativo.cocr.com.br/estagio_api?_={{ $now.format( 'x' ) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2080,
+        1260
+      ],
+      "id": "3305b906-f256-43d0-b51d-7a706bd9f022",
+      "name": "HTTP GET ESTAGIO"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://nossasdcp.hacklab.com.br/wp-json/dcp/v1/webhook/situacao-atual/",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "temp",
+              "value": "={{ $json.clima.temp }}"
+            },
+            {
+              "name": "condition_code",
+              "value": "={{ $json.clima.condition_code }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.clima.description }}"
+            },
+            {
+              "name": "=is_rain",
+              "value": "={{ $json.clima.rain }}"
+            },
+            {
+              "name": "estagio",
+              "value": "={{ $json.estagio.estagio }}"
+            },
+            {
+              "name": "date",
+              "value": "={{ $json.clima.date }}"
+            },
+            {
+              "name": "time",
+              "value": "={{ $json.clima.time }}"
+            },
+            {
+              "name": "currently",
+              "value": "={{ $json.clima.currently }}"
+            },
+            {
+              "name": "condition_slug",
+              "value": "={{ $json.clima.condition_slug }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1080,
+        1160
+      ],
+      "id": "782b280a-8930-4ac6-8908-604dd81cac41",
+      "name": "SAVE DCP SITUACAO ATUAL ESTAGIO STAGING1",
+      "executeOnce": true,
+      "credentials": {
+        "wordpressApi": {
+          "id": "dzKs6w6ceaJ8jL9u",
+          "name": "WP DCP PROD"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2560,
+        1040
+      ],
+      "id": "56a07ed7-65fc-4301-8cb6-5ca29d86e258",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://api.hgbrasil.com/weather",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "9aef5a6d"
+            },
+            {
+              "name": "lat",
+              "value": "-22.8873378"
+            },
+            {
+              "name": "lon",
+              "value": "-43.2559982"
+            },
+            {
+              "name": "fields",
+              "value": "only_results,temp,date,time,condition_code,description,currently,rain,condition_slug"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2080,
+        1040
+      ],
+      "id": "67d0f38b-db40-4360-8b53-fb5dc7c76116",
+      "name": "HG_GET_RJ_LAT_LON"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f91a9672-686a-4ddb-bcc6-e20c6cede44e",
+              "name": "clima",
+              "value": "={{ $json }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1860,
+        1040
+      ],
+      "id": "f98acd5d-a35f-41bc-900e-808f6dff7e61",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "eecfe3ba-66ef-414d-9eb7-4a079134018b",
+              "name": "estagio",
+              "value": "={{ $json }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1860,
+        1260
+      ],
+      "id": "316bec2f-2a18-4dac-a7eb-b4b7e25833a1",
+      "name": "Edit Fields5"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -1440,
+        1160
+      ],
+      "id": "926a1c15-46a9-473b-9bbd-2aff148463cb",
+      "name": "Merge",
+      "executeOnce": true,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://defesaclimaticapopular.org/wp-json/dcp/v1/webhook/situacao-atual/",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "temp",
+              "value": "={{ $json.clima.temp }}"
+            },
+            {
+              "name": "condition_code",
+              "value": "={{ $json.clima.condition_code }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.clima.description }}"
+            },
+            {
+              "name": "=is_rain",
+              "value": "={{ $json.clima.rain }}"
+            },
+            {
+              "name": "estagio",
+              "value": "={{ $json.estagio.estagio }}"
+            },
+            {
+              "name": "date",
+              "value": "={{ $json.clima.date }}"
+            },
+            {
+              "name": "time",
+              "value": "={{ $json.clima.time }}"
+            },
+            {
+              "name": "currently",
+              "value": "={{ $json.clima.currently }}"
+            },
+            {
+              "name": "condition_slug",
+              "value": "={{ $json.clima.condition_slug }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1080,
+        1380
+      ],
+      "id": "46686bef-d4b3-48c3-b192-b718c499ea84",
+      "name": "SAVE DCP SITUACAO ATUAL ESTAGIO STAGING2",
+      "executeOnce": true,
+      "credentials": {
+        "wordpressApi": {
+          "id": "dzKs6w6ceaJ8jL9u",
+          "name": "WP DCP PROD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://fabad1cbf7fe.ngrok-free.app/wp-json/dcp/v1/webhook/situacao-atual/",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "wordpressApi",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "temp",
+              "value": "={{ $json.clima.temp }}"
+            },
+            {
+              "name": "condition_code",
+              "value": "={{ $json.clima.condition_code }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.clima.description }}"
+            },
+            {
+              "name": "=is_rain",
+              "value": "={{ $json.clima.rain }}"
+            },
+            {
+              "name": "estagio",
+              "value": "={{ $json.estagio.estagio }}"
+            },
+            {
+              "name": "date",
+              "value": "={{ $json.clima.date }}"
+            },
+            {
+              "name": "time",
+              "value": "={{ $json.clima.time }}"
+            },
+            {
+              "name": "currently",
+              "value": "={{ $json.clima.currently }}"
+            },
+            {
+              "name": "condition_slug",
+              "value": "={{ $json.clima.condition_slug }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1080,
+        1600
+      ],
+      "id": "a976d280-a607-48c3-9b16-cbdcd5b4a614",
+      "name": "SAVE DCP SITUACAO ATUAL ESTAGIO STAGING3",
+      "executeOnce": true,
+      "credentials": {
+        "wordpressApi": {
+          "id": "DQ9t4Rsmo6gRcPxB",
+          "name": "WP_DCP_LOCAL"
+        }
+      },
+      "disabled": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "triggerAtMinute": 1
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2560,
+        880
+      ],
+      "id": "57dd7248-dba4-4662-8b87-11d2816bc879",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "HTTP GET ESTAGIO": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HG_GET_RJ_LAT_LON",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP GET ESTAGIO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HG_GET_RJ_LAT_LON": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields5": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "SAVE DCP SITUACAO ATUAL ESTAGIO STAGING1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SAVE DCP SITUACAO ATUAL ESTAGIO STAGING2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SAVE DCP SITUACAO ATUAL ESTAGIO STAGING3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HG_GET_RJ_LAT_LON",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP GET ESTAGIO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d2b15436-3850-4ccd-85a9-636e9016aa27",
+  "meta": {
+    "instanceId": "db42eb628adb8a96f89b5102d4f195dea8ea8b7d9a243e7e722577df23266ff3"
+  },
+  "id": "RzwJs5UDS3Mppkin",
+  "tags": []
+}
